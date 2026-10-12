@@ -113,7 +113,9 @@ bool Simulator::step_impl() {
     while(time<macro_end) {
         if(++pieces>200000) {error="Too many internal steps; revise extreme kinetic parameters.";return false;}
         const double sample_time=double(next_sample)*c.sample;
-        const double limit=next_input_boundary(c,time,std::min(macro_end,sample_time));
+        const double delivery_time=pending_deliveries.empty() ? std::numeric_limits<double>::infinity() : pending_deliveries.front().t_arrival;
+        if(delivery_time<=time) {error="Delivery queue contains an already due event; reset the experiment.";return false;}
+        const double limit=next_input_boundary(c,time,std::min({macro_end,sample_time,delivery_time}));
         held_input_time=time; // Right-continuous [start, stop) input on this segment.
         double h=std::min({limit-time,suggested_step,kinetic_step_limit()});
         std::vector<int> group;
@@ -124,6 +126,12 @@ bool Simulator::step_impl() {
             norm=flow.trial(state,h);
             if(norm<=1) {
                 advance=flow.events(state,h,time,thresholds,group);
+                // A threshold localized at a scheduled arrival shares its exact
+                // timestamp (within the existing event-localization tolerance).
+                if(!group.empty() && limit==delivery_time && h==limit-time &&
+                   h-advance<=2*numerical::event_tolerance(time)) {
+                    advance=h;flow.sample(state,h,flow.next);
+                }
                 if(physical(flow.next)) {accepted=true;break;}
             }
             h*=.5;
@@ -138,13 +146,40 @@ bool Simulator::step_impl() {
             if(index<int(c.neurons.size()))fired[index]=true;
             else released[index-int(c.neurons.size())]=true;
         }
+        std::vector<Delivery> deliveries,created;
+        // Inspect just the due heap subtree, without consuming events until
+        // the whole event group is validated and committed.
+        std::vector<size_t> inspect;
+        if(delivery_time==event_time)inspect.push_back(0);
+        while(!inspect.empty()) {
+            const size_t index=inspect.back();inspect.pop_back();
+            if(index>=pending_deliveries.size() || pending_deliveries[index].t_arrival!=event_time)continue;
+            deliveries.push_back(pending_deliveries[index]);
+            inspect.push_back(2*index+1);inspect.push_back(2*index+2);
+        }
+        const size_t consumed=deliveries.size();
+        for(int i=0;i<int(c.neurons.size());++i)if(fired[i])for(int j:outgoing[i]) {
+            const auto& edge=c.synapses[j];if(!edge.enabled)continue;
+            Delivery e{event_time,event_time+edge.delay,j};
+            if(e.t_arrival==event_time)deliveries.push_back(e);else created.push_back(e);
+        }
+        if(pending_deliveries.size()-consumed+created.size()>MaxPendingDeliveries) {
+            error="Pending delivery limit (1000000) exceeded; reduce firing, connections or delays.";return false;
+        }
+        if(history.deliveries.size()+deliveries.size()>MaxDeliveries) {
+            error="Delivery journal limit (2000000) exceeded; shorten the experiment.";return false;
+        }
+        std::sort(deliveries.begin(),deliveries.end(),[](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);});
+        std::vector<uint64_t> arrivals(c.synapses.size(),0);
         // All event decisions use the same pre-jump trajectory. HH is recorded
         // without reset; Izhikevich resets before integrating the remainder.
         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]) {
             const auto& n=c.neurons[i];
             if(n.model==NeuronModel::Izhikevich){next[4*i]=n.izh_c;next[4*i+1]+=n.izh_d;}
-            for(int j:outgoing[i]) {
-                const auto& s=c.synapses[j];if(!s.enabled)continue;const int b=syn_offset(c,j);
+        }
+        for(const auto& e:deliveries) {
+                const int j=e.synapse;const auto& s=c.synapses[j];const int b=syn_offset(c,j);
+                ++arrivals[j];
                 double u=s.release;
                 if(s.astro>=0 && c.astrocytes[s.astro].feedback)
                     u+=(c.astrocytes[s.astro].alpha-u)*next[astro_offset(c,s.astro)+6];
@@ -153,7 +188,6 @@ bool Simulator::step_impl() {
                 next[b+2]+=r;
                 const bool excitatory=s.model==SynapseModel::ConductanceSTP ? s.reversal>-40 : (s.stdp || s.weight>0);
                 if(excitatory)next[b+3]+=p[na::Y_release]*r;
-            }
         }
         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]) {
             const int b=astro_offset(c,i);const double r=p[na::U_A]*next[b+4];next[b+4]-=r;next[b+5]+=p[na::G_release]*r;
@@ -162,8 +196,15 @@ bool Simulator::step_impl() {
         // Grouped old traces, one weight update/clamp, then new traces. Weights
         // affect the remaining flow immediately, including existing tails.
         for(size_t j=0;j<c.synapses.size();++j) {
-            const auto& s=c.synapses[j];update_stdp(s,plasticity[j],fired[s.source],fired[s.target],advance);
+            const auto& s=c.synapses[j];update_synaptic_stdp(s,plasticity[j],fired[s.source],arrivals[j],fired[s.target],advance);
         }
+        for(size_t k=0;k<consumed;++k) {
+            std::pop_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});pending_deliveries.pop_back();
+        }
+        for(const auto& e:created) {
+            pending_deliveries.push_back(e);std::push_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});
+        }
+        history.deliveries.insert(history.deliveries.end(),deliveries.begin(),deliveries.end());
         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]){++spikes[i];history.events.push_back({event_time,i,false});}
         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]){++releases[i];history.events.push_back({event_time,i,true});}
         state.swap(next);time=event_time;

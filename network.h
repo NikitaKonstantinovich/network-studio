@@ -11,6 +11,7 @@ namespace na = neuro_astro;
 constexpr int MaxNeurons = 1000, MaxAstrocytes = 8, MaxSynapses = 50000, MaxGaps = 28;
 constexpr int MaxState = 4*MaxNeurons + 4*MaxSynapses + 7*MaxAstrocytes;
 constexpr size_t MaxSamples = 100001, MaxStoredValues = 16000000, MaxEvents = 2000000;
+constexpr size_t MaxPendingDeliveries = 1000000, MaxDeliveries = 2000000;
 using State = std::vector<double>;
 // Only these parameters are shared. Stimuli, synapses, initial conditions and
 // feedback have their own per-node/per-edge fields in the configurable model.
@@ -24,6 +25,7 @@ inline constexpr int SharedParameters[] = {
 enum class NeuronModel { HodgkinHuxley = 0, Izhikevich = 1 };
 enum class SynapseModel { ConductanceSTP = 0, ExponentialCurrent = 1, TsodyksMarkram = 2 };
 enum class StdpRule { Additive = 0, Multiplicative = 1, Triplet = 2 };
+enum class StdpTiming { Arrival = 0, Emission = 1 };
 struct PulseInterval { double start = 0, stop = .003; };
 struct Neuron {
     std::string name = "Neuron";
@@ -63,11 +65,15 @@ struct Synapse {
     // Minimal multiplicative triplet LTP uses the OLD postsynaptic slow trace.
     // Pair LTD is unchanged; no additive pair-LTP term in this rule.
     double tau_slow = .100;
+    double delay = 0; // Fixed conduction delay in seconds, independent of layout.
+    StdpTiming stdp_timing = StdpTiming::Arrival;
 };
 struct StdpState { double weight = 1, pre_trace = 0, post_trace = 0, post_slow_trace = 0; };
 // Decay old traces, apply both updates together, then insert new spikes.
 // Spikes sharing a timestamp have no mutual zero-lag contribution.
-void update_stdp(const Synapse& synapse, StdpState& state, bool pre, bool post, double dt);
+void update_stdp(const Synapse& synapse, StdpState& state, uint64_t pre, uint64_t post, double dt);
+void update_synaptic_stdp(const Synapse& synapse, StdpState& state,
+                         uint64_t emitted, uint64_t arrived, uint64_t post, double dt);
 struct Gap {
     int a = 0, b = 1;
     double ip3 = 0.05, calcium = 0;
@@ -106,11 +112,21 @@ double next_input_boundary(const Config& c,double time,double limit);
 void derivative(const Config& c, const State& y, double midpoint, State& dy,
                 const std::vector<StdpState>* plasticity = nullptr);
 struct Event { double time; int index; bool astro; };
+struct Delivery { double t_emit, t_arrival; int synapse; };
+// Total deterministic order; usable both as a min-heap comparator and for export.
+struct DeliveryLater {
+    bool operator()(const Delivery& a,const Delivery& b) const {
+        if(a.t_arrival!=b.t_arrival)return a.t_arrival>b.t_arrival;
+        if(a.synapse!=b.synapse)return a.synapse>b.synapse;
+        return a.t_emit>b.t_emit;
+    }
+};
 struct History {
     std::vector<double> time;
     std::vector<std::vector<double>> values;
     std::vector<std::vector<double>> weights;
     std::vector<Event> events;
+    std::vector<Delivery> deliveries;
 };
 class Simulator {
 public:
@@ -120,6 +136,9 @@ public:
     // Runtime learning state; config.synapses retains the initial experiment.
     std::vector<StdpState> plasticity;
     std::vector<uint64_t> spikes, releases;
+    // Min-heap with DeliveryLater; includes arrivals beyond config.duration.
+    // Protocol/state edits require a reset; do not mutate this during a run.
+    std::vector<Delivery> pending_deliveries;
     uint64_t steps = 0;
     double time = 0;
     std::string error;

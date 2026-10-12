@@ -58,6 +58,12 @@ enable_testing()
 add_test(NAME network_model_and_io COMMAND network_studio_tests)
 add_test(NAME network_generation COMMAND network_studio_generator_tests)
 add_test(NAME numerical_regressions COMMAND network_studio_numerics_tests)
+add_executable(network_studio_delay_tests delay_tests.cpp)
+target_link_libraries(network_studio_delay_tests PRIVATE network_core)
+add_test(NAME synaptic_delays COMMAND network_studio_delay_tests)
+add_test(NAME delayed_process_resume COMMAND ${CMAKE_COMMAND}
+    "-DCLI=$<TARGET_FILE:network_studio_cli>" "-DFIXTURES=$<TARGET_FILE:network_studio_delay_tests>"
+    "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/delayed-process" -P "${CMAKE_CURRENT_SOURCE_DIR}/delays/process_test.cmake")
 add_executable(network_studio_checkpoint_tests checkpoint_tests.cpp)
 target_link_libraries(network_studio_checkpoint_tests PRIVATE network_core)
 add_test(NAME checkpoint_roundtrip COMMAND network_studio_checkpoint_tests)

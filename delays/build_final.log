@@ -1,0 +1,29 @@
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: E:/asp/26_27/configurator/build/native
+[1/2] Building CXX object CMakeFiles\network_studio_tests.dir\tests.cpp.obj
+[2/2] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_tests.exe
+Test project E:/asp/26_27/configurator/build/native
+    Start 1: network_model_and_io
+1/9 Test #1: network_model_and_io .............   Passed  167.87 sec
+    Start 2: network_generation
+2/9 Test #2: network_generation ...............   Passed    0.04 sec
+    Start 3: numerical_regressions
+3/9 Test #3: numerical_regressions ............   Passed    0.39 sec
+    Start 4: synaptic_delays
+4/9 Test #4: synaptic_delays ..................   Passed   13.27 sec
+    Start 5: delayed_process_resume
+5/9 Test #5: delayed_process_resume ...........   Passed    1.30 sec
+    Start 6: checkpoint_roundtrip
+6/9 Test #6: checkpoint_roundtrip .............   Passed   14.06 sec
+    Start 7: checkpoint_process_resume
+7/9 Test #7: checkpoint_process_resume ........   Passed    0.87 sec
+    Start 8: population_equivalence
+8/9 Test #8: population_equivalence ...........   Passed   12.74 sec
+    Start 9: gui_interactions_and_plots
+9/9 Test #9: gui_interactions_and_plots .......   Passed   20.72 sec
+
+100% tests passed, 0 tests failed out of 9
+
+Total Test time (real) = 231.54 sec
+Application: E:\asp\26_27\configurator\build\Release\network_studio.exe

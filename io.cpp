@@ -85,7 +85,7 @@ static StdpRule stdp_rule(const Object& o) {
 #define READINT(field) v.field=integer(o,#field)
 std::string serialize(const Config& c) {
     const auto err=validate(c); if(!err.empty())throw std::runtime_error(err);
-    Object root; put(root,"schema",4); put(root,"name",c.name); put(root,"dt",c.dt);
+    Object root; put(root,"schema",5); put(root,"name",c.name); put(root,"dt",c.dt);
     put(root,"duration",c.duration); put(root,"sample",c.sample);
     put(root,"noise_sigma",c.noise_sigma);put(root,"noise_interval",c.noise_interval);put(root,"seed",double(c.seed));
     put(root,"record_all",c.record_all);root.set("record_neurons",index_array(c.record_neurons).as_string());
@@ -121,6 +121,7 @@ std::string serialize(const Config& c) {
         WRITE(stdp); WRITE(a_plus); WRITE(a_minus); WRITE(tau_plus); WRITE(tau_minus);
         WRITE(weight_min); WRITE(weight_max);
         WRITE(tau_slow);
+        WRITE(delay);put(o,"stdp_timing",std::string(v.stdp_timing==StdpTiming::Arrival?"arrival":"emission"));
         put(o,"stdp_rule",std::string(v.stdp_rule==StdpRule::Triplet?"triplet":
             v.stdp_rule==StdpRule::Multiplicative?"multiplicative":"additive"));
         synapses+=json::kvp("",o.as_string());
@@ -153,7 +154,7 @@ Config deserialize(const std::string& text) {
         throw std::runtime_error("Expected one JSON object, without trailing data.");
     Object root=Object::parse(text);
     const int schema=integer(root,"schema");
-    if(schema<1||schema>4)throw std::runtime_error("Unsupported configuration schema.");
+    if(schema<1||schema>5)throw std::runtime_error("Unsupported configuration schema.");
     Config c; c.name=string(root,"name"); c.dt=number(root,"dt"); c.duration=number(root,"duration"); c.sample=number(root,"sample");
     if(schema>=2) { c.noise_sigma=number(root,"noise_sigma");c.noise_interval=number(root,"noise_interval");c.seed=seed_value(root); }
     if(schema>=4) {
@@ -201,6 +202,13 @@ Config deserialize(const std::string& text) {
             // Schemas 1/2 ignored this field for conductance-based currents.
             // Preserve their dynamics now that all models use the multiplier.
             v.weight=1;
+        }
+        if(o.has_key("delay")){READ(delay);}
+        if(o.has_key("stdp_timing")) {
+            const auto timing=string(o,"stdp_timing");
+            if(timing=="arrival")v.stdp_timing=StdpTiming::Arrival;
+            else if(timing=="emission")v.stdp_timing=StdpTiming::Emission;
+            else throw std::runtime_error("Unknown STDP timing: "+timing);
         }
         v.enabled=boolean(o,"enabled"); c.synapses.push_back(v);
     }
@@ -287,9 +295,21 @@ void export_results(const Simulator& s,const std::filesystem::path& prefix) {
     std::ostringstream events; events.imbue(std::locale::classic()); events<<std::setprecision(17)<<"time_s,type,node_index_1based\n";
     for(const auto& e:s.history.events)events<<e.time<<","<<(e.astro?"astro_release":"spike")<<","<<e.index+1<<"\n";
     output(L"_events.csv",events.str()); output(L"_experiment.json",serialize(s.config));
+    auto delivery_csv=[&](const std::vector<Delivery>& list) {
+        std::ostringstream out;out.imbue(std::locale::classic());out<<std::setprecision(17)
+            <<"synapse_index_1based,source_index_1based,target_index_1based,t_emit_s,t_arrival_s\n";
+        for(const auto& e:list) {const auto& edge=s.config.synapses[e.synapse];
+            out<<e.synapse+1<<","<<edge.source+1<<","<<edge.target+1<<","<<e.t_emit<<","<<e.t_arrival<<"\n";}
+        return out.str();
+    };
+    output(L"_deliveries.csv",delivery_csv(s.history.deliveries));
+    auto pending=s.pending_deliveries;
+    std::sort(pending.begin(),pending.end(),[](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);});
+    output(L"_pending_deliveries.csv",delivery_csv(pending));
     Object summary; put(summary,"time_s",s.time); put(summary,"steps",double(s.steps));
     put(summary,"complete",s.done()&&s.error.empty()); put(summary,"error",s.error);
-    put(summary,"integrator",std::string("event-localized RK4 step doubling; exact linear kinetics; input/sample boundaries"));
+    put(summary,"integrator",std::string("event-localized RK4 step doubling; exact linear kinetics; input/sample/delivery boundaries"));
+    put(summary,"deliveries",int(s.history.deliveries.size()));put(summary,"pending_deliveries",int(s.pending_deliveries.size()));
     put(summary,"record_all",s.config.record_all);put(summary,"recorded_dimension",recorded_dimension(s.config));
     Object recorded_neurons(true),recorded_synapses(true);
     for(size_t i=0;i<neuron_mask.size();++i)if(neuron_mask[i])recorded_neurons+=json::kvp("",std::to_string(i));

@@ -8,7 +8,7 @@
 namespace studio {
 namespace {
 constexpr char Magic[]="NETWORK-STUDIO-CHECKPOINT\n";
-constexpr uint64_t Schema=1;
+constexpr uint64_t Schema=2;
 void require(bool ok,const char* message) {if(!ok)throw std::runtime_error(std::string("Checkpoint: ")+message);}
 // Integrity against accidental corruption; not an authentication signature.
 uint64_t checksum(const char* p,size_t n) {
@@ -17,7 +17,7 @@ uint64_t checksum(const char* p,size_t n) {
 }
 struct Writer {
     std::string bytes;
-    void raw(const char* p,size_t n) {require(n<=MaxCheckpointBytes-bytes.size(),"file exceeds 256 MiB");bytes.append(p,n);}
+    void raw(const char* p,size_t n) {require(n<=MaxCheckpointBytes-bytes.size(),"file exceeds 512 MiB");bytes.append(p,n);}
     void u64(uint64_t v) {char b[8];for(int i=0;i<8;++i)b[i]=char(v>>(8*i));raw(b,8);}
     void real(double v) {static_assert(sizeof(double)==8 && std::numeric_limits<double>::is_iec559);uint64_t bits;std::memcpy(&bits,&v,8);u64(bits);}
     void flag(bool v){u64(v?1:0);}
@@ -123,6 +123,33 @@ struct CheckpointAccess {
             ++counts[event.index];previous=event.time;
         }
         require(spikes==s.spikes && releases==s.releases,"event log/counters mismatch");
+        require(h.deliveries.size()<=MaxDeliveries && s.pending_deliveries.size()<=MaxPendingDeliveries,"delivery budget exceeded");
+        require(std::is_heap(s.pending_deliveries.begin(),s.pending_deliveries.end(),DeliveryLater{}),"invalid delivery heap");
+        std::vector<std::vector<double>> emissions(c.neurons.size());
+        for(const auto& e:h.events)if(!e.astro)emissions[e.index].push_back(e.time);
+        std::vector<uint64_t> accounted(c.synapses.size());
+        std::vector<double> last_emit(c.synapses.size(),-1);
+        auto check_deliveries=[&](const std::vector<Delivery>& list,bool pending) {
+            const Delivery* prev=nullptr;
+            for(const auto& e:list) {
+                require(e.synapse>=0 && size_t(e.synapse)<c.synapses.size(),"invalid delivery synapse");
+                const auto& edge=c.synapses[e.synapse];
+                require(edge.enabled && std::isfinite(e.t_emit) && std::isfinite(e.t_arrival) &&
+                    e.t_emit>0 && e.t_emit<=s.time && e.t_arrival==e.t_emit+edge.delay,"invalid delivery timestamp or disabled edge");
+                require(pending ? e.t_arrival>s.time : e.t_arrival<=s.time,"delivery in wrong past/future partition");
+                require(!prev || !DeliveryLater{}(*prev,e),"unordered delivery journal");prev=&e;
+                require(e.t_emit>last_emit[e.synapse],"duplicate or unordered delivery for edge");last_emit[e.synapse]=e.t_emit;
+                const auto& times=emissions[edge.source];
+                require(std::binary_search(times.begin(),times.end(),e.t_emit),"delivery has no source spike");
+                ++accounted[e.synapse];
+            }
+        };
+        check_deliveries(h.deliveries,false);
+        auto pending=s.pending_deliveries;
+        std::sort(pending.begin(),pending.end(),[](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);});
+        check_deliveries(pending,true);
+        for(size_t j=0;j<c.synapses.size();++j)
+            require(accounted[j]==(c.synapses[j].enabled?s.spikes[c.synapses[j].source]:0),"lost or extra delivery");
     }
     static std::string encode(const Simulator& s) {
         validate_snapshot(s);Writer w;w.raw(Magic,sizeof(Magic)-1);w.u64(Schema);
@@ -136,6 +163,13 @@ struct CheckpointAccess {
         w.reals(s.history.time);w.u64(s.history.values.size());for(const auto& column:s.history.values)w.reals(column);
         w.u64(s.history.weights.size());for(const auto& column:s.history.weights)w.reals(column);
         w.u64(s.history.events.size());for(const auto& e:s.history.events){w.real(e.time);w.u64(uint64_t(e.index));w.flag(e.astro);}
+        auto deliveries=[&](const std::vector<Delivery>& list) {
+            w.u64(list.size());for(const auto& e:list){w.real(e.t_emit);w.real(e.t_arrival);w.u64(uint64_t(e.synapse));}
+        };
+        deliveries(s.history.deliveries);
+        auto pending=s.pending_deliveries;
+        std::sort(pending.begin(),pending.end(),[](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);});
+        deliveries(pending);
         auto sum=checksum(w.bytes.data(),w.bytes.size());w.u64(sum);return std::move(w.bytes);
     }
     static std::unique_ptr<Simulator> decode(const std::string& bytes) {
@@ -166,6 +200,15 @@ struct CheckpointAccess {
         r.expected(c.synapses.size());for(size_t i=0;i<s->history.weights.size();++i)s->history.weights[i]=r.reals(weights[i]?rows:0);
         size_t events=r.count(MaxEvents,24);s->history.events.resize(events);
         for(auto& e:s->history.events){e.time=r.real();auto index=r.u64();e.astro=r.flag();require(index<(e.astro?c.astrocytes.size():c.neurons.size()),"invalid event index");e.index=int(index);}
+        auto deliveries=[&](std::vector<Delivery>& list,size_t maximum) {
+            list.resize(r.count(maximum,24));
+            for(auto& e:list) {e.t_emit=r.real();e.t_arrival=r.real();auto j=r.u64();
+                require(j<c.synapses.size(),"invalid delivery synapse");e.synapse=int(j);}
+        };
+        deliveries(s->history.deliveries,MaxDeliveries);deliveries(s->pending_deliveries,MaxPendingDeliveries);
+        require(std::is_sorted(s->pending_deliveries.begin(),s->pending_deliveries.end(),
+            [](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);}),"noncanonical pending queue");
+        std::make_heap(s->pending_deliveries.begin(),s->pending_deliveries.end(),DeliveryLater{});
         require(r.pos==r.end,"unexpected trailing data");require(stored_done==s->done(),"completion/diagnostic mismatch");
         validate_snapshot(*s);
         // Constructor rebuilds outgoing, selected columns, Flow work vectors and
@@ -177,7 +220,7 @@ struct CheckpointAccess {
 void save_checkpoint(const Simulator& s,const std::filesystem::path& path) {write_atomic(path,CheckpointAccess::encode(s));}
 std::unique_ptr<Simulator> load_checkpoint(const std::filesystem::path& path) {
     std::ifstream file(path,std::ios::binary|std::ios::ate);require(bool(file),"cannot open file");
-    const auto size=file.tellg();require(size>=0 && uint64_t(size)<=MaxCheckpointBytes,"file exceeds 256 MiB");
+    const auto size=file.tellg();require(size>=0 && uint64_t(size)<=MaxCheckpointBytes,"file exceeds 512 MiB");
     std::string bytes(size_t(size),'\0');file.seekg(0);file.read(bytes.data(),std::streamsize(bytes.size()));
     require(bool(file) && file.peek()==std::char_traits<char>::eof(),"file changed or read failed");
     return CheckpointAccess::decode(bytes);

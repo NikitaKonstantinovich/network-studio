@@ -26,6 +26,7 @@ std::string validate_base(const Config& base,int neurons,const std::vector<Edge>
        !base.astrocytes.empty() || !base.gaps.empty() || base.synapses.size()!=1)
         return "Base requires exactly one Izhikevich neuron, one template synapse, and no astrocytes or gaps.";
     const auto& s=base.synapses[0];
+    if(s.delay!=0)return "Conduction delays require network_studio_cli; the aggregated population solver supports only delay=0.";
     if(s.source!=0 || s.target!=0 || s.astro!=-1 || !s.enabled || s.stdp || s.weight!=1 ||
        (s.model!=SynapseModel::TsodyksMarkram && s.model!=SynapseModel::ExponentialCurrent))
         return "Template must be an enabled self-synapse: TM or exponential current, weight=1, STDP off, astro=-1.";

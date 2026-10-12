@@ -78,6 +78,14 @@ void App::advance() {
 static bool scalar(const char* label,double& v,double lo,double hi,double speed=.01,const char* fmt="%.4g") {
     return ImGui::DragScalar(label,ImGuiDataType_Double,&v,float(speed),&lo,&hi,fmt,ImGuiSliderFlags_AlwaysClamp);
 }
+static bool delay_settings(Synapse& s) {
+    bool changed=false;double ms=s.delay*1000;
+    if(scalar("Задержка, мс",ms,0,120000,.1)){s.delay=ms*.001;changed=true;}
+    int mode=int(s.stdp_timing);const char* modes[]={"arrival — при приходе","emission — при генерации"};
+    if(ImGui::Combo("Время пре-STDP",&mode,modes,2)){s.stdp_timing=StdpTiming(mode);changed=true;}
+    ImGui::TextWrapped("arrival: пре-след при доставке; emission: при спайке источника. Пост-время — спайк приёмника. Доставка в обоих режимах: t emit + задержка.");
+    return changed;
+}
 static bool text(const char* label,std::string& value,size_t limit=64) {
     char buf[256]{}; std::snprintf(buf,sizeof(buf),"%s",value.c_str());
     if(ImGui::InputText(label,buf,std::min(sizeof(buf),limit+1))) {value=buf; return true;} return false;
@@ -180,6 +188,7 @@ void App::network_wizard() {
             const char* synapses[]={"Цодыкс–Маркрам (TM)","Экспоненциальный ток"};
             if(ImGui::Combo("Синапсы группы",&synapse,synapses,2)){generation.synapse.model=synapse==0?SynapseModel::TsodyksMarkram:SynapseModel::ExponentialCurrent;modified=true;}
             modified|=scalar("Масштаб g",generation.synapse.gain,0,10000,.1);
+            modified|=delay_settings(generation.synapse);
             double tau=generation.synapse.tau_syn*1000;
             if(scalar("Затухание, мс",tau,1,10000,.1)){generation.synapse.tau_syn=tau*.001;modified=true;}
             if(generation.synapse.model==SynapseModel::TsodyksMarkram) {
@@ -483,6 +492,7 @@ void App::inspector() {
         if(ImGui::Combo("Модель синапса",&model,models,3)){s.model=SynapseModel(model);edit();}
         if(combo("Источник",s.source,config))edit(); if(combo("Приёмник",s.target,config))edit();
         if(combo("Астроцит",s.astro,config,true,true))edit(); if(ImGui::Checkbox("Включён",&s.enabled))edit();
+        if(delay_settings(s))edit();
         if(scalar("Начальный вес w",s.weight,s.stdp?s.weight_min:(s.model==SynapseModel::ConductanceSTP?0:-10),s.stdp?s.weight_max:10,.01))edit();
         if(!changed&&selected_index<int(simulation->plasticity.size()))
             ImGui::TextColored(Teal,"Текущий вес: %.6g",simulation->plasticity[selected_index].weight);
@@ -522,7 +532,7 @@ void App::inspector() {
             }
             if(scalar("Минимум w",s.weight_min,0,std::min(s.weight,s.weight_max-1e-6),.01))edit();
             if(scalar("Максимум w",s.weight_max,std::max(s.weight,s.weight_min+1e-6),10,.01))edit();
-            ImGui::TextWrapped("Следы суммируют прежние спайки. События одного шага не дают взаимный нулевой лаг. Сохранение записывает начальный вес; «Сброс» отменяет обучение.");
+            ImGui::TextWrapped("Δt = t пост − t пре выбранного режима. Одновременные события используют прежние следы, без взаимной пары с нулевым лагом. Изменение параметров сбрасывает опыт; сохранение конфигурации записывает начальный вес.");
         }
         if(s.model!=SynapseModel::ExponentialCurrent&&scalar("U base",s.release,0,1,.01))edit();
         double tau=s.tau_syn*1000; if(scalar("tau syn, мс",tau,1,10000,.1)){s.tau_syn=tau*.001;edit();}
@@ -534,7 +544,7 @@ void App::inspector() {
         if(s.model==SynapseModel::ConductanceSTP)
             ImGui::TextWrapped("E rev ≤ −40 мВ: тормозная связь, без выброса глутамата. Синапс может быть прикреплён к одному астроциту.");
         else if(s.model==SynapseModel::ExponentialCurrent)
-            ImGui::TextWrapped("I = w · A · s. Каждый спайк увеличивает s на 1, между спайками ток затухает с tau syn. Отрицательный w задаёт торможение.");
+            ImGui::TextWrapped("I = w · A · s. Каждая доставка увеличивает s на 1; между доставками s затухает с tau syn. Текущий обученный w влияет и на существующий хвост тока. Отрицательный w задаёт торможение.");
         else ImGui::TextWrapped("I = w · A · y. Ресурсы: x — доступные, y — активные, z = 1 − x − y. u задаёт использование ресурса; tau f — фасилитация, tau d — восстановление.");
         if(ImGui::Button("Удалить синапс",{-1,0})) {
             auto& indices=config.record_synapses;
@@ -750,6 +760,21 @@ void App::plots(float height) {
                 ImPlot::SetNextMarkerStyle(ImPlotMarker_Diamond,5,Blue,1,Blue);
                 ImPlot::PlotScatter("Астроциты (после нейронов)",ta.data(),ay.data(),int(ta.size()));ImPlot::EndPlot();
             } ImGui::EndTabItem();
+        }
+        if(ImGui::BeginTabItem("Доставки",nullptr,request_plot_tab==6?ImGuiTabItemFlags_SetSelected:0)) {
+            ImGui::Text("Доставлено: %llu · В очереди: %llu",static_cast<unsigned long long>(h.deliveries.size()),static_cast<unsigned long long>(s.pending_deliveries.size()));
+            ImGui::TextWrapped("Растр показывает генерацию нейронных спайков. Здесь — фактические приходы по связям. Полный журнал и будущая очередь экспортируются отдельно в CSV.");
+            if(ImGui::BeginTable("delivery_journal",5,ImGuiTableFlags_Borders|ImGuiTableFlags_RowBg|ImGuiTableFlags_ScrollY,{0,plot_height-60})) {
+                for(const char* label:{"Связь","Источник","Приёмник","t emit, с","t arrival, с"})ImGui::TableSetupColumn(label);
+                ImGui::TableSetupScrollFreeze(0,1);ImGui::TableHeadersRow();
+                ImGuiListClipper clip;clip.Begin(int(h.deliveries.size()));
+                while(clip.Step())for(int row=clip.DisplayStart;row<clip.DisplayEnd;++row) {
+                    const auto& e=h.deliveries[row];const auto& edge=c.synapses[e.synapse];
+                    ImGui::TableNextRow();ImGui::TableNextColumn();ImGui::Text("S%d",e.synapse+1);
+                    ImGui::TableNextColumn();ImGui::Text("N%d",edge.source+1);ImGui::TableNextColumn();ImGui::Text("N%d",edge.target+1);
+                    ImGui::TableNextColumn();ImGui::Text("%.12g",e.t_emit);ImGui::TableNextColumn();ImGui::Text("%.12g",e.t_arrival);
+                }ImGui::EndTable();
+            }ImGui::EndTabItem();
         }
         if(ImGui::BeginTabItem("Синапсы",nullptr,request_plot_tab==3?ImGuiTabItemFlags_SetSelected:0)) {
             if(c.synapses.empty())ImGui::TextDisabled("Добавьте синапс к сети.");

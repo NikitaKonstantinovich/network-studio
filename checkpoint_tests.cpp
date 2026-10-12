@@ -144,7 +144,7 @@ static void reliability_tests(const std::filesystem::path& root) {
     auto bad=[&](std::string data){write(root/"bad.nscp",data);rejects([&]{load_checkpoint(root/"bad.nscp");},"corrupt checkpoint was accepted");};
     for(size_t length:{size_t(0),size_t(7),good.size()/2,good.size()-1})bad(good.substr(0,length));
     auto corrupt=good;corrupt[corrupt.size()/2]^=1;bad(corrupt);
-    for(auto mutation:std::vector<std::pair<size_t,uint64_t>>{{26,2},{o.state,UINT64_MAX},{o.rows,MaxSamples+1},{o.thresholds+8,2},{o.thresholds,10000},{o.steps,(1ull<<53)+1},{o.sample,(1ull<<53)+1},{o.time,0x7ff0000000000000ull},{o.state+8,0x7ff8000000000001ull},{o.state+8+8*(syn_offset(c,0)+1),0x4000000000000000ull}}) {
+    for(auto mutation:std::vector<std::pair<size_t,uint64_t>>{{26,3},{o.state,UINT64_MAX},{o.rows,MaxSamples+1},{o.thresholds+8,2},{o.thresholds,10000},{o.steps,(1ull<<53)+1},{o.sample,(1ull<<53)+1},{o.time,0x7ff0000000000000ull},{o.state+8,0x7ff8000000000001ull},{o.state+8+8*(syn_offset(c,0)+1),0x4000000000000000ull}}) {
         auto b=good;put64(b,mutation.first,mutation.second);resign(b);bad(b);
     }
     for(size_t offset:{size_t(0),o.algorithm+8,o.build+8}){auto b=good;b[offset]^=1;resign(b);bad(b);}

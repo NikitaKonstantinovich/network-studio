@@ -140,7 +140,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             ImGui_ImplDX11_RenderDrawData(data);
             if(!smoke.empty()&&frames%4==3)capture_png(smoke/(L"tab_"+std::to_wstring(frames/4)+L".png"));
             HRESULT hr=swapchain->Present(smoke.empty()?1:0,0);if(FAILED(hr))throw std::runtime_error("Direct3D presentation failed.");
-            ++frames;if(!smoke.empty()&&frames>=24)done=true;
+            ++frames;if(!smoke.empty()&&frames>=28)done=true;
         }
         if(!smoke.empty()) {
             studio::export_results(*app.simulation,smoke/L"demo");

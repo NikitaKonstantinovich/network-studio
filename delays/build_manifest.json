@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-12",
+  "branch": "feature/synaptic-delays",
+  "base_commit": "d908be1be108f3de9a571f91dc553f5e97134ad4",
+  "command": "powershell -ExecutionPolicy Bypass -File .\\build.ps1 -Test -Smoke",
+  "ctest_passed": 9,
+  "ctest_failed": 0,
+  "checkpoint_schema": 2,
+  "config_schema": 5,
+  "algorithm": "event-rk4-doubling-exact-linear-localized-delays-v2",
+  "solver_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"1d5afe96bed6e9974853b29f1c6ad713c38dd68858e6c6631497b64ec06b86cb\"",
+  "binaries_sha256": {
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe": "8e08f066ad17e18543a3414526611cf65c40a4b873f34f2c4285e7f306f5051a",
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe": "b02af92a826b931fb99f5ac55d246093504a0cc881d791ec92fa9194c741fb64"
+  },
+  "standard_smoke": "E:\\asp\\26_27\\configurator\\verification\\gui_20261012_230621_5349897",
+  "delayed_smoke": "E:\\asp\\26_27\\configurator\\verification\\delays_20261012\\gui_delayed",
+  "evidence_directory": "E:\\asp\\26_27\\configurator\\verification\\delays_20261012"
+}

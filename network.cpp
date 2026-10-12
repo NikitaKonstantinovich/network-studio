@@ -142,6 +142,9 @@ std::string validate(const Config& c) {
     }
     std::set<std::pair<int,int>> endpoints;
     for (const auto& s:c.synapses) {
+        if(!range(s.delay,0,120))return "Synaptic delay must be finite and within 0..120 seconds.";
+        if(s.stdp_timing!=StdpTiming::Arrival && s.stdp_timing!=StdpTiming::Emission)
+            return "Unknown STDP timing mode.";
         if(s.model!=SynapseModel::ConductanceSTP && s.model!=SynapseModel::ExponentialCurrent &&
             s.model!=SynapseModel::TsodyksMarkram) return "Unknown synapse model.";
         if (s.source<0 || s.target<0 || s.source>=int(c.neurons.size()) || s.target>=int(c.neurons.size()) ||
@@ -286,7 +289,7 @@ double external_current(const Config& c,int index,double time) {
     }
     return current;
 }
-void update_stdp(const Synapse& s,StdpState& state,bool pre,bool post,double dt) {
+void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,double dt) {
     if(!s.enabled || !s.stdp) {
         state.pre_trace=state.post_trace=state.post_slow_trace=0;
         return;
@@ -300,12 +303,15 @@ void update_stdp(const Synapse& s,StdpState& state,bool pre,bool post,double dt)
     const double up=multiplicative ? s.weight_max-state.weight : 1;
     const double down=multiplicative ? state.weight-s.weight_min : 1;
     const double potentiation=s.a_plus*up*state.pre_trace;
-    const double delta=(post ? (triplet ? potentiation*state.post_slow_trace : potentiation) : 0)-
-        (pre ? s.a_minus*down*state.post_trace : 0);
+    const double delta=(post ? double(post)*(triplet ? potentiation*state.post_slow_trace : potentiation) : 0)-
+        (pre ? double(pre)*(s.a_minus*down*state.post_trace) : 0);
     state.weight=std::clamp(state.weight+delta,s.weight_min,s.weight_max);
-    if(pre)state.pre_trace+=1;
-    if(post)state.post_trace+=1;
-    if(post && triplet)state.post_slow_trace+=1;
+    if(pre)state.pre_trace+=double(pre);
+    if(post)state.post_trace+=double(post);
+    if(post && triplet)state.post_slow_trace+=double(post);
+}
+void update_synaptic_stdp(const Synapse& s,StdpState& state,uint64_t emitted,uint64_t arrived,uint64_t post,double dt) {
+    update_stdp(s,state,s.stdp_timing==StdpTiming::Arrival ? arrived : emitted,post,dt);
 }
 void derivative(const Config& c,const State& y,double midpoint,State& dy,const std::vector<StdpState>* plasticity) {
     if(y.size()!=size_t(dimension(c)))throw std::invalid_argument("State dimension does not match the network.");

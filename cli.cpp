@@ -27,7 +27,10 @@ static int run_cli(int argc,char** argv) {
                     "--until extends a restored final time (absolute from t=0).\n"
                     "--stop-at / --run-for stop at the first completed step at or after the target,\n"
                     "within the configured final time. --run-for is relative to restored/start time.\n"
-                    "--checkpoint writes the full snapshot after stopping (also at completion).\n";return 0;
+                    "--checkpoint writes the full snapshot including pending deliveries (also at completion).\n"
+                    "JSON synapses: delay in seconds; stdp_timing = arrival (default) or emission.\n"
+                    "Exports: _events.csv contains emissions, _deliveries.csv actual arrivals,\n"
+                    "_pending_deliveries.csv includes arrivals beyond the current final time.\n";return 0;
             }
             if(i+1>=argc)throw std::runtime_error("Missing option value.");std::string value=argv[++i];
             if(arg=="--config"){c=studio::load_config(std::filesystem::u8path(value));config_options=true;}
