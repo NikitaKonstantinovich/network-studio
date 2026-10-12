@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include "numerics/integrator.h"
 
 namespace studio {
 namespace na = neuro_astro;
@@ -100,6 +101,8 @@ State initial_state(const Config& c);
 // Deterministic sample-and-hold Gaussian current. Individual sigma overrides
 // the global sigma; streams are independent per neuron and repeat after reset.
 double external_current(const Config& c, int neuron, double time);
+// First strictly later discontinuity of the sample-and-hold input, or limit.
+double next_input_boundary(const Config& c,double time,double limit);
 void derivative(const Config& c, const State& y, double midpoint, State& dy,
                 const std::vector<StdpState>* plasticity = nullptr);
 struct Event { double time; int index; bool astro; };
@@ -125,7 +128,12 @@ public:
     bool done() const;
     void record();
 private:
-    State k1{}, k2{}, k3{}, k4{}, stage{}, next{};
+    numerical::Flow flow;
+    std::vector<numerical::Threshold> thresholds;
+    double held_input_time=0, suggested_step=0;
+    void exact_flow(const State& old,double dt,State& result) const;
+    double kinetic_step_limit() const;
+    bool physical(const State& value) const;
     std::vector<std::vector<int>> outgoing;
     std::vector<int> recorded_state, recorded_weights;
     uint64_t next_sample = 1;

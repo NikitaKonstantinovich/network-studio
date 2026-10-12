@@ -215,11 +215,15 @@ State initial_state(const Config& c) {
     }
     return y;
 }
+static double interval_edge(const Neuron& n,double cycle,double offset) {
+    const double period=1/n.frequency;
+    // One canonical expression for a period end and the next period origin.
+    return offset==period ? n.start+(cycle+1)*period : n.start+cycle*period+offset;
+}
 static double pulse(const Neuron& n,double t) {
     if(n.frequency<=0 || t<n.start || t>=n.stop)return 0;
-    if(n.pulse_intervals.empty())
-        return n.width>0 && std::fmod(t-n.start,1/n.frequency)<n.width ? n.amplitude : 0;
     const double period=1/n.frequency;
+    if(n.pulse_intervals.empty() && n.width>=period)return n.amplitude;
     const double cycle=std::floor((t-n.start)/period);
     // Compare absolute boundaries to avoid subtracting a period from a time
     // exactly on an interval edge (e.g. 1.053 - 1 != .053 in binary).
@@ -227,11 +231,39 @@ static double pulse(const Neuron& n,double t) {
     // neighbors preserves half-open edges without a fuzzy timing tolerance.
     for(int neighbor=-1;neighbor<=1;++neighbor) {
         if(cycle+neighbor<0)continue;
-        const double origin=n.start+(cycle+neighbor)*period;
-        for(const auto& interval:n.pulse_intervals)
-            if(t>=origin+interval.start && t<origin+interval.stop)return n.amplitude;
+        const double k=cycle+neighbor;
+        if(n.pulse_intervals.empty()) {
+            if(n.width>0 && t>=interval_edge(n,k,0) && t<interval_edge(n,k,n.width))return n.amplitude;
+        } else for(const auto& interval:n.pulse_intervals)
+            if(t>=interval_edge(n,k,interval.start) && t<interval_edge(n,k,interval.stop))return n.amplitude;
     }
     return 0;
+}
+static uint64_t noise_bin(double time,double interval) {
+    auto bin=uint64_t(std::floor(std::max(0.,time)/interval));
+    if(bin && time<double(bin)*interval)--bin;
+    if(time>=double(bin+1)*interval)++bin;
+    return bin;
+}
+double next_input_boundary(const Config& c,double time,double limit) {
+    double next=limit;
+    auto consider=[&](double edge) { if(edge>time && edge<next)next=edge; };
+    bool noise=false;
+    for(const auto& n:c.neurons) {
+        noise=noise || (n.individual_noise ? n.noise_sigma>0 : c.noise_sigma>0);
+        if(n.amplitude==0 || n.frequency<=0 || (n.pulse_intervals.empty() && n.width<=0) || time>=n.stop)continue;
+        consider(n.start);consider(n.stop);
+        if(next<=n.start)continue;
+        const double period=1/n.frequency,cycle=std::floor((std::max(time,n.start)-n.start)/period);
+        for(int neighbor=-1;neighbor<=2;++neighbor) {
+            const double k=cycle+neighbor;if(k<0)continue;
+            auto edge=[&](double offset) { const double t=interval_edge(n,k,offset);if(t>=n.start && t<=n.stop)consider(t); };
+            if(n.pulse_intervals.empty()) { if(n.width<period){edge(0);edge(n.width);} }
+            else for(const auto& interval:n.pulse_intervals) {edge(interval.start);edge(interval.stop);}
+        }
+    }
+    if(noise)consider(double(noise_bin(time,c.noise_interval)+1)*c.noise_interval);
+    return next;
 }
 static uint64_t mix64(uint64_t value) {
     value+=0x9e3779b97f4a7c15ULL;
@@ -246,7 +278,7 @@ double external_current(const Config& c,int index,double time) {
     if(sigma>0) {
         // Counter-based streams: changing dt, plotting, and paused redraws do not
         // consume random draws. Open-interval uniforms make Box-Muller finite.
-        const uint64_t bin=uint64_t(std::floor(std::max(0.,time)/c.noise_interval));
+        const uint64_t bin=noise_bin(time,c.noise_interval);
         const uint64_t key=mix64(uint64_t(c.seed)^(uint64_t(index+1)*0xd1b54a32d192ed03ULL))^mix64(bin);
         const double u1=(double(mix64(key)>>11)+.5)/9007199254740992.;
         const double u2=(double(mix64(key^0x94d049bb133111ebULL)>>11)+.5)/9007199254740992.;
@@ -329,9 +361,18 @@ Simulator::Simulator(const Config& c):config(c) {
     error=validate(c);
     if(!error.empty()) return;
     state=initial_state(c); history.values.resize(dimension(c));
+    flow=numerical::Flow(state.size());
     history.weights.resize(c.synapses.size());
-    k1.resize(state.size());k2.resize(state.size());k3.resize(state.size());k4.resize(state.size());
-    stage.resize(state.size());next.resize(state.size());outgoing.resize(c.neurons.size());
+    outgoing.resize(c.neurons.size());
+    suggested_step=c.dt;
+    // Bind at each step as Simulator is movable (GUI replacement / test returns).
+    for(int i=0;i<int(c.neurons.size());++i) {
+        const double peak=c.neurons[i].model==NeuronModel::Izhikevich ? c.neurons[i].izh_peak : c.parameters[na::V_spike];
+        thresholds.push_back({i*4,peak,state[i*4]<peak});
+    }
+    for(int i=0;i<int(c.astrocytes.size());++i) {
+        const int b=astro_offset(c,i)+2;thresholds.push_back({b,c.astrocytes[i].threshold,state[b]<c.astrocytes[i].threshold});
+    }
     std::vector<bool> neuron_mask(c.neurons.size(),c.record_all),synapse_mask(c.synapses.size(),c.record_all);
     for(int i:c.record_neurons)neuron_mask[i]=true;
     for(int i:c.record_synapses)synapse_mask[i]=true;
@@ -355,88 +396,5 @@ void Simulator::record() {
     history.time.push_back(time);
     for(int j:recorded_state)history.values[j].push_back(state[j]);
     for(int j:recorded_weights)history.weights[j].push_back(plasticity[j].weight);
-}
-bool Simulator::step() {
-    if(done()) return false;
-    const auto& c=config; const auto& p=c.parameters; int d=dimension(c);
-    // Integer step clock, with a shortened final step. External pulses are sampled at the midpoint.
-    const double new_time=std::min(double(steps+1)*c.dt,c.duration),dt=new_time-time,mid=time+dt/2;
-    derivative(c,state,mid,k1,&plasticity);
-    for(int i=0;i<d;++i)stage[i]=state[i]+dt/2*k1[i];
-    derivative(c,stage,mid,k2,&plasticity);
-    for(int i=0;i<d;++i)stage[i]=state[i]+dt/2*k2[i];
-    derivative(c,stage,mid,k3,&plasticity);
-    for(int i=0;i<d;++i)stage[i]=state[i]+dt*k3[i];
-    derivative(c,stage,mid,k4,&plasticity);
-    for(int i=0;i<d;++i) next[i]=state[i]+dt/6*(k1[i]+2*k2[i]+2*k3[i]+k4[i]);
-    std::array<bool,MaxNeurons> fired{};
-    std::array<bool,MaxAstrocytes> released{};
-    for(int i=0;i<int(c.neurons.size());++i) {
-        const auto& n=c.neurons[i];
-        const double peak=n.model==NeuronModel::Izhikevich ? n.izh_peak : p[na::V_spike];
-        if(!(state[i*4]<peak && next[i*4]>=peak)) continue;
-        fired[i]=true;
-        if(n.model==NeuronModel::Izhikevich) {next[i*4]=n.izh_c; next[i*4+1]+=n.izh_d;}
-        for(int j:outgoing[i]) {
-            const auto& s=c.synapses[j]; if(!s.enabled)continue; int b=syn_offset(c,j);
-            double u=s.release;
-            if(s.astro>=0 && c.astrocytes[s.astro].feedback)
-                u+=(c.astrocytes[s.astro].alpha-u)*next[astro_offset(c,s.astro)+6];
-            double r=1;
-            if(s.model!=SynapseModel::ExponentialCurrent) {
-                next[b]+=u*(1-next[b]); r=next[b]*next[b+1]; next[b+1]-=r;
-            }
-            next[b+2]+=r;
-            // Inhibitory connections do not release glutamate into the astrocyte.
-            // Learning changes postsynaptic efficacy, not transmitter identity.
-            const bool excitatory=s.model==SynapseModel::ConductanceSTP ? s.reversal>-40 : (s.stdp || s.weight>0);
-            if(excitatory) next[b+3]+=p[na::Y_release]*r;
-        }
-    }
-    for(int i=0;i<int(c.astrocytes.size());++i) {
-        int b=astro_offset(c,i);
-        if(state[b+2]<c.astrocytes[i].threshold && next[b+2]>=c.astrocytes[i].threshold) {
-            released[i]=true; double r=p[na::U_A]*next[b+4];
-            next[b+4]-=r; next[b+5]+=p[na::G_release]*r;
-        }
-    }
-    for(int i=0;i<d;++i) if(!std::isfinite(next[i])) { error="Non-finite state: reduce dt or revise parameters."; return false; }
-    auto fraction=[&](int b) { return range(next[b],-1e-7,1+1e-7); };
-    for(int i=0;i<int(c.neurons.size());++i) {
-        const bool recovery_ok=c.neurons[i].model==NeuronModel::Izhikevich ? range(next[i*4+1],-1e5,1e5) :
-            (fraction(i*4+1) && fraction(i*4+2) && fraction(i*4+3));
-        if(!range(next[i*4],-200,200) || !recovery_ok)
-            { error="Unstable neuron state: reduce dt or revise parameters."; return false; }
-    }
-    for(int i=0;i<int(c.synapses.size());++i) {
-        int b=syn_offset(c,i);
-        if(!fraction(b)||!fraction(b+1)||next[b+2]<-1e-7||next[b+3]<-1e-7||
-            (c.synapses[i].model==SynapseModel::TsodyksMarkram && next[b+1]+next[b+2]>1+1e-7))
-            { error="Synaptic state left physical bounds."; return false; }
-    }
-    for(int i=0;i<int(c.astrocytes.size());++i) {
-        int b=astro_offset(c,i);
-        if(!fraction(b)||!fraction(b+3)||!fraction(b+4)||!fraction(b+6)||next[b+1]<-1e-7||
-            !range(next[b+2],-1e-7,p[na::C_T]/(1+p[na::rho_A])+1e-7)||next[b+5]<-1e-7)
-            { error="Astrocyte state left physical bounds."; return false; }
-    }
-    size_t pending=0;
-    for(size_t i=0;i<c.neurons.size();++i)if(fired[i])++pending;
-    for(size_t i=0;i<c.astrocytes.size();++i)if(released[i])++pending;
-    if(history.events.size()+pending>MaxEvents) {error="Event recording limit exceeded; shorten the experiment.";return false;}
-    if(!error.empty()) return false;
-    // Apply learning only after all neurons' events and state bounds are known.
-    // The new weights enter the next integration step, independently of node order.
-    for(size_t j=0;j<c.synapses.size();++j) {
-        const auto& s=c.synapses[j];
-        update_stdp(s,plasticity[j],fired[s.source],fired[s.target],dt);
-    }
-    for(int i=0;i<int(c.neurons.size());++i)if(fired[i]) {++spikes[i];history.events.push_back({new_time,i,false});}
-    for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]) {++releases[i];history.events.push_back({new_time,i,true});}
-    state.swap(next); time=new_time; ++steps;
-    if(time+1e-12>=next_sample*c.sample || done()) {
-        record(); while(next_sample*c.sample<=time+1e-12)++next_sample;
-    }
-    return error.empty();
 }
 }

@@ -20,6 +20,8 @@ public:
     std::vector<NodeState> state;
     std::vector<std::uint64_t> spikes;
     std::vector<int> fired;
+    std::vector<Event> events; // All localized events in the last main step.
+    std::vector<std::pair<double,std::vector<NodeState>>> samples;
     std::uint64_t steps=0;
     double time=0;
     bool sampled=true;
@@ -31,6 +33,9 @@ private:
     std::vector<double> input;
     std::uint64_t cached_bin=~std::uint64_t(0),next_sample=1;
     bool constant_input=false;
+    numerical::Flow flow;
+    std::vector<numerical::Threshold> thresholds;
+    double suggested_step=0;
 };
 std::string validate_base(const Config& base,int neurons,const std::vector<Edge>& edges);
 }

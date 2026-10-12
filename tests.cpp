@@ -52,7 +52,9 @@ static void izhikevich_tests() {
     require(run(c).spikes[0]==8,"The standard model's two-spike response to 30 x 3 ms pulses changed.");
     c=izh_config();c.neurons[0].voltage=29;c.neurons[0].equilibrium_u=false;c.neurons[0].izh_u=-13;
     Simulator resetting(c);require(resetting.step()&&resetting.spikes[0]==1,"Izhikevich threshold crossing was not recorded.");
-    require(resetting.state[0]==c.neurons[0].izh_c&&resetting.state[1]>-13+c.neurons[0].izh_d,"Izhikevich v reset or u increment is incorrect.");
+    require(resetting.history.events[0].time<c.dt && resetting.state[0]!=c.neurons[0].izh_c &&
+        std::abs(resetting.state[0]-c.neurons[0].izh_c)<1 && std::abs(resetting.state[1]-(-13+c.neurons[0].izh_d))<.01,
+        "Izhikevich reset did not continue the remaining flow.");
     require(resetting.history.events.size()==1&&resetting.history.events[0].index==0,"Izhikevich reset generated incorrect events.");
     c.neurons[0].voltage=c.neurons[0].izh_peak;require(!validate(c).empty(),"Initial Izhikevich voltage at peak accepted.");
     c=izh_config();c.neurons[0].izh_c=c.neurons[0].izh_peak;require(!validate(c).empty(),"Izhikevich reset at peak accepted.");
@@ -75,15 +77,26 @@ static void synapse_tests() {
     Simulator active(c);active.state[b]=.1;active.state[b+1]=.8;active.state[b+2]=.05;
     syn.enabled=false;Simulator inactive(c);inactive.state=active.state;
     require(active.step()&&inactive.step()&&active.spikes[0]==1,"TM spike-jump fixture failed.");
-    const double u=inactive.state[b]+syn.release*(1-inactive.state[b]),released=u*inactive.state[b+1];
-    require(close(active.state[b],u)&&close(active.state[b+1],inactive.state[b+1]-released)&&
-        close(active.state[b+2],inactive.state[b+2]+released),"TM event does not transfer available resources to the active pool.");
-    require(close(active.state[b+1]+active.state[b+2],inactive.state[b+1]+inactive.state[b+2]),"TM spike jump loses resources.");
+    const double event=active.history.events[0].time,tail=c.dt-event;
+    auto recover=[&](double x,double y,double h) {
+        const double a=1/syn.tau_d,r=1/syn.tau_syn;
+        const double integral=std::abs(a-r)<1e-12 ? h*std::exp(-a*h) : (std::exp(-r*h)-std::exp(-a*h))/(a-r);
+        return 1+(x-1)*std::exp(-a*h)-a*y*integral;
+    };
+    const double before_u=.1*std::exp(-event/syn.tau_f),before_x=recover(.8,.05,event),before_y=.05*std::exp(-event/syn.tau_syn);
+    const double u=before_u+syn.release*(1-before_u),released=u*before_x;
+    require(close(active.state[b],u*std::exp(-tail/syn.tau_f),1e-11)&&
+        close(active.state[b+1],recover(before_x-released,before_y+released,tail),1e-11)&&
+        close(active.state[b+2],(before_y+released)*std::exp(-tail/syn.tau_syn),1e-11),
+        "TM flow/jump/remaining flow differs from the exact resource solution.");
+    require(active.state[b+1]>=0 && active.state[b+2]>=0 && active.state[b+1]+active.state[b+2]<=1,
+        "TM spike jump loses resource positivity.");
     syn.enabled=true;syn.model=SynapseModel::ExponentialCurrent;
     Simulator exponential(c);exponential.state[b+2]=.05;
     require(exponential.step()&&exponential.spikes[0]==1,"Exponential synapse spike fixture failed.");
     require(close(exponential.state[b],0)&&close(exponential.state[b+1],1)&&
-        close(exponential.state[b+2],1+.05*std::exp(-c.dt/syn.tau_syn),1e-11),"Exponential synapse does not add a unit exponential response per spike.");
+        close(exponential.state[b+2],std::exp(-(c.dt-exponential.history.events[0].time)/syn.tau_syn)+.05*std::exp(-c.dt/syn.tau_syn),1e-11),
+        "Exponential synapse does not decay its release from the localized spike time.");
     c.neurons[0].voltage=-70;c.neurons[0].equilibrium_u=true;c.duration=.2;syn.model=SynapseModel::TsodyksMarkram;
     Simulator recovering(c);recovering.state[b+1]=.2;recovering.state[b+2]=.7;
     while(!recovering.done()) {
@@ -372,25 +385,23 @@ static void schema_tests() {
 static void reference(bool feedback) {
     Config c=preset(feedback?0:1);c.sample=.001;
     Simulator s(c);require(s.error.empty(),"Reference config rejected.");
-    double previous[na::VAR_COUNT],next[na::VAR_COUNT],p[na::COUNT+1];na::defaults(previous,p);
-    p[na::feedback]=feedback?1:0;
-    // Use the same stationary gates, allowing an exact comparison of the generalized topology.
-    for(int i=0;i<12;++i)previous[i]=s.state[i];
-    uint64_t spikes[3]{},releases=0;double max_error=0;
+    double unused[na::VAR_COUNT],reference_rhs[na::ODE_COUNT],p[na::COUNT+1];na::defaults(unused,p);
+    p[na::feedback]=feedback?1:0;double max_error=0;State actual;
+    // Compare the original mathematical RHS on the SAME state and input.
+    // The old CUDA time stepper intentionally retains its historical grid-end
+    // jumps; it is no longer a numerical oracle for the corrected hybrid flow.
     while(!s.done()) {
-        na::step(previous,next,p,c.dt);require(s.step(),"Generalized integration failed.");
+        derivative(c,s.state,s.time,actual,&s.plasticity);
+        na::rhs(s.state.data(),p,external_current(c,0,s.time),external_current(c,1,s.time),reference_rhs);
         for(int i=0;i<27;++i) {
-            double error=std::abs(next[i]-s.state[i])/(1+std::abs(next[i]));max_error=std::max(max_error,error);
+            const double error=std::abs(reference_rhs[i]-actual[i])/(1+std::abs(reference_rhs[i]));
+            max_error=std::max(max_error,error);
         }
-        for(int n=0;n<3;++n)if(previous[n*4]<0&&next[n*4]>=0)++spikes[n];
-        if(previous[na::Ca]<p[na::C_threshold]&&next[na::Ca]>=p[na::C_threshold])++releases;
-        std::copy(next,next+na::VAR_COUNT,previous);
+        require(s.step(),s.error.c_str());
     }
-    require(max_error<1e-7,"Generalized model differs from CUDAynamics reference.");
-    for(int n=0;n<3;++n)require(s.spikes[n]==spikes[n],"Reference spike counts differ.");
-    require(s.releases[0]==releases,"Reference astrocyte event counts differ.");
-    require(releases>0,"Default astrocyte never released.");
-    std::cout<<"Reference feedback="<<feedback<<": max relative state error "<<max_error<<"; spikes "<<spikes[0]<<","<<spikes[1]<<","<<spikes[2]<<"\n";
+    require(max_error<1e-12,"Generalized equations differ from the original model RHS.");
+    require(s.spikes[0]>0 && s.spikes[1]>0 && s.releases[0]>0,"Default stimulated/astrocyte activity disappeared.");
+    std::cout<<"Reference RHS feedback="<<feedback<<": max relative derivative error "<<max_error<<"\n";
 }
 static void selective_recording_tests() {
     for(int preset_index:{2,6}) {

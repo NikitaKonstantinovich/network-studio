@@ -43,6 +43,8 @@ Population::Population(const Config& base,int neurons,const std::vector<Edge>& e
     config.synapses.clear(); // Template is not an actual population self-connection.
     state.resize(neurons);next.resize(neurons);input.resize(neurons);spikes.resize(neurons);outgoing.resize(neurons);
     fired.reserve(neurons);
+    flow=numerical::Flow(7*neurons);suggested_step=base.dt;
+    for(int i=0;i<neurons;++i)thresholds.push_back({7*i,base.neurons[0].izh_peak,true});
     for(auto& n:state) {
         n.v=base.neurons[0].voltage;
         n.u=base.neurons[0].equilibrium_u ? base.neurons[0].izh_b*n.v : base.neurons[0].izh_u;
@@ -51,80 +53,7 @@ Population::Population(const Config& base,int neurons,const std::vector<Edge>& e
     const auto& n=base.neurons[0];
     constant_input=n.amplitude==0 || n.frequency==0 || n.width==0;
 }
-namespace {
-NodeState rhs(const NodeState& y,const Neuron& n,const Synapse& s,double external,double omega) {
-    NodeState d;
-    d.v=1000*(.04*y.v*y.v+5*y.v+140-y.u+(external+y.current));
-    d.u=1000*n.izh_a*(n.izh_b*y.v-y.u);
-    d.current=-y.current/s.tau_syn;
-    d.tm_u=s.model==SynapseModel::ExponentialCurrent ? 0 : -y.tm_u/s.tau_f;
-    d.tm_x=s.model==SynapseModel::ExponentialCurrent ? 0 : (1-y.tm_x-y.tm_y)/s.tau_d;
-    d.tm_y=-y.tm_y/s.tau_syn;
-    d.glutamate=-omega*y.glutamate;
-    return d;
-}
-NodeState stage(const NodeState& y,const NodeState& k,double dt) {
-    return {y.v+dt*k.v,y.u+dt*k.u,y.current+dt*k.current,y.tm_u+dt*k.tm_u,
-            y.tm_x+dt*k.tm_x,y.tm_y+dt*k.tm_y,y.glutamate+dt*k.glutamate};
-}
-NodeState advance(const NodeState& y,const NodeState& a,const NodeState& b,
-                  const NodeState& c,const NodeState& d,double dt) {
-    return {y.v+dt/6*(a.v+2*b.v+2*c.v+d.v),y.u+dt/6*(a.u+2*b.u+2*c.u+d.u),
-            y.current+dt/6*(a.current+2*b.current+2*c.current+d.current),
-            y.tm_u+dt/6*(a.tm_u+2*b.tm_u+2*c.tm_u+d.tm_u),
-            y.tm_x+dt/6*(a.tm_x+2*b.tm_x+2*c.tm_x+d.tm_x),
-            y.tm_y+dt/6*(a.tm_y+2*b.tm_y+2*c.tm_y+d.tm_y),
-            y.glutamate+dt/6*(a.glutamate+2*b.glutamate+2*c.glutamate+d.glutamate)};
-}
-bool valid_state(const NodeState& n,bool tm) {
-    const double values[]={n.v,n.u,n.current,n.tm_u,n.tm_x,n.tm_y,n.glutamate};
-    for(double x:values)if(!std::isfinite(x))return false;
-    return n.v>=-200 && n.v<=200 && n.u>=-1e5 && n.u<=1e5 &&
-        n.tm_u>=-1e-7 && n.tm_u<=1+1e-7 && n.tm_x>=-1e-7 && n.tm_x<=1+1e-7 &&
-        n.tm_y>=-1e-7 && n.glutamate>=-1e-7 && (!tm || n.tm_x+n.tm_y<=1+1e-7);
-}
-}
-bool Population::step() {
-    if(done())return false;
-    const double new_time=std::min(double(steps+1)*config.dt,config.duration),dt=new_time-time,mid=time+dt/2;
-    const auto bin=std::uint64_t(std::floor(std::max(0.,mid)/config.noise_interval));
-    if(!constant_input || cached_bin!=bin) {
-        for(int i=0;i<int(state.size());++i)input[i]=external_current(config,i,mid);
-        cached_bin=bin;
-    }
-    const auto& n=config.neurons[0];const double omega=config.parameters[na::Omega_Y];
-    fired.clear();
-    for(int i=0;i<int(state.size());++i) {
-        const auto& y=state[i];
-        const auto a=rhs(y,n,synapse,input[i],omega);
-        const auto b=rhs(stage(y,a,dt/2),n,synapse,input[i],omega);
-        const auto c=rhs(stage(y,b,dt/2),n,synapse,input[i],omega);
-        const auto d=rhs(stage(y,c,dt),n,synapse,input[i],omega);
-        next[i]=advance(y,a,b,c,d,dt);
-        if(y.v<n.izh_peak && next[i].v>=n.izh_peak) {
-            next[i].v=n.izh_c;next[i].u+=n.izh_d;fired.push_back(i);
-        }
-    }
-    // All jumps follow continuous integration. Source order matches Simulator;
-    // synaptic weights multiply release, never the common presynaptic pools.
-    for(int i:fired) {
-        auto& y=next[i];double release=1;
-        if(synapse.model==SynapseModel::TsodyksMarkram) {
-            y.tm_u+=synapse.release*(1-y.tm_u);release=y.tm_u*y.tm_x;y.tm_x-=release;
-        }
-        y.tm_y+=release;y.glutamate+=config.parameters[na::Y_release]*release;
-        for(const auto& edge:outgoing[i])next[edge.target].current+=edge.weight*synapse.gain*release;
-    }
-    for(int i=0;i<int(next.size());++i)if(!valid_state(next[i],synapse.model==SynapseModel::TsodyksMarkram)) {
-        error="Non-finite or unphysical state at neuron "+std::to_string(i)+"; reduce dt or revise parameters.";
-        fired.clear();return false;
-    }
-    state.swap(next);time=new_time;++steps;
-    for(int i:fired)++spikes[i];
-    sampled=time+1e-12>=next_sample*config.sample || done();
-    if(sampled)while(next_sample*config.sample<=time+1e-12)++next_sample;
-    return true;
-}
+#include "population_integrator.inc"
 }
 
 namespace {
@@ -204,11 +133,11 @@ void self_test() {
             require(native.history.events.size()-previous_events==aggregate.fired.size(),"Different spike count within step.");
             for(size_t i=0;i<aggregate.fired.size();++i) {
                 const auto& event=native.history.events[previous_events+i];
-                require(!event.astro && event.index==aggregate.fired[i] && event.time==aggregate.time,"Spike identity/time mismatch.");
+                require(!event.astro && event.index==aggregate.fired[i] && std::abs(event.time-aggregate.events[i].time)<2e-10,"Spike identity/time mismatch.");
                 ++checked_spikes;
             }
             previous_events=native.history.events.size();
-            if(aggregate.sampled)++records;
+            records+=aggregate.samples.size();
             require(records==native.history.time.size(),"Sample cadence mismatch.");
         }
         require(aggregate.done() && aggregate.time==base.duration,"Final partial step missing.");++cases;
@@ -263,9 +192,9 @@ std::string quote(const std::string& value) {
     return result+'"';
 }
 std::filesystem::path suffix(const std::filesystem::path& prefix,const char* tail) {auto p=prefix;p+=tail;return p;}
-void record(std::ofstream& file,const Population& population,const std::vector<int>& selected) {
-    file<<population.time;
-    for(int i:selected){const auto& n=population.state[i];file<<','<<n.v<<','<<n.u<<','<<n.current<<','<<n.tm_u<<','<<n.tm_x<<','<<n.tm_y;}
+void record(std::ofstream& file,double time,const std::vector<NodeState>& state,const std::vector<int>& selected) {
+    file<<time;
+    for(int i:selected){const auto& n=state[i];file<<','<<n.v<<','<<n.u<<','<<n.current<<','<<n.tm_u<<','<<n.tm_x<<','<<n.tm_y;}
     file<<'\n';
 }
 int run_cli(int argc,char** argv) {
@@ -305,12 +234,12 @@ int run_cli(int argc,char** argv) {
         events.imbue(std::locale::classic());trace.imbue(std::locale::classic());events<<std::setprecision(17);trace<<std::setprecision(17);
         events<<"time_s,type,node_index_1based\n";trace<<"time_s";
         for(int i:selected)for(const char* field:{"v_mV","u_model","current_model","tm_u","tm_x","tm_y"})trace<<",N"<<i+1<<'_'<<field;
-        trace<<'\n';record(trace,population,selected);std::uint64_t samples=1,total=0;
+        trace<<'\n';record(trace,population.time,population.state,selected);std::uint64_t samples=1,total=0;
         const auto begin=std::chrono::steady_clock::now();
         while(!population.done()) {
             if(!population.step())break;
-            for(int i:population.fired){events<<population.time<<",spike,"<<i+1<<'\n';++total;}
-            if(population.sampled){record(trace,population,selected);++samples;}
+            for(const auto& event:population.events){events<<event.time<<",spike,"<<event.index+1<<'\n';++total;}
+            for(const auto& sample:population.samples){record(trace,sample.first,sample.second,selected);++samples;}
             if(!events || !trace){population.error="Result CSV write failed.";break;}
         }
         events.flush();trace.flush();if(!events || !trace)population.error="Result CSV flush failed.";
@@ -323,7 +252,7 @@ int run_cli(int argc,char** argv) {
             <<",\n  \"sample_s\": "<<base.sample<<",\n  \"steps\": "<<population.steps<<",\n  \"samples\": "<<samples
             <<",\n  \"wall_seconds\": "<<elapsed<<",\n  \"seed\": "<<base.seed<<",\n  \"noise_interval_s\": "<<base.noise_interval
             <<",\n  \"model\": \"izhikevich\",\n  \"synapse_model\": "<<quote(syn.model==SynapseModel::TsodyksMarkram ? "tsodyks_markram" : "exponential_current")
-            <<",\n  \"integrator\": \"RK4, midpoint external input, grid-end threshold/reset\",\n  \"aggregation\": \"identical per-source pools; linear per-target signed current\""
+            <<",\n  \"integrator\": \"event-localized RK4 step doubling with exact linear kinetics and input boundaries\",\n  \"aggregation\": \"identical per-source pools; linear per-target signed current\""
             <<",\n  \"current_model_column\": \"synaptic current only; external current/noise excluded\""
             <<",\n  \"stdp\": false,\n  \"astrocytes\": 0,\n  \"total_spikes\": "<<total<<",\n  \"neuron_spikes\": [";
         for(size_t i=0;i<population.spikes.size();++i){if(i)summary<<',';summary<<population.spikes[i];}

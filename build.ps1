@@ -1,4 +1,4 @@
-param([switch]$Test, [switch]$Smoke)
+param([switch]$Test, [switch]$Smoke, [string]$SmokeOutput = '')
 $ErrorActionPreference = 'Stop'
 $buildDir = Join-Path $PSScriptRoot 'build'
 $cmakeBuild = Join-Path $buildDir 'native'
@@ -32,7 +32,9 @@ if ($Test) {
 }
 if ($Smoke) {
     $exe = Join-Path $buildDir 'Release\network_studio.exe'
-    $report = Join-Path $PSScriptRoot 'verification\gui'
+    $report = if (-not $SmokeOutput) { Join-Path $PSScriptRoot 'verification\gui' }
+              elseif ([IO.Path]::IsPathRooted($SmokeOutput)) { $SmokeOutput }
+              else { Join-Path $PSScriptRoot $SmokeOutput }
     $process = Start-Process -FilePath $exe -ArgumentList @('--smoke', ('"' + $report + '"')) -WindowStyle Hidden -Wait -PassThru
     if ($process.ExitCode -ne 0) { throw "GUI smoke test failed; see $report\error.txt" }
 }

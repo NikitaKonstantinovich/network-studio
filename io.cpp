@@ -288,6 +288,7 @@ void export_results(const Simulator& s,const std::filesystem::path& prefix) {
     output(L"_events.csv",events.str()); output(L"_experiment.json",serialize(s.config));
     Object summary; put(summary,"time_s",s.time); put(summary,"steps",double(s.steps));
     put(summary,"complete",s.done()&&s.error.empty()); put(summary,"error",s.error);
+    put(summary,"integrator",std::string("event-localized RK4 step doubling; exact linear kinetics; input/sample boundaries"));
     put(summary,"record_all",s.config.record_all);put(summary,"recorded_dimension",recorded_dimension(s.config));
     Object recorded_neurons(true),recorded_synapses(true);
     for(size_t i=0;i<neuron_mask.size();++i)if(neuron_mask[i])recorded_neurons+=json::kvp("",std::to_string(i));
