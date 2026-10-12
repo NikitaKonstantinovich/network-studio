@@ -1,0 +1,224 @@
+{
+  "official_protocols": 14,
+  "official_runs": 28,
+  "width1_control_runs": 8,
+  "duration_s": 100,
+  "cases": [
+    {
+      "name": "t1_pre_post_1Hz",
+      "label": "t1_pre_post_1Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "7b461146ab2a11e50936eaf68b92744eb11d81b10ea788f2d44099ce38529db0"
+    },
+    {
+      "name": "t1_pre_post_1Hz",
+      "label": "t1_pre_post_1Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "ec6bc2b70dde13f10e6cacd8e4200e2f60964cfcd99df27969ebb56d88dc4387"
+    },
+    {
+      "name": "t1_post_pre_1Hz",
+      "label": "t1_post_pre_1Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "360fcdc47f974ad697df47f31793f525158aed01f3f307673d551e4b11a97c24"
+    },
+    {
+      "name": "t1_post_pre_1Hz",
+      "label": "t1_post_pre_1Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "bef2490902ddc51a1f2a4d07abab05907c9b9f98e15e9cd1f088879e3b88100c"
+    },
+    {
+      "name": "t1_pre_post_10Hz",
+      "label": "t1_pre_post_10Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "f7bcb7ba8f228c91d2a121ccaa1ef455a12fca29fd3f123a4a53551e82d47307"
+    },
+    {
+      "name": "t1_pre_post_10Hz",
+      "label": "t1_pre_post_10Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "41439ec9648996dda9d02975002b35eb2a24225c5d343527d69f54fde88119e1"
+    },
+    {
+      "name": "t1_post_pre_10Hz",
+      "label": "t1_post_pre_10Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "82da91a831836c2be9ea31510a76001672922e793559eda548efde568180236f"
+    },
+    {
+      "name": "t1_post_pre_10Hz",
+      "label": "t1_post_pre_10Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "b55495bba21a7ea8e3268d71ec2102244e890223fcdef86e5e57501ccd713a11"
+    },
+    {
+      "name": "t1_pre_post_40Hz",
+      "label": "t1_pre_post_40Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "cff92bae030a8e8fa43381cbe5d8f56f6de2341dde6cc1425e5e1828ab8032ab"
+    },
+    {
+      "name": "t1_pre_post_40Hz",
+      "label": "t1_pre_post_40Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "1306f02522d4f6d124e53d60a2c9064da65b58f37ef22c0bd8201e82f08c4a62"
+    },
+    {
+      "name": "t1_post_pre_40Hz",
+      "label": "t1_post_pre_40Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "1732e80c5f87d0a477001bec013a05b27c45f9d3596d72362f040b3e159a7a44"
+    },
+    {
+      "name": "t1_post_pre_40Hz",
+      "label": "t1_post_pre_40Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "557f271cde89e9f0789f1d48ad27b6167ffcdc89db0ac9817014b3bd01a66218"
+    },
+    {
+      "name": "t2a_pre_post_1Hz",
+      "label": "t2a_pre_post_1Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "f1dca72c9933b8f7503e4c469fddfe51c57f04f92969b5645ffdeac5fe9b3017"
+    },
+    {
+      "name": "t2a_pre_post_1Hz",
+      "label": "t2a_pre_post_1Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "530ffd87d0043d779489b2a9157adf22823a955ac592c10a127e7f156b47ed5f"
+    },
+    {
+      "name": "t2a_triplet_pre_post_1Hz",
+      "label": "t2a_triplet_pre_post_1Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "4e5e3c8b226231f9d39e5fde5d0aa072b5861e567e224dfa9e205610cf3f900d"
+    },
+    {
+      "name": "t2a_triplet_pre_post_1Hz",
+      "label": "t2a_triplet_pre_post_1Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "de38d8eb53db5d55105bcabfcf937cb16e51e5cf77b7f61cfea2b72507414114"
+    },
+    {
+      "name": "t2a_pre_post_10Hz",
+      "label": "t2a_pre_post_10Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "3d3821410cb56eb8bbdf627d839ae3417e86c272f125eff48e7bd15010c6d215"
+    },
+    {
+      "name": "t2a_pre_post_10Hz",
+      "label": "t2a_pre_post_10Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "3f0047e4759cd902abba75291b7818ef4e606f34d2c27ddd185260bebce25e0b"
+    },
+    {
+      "name": "t2a_triplet_pre_post_10Hz",
+      "label": "t2a_triplet_pre_post_10Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "838fe9648a0bb400a98c0bb0c9cfc8d19a1e9272b049bbd5865b22a77845a69a"
+    },
+    {
+      "name": "t2a_triplet_pre_post_10Hz",
+      "label": "t2a_triplet_pre_post_10Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "71dae304f15a377726fa6e99a486baff9717bc8ee54cf60956c89a93966f24c1"
+    },
+    {
+      "name": "t2b_pair_pre_post_pre_1Hz",
+      "label": "t2b_pair_pre_post_pre_1Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "b0e7708366b1a023b214f1c2b404dc53be49f715682c8785f79fd8bd2635881f"
+    },
+    {
+      "name": "t2b_pair_pre_post_pre_1Hz",
+      "label": "t2b_pair_pre_post_pre_1Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "79e0ce4a2273571a8a21df0f6b53edb822647dad157da1c623293f5a69e4dbca"
+    },
+    {
+      "name": "t2b_triplet_pre_post_pre_1Hz",
+      "label": "t2b_triplet_pre_post_pre_1Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "193796dd879bb67c2d6d3439c55c26be279e49bada408903ca0a9a7e8354b5ee"
+    },
+    {
+      "name": "t2b_triplet_pre_post_pre_1Hz",
+      "label": "t2b_triplet_pre_post_pre_1Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "f94800072c81618dc7500b09e9a25bb174256a1cd7818c6b1a6966c4f394d2a5"
+    },
+    {
+      "name": "t2b_pair_post_pre_post_1Hz",
+      "label": "t2b_pair_post_pre_post_1Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "983f211526328b26e1b554a8400519089d09e0225a321e7fe44b1f7322b3d28e"
+    },
+    {
+      "name": "t2b_pair_post_pre_post_1Hz",
+      "label": "t2b_pair_post_pre_post_1Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "55bb4dad74b48fed09bbfaf5313c06b2555ccc5947ec047041e59a834cb6d170"
+    },
+    {
+      "name": "t2b_triplet_post_pre_post_1Hz",
+      "label": "t2b_triplet_post_pre_post_1Hz_dt25us",
+      "workload": "official",
+      "config_sha256": "85b3459a93c8bfecfc5fb16625c5d9b13d7137f89ddf47342d47b8b2bddc2b16"
+    },
+    {
+      "name": "t2b_triplet_post_pre_post_1Hz",
+      "label": "t2b_triplet_post_pre_post_1Hz_dt12p5us",
+      "workload": "official",
+      "config_sha256": "319fcce90f2891307a94ef2af4b3fc37cf305f96e8405602941ce794eaef9fa1"
+    },
+    {
+      "name": "width1_t2a_pre_post_1Hz",
+      "label": "width1_t2a_pre_post_1Hz_dt25us",
+      "workload": "controls",
+      "config_sha256": "ed867262fee7d34b6b5cbfa3fa6d9558f03a3a914aa4a0470c4c996d1ff2e81d"
+    },
+    {
+      "name": "width1_t2a_triplet_pre_post_1Hz",
+      "label": "width1_t2a_triplet_pre_post_1Hz_dt25us",
+      "workload": "controls",
+      "config_sha256": "573b96d083b259af4241c039007ea74af6e45be49509548dca5f3934b02f3739"
+    },
+    {
+      "name": "width1_t2a_pre_post_10Hz",
+      "label": "width1_t2a_pre_post_10Hz_dt25us",
+      "workload": "controls",
+      "config_sha256": "341361912ff820f9d52f63c498a2c219402735be7160d2683ec75cb6cfa02aad"
+    },
+    {
+      "name": "width1_t2a_triplet_pre_post_10Hz",
+      "label": "width1_t2a_triplet_pre_post_10Hz_dt25us",
+      "workload": "controls",
+      "config_sha256": "69a7f11bb82f300a56cbaa34242c2e4b65b8c132539cb6738506b1d573faefce"
+    },
+    {
+      "name": "width1_t2b_pair_pre_post_pre_1Hz",
+      "label": "width1_t2b_pair_pre_post_pre_1Hz_dt25us",
+      "workload": "controls",
+      "config_sha256": "8d8215e24187ce2ca1e33b537f934d4608467787b1381f15130d493a1040a532"
+    },
+    {
+      "name": "width1_t2b_triplet_pre_post_pre_1Hz",
+      "label": "width1_t2b_triplet_pre_post_pre_1Hz_dt25us",
+      "workload": "controls",
+      "config_sha256": "4e2d600872c88352c2836ebc4417ba57413c32cf9432e1ce479e172d12b809d9"
+    },
+    {
+      "name": "width1_t2b_pair_post_pre_post_1Hz",
+      "label": "width1_t2b_pair_post_pre_post_1Hz_dt25us",
+      "workload": "controls",
+      "config_sha256": "a3144ce70870c33eb1c2fd834b0f74a54a7558d29b077e31a1e32f305dbf5a44"
+    },
+    {
+      "name": "width1_t2b_triplet_post_pre_post_1Hz",
+      "label": "width1_t2b_triplet_post_pre_post_1Hz_dt25us",
+      "workload": "controls",
+      "config_sha256": "6093061e2ae561f26be613a1b7100814f6e8d639c22aceda2d0465638b0a9bc0"
+    }
+  ]
+}

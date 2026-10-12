@@ -1,0 +1,5477 @@
+{
+  "date": "2026-10-12",
+  "status": "Native replay verified; partial empirical NeuroNet reproduction",
+  "native_runs": {
+    "saved_replay": 58,
+    "rings": 43,
+    "populations": 15,
+    "short_core_population_bridge": 2,
+    "imported_graph_controls": 2,
+    "n11_controls": 2,
+    "total_documented_records": 64,
+    "exploratory_n11_repeat_calls": 1,
+    "total_process_invocations": 65
+  },
+  "replay": {
+    "saved_cases": {
+      "rings": 43,
+      "populations": 15,
+      "total": 58
+    },
+    "native_runs_completed": 58,
+    "csv_files_compared": 159,
+    "csv_files_byte_identical": 159,
+    "all_ring_metrics_identical": true,
+    "ring_metrics_identical": {
+      "tm_n03_w1": true,
+      "tm_n04_w1": true,
+      "tm_n05_w1": true,
+      "tm_n06_w1": true,
+      "tm_n07_w1": true,
+      "tm_n08_w1": true,
+      "tm_n09_w1": true,
+      "tm_n10_w1": true,
+      "tm_n10_w0p7": true,
+      "tm_n10_w0p5": true,
+      "tm_n10_w0p2": true,
+      "tm_n10_w0": true,
+      "tm_n03_w1_dt12p5us": true,
+      "tm_n04_w1_dt12p5us": true,
+      "tm_n05_w1_dt12p5us": true,
+      "tm_n06_w1_dt12p5us": true,
+      "tm_n07_w1_dt12p5us": true,
+      "tm_n08_w1_dt12p5us": true,
+      "tm_n09_w1_dt12p5us": true,
+      "tm_n10_w1_dt12p5us": true,
+      "tm_n10_w0p7_dt12p5us": true,
+      "tm_n10_w0p5_dt12p5us": true,
+      "tm_n10_w0p2_dt12p5us": true,
+      "tm_n10_w0_dt12p5us": true,
+      "exp_n03_w1": true,
+      "exp_n03_w0p7": true,
+      "exp_n03_w0p5": true,
+      "exp_n03_w0p2": true,
+      "exp_n03_w0": true,
+      "exp_n04_w1": true,
+      "exp_n04_w0p7": true,
+      "exp_n04_w0p5": true,
+      "exp_n04_w0p2": true,
+      "exp_n04_w0": true,
+      "exp_n10_w1": true,
+      "exp_n10_w0p7": true,
+      "exp_n10_w0p5": true,
+      "exp_n10_w0p2": true,
+      "exp_n10_w0": true,
+      "tm_n03_w1_noise3": true,
+      "tm_n04_w1_noise3": true,
+      "tm_n10_w1_noise3": true,
+      "exp_n10_w0p7_dt12p5us": true
+    },
+    "all_population_metrics_identical": true,
+    "population_metrics_identical": {
+      "k15_seed11": true,
+      "k30_seed11": true,
+      "k15_seed42": true,
+      "k30_seed42": true,
+      "k15_seed101": true,
+      "k30_seed101": true,
+      "k15_seed42_nearest": true,
+      "k30_seed42_nearest": true,
+      "k15_seed42_short": true,
+      "k15_seed42_fine": true,
+      "k15_seed42_quiet": true,
+      "k30_seed42_short": true,
+      "k30_seed42_fine": true,
+      "k30_seed42_quiet": true,
+      "k30_seed42_repeat": true
+    },
+    "population_convergence_checks": {
+      "repeat_csv_byte_identical": true,
+      "k15_step_halving": {
+        "counts_equal_per_neuron": false,
+        "spikes_coarse": 147973,
+        "spikes_fine": 148272,
+        "max_matched_ordinal_event_difference_ms": null,
+        "mean_rate_coarse_hz": 28.5652,
+        "mean_rate_fine_hz": 28.6192,
+        "burst_rate_coarse_hz": 5.0,
+        "burst_rate_fine_hz": 5.0
+      },
+      "k30_step_halving": {
+        "counts_equal_per_neuron": false,
+        "spikes_coarse": 231739,
+        "spikes_fine": 232486,
+        "max_matched_ordinal_event_difference_ms": null,
+        "mean_rate_coarse_hz": 46.3572,
+        "mean_rate_fine_hz": 46.5132,
+        "burst_rate_coarse_hz": 4.2,
+        "burst_rate_fine_hz": 4.2
+      }
+    },
+    "binary_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe": "fda4f67e7fe8fb2fb1367eb832095db06de24e489f371876214e8695d06e9e95"
+    },
+    "source_sha256": {
+      "rings.py": "587461548b1988bee34f2748b0f8e885d7a081a0509f2283a11cfb26f64c460e",
+      "populations.py": "0b012c07a13d350daa92685436a9f0bac6f64bdeb23da90791b41e5e8f9b5f4e",
+      "audit.py": "c6f6f3a481ec17f689e832be93cbb29f003234aa06620e2107659ff7f76010b4"
+    },
+    "changed_saved_inputs": []
+  },
+  "independent_metric_checks": {
+    "graphs": 8,
+    "population_runs": 15,
+    "imported_runs": 2,
+    "passed": true
+  },
+  "coverage": [
+    {
+      "task": "1",
+      "pages": "17–18",
+      "request": "Unidirectional excitatory rings N=3..10, w=1, learning rate0, manual start; determine which circulate.",
+      "executed": "8 main +8 fine-step rings; controls overlap tasks1–2. Added N11 at two step sizes after checking source image node count.",
+      "status": "All requested sizes simulated; native TM N3..10 one passage then quiet. Empirical NeuroNet N3/N5 quiet. Source image labeled N10,w1 actually has11nodes; nativeN11 circulates too, period differs."
+    },
+    {
+      "task": "2",
+      "pages": "18",
+      "request": "N10 ring w=.7,.5,.2,0; measure circulating periods.",
+      "executed": "4 additional main +4 fine-step; w1 fromtask1;15 exponential controls and3noise controls plus1fine circulating control.",
+      "status": "All weights covered. Native TM quiet in all cases; no invented TM period. Exp w.7 sustains49.525ms but is a different protocol. Original NeuroNet report estimates82/97ms atw.7/.5; w0 not performed there."
+    },
+    {
+      "task": "3a (first 3)",
+      "pages": "18–20",
+      "request": "Generate500neurons400E/100I; weights.5±.1; Gaussian incoming degree30±3; inspect histograms.",
+      "executed": "8distinct saved graphs independently checked; degree15/30 across3seeds plusnearest controls. Additional exact imports of11891/5577edge NeuroNet graphs.",
+      "status": "Topology and distributions checked; owngenerator satisfies stated sampling convention. OriginalNeuroNetneighborhood algorithm yields different realized degrees."
+    },
+    {
+      "task": "3b (second 3)",
+      "pages": "20–22",
+      "request": "Compare15±2 and30±3 using rasters, population frequency50ms and burst frequency5s, threshold>5Hz, learningrate0.",
+      "executed": "15saved runs:6main,2nearest,4step,2quiet,1repeat; seed42main100s. Plus2actualgraph30scontrols.",
+      "status": "All observables and numeric comparisons produced; independent event-bin analysis passes. Qualitative bursts reproduced, actual NeuroNet≈1Hz burst rate not matched quantitatively."
+    }
+  ],
+  "ring_convergence": {
+    "tm_n03_w1": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.025000000000011124
+    },
+    "tm_n04_w1": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.025000000000011124
+    },
+    "tm_n05_w1": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.025000000000011124
+    },
+    "tm_n06_w1": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.025000000000011124
+    },
+    "tm_n07_w1": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.037500000000023626
+    },
+    "tm_n08_w1": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.04999999999999449
+    },
+    "tm_n09_w1": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.06249999999999312
+    },
+    "tm_n10_w1": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.07499999999999174
+    },
+    "tm_n10_w0p7": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.04999999999999449
+    },
+    "tm_n10_w0p5": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.0
+    },
+    "tm_n10_w0p2": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.0
+    },
+    "tm_n10_w0": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 0.0
+    },
+    "exp_n10_w0p7": {
+      "counts_equal": true,
+      "circulation_equal": true,
+      "maximum_ordinal_event_difference_ms": 1.4125000000007049
+    }
+  },
+  "ring_primary_results": {
+    "tm_n03_w1": {
+      "name": "tm_n03_w1",
+      "group": "primary",
+      "n": 3,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n03_w1.json",
+      "counts": [
+        1,
+        1,
+        1
+      ],
+      "after_input_counts": [
+        1,
+        1,
+        1
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001
+      ],
+      "last_spike_s": 0.10965000000000001,
+      "ordered_transition_fraction": 1.0,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n04_w1": {
+      "name": "tm_n04_w1",
+      "group": "primary",
+      "n": 4,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n04_w1.json",
+      "counts": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "after_input_counts": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001
+      ],
+      "last_spike_s": 0.11357500000000001,
+      "ordered_transition_fraction": 1.0,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n05_w1": {
+      "name": "tm_n05_w1",
+      "group": "primary",
+      "n": 5,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n05_w1.json",
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "after_input_counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001
+      ],
+      "last_spike_s": 0.11750000000000001,
+      "ordered_transition_fraction": 1.0,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n06_w1": {
+      "name": "tm_n06_w1",
+      "group": "primary",
+      "n": 6,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n06_w1.json",
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "after_input_counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425
+      ],
+      "last_spike_s": 0.121425,
+      "ordered_transition_fraction": 1.0,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n07_w1": {
+      "name": "tm_n07_w1",
+      "group": "primary",
+      "n": 7,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n07_w1.json",
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "after_input_counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425,
+        0.12535000000000002
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425,
+        0.12535000000000002
+      ],
+      "last_spike_s": 0.12535000000000002,
+      "ordered_transition_fraction": 1.0,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n08_w1": {
+      "name": "tm_n08_w1",
+      "group": "primary",
+      "n": 8,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n08_w1.json",
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "after_input_counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425,
+        0.12535000000000002,
+        0.129275
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425,
+        0.12535000000000002,
+        0.129275
+      ],
+      "last_spike_s": 0.129275,
+      "ordered_transition_fraction": 1.0,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n09_w1": {
+      "name": "tm_n09_w1",
+      "group": "primary",
+      "n": 9,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n09_w1.json",
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "after_input_counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425,
+        0.12535000000000002,
+        0.129275,
+        0.1332
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425,
+        0.12535000000000002,
+        0.129275,
+        0.1332
+      ],
+      "last_spike_s": 0.1332,
+      "ordered_transition_fraction": 1.0,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n10_w1": {
+      "name": "tm_n10_w1",
+      "group": "primary",
+      "n": 10,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n10_w1.json",
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "after_input_counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425,
+        0.12535000000000002,
+        0.129275,
+        0.1332,
+        0.137125
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        0.1057,
+        0.10965000000000001,
+        0.11357500000000001,
+        0.11750000000000001,
+        0.121425,
+        0.12535000000000002,
+        0.129275,
+        0.1332,
+        0.137125
+      ],
+      "last_spike_s": 0.137125,
+      "ordered_transition_fraction": 1.0,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n10_w0p7": {
+      "name": "tm_n10_w0p7",
+      "group": "primary",
+      "n": 10,
+      "weight": 0.7,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n10_w0p7.json",
+      "counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "after_input_counts": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        0.10775,
+        0.113725,
+        0.1197,
+        0.12565,
+        0.1316,
+        0.137525,
+        0.14345,
+        0.149375,
+        0.155275
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        0.10775,
+        0.113725,
+        0.1197,
+        0.12565,
+        0.1316,
+        0.137525,
+        0.14345,
+        0.149375,
+        0.155275
+      ],
+      "last_spike_s": 0.155275,
+      "ordered_transition_fraction": 1.0,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n10_w0p5": {
+      "name": "tm_n10_w0p5",
+      "group": "primary",
+      "n": 10,
+      "weight": 0.5,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n10_w0p5.json",
+      "counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "after_input_counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "last_spike_s": 0.10175000000000001,
+      "ordered_transition_fraction": null,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": false,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n10_w0p2": {
+      "name": "tm_n10_w0p2",
+      "group": "primary",
+      "n": 10,
+      "weight": 0.2,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n10_w0p2.json",
+      "counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "after_input_counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "last_spike_s": 0.10175000000000001,
+      "ordered_transition_fraction": null,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": false,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n10_w0": {
+      "name": "tm_n10_w0",
+      "group": "primary",
+      "n": 10,
+      "weight": 0.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 0.0,
+      "config": "configs/rings/tm_n10_w0.json",
+      "counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "after_input_counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "late_4_to_5s_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_spike_s": [
+        0.10175000000000001,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "last_spike_by_node_s": [
+        0.10175000000000001,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "last_spike_s": 0.10175000000000001,
+      "ordered_transition_fraction": null,
+      "late_ordered_transition_fraction": null,
+      "all_nodes_fired_after_input": false,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 0.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    }
+  },
+  "ring_control": {
+    "name": "exp_n10_w0p7",
+    "group": "no_stp_control",
+    "n": 10,
+    "weight": 0.7,
+    "model": "exponential_current",
+    "dt_us": 25.0,
+    "noise_sigma": 0.0,
+    "config": "configs/rings/exp_n10_w0p7.json",
+    "counts": [
+      100,
+      100,
+      100,
+      100,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
+    ],
+    "after_input_counts": [
+      100,
+      100,
+      100,
+      100,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
+    ],
+    "late_4_to_5s_counts": [
+      20,
+      20,
+      21,
+      21,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20
+    ],
+    "first_spike_s": [
+      0.10175000000000001,
+      0.10462500000000001,
+      0.1075,
+      0.110375,
+      0.11325,
+      0.116125,
+      0.11900000000000001,
+      0.12187500000000001,
+      0.12475,
+      0.12762500000000002
+    ],
+    "last_spike_by_node_s": [
+      4.982925,
+      4.987875,
+      4.992825,
+      4.997775,
+      4.953225000000001,
+      4.958175000000001,
+      4.963125000000001,
+      4.968075,
+      4.973025,
+      4.977975
+    ],
+    "last_spike_s": 4.997775,
+    "ordered_transition_fraction": 1.0,
+    "late_ordered_transition_fraction": 1.0,
+    "all_nodes_fired_after_input": true,
+    "sustained_circulation_to_5s": true,
+    "n1_late_rate_hz": 20.0,
+    "n1_late_mean_isi_ms": 49.52499999999999,
+    "n1_late_isi_rate_hz": 20.19182231196366,
+    "n1_late_isi_cv": 4.004593002833296e-15,
+    "trace_rows": 5001
+  },
+  "ring_noise_control": {
+    "tm_n03_w1_noise3": {
+      "name": "tm_n03_w1_noise3",
+      "group": "noise_control",
+      "n": 3,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 3.0,
+      "config": "configs/rings/tm_n03_w1_noise3.json",
+      "counts": [
+        5,
+        5,
+        6
+      ],
+      "after_input_counts": [
+        5,
+        5,
+        6
+      ],
+      "late_4_to_5s_counts": [
+        1,
+        1,
+        1
+      ],
+      "first_spike_s": [
+        0.10195,
+        0.1068,
+        0.109625
+      ],
+      "last_spike_by_node_s": [
+        4.533225,
+        4.54005,
+        4.543025
+      ],
+      "last_spike_s": 4.543025,
+      "ordered_transition_fraction": 0.8,
+      "late_ordered_transition_fraction": 1.0,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 1.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n04_w1_noise3": {
+      "name": "tm_n04_w1_noise3",
+      "group": "noise_control",
+      "n": 4,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 3.0,
+      "config": "configs/rings/tm_n04_w1_noise3.json",
+      "counts": [
+        6,
+        6,
+        6,
+        7
+      ],
+      "after_input_counts": [
+        6,
+        6,
+        6,
+        7
+      ],
+      "late_4_to_5s_counts": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "first_spike_s": [
+        0.10195,
+        0.1068,
+        0.109625,
+        0.113
+      ],
+      "last_spike_by_node_s": [
+        4.533225,
+        4.54005,
+        4.543025,
+        4.546725
+      ],
+      "last_spike_s": 4.546725,
+      "ordered_transition_fraction": 0.7916666666666666,
+      "late_ordered_transition_fraction": 1.0,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 1.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    },
+    "tm_n10_w1_noise3": {
+      "name": "tm_n10_w1_noise3",
+      "group": "noise_control",
+      "n": 10,
+      "weight": 1.0,
+      "model": "tsodyks_markram",
+      "dt_us": 25.0,
+      "noise_sigma": 3.0,
+      "config": "configs/rings/tm_n10_w1_noise3.json",
+      "counts": [
+        15,
+        12,
+        13,
+        14,
+        13,
+        12,
+        12,
+        14,
+        13,
+        13
+      ],
+      "after_input_counts": [
+        15,
+        12,
+        13,
+        14,
+        13,
+        12,
+        12,
+        14,
+        13,
+        13
+      ],
+      "late_4_to_5s_counts": [
+        6,
+        5,
+        5,
+        4,
+        6,
+        4,
+        4,
+        4,
+        4,
+        5
+      ],
+      "first_spike_s": [
+        0.10195,
+        0.1068,
+        0.109625,
+        0.113,
+        0.11685000000000001,
+        0.121925,
+        0.12635000000000002,
+        0.12912500000000002,
+        0.13217500000000001,
+        0.13515000000000002
+      ],
+      "last_spike_by_node_s": [
+        4.9296500000000005,
+        4.932475,
+        4.9289250000000004,
+        4.930775000000001,
+        4.934175000000001,
+        4.91125,
+        4.914075,
+        4.916025,
+        4.91915,
+        4.92605
+      ],
+      "last_spike_s": 4.934175000000001,
+      "ordered_transition_fraction": 0.8,
+      "late_ordered_transition_fraction": 0.8043478260869565,
+      "all_nodes_fired_after_input": true,
+      "sustained_circulation_to_5s": false,
+      "n1_late_rate_hz": 6.0,
+      "n1_late_mean_isi_ms": null,
+      "n1_late_isi_rate_hz": null,
+      "n1_late_isi_cv": null,
+      "trace_rows": 5001
+    }
+  },
+  "population_seed_comparison": {
+    "15": {
+      "comparison_mean_rate_hz": {
+        "mean": 28.726879999999998,
+        "sample_sd": 0.4419358071032484
+      },
+      "comparison_burst_rate_hz": {
+        "mean": 4.933333333333334,
+        "sample_sd": 0.023094010767585053
+      }
+    },
+    "30": {
+      "comparison_mean_rate_hz": {
+        "mean": 46.64541333333333,
+        "sample_sd": 0.3864257907196854
+      },
+      "comparison_burst_rate_hz": {
+        "mean": 4.2,
+        "sample_sd": 0.040000000000000036
+      }
+    }
+  },
+  "population_step_convergence": {
+    "repeat_csv_byte_identical": true,
+    "k15_step_halving": {
+      "counts_equal_per_neuron": false,
+      "spikes_coarse": 147973,
+      "spikes_fine": 148272,
+      "max_matched_ordinal_event_difference_ms": null,
+      "mean_rate_coarse_hz": 28.5652,
+      "mean_rate_fine_hz": 28.6192,
+      "burst_rate_coarse_hz": 5.0,
+      "burst_rate_fine_hz": 5.0
+    },
+    "k30_step_halving": {
+      "counts_equal_per_neuron": false,
+      "spikes_coarse": 231739,
+      "spikes_fine": 232486,
+      "max_matched_ordinal_event_difference_ms": null,
+      "mean_rate_coarse_hz": 46.3572,
+      "mean_rate_fine_hz": 46.5132,
+      "burst_rate_coarse_hz": 4.2,
+      "burst_rate_fine_hz": 4.2
+    }
+  },
+  "generated_seed42_graphs": {
+    "k15_seed42": {
+      "seed": 42,
+      "topology": "uniform",
+      "neurons": 500,
+      "excitatory_neurons": 400,
+      "inhibitory_neurons": 100,
+      "synapses": 7519,
+      "indegree_requested_mean": 15,
+      "indegree_requested_sd": 2,
+      "indegree_mean": 15.038,
+      "indegree_sd": 1.951453905345801,
+      "indegree_min": 7,
+      "indegree_max": 20,
+      "magnitude_mean": 0.49800800191804506,
+      "magnitude_sd": 0.09827315076863201,
+      "rejected_weight_draws": 0,
+      "excitatory_edges": 5991,
+      "inhibitory_edges": 1528,
+      "self_edges": 0,
+      "duplicate_edges": 0
+    },
+    "k30_seed42": {
+      "seed": 42,
+      "topology": "uniform",
+      "neurons": 500,
+      "excitatory_neurons": 400,
+      "inhibitory_neurons": 100,
+      "synapses": 15017,
+      "indegree_requested_mean": 30,
+      "indegree_requested_sd": 3,
+      "indegree_mean": 30.034,
+      "indegree_sd": 2.9123543079835703,
+      "indegree_min": 18,
+      "indegree_max": 38,
+      "magnitude_mean": 0.49935207717996577,
+      "magnitude_sd": 0.09944616584389918,
+      "rejected_weight_draws": 0,
+      "excitatory_edges": 12020,
+      "inhibitory_edges": 2997,
+      "self_edges": 0,
+      "duplicate_edges": 0
+    }
+  },
+  "imported_graph_results": {
+    "runs": {
+      "nn_k30": {
+        "duration_s": 30.0,
+        "spikes": 545244,
+        "active_neurons": 500,
+        "mean_rate_hz": 36.22872,
+        "excitatory_rate_hz": 38.988,
+        "inhibitory_rate_hz": 25.1916,
+        "max_population_rate_hz": 151.84,
+        "population_rate_sd_hz": 59.19285340132643,
+        "bursts": 152,
+        "burst_rate_hz": 5.04,
+        "local_peak_rate_hz": 5.16,
+        "burst_rate_distance25_hz": 5.04,
+        "burst_rate_distance100_hz": 4.8,
+        "excursion_burst_rate_hz": 5.04,
+        "comparison_window_s": [
+          5.0,
+          30.0
+        ],
+        "comparison_mean_rate_hz": 36.22872,
+        "comparison_burst_rate_hz": 5.04,
+        "late_window_s": [
+          5.0,
+          30.0
+        ],
+        "role": "imported_neuronet_graph_control",
+        "checks_passed": true
+      },
+      "nn_k15": {
+        "duration_s": 30.0,
+        "spikes": 317092,
+        "active_neurons": 500,
+        "mean_rate_hz": 20.88232,
+        "excitatory_rate_hz": 22.0438,
+        "inhibitory_rate_hz": 16.2364,
+        "max_population_rate_hz": 82.72,
+        "population_rate_sd_hz": 31.161965378061495,
+        "bursts": 162,
+        "burst_rate_hz": 5.32,
+        "local_peak_rate_hz": 6.52,
+        "burst_rate_distance25_hz": 5.32,
+        "burst_rate_distance100_hz": 5.32,
+        "excursion_burst_rate_hz": 5.32,
+        "comparison_window_s": [
+          5.0,
+          30.0
+        ],
+        "comparison_mean_rate_hz": 20.88232,
+        "comparison_burst_rate_hz": 5.32,
+        "late_window_s": [
+          5.0,
+          30.0
+        ],
+        "role": "imported_neuronet_graph_control",
+        "checks_passed": true
+      }
+    },
+    "checks": {}
+  },
+  "gui_core_bridge": {
+    "neurons": 500,
+    "edges": 15017,
+    "duration_s": 0.2,
+    "dt_s": 2.5e-05,
+    "recorded_neurons": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "graph_sha256": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d",
+    "config_sha256": "110a75053ca9308aaa315ce0e42a804606177aec6ab3b3213101ceb956e9d91a",
+    "runs": [
+      {
+        "binary": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+        "sha256": "fda4f67e7fe8fb2fb1367eb832095db06de24e489f371876214e8695d06e9e95",
+        "arguments": [
+          "--base",
+          "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\bridge_500\\base.json",
+          "--edges",
+          "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+          "--neurons",
+          "500",
+          "--output",
+          "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\bridge_500\\population"
+        ],
+        "wall_seconds": 0.2589709000021685
+      },
+      {
+        "binary": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+        "arguments": [
+          "--config",
+          "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\bridge_500\\config.json",
+          "--output",
+          "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\bridge_500\\core"
+        ],
+        "wall_seconds": 11.199804700008826
+      }
+    ],
+    "passed": true,
+    "events": 5588,
+    "sample_rows": 201,
+    "events_equal": true,
+    "maximum_sampled_v_error_mV": 3.254285729781259e-12,
+    "maximum_sampled_u_error": 6.394884621840902e-14,
+    "limitations": "0.2-s numerical bridge of the same 500-node graph, not a new 100-s GUI run; only N1-N4 state columns recorded, all spike events compared.",
+    "outputs_sha256": {
+      "base.json": "0193d415e43f2d4a7a5b80235e87b45d63abbdb142d11b55e408f3a2c7613136",
+      "config.json": "110a75053ca9308aaa315ce0e42a804606177aec6ab3b3213101ceb956e9d91a",
+      "core_events.csv": "aa58ffb38c161ae6c202320250579b8cdd84c5572c321c41738ca81681d2da38",
+      "core_experiment.json": "1ae3eb6887ea01ec013f1836ea9d10f1a26f8ae892bd2ebec6a641f8ab3a7bee",
+      "core_summary.json": "a7027460f0e82852e72902c5ce1486ac2efbbebd8512fb10959c02b73540ae45",
+      "core_trace.csv": "0e69e99d950e5d60dce4f8d85cfbbae1f396d8c654349141f0447ee35dd9e292",
+      "core_weights.csv": "2fcf33715c095b48568faab23782a08c537821a06f50bca7b47284be9db25377",
+      "population_base.json": "3cf80619fd01ab22914ee9f3d0d581fae012167fea293c37ec23e2610651d879",
+      "population_events.csv": "5871fbd0ecb8ce4c19c3bae27a215f9d0db1095054d2911cca44ed6dd50a1dcd",
+      "population_summary.json": "ea77f40698bbf7b143ef0e825a485c67c2a4a6b4230c07c995e27fe34f7eac6f",
+      "population_trace.csv": "5bf3d9d325c263b558f980bb897f0d8b6bafef0f1d88e7b1016d790cca15da7b"
+    }
+  },
+  "n11_control": {
+    "passed": true,
+    "reason": "Original ring10_w1.png contains11nodes; do not assume filename means N10.",
+    "sole_dynamical_change_from_saved_N10": "One additional identical RS neuron and one TM edge; relabel circular layout only.",
+    "neurons": 11,
+    "weight": 1,
+    "duration_s": 5,
+    "dt_us": 25,
+    "counts": [
+      86,
+      86,
+      85,
+      85,
+      85,
+      85,
+      85,
+      85,
+      85,
+      85,
+      85
+    ],
+    "late_4_to_5s_counts": [
+      18,
+      18,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      18,
+      18
+    ],
+    "events": [
+      [
+        0.10175000000000001,
+        1
+      ],
+      [
+        0.1057,
+        2
+      ],
+      [
+        0.10965000000000001,
+        3
+      ],
+      [
+        0.11357500000000001,
+        4
+      ],
+      [
+        0.11750000000000001,
+        5
+      ],
+      [
+        0.121425,
+        6
+      ],
+      [
+        0.12535000000000002,
+        7
+      ],
+      [
+        0.129275,
+        8
+      ],
+      [
+        0.1332,
+        9
+      ],
+      [
+        0.137125,
+        10
+      ],
+      [
+        0.14105,
+        11
+      ],
+      [
+        0.15027500000000002,
+        1
+      ],
+      [
+        0.15595,
+        2
+      ],
+      [
+        0.16137500000000002,
+        3
+      ],
+      [
+        0.166625,
+        4
+      ],
+      [
+        0.17172500000000002,
+        5
+      ],
+      [
+        0.1767,
+        6
+      ],
+      [
+        0.18157500000000001,
+        7
+      ],
+      [
+        0.186375,
+        8
+      ],
+      [
+        0.19110000000000002,
+        9
+      ],
+      [
+        0.195775,
+        10
+      ],
+      [
+        0.200375,
+        11
+      ],
+      [
+        0.20605,
+        1
+      ],
+      [
+        0.21185,
+        2
+      ],
+      [
+        0.21755000000000002,
+        3
+      ],
+      [
+        0.22315000000000002,
+        4
+      ],
+      [
+        0.22862500000000002,
+        5
+      ],
+      [
+        0.234,
+        6
+      ],
+      [
+        0.2393,
+        7
+      ],
+      [
+        0.24450000000000002,
+        8
+      ],
+      [
+        0.249625,
+        9
+      ],
+      [
+        0.254675,
+        10
+      ],
+      [
+        0.259675,
+        11
+      ],
+      [
+        0.26495,
+        1
+      ],
+      [
+        0.27015,
+        2
+      ],
+      [
+        0.27545000000000003,
+        3
+      ],
+      [
+        0.280775,
+        4
+      ],
+      [
+        0.286125,
+        5
+      ],
+      [
+        0.29147500000000004,
+        6
+      ],
+      [
+        0.296825,
+        7
+      ],
+      [
+        0.30212500000000003,
+        8
+      ],
+      [
+        0.3074,
+        9
+      ],
+      [
+        0.31262500000000004,
+        10
+      ],
+      [
+        0.317825,
+        11
+      ],
+      [
+        0.3231,
+        1
+      ],
+      [
+        0.32830000000000004,
+        2
+      ],
+      [
+        0.3335,
+        3
+      ],
+      [
+        0.338725,
+        4
+      ],
+      [
+        0.34397500000000003,
+        5
+      ],
+      [
+        0.349225,
+        6
+      ],
+      [
+        0.35450000000000004,
+        7
+      ],
+      [
+        0.359775,
+        8
+      ],
+      [
+        0.36505000000000004,
+        9
+      ],
+      [
+        0.370325,
+        10
+      ],
+      [
+        0.375575,
+        11
+      ],
+      [
+        0.38085,
+        1
+      ],
+      [
+        0.386075,
+        2
+      ],
+      [
+        0.39130000000000004,
+        3
+      ],
+      [
+        0.396525,
+        4
+      ],
+      [
+        0.40175,
+        5
+      ],
+      [
+        0.40697500000000003,
+        6
+      ],
+      [
+        0.412225,
+        7
+      ],
+      [
+        0.41747500000000004,
+        8
+      ],
+      [
+        0.422725,
+        9
+      ],
+      [
+        0.427975,
+        10
+      ],
+      [
+        0.433225,
+        11
+      ],
+      [
+        0.438475,
+        1
+      ],
+      [
+        0.44372500000000004,
+        2
+      ],
+      [
+        0.448975,
+        3
+      ],
+      [
+        0.45420000000000005,
+        4
+      ],
+      [
+        0.45942500000000003,
+        5
+      ],
+      [
+        0.46465,
+        6
+      ],
+      [
+        0.46990000000000004,
+        7
+      ],
+      [
+        0.47515,
+        8
+      ],
+      [
+        0.48040000000000005,
+        9
+      ],
+      [
+        0.48565,
+        10
+      ],
+      [
+        0.4909,
+        11
+      ],
+      [
+        0.49615000000000004,
+        1
+      ],
+      [
+        0.501375,
+        2
+      ],
+      [
+        0.506625,
+        3
+      ],
+      [
+        0.51185,
+        4
+      ],
+      [
+        0.5170750000000001,
+        5
+      ],
+      [
+        0.5223,
+        6
+      ],
+      [
+        0.5275500000000001,
+        7
+      ],
+      [
+        0.5328,
+        8
+      ],
+      [
+        0.53805,
+        9
+      ],
+      [
+        0.5433,
+        10
+      ],
+      [
+        0.54855,
+        11
+      ],
+      [
+        0.5538000000000001,
+        1
+      ],
+      [
+        0.559025,
+        2
+      ],
+      [
+        0.56425,
+        3
+      ],
+      [
+        0.5694750000000001,
+        4
+      ],
+      [
+        0.5747,
+        5
+      ],
+      [
+        0.579925,
+        6
+      ],
+      [
+        0.585175,
+        7
+      ],
+      [
+        0.590425,
+        8
+      ],
+      [
+        0.5956750000000001,
+        9
+      ],
+      [
+        0.600925,
+        10
+      ],
+      [
+        0.606175,
+        11
+      ],
+      [
+        0.611425,
+        1
+      ],
+      [
+        0.61665,
+        2
+      ],
+      [
+        0.6218750000000001,
+        3
+      ],
+      [
+        0.6271,
+        4
+      ],
+      [
+        0.632325,
+        5
+      ],
+      [
+        0.6375500000000001,
+        6
+      ],
+      [
+        0.6428,
+        7
+      ],
+      [
+        0.64805,
+        8
+      ],
+      [
+        0.6533,
+        9
+      ],
+      [
+        0.6585500000000001,
+        10
+      ],
+      [
+        0.6638000000000001,
+        11
+      ],
+      [
+        0.66905,
+        1
+      ],
+      [
+        0.6742750000000001,
+        2
+      ],
+      [
+        0.6795,
+        3
+      ],
+      [
+        0.684725,
+        4
+      ],
+      [
+        0.6899500000000001,
+        5
+      ],
+      [
+        0.695175,
+        6
+      ],
+      [
+        0.7004250000000001,
+        7
+      ],
+      [
+        0.705675,
+        8
+      ],
+      [
+        0.710925,
+        9
+      ],
+      [
+        0.716175,
+        10
+      ],
+      [
+        0.721425,
+        11
+      ],
+      [
+        0.7266750000000001,
+        1
+      ],
+      [
+        0.7319,
+        2
+      ],
+      [
+        0.737125,
+        3
+      ],
+      [
+        0.7423500000000001,
+        4
+      ],
+      [
+        0.747575,
+        5
+      ],
+      [
+        0.7528,
+        6
+      ],
+      [
+        0.75805,
+        7
+      ],
+      [
+        0.7633000000000001,
+        8
+      ],
+      [
+        0.7685500000000001,
+        9
+      ],
+      [
+        0.7738,
+        10
+      ],
+      [
+        0.77905,
+        11
+      ],
+      [
+        0.7843,
+        1
+      ],
+      [
+        0.789525,
+        2
+      ],
+      [
+        0.7947500000000001,
+        3
+      ],
+      [
+        0.799975,
+        4
+      ],
+      [
+        0.8052,
+        5
+      ],
+      [
+        0.8104250000000001,
+        6
+      ],
+      [
+        0.815675,
+        7
+      ],
+      [
+        0.820925,
+        8
+      ],
+      [
+        0.826175,
+        9
+      ],
+      [
+        0.8314250000000001,
+        10
+      ],
+      [
+        0.8366750000000001,
+        11
+      ],
+      [
+        0.841925,
+        1
+      ],
+      [
+        0.8471500000000001,
+        2
+      ],
+      [
+        0.852375,
+        3
+      ],
+      [
+        0.8576,
+        4
+      ],
+      [
+        0.8628250000000001,
+        5
+      ],
+      [
+        0.86805,
+        6
+      ],
+      [
+        0.8733000000000001,
+        7
+      ],
+      [
+        0.87855,
+        8
+      ],
+      [
+        0.8838,
+        9
+      ],
+      [
+        0.88905,
+        10
+      ],
+      [
+        0.8943000000000001,
+        11
+      ],
+      [
+        0.8995500000000001,
+        1
+      ],
+      [
+        0.904775,
+        2
+      ],
+      [
+        0.91,
+        3
+      ],
+      [
+        0.9152250000000001,
+        4
+      ],
+      [
+        0.92045,
+        5
+      ],
+      [
+        0.925675,
+        6
+      ],
+      [
+        0.930925,
+        7
+      ],
+      [
+        0.9361750000000001,
+        8
+      ],
+      [
+        0.9414250000000001,
+        9
+      ],
+      [
+        0.946675,
+        10
+      ],
+      [
+        0.951925,
+        11
+      ],
+      [
+        0.957175,
+        1
+      ],
+      [
+        0.9624,
+        2
+      ],
+      [
+        0.9676250000000001,
+        3
+      ],
+      [
+        0.97285,
+        4
+      ],
+      [
+        0.978075,
+        5
+      ],
+      [
+        0.9833000000000001,
+        6
+      ],
+      [
+        0.98855,
+        7
+      ],
+      [
+        0.9938,
+        8
+      ],
+      [
+        0.99905,
+        9
+      ],
+      [
+        1.0043,
+        10
+      ],
+      [
+        1.00955,
+        11
+      ],
+      [
+        1.0148000000000001,
+        1
+      ],
+      [
+        1.020025,
+        2
+      ],
+      [
+        1.02525,
+        3
+      ],
+      [
+        1.030475,
+        4
+      ],
+      [
+        1.0357,
+        5
+      ],
+      [
+        1.040925,
+        6
+      ],
+      [
+        1.046175,
+        7
+      ],
+      [
+        1.051425,
+        8
+      ],
+      [
+        1.056675,
+        9
+      ],
+      [
+        1.061925,
+        10
+      ],
+      [
+        1.067175,
+        11
+      ],
+      [
+        1.072425,
+        1
+      ],
+      [
+        1.07765,
+        2
+      ],
+      [
+        1.082875,
+        3
+      ],
+      [
+        1.0881,
+        4
+      ],
+      [
+        1.093325,
+        5
+      ],
+      [
+        1.0985500000000001,
+        6
+      ],
+      [
+        1.1038000000000001,
+        7
+      ],
+      [
+        1.10905,
+        8
+      ],
+      [
+        1.1143,
+        9
+      ],
+      [
+        1.11955,
+        10
+      ],
+      [
+        1.1248,
+        11
+      ],
+      [
+        1.13005,
+        1
+      ],
+      [
+        1.135275,
+        2
+      ],
+      [
+        1.1405,
+        3
+      ],
+      [
+        1.145725,
+        4
+      ],
+      [
+        1.1509500000000001,
+        5
+      ],
+      [
+        1.156175,
+        6
+      ],
+      [
+        1.1614250000000002,
+        7
+      ],
+      [
+        1.1666750000000001,
+        8
+      ],
+      [
+        1.171925,
+        9
+      ],
+      [
+        1.177175,
+        10
+      ],
+      [
+        1.182425,
+        11
+      ],
+      [
+        1.187675,
+        1
+      ],
+      [
+        1.1929,
+        2
+      ],
+      [
+        1.198125,
+        3
+      ],
+      [
+        1.2033500000000001,
+        4
+      ],
+      [
+        1.208575,
+        5
+      ],
+      [
+        1.2138,
+        6
+      ],
+      [
+        1.21905,
+        7
+      ],
+      [
+        1.2243000000000002,
+        8
+      ],
+      [
+        1.2295500000000001,
+        9
+      ],
+      [
+        1.2348000000000001,
+        10
+      ],
+      [
+        1.24005,
+        11
+      ],
+      [
+        1.2453,
+        1
+      ],
+      [
+        1.250525,
+        2
+      ],
+      [
+        1.2557500000000001,
+        3
+      ],
+      [
+        1.260975,
+        4
+      ],
+      [
+        1.2662,
+        5
+      ],
+      [
+        1.271425,
+        6
+      ],
+      [
+        1.276675,
+        7
+      ],
+      [
+        1.281925,
+        8
+      ],
+      [
+        1.287175,
+        9
+      ],
+      [
+        1.2924250000000002,
+        10
+      ],
+      [
+        1.2976750000000001,
+        11
+      ],
+      [
+        1.302925,
+        1
+      ],
+      [
+        1.3081500000000001,
+        2
+      ],
+      [
+        1.313375,
+        3
+      ],
+      [
+        1.3186,
+        4
+      ],
+      [
+        1.323825,
+        5
+      ],
+      [
+        1.32905,
+        6
+      ],
+      [
+        1.3343,
+        7
+      ],
+      [
+        1.33955,
+        8
+      ],
+      [
+        1.3448,
+        9
+      ],
+      [
+        1.35005,
+        10
+      ],
+      [
+        1.3553000000000002,
+        11
+      ],
+      [
+        1.3605500000000001,
+        1
+      ],
+      [
+        1.365775,
+        2
+      ],
+      [
+        1.371,
+        3
+      ],
+      [
+        1.376225,
+        4
+      ],
+      [
+        1.38145,
+        5
+      ],
+      [
+        1.386675,
+        6
+      ],
+      [
+        1.391925,
+        7
+      ],
+      [
+        1.397175,
+        8
+      ],
+      [
+        1.402425,
+        9
+      ],
+      [
+        1.407675,
+        10
+      ],
+      [
+        1.412925,
+        11
+      ],
+      [
+        1.418175,
+        1
+      ],
+      [
+        1.4234,
+        2
+      ],
+      [
+        1.428625,
+        3
+      ],
+      [
+        1.43385,
+        4
+      ],
+      [
+        1.439075,
+        5
+      ],
+      [
+        1.4443000000000001,
+        6
+      ],
+      [
+        1.4495500000000001,
+        7
+      ],
+      [
+        1.4548,
+        8
+      ],
+      [
+        1.46005,
+        9
+      ],
+      [
+        1.4653,
+        10
+      ],
+      [
+        1.47055,
+        11
+      ],
+      [
+        1.4758,
+        1
+      ],
+      [
+        1.481025,
+        2
+      ],
+      [
+        1.48625,
+        3
+      ],
+      [
+        1.491475,
+        4
+      ],
+      [
+        1.4967000000000001,
+        5
+      ],
+      [
+        1.5019250000000002,
+        6
+      ],
+      [
+        1.5071750000000002,
+        7
+      ],
+      [
+        1.5124250000000001,
+        8
+      ],
+      [
+        1.517675,
+        9
+      ],
+      [
+        1.522925,
+        10
+      ],
+      [
+        1.528175,
+        11
+      ],
+      [
+        1.533425,
+        1
+      ],
+      [
+        1.53865,
+        2
+      ],
+      [
+        1.543875,
+        3
+      ],
+      [
+        1.5491000000000001,
+        4
+      ],
+      [
+        1.5543250000000002,
+        5
+      ],
+      [
+        1.55955,
+        6
+      ],
+      [
+        1.5648,
+        7
+      ],
+      [
+        1.5700500000000002,
+        8
+      ],
+      [
+        1.5753000000000001,
+        9
+      ],
+      [
+        1.5805500000000001,
+        10
+      ],
+      [
+        1.5858,
+        11
+      ],
+      [
+        1.59105,
+        1
+      ],
+      [
+        1.596275,
+        2
+      ],
+      [
+        1.6015000000000001,
+        3
+      ],
+      [
+        1.6067250000000002,
+        4
+      ],
+      [
+        1.61195,
+        5
+      ],
+      [
+        1.617175,
+        6
+      ],
+      [
+        1.622425,
+        7
+      ],
+      [
+        1.627675,
+        8
+      ],
+      [
+        1.6329250000000002,
+        9
+      ],
+      [
+        1.6381750000000002,
+        10
+      ],
+      [
+        1.6434250000000001,
+        11
+      ],
+      [
+        1.6486750000000001,
+        1
+      ],
+      [
+        1.6539000000000001,
+        2
+      ],
+      [
+        1.6591250000000002,
+        3
+      ],
+      [
+        1.66435,
+        4
+      ],
+      [
+        1.669575,
+        5
+      ],
+      [
+        1.6748,
+        6
+      ],
+      [
+        1.68005,
+        7
+      ],
+      [
+        1.6853,
+        8
+      ],
+      [
+        1.69055,
+        9
+      ],
+      [
+        1.6958,
+        10
+      ],
+      [
+        1.7010500000000002,
+        11
+      ],
+      [
+        1.7063000000000001,
+        1
+      ],
+      [
+        1.7115250000000002,
+        2
+      ],
+      [
+        1.71675,
+        3
+      ],
+      [
+        1.721975,
+        4
+      ],
+      [
+        1.7272,
+        5
+      ],
+      [
+        1.732425,
+        6
+      ],
+      [
+        1.737675,
+        7
+      ],
+      [
+        1.742925,
+        8
+      ],
+      [
+        1.748175,
+        9
+      ],
+      [
+        1.753425,
+        10
+      ],
+      [
+        1.758675,
+        11
+      ],
+      [
+        1.7639250000000002,
+        1
+      ],
+      [
+        1.76915,
+        2
+      ],
+      [
+        1.774375,
+        3
+      ],
+      [
+        1.7796,
+        4
+      ],
+      [
+        1.784825,
+        5
+      ],
+      [
+        1.7900500000000001,
+        6
+      ],
+      [
+        1.7953000000000001,
+        7
+      ],
+      [
+        1.80055,
+        8
+      ],
+      [
+        1.8058,
+        9
+      ],
+      [
+        1.81105,
+        10
+      ],
+      [
+        1.8163,
+        11
+      ],
+      [
+        1.82155,
+        1
+      ],
+      [
+        1.826775,
+        2
+      ],
+      [
+        1.832,
+        3
+      ],
+      [
+        1.837225,
+        4
+      ],
+      [
+        1.8424500000000001,
+        5
+      ],
+      [
+        1.8476750000000002,
+        6
+      ],
+      [
+        1.8529250000000002,
+        7
+      ],
+      [
+        1.8581750000000001,
+        8
+      ],
+      [
+        1.863425,
+        9
+      ],
+      [
+        1.868675,
+        10
+      ],
+      [
+        1.873925,
+        11
+      ],
+      [
+        1.879175,
+        1
+      ],
+      [
+        1.8844,
+        2
+      ],
+      [
+        1.889625,
+        3
+      ],
+      [
+        1.8948500000000001,
+        4
+      ],
+      [
+        1.9000750000000002,
+        5
+      ],
+      [
+        1.9053,
+        6
+      ],
+      [
+        1.9105500000000002,
+        7
+      ],
+      [
+        1.9158000000000002,
+        8
+      ],
+      [
+        1.9210500000000001,
+        9
+      ],
+      [
+        1.9263000000000001,
+        10
+      ],
+      [
+        1.93155,
+        11
+      ],
+      [
+        1.9368,
+        1
+      ],
+      [
+        1.9420250000000001,
+        2
+      ],
+      [
+        1.9472500000000001,
+        3
+      ],
+      [
+        1.9524750000000002,
+        4
+      ],
+      [
+        1.9577,
+        5
+      ],
+      [
+        1.962925,
+        6
+      ],
+      [
+        1.968175,
+        7
+      ],
+      [
+        1.973425,
+        8
+      ],
+      [
+        1.9786750000000002,
+        9
+      ],
+      [
+        1.9839250000000002,
+        10
+      ],
+      [
+        1.9891750000000001,
+        11
+      ],
+      [
+        1.9944250000000001,
+        1
+      ],
+      [
+        1.9996500000000001,
+        2
+      ],
+      [
+        2.004875,
+        3
+      ],
+      [
+        2.0101,
+        4
+      ],
+      [
+        2.0153250000000003,
+        5
+      ],
+      [
+        2.02055,
+        6
+      ],
+      [
+        2.0258000000000003,
+        7
+      ],
+      [
+        2.03105,
+        8
+      ],
+      [
+        2.0363,
+        9
+      ],
+      [
+        2.04155,
+        10
+      ],
+      [
+        2.0468,
+        11
+      ],
+      [
+        2.05205,
+        1
+      ],
+      [
+        2.057275,
+        2
+      ],
+      [
+        2.0625,
+        3
+      ],
+      [
+        2.0677250000000003,
+        4
+      ],
+      [
+        2.07295,
+        5
+      ],
+      [
+        2.078175,
+        6
+      ],
+      [
+        2.083425,
+        7
+      ],
+      [
+        2.0886750000000003,
+        8
+      ],
+      [
+        2.093925,
+        9
+      ],
+      [
+        2.0991750000000002,
+        10
+      ],
+      [
+        2.104425,
+        11
+      ],
+      [
+        2.109675,
+        1
+      ],
+      [
+        2.1149,
+        2
+      ],
+      [
+        2.1201250000000003,
+        3
+      ],
+      [
+        2.12535,
+        4
+      ],
+      [
+        2.130575,
+        5
+      ],
+      [
+        2.1358,
+        6
+      ],
+      [
+        2.14105,
+        7
+      ],
+      [
+        2.1463,
+        8
+      ],
+      [
+        2.1515500000000003,
+        9
+      ],
+      [
+        2.1568,
+        10
+      ],
+      [
+        2.1620500000000002,
+        11
+      ],
+      [
+        2.1673,
+        1
+      ],
+      [
+        2.1725250000000003,
+        2
+      ],
+      [
+        2.17775,
+        3
+      ],
+      [
+        2.182975,
+        4
+      ],
+      [
+        2.1882,
+        5
+      ],
+      [
+        2.193425,
+        6
+      ],
+      [
+        2.198675,
+        7
+      ],
+      [
+        2.203925,
+        8
+      ],
+      [
+        2.209175,
+        9
+      ],
+      [
+        2.2144250000000003,
+        10
+      ],
+      [
+        2.219675,
+        11
+      ],
+      [
+        2.2249250000000003,
+        1
+      ],
+      [
+        2.23015,
+        2
+      ],
+      [
+        2.235375,
+        3
+      ],
+      [
+        2.2406,
+        4
+      ],
+      [
+        2.245825,
+        5
+      ],
+      [
+        2.25105,
+        6
+      ],
+      [
+        2.2563,
+        7
+      ],
+      [
+        2.26155,
+        8
+      ],
+      [
+        2.2668,
+        9
+      ],
+      [
+        2.27205,
+        10
+      ],
+      [
+        2.2773000000000003,
+        11
+      ],
+      [
+        2.28255,
+        1
+      ],
+      [
+        2.287775,
+        2
+      ],
+      [
+        2.293,
+        3
+      ],
+      [
+        2.298225,
+        4
+      ],
+      [
+        2.30345,
+        5
+      ],
+      [
+        2.308675,
+        6
+      ],
+      [
+        2.3139250000000002,
+        7
+      ],
+      [
+        2.319175,
+        8
+      ],
+      [
+        2.324425,
+        9
+      ],
+      [
+        2.329675,
+        10
+      ],
+      [
+        2.334925,
+        11
+      ],
+      [
+        2.340175,
+        1
+      ],
+      [
+        2.3454,
+        2
+      ],
+      [
+        2.350625,
+        3
+      ],
+      [
+        2.35585,
+        4
+      ],
+      [
+        2.361075,
+        5
+      ],
+      [
+        2.3663000000000003,
+        6
+      ],
+      [
+        2.37155,
+        7
+      ],
+      [
+        2.3768000000000002,
+        8
+      ],
+      [
+        2.38205,
+        9
+      ],
+      [
+        2.3873,
+        10
+      ],
+      [
+        2.39255,
+        11
+      ],
+      [
+        2.3978,
+        1
+      ],
+      [
+        2.403025,
+        2
+      ],
+      [
+        2.4082500000000002,
+        3
+      ],
+      [
+        2.413475,
+        4
+      ],
+      [
+        2.4187000000000003,
+        5
+      ],
+      [
+        2.423925,
+        6
+      ],
+      [
+        2.4291750000000003,
+        7
+      ],
+      [
+        2.434425,
+        8
+      ],
+      [
+        2.4396750000000003,
+        9
+      ],
+      [
+        2.444925,
+        10
+      ],
+      [
+        2.450175,
+        11
+      ],
+      [
+        2.455425,
+        1
+      ],
+      [
+        2.4606500000000002,
+        2
+      ],
+      [
+        2.465875,
+        3
+      ],
+      [
+        2.4711000000000003,
+        4
+      ],
+      [
+        2.476325,
+        5
+      ],
+      [
+        2.48155,
+        6
+      ],
+      [
+        2.4868,
+        7
+      ],
+      [
+        2.4920500000000003,
+        8
+      ],
+      [
+        2.4973,
+        9
+      ],
+      [
+        2.5025500000000003,
+        10
+      ],
+      [
+        2.5078,
+        11
+      ],
+      [
+        2.5130500000000002,
+        1
+      ],
+      [
+        2.518275,
+        2
+      ],
+      [
+        2.5235000000000003,
+        3
+      ],
+      [
+        2.528725,
+        4
+      ],
+      [
+        2.53395,
+        5
+      ],
+      [
+        2.539175,
+        6
+      ],
+      [
+        2.544425,
+        7
+      ],
+      [
+        2.549675,
+        8
+      ],
+      [
+        2.5549250000000003,
+        9
+      ],
+      [
+        2.560175,
+        10
+      ],
+      [
+        2.5654250000000003,
+        11
+      ],
+      [
+        2.570675,
+        1
+      ],
+      [
+        2.5759000000000003,
+        2
+      ],
+      [
+        2.581125,
+        3
+      ],
+      [
+        2.58635,
+        4
+      ],
+      [
+        2.591575,
+        5
+      ],
+      [
+        2.5968,
+        6
+      ],
+      [
+        2.60205,
+        7
+      ],
+      [
+        2.6073,
+        8
+      ],
+      [
+        2.61255,
+        9
+      ],
+      [
+        2.6178,
+        10
+      ],
+      [
+        2.62305,
+        11
+      ],
+      [
+        2.6283000000000003,
+        1
+      ],
+      [
+        2.633525,
+        2
+      ],
+      [
+        2.63875,
+        3
+      ],
+      [
+        2.643975,
+        4
+      ],
+      [
+        2.6492,
+        5
+      ],
+      [
+        2.6544250000000003,
+        6
+      ],
+      [
+        2.659675,
+        7
+      ],
+      [
+        2.664925,
+        8
+      ],
+      [
+        2.670175,
+        9
+      ],
+      [
+        2.675425,
+        10
+      ],
+      [
+        2.680675,
+        11
+      ],
+      [
+        2.685925,
+        1
+      ],
+      [
+        2.69115,
+        2
+      ],
+      [
+        2.696375,
+        3
+      ],
+      [
+        2.7016,
+        4
+      ],
+      [
+        2.7068250000000003,
+        5
+      ],
+      [
+        2.71205,
+        6
+      ],
+      [
+        2.7173000000000003,
+        7
+      ],
+      [
+        2.72255,
+        8
+      ],
+      [
+        2.7278000000000002,
+        9
+      ],
+      [
+        2.73305,
+        10
+      ],
+      [
+        2.7383,
+        11
+      ],
+      [
+        2.74355,
+        1
+      ],
+      [
+        2.748775,
+        2
+      ],
+      [
+        2.754,
+        3
+      ],
+      [
+        2.7592250000000003,
+        4
+      ],
+      [
+        2.76445,
+        5
+      ],
+      [
+        2.7696750000000003,
+        6
+      ],
+      [
+        2.774925,
+        7
+      ],
+      [
+        2.7801750000000003,
+        8
+      ],
+      [
+        2.785425,
+        9
+      ],
+      [
+        2.7906750000000002,
+        10
+      ],
+      [
+        2.795925,
+        11
+      ],
+      [
+        2.801175,
+        1
+      ],
+      [
+        2.8064,
+        2
+      ],
+      [
+        2.8116250000000003,
+        3
+      ],
+      [
+        2.81685,
+        4
+      ],
+      [
+        2.8220750000000003,
+        5
+      ],
+      [
+        2.8273,
+        6
+      ],
+      [
+        2.8325500000000003,
+        7
+      ],
+      [
+        2.8378,
+        8
+      ],
+      [
+        2.8430500000000003,
+        9
+      ],
+      [
+        2.8483,
+        10
+      ],
+      [
+        2.8535500000000003,
+        11
+      ],
+      [
+        2.8588,
+        1
+      ],
+      [
+        2.8640250000000003,
+        2
+      ],
+      [
+        2.86925,
+        3
+      ],
+      [
+        2.8744750000000003,
+        4
+      ],
+      [
+        2.8797,
+        5
+      ],
+      [
+        2.884925,
+        6
+      ],
+      [
+        2.890175,
+        7
+      ],
+      [
+        2.8954250000000004,
+        8
+      ],
+      [
+        2.900675,
+        9
+      ],
+      [
+        2.9059250000000003,
+        10
+      ],
+      [
+        2.911175,
+        11
+      ],
+      [
+        2.9164250000000003,
+        1
+      ],
+      [
+        2.92165,
+        2
+      ],
+      [
+        2.9268750000000003,
+        3
+      ],
+      [
+        2.9321,
+        4
+      ],
+      [
+        2.937325,
+        5
+      ],
+      [
+        2.94255,
+        6
+      ],
+      [
+        2.9478,
+        7
+      ],
+      [
+        2.95305,
+        8
+      ],
+      [
+        2.9583,
+        9
+      ],
+      [
+        2.96355,
+        10
+      ],
+      [
+        2.9688000000000003,
+        11
+      ],
+      [
+        2.97405,
+        1
+      ],
+      [
+        2.9792750000000003,
+        2
+      ],
+      [
+        2.9845,
+        3
+      ],
+      [
+        2.989725,
+        4
+      ],
+      [
+        2.9949500000000002,
+        5
+      ],
+      [
+        3.000175,
+        6
+      ],
+      [
+        3.0054250000000002,
+        7
+      ],
+      [
+        3.010675,
+        8
+      ],
+      [
+        3.015925,
+        9
+      ],
+      [
+        3.021175,
+        10
+      ],
+      [
+        3.026425,
+        11
+      ],
+      [
+        3.0316750000000003,
+        1
+      ],
+      [
+        3.0369,
+        2
+      ],
+      [
+        3.042125,
+        3
+      ],
+      [
+        3.0473500000000002,
+        4
+      ],
+      [
+        3.052575,
+        5
+      ],
+      [
+        3.0578000000000003,
+        6
+      ],
+      [
+        3.06305,
+        7
+      ],
+      [
+        3.0683000000000002,
+        8
+      ],
+      [
+        3.07355,
+        9
+      ],
+      [
+        3.0788,
+        10
+      ],
+      [
+        3.08405,
+        11
+      ],
+      [
+        3.0893,
+        1
+      ],
+      [
+        3.094525,
+        2
+      ],
+      [
+        3.0997500000000002,
+        3
+      ],
+      [
+        3.104975,
+        4
+      ],
+      [
+        3.1102000000000003,
+        5
+      ],
+      [
+        3.115425,
+        6
+      ],
+      [
+        3.1206750000000003,
+        7
+      ],
+      [
+        3.125925,
+        8
+      ],
+      [
+        3.1311750000000003,
+        9
+      ],
+      [
+        3.136425,
+        10
+      ],
+      [
+        3.141675,
+        11
+      ],
+      [
+        3.146925,
+        1
+      ],
+      [
+        3.1521500000000002,
+        2
+      ],
+      [
+        3.157375,
+        3
+      ],
+      [
+        3.1626000000000003,
+        4
+      ],
+      [
+        3.167825,
+        5
+      ],
+      [
+        3.1730500000000004,
+        6
+      ],
+      [
+        3.1783,
+        7
+      ],
+      [
+        3.1835500000000003,
+        8
+      ],
+      [
+        3.1888,
+        9
+      ],
+      [
+        3.1940500000000003,
+        10
+      ],
+      [
+        3.1993,
+        11
+      ],
+      [
+        3.2045500000000002,
+        1
+      ],
+      [
+        3.209775,
+        2
+      ],
+      [
+        3.2150000000000003,
+        3
+      ],
+      [
+        3.220225,
+        4
+      ],
+      [
+        3.2254500000000004,
+        5
+      ],
+      [
+        3.230675,
+        6
+      ],
+      [
+        3.235925,
+        7
+      ],
+      [
+        3.241175,
+        8
+      ],
+      [
+        3.2464250000000003,
+        9
+      ],
+      [
+        3.251675,
+        10
+      ],
+      [
+        3.2569250000000003,
+        11
+      ],
+      [
+        3.262175,
+        1
+      ],
+      [
+        3.2674000000000003,
+        2
+      ],
+      [
+        3.272625,
+        3
+      ],
+      [
+        3.2778500000000004,
+        4
+      ],
+      [
+        3.283075,
+        5
+      ],
+      [
+        3.2883,
+        6
+      ],
+      [
+        3.29355,
+        7
+      ],
+      [
+        3.2988,
+        8
+      ],
+      [
+        3.30405,
+        9
+      ],
+      [
+        3.3093000000000004,
+        10
+      ],
+      [
+        3.31455,
+        11
+      ],
+      [
+        3.3198000000000003,
+        1
+      ],
+      [
+        3.325025,
+        2
+      ],
+      [
+        3.3302500000000004,
+        3
+      ],
+      [
+        3.335475,
+        4
+      ],
+      [
+        3.3407,
+        5
+      ],
+      [
+        3.3459250000000003,
+        6
+      ],
+      [
+        3.351175,
+        7
+      ],
+      [
+        3.356425,
+        8
+      ],
+      [
+        3.361675,
+        9
+      ],
+      [
+        3.366925,
+        10
+      ],
+      [
+        3.3721750000000004,
+        11
+      ],
+      [
+        3.377425,
+        1
+      ],
+      [
+        3.3826500000000004,
+        2
+      ],
+      [
+        3.387875,
+        3
+      ],
+      [
+        3.3931,
+        4
+      ],
+      [
+        3.3983250000000003,
+        5
+      ],
+      [
+        3.40355,
+        6
+      ],
+      [
+        3.4088000000000003,
+        7
+      ],
+      [
+        3.41405,
+        8
+      ],
+      [
+        3.4193000000000002,
+        9
+      ],
+      [
+        3.42455,
+        10
+      ],
+      [
+        3.4298,
+        11
+      ],
+      [
+        3.4350500000000004,
+        1
+      ],
+      [
+        3.440275,
+        2
+      ],
+      [
+        3.4455,
+        3
+      ],
+      [
+        3.4507250000000003,
+        4
+      ],
+      [
+        3.45595,
+        5
+      ],
+      [
+        3.4611750000000003,
+        6
+      ],
+      [
+        3.466425,
+        7
+      ],
+      [
+        3.4716750000000003,
+        8
+      ],
+      [
+        3.476925,
+        9
+      ],
+      [
+        3.4821750000000002,
+        10
+      ],
+      [
+        3.487425,
+        11
+      ],
+      [
+        3.492675,
+        1
+      ],
+      [
+        3.4979,
+        2
+      ],
+      [
+        3.5031250000000003,
+        3
+      ],
+      [
+        3.50835,
+        4
+      ],
+      [
+        3.5135750000000003,
+        5
+      ],
+      [
+        3.5188,
+        6
+      ],
+      [
+        3.5240500000000003,
+        7
+      ],
+      [
+        3.5293,
+        8
+      ],
+      [
+        3.5345500000000003,
+        9
+      ],
+      [
+        3.5398,
+        10
+      ],
+      [
+        3.5450500000000003,
+        11
+      ],
+      [
+        3.5503,
+        1
+      ],
+      [
+        3.5555250000000003,
+        2
+      ],
+      [
+        3.56075,
+        3
+      ],
+      [
+        3.5659750000000003,
+        4
+      ],
+      [
+        3.5712,
+        5
+      ],
+      [
+        3.576425,
+        6
+      ],
+      [
+        3.581675,
+        7
+      ],
+      [
+        3.5869250000000004,
+        8
+      ],
+      [
+        3.592175,
+        9
+      ],
+      [
+        3.5974250000000003,
+        10
+      ],
+      [
+        3.602675,
+        11
+      ],
+      [
+        3.6079250000000003,
+        1
+      ],
+      [
+        3.61315,
+        2
+      ],
+      [
+        3.6183750000000003,
+        3
+      ],
+      [
+        3.6236,
+        4
+      ],
+      [
+        3.628825,
+        5
+      ],
+      [
+        3.6340500000000002,
+        6
+      ],
+      [
+        3.6393,
+        7
+      ],
+      [
+        3.64455,
+        8
+      ],
+      [
+        3.6498000000000004,
+        9
+      ],
+      [
+        3.65505,
+        10
+      ],
+      [
+        3.6603000000000003,
+        11
+      ],
+      [
+        3.66555,
+        1
+      ],
+      [
+        3.6707750000000003,
+        2
+      ],
+      [
+        3.676,
+        3
+      ],
+      [
+        3.681225,
+        4
+      ],
+      [
+        3.6864500000000002,
+        5
+      ],
+      [
+        3.691675,
+        6
+      ],
+      [
+        3.6969250000000002,
+        7
+      ],
+      [
+        3.702175,
+        8
+      ],
+      [
+        3.707425,
+        9
+      ],
+      [
+        3.7126750000000004,
+        10
+      ],
+      [
+        3.717925,
+        11
+      ],
+      [
+        3.7231750000000003,
+        1
+      ],
+      [
+        3.7284,
+        2
+      ],
+      [
+        3.733625,
+        3
+      ],
+      [
+        3.7388500000000002,
+        4
+      ],
+      [
+        3.744075,
+        5
+      ],
+      [
+        3.7493000000000003,
+        6
+      ],
+      [
+        3.75455,
+        7
+      ],
+      [
+        3.7598000000000003,
+        8
+      ],
+      [
+        3.76505,
+        9
+      ],
+      [
+        3.7703,
+        10
+      ],
+      [
+        3.77555,
+        11
+      ],
+      [
+        3.7808,
+        1
+      ],
+      [
+        3.786025,
+        2
+      ],
+      [
+        3.7912500000000002,
+        3
+      ],
+      [
+        3.796475,
+        4
+      ],
+      [
+        3.8017000000000003,
+        5
+      ],
+      [
+        3.806925,
+        6
+      ],
+      [
+        3.8121750000000003,
+        7
+      ],
+      [
+        3.817425,
+        8
+      ],
+      [
+        3.8226750000000003,
+        9
+      ],
+      [
+        3.827925,
+        10
+      ],
+      [
+        3.833175,
+        11
+      ],
+      [
+        3.838425,
+        1
+      ],
+      [
+        3.8436500000000002,
+        2
+      ],
+      [
+        3.848875,
+        3
+      ],
+      [
+        3.8541000000000003,
+        4
+      ],
+      [
+        3.859325,
+        5
+      ],
+      [
+        3.8645500000000004,
+        6
+      ],
+      [
+        3.8698,
+        7
+      ],
+      [
+        3.8750500000000003,
+        8
+      ],
+      [
+        3.8803,
+        9
+      ],
+      [
+        3.8855500000000003,
+        10
+      ],
+      [
+        3.8908,
+        11
+      ],
+      [
+        3.8960500000000002,
+        1
+      ],
+      [
+        3.901275,
+        2
+      ],
+      [
+        3.9065000000000003,
+        3
+      ],
+      [
+        3.911725,
+        4
+      ],
+      [
+        3.9169500000000004,
+        5
+      ],
+      [
+        3.922175,
+        6
+      ],
+      [
+        3.9274250000000004,
+        7
+      ],
+      [
+        3.932675,
+        8
+      ],
+      [
+        3.9379250000000003,
+        9
+      ],
+      [
+        3.943175,
+        10
+      ],
+      [
+        3.9484250000000003,
+        11
+      ],
+      [
+        3.953675,
+        1
+      ],
+      [
+        3.9589000000000003,
+        2
+      ],
+      [
+        3.964125,
+        3
+      ],
+      [
+        3.9693500000000004,
+        4
+      ],
+      [
+        3.974575,
+        5
+      ],
+      [
+        3.9798,
+        6
+      ],
+      [
+        3.98505,
+        7
+      ],
+      [
+        3.9903000000000004,
+        8
+      ],
+      [
+        3.99555,
+        9
+      ],
+      [
+        4.0008,
+        10
+      ],
+      [
+        4.00605,
+        11
+      ],
+      [
+        4.0113,
+        1
+      ],
+      [
+        4.016525000000001,
+        2
+      ],
+      [
+        4.02175,
+        3
+      ],
+      [
+        4.026975,
+        4
+      ],
+      [
+        4.0322000000000005,
+        5
+      ],
+      [
+        4.037425,
+        6
+      ],
+      [
+        4.042675,
+        7
+      ],
+      [
+        4.047925,
+        8
+      ],
+      [
+        4.053175,
+        9
+      ],
+      [
+        4.058425000000001,
+        10
+      ],
+      [
+        4.063675,
+        11
+      ],
+      [
+        4.068925,
+        1
+      ],
+      [
+        4.07415,
+        2
+      ],
+      [
+        4.079375000000001,
+        3
+      ],
+      [
+        4.0846,
+        4
+      ],
+      [
+        4.089825,
+        5
+      ],
+      [
+        4.0950500000000005,
+        6
+      ],
+      [
+        4.1003,
+        7
+      ],
+      [
+        4.10555,
+        8
+      ],
+      [
+        4.1108,
+        9
+      ],
+      [
+        4.11605,
+        10
+      ],
+      [
+        4.121300000000001,
+        11
+      ],
+      [
+        4.12655,
+        1
+      ],
+      [
+        4.131775,
+        2
+      ],
+      [
+        4.1370000000000005,
+        3
+      ],
+      [
+        4.142225,
+        4
+      ],
+      [
+        4.14745,
+        5
+      ],
+      [
+        4.152675,
+        6
+      ],
+      [
+        4.1579250000000005,
+        7
+      ],
+      [
+        4.163175,
+        8
+      ],
+      [
+        4.168425,
+        9
+      ],
+      [
+        4.173675,
+        10
+      ],
+      [
+        4.1789250000000004,
+        11
+      ],
+      [
+        4.184175000000001,
+        1
+      ],
+      [
+        4.1894,
+        2
+      ],
+      [
+        4.194625,
+        3
+      ],
+      [
+        4.1998500000000005,
+        4
+      ],
+      [
+        4.205075,
+        5
+      ],
+      [
+        4.2103,
+        6
+      ],
+      [
+        4.21555,
+        7
+      ],
+      [
+        4.2208000000000006,
+        8
+      ],
+      [
+        4.22605,
+        9
+      ],
+      [
+        4.2313,
+        10
+      ],
+      [
+        4.23655,
+        11
+      ],
+      [
+        4.2418000000000005,
+        1
+      ],
+      [
+        4.247025,
+        2
+      ],
+      [
+        4.25225,
+        3
+      ],
+      [
+        4.257475,
+        4
+      ],
+      [
+        4.262700000000001,
+        5
+      ],
+      [
+        4.267925,
+        6
+      ],
+      [
+        4.273175,
+        7
+      ],
+      [
+        4.278425,
+        8
+      ],
+      [
+        4.283675000000001,
+        9
+      ],
+      [
+        4.288925,
+        10
+      ],
+      [
+        4.294175,
+        11
+      ],
+      [
+        4.299425,
+        1
+      ],
+      [
+        4.3046500000000005,
+        2
+      ],
+      [
+        4.309875,
+        3
+      ],
+      [
+        4.3151,
+        4
+      ],
+      [
+        4.320325,
+        5
+      ],
+      [
+        4.32555,
+        6
+      ],
+      [
+        4.3308,
+        7
+      ],
+      [
+        4.33605,
+        8
+      ],
+      [
+        4.3413,
+        9
+      ],
+      [
+        4.346550000000001,
+        10
+      ],
+      [
+        4.3518,
+        11
+      ],
+      [
+        4.35705,
+        1
+      ],
+      [
+        4.362275,
+        2
+      ],
+      [
+        4.367500000000001,
+        3
+      ],
+      [
+        4.372725,
+        4
+      ],
+      [
+        4.37795,
+        5
+      ],
+      [
+        4.3831750000000005,
+        6
+      ],
+      [
+        4.388425,
+        7
+      ],
+      [
+        4.393675,
+        8
+      ],
+      [
+        4.398925,
+        9
+      ],
+      [
+        4.404175,
+        10
+      ],
+      [
+        4.409425000000001,
+        11
+      ],
+      [
+        4.414675,
+        1
+      ],
+      [
+        4.4199,
+        2
+      ],
+      [
+        4.425125,
+        3
+      ],
+      [
+        4.43035,
+        4
+      ],
+      [
+        4.435575,
+        5
+      ],
+      [
+        4.4408,
+        6
+      ],
+      [
+        4.4460500000000005,
+        7
+      ],
+      [
+        4.4513,
+        8
+      ],
+      [
+        4.45655,
+        9
+      ],
+      [
+        4.4618,
+        10
+      ],
+      [
+        4.46705,
+        11
+      ],
+      [
+        4.472300000000001,
+        1
+      ],
+      [
+        4.477525,
+        2
+      ],
+      [
+        4.48275,
+        3
+      ],
+      [
+        4.4879750000000005,
+        4
+      ],
+      [
+        4.4932,
+        5
+      ],
+      [
+        4.498425,
+        6
+      ],
+      [
+        4.503675,
+        7
+      ],
+      [
+        4.5089250000000005,
+        8
+      ],
+      [
+        4.514175,
+        9
+      ],
+      [
+        4.519425,
+        10
+      ],
+      [
+        4.524675,
+        11
+      ],
+      [
+        4.529925,
+        1
+      ],
+      [
+        4.53515,
+        2
+      ],
+      [
+        4.540375,
+        3
+      ],
+      [
+        4.5456,
+        4
+      ],
+      [
+        4.550825000000001,
+        5
+      ],
+      [
+        4.55605,
+        6
+      ],
+      [
+        4.5613,
+        7
+      ],
+      [
+        4.56655,
+        8
+      ],
+      [
+        4.5718000000000005,
+        9
+      ],
+      [
+        4.57705,
+        10
+      ],
+      [
+        4.5823,
+        11
+      ],
+      [
+        4.58755,
+        1
+      ],
+      [
+        4.5927750000000005,
+        2
+      ],
+      [
+        4.598,
+        3
+      ],
+      [
+        4.603225,
+        4
+      ],
+      [
+        4.60845,
+        5
+      ],
+      [
+        4.613675000000001,
+        6
+      ],
+      [
+        4.618925,
+        7
+      ],
+      [
+        4.624175,
+        8
+      ],
+      [
+        4.629425,
+        9
+      ],
+      [
+        4.6346750000000005,
+        10
+      ],
+      [
+        4.639925,
+        11
+      ],
+      [
+        4.645175,
+        1
+      ],
+      [
+        4.6504,
+        2
+      ],
+      [
+        4.655625000000001,
+        3
+      ],
+      [
+        4.66085,
+        4
+      ],
+      [
+        4.666075,
+        5
+      ],
+      [
+        4.6713000000000005,
+        6
+      ],
+      [
+        4.676550000000001,
+        7
+      ],
+      [
+        4.6818,
+        8
+      ],
+      [
+        4.68705,
+        9
+      ],
+      [
+        4.6923,
+        10
+      ],
+      [
+        4.697550000000001,
+        11
+      ],
+      [
+        4.7028,
+        1
+      ],
+      [
+        4.708025,
+        2
+      ],
+      [
+        4.71325,
+        3
+      ],
+      [
+        4.718475000000001,
+        4
+      ],
+      [
+        4.7237,
+        5
+      ],
+      [
+        4.728925,
+        6
+      ],
+      [
+        4.7341750000000005,
+        7
+      ],
+      [
+        4.739425000000001,
+        8
+      ],
+      [
+        4.744675,
+        9
+      ],
+      [
+        4.749925,
+        10
+      ],
+      [
+        4.755175,
+        11
+      ],
+      [
+        4.760425000000001,
+        1
+      ],
+      [
+        4.76565,
+        2
+      ],
+      [
+        4.770875,
+        3
+      ],
+      [
+        4.7761000000000005,
+        4
+      ],
+      [
+        4.781325,
+        5
+      ],
+      [
+        4.78655,
+        6
+      ],
+      [
+        4.7918,
+        7
+      ],
+      [
+        4.7970500000000005,
+        8
+      ],
+      [
+        4.8023,
+        9
+      ],
+      [
+        4.80755,
+        10
+      ],
+      [
+        4.8128,
+        11
+      ],
+      [
+        4.81805,
+        1
+      ],
+      [
+        4.823275000000001,
+        2
+      ],
+      [
+        4.8285,
+        3
+      ],
+      [
+        4.833725,
+        4
+      ],
+      [
+        4.8389500000000005,
+        5
+      ],
+      [
+        4.844175,
+        6
+      ],
+      [
+        4.849425,
+        7
+      ],
+      [
+        4.854675,
+        8
+      ],
+      [
+        4.8599250000000005,
+        9
+      ],
+      [
+        4.865175,
+        10
+      ],
+      [
+        4.870425,
+        11
+      ],
+      [
+        4.875675,
+        1
+      ],
+      [
+        4.8809000000000005,
+        2
+      ],
+      [
+        4.886125,
+        3
+      ],
+      [
+        4.89135,
+        4
+      ],
+      [
+        4.896575,
+        5
+      ],
+      [
+        4.901800000000001,
+        6
+      ],
+      [
+        4.90705,
+        7
+      ],
+      [
+        4.9123,
+        8
+      ],
+      [
+        4.91755,
+        9
+      ],
+      [
+        4.9228000000000005,
+        10
+      ],
+      [
+        4.92805,
+        11
+      ],
+      [
+        4.9333,
+        1
+      ],
+      [
+        4.938525,
+        2
+      ],
+      [
+        4.9437500000000005,
+        3
+      ],
+      [
+        4.948975,
+        4
+      ],
+      [
+        4.9542,
+        5
+      ],
+      [
+        4.959425,
+        6
+      ],
+      [
+        4.964675000000001,
+        7
+      ],
+      [
+        4.969925,
+        8
+      ],
+      [
+        4.975175,
+        9
+      ],
+      [
+        4.980425,
+        10
+      ],
+      [
+        4.9856750000000005,
+        11
+      ],
+      [
+        4.990925,
+        1
+      ],
+      [
+        4.99615,
+        2
+      ]
+    ],
+    "last_spike_s": 4.99615,
+    "sustained_circulation_to_5s": true,
+    "source_config_sha256": "362710251807afc2e59c65f88c5aceb2ea6b43c6b88207e584d3bbd4419c4310",
+    "config_sha256": "b280561221c76eece07006099c837559d49450e5d55c904b80ca3a439aa24f02",
+    "binary_sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\ring11\\config.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\ring11\\tm_n11_w1"
+    ],
+    "wall_seconds": 0.7672134999884292,
+    "output_sha256": {
+      "tm_n11_w1_events.csv": "684b2598f2c72ead3341b7997799cd8a3832a0bec0cbd541c7d0103a83b70278",
+      "tm_n11_w1_experiment.json": "8ecfba6806301247dc184417b5c30042a443b8451f9a682f991360750096c346",
+      "tm_n11_w1_summary.json": "33f3498ca18fb7a21e46fbaae4df392258f56700f8eb5f2a5e449a1b5e4df060",
+      "tm_n11_w1_trace.csv": "3184f1018dd6c8086b363e8fa612edcaf41f330dd86e489671e0641e3e0859dd",
+      "tm_n11_w1_weights.csv": "949d8ab94b001c92ace2ad46825d6c97c0033f1333cec2974251aa438261da4c"
+    },
+    "late_ordered_transition_fraction": 1.0,
+    "n1_late_rate_hz": 18,
+    "n1_late_mean_isi_ms": 57.62499999999997,
+    "n1_late_isi_rate_hz": 17.353579175704997,
+    "n1_late_isi_cv": 5.875772904936258e-15
+  },
+  "n11_half_step_control": {
+    "passed": true,
+    "neurons": 11,
+    "weight": 1,
+    "duration_s": 5,
+    "dt_us": 12.5,
+    "counts": [
+      86,
+      86,
+      85,
+      85,
+      85,
+      85,
+      85,
+      85,
+      85,
+      85,
+      85
+    ],
+    "late_4_to_5s_counts": [
+      18,
+      18,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      18
+    ],
+    "last_spike_s": 4.99495,
+    "late_ordered_transition_fraction": 1.0,
+    "n1_late_rate_hz": 18,
+    "n1_late_mean_isi_ms": 57.612500000000026,
+    "n1_late_isi_rate_hz": 17.357344326318067,
+    "n1_late_isi_cv": 7.024415612337815e-15,
+    "counts_equal": true,
+    "maximum_ordinal_event_difference_ms": 1.2124999999993946,
+    "config_sha256": "02a72e1fe0124ad2ce409653f204763d9148a41d26f3008a54612247f0c0fe32",
+    "binary_sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\ring11\\config_fine.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\ring11\\fine"
+    ],
+    "wall_seconds": 0.9014249000174459,
+    "output_sha256": {
+      "fine_events.csv": "972e612b89d79d5a9b25b1bf97f12fa8fdee9af3f24e9db22b61e86b30179f62",
+      "fine_experiment.json": "b21649d196a0481771a4e732b55a7a00a7959f47132db707aef17f9b8e8efc2c",
+      "fine_summary.json": "acc9a37a874ad6f2b57baec8db2008bf7cf636b0c600960f67a340924ad5c3b8",
+      "fine_trace.csv": "b34f43ded9ce5d7b8ded309be9f72fb1b86f4cd39886b7587855588b480d3c4e",
+      "fine_weights.csv": "949d8ab94b001c92ace2ad46825d6c97c0033f1333cec2974251aa438261da4c"
+    },
+    "sustained_circulation_to_5s": true
+  },
+  "original_neuronet": {
+    "report_path": "E:\\asp\\26_27\\labs\\lab2_report\\Отчёт_ЛР2.md",
+    "report_sha256": "875205e68c9122b5b7022c206e9fa0860fffd42dfc8ac1eaeca65750970cf9b6",
+    "screenshot_sha256": {
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\ring3_a.png": "8a975458e03c654e74f05f454e9e744a23cc4155fb23b6d1adc6efb57d4c1af2",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\ring3_b.png": "db40538b0118508278be024e5d3ce82de4561d0f173a7f96bf3f7af02663ef65",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\ring5_scheme.png": "22fa14a8784d9ffb2a0b3938d321460faefee62b0f4652d8a44b49a8252ee515",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\ring5_activity.png": "c1c693b762b5d731bd058435b09b3759ceb3e6264df557f5698d15c3c06a3bb0",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\ring10_w1.png": "35e50bd998ff05a97769bdc231883abf81fab6fd92bacd94b8b65487c873adbd",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\ring10_w07.png": "30722cd9d8f523228c7a19c7ec7a32534295c8272c19546b6d0321c007200f71",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\ring10_w05.png": "603c61313eb54ea7805e790c34c3994f7b9340a246c6ff4e1b0e79ce0c45bd69",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\ring10_w02.png": "b1db6f0cfde00cb49910ed098cc9fb665b17cce02faeb90e23de69d329314c14",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\net15_histogram.png": "ed2101554d78a7f6c886af612f33d210c532ac7303bff8635220fff396788fc6",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\net30_histogram.png": "06b3ae2ff21c4c6da82ecd004f49ee2ad87ae27a91dfba6615c62b7020e5476e",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\net15_raster.png": "7f48871c660d18aa2da1993bb9255d7f5a940dde307974ae630b5efd18aabdcc",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\net30_raster.png": "e861c310ce0051dbaaa3a52fa5329c35b3afe8c6ff4e674bf833d1e7d7a32644",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\net15_frequency.png": "1a358d73e6f2da6de23f44cdf5f637bede06fa1821432e2cfc5508ea15480f80",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\net30_frequency.png": "53057778addb993c304d86f3ce90347af12844eecad428d5a30d9135597ad7a4",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\net15_bursts.png": "41ff8c3c0706f8720eb3b05c7f30a1c6f8f04e2fc081c59e6a0763db926924ed",
+      "E:\\asp\\26_27\\labs\\lab2_report\\images\\net30_bursts.png": "114e68deb41e3970c2aadfe5994d3f37c347ebfa43a110d90b523bacbf2e86dd"
+    },
+    "observations": {
+      "rings": "N3/N5 transients. N10 regular activity atw.7/.5 andquietat.2. Image labeledN10,w1 actually has11nodes, independently consistent with ring_N10_w1.net. Approxperiods71(N11)/82(N10)/97(N10)ms fromsourceauthor manual measurement; no rawspikeexport used.",
+      "population": "Snapshot11891edges,400E100I,32burstsat29970ms; snapshot5577edges,400E100I,29burstsat29185ms. Images show10-s rasterwindows withapproximatelyten populationevents, not enough to infer an exactlong-runmean or robustmonotonicbursttrend.",
+      "limits": "No new NeuroNet simulation. Snapshotstate is not an eventlog. Named ring_N10_w1.net has11neurons. Remaining N4/N6–9 were not empirically tested in the source report."
+    },
+    "evidence_file": "neuronet_evidence.json"
+  },
+  "delay_evidence": {
+    "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\dls_0.0005.txt",
+    "sha256": "b34231a590b8eab87b5a0a7e507068d18232aa7699a272d886a6c4a469bff359",
+    "rows": 500,
+    "columns": 500,
+    "nonzero_entries": 5915,
+    "positive_values": {
+      "count": 5915,
+      "minimum": 0.5,
+      "maximum": 7.0,
+      "mean": 2.2547759932375318,
+      "population_sd": 1.0578413543887952
+    },
+    "values_on_snapshot_edges": {
+      "count": 5946,
+      "minimum": 0.0,
+      "maximum": 7.0,
+      "mean": 2.243020517995291,
+      "population_sd": 1.067502669533564
+    },
+    "positive_entries_outside_snapshot_edges": 0,
+    "snapshot_edges_with_zero": 31,
+    "ratio_to_coordinate_distance": {
+      "count": 5915,
+      "minimum": 0.03834824944236852,
+      "maximum": 0.09284766908852593,
+      "mean": 0.07040345760075062,
+      "population_sd": 0.007806252993471893
+    },
+    "snapshot_path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\0.0005s.net",
+    "units": "literal export values; no unit metadata in matrix",
+    "limitation": "This matrix belongs to the 500-node 0.0005s snapshot, not a ring snapshot or the 29.97s network."
+  },
+  "known_protocol_differences": [
+    "Our RK4dt.025ms vs originalvisibleStep.500ms; oldbinaryaudit confirmsEuler.",
+    "Our isolated1ms30unit input substitutes Fire!; original startup state/manualFire exacttrace unavailable.",
+    "Our explicitconductiondelay iszero; original shows Sp.Velocity.050 and outputhistorybuffers. Exported dls values belongto anothergraph; ringdelayunits/indexformula not established.",
+    "Samegraphcontrols importonlytopology,E/I labels,weights; no continuationofstate,delays,originalnoiseorSpikeShowingbookkeeping.",
+    "Our noiseindependentGaussian held1ms,seed42; originalσ3alone doesnotidentify identicalsamples.",
+    "Our burst extraction usesexplicitplateauand50mspeakdistance convention; NeuroNet exactdetector not reconstructed."
+  ],
+  "stale_documentation": [
+    "Historical lab2 README/SHORT_REPORT claimGUI16-neuronlimit; currentlimit1000neurons/50000synapses; oldreports intentionally untouched."
+  ],
+  "limitations": [
+    "No proof that all TM rings fail in everyparameterregime; onlythe specified finite5sprotocol.",
+    "No causal attribution of the NeuroNet difference to delay alone.",
+    "Populationstep convergence concernsaggregateobservables, not identicalindividualspike trains.",
+    "500Ncore bridge .2s only, not100sGUI rerun; history records4neurons andall events."
+  ],
+  "provenance": {
+    "pdf_path": "C:\\Users\\N1kit\\Downloads\\UMP_Lobov_i_dr_Neyrokiberneticheskie_printsipy_fin.pdf",
+    "pdf_sha256": "ce57a4758a90f3a2a9ff9c57f001d5e40363bf02ddb1630a3a2d1ec9efff8af3",
+    "pdf_pages": "17–22",
+    "scripts_sha256": {
+      "audit.py": "c6f6f3a481ec17f689e832be93cbb29f003234aa06620e2107659ff7f76010b4",
+      "details.py": "0870f25c4073701b4067643daa755fbaf45a6e99f9005a4e3e7d663e8a72678e",
+      "imported_graphs.py": "8e916796b99d11f3fc535a3a44ddc0cd124767eb9715931b257764ce598de508",
+      "independent_check.py": "8f99926ab12caf99cb92285edf7548cfed83a7bd182d0932563249b3f13bddad",
+      "report.py": "ecb354ea67bbcf7687e71cb2fd4f4b191f3ccaaab5031a89721ca6a023fc450d",
+      "ring11.py": "4c7997311408e4e94df15b5f1f441dac4dd9b4fc817617f097934bf52d005ae4"
+    },
+    "sources_unchanged": true
+  }
+}

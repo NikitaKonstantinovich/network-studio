@@ -1,0 +1,218 @@
+{
+  "created_utc": "2026-10-12T16:22:17.740783+00:00",
+  "production_unchanged_since_audit_start": true,
+  "production_checks": 27,
+  "entries": [
+    {
+      "path": ".gitignore",
+      "bytes": 93,
+      "sha256": "9d67258c6d36ad71cbb95329ab3d5cfbcd774f723bb32d77235ac3848028efd4"
+    },
+    {
+      "path": "astrocytes/check.py",
+      "bytes": 14185,
+      "sha256": "05f9e74df60a07bc22146ce4104d951e1f653d8327cf855db2c277a0a8b79805"
+    },
+    {
+      "path": "astrocytes/CMakeLists.txt",
+      "bytes": 566,
+      "sha256": "759fe36b583343ac8878e67c48976b3d49208c6015e612cd041d2eab4c42ab38"
+    },
+    {
+      "path": "astrocytes/findings.json",
+      "bytes": 70327,
+      "sha256": "067e21d77837aa398c477e3dd4e8fc4009409d336eefde3fdadef2eb715b98d8"
+    },
+    {
+      "path": "astrocytes/harness.cpp",
+      "bytes": 5599,
+      "sha256": "8a23959df067a547e6550399193559dffd0a9d3969814d5ce234d88e32fb671d"
+    },
+    {
+      "path": "astrocytes/README_RU.md",
+      "bytes": 16766,
+      "sha256": "6b5bf6ad3dead27d98f17cdf1498bb29ecf6fb17aa57d310e9a650100bfceae6"
+    },
+    {
+      "path": "ctest.log",
+      "bytes": 589,
+      "sha256": "f49773cd0eaaa5fc40aac05de305112029a48944e7fed437862a6ddbd5ee0036"
+    },
+    {
+      "path": "finalize.py",
+      "bytes": 2516,
+      "sha256": "e153dd7159a8c4566ae44f42160929dc13d11b92b6c66c97752cc62b01bf13f2"
+    },
+    {
+      "path": "integration/audit.py",
+      "bytes": 5341,
+      "sha256": "e6bff985b27ccff3fac4afec4dffca25888dd8e8a63c2a59ed26e226e6cf745c"
+    },
+    {
+      "path": "integration/findings.json",
+      "bytes": 3907,
+      "sha256": "af946d3390ba42e0cb552213725e7d09e6483754ad9b108e96cb0f4582c2ee51"
+    },
+    {
+      "path": "integration/README_RU.md",
+      "bytes": 6840,
+      "sha256": "a529e404906510696055cac958ac1ed2f376c69ed4b4dd918541626dac6a52cd"
+    },
+    {
+      "path": "neurons/audit.py",
+      "bytes": 13980,
+      "sha256": "bd34cc08bcd5ee14e4a6082e9043010bda342f3574ba5bc91586a96a2cfad205"
+    },
+    {
+      "path": "neurons/base.json",
+      "bytes": 1638,
+      "sha256": "7b0d3c90442de91d43547e3b1f4fa680e9d3f7e89a26347002f0381f3b218e66"
+    },
+    {
+      "path": "neurons/boundary_checks.py",
+      "bytes": 2164,
+      "sha256": "854e8172c6515e8dd5989733335a5e070b13e0fd172a63c8f1a8df25fb78cc7a"
+    },
+    {
+      "path": "neurons/boundary_findings.json",
+      "bytes": 1167,
+      "sha256": "7c38accb35674017c2cdf93364e19de59c10779fc074efe8a2f04ee1a961e20e"
+    },
+    {
+      "path": "neurons/build_probe.ps1",
+      "bytes": 1649,
+      "sha256": "9c4d1379d852ffd29ed8b5b459c7ddc3ba685ce435fe0e8238f7130a7a819e80"
+    },
+    {
+      "path": "neurons/CMakeLists.txt",
+      "bytes": 512,
+      "sha256": "292791efc09f608bcaa6dc037ec7b6a1bdf63de427b1c6250c600e35f17ef2ff"
+    },
+    {
+      "path": "neurons/finalize.py",
+      "bytes": 3415,
+      "sha256": "3b945c81f7f88d83b2c24ac89ab17dfaa01d38fb09062bf2c73a5842acc83f94"
+    },
+    {
+      "path": "neurons/findings.json",
+      "bytes": 34976,
+      "sha256": "5a3c871c62957131dba03e0578ced0ec4553fea2595ca09419c6b7d9489b95b0"
+    },
+    {
+      "path": "neurons/manifest.json",
+      "bytes": 72379,
+      "sha256": "7351fd9cbc3a9e14aee1f95ff80dc8b798cedbcc9e0ee9e7459c1bcdee28cbb7"
+    },
+    {
+      "path": "neurons/probe.cpp",
+      "bytes": 2974,
+      "sha256": "23a6f7c1c6498bcf4b894f2739e2d320382d1a7aab2be267e8e50c7e2fd9b958"
+    },
+    {
+      "path": "neurons/probe.csv",
+      "bytes": 4218,
+      "sha256": "0eb1c57ee00773922a57c980eafab8d8c1f07300a0589f3102e3f9cc7e346fad"
+    },
+    {
+      "path": "neurons/probe_bridge.json",
+      "bytes": 86,
+      "sha256": "840d3a1bd5e72b01e7af130238e794fc8af14b1a2da76af6adfdb9f7330a04e3"
+    },
+    {
+      "path": "neurons/README.md",
+      "bytes": 10998,
+      "sha256": "dbf39629cb6e598f3fe0105ab661837778bb1092a99cf43f22a25e4493ad7316"
+    },
+    {
+      "path": "neurons/reference.json",
+      "bytes": 25115,
+      "sha256": "82d163b3059e7f681c9251dce1a5fade7ed86cc6b6d5dda644e7b93aa5658962"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 7024,
+      "sha256": "96df473fcd0c3832aa65e63a2e7c0799d698adacdaa6b4dff5bef916cca23c09"
+    },
+    {
+      "path": "provenance.py",
+      "bytes": 2004,
+      "sha256": "2922e45bf3b915510b02e9f6139283e5ff3d833d73794fa07206e965578d2734"
+    },
+    {
+      "path": "README_RU.md",
+      "bytes": 18937,
+      "sha256": "06ed3be61a947936f188f504633cc50bfa7414cc57937fa90ed28d780a57016a"
+    },
+    {
+      "path": "synapses/.gitignore",
+      "bytes": 69,
+      "sha256": "eccf5800106052c779596573f6d2a016014043ab3ddeb31a835e070375a998b1"
+    },
+    {
+      "path": "synapses/build_probe.ps1",
+      "bytes": 1627,
+      "sha256": "f7fa208fedce25e6a12418a6715795308a92534886b56284d052425082e31f83"
+    },
+    {
+      "path": "synapses/check.py",
+      "bytes": 8451,
+      "sha256": "9c3b7d35cbac26ed59fb25c9032dadcd19dc7961a3c5a5752a3e9db16379506f"
+    },
+    {
+      "path": "synapses/findings.json",
+      "bytes": 5828,
+      "sha256": "24bf724414be198c41461e7e0d0bee4fc44cab7751413ac963750522647a4c44"
+    },
+    {
+      "path": "synapses/izh_conductance_units.json",
+      "bytes": 2549,
+      "sha256": "f88567f8bf6e0d5e5f5e6d5c8bce0489a22d4aed9f745a7feb4b317a7c3322e8"
+    },
+    {
+      "path": "synapses/probe.cpp",
+      "bytes": 7113,
+      "sha256": "d4010533d0a8c31f60c99d5a340d87572b85ed5011557825f7df400d088852c9"
+    },
+    {
+      "path": "synapses/README.md",
+      "bytes": 15324,
+      "sha256": "454c04de45ce83da113cf7c1072fc3fb11c3d47dd31c2b1ba417b874c88d0b05"
+    },
+    {
+      "path": "synapses/results.json",
+      "bytes": 76128,
+      "sha256": "8e964b1330791229f8cafe242a0888bac1c6d233a26bffb73cd404b55657f5d3"
+    },
+    {
+      "path": "synapses/sources.json",
+      "bytes": 1705,
+      "sha256": "5e072d4daeb01153e44b178e8d4baabebd08d628dc30a42dc971743010d86e61"
+    },
+    {
+      "path": "synapses/units_demo_events.csv",
+      "bytes": 46,
+      "sha256": "64acde326a2eef818c28284ae19103ed1da408c7e2a909cc03725d0a001f6475"
+    },
+    {
+      "path": "synapses/units_demo_experiment.json",
+      "bytes": 2612,
+      "sha256": "a842fc5ec2bd612b427d01da9aea942bc0862d4feef54d8d26e2218514854ffc"
+    },
+    {
+      "path": "synapses/units_demo_summary.json",
+      "bytes": 344,
+      "sha256": "c1c7879036f4e0a5d398a0e3e445b377b76c10bb8678d3651b6dcb68ffdaced7"
+    },
+    {
+      "path": "synapses/units_demo_trace.csv",
+      "bytes": 53710,
+      "sha256": "dc427f2ff9445035aa065e2842050bc9959c045638d4210b8087ef08fca35db5"
+    },
+    {
+      "path": "synapses/units_demo_weights.csv",
+      "bytes": 5864,
+      "sha256": "7c08f6849abba29dec7d6817267178bb41d11330c08d17c9c83bdf913afce98e"
+    }
+  ],
+  "note": "Compact documentation, source and result hashes. Raw runs and diagnostic binaries remain local and are regenerated by the scripts."
+}

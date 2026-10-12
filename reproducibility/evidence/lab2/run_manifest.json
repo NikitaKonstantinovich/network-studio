@@ -1,0 +1,2249 @@
+[
+  {
+    "kind": "populations",
+    "name": "k15_seed11",
+    "wall_seconds": 28.929,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed11_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed11_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k15_seed11"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed11_base.json": "e9e13a4481dd67c1ad70c482e34ebd0fe9d0eb1f04927d1f2e386a183009c3b6",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed11_edges.csv": "ea7241b9bdb67b5b0823ac8d3ffad7a45b970e710061c443372e0022ddbbabfe"
+    },
+    "outputs_sha256": {
+      "events.csv": "c30190b4c7a5960a7740947858c9bbeacf806b78a55dd220de49c1d35b8235b5",
+      "trace.csv": "438d81643492c56c46fcf9fa4930d88cf4f44ed135967a0473c6549e2138fd72",
+      "summary.json": "53e6be28d1b9194d5deccfcc78dba35110e441d37281220fcc63903fa35bd01a",
+      "base.json": "6867198d9993d319d2c1c5e65a822a7239985cfc24d11bad633962a4bc922ab6"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "c30190b4c7a5960a7740947858c9bbeacf806b78a55dd220de49c1d35b8235b5",
+        "previous_sha256": "c30190b4c7a5960a7740947858c9bbeacf806b78a55dd220de49c1d35b8235b5",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "438d81643492c56c46fcf9fa4930d88cf4f44ed135967a0473c6549e2138fd72",
+        "previous_sha256": "438d81643492c56c46fcf9fa4930d88cf4f44ed135967a0473c6549e2138fd72",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k30_seed11",
+    "wall_seconds": 29.448,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed11_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed11_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k30_seed11"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed11_base.json": "e73276e6843868c841da8b61c93d780b25c96854e90d2e162bd9051ca981c0ad",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed11_edges.csv": "085019309532c1b4e4c5da513222b333a36909a81361744ae37d45bdd0fc138a"
+    },
+    "outputs_sha256": {
+      "events.csv": "0e30a52ede2b5ed5ddcf8bcd9ae281722a8947e6ded0251ebc8b5491ef7b5638",
+      "trace.csv": "01309cb9bb0a183696644798e43645c90a6825876860dddf846322fb4e122e39",
+      "summary.json": "93aa94878f90724661f26e4ce7b1f39abe09643374f3c7177005cb40134835ea",
+      "base.json": "e472a1da0688ba6e6b448c461e70f1dba080a6838a1de6af3411acdb98c34463"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "0e30a52ede2b5ed5ddcf8bcd9ae281722a8947e6ded0251ebc8b5491ef7b5638",
+        "previous_sha256": "0e30a52ede2b5ed5ddcf8bcd9ae281722a8947e6ded0251ebc8b5491ef7b5638",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "01309cb9bb0a183696644798e43645c90a6825876860dddf846322fb4e122e39",
+        "previous_sha256": "01309cb9bb0a183696644798e43645c90a6825876860dddf846322fb4e122e39",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k15_seed42",
+    "wall_seconds": 95.648,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k15_seed42"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_base.json": "4f60e38366018e510926ddce38315df383c92343c200ae9582cbf32343168abf",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv": "dec1a8849c9911322c24fee7274467c4dc1e9553bf4199dec7a3e5841d5b8d8f"
+    },
+    "outputs_sha256": {
+      "events.csv": "dc6849ccaba2014764b5712156f96b8e96ab95d03f6f91890414f5610c26b3dd",
+      "trace.csv": "478f31406b7f0c42770043a21696452c6bd992cdb9bc0127e2c6c77f325536ca",
+      "summary.json": "737c7b92354d77523e24b34efba98fc933824c4897055bc76c56defa1fae89b7",
+      "base.json": "8209e63392c755d95f2d3e1ca5a5d89f2437320114a3b74b45d3392ca7068257"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "dc6849ccaba2014764b5712156f96b8e96ab95d03f6f91890414f5610c26b3dd",
+        "previous_sha256": "dc6849ccaba2014764b5712156f96b8e96ab95d03f6f91890414f5610c26b3dd",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "478f31406b7f0c42770043a21696452c6bd992cdb9bc0127e2c6c77f325536ca",
+        "previous_sha256": "478f31406b7f0c42770043a21696452c6bd992cdb9bc0127e2c6c77f325536ca",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k30_seed42",
+    "wall_seconds": 97.005,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k30_seed42"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_base.json": "51ea46f983902a0d46437ec17340e83a938cb25fc0d04e78e923a67e5122b754",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d"
+    },
+    "outputs_sha256": {
+      "events.csv": "051b243e0e1e8679e77268d8ee44d8be1b0212bdc758a1d6fab7fea1a074dbb9",
+      "trace.csv": "4cba141b11bbdb9a2d2dedab03e7a3e1cf247ba65c27f172f25f0de3ac1d5da0",
+      "summary.json": "1cb12126ae44f9810bb4c26e93230bb98dc0ce11794d941c54de26d3e743684a",
+      "base.json": "1d91e316d49b29855741cda30aac11eb48113019c04776fec10f6cd217ce8d01"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "051b243e0e1e8679e77268d8ee44d8be1b0212bdc758a1d6fab7fea1a074dbb9",
+        "previous_sha256": "051b243e0e1e8679e77268d8ee44d8be1b0212bdc758a1d6fab7fea1a074dbb9",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "4cba141b11bbdb9a2d2dedab03e7a3e1cf247ba65c27f172f25f0de3ac1d5da0",
+        "previous_sha256": "4cba141b11bbdb9a2d2dedab03e7a3e1cf247ba65c27f172f25f0de3ac1d5da0",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k15_seed101",
+    "wall_seconds": 28.354,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed101_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed101_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k15_seed101"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed101_base.json": "43b9f00d846a8c7d609482a876d962f04db808c22c57fa165f962463e2ce0b48",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed101_edges.csv": "8a8712f728f6b06d47ecd02bfb197bac7b1a698ab324d58ff315c666b6306d2b"
+    },
+    "outputs_sha256": {
+      "events.csv": "81855f439b5e3fe070512f24dca8f9e31bc65df03176452936acc12d1f242575",
+      "trace.csv": "a9c7771eccf170c5c8ac03c395acb1cd768948fff378a532bda1cb0d0f5d3899",
+      "summary.json": "1121329206bb0c3cd285a8a4360d8176fcb68c36b1ca805b3a0953c51ff29613",
+      "base.json": "8c27a2e51c14a31fa3d79febe0fab8b9a314940e012a684ccd8916783ca78ea4"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "81855f439b5e3fe070512f24dca8f9e31bc65df03176452936acc12d1f242575",
+        "previous_sha256": "81855f439b5e3fe070512f24dca8f9e31bc65df03176452936acc12d1f242575",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "a9c7771eccf170c5c8ac03c395acb1cd768948fff378a532bda1cb0d0f5d3899",
+        "previous_sha256": "a9c7771eccf170c5c8ac03c395acb1cd768948fff378a532bda1cb0d0f5d3899",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k30_seed101",
+    "wall_seconds": 28.646,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed101_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed101_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k30_seed101"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed101_base.json": "63351cb8f19d2318d2d06ac6d5e090820396fe126d89e2590111f39d57ebf996",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed101_edges.csv": "9abb347a487ff5b45766122e3b4b632dcd0c0a8d5d9bc05507881d01e902b049"
+    },
+    "outputs_sha256": {
+      "events.csv": "eb1ff9e43d27a42d528e0ea2ea88ff74ce6b960df92bfe9332432c3dffd866c5",
+      "trace.csv": "2c531e460708a7bca6fab0d566551c6e8bef95205e81dbe62c5066d20f5823e8",
+      "summary.json": "939eed25836e4e2145c06b4280810ca245f68a31126d0dc61713b3dff4d5fe87",
+      "base.json": "de1f697b0601f0aeff53739628b4c2f0ec353496a3be39043c2fb3b546a7a020"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "eb1ff9e43d27a42d528e0ea2ea88ff74ce6b960df92bfe9332432c3dffd866c5",
+        "previous_sha256": "eb1ff9e43d27a42d528e0ea2ea88ff74ce6b960df92bfe9332432c3dffd866c5",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "2c531e460708a7bca6fab0d566551c6e8bef95205e81dbe62c5066d20f5823e8",
+        "previous_sha256": "2c531e460708a7bca6fab0d566551c6e8bef95205e81dbe62c5066d20f5823e8",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k15_seed42_nearest",
+    "wall_seconds": 27.948,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_nearest_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_nearest_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k15_seed42_nearest"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_nearest_base.json": "ba7de5323698e91e2cc8bdd2082c0173cf4e8093e3b679a264ed6f6e1673d93f",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_nearest_edges.csv": "21c6382ba64b7cf38cbd25c6bec3412001fbbefc75d137f2eedc15bccf8d8006"
+    },
+    "outputs_sha256": {
+      "events.csv": "db56d997e5be69bdd0451dc214909a875c46d4ca048f61b4cb37b4579752d8c6",
+      "trace.csv": "d39ec97578c58c9682d0d36462652db5afbbfa5723987e3a5c34cda47ed86268",
+      "summary.json": "62de47481ec9b80fdb63c484bfbaf80dad20097c32c518e9c2fd566db474f443",
+      "base.json": "ca2afb36905be6bd9bf02b473136a5dc5f771462f92f5b658b9e21cc316ded7f"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "db56d997e5be69bdd0451dc214909a875c46d4ca048f61b4cb37b4579752d8c6",
+        "previous_sha256": "db56d997e5be69bdd0451dc214909a875c46d4ca048f61b4cb37b4579752d8c6",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "d39ec97578c58c9682d0d36462652db5afbbfa5723987e3a5c34cda47ed86268",
+        "previous_sha256": "d39ec97578c58c9682d0d36462652db5afbbfa5723987e3a5c34cda47ed86268",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k30_seed42_nearest",
+    "wall_seconds": 28.184,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_nearest_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_nearest_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k30_seed42_nearest"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_nearest_base.json": "e089939ffba8de4c4bd3119bd08ccffc0d2491508daad99fb3b869295dd0af98",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_nearest_edges.csv": "500a98e19f11114814933585bc3ccdb50dc9539ebd1642dec26ace79094db56d"
+    },
+    "outputs_sha256": {
+      "events.csv": "c1f616e6f5c179544150a1a70aba4459e848149fb0001d10337434591febae78",
+      "trace.csv": "8206ed3787ab95df8ee637da17b526de7c85a98d1b09029535c3eb70e5a8b5c6",
+      "summary.json": "d30d0cfb3ac8a4db078e994e62b4f243c703924278fcc428a887e061147e0ff1",
+      "base.json": "19c5527fd2715a3540f15fab450e18d0952ccdd6b4586d6ffdb820f9dd69d71f"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "c1f616e6f5c179544150a1a70aba4459e848149fb0001d10337434591febae78",
+        "previous_sha256": "c1f616e6f5c179544150a1a70aba4459e848149fb0001d10337434591febae78",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "8206ed3787ab95df8ee637da17b526de7c85a98d1b09029535c3eb70e5a8b5c6",
+        "previous_sha256": "8206ed3787ab95df8ee637da17b526de7c85a98d1b09029535c3eb70e5a8b5c6",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k15_seed42_short",
+    "wall_seconds": 9.353,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_short_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k15_seed42_short"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_short_base.json": "7a5f4c2e5fc562b79d9dd6786762ec5fe698ed60e187cf045ce2393b86c9b187",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv": "dec1a8849c9911322c24fee7274467c4dc1e9553bf4199dec7a3e5841d5b8d8f"
+    },
+    "outputs_sha256": {
+      "events.csv": "d5a18c60c9bae67a4f7c1f67a9016903f634d247ed5816e83dfd4970d66b3a79",
+      "trace.csv": "1f0823e2fad8bfd6203d4399db07bee624d540a8ce82724c1d344381a30877e2",
+      "summary.json": "c7488f2e6292895f2582c8d85adc6c2795453acc429bf323cc0ca1f6dd982d25",
+      "base.json": "be7cab4db5889d310ca95f232be1891ccb60505d12714126dbe57699167cb647"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "d5a18c60c9bae67a4f7c1f67a9016903f634d247ed5816e83dfd4970d66b3a79",
+        "previous_sha256": "d5a18c60c9bae67a4f7c1f67a9016903f634d247ed5816e83dfd4970d66b3a79",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "1f0823e2fad8bfd6203d4399db07bee624d540a8ce82724c1d344381a30877e2",
+        "previous_sha256": "1f0823e2fad8bfd6203d4399db07bee624d540a8ce82724c1d344381a30877e2",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k15_seed42_quiet",
+    "wall_seconds": 9.248,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_quiet_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k15_seed42_quiet"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_quiet_base.json": "c3f77ae39bc883ff7673bb14bc5dffb1ad4554d008260392f1da6fa7358caff4",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv": "dec1a8849c9911322c24fee7274467c4dc1e9553bf4199dec7a3e5841d5b8d8f"
+    },
+    "outputs_sha256": {
+      "events.csv": "2ecf304f18460fd5915644316777f07e091431d191e4f762023f9a9e22e63c29",
+      "trace.csv": "138cb8ac3ae5a85b8eba3ec73a4ef5df4680251dbee6952bb4279279bdb9e7e5",
+      "summary.json": "106714842640bf44f1fd27926a9397ba43a1b8d52def5171ed978460fd47c31a",
+      "base.json": "2a9c1f8823f76150f3fdecf9e5ab9ceaad36e77ff94ea967a301b552541e23ba"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "2ecf304f18460fd5915644316777f07e091431d191e4f762023f9a9e22e63c29",
+        "previous_sha256": "2ecf304f18460fd5915644316777f07e091431d191e4f762023f9a9e22e63c29",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "138cb8ac3ae5a85b8eba3ec73a4ef5df4680251dbee6952bb4279279bdb9e7e5",
+        "previous_sha256": "138cb8ac3ae5a85b8eba3ec73a4ef5df4680251dbee6952bb4279279bdb9e7e5",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k15_seed42_fine",
+    "wall_seconds": 18.397,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_fine_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k15_seed42_fine"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_fine_base.json": "b38a78f948ba31d3d12d755ee06bba112b4005622a34228827d982f444a979fa",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv": "dec1a8849c9911322c24fee7274467c4dc1e9553bf4199dec7a3e5841d5b8d8f"
+    },
+    "outputs_sha256": {
+      "events.csv": "96f3240f15c19953c611fa6818125c88d97eead6a53c089db975ca52132d76b8",
+      "trace.csv": "a4d626e28b58ea2ab6bb87a35ecbf75bad34dcd51983c49ffd1acce8619bcb7b",
+      "summary.json": "58995306797570ed04dcce5367c5bef10ec3310e4b2a4b17d68c15e6b5728aaa",
+      "base.json": "b0bcf0d0215ebdbda4b28ef67a208e725311f9e06c6bdcd1c2c96058d9b09f7c"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "96f3240f15c19953c611fa6818125c88d97eead6a53c089db975ca52132d76b8",
+        "previous_sha256": "96f3240f15c19953c611fa6818125c88d97eead6a53c089db975ca52132d76b8",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "a4d626e28b58ea2ab6bb87a35ecbf75bad34dcd51983c49ffd1acce8619bcb7b",
+        "previous_sha256": "a4d626e28b58ea2ab6bb87a35ecbf75bad34dcd51983c49ffd1acce8619bcb7b",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k30_seed42_short",
+    "wall_seconds": 9.593,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_short_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k30_seed42_short"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_short_base.json": "bb82113fb39ac1025a122adfa17a7e2f609c0e9f8e5061d5f6d465450408e1da",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d"
+    },
+    "outputs_sha256": {
+      "events.csv": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+      "trace.csv": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+      "summary.json": "87c6f35b35595a6a33e7b2a38c780ef4e0fb437b5296b234d8155cb95486c2ef",
+      "base.json": "d04897c9309cdb68276a591d5fce6b6adf84d8d4479fdafafc8aee6baf3eab6a"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+        "previous_sha256": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+        "previous_sha256": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k30_seed42_quiet",
+    "wall_seconds": 9.322,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_quiet_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k30_seed42_quiet"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_quiet_base.json": "9906bbce5e19e34c5860eb8bbca6a20d2612ad25bde9813daadb7cfcb0f68c90",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d"
+    },
+    "outputs_sha256": {
+      "events.csv": "2ecf304f18460fd5915644316777f07e091431d191e4f762023f9a9e22e63c29",
+      "trace.csv": "138cb8ac3ae5a85b8eba3ec73a4ef5df4680251dbee6952bb4279279bdb9e7e5",
+      "summary.json": "0b9bdbd0e4a78d245808095c9f6602bc4598513b201a21ee6f36cec7a6a7528e",
+      "base.json": "8159ac5a73537e4d08ce4682f864680f5509fcf6d2e50d1d8b0998f75085b04e"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "2ecf304f18460fd5915644316777f07e091431d191e4f762023f9a9e22e63c29",
+        "previous_sha256": "2ecf304f18460fd5915644316777f07e091431d191e4f762023f9a9e22e63c29",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "138cb8ac3ae5a85b8eba3ec73a4ef5df4680251dbee6952bb4279279bdb9e7e5",
+        "previous_sha256": "138cb8ac3ae5a85b8eba3ec73a4ef5df4680251dbee6952bb4279279bdb9e7e5",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k30_seed42_fine",
+    "wall_seconds": 18.811,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_fine_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k30_seed42_fine"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_fine_base.json": "3d33ceebf69e7eaeacb573f2952fd2023e4445afe798002acbf172d5a6dee155",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d"
+    },
+    "outputs_sha256": {
+      "events.csv": "d0dc98c951a6452398c6a75cae73e4e7c5deb981354b1a432832b28bed3a0fee",
+      "trace.csv": "27ec8e285d1f99fb8eb3c9924da271cf51d6226936f69591380106014591fe18",
+      "summary.json": "28edead32b51af56f7dfb65634af5330703cb1efa91a684dd0c83e6cf24e880c",
+      "base.json": "596cac4a36d3252bcb1d8d67ed29eb7ee27d11c33e2842700b6aec3ece0c934c"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "d0dc98c951a6452398c6a75cae73e4e7c5deb981354b1a432832b28bed3a0fee",
+        "previous_sha256": "d0dc98c951a6452398c6a75cae73e4e7c5deb981354b1a432832b28bed3a0fee",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "27ec8e285d1f99fb8eb3c9924da271cf51d6226936f69591380106014591fe18",
+        "previous_sha256": "27ec8e285d1f99fb8eb3c9924da271cf51d6226936f69591380106014591fe18",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n03_w1",
+    "wall_seconds": 0.238,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n03_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n03_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n03_w1.json": "a8e80ac77d1e5f9b9b0ec33ea86de7034c2047c3adeb1293089ab7ce63203419"
+    },
+    "outputs_sha256": {
+      "events.csv": "aad5e24df015586a3dfb5e822d3117d1f8a4cada69b499b20ad21f10d40ae2bf",
+      "trace.csv": "88c1e85a571fcf34d81405eb8de7656f9219de2ec7a11fb1533b5816280838be",
+      "weights.csv": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+      "summary.json": "92a6f9b1292d2a3fdcbbf35353cc977a7d01f8e4cf45279903b1faaba0afdc37",
+      "experiment.json": "04da2e34d19dd5e6b69a22caec0a581d7d4922af59def7edbf6516adf53a8048"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "aad5e24df015586a3dfb5e822d3117d1f8a4cada69b499b20ad21f10d40ae2bf",
+        "previous_sha256": "aad5e24df015586a3dfb5e822d3117d1f8a4cada69b499b20ad21f10d40ae2bf",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "88c1e85a571fcf34d81405eb8de7656f9219de2ec7a11fb1533b5816280838be",
+        "previous_sha256": "88c1e85a571fcf34d81405eb8de7656f9219de2ec7a11fb1533b5816280838be",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "previous_sha256": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n04_w1",
+    "wall_seconds": 0.271,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n04_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n04_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n04_w1.json": "701797ad45ee6f4025098578b460e2b32ca94c120210b9ba939e10b6234f5a99"
+    },
+    "outputs_sha256": {
+      "events.csv": "59c7ab5bc0e9916241406ee98e1ffb3ae7eae543cbdc344241422e1a4793ecef",
+      "trace.csv": "0d74ff8f481d6d8c6b4b8441ba4815697a950375c9060fdf3d0cca56a79b1b01",
+      "weights.csv": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+      "summary.json": "577b9ba9edb6b85c98dab90c3d5098c6ff3a3f12cd547a9e9d9047711660fc53",
+      "experiment.json": "2ae9398ce619072e7cbedffdfb2809094b937d1df75389f491da79e1d8632c89"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "59c7ab5bc0e9916241406ee98e1ffb3ae7eae543cbdc344241422e1a4793ecef",
+        "previous_sha256": "59c7ab5bc0e9916241406ee98e1ffb3ae7eae543cbdc344241422e1a4793ecef",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "0d74ff8f481d6d8c6b4b8441ba4815697a950375c9060fdf3d0cca56a79b1b01",
+        "previous_sha256": "0d74ff8f481d6d8c6b4b8441ba4815697a950375c9060fdf3d0cca56a79b1b01",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "previous_sha256": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n05_w1",
+    "wall_seconds": 0.313,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n05_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n05_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n05_w1.json": "ce96695aef01b30be64925a8ecf68e416b662816d7ed12def86bf4a99dd7b9a4"
+    },
+    "outputs_sha256": {
+      "events.csv": "a67429d469eebd85539b4f38897c3e06696f702b867b5216a4b7e0aaeefb4a7a",
+      "trace.csv": "dcf1291adc78a1f112d8fc83409c82f038f8cf973390b4f17a3125f634180909",
+      "weights.csv": "c64c52ae433c46f263f77ae5edd15591de901a279cf6169c97e96d435a6bd2e2",
+      "summary.json": "45411b603d04519dccb44355e9d666c135bcfd4d5eef540eb874e65aa851b2ae",
+      "experiment.json": "a412b5a3bf9e7f3df430b4e2e8520f507d1c16ab7f7703f6193ce47931b7926e"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "a67429d469eebd85539b4f38897c3e06696f702b867b5216a4b7e0aaeefb4a7a",
+        "previous_sha256": "a67429d469eebd85539b4f38897c3e06696f702b867b5216a4b7e0aaeefb4a7a",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "dcf1291adc78a1f112d8fc83409c82f038f8cf973390b4f17a3125f634180909",
+        "previous_sha256": "dcf1291adc78a1f112d8fc83409c82f038f8cf973390b4f17a3125f634180909",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "c64c52ae433c46f263f77ae5edd15591de901a279cf6169c97e96d435a6bd2e2",
+        "previous_sha256": "c64c52ae433c46f263f77ae5edd15591de901a279cf6169c97e96d435a6bd2e2",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n06_w1",
+    "wall_seconds": 0.332,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n06_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n06_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n06_w1.json": "e0acf4da10d9c5173d8961fd72ba3ff27f2750ca45c02a75fc04824695d62c7e"
+    },
+    "outputs_sha256": {
+      "events.csv": "32f4ea37359a7c904aa13b75ce2e528a228c484082b0aabee2f67d1cb5ba379d",
+      "trace.csv": "5abf770566b2e725647c140e5911e5786ecca3ef7ebf8e4142b25c5aeddce453",
+      "weights.csv": "ffbe6008539991cdf239aae443dbae1165a4fa0610d83ab5d3a234da12d8b1f7",
+      "summary.json": "215b6be46c79eddd672cc2f4fca08b6f06c1f3fc1b5f22f66721f2e115c1bdcb",
+      "experiment.json": "f7ee295fe3b7f21a769a7905c5df548c8f5ae144193ceb032669565407b07d81"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "32f4ea37359a7c904aa13b75ce2e528a228c484082b0aabee2f67d1cb5ba379d",
+        "previous_sha256": "32f4ea37359a7c904aa13b75ce2e528a228c484082b0aabee2f67d1cb5ba379d",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "5abf770566b2e725647c140e5911e5786ecca3ef7ebf8e4142b25c5aeddce453",
+        "previous_sha256": "5abf770566b2e725647c140e5911e5786ecca3ef7ebf8e4142b25c5aeddce453",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "ffbe6008539991cdf239aae443dbae1165a4fa0610d83ab5d3a234da12d8b1f7",
+        "previous_sha256": "ffbe6008539991cdf239aae443dbae1165a4fa0610d83ab5d3a234da12d8b1f7",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n07_w1",
+    "wall_seconds": 0.4,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n07_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n07_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n07_w1.json": "1a19b9e42bb2f60b624d16844d45f29f351e9cd8b290d61a9e50da053ccbd913"
+    },
+    "outputs_sha256": {
+      "events.csv": "769a2a10fc1536a9de5b20346ee0cf2cb15f02789d9a1e4461c7ecc615ad76ab",
+      "trace.csv": "3d7b9e5bbec2e76648c1085053e98b34606596531548eb4bd09705dec6f14e5d",
+      "weights.csv": "5a5954c290fba057f1fa8e91b438c9392fac6fd8258a3034280225b9eaa5f8d5",
+      "summary.json": "a19bbe162e8fb34d546c89dec143404cef32eefc185d4f3fbc8a7643bc4fa188",
+      "experiment.json": "5c15bdea8ab4cd98f459a1ee1a435b21dc3cfce89e22c17ba1e1679603baaf78"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "769a2a10fc1536a9de5b20346ee0cf2cb15f02789d9a1e4461c7ecc615ad76ab",
+        "previous_sha256": "769a2a10fc1536a9de5b20346ee0cf2cb15f02789d9a1e4461c7ecc615ad76ab",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "3d7b9e5bbec2e76648c1085053e98b34606596531548eb4bd09705dec6f14e5d",
+        "previous_sha256": "3d7b9e5bbec2e76648c1085053e98b34606596531548eb4bd09705dec6f14e5d",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "5a5954c290fba057f1fa8e91b438c9392fac6fd8258a3034280225b9eaa5f8d5",
+        "previous_sha256": "5a5954c290fba057f1fa8e91b438c9392fac6fd8258a3034280225b9eaa5f8d5",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n08_w1",
+    "wall_seconds": 0.452,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n08_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n08_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n08_w1.json": "df828167f8284ba4459f41122e684b03c88204b6e3e7f5e0b130c8a4b2e08029"
+    },
+    "outputs_sha256": {
+      "events.csv": "382b0ab8c0b09c13f16dbc8e104290b9f0672a84406a133b8a4642ebc83efbf6",
+      "trace.csv": "77e7106fd1f3a5ef5dca2bb2306748732bd05fdc4c48b0d0fa2adfc4f2ca5a35",
+      "weights.csv": "b123f9b7f0cbf3d9152a7dc6e224dd27334f74b8ed5bd7df444e5255b0af19e5",
+      "summary.json": "a2f194793bf75fd836da9528991d4ec6bca28d1d5d77bf195b09a7c3b301a231",
+      "experiment.json": "73bfe7c14067b5393070e12034e6bc4a71bca02e139aa91ad5708f1860a84ebe"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "382b0ab8c0b09c13f16dbc8e104290b9f0672a84406a133b8a4642ebc83efbf6",
+        "previous_sha256": "382b0ab8c0b09c13f16dbc8e104290b9f0672a84406a133b8a4642ebc83efbf6",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "77e7106fd1f3a5ef5dca2bb2306748732bd05fdc4c48b0d0fa2adfc4f2ca5a35",
+        "previous_sha256": "77e7106fd1f3a5ef5dca2bb2306748732bd05fdc4c48b0d0fa2adfc4f2ca5a35",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "b123f9b7f0cbf3d9152a7dc6e224dd27334f74b8ed5bd7df444e5255b0af19e5",
+        "previous_sha256": "b123f9b7f0cbf3d9152a7dc6e224dd27334f74b8ed5bd7df444e5255b0af19e5",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n09_w1",
+    "wall_seconds": 0.475,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n09_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n09_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n09_w1.json": "255b768bc8d401974d928f543a3f0f53e3cfdeb8621b510838653618244b3488"
+    },
+    "outputs_sha256": {
+      "events.csv": "4f6baf8d683c6783d77fe33711a4dd6c1914b587f6dc4b68af25fa5f62124932",
+      "trace.csv": "3ad58baee55cab58ebe476fd481bc4bc4a54b1c18197172b07d174d89eef3801",
+      "weights.csv": "eb6a2ce00ced901e71828a5831baf9ae876568620f8d736b92fe26838243994d",
+      "summary.json": "c0fb744467c3f3bda4256d103dc14a2498259a980a90826aa03287c44999a847",
+      "experiment.json": "6a0a12934e05ad82b69afb372594b27d064588fcc813005e7e0578143dcb1f9e"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4f6baf8d683c6783d77fe33711a4dd6c1914b587f6dc4b68af25fa5f62124932",
+        "previous_sha256": "4f6baf8d683c6783d77fe33711a4dd6c1914b587f6dc4b68af25fa5f62124932",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "3ad58baee55cab58ebe476fd481bc4bc4a54b1c18197172b07d174d89eef3801",
+        "previous_sha256": "3ad58baee55cab58ebe476fd481bc4bc4a54b1c18197172b07d174d89eef3801",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "eb6a2ce00ced901e71828a5831baf9ae876568620f8d736b92fe26838243994d",
+        "previous_sha256": "eb6a2ce00ced901e71828a5831baf9ae876568620f8d736b92fe26838243994d",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w1",
+    "wall_seconds": 0.486,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w1.json": "362710251807afc2e59c65f88c5aceb2ea6b43c6b88207e584d3bbd4419c4310"
+    },
+    "outputs_sha256": {
+      "events.csv": "3876971377979526f9235331bfea4a7bab153ccbced41a181b5c479700060909",
+      "trace.csv": "589d4caa857bd0c869dd2f70f753aad5da4b08a1007ff3a39002de1e2d991070",
+      "weights.csv": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+      "summary.json": "274582f63123d28a048242daaaeeac02fbaf766fdd7d33f119f6caa7e5165cb0",
+      "experiment.json": "5b88ed13ffc90be4182515610d66a6776db7ef5ef292d8ac6ffc76131a30868e"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "3876971377979526f9235331bfea4a7bab153ccbced41a181b5c479700060909",
+        "previous_sha256": "3876971377979526f9235331bfea4a7bab153ccbced41a181b5c479700060909",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "589d4caa857bd0c869dd2f70f753aad5da4b08a1007ff3a39002de1e2d991070",
+        "previous_sha256": "589d4caa857bd0c869dd2f70f753aad5da4b08a1007ff3a39002de1e2d991070",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "previous_sha256": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w0p7",
+    "wall_seconds": 0.507,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p7.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w0p7"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p7.json": "b0611b0c99751595477511104efe41ba54653ff46ba31cd5db31262ead464ae9"
+    },
+    "outputs_sha256": {
+      "events.csv": "40be07291e88e6a0fd3908eba0ca6ed068235ad1f16f4e61f30670dae8fdf240",
+      "trace.csv": "6609165a03768301403235476bad9ebd368923f7ccba88721fa1006f7773fab3",
+      "weights.csv": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+      "summary.json": "f50b1e8c13efd2025e1d8a709bb69d642a430d4a9ff385a933032ab8ef181769",
+      "experiment.json": "2c52ccf50f6bfb8437177ac37bcd99c1a450f4e66465030cb2a77c379bc37f34"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "40be07291e88e6a0fd3908eba0ca6ed068235ad1f16f4e61f30670dae8fdf240",
+        "previous_sha256": "40be07291e88e6a0fd3908eba0ca6ed068235ad1f16f4e61f30670dae8fdf240",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "6609165a03768301403235476bad9ebd368923f7ccba88721fa1006f7773fab3",
+        "previous_sha256": "6609165a03768301403235476bad9ebd368923f7ccba88721fa1006f7773fab3",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "previous_sha256": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w0p5",
+    "wall_seconds": 0.444,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p5.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w0p5"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p5.json": "afc2f99ffb4d1c074034f317d021a15c30e7a3cd65005ce7de0133c95ad4c7f2"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "0363954f6f0614c9baa0302ac1144c27507b2b2f2b388c7c1f015414549f83a9",
+      "weights.csv": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+      "summary.json": "ce0d32fc154b8bdd2a8fca91afd62d3548529fe60dcb89e3bf8b0666ca90e128",
+      "experiment.json": "dae716c04ffb243556b70634a44c9c6c6028bec314c70b0d58c4b05ed68f9a8e"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "0363954f6f0614c9baa0302ac1144c27507b2b2f2b388c7c1f015414549f83a9",
+        "previous_sha256": "0363954f6f0614c9baa0302ac1144c27507b2b2f2b388c7c1f015414549f83a9",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+        "previous_sha256": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w0p2",
+    "wall_seconds": 0.446,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p2.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w0p2"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p2.json": "9f45c8e8faf380137855b14c8d4f2260c792c4a4c2959aee80f65b64d97d44af"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "73aa0cfce4d7b72bb2367b5a326aeb85780668cc02868f218f026f9add46dec4",
+      "weights.csv": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+      "summary.json": "b99dd8171bcc6b8692ad52f27f1d9532be2b6d33914cf9aafde2a85bde08e96f",
+      "experiment.json": "fbb0d0e5a34e9324ce9b9f4cc4d6c135c6e16121dde5b47dfd153653114aa007"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "73aa0cfce4d7b72bb2367b5a326aeb85780668cc02868f218f026f9add46dec4",
+        "previous_sha256": "73aa0cfce4d7b72bb2367b5a326aeb85780668cc02868f218f026f9add46dec4",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+        "previous_sha256": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w0",
+    "wall_seconds": 0.458,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w0"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0.json": "bba8914ef8afbf73d412c31e2ddd8e1ab4b5f5e230bfab33ae3dea38f96e99bb"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "863efde72be03d4ec4ca444362f9b71c9376b55f1cbcfb69898547b9dbc80778",
+      "weights.csv": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+      "summary.json": "59313084b99d2796ddef502590279b456a83af4541a44304acb6cc0283c3cf89",
+      "experiment.json": "a07e5b865d9ea059b388b6dbe8a722d53eae4d967db35d50de789d4ff611a5c7"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "863efde72be03d4ec4ca444362f9b71c9376b55f1cbcfb69898547b9dbc80778",
+        "previous_sha256": "863efde72be03d4ec4ca444362f9b71c9376b55f1cbcfb69898547b9dbc80778",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+        "previous_sha256": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n03_w1_dt12p5us",
+    "wall_seconds": 0.315,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n03_w1_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n03_w1_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n03_w1_dt12p5us.json": "2f6fda5791eadf3623638050edc1dfd9b55ac50c69126ccd73fe4f731fc47321"
+    },
+    "outputs_sha256": {
+      "events.csv": "71eb05af3ba887dea5dcef0639a5ce5273514922fa7bb6a5ff3b378129446141",
+      "trace.csv": "912d7549cb72af9850426c54c00b7c5a15eecc5a4cd2d391dfac35c855a6ee1f",
+      "weights.csv": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+      "summary.json": "c9985a6bd287cbba9ca667abf4bc5149bc73c9ebb7493cd3b996c63a4d9fbd99",
+      "experiment.json": "90c240174dda7c977ada6e76417b8802b254e5dfd4f84d8471c536a70e771798"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "71eb05af3ba887dea5dcef0639a5ce5273514922fa7bb6a5ff3b378129446141",
+        "previous_sha256": "71eb05af3ba887dea5dcef0639a5ce5273514922fa7bb6a5ff3b378129446141",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "912d7549cb72af9850426c54c00b7c5a15eecc5a4cd2d391dfac35c855a6ee1f",
+        "previous_sha256": "912d7549cb72af9850426c54c00b7c5a15eecc5a4cd2d391dfac35c855a6ee1f",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "previous_sha256": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n04_w1_dt12p5us",
+    "wall_seconds": 0.374,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n04_w1_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n04_w1_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n04_w1_dt12p5us.json": "e0884d67638c19190ceec169e9cb3bb7bd39b6716cba4557ab6ca02fbc169d3a"
+    },
+    "outputs_sha256": {
+      "events.csv": "1e639954e7afcf43c3de0af189a557b868c1a396b688ba59e1e09016c68fc1db",
+      "trace.csv": "5f407f9962508c11677da24a98dcf4834e867d67b7b176ff3f1b50cf6816018f",
+      "weights.csv": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+      "summary.json": "a723f05983599f473d108af9b915ae87535ea7a56fcecf775268e6d867f682d9",
+      "experiment.json": "da2f6a74999a014bb28360dfd1d4ec97855b1063d89de84ff5a38ba137a2844c"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "1e639954e7afcf43c3de0af189a557b868c1a396b688ba59e1e09016c68fc1db",
+        "previous_sha256": "1e639954e7afcf43c3de0af189a557b868c1a396b688ba59e1e09016c68fc1db",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "5f407f9962508c11677da24a98dcf4834e867d67b7b176ff3f1b50cf6816018f",
+        "previous_sha256": "5f407f9962508c11677da24a98dcf4834e867d67b7b176ff3f1b50cf6816018f",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "previous_sha256": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n05_w1_dt12p5us",
+    "wall_seconds": 0.416,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n05_w1_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n05_w1_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n05_w1_dt12p5us.json": "f4276f92e04364d34812734e0d53566efe600eb8c4f87d25e8b47998cc31c387"
+    },
+    "outputs_sha256": {
+      "events.csv": "9f89f153fe567cbf7601d738787d029b0a7012cbc77db91da229947d1d52e96c",
+      "trace.csv": "fa54ed2aaf6896780e36f6f8c13071d90def9a501e28274cba70cc1b9c614e77",
+      "weights.csv": "c64c52ae433c46f263f77ae5edd15591de901a279cf6169c97e96d435a6bd2e2",
+      "summary.json": "f1688087db8212b51b7e4d3f5152e832eaf61673fc0c84f135c0b240685cab7e",
+      "experiment.json": "fd8ad7fcce36f93d3d19a487acecbcd068a2a6376779f069362c5d76daf31d65"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "9f89f153fe567cbf7601d738787d029b0a7012cbc77db91da229947d1d52e96c",
+        "previous_sha256": "9f89f153fe567cbf7601d738787d029b0a7012cbc77db91da229947d1d52e96c",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "fa54ed2aaf6896780e36f6f8c13071d90def9a501e28274cba70cc1b9c614e77",
+        "previous_sha256": "fa54ed2aaf6896780e36f6f8c13071d90def9a501e28274cba70cc1b9c614e77",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "c64c52ae433c46f263f77ae5edd15591de901a279cf6169c97e96d435a6bd2e2",
+        "previous_sha256": "c64c52ae433c46f263f77ae5edd15591de901a279cf6169c97e96d435a6bd2e2",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n06_w1_dt12p5us",
+    "wall_seconds": 0.478,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n06_w1_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n06_w1_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n06_w1_dt12p5us.json": "b52599e807411c0119e5eacc47d8a76b238b8fdbeacaeefa4db1789c7abd27b3"
+    },
+    "outputs_sha256": {
+      "events.csv": "ae3aa83c5bf8716ee47d3289a11500a054cc116e1bd26097309db853996addab",
+      "trace.csv": "858d472611af9e7a0e5fc9da327eb39fe33819dfd15afbf97b3af81a1b3c8371",
+      "weights.csv": "ffbe6008539991cdf239aae443dbae1165a4fa0610d83ab5d3a234da12d8b1f7",
+      "summary.json": "e54a030e72f7bc8ba9311433414f44571180207145277977f13cee40dfc86d09",
+      "experiment.json": "458d37c6a69bc23062e1fc60627e672ad24788a8fac13f4933bfd60d55795263"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "ae3aa83c5bf8716ee47d3289a11500a054cc116e1bd26097309db853996addab",
+        "previous_sha256": "ae3aa83c5bf8716ee47d3289a11500a054cc116e1bd26097309db853996addab",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "858d472611af9e7a0e5fc9da327eb39fe33819dfd15afbf97b3af81a1b3c8371",
+        "previous_sha256": "858d472611af9e7a0e5fc9da327eb39fe33819dfd15afbf97b3af81a1b3c8371",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "ffbe6008539991cdf239aae443dbae1165a4fa0610d83ab5d3a234da12d8b1f7",
+        "previous_sha256": "ffbe6008539991cdf239aae443dbae1165a4fa0610d83ab5d3a234da12d8b1f7",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n07_w1_dt12p5us",
+    "wall_seconds": 0.526,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n07_w1_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n07_w1_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n07_w1_dt12p5us.json": "e5db7cbaa926726697b43e69efd2226d064ab4129c0fbb3973b11b409bfec4c3"
+    },
+    "outputs_sha256": {
+      "events.csv": "53e8e24c875c6212cbbf71408d3b2ca0b0244abe706115a8574810e20be437c7",
+      "trace.csv": "eca38eef722c0e780780d9c642cd4a886fa9de67050be5e54a59f37274581a6a",
+      "weights.csv": "5a5954c290fba057f1fa8e91b438c9392fac6fd8258a3034280225b9eaa5f8d5",
+      "summary.json": "875bedf65a16fe0f99096fdd7c151d597805c5b5044279fc1deae4f6fac3b600",
+      "experiment.json": "2e484a0932af7c9d648a1eed88b5edcadf1c21bd288f01fbd56c8a54beceb876"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "53e8e24c875c6212cbbf71408d3b2ca0b0244abe706115a8574810e20be437c7",
+        "previous_sha256": "53e8e24c875c6212cbbf71408d3b2ca0b0244abe706115a8574810e20be437c7",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "eca38eef722c0e780780d9c642cd4a886fa9de67050be5e54a59f37274581a6a",
+        "previous_sha256": "eca38eef722c0e780780d9c642cd4a886fa9de67050be5e54a59f37274581a6a",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "5a5954c290fba057f1fa8e91b438c9392fac6fd8258a3034280225b9eaa5f8d5",
+        "previous_sha256": "5a5954c290fba057f1fa8e91b438c9392fac6fd8258a3034280225b9eaa5f8d5",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n08_w1_dt12p5us",
+    "wall_seconds": 0.569,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n08_w1_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n08_w1_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n08_w1_dt12p5us.json": "92fd09a25f7eb8e516c00048b028f7c515d31d87ddf38a7457578a49d5929275"
+    },
+    "outputs_sha256": {
+      "events.csv": "f8e85ce71ba7d98719ab9c3f86f8dbbf28761fa8c89b20df1c09b8ced436ef0a",
+      "trace.csv": "f204e3c70bcb0ca0a2f6548da436974d180a580c238ac854f173624fba52ccd0",
+      "weights.csv": "b123f9b7f0cbf3d9152a7dc6e224dd27334f74b8ed5bd7df444e5255b0af19e5",
+      "summary.json": "99974d258d55766580083b8ab3cced5a35a5f0b9f8d3cee0eda0d0e3e3c79c73",
+      "experiment.json": "72da1cae67626e812300e3a8e4e32033cfa9dc4003ac68a6209083aac5702766"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "f8e85ce71ba7d98719ab9c3f86f8dbbf28761fa8c89b20df1c09b8ced436ef0a",
+        "previous_sha256": "f8e85ce71ba7d98719ab9c3f86f8dbbf28761fa8c89b20df1c09b8ced436ef0a",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "f204e3c70bcb0ca0a2f6548da436974d180a580c238ac854f173624fba52ccd0",
+        "previous_sha256": "f204e3c70bcb0ca0a2f6548da436974d180a580c238ac854f173624fba52ccd0",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "b123f9b7f0cbf3d9152a7dc6e224dd27334f74b8ed5bd7df444e5255b0af19e5",
+        "previous_sha256": "b123f9b7f0cbf3d9152a7dc6e224dd27334f74b8ed5bd7df444e5255b0af19e5",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "populations",
+    "name": "k30_seed42_repeat",
+    "wall_seconds": 9.683,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_repeat_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\populations\\raw\\k30_seed42_repeat"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_repeat_base.json": "bb82113fb39ac1025a122adfa17a7e2f609c0e9f8e5061d5f6d465450408e1da",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d"
+    },
+    "outputs_sha256": {
+      "events.csv": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+      "trace.csv": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+      "summary.json": "f800b9375237341532619885cbaf708cb34e2ee93d71febc1d5b8fe0b074f57a",
+      "base.json": "d04897c9309cdb68276a591d5fce6b6adf84d8d4479fdafafc8aee6baf3eab6a"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+        "previous_sha256": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+        "previous_sha256": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n09_w1_dt12p5us",
+    "wall_seconds": 0.669,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n09_w1_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n09_w1_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n09_w1_dt12p5us.json": "d7c50096927b7fcba595a77d3d737a2f830c833c719d94fc0a66491c0f23432e"
+    },
+    "outputs_sha256": {
+      "events.csv": "2be36675fffaa55a304f69dfd5325d01c4bd813a1f664f9289afb89f579252d8",
+      "trace.csv": "5d2ce7789734c1014ce002a8bdc2bdb9abd5ed8958c230166e7443179d169ab1",
+      "weights.csv": "eb6a2ce00ced901e71828a5831baf9ae876568620f8d736b92fe26838243994d",
+      "summary.json": "e93f00f4a507bec54223e8024f36330bc8ad1c7de5c8d9344270eeb31ad345a7",
+      "experiment.json": "c639e7722a184ad6f37c82e1f1be69644a845604dc30a1eaf9d94443b9af76bf"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "2be36675fffaa55a304f69dfd5325d01c4bd813a1f664f9289afb89f579252d8",
+        "previous_sha256": "2be36675fffaa55a304f69dfd5325d01c4bd813a1f664f9289afb89f579252d8",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "5d2ce7789734c1014ce002a8bdc2bdb9abd5ed8958c230166e7443179d169ab1",
+        "previous_sha256": "5d2ce7789734c1014ce002a8bdc2bdb9abd5ed8958c230166e7443179d169ab1",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "eb6a2ce00ced901e71828a5831baf9ae876568620f8d736b92fe26838243994d",
+        "previous_sha256": "eb6a2ce00ced901e71828a5831baf9ae876568620f8d736b92fe26838243994d",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w1_dt12p5us",
+    "wall_seconds": 0.715,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w1_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w1_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w1_dt12p5us.json": "d675562d5d96676a123719fd987275d51b14e2aad97c98dc07c7fa3e767a9b3f"
+    },
+    "outputs_sha256": {
+      "events.csv": "28945e27cf03a22a8f87757b09637f9b333ab400cb0eb49a0d4ee61b0a0c702c",
+      "trace.csv": "3f2a2bcdc0a168da182c0c44d3bf16a339c77bdf429329e056dd45030885a09a",
+      "weights.csv": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+      "summary.json": "c9a943213d28ace51b4980a4bdbb61045ad9e8fe9d64d6b116a1841d583b87f8",
+      "experiment.json": "9f81abc6665a438215480d26a8efe1eaeaf4ee96a9b698b86b11169a32229895"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "28945e27cf03a22a8f87757b09637f9b333ab400cb0eb49a0d4ee61b0a0c702c",
+        "previous_sha256": "28945e27cf03a22a8f87757b09637f9b333ab400cb0eb49a0d4ee61b0a0c702c",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "3f2a2bcdc0a168da182c0c44d3bf16a339c77bdf429329e056dd45030885a09a",
+        "previous_sha256": "3f2a2bcdc0a168da182c0c44d3bf16a339c77bdf429329e056dd45030885a09a",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "previous_sha256": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w0p7_dt12p5us",
+    "wall_seconds": 0.72,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p7_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w0p7_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p7_dt12p5us.json": "45cbf37ac5c9be9726cf99720985b57772f78bc96a74c5b45f5d421a0542af51"
+    },
+    "outputs_sha256": {
+      "events.csv": "d93584bfa793e69105aa00713920d9d8ae709aff3c5c21f35d8f881386240548",
+      "trace.csv": "2643301a16852a152f00149e4eec2213b7dbe7288e2106e5c0d9938e4441d46b",
+      "weights.csv": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+      "summary.json": "fad8c5ab23d116a1299729e17dacfc8ce1124472be3a52bd483578a14be07fcb",
+      "experiment.json": "7296d12848b69012f0727153d1f74664a14ce0d62f1669a78081f313cdf61b8d"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "d93584bfa793e69105aa00713920d9d8ae709aff3c5c21f35d8f881386240548",
+        "previous_sha256": "d93584bfa793e69105aa00713920d9d8ae709aff3c5c21f35d8f881386240548",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "2643301a16852a152f00149e4eec2213b7dbe7288e2106e5c0d9938e4441d46b",
+        "previous_sha256": "2643301a16852a152f00149e4eec2213b7dbe7288e2106e5c0d9938e4441d46b",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "previous_sha256": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w0p5_dt12p5us",
+    "wall_seconds": 0.652,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p5_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w0p5_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p5_dt12p5us.json": "8c4d42ead9613d3c09cddfbe719b285dde00cdcfd15625834e405a394d5d57b2"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "e448b1eb44a1581689ea97d1e7c3de7a9644557d5ef0c9dc3a5c31c4cc5a641f",
+      "weights.csv": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+      "summary.json": "a2847026cc5403a691145d42eb31d4a5254f9f436e320668dc963b811d538887",
+      "experiment.json": "006975a013b15165afecc54d18ffcd71f25df700af0773dfcf88eb14ea04e9fc"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "e448b1eb44a1581689ea97d1e7c3de7a9644557d5ef0c9dc3a5c31c4cc5a641f",
+        "previous_sha256": "e448b1eb44a1581689ea97d1e7c3de7a9644557d5ef0c9dc3a5c31c4cc5a641f",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+        "previous_sha256": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w0p2_dt12p5us",
+    "wall_seconds": 0.64,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p2_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w0p2_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0p2_dt12p5us.json": "0183780bb817e9b77f9d6de4ed86d49815164f2aa6c99134ca60c4699cf5d766"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "b64c0d400505874a64009e8de8b376dad4d68ad07b8c49a8c0444e6c47553c77",
+      "weights.csv": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+      "summary.json": "856de33115fb249597181b1bedb3b72e4c6381593c144bfb9d90c6d74e0e5f74",
+      "experiment.json": "aa54b7ac46ba5bc1a887cde6cc8cb4ef8513afc45e2ade9738a5d3ae5a9c1dc3"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "b64c0d400505874a64009e8de8b376dad4d68ad07b8c49a8c0444e6c47553c77",
+        "previous_sha256": "b64c0d400505874a64009e8de8b376dad4d68ad07b8c49a8c0444e6c47553c77",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+        "previous_sha256": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w0_dt12p5us",
+    "wall_seconds": 0.625,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w0_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w0_dt12p5us.json": "c7dc726d91567780c605f6eb63a146d7b042713226e7d297cfa407e0f4afba6e"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "9fd8cc36aad248caa669f41b35ecb506b3924b1a39425e81a38ff4e84a2bd7ab",
+      "weights.csv": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+      "summary.json": "2d41d945db54ebafdf1af1de13a81ed0e2023ccdc10fdc815f3a69f412150d23",
+      "experiment.json": "a865fedd62e814c3d60fc97a3717cfd00ce06ed03ec24c1a19e91dfb33487fcd"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "9fd8cc36aad248caa669f41b35ecb506b3924b1a39425e81a38ff4e84a2bd7ab",
+        "previous_sha256": "9fd8cc36aad248caa669f41b35ecb506b3924b1a39425e81a38ff4e84a2bd7ab",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+        "previous_sha256": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n03_w1",
+    "wall_seconds": 0.21,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n03_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w1.json": "3560d5ec640b57e521b188d238ba75233b757ce29178415dcfd19d53dd072d0d"
+    },
+    "outputs_sha256": {
+      "events.csv": "a919c8dc548e7e7b24467456125417f9f5886cfd53e285fdf181901f05e34edf",
+      "trace.csv": "3d497bcb554fb903070f57e89e8bef93ce7b61b879a4e83a36fdbc06ba6943b1",
+      "weights.csv": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+      "summary.json": "85908929fc6904deaafb8cffcb6964e807fe4666f1f7a761b92ead7f5f4ce80e",
+      "experiment.json": "bc884b7595fbce68239bd595e6452302d6e1bc175a822555893476fef429e33e"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "a919c8dc548e7e7b24467456125417f9f5886cfd53e285fdf181901f05e34edf",
+        "previous_sha256": "a919c8dc548e7e7b24467456125417f9f5886cfd53e285fdf181901f05e34edf",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "3d497bcb554fb903070f57e89e8bef93ce7b61b879a4e83a36fdbc06ba6943b1",
+        "previous_sha256": "3d497bcb554fb903070f57e89e8bef93ce7b61b879a4e83a36fdbc06ba6943b1",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "previous_sha256": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n03_w0p7",
+    "wall_seconds": 0.214,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w0p7.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n03_w0p7"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w0p7.json": "8ca132d1a24bbd0b789a80aaedcff2b023c352beef41764f95b786bd69e24d75"
+    },
+    "outputs_sha256": {
+      "events.csv": "c01145f6f04711942f3659edbd22224b6ddf0ce1539cc35479848ea357a94a2c",
+      "trace.csv": "9725b1654294cb599291c225ecf28810b27862b492f62b16267009367d8f08d0",
+      "weights.csv": "a718178a707bc1296b5eebd3ec65be6c4b47afb00df87a0e118a09542e855df5",
+      "summary.json": "79307141398e52b268560c85b4c797672ecde6f9bec9fe6def59e07842451ac3",
+      "experiment.json": "111f08d18ff79bda787e387cd15bd9c44e8f45f643e3fd9a990457a5ae61190e"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "c01145f6f04711942f3659edbd22224b6ddf0ce1539cc35479848ea357a94a2c",
+        "previous_sha256": "c01145f6f04711942f3659edbd22224b6ddf0ce1539cc35479848ea357a94a2c",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "9725b1654294cb599291c225ecf28810b27862b492f62b16267009367d8f08d0",
+        "previous_sha256": "9725b1654294cb599291c225ecf28810b27862b492f62b16267009367d8f08d0",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "a718178a707bc1296b5eebd3ec65be6c4b47afb00df87a0e118a09542e855df5",
+        "previous_sha256": "a718178a707bc1296b5eebd3ec65be6c4b47afb00df87a0e118a09542e855df5",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n03_w0p5",
+    "wall_seconds": 0.219,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w0p5.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n03_w0p5"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w0p5.json": "7085e49f3cfa531383c8f3fca23ea557a5d7a3ae79cab6da733259d1e9c02d03"
+    },
+    "outputs_sha256": {
+      "events.csv": "aad5e24df015586a3dfb5e822d3117d1f8a4cada69b499b20ad21f10d40ae2bf",
+      "trace.csv": "66b504cac6c5f6123c88180ed0251c07e5d335689f46be48f6ace230df0d9838",
+      "weights.csv": "f3223c22fcb750d21fe7989fb13b41fa283cf7289eb906e7a5c622f34a2388e3",
+      "summary.json": "3bf7c68cf693d24aca1c8ed1239af62100c2aa10d7c7e95f4bf4116a34e2e4b1",
+      "experiment.json": "9ef14d1ad6df7fccbf63ac2bec441275303b36c1e92c4fd198646337666acd90"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "aad5e24df015586a3dfb5e822d3117d1f8a4cada69b499b20ad21f10d40ae2bf",
+        "previous_sha256": "aad5e24df015586a3dfb5e822d3117d1f8a4cada69b499b20ad21f10d40ae2bf",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "66b504cac6c5f6123c88180ed0251c07e5d335689f46be48f6ace230df0d9838",
+        "previous_sha256": "66b504cac6c5f6123c88180ed0251c07e5d335689f46be48f6ace230df0d9838",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "f3223c22fcb750d21fe7989fb13b41fa283cf7289eb906e7a5c622f34a2388e3",
+        "previous_sha256": "f3223c22fcb750d21fe7989fb13b41fa283cf7289eb906e7a5c622f34a2388e3",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n03_w0p2",
+    "wall_seconds": 0.202,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w0p2.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n03_w0p2"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w0p2.json": "12da20224cb6247b0bb9c5699f35c6e5b091ff06b9548e32ca5035e31469959b"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "4cb75d76ff6f61d463fd3f6b2ab59bcd1ecc649b1d877b674a6ca78c002ee9b7",
+      "weights.csv": "f4a4fc1066267a295ced03f08533d678d2254dfb7deada52951d51811df2e342",
+      "summary.json": "eeadd86568af0c7b7006eccd051762c50a89105e8f4d77db1b222e64f8b28d0e",
+      "experiment.json": "0a7f52a87baadec2d10322456a9173eafd30e5e5dd6205f743d5b15409b69c2a"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "4cb75d76ff6f61d463fd3f6b2ab59bcd1ecc649b1d877b674a6ca78c002ee9b7",
+        "previous_sha256": "4cb75d76ff6f61d463fd3f6b2ab59bcd1ecc649b1d877b674a6ca78c002ee9b7",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "f4a4fc1066267a295ced03f08533d678d2254dfb7deada52951d51811df2e342",
+        "previous_sha256": "f4a4fc1066267a295ced03f08533d678d2254dfb7deada52951d51811df2e342",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n03_w0",
+    "wall_seconds": 0.213,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w0.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n03_w0"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n03_w0.json": "b8bcd71c0980918bd23c632de038d80b35643de85af6b70ec05c220033068bda"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "0256358f0621da477498545f70eacd57fd0ea8c35581ed5e9cc88e9f5251dccd",
+      "weights.csv": "f438594e4d07bbc2c471b1ef39961e7bacb76102fbc12ebda8614512c45f51df",
+      "summary.json": "4701e0aaed58d6a9d1e6a7233dda82a36679faa28d85968587ce53801adca991",
+      "experiment.json": "21fb9159e2fca1bbbea4f6d970d65946e5ce30350d5873284c1b1d1ee77df15c"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "0256358f0621da477498545f70eacd57fd0ea8c35581ed5e9cc88e9f5251dccd",
+        "previous_sha256": "0256358f0621da477498545f70eacd57fd0ea8c35581ed5e9cc88e9f5251dccd",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "f438594e4d07bbc2c471b1ef39961e7bacb76102fbc12ebda8614512c45f51df",
+        "previous_sha256": "f438594e4d07bbc2c471b1ef39961e7bacb76102fbc12ebda8614512c45f51df",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n04_w1",
+    "wall_seconds": 0.249,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n04_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w1.json": "c433d6713d2b60f29db4d463085228210c2d4e7b14f16f8d90d7bdcfb0ae4689"
+    },
+    "outputs_sha256": {
+      "events.csv": "de813a394b183dd174e09953b964333c9cc784934ec2d9ced61091759813683d",
+      "trace.csv": "0252c63bb025416895cd77498a9bcd8e5353dd4bc397b2d4ba903aadb1cc739f",
+      "weights.csv": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+      "summary.json": "0f8ef32b1ab5a05a7427f83560b4675fc257b7a007107570d447a14f668a6b3b",
+      "experiment.json": "1f921efe39687c4e6a0dd9a433452869c45e47d4484a92690a7cd9aa7fd4d1f9"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "de813a394b183dd174e09953b964333c9cc784934ec2d9ced61091759813683d",
+        "previous_sha256": "de813a394b183dd174e09953b964333c9cc784934ec2d9ced61091759813683d",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "0252c63bb025416895cd77498a9bcd8e5353dd4bc397b2d4ba903aadb1cc739f",
+        "previous_sha256": "0252c63bb025416895cd77498a9bcd8e5353dd4bc397b2d4ba903aadb1cc739f",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "previous_sha256": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n04_w0p7",
+    "wall_seconds": 0.248,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w0p7.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n04_w0p7"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w0p7.json": "4e9095e0c9019246111a76e905b6eb518df90460faa8adde2a8f8392ff4ab2b0"
+    },
+    "outputs_sha256": {
+      "events.csv": "af6f80bb9de481bfd946105a1f63bc7af67a3e43920663d4c0733f02da66301c",
+      "trace.csv": "01b23e274b5471156533573edd2e09944d2c400a9a746ba8a4d9895c8debdcb1",
+      "weights.csv": "9ca5876dc47cf188e74781cf28d669b04f52aa9c84163d52e06b4f5dcb9e486e",
+      "summary.json": "7ceaeb57e81f97e45a7d912a293e27d048eb1bef50dca9e9e6a10716286ea740",
+      "experiment.json": "5ad56330853d2df6e5d14eb2ddbb0bdbfef831261b87d54a0e51b8891f860ee3"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "af6f80bb9de481bfd946105a1f63bc7af67a3e43920663d4c0733f02da66301c",
+        "previous_sha256": "af6f80bb9de481bfd946105a1f63bc7af67a3e43920663d4c0733f02da66301c",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "01b23e274b5471156533573edd2e09944d2c400a9a746ba8a4d9895c8debdcb1",
+        "previous_sha256": "01b23e274b5471156533573edd2e09944d2c400a9a746ba8a4d9895c8debdcb1",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "9ca5876dc47cf188e74781cf28d669b04f52aa9c84163d52e06b4f5dcb9e486e",
+        "previous_sha256": "9ca5876dc47cf188e74781cf28d669b04f52aa9c84163d52e06b4f5dcb9e486e",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n04_w0p5",
+    "wall_seconds": 0.259,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w0p5.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n04_w0p5"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w0p5.json": "512c9e71eb652ea4866548e08f54ff24a50cdb4bda0828044e4b3325ebffe452"
+    },
+    "outputs_sha256": {
+      "events.csv": "59c7ab5bc0e9916241406ee98e1ffb3ae7eae543cbdc344241422e1a4793ecef",
+      "trace.csv": "aecaa2ff01e8455ccaa1ae80bd4367edb80515218e86f792191613fa31e08fcb",
+      "weights.csv": "2e735fecadf8267ab4f06cd7f05b972cc3e78bc6da4da0db24a144c8b9c6d6ee",
+      "summary.json": "772e04c8a84ff06fda9de71880ac21db4c3b619ba950ca7cd53f8455b2cff9c2",
+      "experiment.json": "4ed3003dba82a252aa56f30972a2aa253e0e123d40badb1a19d4eddee6a39d32"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "59c7ab5bc0e9916241406ee98e1ffb3ae7eae543cbdc344241422e1a4793ecef",
+        "previous_sha256": "59c7ab5bc0e9916241406ee98e1ffb3ae7eae543cbdc344241422e1a4793ecef",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "aecaa2ff01e8455ccaa1ae80bd4367edb80515218e86f792191613fa31e08fcb",
+        "previous_sha256": "aecaa2ff01e8455ccaa1ae80bd4367edb80515218e86f792191613fa31e08fcb",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "2e735fecadf8267ab4f06cd7f05b972cc3e78bc6da4da0db24a144c8b9c6d6ee",
+        "previous_sha256": "2e735fecadf8267ab4f06cd7f05b972cc3e78bc6da4da0db24a144c8b9c6d6ee",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n04_w0p2",
+    "wall_seconds": 0.247,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w0p2.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n04_w0p2"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w0p2.json": "60d02c4267aefd84ccada54201d36376b9752335593c991e6698d2e3d7dd3465"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "e18e26f00c0f572add1c413018d4fbe72337544d7e46aeba26b624836b0193e3",
+      "weights.csv": "74e43f95e30e40edc07b975c6e8b7d77a3445da409ba7202a7b484cf5d5dbc83",
+      "summary.json": "070f70d7a46b574404c9cbaa8ee1d184ef1313c20a19fc479d9ccaa595433f2c",
+      "experiment.json": "ab42bc1a5351948601dff5606f9752a80087db629dddab022b0895e6a4e9c411"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "e18e26f00c0f572add1c413018d4fbe72337544d7e46aeba26b624836b0193e3",
+        "previous_sha256": "e18e26f00c0f572add1c413018d4fbe72337544d7e46aeba26b624836b0193e3",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "74e43f95e30e40edc07b975c6e8b7d77a3445da409ba7202a7b484cf5d5dbc83",
+        "previous_sha256": "74e43f95e30e40edc07b975c6e8b7d77a3445da409ba7202a7b484cf5d5dbc83",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n04_w0",
+    "wall_seconds": 0.23,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w0.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n04_w0"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n04_w0.json": "73dcad58df2efdfea6db62bab0fdccac90518c875a38878c71440f8283d66a40"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "26033246d083d812f9a738d1158205bb4d88139afabd35523c3c12bc0936911a",
+      "weights.csv": "68ac3c2099115f37aab46ca6c10432e285782be5f8c610e42a52065221f379ae",
+      "summary.json": "3a2fc7b0608eaf531e72bb5d87c61fdad2600056216686dee9e7d0d562f915fa",
+      "experiment.json": "307a3bff48d1a6dbe21df35d4f81585b0e4002a2320981ff646aa53f97c5bf62"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "26033246d083d812f9a738d1158205bb4d88139afabd35523c3c12bc0936911a",
+        "previous_sha256": "26033246d083d812f9a738d1158205bb4d88139afabd35523c3c12bc0936911a",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "68ac3c2099115f37aab46ca6c10432e285782be5f8c610e42a52065221f379ae",
+        "previous_sha256": "68ac3c2099115f37aab46ca6c10432e285782be5f8c610e42a52065221f379ae",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n10_w1",
+    "wall_seconds": 0.458,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w1.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n10_w1"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w1.json": "76a44980065108b913c6adeeba7906c82574b76d194c58afc6b771e718d0106f"
+    },
+    "outputs_sha256": {
+      "events.csv": "75ce9d22d6c29f459ead550e61a4445546a1500cc3e0719bd9abd5217b5d6d7b",
+      "trace.csv": "d6181ca40612e8b903e45d01b07c4a4010a152a39d5fcc4ecd95e59690b3ba4e",
+      "weights.csv": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+      "summary.json": "ded82a1415b12026f164dd729a21d7a8ccbde6699c6486c0a411b2f6718f2de1",
+      "experiment.json": "3ca4a7a8c18d8d392d9945e72b8950a19027785c77ad54ebc0775e556d0d3db2"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "75ce9d22d6c29f459ead550e61a4445546a1500cc3e0719bd9abd5217b5d6d7b",
+        "previous_sha256": "75ce9d22d6c29f459ead550e61a4445546a1500cc3e0719bd9abd5217b5d6d7b",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "d6181ca40612e8b903e45d01b07c4a4010a152a39d5fcc4ecd95e59690b3ba4e",
+        "previous_sha256": "d6181ca40612e8b903e45d01b07c4a4010a152a39d5fcc4ecd95e59690b3ba4e",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "previous_sha256": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n10_w0p7",
+    "wall_seconds": 0.463,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0p7.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n10_w0p7"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0p7.json": "9e019087d21762f11a72de006dc3cfab00e94e6a536fcaf07afb39d3ca00dd3b"
+    },
+    "outputs_sha256": {
+      "events.csv": "b90d8cee230a16cee0e3ef217a4aee90af22e5a893d5c5cd18bde7177c0fd993",
+      "trace.csv": "cd4273f4566dc4718dabd69c16a8569e99abc08eae6c3be57a79dbfaee46afb3",
+      "weights.csv": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+      "summary.json": "8d0906ba3cadde8cfd14549b3f7aa5fa6d630942f47abdabd47439697d7c5931",
+      "experiment.json": "ff85a7816171c8aa80a914f76eae2ca257e334ec5504f2e79f2991f6a3384079"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "b90d8cee230a16cee0e3ef217a4aee90af22e5a893d5c5cd18bde7177c0fd993",
+        "previous_sha256": "b90d8cee230a16cee0e3ef217a4aee90af22e5a893d5c5cd18bde7177c0fd993",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "cd4273f4566dc4718dabd69c16a8569e99abc08eae6c3be57a79dbfaee46afb3",
+        "previous_sha256": "cd4273f4566dc4718dabd69c16a8569e99abc08eae6c3be57a79dbfaee46afb3",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "previous_sha256": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n10_w0p5",
+    "wall_seconds": 0.474,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0p5.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n10_w0p5"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0p5.json": "c1f05ad76220bf04493f8ca891632e222f885c05819c7b41e443cb1052c01af6"
+    },
+    "outputs_sha256": {
+      "events.csv": "3876971377979526f9235331bfea4a7bab153ccbced41a181b5c479700060909",
+      "trace.csv": "3f370d274db8dfbb5234e40768cc8f5c7ee2f186638df03fd382846d2becf763",
+      "weights.csv": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+      "summary.json": "b52c9c293b24e6f267ca44da4d36231bf6d74d547d53c615b270e8ec4739c46c",
+      "experiment.json": "0e317495f14e9d79502f9efcb375f61940b321d58251cb0162b1635d67c8d6c6"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "3876971377979526f9235331bfea4a7bab153ccbced41a181b5c479700060909",
+        "previous_sha256": "3876971377979526f9235331bfea4a7bab153ccbced41a181b5c479700060909",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "3f370d274db8dfbb5234e40768cc8f5c7ee2f186638df03fd382846d2becf763",
+        "previous_sha256": "3f370d274db8dfbb5234e40768cc8f5c7ee2f186638df03fd382846d2becf763",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+        "previous_sha256": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n10_w0p2",
+    "wall_seconds": 0.454,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0p2.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n10_w0p2"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0p2.json": "5d62829b5ad317e881dcee17fa15bb77505d4d8380f778d4b830bf6ea8c3a02c"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "beb594ca2f0cbacb4e66df5522b82ecf459d45f58667475be1cfdc7f8bbd8577",
+      "weights.csv": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+      "summary.json": "b99dd8171bcc6b8692ad52f27f1d9532be2b6d33914cf9aafde2a85bde08e96f",
+      "experiment.json": "3156413e44cd1d05bd49118535709c93b60700d44c10aec50af8ad5331b4674e"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "beb594ca2f0cbacb4e66df5522b82ecf459d45f58667475be1cfdc7f8bbd8577",
+        "previous_sha256": "beb594ca2f0cbacb4e66df5522b82ecf459d45f58667475be1cfdc7f8bbd8577",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+        "previous_sha256": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n03_w1_noise3",
+    "wall_seconds": 0.337,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n03_w1_noise3.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n03_w1_noise3"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n03_w1_noise3.json": "e9965546e36e926c3e689fe485eae6f10cea501ec300f67057dc7c6927820cb8"
+    },
+    "outputs_sha256": {
+      "events.csv": "1961d97bc94e1999794961ea482d72577bdabf38917d1f5366f76717d6b23021",
+      "trace.csv": "87984796a62b71b293721063f60d8cb1ffa0f1c9697997224607bca9144b617d",
+      "weights.csv": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+      "summary.json": "c8552fadd9c9982e033d277c596df843f8a8d395320d2b3461bb4e0dee739d0b",
+      "experiment.json": "7bd2efad51e05d6642c9cd17582b2e4e9a58236b649f58f003404fe1aedf6e9d"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "1961d97bc94e1999794961ea482d72577bdabf38917d1f5366f76717d6b23021",
+        "previous_sha256": "1961d97bc94e1999794961ea482d72577bdabf38917d1f5366f76717d6b23021",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "87984796a62b71b293721063f60d8cb1ffa0f1c9697997224607bca9144b617d",
+        "previous_sha256": "87984796a62b71b293721063f60d8cb1ffa0f1c9697997224607bca9144b617d",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "previous_sha256": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n10_w0",
+    "wall_seconds": 0.498,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n10_w0"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0.json": "7c164037427556d913777b68d593e9474d084630e3da2392b8dc0f74a242b162"
+    },
+    "outputs_sha256": {
+      "events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+      "trace.csv": "d5a7480e83383686bc56d1343208230cfe833784088bc4739272ccf54e2deec5",
+      "weights.csv": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+      "summary.json": "59313084b99d2796ddef502590279b456a83af4541a44304acb6cc0283c3cf89",
+      "experiment.json": "a8f74c38789fd50b3f4c301a3a641d8b6d30d8e3414494ce26a05a53570e1755"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "previous_sha256": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "d5a7480e83383686bc56d1343208230cfe833784088bc4739272ccf54e2deec5",
+        "previous_sha256": "d5a7480e83383686bc56d1343208230cfe833784088bc4739272ccf54e2deec5",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+        "previous_sha256": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n04_w1_noise3",
+    "wall_seconds": 0.33,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n04_w1_noise3.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n04_w1_noise3"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n04_w1_noise3.json": "401e7a1bd9d862da9fbc55e0f36e88a3a8bde9a7d26f924d3b430b1ddf285f6d"
+    },
+    "outputs_sha256": {
+      "events.csv": "d27d003ec1b381cb1aecf3f4c353a7cb509719d2f6110a860ebddb1c625c3efb",
+      "trace.csv": "34db82aa90a8d323081c299a4dc3d2fa58fba321da561ac77885274b0fe3155d",
+      "weights.csv": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+      "summary.json": "e5d034009acc6085dbc5a844748a08ab29ab6313676234793dd139b21d231d7b",
+      "experiment.json": "cf9b35be20fcb30d30df5270a38caf3f46c6ba6388cc2f283cd9a6a51a7141be"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "d27d003ec1b381cb1aecf3f4c353a7cb509719d2f6110a860ebddb1c625c3efb",
+        "previous_sha256": "d27d003ec1b381cb1aecf3f4c353a7cb509719d2f6110a860ebddb1c625c3efb",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "34db82aa90a8d323081c299a4dc3d2fa58fba321da561ac77885274b0fe3155d",
+        "previous_sha256": "34db82aa90a8d323081c299a4dc3d2fa58fba321da561ac77885274b0fe3155d",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "previous_sha256": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "tm_n10_w1_noise3",
+    "wall_seconds": 0.701,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w1_noise3.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\tm_n10_w1_noise3"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\tm_n10_w1_noise3.json": "db5632958b643e4321c5b371787f3ccaa38044dc569e8c1265fdc0aedf270002"
+    },
+    "outputs_sha256": {
+      "events.csv": "674c5e0afc7c3ccfa192528b1e353b8b63b0998a0d0cfc11f6da0ce5db938fed",
+      "trace.csv": "9c16c6a001db2aa14812609f0d93a9f481511badf030a3ff4062de4774c2b306",
+      "weights.csv": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+      "summary.json": "89244be3f7ad62cf3c4d1a83e1e85e2b2224672a01b5d1e9abd6420ef1d240f2",
+      "experiment.json": "bcfb5949403da1a93111d4ae410999d2fa4f4e6df0d9a7558fb50a00ae1e0606"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "674c5e0afc7c3ccfa192528b1e353b8b63b0998a0d0cfc11f6da0ce5db938fed",
+        "previous_sha256": "674c5e0afc7c3ccfa192528b1e353b8b63b0998a0d0cfc11f6da0ce5db938fed",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "9c16c6a001db2aa14812609f0d93a9f481511badf030a3ff4062de4774c2b306",
+        "previous_sha256": "9c16c6a001db2aa14812609f0d93a9f481511badf030a3ff4062de4774c2b306",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "previous_sha256": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "byte_identical": true
+      }
+    }
+  },
+  {
+    "kind": "rings",
+    "name": "exp_n10_w0p7_dt12p5us",
+    "wall_seconds": 0.686,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0p7_dt12p5us.json",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\lab2\\rings\\raw\\exp_n10_w0p7_dt12p5us"
+    ],
+    "inputs_sha256": {
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\rings\\exp_n10_w0p7_dt12p5us.json": "6ec7d8b86e8cb948833aeb77a6724c000e303abdc1977a35556cb500fc639ea8"
+    },
+    "outputs_sha256": {
+      "events.csv": "698313cd8983964f3c630a0d2735b7f49bd089be1d2c35aa1af9ccc52fdd838f",
+      "trace.csv": "8dea8cdd25613e85b8e09201b46a1e5b80e3ca522811bb744d04b7cf556045d1",
+      "weights.csv": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+      "summary.json": "a5fac14d5da5d9741fd6e1c7a5e0a979bd5afcb6a4889e888d8aed01ad6dafa4",
+      "experiment.json": "f45cc77650db16f462990df16b2b18b66bf2007ca17c91dfc69d186e33ecbb07"
+    },
+    "csv_comparisons": {
+      "events.csv": {
+        "current_sha256": "698313cd8983964f3c630a0d2735b7f49bd089be1d2c35aa1af9ccc52fdd838f",
+        "previous_sha256": "698313cd8983964f3c630a0d2735b7f49bd089be1d2c35aa1af9ccc52fdd838f",
+        "byte_identical": true
+      },
+      "trace.csv": {
+        "current_sha256": "8dea8cdd25613e85b8e09201b46a1e5b80e3ca522811bb744d04b7cf556045d1",
+        "previous_sha256": "8dea8cdd25613e85b8e09201b46a1e5b80e3ca522811bb744d04b7cf556045d1",
+        "byte_identical": true
+      },
+      "weights.csv": {
+        "current_sha256": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "previous_sha256": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "byte_identical": true
+      }
+    }
+  }
+]

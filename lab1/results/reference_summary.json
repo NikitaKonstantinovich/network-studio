@@ -1,0 +1,41 @@
+{
+  "reference": "SciPy solve_ivp RK45; exact pulse boundaries; terminal v=peak event; rtol=1e-10, atol=1e-12, max_step=.2ms",
+  "cases": [
+    {
+      "name": "recommended_30x3",
+      "spikes": 8,
+      "max_error_ms_dt25us": 0.031119437527094007,
+      "max_error_ms_dt12_5us": 0.01861943752712314
+    },
+    {
+      "name": "pulse_2hz",
+      "spikes": 4,
+      "max_error_ms_dt25us": 0.023015734698761392,
+      "max_error_ms_dt12_5us": 0.010515734698790524
+    },
+    {
+      "name": "pulse_10hz",
+      "spikes": 20,
+      "max_error_ms_dt25us": 0.02035689458532164,
+      "max_error_ms_dt12_5us": 0.007856894585323015
+    },
+    {
+      "name": "pulse_20hz",
+      "spikes": 40,
+      "max_error_ms_dt25us": 0.04011057979780297,
+      "max_error_ms_dt12_5us": 0.01912612336107955
+    },
+    {
+      "name": "autonomous_b027",
+      "spikes": 20,
+      "max_error_ms_dt25us": 0.5875707287028575,
+      "max_error_ms_dt12_5us": 0.3750707287029087
+    },
+    {
+      "name": "dc_4",
+      "spikes": 15,
+      "max_error_ms_dt25us": 0.4791629052178781,
+      "max_error_ms_dt12_5us": 0.3041629052180639
+    }
+  ]
+}

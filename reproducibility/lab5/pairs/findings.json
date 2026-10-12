@@ -1,0 +1,2317 @@
+{
+  "scope": "Lab5 task1 six pair cases + task2A two pair cases; native multiplicative all-to-all STDP, no triplet rule or external-program equivalence claim.",
+  "cli_sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+  "cli_unchanged": true,
+  "frozen_baseline_manifest": {
+    "files": {
+      "io.cpp": "7ce8d935b1b3082ba34ab303bff01222f8e5a7225c2c3b738bc4adaa64deecdd",
+      "io.h": "468b5f0fba7ba9c32226fc41a9548fbc0005a558ddfa9fad8b40ecfffde5cd6e",
+      "model.cuh": "04a9249a42f30c83deeb337a30a043ed2df494bebefab85e839da6120f44f7db",
+      "network.cpp": "1dcd73ba34fa83dfbbd30a6e4050e62bb94002a6e0257674c0fe7846ce8c19d3",
+      "network.h": "bdf49dff0eb55b127f00394ef0074084106505d11f8b92cc8c496233aad7e598",
+      "network_core.lib": "de46f7e42751fdb7bf66f2b893953e26999bb07946907ebc891920851b481a42",
+      "network_studio_cli.exe": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+      "parameters.inc": "1b1631d0502e2344ad8d2642eea385f62ffe558f56a586a0786a8efbb6f50baa",
+      "stdp_manual.json": "0d532e1cd57084bf9d698cd10c948bfb14058766167b470c605b9864adab1c87",
+      "variables.inc": "6b8bcf24a95d03ac846f30b58302399bee2fab1e45204b3fb88d50656686b8c0"
+    }
+  },
+  "user_report": "E:\\asp\\26_27\\labs\\lab4_report\\Отчёт_ЛР4.md",
+  "user_report_sha256": "5e64628b521f964aa0a03da6d7c5164e39cd243d4009f9effa6feadfcce3f500",
+  "new_runs": 16,
+  "distinct_protocols": 8,
+  "rows": [
+    {
+      "case": "t1_pre_post_1Hz",
+      "dt_us": 25.0,
+      "label": "t1_pre_post_1Hz_dt25us",
+      "wall_seconds": 2.055996699986281,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "final_weight": 0.23040331014173043,
+      "external_report_weight": 0.501333,
+      "difference_from_external": -0.2709296898582696,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.22794699030420554,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.2291738972296351,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.23040331014173043,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 1.4988010832439613e-15,
+        "final_weight": 0.23040331014172893,
+        "event_groups": 400,
+        "strictly_earlier_pairs_enumerated": 40000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "e5a8e64c7ad892c53fc5dd9925c691d8d25fe0f0a5032e977f6d4d4a8685e476",
+      "raw_sha256": {
+        "experiment.json": "e288fd5d29db06c0c2dc79cc42c844d26c4478446e5114900f5dbab2f5e30a3b",
+        "summary.json": "6211d1c0e543b974611bbd81b6165d224008e09535b7434118b25e15737ac33e",
+        "trace.csv": "2780398db1bdd578b8ff1596a9a272323add5e57252aaa74634ec6b4cf09b7c8",
+        "events.csv": "fceaad0cf1e3d4ff9e60e3f2e70bff3d7ad74c9e2b5100682de1100604b2a558",
+        "weights.csv": "494ac8c9fb1dbed7a01bfe12af22204d21751cc338106c395256bfb94570ad67"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.22794699030420554,
+        0.23040331014173043
+      ]
+    },
+    {
+      "case": "t1_pre_post_1Hz",
+      "dt_us": 12.5,
+      "label": "t1_pre_post_1Hz_dt12p5us",
+      "wall_seconds": 3.8735779999988154,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "final_weight": 0.23012088056107458,
+      "external_report_weight": 0.501333,
+      "difference_from_external": -0.2712121194389254,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.22767052377549427,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.22889667548865478,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.23012088056107458,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 2.220446049250313e-15,
+        "final_weight": 0.2301208805610768,
+        "event_groups": 400,
+        "strictly_earlier_pairs_enumerated": 40000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "e474bdefde5b4927a4cee85008b9e3884adecc042c0a59d0a0beab7a579fb617",
+      "raw_sha256": {
+        "experiment.json": "3945b5406c176ab1bfa110c86e8bad8b55930f5dc0945ce231e4c26f2e4018a4",
+        "summary.json": "c8247e12d80cf04f7ef9e2e3bcb0fb5785f49bb23ae211a24509e2f9782ab473",
+        "trace.csv": "e1dba156bee2609d46248e472e95043970c9d69bb0bfba2cc1b1ae17ad667d57",
+        "events.csv": "ed3a104af1b8650e089b7b3f94dde52043200f4048f7c02fb6eed6857a2a529e",
+        "weights.csv": "613dd76715e6ce7a0bf2dba56352ce9a7cab5c419e5248ce1bd76102709b276f"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.22767052377549427,
+        0.23012088056107458
+      ]
+    },
+    {
+      "case": "t1_post_pre_1Hz",
+      "dt_us": 25.0,
+      "label": "t1_post_pre_1Hz_dt25us",
+      "wall_seconds": 1.930244799994398,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "final_weight": 0.04729506842195126,
+      "external_report_weight": 0.0157814,
+      "difference_from_external": 0.03151366842195126,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.048008628707496004,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.04765051289928658,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.04729506842195126,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 4.440892098500626e-16,
+        "final_weight": 0.047295068421951705,
+        "event_groups": 400,
+        "strictly_earlier_pairs_enumerated": 40000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "b7bdc517bd57a614a977248a598a1baaf0f4ea8b8a065160d31d472a208f4442",
+      "raw_sha256": {
+        "experiment.json": "8ab18d55f77a6645ba65883db48026297c2c3decccfb5aae824b655c3f719ba4",
+        "summary.json": "e66ff578fbb72ba1ea97d2c74f36844dbd7b4c446d371dc0795f0d6e51d5cc87",
+        "trace.csv": "a314ab5f3d1df82223d87393a9c2a8f911971f9ea94b3e428e3feb4ab9850c56",
+        "events.csv": "40c5ad20e0ffe9b864485b240d1a8a838b6af82ea9fdb9ea0ef0bd9a57bd9636",
+        "weights.csv": "bb003dc26c3e9707b453d57a3f1c6f99ce5f6510767229e6f5cc8fcaa3a06355"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.04729506842195126,
+        0.048008628707496004
+      ]
+    },
+    {
+      "case": "t1_post_pre_1Hz",
+      "dt_us": 12.5,
+      "label": "t1_post_pre_1Hz_dt12p5us",
+      "wall_seconds": 3.8206587999884505,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "final_weight": 0.04731159115556462,
+      "external_report_weight": 0.0157814,
+      "difference_from_external": 0.031530191155564616,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.04802506668093574,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.04766699403179479,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.04731159115556462,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 7.355227538141662e-16,
+        "final_weight": 0.04731159115556388,
+        "event_groups": 400,
+        "strictly_earlier_pairs_enumerated": 40000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "a7e2b359b4c461f7dca2857d4df193bbc94839214b7333aa944221cb219bdfbb",
+      "raw_sha256": {
+        "experiment.json": "92af03c91cd33ce715f5c3826be7370dedfb67ee63941474cffadbc914eedd24",
+        "summary.json": "56b3c326914386c14c96edea2f72beca28eb3910f10fecf0cfe5d9b709778bf1",
+        "trace.csv": "a38f0d2b0d5b80a1f065d7ef17f4cb7c2e1bf7ecff60b5923f8b67a6a27b9458",
+        "events.csv": "b69c8607f0237d1dc9acdece01af14b71cc40ab78d9a7fdc2d9f7a525f210b27",
+        "weights.csv": "8b715cccf7aa109ead67dbb31900f7e57af5fa51b40bc4c8ec7c9d50e0b200ad"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.04731159115556462,
+        0.04802506668093574
+      ]
+    },
+    {
+      "case": "t1_pre_post_10Hz",
+      "dt_us": 25.0,
+      "label": "t1_pre_post_10Hz_dt25us",
+      "wall_seconds": 2.063750200002687,
+      "spike_counts": [
+        1500,
+        1990
+      ],
+      "final_weight": 0.7673114032018579,
+      "external_report_weight": 0.999748,
+      "difference_from_external": -0.2324365967981421,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.7591634538309039,
+          "spikes": [
+            1470,
+            1950
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.763267919544192,
+          "spikes": [
+            1485,
+            1970
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.7673114032018579,
+          "spikes": [
+            1500,
+            1990
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1990,
+          "counts_per_frame": {
+            "1": 10,
+            "2": 990
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10,
+            "2": 90
+          },
+          "last_10s_counts_per_frame": {
+            "2": 100
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 4.3298697960381105e-15,
+        "final_weight": 0.7673114032018549,
+        "event_groups": 3490,
+        "strictly_earlier_pairs_enumerated": 2985000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "853289350fbdb29fbfabbaabf64c761fe3305903f89f8da3a1b7b2a15cab7b80",
+      "raw_sha256": {
+        "experiment.json": "d7586f7f2f34459e190e230c76cda90c7edb1bbadeb45b46b0b4429b5302dba1",
+        "summary.json": "b99d64156c0327b28fe9297f3f0e13d17278761fb4e4b84297e26c2b97e3bb07",
+        "trace.csv": "3c6e19e339894dd1a5184657c512ba3dcfb1b63f88974652f16f217c0ecdf173",
+        "events.csv": "b9d73d802d33d177d77451f727329242b2db6f9af113bb598e0a66afc0177c36",
+        "weights.csv": "addf9d6a920f0aa13014348fba847d185f19cd0009fb6bf5a5dd2b9d427696a5"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.7591634538309039,
+        0.7673114032018579
+      ]
+    },
+    {
+      "case": "t1_pre_post_10Hz",
+      "dt_us": 12.5,
+      "label": "t1_pre_post_10Hz_dt12p5us",
+      "wall_seconds": 3.8733122999838088,
+      "spike_counts": [
+        1500,
+        1995
+      ],
+      "final_weight": 0.7677374915643999,
+      "external_report_weight": 0.999748,
+      "difference_from_external": -0.23201050843560012,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.7595964719716803,
+          "spikes": [
+            1470,
+            1955
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.7636978517889317,
+          "spikes": [
+            1485,
+            1975
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.7677374915643999,
+          "spikes": [
+            1500,
+            1995
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1995,
+          "counts_per_frame": {
+            "1": 5,
+            "2": 995
+          },
+          "first_10s_counts_per_frame": {
+            "1": 5,
+            "2": 95
+          },
+          "last_10s_counts_per_frame": {
+            "2": 100
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            1,
+            2,
+            2,
+            2,
+            1,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 5.773159728050814e-15,
+        "final_weight": 0.7677374915644041,
+        "event_groups": 3495,
+        "strictly_earlier_pairs_enumerated": 2992500,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "ad1272de7d3190b3aea2a8f1b5a725067d33a51309474ad410ff08a982ce791e",
+      "raw_sha256": {
+        "experiment.json": "f001b173839310a38f1278a20fa432aa950f720f39c6aa006e11b4dc811de93f",
+        "summary.json": "2428ffa1058562b0addf4dfb45d68baccc76748ef6c95aa29dd91d47d131d474",
+        "trace.csv": "21af22dfbb5ac7fc0a065e3c383151b86d76158e1161bcc0059667798fe9c797",
+        "events.csv": "911b71350a898eaa68b9aef539743b87384c458c5e39b3e11b5ad2847e5e3c41",
+        "weights.csv": "6c4d33b675ea486b25f5df2360dbe4b4616135695805665be1604fb48e1ea219"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.7595964719716803,
+        0.7677374915643999
+      ]
+    },
+    {
+      "case": "t1_post_pre_10Hz",
+      "dt_us": 25.0,
+      "label": "t1_post_pre_10Hz_dt25us",
+      "wall_seconds": 1.9474669999908656,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "final_weight": 0.0007750305594313007,
+      "external_report_weight": 8.03577e-05,
+      "difference_from_external": 0.0006946728594313007,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.0008499833062485159,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.0008115842859558025,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.0007750305594313007,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 4.579669976578771e-16,
+        "final_weight": 0.0007750305594313386,
+        "event_groups": 3000,
+        "strictly_earlier_pairs_enumerated": 2250000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "3d00755c69936093bb9170c4a75ce709e1689aaa2d2b979f71ff499283e395ea",
+      "raw_sha256": {
+        "experiment.json": "f60b23e08d9f7514fa6d0dbe1d0e6f8a7a13ea282c288e99629983619dac3b9a",
+        "summary.json": "4de76d264657cb2f5061f120783daedab37c0e569f47d4c8300334970be97b1e",
+        "trace.csv": "f15e58bc2d97304b1a715a2c48d6294220099a7f3c3fb2e8cf96c9db168bdec2",
+        "events.csv": "39acbefb835b2a0687b732de784391394cb53328efabea48f837a15082233679",
+        "weights.csv": "de589c68d3424f81ce3f09d361aec89d98c60cfbfe8da227815ac771a86684cd"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.0007750305594313007,
+        0.0008499833062485159
+      ]
+    },
+    {
+      "case": "t1_post_pre_10Hz",
+      "dt_us": 12.5,
+      "label": "t1_post_pre_10Hz_dt12p5us",
+      "wall_seconds": 3.838638399989577,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "final_weight": 0.0008754052642214402,
+      "external_report_weight": 8.03577e-05,
+      "difference_from_external": 0.0007950475642214402,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.0009582868143043425,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.0009158518051268054,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.0008754052642214402,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 6.106226635438361e-16,
+        "final_weight": 0.0008754052642213694,
+        "event_groups": 3000,
+        "strictly_earlier_pairs_enumerated": 2250000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "2b6f0d792d57c655817c2b2cf05d251d715095b7e70a04e2894286719bd2c047",
+      "raw_sha256": {
+        "experiment.json": "43a391fbc0b9be86c1bec16043f24be507823bff3c1949faa11b9956b6108414",
+        "summary.json": "bf5e5a8186944a6eadad83712b1b790e396f48ac74673c53db1101605db44aa0",
+        "trace.csv": "962e61e443a0495d7986c1d978d6c24a60fae43d47b569e195dd172ff072c38c",
+        "events.csv": "fbb1f94f84e87fb7cf3699c4a05d3a85bb9c1d079ef9a40a85618df4661be26d",
+        "weights.csv": "09c8487000c8fb3a70233ca42f3fbb4d097a4e8f2715e25e297f01ca35d80d2f"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.0008754052642214402,
+        0.0009582868143043425
+      ]
+    },
+    {
+      "case": "t1_pre_post_40Hz",
+      "dt_us": 25.0,
+      "label": "t1_pre_post_40Hz_dt25us",
+      "wall_seconds": 2.1760201000142843,
+      "spike_counts": [
+        4001,
+        4001
+      ],
+      "final_weight": 0.255283162953995,
+      "external_report_weight": 0.335617,
+      "difference_from_external": -0.080333837046005,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.2552415364662118,
+          "spikes": [
+            3921,
+            3921
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.2552630159303361,
+          "spikes": [
+            3961,
+            3961
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.255283162953995,
+          "spikes": [
+            4001,
+            4001
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 1.887379141862766e-15,
+        "final_weight": 0.2552831629539962,
+        "event_groups": 8002,
+        "strictly_earlier_pairs_enumerated": 16008001,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "82d79801ed461bf308ef71022bbe220a11e15f671c821f7d675758d5ba42e8de",
+      "raw_sha256": {
+        "experiment.json": "ba2935db43032f7db01956b66dcfe1c70f09ca97b1fc2d9fb6eef93727be9aec",
+        "summary.json": "f3bfcb5f90a3e3dacfb171c8c13a5dda97661f6f8a61c973c798008eb8fa307d",
+        "trace.csv": "50cc4ecd547011db944ee250da743f68959a77ef70234cfffe92ce27bd73224e",
+        "events.csv": "4e96bdde0c14d2dc181fe1f4c894edc17e636757bada896b8fc90b1e0e24c1ae",
+        "weights.csv": "c205601f1c37e09bd8c4dbbc30fd49bb2cb6beff69e6eb1fa9502524f8342ed4"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.2552415364662118,
+        0.255283162953995
+      ]
+    },
+    {
+      "case": "t1_pre_post_40Hz",
+      "dt_us": 12.5,
+      "label": "t1_pre_post_40Hz_dt12p5us",
+      "wall_seconds": 4.362851000012597,
+      "spike_counts": [
+        4001,
+        4001
+      ],
+      "final_weight": 0.2553121126746477,
+      "external_report_weight": 0.335617,
+      "difference_from_external": -0.08030488732535229,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.25527444204006633,
+          "spikes": [
+            3921,
+            3921
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.2552938802652716,
+          "spikes": [
+            3961,
+            3961
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.2553121126746477,
+          "spikes": [
+            4001,
+            4001
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 2.7200464103316335e-15,
+        "final_weight": 0.25531211267464576,
+        "event_groups": 8002,
+        "strictly_earlier_pairs_enumerated": 16008001,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "6cf4ebdec0b23b662229d5b76f430aa3d7b673ab8e7e554da738cfb09c8b99bb",
+      "raw_sha256": {
+        "experiment.json": "5fffb26a9ce4a0536a47e2dae820aa0322b2b064cd5d91efe1f1c8cf6e6438b3",
+        "summary.json": "19c8f4bcffe0928bd7761c256157f2759183ee3faee70f9eff532433c92ea014",
+        "trace.csv": "f6c75c363190bf8a075a45424e84d33cd78f2389536f7bde8e8af31cb8d74ff3",
+        "events.csv": "6c209b874a86369140ebcc56ceaf8f00210eb498e6bc7a52c8500eafb48d7f2f",
+        "weights.csv": "1f73d9fba3918f073735a36fd2f22d76ad03c7340247bc2347b152a75ccd6fb1"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.25527444204006633,
+        0.2553121126746477
+      ]
+    },
+    {
+      "case": "t1_post_pre_40Hz",
+      "dt_us": 25.0,
+      "label": "t1_post_pre_40Hz_dt25us",
+      "wall_seconds": 2.070267600007355,
+      "spike_counts": [
+        4001,
+        4001
+      ],
+      "final_weight": 0.10895631659665686,
+      "external_report_weight": 0.153155,
+      "difference_from_external": -0.04419868340334315,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.10895607606739151,
+          "spikes": [
+            3921,
+            3921
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.1089562017167923,
+          "spikes": [
+            3961,
+            3961
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.10895631659665686,
+          "spikes": [
+            4001,
+            4001
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 9.992007221626409e-16,
+        "final_weight": 0.10895631659665614,
+        "event_groups": 8002,
+        "strictly_earlier_pairs_enumerated": 16008001,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "ad235b34629880a7ae24d261c5e50d16a48941754d11a2aa7b478299eebe76f1",
+      "raw_sha256": {
+        "experiment.json": "da7237268822b2baddead17b3b04b9212da6a35cb4556d638abba61aebca856b",
+        "summary.json": "d496924192a658110e00e1445a268b9e5648a353b45b66b62b8180f82499bc58",
+        "trace.csv": "e7cf01f4ded22cf10913bb53ee323fd48f5e97301373f161fd8e80c9fd5ce0c4",
+        "events.csv": "d5fe9c1fdb033744e548220d8583ec89354f85601121950747eeb5df801a354a",
+        "weights.csv": "e6e7518d9c9c863a85a91154149c0fd98b1c4b265bce736947f3c4c681bf973a"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.10895607606739151,
+        0.10895631659665686
+      ]
+    },
+    {
+      "case": "t1_post_pre_40Hz",
+      "dt_us": 12.5,
+      "label": "t1_post_pre_40Hz_dt12p5us",
+      "wall_seconds": 4.306988600001205,
+      "spike_counts": [
+        4001,
+        4001
+      ],
+      "final_weight": 0.10895631496468693,
+      "external_report_weight": 0.153155,
+      "difference_from_external": -0.04419868503531309,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.10895607411509817,
+          "spikes": [
+            3921,
+            3921
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.10895619993183182,
+          "spikes": [
+            3961,
+            3961
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.10895631496468693,
+          "spikes": [
+            4001,
+            4001
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 1.3322676295501878e-15,
+        "final_weight": 0.10895631496468809,
+        "event_groups": 8002,
+        "strictly_earlier_pairs_enumerated": 16008001,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "cfbb9370a102059bdefa5f35003dd27850aeb19c90e6643c4f75dd53cf859efd",
+      "raw_sha256": {
+        "experiment.json": "eabb76836cbeae98efa8477a08b8cb325cec1c0f558918b1fb4fb18859bd3087",
+        "summary.json": "6b4095fe1cfc568fb400aa35e5dd7874da0a7a0eb159b5f15f45cdf128ea8ff4",
+        "trace.csv": "4d6bea3cf3a0ff70bf162acba593a822b9b858200044ea6e478b915e3348bede",
+        "events.csv": "c14e0106303d0a0d04789252bafff50e278160cad7de74c0c748129f8c42b392",
+        "weights.csv": "4166f2d38fcec9bfbb4913dcb588856e55e4439babaf3c5585c5a4294e981ce9"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.10895607411509817,
+        0.10895631496468693
+      ]
+    },
+    {
+      "case": "t2a_pre_post_1Hz",
+      "dt_us": 25.0,
+      "label": "t2a_pre_post_1Hz_dt25us",
+      "wall_seconds": 2.108240100002149,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "final_weight": 0.22575372328815413,
+      "external_report_weight": 0.147829,
+      "difference_from_external": 0.07792472328815414,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.22341889360757922,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.22458718724211318,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.22575372328815413,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 1.4988010832439613e-15,
+        "final_weight": 0.22575372328815263,
+        "event_groups": 400,
+        "strictly_earlier_pairs_enumerated": 40000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "1fa368e2a7386ad9af0cfb005ec56c401037e8968856d5e2eff22d09c3e645ca",
+      "raw_sha256": {
+        "experiment.json": "0631fce2d29a7eb5067a9389b7ddd261dae884129c883d1903d879a5dbc054d4",
+        "summary.json": "b07a9dce3592a21eeee0468e0a43d922992b0f7315cb40bfe2b404b0df093d2f",
+        "trace.csv": "7e7d202640f74e2b35b016ab6224379cf57ae03b672f752678dcc12075319beb",
+        "events.csv": "3383d972e3d4f48d3275c989a92d7c86c21ab93d851324e93f39579d54375646",
+        "weights.csv": "6c4db03448147fd3375ada1d1525b40b022726d9b5e0c75683ed5a939014ff3e"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.22341889360757922,
+        0.22575372328815413
+      ]
+    },
+    {
+      "case": "t2a_pre_post_1Hz",
+      "dt_us": 12.5,
+      "label": "t2a_pre_post_1Hz_dt12p5us",
+      "wall_seconds": 4.290822900016792,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "final_weight": 0.22558443545259915,
+      "external_report_weight": 0.147829,
+      "difference_from_external": 0.07775543545259916,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.22325015677650528,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.2244181743026544,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.22558443545259915,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 2.6367796834847468e-15,
+        "final_weight": 0.2255844354526018,
+        "event_groups": 400,
+        "strictly_earlier_pairs_enumerated": 40000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "fd96c1498613d09a8efda509a78516a962661f2a34389742e06c795b1b6690e3",
+      "raw_sha256": {
+        "experiment.json": "bd113a5f108b3d133de3e8bed76c03de2a13110f82b3cb286002ec5e5baa81e7",
+        "summary.json": "7c8112777facf98650b8f172b8de4aa55ee72c77e7e40fcb6ad454142ee59e8a",
+        "trace.csv": "e25f3b397e8f0eeffb85747d8af826e3132dff96fd5850492f807a64549602c9",
+        "events.csv": "d42d5df0579bb334c006525acc5ecb9be4c737e043f74c19c3753e335f84b59c",
+        "weights.csv": "450258a7a18fedde25fc492c702579ba6401b5f7ae7766bc8deb7739f6772474"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.22325015677650528,
+        0.22558443545259915
+      ]
+    },
+    {
+      "case": "t2a_pre_post_10Hz",
+      "dt_us": 25.0,
+      "label": "t2a_pre_post_10Hz_dt25us",
+      "wall_seconds": 2.2189600999990944,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "final_weight": 0.6565556582297568,
+      "external_report_weight": 0.5437,
+      "difference_from_external": 0.11285565822975685,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.6497956543463379,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.65319213871833,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.6565556582297568,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 4.218847493575595e-15,
+        "final_weight": 0.6565556582297526,
+        "event_groups": 3000,
+        "strictly_earlier_pairs_enumerated": 2250000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "61f4d355a53d95a21c002c681a2794d28e378bf8be2033e78604bd2c09ab924c",
+      "raw_sha256": {
+        "experiment.json": "3e7d98d0a5b33fc60157a9cb76963c9c2cedd7be40154ce42ab3954daae275c2",
+        "summary.json": "8a0616618e8177a41bc6d27156c992a732feb2b78e5c2a1428a2a8849ae26e46",
+        "trace.csv": "58f07095faa8cd37e673117f36e33870145a051083626e061164f405ca9ec43a",
+        "events.csv": "94a9df93ac6080c9c4a7cd5b7efebf0e4d43e4066d9062a0293929c5e5454ee8",
+        "weights.csv": "fe81c0a3f9e6df0d1af42f143f580bca5c4e2863f56e28e093f59f5f765b69d3"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.6497956543463379,
+        0.6565556582297568
+      ]
+    },
+    {
+      "case": "t2a_pre_post_10Hz",
+      "dt_us": 12.5,
+      "label": "t2a_pre_post_10Hz_dt12p5us",
+      "wall_seconds": 4.429270499997074,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "final_weight": 0.6574030209795384,
+      "external_report_weight": 0.5437,
+      "difference_from_external": 0.11370302097953844,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.6506567340835747,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.6540463336925804,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.6574030209795384,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 6.439293542825908e-15,
+        "final_weight": 0.6574030209795448,
+        "event_groups": 3000,
+        "strictly_earlier_pairs_enumerated": 2250000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "1fd8392147c9dc97a2ec3e20d908f7eb7d2e0d6909dc73d69a4c2b252b0fecde",
+      "raw_sha256": {
+        "experiment.json": "4ff4fc3fbe6919ec1c0e0deee5898bc620a3c52bfe6cf8d990bdd71c5544b389",
+        "summary.json": "eea95500beb64afec4083eb86ffa62aee54789d5d8ca6adbf650ddfa68e7da92",
+        "trace.csv": "06b887d9a22ed8d402293a5aaaa490d42c6b594379f4ea4047866a1bd5f23242",
+        "events.csv": "f61fc3b4f9e88915763c8d3c4f9b7c61e444bdb179a253b34b5547d2160008fa",
+        "weights.csv": "36dec648ec39c17776e3116228746a3adc97915b134670d7d02f74093a5d79a9"
+      },
+      "sampled_98_to_100s_weight_range": [
+        0.6506567340835747,
+        0.6574030209795384
+      ]
+    }
+  ],
+  "step_comparisons": [
+    {
+      "case": "t1_pre_post_1Hz",
+      "weight_difference_fine_minus_coarse": -0.00028242958065585744,
+      "weight_relative_difference_vs_coarse": -0.0012258052216442704,
+      "spike_count_difference_fine_minus_coarse": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "t1_post_pre_1Hz",
+      "weight_difference_fine_minus_coarse": 1.6522733613355545e-05,
+      "weight_relative_difference_vs_coarse": 0.00034935425964384014,
+      "spike_count_difference_fine_minus_coarse": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "t1_pre_post_10Hz",
+      "weight_difference_fine_minus_coarse": 0.00042608836254198756,
+      "weight_relative_difference_vs_coarse": 0.0005553004435539398,
+      "spike_count_difference_fine_minus_coarse": [
+        0,
+        5
+      ]
+    },
+    {
+      "case": "t1_post_pre_10Hz",
+      "weight_difference_fine_minus_coarse": 0.00010037470479013952,
+      "weight_relative_difference_vs_coarse": 0.12951064131431428,
+      "spike_count_difference_fine_minus_coarse": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "t1_pre_post_40Hz",
+      "weight_difference_fine_minus_coarse": 2.8949720652704514e-05,
+      "weight_relative_difference_vs_coarse": 0.00011340238940051675,
+      "spike_count_difference_fine_minus_coarse": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "t1_post_pre_40Hz",
+      "weight_difference_fine_minus_coarse": -1.6319699341904581e-09,
+      "weight_relative_difference_vs_coarse": -1.4978203973541194e-08,
+      "spike_count_difference_fine_minus_coarse": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "t2a_pre_post_1Hz",
+      "weight_difference_fine_minus_coarse": -0.0001692878355549765,
+      "weight_relative_difference_vs_coarse": -0.0007498783767074174,
+      "spike_count_difference_fine_minus_coarse": [
+        0,
+        0
+      ]
+    },
+    {
+      "case": "t2a_pre_post_10Hz",
+      "weight_difference_fine_minus_coarse": 0.0008473627497815883,
+      "weight_relative_difference_vs_coarse": 0.0012906183035057478,
+      "spike_count_difference_fine_minus_coarse": [
+        0,
+        0
+      ]
+    }
+  ],
+  "initial_condition_choice": "Both nodes V=-65mV,u=bV=-13; independent reset before each run. Exact NeuroNet initial u/elapsed state is not established by the report.",
+  "external_limitations": [
+    "NeuroNet uses Step0.500ms, current Studio RK4 uses25/12.5us; pulse amplitude and width are held fixed at25x3ms.",
+    "NeuroNet Sp.Velocity=.050 can imply transmission delay; Studio has no conduction delays.",
+    "Native learning rule is the configured multiplicative all-to-all rule; the proprietary original implementation is not asserted equivalent.",
+    "External duration approximately98-101s and stimulus phase at reset are not fully documented; native checkpoints98/99/100s are provided.",
+    "Per-cycle count is per full global frame[k/f,(k+1)/f); it describes actual events, not a guarantee one response belongs causally to one pulse."
+  ]
+}

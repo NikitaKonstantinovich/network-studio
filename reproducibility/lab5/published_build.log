@@ -1,0 +1,35 @@
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: E:/asp/26_27/cudaynamics/standalone/network_studio/build/native
+[1/18] Building CXX object CMakeFiles\network_core.dir\generator.cpp.obj
+[2/18] Building CXX object CMakeFiles\network_core.dir\network.cpp.obj
+[3/18] Building CXX object CMakeFiles\studio_gui.dir\gui.cpp.obj
+[4/18] Building CXX object CMakeFiles\network_studio_cli.dir\cli.cpp.obj
+[5/18] Building CXX object CMakeFiles\network_core.dir\io.cpp.obj
+[6/18] Linking CXX static library network_core.lib
+[7/18] Linking CXX static library studio_gui.lib
+[8/18] Building CXX object CMakeFiles\network_studio_generator_tests.dir\generator_tests.cpp.obj
+[9/18] Building CXX object CMakeFiles\network_studio_tests.dir\tests.cpp.obj
+[10/18] Building CXX object CMakeFiles\network_studio.dir\main.cpp.obj
+[11/18] Linking CXX executable E:\asp\26_27\cudaynamics\standalone\network_studio\build\Release\network_studio_cli.exe
+[12/18] Linking CXX executable E:\asp\26_27\cudaynamics\standalone\network_studio\build\Release\network_studio_tests.exe
+[13/18] Building CXX object CMakeFiles\network_studio_population.dir\lab2\population.cpp.obj
+[14/18] Linking CXX executable E:\asp\26_27\cudaynamics\standalone\network_studio\build\Release\network_studio_generator_tests.exe
+[15/18] Linking CXX executable E:\asp\26_27\cudaynamics\standalone\network_studio\build\Release\network_studio.exe
+[16/18] Linking CXX executable E:\asp\26_27\cudaynamics\standalone\network_studio\build\Release\network_studio_population.exe
+[17/18] Building CXX object CMakeFiles\network_studio_gui_tests.dir\gui_tests.cpp.obj
+[18/18] Linking CXX executable E:\asp\26_27\cudaynamics\standalone\network_studio\build\Release\network_studio_gui_tests.exe
+Test project E:/asp/26_27/cudaynamics/standalone/network_studio/build/native
+    Start 1: network_model_and_io
+1/4 Test #1: network_model_and_io .............   Passed   10.39 sec
+    Start 2: network_generation
+2/4 Test #2: network_generation ...............   Passed    0.08 sec
+    Start 3: population_equivalence
+3/4 Test #3: population_equivalence ...........   Passed    0.39 sec
+    Start 4: gui_interactions_and_plots
+4/4 Test #4: gui_interactions_and_plots .......   Passed    0.64 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Total Test time (real) =  11.67 sec
+Application: E:\asp\26_27\cudaynamics\standalone\network_studio\build\Release\network_studio.exe

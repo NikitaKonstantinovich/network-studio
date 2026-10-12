@@ -1,0 +1,347 @@
+{
+  "k15_seed11": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "e9e13a4481dd67c1ad70c482e34ebd0fe9d0eb1f04927d1f2e386a183009c3b6",
+    "edges_sha256": "ea7241b9bdb67b5b0823ac8d3ffad7a45b970e710061c443372e0022ddbbabfe",
+    "wall_seconds": 27.911,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed11_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed11_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k15_seed11"
+    ],
+    "outputs": {
+      "events.csv": "c30190b4c7a5960a7740947858c9bbeacf806b78a55dd220de49c1d35b8235b5",
+      "trace.csv": "438d81643492c56c46fcf9fa4930d88cf4f44ed135967a0473c6549e2138fd72",
+      "summary.json": "fc00fde2e9cbee83fea9c4fbed732ec5b5afd689fa7f7d92766eeb0c7d271e8d",
+      "base.json": "2060228a76eba4bf9981ac6a7d29cd03faf00f17b692cc1368ac9e458f223908"
+    }
+  },
+  "k30_seed11": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "e73276e6843868c841da8b61c93d780b25c96854e90d2e162bd9051ca981c0ad",
+    "edges_sha256": "085019309532c1b4e4c5da513222b333a36909a81361744ae37d45bdd0fc138a",
+    "wall_seconds": 28.421,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed11_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed11_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k30_seed11"
+    ],
+    "outputs": {
+      "events.csv": "0e30a52ede2b5ed5ddcf8bcd9ae281722a8947e6ded0251ebc8b5491ef7b5638",
+      "trace.csv": "01309cb9bb0a183696644798e43645c90a6825876860dddf846322fb4e122e39",
+      "summary.json": "68974b186175cd42c85e968435bbb1be3a6c83f3cba3adccee4b1334a8e5eb77",
+      "base.json": "2cfb36c41ec72990f8f20355620a23acb28f66eac2e035b0b1093f86a158a7ec"
+    }
+  },
+  "k15_seed42": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "4f60e38366018e510926ddce38315df383c92343c200ae9582cbf32343168abf",
+    "edges_sha256": "dec1a8849c9911322c24fee7274467c4dc1e9553bf4199dec7a3e5841d5b8d8f",
+    "wall_seconds": 91.331,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k15_seed42"
+    ],
+    "outputs": {
+      "events.csv": "dc6849ccaba2014764b5712156f96b8e96ab95d03f6f91890414f5610c26b3dd",
+      "trace.csv": "478f31406b7f0c42770043a21696452c6bd992cdb9bc0127e2c6c77f325536ca",
+      "summary.json": "a7c553dc9028612da31c0b1b05658e4e2b5ce63e14e3de2c7d675d426813b0cb",
+      "base.json": "6630ea5a5eaca86e9d83bf165f429f8095bea93fd559d97f4654d6b177424e96"
+    }
+  },
+  "k30_seed42": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "51ea46f983902a0d46437ec17340e83a938cb25fc0d04e78e923a67e5122b754",
+    "edges_sha256": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d",
+    "wall_seconds": 92.371,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k30_seed42"
+    ],
+    "outputs": {
+      "events.csv": "051b243e0e1e8679e77268d8ee44d8be1b0212bdc758a1d6fab7fea1a074dbb9",
+      "trace.csv": "4cba141b11bbdb9a2d2dedab03e7a3e1cf247ba65c27f172f25f0de3ac1d5da0",
+      "summary.json": "3b10da6e802132ff99f942628c3fd99d5d1550506aa4d85046047fec96668766",
+      "base.json": "5f031b41d29e19ce874f88711ac00050a5bb9402688db385bf87143fb73eb34c"
+    }
+  },
+  "k15_seed101": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "43b9f00d846a8c7d609482a876d962f04db808c22c57fa165f962463e2ce0b48",
+    "edges_sha256": "8a8712f728f6b06d47ecd02bfb197bac7b1a698ab324d58ff315c666b6306d2b",
+    "wall_seconds": 27.165,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed101_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed101_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k15_seed101"
+    ],
+    "outputs": {
+      "events.csv": "81855f439b5e3fe070512f24dca8f9e31bc65df03176452936acc12d1f242575",
+      "trace.csv": "a9c7771eccf170c5c8ac03c395acb1cd768948fff378a532bda1cb0d0f5d3899",
+      "summary.json": "bcf979dc2fbe166871478d135cf26defe19a88fb9006c3fdba36ebba6cdf49aa",
+      "base.json": "ffd26bae15d309ad6fd7dbb09927acfd8910a821c9b7aba77c1b49a432cbc2aa"
+    }
+  },
+  "k30_seed101": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "63351cb8f19d2318d2d06ac6d5e090820396fe126d89e2590111f39d57ebf996",
+    "edges_sha256": "9abb347a487ff5b45766122e3b4b632dcd0c0a8d5d9bc05507881d01e902b049",
+    "wall_seconds": 27.589,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed101_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed101_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k30_seed101"
+    ],
+    "outputs": {
+      "events.csv": "eb1ff9e43d27a42d528e0ea2ea88ff74ce6b960df92bfe9332432c3dffd866c5",
+      "trace.csv": "2c531e460708a7bca6fab0d566551c6e8bef95205e81dbe62c5066d20f5823e8",
+      "summary.json": "ff561e265981823d90326f5c4a3c4fe68d4ed343b8b8e08423b5c1cd3fe8d4e4",
+      "base.json": "48482d8542e7c5744e1e5bb17e8e6080d738814036ac5ce882f6ba65d0adec57"
+    }
+  },
+  "k15_seed42_nearest": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "ba7de5323698e91e2cc8bdd2082c0173cf4e8093e3b679a264ed6f6e1673d93f",
+    "edges_sha256": "21c6382ba64b7cf38cbd25c6bec3412001fbbefc75d137f2eedc15bccf8d8006",
+    "wall_seconds": 27.146,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_nearest_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_nearest_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k15_seed42_nearest"
+    ],
+    "outputs": {
+      "events.csv": "db56d997e5be69bdd0451dc214909a875c46d4ca048f61b4cb37b4579752d8c6",
+      "trace.csv": "d39ec97578c58c9682d0d36462652db5afbbfa5723987e3a5c34cda47ed86268",
+      "summary.json": "d0353afc29221070f682c2043447295cbcaffbe778a50c52bf0d92d565e8fbb6",
+      "base.json": "16529e249cf69c750981d67315c981ead3ba5b56e3c33fc2a46cd4d90c1957c0"
+    }
+  },
+  "k30_seed42_nearest": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "e089939ffba8de4c4bd3119bd08ccffc0d2491508daad99fb3b869295dd0af98",
+    "edges_sha256": "500a98e19f11114814933585bc3ccdb50dc9539ebd1642dec26ace79094db56d",
+    "wall_seconds": 27.492,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_nearest_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_nearest_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k30_seed42_nearest"
+    ],
+    "outputs": {
+      "events.csv": "c1f616e6f5c179544150a1a70aba4459e848149fb0001d10337434591febae78",
+      "trace.csv": "8206ed3787ab95df8ee637da17b526de7c85a98d1b09029535c3eb70e5a8b5c6",
+      "summary.json": "82506aea366f1377c02280b195994e575d47639135ae1f6b65b79d3211f4a049",
+      "base.json": "8fe5e4d6756b9cdfb7158bf510eee879ad4ef46983cd43af19eab9efa5463cd5"
+    }
+  },
+  "k15_seed42_short": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "7a5f4c2e5fc562b79d9dd6786762ec5fe698ed60e187cf045ce2393b86c9b187",
+    "edges_sha256": "dec1a8849c9911322c24fee7274467c4dc1e9553bf4199dec7a3e5841d5b8d8f",
+    "wall_seconds": 9.138,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_short_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k15_seed42_short"
+    ],
+    "outputs": {
+      "events.csv": "d5a18c60c9bae67a4f7c1f67a9016903f634d247ed5816e83dfd4970d66b3a79",
+      "trace.csv": "1f0823e2fad8bfd6203d4399db07bee624d540a8ce82724c1d344381a30877e2",
+      "summary.json": "1268a1f1d6c0fcda577470566530aac2890d9f0753592a76e9e26ff3b777eb40",
+      "base.json": "002d4e15ff32e4c554988e9fef670151abed2d57e154be3186185cab18d87819"
+    }
+  },
+  "k15_seed42_fine": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "b38a78f948ba31d3d12d755ee06bba112b4005622a34228827d982f444a979fa",
+    "edges_sha256": "dec1a8849c9911322c24fee7274467c4dc1e9553bf4199dec7a3e5841d5b8d8f",
+    "wall_seconds": 17.977,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_fine_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k15_seed42_fine"
+    ],
+    "outputs": {
+      "events.csv": "96f3240f15c19953c611fa6818125c88d97eead6a53c089db975ca52132d76b8",
+      "trace.csv": "a4d626e28b58ea2ab6bb87a35ecbf75bad34dcd51983c49ffd1acce8619bcb7b",
+      "summary.json": "12c6ad368dc1a0c5ce004fb64d788004580fdbddfc652767c172d6d88947ce9f",
+      "base.json": "4df054d1f0eac10813b25eea9c03ca04cb31dfab7f8051cd66b61baaa858b90f"
+    }
+  },
+  "k15_seed42_quiet": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "c3f77ae39bc883ff7673bb14bc5dffb1ad4554d008260392f1da6fa7358caff4",
+    "edges_sha256": "dec1a8849c9911322c24fee7274467c4dc1e9553bf4199dec7a3e5841d5b8d8f",
+    "wall_seconds": 9.195,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_quiet_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k15_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k15_seed42_quiet"
+    ],
+    "outputs": {
+      "events.csv": "2ecf304f18460fd5915644316777f07e091431d191e4f762023f9a9e22e63c29",
+      "trace.csv": "138cb8ac3ae5a85b8eba3ec73a4ef5df4680251dbee6952bb4279279bdb9e7e5",
+      "summary.json": "77aec337a16ab103fe20953ae83bf3bbe8fcc4b47c1c12144f2b2851c1f7a6c4",
+      "base.json": "427ce6cbb6c438be00800d96231dfa7c86a8709b9232bdbd5b6351f9bc1277bc"
+    }
+  },
+  "k30_seed42_short": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "bb82113fb39ac1025a122adfa17a7e2f609c0e9f8e5061d5f6d465450408e1da",
+    "edges_sha256": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d",
+    "wall_seconds": 9.143,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_short_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k30_seed42_short"
+    ],
+    "outputs": {
+      "events.csv": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+      "trace.csv": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+      "summary.json": "a30b353e80c58aa52d2aa9c1ecf4e261f81a4a24b8f1067f6a40bf1139c6880c",
+      "base.json": "bf5b48b974c2e831d1d6364925f69bd6d375778c59078e7b7432d4001fb4df11"
+    }
+  },
+  "k30_seed42_fine": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "3d33ceebf69e7eaeacb573f2952fd2023e4445afe798002acbf172d5a6dee155",
+    "edges_sha256": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d",
+    "wall_seconds": 17.926,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_fine_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k30_seed42_fine"
+    ],
+    "outputs": {
+      "events.csv": "d0dc98c951a6452398c6a75cae73e4e7c5deb981354b1a432832b28bed3a0fee",
+      "trace.csv": "27ec8e285d1f99fb8eb3c9924da271cf51d6226936f69591380106014591fe18",
+      "summary.json": "3b52b383eaf192984da1af68ecdaaee9993ed4bd22537373f9ccb4e6717e41bd",
+      "base.json": "c31f8e6bed010f788cf855f2faaa75df6f6b65205e1305a20f0838f4b3c70977"
+    }
+  },
+  "k30_seed42_quiet": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "9906bbce5e19e34c5860eb8bbca6a20d2612ad25bde9813daadb7cfcb0f68c90",
+    "edges_sha256": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d",
+    "wall_seconds": 9.17,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_quiet_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k30_seed42_quiet"
+    ],
+    "outputs": {
+      "events.csv": "2ecf304f18460fd5915644316777f07e091431d191e4f762023f9a9e22e63c29",
+      "trace.csv": "138cb8ac3ae5a85b8eba3ec73a4ef5df4680251dbee6952bb4279279bdb9e7e5",
+      "summary.json": "7eeef6fd706f47f30eb5ce34f7fd0add9fb764e7b5b7283c2656a8118e69d303",
+      "base.json": "38afa80c97914e4377ab68d9ff39e8130c0d936c0f901786c25bec7b4eee2650"
+    }
+  },
+  "k30_seed42_repeat": {
+    "executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+    "base_sha256": "bb82113fb39ac1025a122adfa17a7e2f609c0e9f8e5061d5f6d465450408e1da",
+    "edges_sha256": "0c9abea8f2bb15dc28edb16668d8c957dd85290bd671c67bb316af1cf654ab3d",
+    "wall_seconds": 9.17,
+    "command": [
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "--base",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_repeat_base.json",
+      "--edges",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\configs\\populations\\k30_seed42_edges.csv",
+      "--neurons",
+      "500",
+      "--output",
+      "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\results\\populations\\raw\\k30_seed42_repeat"
+    ],
+    "outputs": {
+      "events.csv": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+      "trace.csv": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+      "summary.json": "3666f3e0934fbc2520b61a4e052fe8f2c93a01734f99d333a1201df0ccd29a95",
+      "base.json": "bf5b48b974c2e831d1d6364925f69bd6d375778c59078e7b7432d4001fb4df11"
+    }
+  }
+}

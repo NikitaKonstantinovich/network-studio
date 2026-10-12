@@ -1,0 +1,8 @@
+/qa/
+/__pycache__/
+/audit_sources/**/*
+!/audit_sources/**/
+!/audit_sources/**/*.py
+!/audit_sources/**/launcher.cpp
+!/audit_sources/**/CMakeLists.txt
+!/audit_sources/**/README.md

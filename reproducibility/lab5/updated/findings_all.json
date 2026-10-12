@@ -1,0 +1,5290 @@
+{
+  "scope": "14 original25x3ms protocols at2steps;8 separate25x1ms diagnostic controls. Minimal multiplicative triplet rule, no all-network or NeuroNet equivalence claim.",
+  "workload": "all",
+  "runs": 36,
+  "rows": [
+    {
+      "case": "t1_pre_post_1Hz",
+      "workload": "official",
+      "label": "t1_pre_post_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.23040331014173043,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.22794699030420554,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.2291738972296351,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.23040331014173043,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 400,
+        "strictly_earlier_fast_pairs_enumerated": 40000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.13040331014172893,
+        "summed_LTD": 3.210952601787122e-44,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 1.4988010832439613e-15,
+        "final_weight": 0.23040331014172893
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "7b461146ab2a11e50936eaf68b92744eb11d81b10ea788f2d44099ce38529db0",
+        "wall_seconds": 2.241732199996477,
+        "raw_sha256": {
+          "experiment.json": "a33d6987a16470fd6105dd35c0bc2d425644a719d8ee079225b9950a44d0de86",
+          "summary.json": "6211d1c0e543b974611bbd81b6165d224008e09535b7434118b25e15737ac33e",
+          "trace.csv": "2780398db1bdd578b8ff1596a9a272323add5e57252aaa74634ec6b4cf09b7c8",
+          "events.csv": "fceaad0cf1e3d4ff9e60e3f2e70bff3d7ad74c9e2b5100682de1100604b2a558",
+          "weights.csv": "494ac8c9fb1dbed7a01bfe12af22204d21751cc338106c395256bfb94570ad67"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.501333,
+      "difference_from_external": -0.2709296898582696
+    },
+    {
+      "case": "t1_pre_post_1Hz",
+      "workload": "official",
+      "label": "t1_pre_post_1Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.23012088056107458,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.22767052377549427,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.22889667548865478,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.23012088056107458,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 400,
+        "strictly_earlier_fast_pairs_enumerated": 40000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.13012088056107676,
+        "summed_LTD": 3.213907950898939e-44,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 2.220446049250313e-15,
+        "final_weight": 0.2301208805610768
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "ec6bc2b70dde13f10e6cacd8e4200e2f60964cfcd99df27969ebb56d88dc4387",
+        "wall_seconds": 4.347918299987214,
+        "raw_sha256": {
+          "experiment.json": "c8a7aca7e5da5be6c75101571710810d0bca4041a210dd67ebf149580ed35149",
+          "summary.json": "c8247e12d80cf04f7ef9e2e3bcb0fb5785f49bb23ae211a24509e2f9782ab473",
+          "trace.csv": "e1dba156bee2609d46248e472e95043970c9d69bb0bfba2cc1b1ae17ad667d57",
+          "events.csv": "ed3a104af1b8650e089b7b3f94dde52043200f4048f7c02fb6eed6857a2a529e",
+          "weights.csv": "613dd76715e6ce7a0bf2dba56352ce9a7cab5c419e5248ce1bd76102709b276f"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.501333,
+      "difference_from_external": -0.2712121194389254
+    },
+    {
+      "case": "t1_post_pre_1Hz",
+      "workload": "official",
+      "label": "t1_post_pre_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.04729506842195126,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.048008628707496004,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.04765051289928658,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.04729506842195126,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 400,
+        "strictly_earlier_fast_pairs_enumerated": 40000,
+        "same_time_groups": 0,
+        "summed_LTP": 3.7816343396382965e-44,
+        "summed_LTD": 0.05270493157804826,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 4.440892098500626e-16,
+        "final_weight": 0.047295068421951705
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "360fcdc47f974ad697df47f31793f525158aed01f3f307673d551e4b11a97c24",
+        "wall_seconds": 2.0694194000097923,
+        "raw_sha256": {
+          "experiment.json": "db690dda0f577be57d997040b262e5ec48d1033c1af766e1b2bf053282714200",
+          "summary.json": "e66ff578fbb72ba1ea97d2c74f36844dbd7b4c446d371dc0795f0d6e51d5cc87",
+          "trace.csv": "a314ab5f3d1df82223d87393a9c2a8f911971f9ea94b3e428e3feb4ab9850c56",
+          "events.csv": "40c5ad20e0ffe9b864485b240d1a8a838b6af82ea9fdb9ea0ef0bd9a57bd9636",
+          "weights.csv": "bb003dc26c3e9707b453d57a3f1c6f99ce5f6510767229e6f5cc8fcaa3a06355"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.0157814,
+      "difference_from_external": 0.03151366842195126
+    },
+    {
+      "case": "t1_post_pre_1Hz",
+      "workload": "official",
+      "label": "t1_post_pre_1Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.04731159115556462,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.04802506668093574,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.04766699403179479,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.04731159115556462,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 400,
+        "strictly_earlier_fast_pairs_enumerated": 40000,
+        "same_time_groups": 0,
+        "summed_LTP": 3.779813160049862e-44,
+        "summed_LTD": 0.05268840884443609,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 7.355227538141662e-16,
+        "final_weight": 0.04731159115556388
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "bef2490902ddc51a1f2a4d07abab05907c9b9f98e15e9cd1f088879e3b88100c",
+        "wall_seconds": 3.957670899981167,
+        "raw_sha256": {
+          "experiment.json": "8b8dab5501ebeebc63b47bd303774cba5c9077d81495cbf08f77ede4e3eb7226",
+          "summary.json": "56b3c326914386c14c96edea2f72beca28eb3910f10fecf0cfe5d9b709778bf1",
+          "trace.csv": "a38f0d2b0d5b80a1f065d7ef17f4cb7c2e1bf7ecff60b5923f8b67a6a27b9458",
+          "events.csv": "b69c8607f0237d1dc9acdece01af14b71cc40ab78d9a7fdc2d9f7a525f210b27",
+          "weights.csv": "8b715cccf7aa109ead67dbb31900f7e57af5fa51b40bc4c8ec7c9d50e0b200ad"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.0157814,
+      "difference_from_external": 0.031530191155564616
+    },
+    {
+      "case": "t1_pre_post_10Hz",
+      "workload": "official",
+      "label": "t1_pre_post_10Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.7673114032018579,
+      "spike_counts": [
+        1500,
+        1990
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.7591634538309039,
+          "spikes": [
+            1470,
+            1950
+          ]
+        },
+        "99": {
+          "weight": 0.763267919544192,
+          "spikes": [
+            1485,
+            1970
+          ]
+        },
+        "100": {
+          "weight": 0.7673114032018579,
+          "spikes": [
+            1500,
+            1990
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1990,
+          "counts_per_frame": {
+            "1": 10,
+            "2": 990
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10,
+            "2": 90
+          },
+          "last_10s_counts_per_frame": {
+            "2": 100
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 3490,
+        "strictly_earlier_fast_pairs_enumerated": 2985000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.6680511052408773,
+        "summed_LTD": 0.0007397020390208905,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 4.3298697960381105e-15,
+        "final_weight": 0.7673114032018549
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "f7bcb7ba8f228c91d2a121ccaa1ef455a12fca29fd3f123a4a53551e82d47307",
+        "wall_seconds": 1.9533809999993537,
+        "raw_sha256": {
+          "experiment.json": "f4f669007d5d9bc404441397c02c162a2a572ba134a1fad4e60f103686802c29",
+          "summary.json": "b99d64156c0327b28fe9297f3f0e13d17278761fb4e4b84297e26c2b97e3bb07",
+          "trace.csv": "3c6e19e339894dd1a5184657c512ba3dcfb1b63f88974652f16f217c0ecdf173",
+          "events.csv": "b9d73d802d33d177d77451f727329242b2db6f9af113bb598e0a66afc0177c36",
+          "weights.csv": "addf9d6a920f0aa13014348fba847d185f19cd0009fb6bf5a5dd2b9d427696a5"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.999748,
+      "difference_from_external": -0.2324365967981421
+    },
+    {
+      "case": "t1_pre_post_10Hz",
+      "workload": "official",
+      "label": "t1_pre_post_10Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.7677374915643999,
+      "spike_counts": [
+        1500,
+        1995
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.7595964719716803,
+          "spikes": [
+            1470,
+            1955
+          ]
+        },
+        "99": {
+          "weight": 0.7636978517889317,
+          "spikes": [
+            1485,
+            1975
+          ]
+        },
+        "100": {
+          "weight": 0.7677374915643999,
+          "spikes": [
+            1500,
+            1995
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1995,
+          "counts_per_frame": {
+            "1": 5,
+            "2": 995
+          },
+          "first_10s_counts_per_frame": {
+            "1": 5,
+            "2": 95
+          },
+          "last_10s_counts_per_frame": {
+            "2": 100
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            1,
+            2,
+            2,
+            2,
+            1,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 3495,
+        "strictly_earlier_fast_pairs_enumerated": 2992500,
+        "same_time_groups": 0,
+        "summed_LTP": 0.668478348657726,
+        "summed_LTD": 0.0007408570933223161,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 5.773159728050814e-15,
+        "final_weight": 0.7677374915644041
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "41439ec9648996dda9d02975002b35eb2a24225c5d343527d69f54fde88119e1",
+        "wall_seconds": 3.8850290999980643,
+        "raw_sha256": {
+          "experiment.json": "31e9fd1616e23beba4190da6d82a642c9e627fce102680a0a2a06b5605701238",
+          "summary.json": "2428ffa1058562b0addf4dfb45d68baccc76748ef6c95aa29dd91d47d131d474",
+          "trace.csv": "21af22dfbb5ac7fc0a065e3c383151b86d76158e1161bcc0059667798fe9c797",
+          "events.csv": "911b71350a898eaa68b9aef539743b87384c458c5e39b3e11b5ad2847e5e3c41",
+          "weights.csv": "6c4d33b675ea486b25f5df2360dbe4b4616135695805665be1604fb48e1ea219"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.999748,
+      "difference_from_external": -0.23201050843560012
+    },
+    {
+      "case": "t1_post_pre_10Hz",
+      "workload": "official",
+      "label": "t1_post_pre_10Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.0007750305594313007,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.0008499833062485159,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "weight": 0.0008115842859558025,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "weight": 0.0007750305594313007,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 3000,
+        "strictly_earlier_fast_pairs_enumerated": 2250000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.0002455666851689032,
+        "summed_LTD": 0.09947053612573763,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 4.579669976578771e-16,
+        "final_weight": 0.0007750305594313386
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "82da91a831836c2be9ea31510a76001672922e793559eda548efde568180236f",
+        "wall_seconds": 1.9352625000174157,
+        "raw_sha256": {
+          "experiment.json": "453c5c7ccf44427eb1f4fe5514f99da42dfe607eb19f6be5063fa7ab29c8ab04",
+          "summary.json": "4de76d264657cb2f5061f120783daedab37c0e569f47d4c8300334970be97b1e",
+          "trace.csv": "f15e58bc2d97304b1a715a2c48d6294220099a7f3c3fb2e8cf96c9db168bdec2",
+          "events.csv": "39acbefb835b2a0687b732de784391394cb53328efabea48f837a15082233679",
+          "weights.csv": "de589c68d3424f81ce3f09d361aec89d98c60cfbfe8da227815ac771a86684cd"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 8.03577e-05,
+      "difference_from_external": 0.0006946728594313007
+    },
+    {
+      "case": "t1_post_pre_10Hz",
+      "workload": "official",
+      "label": "t1_post_pre_10Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.0008754052642214402,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.0009582868143043425,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "weight": 0.0009158518051268054,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "weight": 0.0008754052642214402,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 3000,
+        "strictly_earlier_fast_pairs_enumerated": 2250000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.00024752725077780867,
+        "summed_LTD": 0.09937212198655637,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 6.106226635438361e-16,
+        "final_weight": 0.0008754052642213694
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "b55495bba21a7ea8e3268d71ec2102244e890223fcdef86e5e57501ccd713a11",
+        "wall_seconds": 3.835394499998074,
+        "raw_sha256": {
+          "experiment.json": "fdbaaf749f543c28cd5657096db48df592df762fb656e5e9e05fa32c792d4af8",
+          "summary.json": "bf5e5a8186944a6eadad83712b1b790e396f48ac74673c53db1101605db44aa0",
+          "trace.csv": "962e61e443a0495d7986c1d978d6c24a60fae43d47b569e195dd172ff072c38c",
+          "events.csv": "fbb1f94f84e87fb7cf3699c4a05d3a85bb9c1d079ef9a40a85618df4661be26d",
+          "weights.csv": "09c8487000c8fb3a70233ca42f3fbb4d097a4e8f2715e25e297f01ca35d80d2f"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 8.03577e-05,
+      "difference_from_external": 0.0007950475642214402
+    },
+    {
+      "case": "t1_pre_post_40Hz",
+      "workload": "official",
+      "label": "t1_pre_post_40Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.255283162953995,
+      "spike_counts": [
+        4001,
+        4001
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.2552415364662118,
+          "spikes": [
+            3921,
+            3921
+          ]
+        },
+        "99": {
+          "weight": 0.2552630159303361,
+          "spikes": [
+            3961,
+            3961
+          ]
+        },
+        "100": {
+          "weight": 0.255283162953995,
+          "spikes": [
+            4001,
+            4001
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 8002,
+        "strictly_earlier_fast_pairs_enumerated": 16008001,
+        "same_time_groups": 0,
+        "summed_LTP": 1.2566694907410811,
+        "summed_LTD": 1.1013863277870894,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 1.887379141862766e-15,
+        "final_weight": 0.2552831629539962
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "cff92bae030a8e8fa43381cbe5d8f56f6de2341dde6cc1425e5e1828ab8032ab",
+        "wall_seconds": 1.9460814999765716,
+        "raw_sha256": {
+          "experiment.json": "367e110e1d197da18aed18703d42d2b70ee9f183b6ea780521febb1a2461c6bc",
+          "summary.json": "f3bfcb5f90a3e3dacfb171c8c13a5dda97661f6f8a61c973c798008eb8fa307d",
+          "trace.csv": "50cc4ecd547011db944ee250da743f68959a77ef70234cfffe92ce27bd73224e",
+          "events.csv": "4e96bdde0c14d2dc181fe1f4c894edc17e636757bada896b8fc90b1e0e24c1ae",
+          "weights.csv": "c205601f1c37e09bd8c4dbbc30fd49bb2cb6beff69e6eb1fa9502524f8342ed4"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.335617,
+      "difference_from_external": -0.080333837046005
+    },
+    {
+      "case": "t1_pre_post_40Hz",
+      "workload": "official",
+      "label": "t1_pre_post_40Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.2553121126746477,
+      "spike_counts": [
+        4001,
+        4001
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.25527444204006633,
+          "spikes": [
+            3921,
+            3921
+          ]
+        },
+        "99": {
+          "weight": 0.2552938802652716,
+          "spikes": [
+            3961,
+            3961
+          ]
+        },
+        "100": {
+          "weight": 0.2553121126746477,
+          "spikes": [
+            4001,
+            4001
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 8002,
+        "strictly_earlier_fast_pairs_enumerated": 16008001,
+        "same_time_groups": 0,
+        "summed_LTP": 1.2571166405573724,
+        "summed_LTD": 1.1018045278827295,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 2.7200464103316335e-15,
+        "final_weight": 0.25531211267464576
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "1306f02522d4f6d124e53d60a2c9064da65b58f37ef22c0bd8201e82f08c4a62",
+        "wall_seconds": 3.9498480000183918,
+        "raw_sha256": {
+          "experiment.json": "d83f996d555474ae61edc544bfc3592b6f14bf9af616329a432c4b1e404af900",
+          "summary.json": "19c8f4bcffe0928bd7761c256157f2759183ee3faee70f9eff532433c92ea014",
+          "trace.csv": "f6c75c363190bf8a075a45424e84d33cd78f2389536f7bde8e8af31cb8d74ff3",
+          "events.csv": "6c209b874a86369140ebcc56ceaf8f00210eb498e6bc7a52c8500eafb48d7f2f",
+          "weights.csv": "1f73d9fba3918f073735a36fd2f22d76ad03c7340247bc2347b152a75ccd6fb1"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.335617,
+      "difference_from_external": -0.08030488732535229
+    },
+    {
+      "case": "t1_post_pre_40Hz",
+      "workload": "official",
+      "label": "t1_post_pre_40Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.10895631659665686,
+      "spike_counts": [
+        4001,
+        4001
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.10895607606739151,
+          "spikes": [
+            3921,
+            3921
+          ]
+        },
+        "99": {
+          "weight": 0.1089562017167923,
+          "spikes": [
+            3961,
+            3961
+          ]
+        },
+        "100": {
+          "weight": 0.10895631659665686,
+          "spikes": [
+            4001,
+            4001
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 8002,
+        "strictly_earlier_fast_pairs_enumerated": 16008001,
+        "same_time_groups": 0,
+        "summed_LTP": 0.8717767429453877,
+        "summed_LTD": 0.8628204263487274,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 9.992007221626409e-16,
+        "final_weight": 0.10895631659665614
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "1732e80c5f87d0a477001bec013a05b27c45f9d3596d72362f040b3e159a7a44",
+        "wall_seconds": 1.936700300022494,
+        "raw_sha256": {
+          "experiment.json": "ba43578e9deaf0134ec082e6eca491f181c4f369a37588a24a53d9aebb5592fe",
+          "summary.json": "d496924192a658110e00e1445a268b9e5648a353b45b66b62b8180f82499bc58",
+          "trace.csv": "e7cf01f4ded22cf10913bb53ee323fd48f5e97301373f161fd8e80c9fd5ce0c4",
+          "events.csv": "d5fe9c1fdb033744e548220d8583ec89354f85601121950747eeb5df801a354a",
+          "weights.csv": "e6e7518d9c9c863a85a91154149c0fd98b1c4b265bce736947f3c4c681bf973a"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.153155,
+      "difference_from_external": -0.04419868340334315
+    },
+    {
+      "case": "t1_post_pre_40Hz",
+      "workload": "official",
+      "label": "t1_post_pre_40Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 20.0,
+      "final_weight": 0.10895631496468693,
+      "spike_counts": [
+        4001,
+        4001
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.10895607411509817,
+          "spikes": [
+            3921,
+            3921
+          ]
+        },
+        "99": {
+          "weight": 0.10895619993183182,
+          "spikes": [
+            3961,
+            3961
+          ]
+        },
+        "100": {
+          "weight": 0.10895631496468693,
+          "spikes": [
+            4001,
+            4001
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 4000,
+          "spikes_in_frames": 4001,
+          "counts_per_frame": {
+            "1": 3999,
+            "2": 1
+          },
+          "first_10s_counts_per_frame": {
+            "1": 399,
+            "2": 1
+          },
+          "last_10s_counts_per_frame": {
+            "1": 400
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 8002,
+        "strictly_earlier_fast_pairs_enumerated": 16008001,
+        "same_time_groups": 0,
+        "summed_LTP": 0.8717720960577817,
+        "summed_LTD": 0.862815781093095,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 1.3322676295501878e-15,
+        "final_weight": 0.10895631496468809
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "557f271cde89e9f0789f1d48ad27b6167ffcdc89db0ac9817014b3bd01a66218",
+        "wall_seconds": 3.847017499996582,
+        "raw_sha256": {
+          "experiment.json": "9d4253ab61c8aee8fe6538ea495c12ee26f65de89f3f6d145f5d0136baa90bcf",
+          "summary.json": "6b4095fe1cfc568fb400aa35e5dd7874da0a7a0eb159b5f15f45cdf128ea8ff4",
+          "trace.csv": "4d6bea3cf3a0ff70bf162acba593a822b9b858200044ea6e478b915e3348bede",
+          "events.csv": "c14e0106303d0a0d04789252bafff50e278160cad7de74c0c748129f8c42b392",
+          "weights.csv": "4166f2d38fcec9bfbb4913dcb588856e55e4439babaf3c5585c5a4294e981ce9"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.153155,
+      "difference_from_external": -0.04419868503531309
+    },
+    {
+      "case": "t2a_pre_post_1Hz",
+      "workload": "official",
+      "label": "t2a_pre_post_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.22575372328815413,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.22341889360757922,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.22458718724211318,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.22575372328815413,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 400,
+        "strictly_earlier_fast_pairs_enumerated": 40000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.12575372328815268,
+        "summed_LTD": 6.637861289502264e-45,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 1.4988010832439613e-15,
+        "final_weight": 0.22575372328815263
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "f1dca72c9933b8f7503e4c469fddfe51c57f04f92969b5645ffdeac5fe9b3017",
+        "wall_seconds": 1.9328957999823615,
+        "raw_sha256": {
+          "experiment.json": "04a9011580305d547f3643cedb834fd078e26da9df3db0f2db51d3ab67062124",
+          "summary.json": "b07a9dce3592a21eeee0468e0a43d922992b0f7315cb40bfe2b404b0df093d2f",
+          "trace.csv": "7e7d202640f74e2b35b016ab6224379cf57ae03b672f752678dcc12075319beb",
+          "events.csv": "3383d972e3d4f48d3275c989a92d7c86c21ab93d851324e93f39579d54375646",
+          "weights.csv": "6c4db03448147fd3375ada1d1525b40b022726d9b5e0c75683ed5a939014ff3e"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.147829,
+      "difference_from_external": 0.07792472328815414
+    },
+    {
+      "case": "t2a_pre_post_1Hz",
+      "workload": "official",
+      "label": "t2a_pre_post_1Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.22558443545259915,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.22325015677650528,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.2244181743026544,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.22558443545259915,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 400,
+        "strictly_earlier_fast_pairs_enumerated": 40000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.1255844354526015,
+        "summed_LTD": 6.636097113835566e-45,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 2.6367796834847468e-15,
+        "final_weight": 0.2255844354526018
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "530ffd87d0043d779489b2a9157adf22823a955ac592c10a127e7f156b47ed5f",
+        "wall_seconds": 3.815841100004036,
+        "raw_sha256": {
+          "experiment.json": "03980eff16803535e73cc2b381bd97796128de26dee51c461e993716812efb1d",
+          "summary.json": "7c8112777facf98650b8f172b8de4aa55ee72c77e7e40fcb6ad454142ee59e8a",
+          "trace.csv": "e25f3b397e8f0eeffb85747d8af826e3132dff96fd5850492f807a64549602c9",
+          "events.csv": "d42d5df0579bb334c006525acc5ecb9be4c737e043f74c19c3753e335f84b59c",
+          "weights.csv": "450258a7a18fedde25fc492c702579ba6401b5f7ae7766bc8deb7739f6772474"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.147829,
+      "difference_from_external": 0.07775543545259916
+    },
+    {
+      "case": "t2a_triplet_pre_post_1Hz",
+      "workload": "official",
+      "label": "t2a_triplet_pre_post_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.15628273051506714,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.15518983438003855,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.15573645929130175,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.15628273051506714,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 400,
+        "strictly_earlier_fast_pairs_enumerated": 40000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.056282730515066166,
+        "summed_LTD": 5.187872173978919e-45,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 9.159339953157541e-16,
+        "final_weight": 0.15628273051506622
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "4e5e3c8b226231f9d39e5fde5d0aa072b5861e567e224dfa9e205610cf3f900d",
+        "wall_seconds": 1.9252176999871153,
+        "raw_sha256": {
+          "experiment.json": "050736f51402455f06cce94c638093b847ad1f03ab04195f7736f000294f8cdf",
+          "summary.json": "ba0c440952308db533fdec0c6817c10a2fecad6d0e8bb7e64ee0860cb143b69f",
+          "trace.csv": "3829ddbcbd5109a2108012f4c4d8c1c0ac79d1ce6ef8f742ab27b49c20d65baa",
+          "events.csv": "25d7a926ad80c85269e1416aefffe9dca0edc094d4e0454417f69336d5e8038e",
+          "weights.csv": "c22d016b3e133144e627cf5da4fb33a040e78cae479fab7f7af9526c31ffcaee"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.119444,
+      "difference_from_external": 0.03683873051506714
+    },
+    {
+      "case": "t2a_triplet_pre_post_1Hz",
+      "workload": "official",
+      "label": "t2a_triplet_pre_post_1Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.1562112057493504,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.1551175130305993,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.15566453647652537,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.1562112057493504,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 400,
+        "strictly_earlier_fast_pairs_enumerated": 40000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.05621120574935189,
+        "summed_LTD": 5.194358127295233e-45,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 1.4988010832439613e-15,
+        "final_weight": 0.1562112057493519
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "de38d8eb53db5d55105bcabfcf937cb16e51e5cf77b7f61cfea2b72507414114",
+        "wall_seconds": 3.8713667999836616,
+        "raw_sha256": {
+          "experiment.json": "884a901970d5aea83ca9bc5fa36fcce8b5ab888c0cd2e3ede6aac2250ac49605",
+          "summary.json": "e4873cb30094b51294b8775746dbe5b2dd86fe0f165432ee90f9e929e4ca6521",
+          "trace.csv": "da6162f083f47ec552db700e80e4b647a489c049dcd6deec0caa8e4647de8e09",
+          "events.csv": "c75159cb5d20faa6c7824626a0ad7fb9734ca3f9a4d9d6b3bf39279e21c58db8",
+          "weights.csv": "dbc2bfd7507616badb58a91eae565a45d3e735a4b2c827aa764fa33706e53136"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.119444,
+      "difference_from_external": 0.03676720574935041
+    },
+    {
+      "case": "t2a_pre_post_10Hz",
+      "workload": "official",
+      "label": "t2a_pre_post_10Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.6565556582297568,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.6497956543463379,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "weight": 0.65319213871833,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "weight": 0.6565556582297568,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 3000,
+        "strictly_earlier_fast_pairs_enumerated": 2250000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.5566602174844985,
+        "summed_LTD": 0.00010455925474432847,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 4.218847493575595e-15,
+        "final_weight": 0.6565556582297526
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "3d3821410cb56eb8bbdf627d839ae3417e86c272f125eff48e7bd15010c6d215",
+        "wall_seconds": 1.9191487000207417,
+        "raw_sha256": {
+          "experiment.json": "3bc99e4facba6bf27fc540598626202118e5e092c1d9fc633d17befee3977e0c",
+          "summary.json": "8a0616618e8177a41bc6d27156c992a732feb2b78e5c2a1428a2a8849ae26e46",
+          "trace.csv": "58f07095faa8cd37e673117f36e33870145a051083626e061164f405ca9ec43a",
+          "events.csv": "94a9df93ac6080c9c4a7cd5b7efebf0e4d43e4066d9062a0293929c5e5454ee8",
+          "weights.csv": "fe81c0a3f9e6df0d1af42f143f580bca5c4e2863f56e28e093f59f5f765b69d3"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.5437,
+      "difference_from_external": 0.11285565822975685
+    },
+    {
+      "case": "t2a_pre_post_10Hz",
+      "workload": "official",
+      "label": "t2a_pre_post_10Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.6574030209795384,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.6506567340835747,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "weight": 0.6540463336925804,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "weight": 0.6574030209795384,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 3000,
+        "strictly_earlier_fast_pairs_enumerated": 2250000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.5575075897976516,
+        "summed_LTD": 0.00010456881810797562,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 6.439293542825908e-15,
+        "final_weight": 0.6574030209795448
+      },
+      "baseline_byte_matches": {
+        "trace.csv": true,
+        "events.csv": true,
+        "weights.csv": true,
+        "configuration_same_after_optional_defaults": true
+      },
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "3f0047e4759cd902abba75291b7818ef4e606f34d2c27ddd185260bebce25e0b",
+        "wall_seconds": 3.818019500002265,
+        "raw_sha256": {
+          "experiment.json": "4634b0bae2e84fbd0730a4ed708bdf2d42be38d7f3e2390cdea23f6e55c8080b",
+          "summary.json": "eea95500beb64afec4083eb86ffa62aee54789d5d8ca6adbf650ddfa68e7da92",
+          "trace.csv": "06b887d9a22ed8d402293a5aaaa490d42c6b594379f4ea4047866a1bd5f23242",
+          "events.csv": "f61fc3b4f9e88915763c8d3c4f9b7c61e444bdb179a253b34b5547d2160008fa",
+          "weights.csv": "36dec648ec39c17776e3116228746a3adc97915b134670d7d02f74093a5d79a9"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.5437,
+      "difference_from_external": 0.11370302097953844
+    },
+    {
+      "case": "t2a_triplet_pre_post_10Hz",
+      "workload": "official",
+      "label": "t2a_triplet_pre_post_10Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.6946264283429286,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.6878304322664706,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "weight": 0.6912471417258376,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "weight": 0.6946264283429286,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 3000,
+        "strictly_earlier_fast_pairs_enumerated": 2250000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.5947373490222667,
+        "summed_LTD": 0.00011092067935364249,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 1.765254609153999e-14,
+        "final_weight": 0.6946264283429111
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "838fe9648a0bb400a98c0bb0c9cfc8d19a1e9272b049bbd5865b22a77845a69a",
+        "wall_seconds": 2.020399600005476,
+        "raw_sha256": {
+          "experiment.json": "bb44888a9eb689beb8fe4e400a3b4b9a5cefcf50a264bb1ae2d94c36051e8412",
+          "summary.json": "ca05743be1529287601d81dc60ad98a10713eeec648ed1dadcef25d562def0da",
+          "trace.csv": "d09ab06490959aaa55cf37bac422920e83eadc28b5cd0b04c69c429d84233959",
+          "events.csv": "87de3ce56808c35593e3b6532386a49de70e1723c7468a28a05014b3985aaaeb",
+          "weights.csv": "d27a53b8d10276e0b5b27c2f9369e4689d73b539bb38e4f25ae02099df79591c"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.459589,
+      "difference_from_external": 0.23503742834292862
+    },
+    {
+      "case": "t2a_triplet_pre_post_10Hz",
+      "workload": "official",
+      "label": "t2a_triplet_pre_post_10Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.6957847100362545,
+      "spike_counts": [
+        1500,
+        1500
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.6890146456250298,
+          "spikes": [
+            1470,
+            1470
+          ]
+        },
+        "99": {
+          "weight": 0.6924183174876977,
+          "spikes": [
+            1485,
+            1485
+          ]
+        },
+        "100": {
+          "weight": 0.6957847100362545,
+          "spikes": [
+            1500,
+            1500
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1500,
+          "counts_per_frame": {
+            "1": 500,
+            "2": 500
+          },
+          "first_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "last_10s_counts_per_frame": {
+            "1": 50,
+            "2": 50
+          },
+          "first_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "last_10_frame_counts": [
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 3000,
+        "strictly_earlier_fast_pairs_enumerated": 2250000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.5958957607484282,
+        "summed_LTD": 0.00011105071208564151,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 8.948397578478762e-14,
+        "final_weight": 0.6957847100363439
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "71dae304f15a377726fa6e99a486baff9717bc8ee54cf60956c89a93966f24c1",
+        "wall_seconds": 4.087765100004617,
+        "raw_sha256": {
+          "experiment.json": "c4cffd513a6eaca483a0e2aaa816b967d7c51767b7343db4e20998c6ec3dc3c7",
+          "summary.json": "5480f8e99fe9c4197e199948b2544b1fc5a7dfd89ce1c991b5b13f851379adbb",
+          "trace.csv": "aacd175529e6221787eec4ceda7a29da54e21bc35a399295847d56a806cbd390",
+          "events.csv": "935c92c7554ed8d0f756c2381a1bc40f620406dd7bb709d483a1891486961ecf",
+          "weights.csv": "9283f452e7632349030f70604e0938c60fc9712526180feccf5151592b924e71"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.459589,
+      "difference_from_external": 0.2361957100362545
+    },
+    {
+      "case": "t2b_pair_pre_post_pre_1Hz",
+      "workload": "official",
+      "label": "t2b_pair_pre_post_pre_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.21496816587437412,
+      "spike_counts": [
+        300,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.21290941254828946,
+          "spikes": [
+            294,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.21393993344639248,
+          "spikes": [
+            297,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.21496816587437412,
+          "spikes": [
+            300,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 300,
+          "counts_per_frame": {
+            "3": 100
+          },
+          "first_10s_counts_per_frame": {
+            "3": 10
+          },
+          "last_10s_counts_per_frame": {
+            "3": 10
+          },
+          "first_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "last_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 500,
+        "strictly_earlier_fast_pairs_enumerated": 60000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.12647138017875903,
+        "summed_LTD": 0.01150321430438616,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 1.3322676295501878e-15,
+        "final_weight": 0.21496816587437279
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "b0e7708366b1a023b214f1c2b404dc53be49f715682c8785f79fd8bd2635881f",
+        "wall_seconds": 2.1167395999946166,
+        "raw_sha256": {
+          "experiment.json": "65a6b0f2d2e77a2a6f92313f921bdf155255e4bef008d936e6c113c33616e463",
+          "summary.json": "edda2c32891b7d12709846fda4cf36c0fde7c87785b8d5ae04e12afd909f3433",
+          "trace.csv": "5c3ea32a424d95de5d41b641b772b2149b2d3a9293ce7965cfc561d072f182b2",
+          "events.csv": "6e74bb7317c3a26bf3f8c23b46a24892e79cdaf7821cc56e50580b30ee95a2cb",
+          "weights.csv": "e5a0f8298a1e8547bac141e1ca8d020580541528661fecb7d69b302b7d2d3ef7"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.1141,
+      "difference_from_external": 0.10086816587437412
+    },
+    {
+      "case": "t2b_pair_pre_post_pre_1Hz",
+      "workload": "official",
+      "label": "t2b_pair_pre_post_pre_1Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.2148241971701726,
+      "spike_counts": [
+        300,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.21276484698167986,
+          "spikes": [
+            294,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.21379566505590378,
+          "spikes": [
+            297,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.2148241971701726,
+          "spikes": [
+            300,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 300,
+          "counts_per_frame": {
+            "3": 100
+          },
+          "first_10s_counts_per_frame": {
+            "3": 10
+          },
+          "last_10s_counts_per_frame": {
+            "3": 10
+          },
+          "first_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "last_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 500,
+        "strictly_earlier_fast_pairs_enumerated": 60000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.12629234597300107,
+        "summed_LTD": 0.011468148802826494,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 2.220446049250313e-15,
+        "final_weight": 0.2148241971701748
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "79e0ce4a2273571a8a21df0f6b53edb822647dad157da1c623293f5a69e4dbca",
+        "wall_seconds": 4.063713999988977,
+        "raw_sha256": {
+          "experiment.json": "926895cb18d8fc6c6dd5f9816d468ddf2773cd284d953d3026aa84693b92fb3d",
+          "summary.json": "9732220bbb2c411ddd47daa03556dbf440ca68aa19ef59d3b029729df9ea2755",
+          "trace.csv": "62577d54708269b8dd4a50eaa0628c92009357aa26ce45f6b714512da070e8f6",
+          "events.csv": "9ad0e7c7e48f788a54578340b2da9cd70ee2c0258364dafa9e075c0114b9c5b6",
+          "weights.csv": "22133b6379e2e3cee9014893a46d60febb7d05540405922056f76883d7da6138"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.1141,
+      "difference_from_external": 0.1007241971701726
+    },
+    {
+      "case": "t2b_triplet_pre_post_pre_1Hz",
+      "workload": "official",
+      "label": "t2b_triplet_pre_post_pre_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.14757011399507544,
+      "spike_counts": [
+        300,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.146677692968282,
+          "spikes": [
+            294,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.14712420799151138,
+          "spikes": [
+            297,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.14757011399507544,
+          "spikes": [
+            300,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 300,
+          "counts_per_frame": {
+            "3": 100
+          },
+          "first_10s_counts_per_frame": {
+            "3": 10
+          },
+          "last_10s_counts_per_frame": {
+            "3": 10
+          },
+          "first_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "last_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 500,
+        "strictly_earlier_fast_pairs_enumerated": 60000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.056524076969693804,
+        "summed_LTD": 0.008953962974619046,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 4.718447854656915e-16,
+        "final_weight": 0.14757011399507497
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "193796dd879bb67c2d6d3439c55c26be279e49bada408903ca0a9a7e8354b5ee",
+        "wall_seconds": 2.047048900014488,
+        "raw_sha256": {
+          "experiment.json": "a089724364e095f0001f12aac605c8ebf1d2a9ddf5b2cfd7eaa94a46891bb474",
+          "summary.json": "ac29cae2e7b3776751f994c7020533029a15f85716ac2ffb5d8db34b40cc4c3c",
+          "trace.csv": "02b0da96a7140e16ac58e6c61ccf1c4cc88b809ed4f083cd425c8d0b1c487588",
+          "events.csv": "78f7fd007c5ba356ca91626f9c4f18440dcc88df6f99b611f0e9f980ff9f6a7a",
+          "weights.csv": "c5d5171334c951edfa405e4acc7e669ce17c0e7520adc9e448daeab4c0529e9d"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.0887917,
+      "difference_from_external": 0.05877841399507544
+    },
+    {
+      "case": "t2b_triplet_pre_post_pre_1Hz",
+      "workload": "official",
+      "label": "t2b_triplet_pre_post_pre_1Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.14749003512182227,
+      "spike_counts": [
+        300,
+        200
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.1465961234616037,
+          "spikes": [
+            294,
+            196
+          ]
+        },
+        "99": {
+          "weight": 0.14704338397893488,
+          "spikes": [
+            297,
+            198
+          ]
+        },
+        "100": {
+          "weight": 0.14749003512182227,
+          "spikes": [
+            300,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 300,
+          "counts_per_frame": {
+            "3": 100
+          },
+          "first_10s_counts_per_frame": {
+            "3": 10
+          },
+          "last_10s_counts_per_frame": {
+            "3": 10
+          },
+          "first_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "last_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 500,
+        "strictly_earlier_fast_pairs_enumerated": 60000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.05643192607083358,
+        "summed_LTD": 0.00894189094900999,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 1.2212453270876722e-15,
+        "final_weight": 0.1474900351218235
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "f94800072c81618dc7500b09e9a25bb174256a1cd7818c6b1a6966c4f394d2a5",
+        "wall_seconds": 4.020963300019503,
+        "raw_sha256": {
+          "experiment.json": "f3e04a7cbe27fc5f3cc2140d8869cc81ab474354b67cdfca5c4d88dbca36f426",
+          "summary.json": "61266411231742779d61a38828380539189f7a27b9953c6b98a8a8eef261f146",
+          "trace.csv": "9224ea44454817d8b9dc22c31deccfe56f9d9957bf3d7f41d465e62a829422c3",
+          "events.csv": "ffcc1a6a4c2b598055a93352bafd00ef65c9cfac3fc3f011cb8569aa533183c6",
+          "weights.csv": "ec056eed1ef9e1fcf6a1ca57a686e7a83516780fc2e3c93d0efc557b320d790f"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.0887917,
+      "difference_from_external": 0.058698335121822265
+    },
+    {
+      "case": "t2b_pair_post_pre_post_1Hz",
+      "workload": "official",
+      "label": "t2b_pair_post_pre_post_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.14513124154468066,
+      "spike_counts": [
+        200,
+        300
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.14432232405228654,
+          "spikes": [
+            196,
+            294
+          ]
+        },
+        "99": {
+          "weight": 0.14472723184403108,
+          "spikes": [
+            198,
+            297
+          ]
+        },
+        "100": {
+          "weight": 0.14513124154468066,
+          "spikes": [
+            200,
+            300
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 300,
+          "counts_per_frame": {
+            "3": 100
+          },
+          "first_10s_counts_per_frame": {
+            "3": 10
+          },
+          "last_10s_counts_per_frame": {
+            "3": 10
+          },
+          "first_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "last_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 500,
+        "strictly_earlier_fast_pairs_enumerated": 60000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.06353257191001896,
+        "summed_LTD": 0.018401330365338836,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 5.551115123125783e-16,
+        "final_weight": 0.1451312415446801
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "983f211526328b26e1b554a8400519089d09e0225a321e7fe44b1f7322b3d28e",
+        "wall_seconds": 1.9504729000036605,
+        "raw_sha256": {
+          "experiment.json": "0c28fad19b606eb2ff90a2fb75bd14849f7e2c88bac27af59273cced46991e08",
+          "summary.json": "2b0e07ec08eab124d3bf5454d100770ba6d7029c7beabbeee9b2e89303409234",
+          "trace.csv": "e78205d1e9be9d5e4105e21886e85c8ad904f99062de7b18222e4e6ad3429025",
+          "events.csv": "c7a89da278e0e66f4154d0ee091adefe69f64c8fda0c4e9826636277e2eed776",
+          "weights.csv": "2015b6d889bd39874d31f6e6876dcecb5f0910d21252ccf2b62837cace354408"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.141625,
+      "difference_from_external": 0.003506241544680655
+    },
+    {
+      "case": "t2b_pair_post_pre_post_1Hz",
+      "workload": "official",
+      "label": "t2b_pair_post_pre_post_1Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.14499529701865782,
+      "spike_counts": [
+        200,
+        300
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.14418974641169155,
+          "spikes": [
+            196,
+            294
+          ]
+        },
+        "99": {
+          "weight": 0.1445929682626509,
+          "spikes": [
+            198,
+            297
+          ]
+        },
+        "100": {
+          "weight": 0.14499529701865782,
+          "spikes": [
+            200,
+            300
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 300,
+          "counts_per_frame": {
+            "3": 100
+          },
+          "first_10s_counts_per_frame": {
+            "3": 10
+          },
+          "last_10s_counts_per_frame": {
+            "3": 10
+          },
+          "first_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "last_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 500,
+        "strictly_earlier_fast_pairs_enumerated": 60000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.06338014602428803,
+        "summed_LTD": 0.018384849005629412,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 1.0547118733938987e-15,
+        "final_weight": 0.14499529701865888
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "55bb4dad74b48fed09bbfaf5313c06b2555ccc5947ec047041e59a834cb6d170",
+        "wall_seconds": 3.8869757000065874,
+        "raw_sha256": {
+          "experiment.json": "25d86089333016c538df08b8e13b86698ba30ba0d7a8130d35b71d29b777f407",
+          "summary.json": "faae2812a2ea592c065ecad6c3135494d29a2f10ec4d4ccbf9eb4e6c47a7a675",
+          "trace.csv": "f40274236605d03bf2ee558b4f612410c167cabb32e36a4ea059f0b0adb6b912",
+          "events.csv": "5bc52a409fe5212d4035d9ca98f57e116d79331dffaf010c18e13fc9dfcb6c73",
+          "weights.csv": "c922a27d560afa091cbfc8611185c31721be19e229b35a3cd9df896ddda1e0a4"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.141625,
+      "difference_from_external": 0.0033702970186578196
+    },
+    {
+      "case": "t2b_triplet_post_pre_post_1Hz",
+      "workload": "official",
+      "label": "t2b_triplet_post_pre_post_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 3.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.1805059922850314,
+      "spike_counts": [
+        200,
+        300
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.17909737454912705,
+          "spikes": [
+            196,
+            294
+          ]
+        },
+        "99": {
+          "weight": 0.17980262740097577,
+          "spikes": [
+            198,
+            297
+          ]
+        },
+        "100": {
+          "weight": 0.1805059922850314,
+          "spikes": [
+            200,
+            300
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 300,
+          "counts_per_frame": {
+            "3": 100
+          },
+          "first_10s_counts_per_frame": {
+            "3": 10
+          },
+          "last_10s_counts_per_frame": {
+            "3": 10
+          },
+          "first_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "last_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 500,
+        "strictly_earlier_fast_pairs_enumerated": 60000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.10166686058383628,
+        "summed_LTD": 0.021160868298806396,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 1.5543122344752192e-15,
+        "final_weight": 0.18050599228502984
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "85b3459a93c8bfecfc5fb16625c5d9b13d7137f89ddf47342d47b8b2bddc2b16",
+        "wall_seconds": 1.9803771000006236,
+        "raw_sha256": {
+          "experiment.json": "92030bd0661ebfa8c2540f1551e2dd110ec1bac672b6c560b95bc31b1809c039",
+          "summary.json": "f2af918707009dff2ed2f382fb128fe487fef2abc1360990636ae0c1b8e35577",
+          "trace.csv": "467e1826d2aa3409f76f32981d4ec8503208f2988904e062dbdb5a28c11940d6",
+          "events.csv": "b0152338a2e8be4a27d9df747c858c717468010b725e2c214761080b935c78ce",
+          "weights.csv": "64383fc405e729607298663628117b960d235fc1dd28e9012d1e9b3b58c8cdf8"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.1523,
+      "difference_from_external": 0.0282059922850314
+    },
+    {
+      "case": "t2b_triplet_post_pre_post_1Hz",
+      "workload": "official",
+      "label": "t2b_triplet_post_pre_post_1Hz_dt12p5us",
+      "dt_us": 12.5,
+      "width_ms": 3.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.18025929305158495,
+      "spike_counts": [
+        200,
+        300
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.17885358068508816,
+          "spikes": [
+            196,
+            294
+          ]
+        },
+        "99": {
+          "weight": 0.179557377705819,
+          "spikes": [
+            198,
+            297
+          ]
+        },
+        "100": {
+          "weight": 0.18025929305158495,
+          "spikes": [
+            200,
+            300
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 300,
+          "counts_per_frame": {
+            "3": 100
+          },
+          "first_10s_counts_per_frame": {
+            "3": 10
+          },
+          "last_10s_counts_per_frame": {
+            "3": 10
+          },
+          "first_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "last_10_frame_counts": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 500,
+        "strictly_earlier_fast_pairs_enumerated": 60000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.1013922860703691,
+        "summed_LTD": 0.021132993018778797,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 5.440092820663267e-15,
+        "final_weight": 0.18025929305159039
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "319fcce90f2891307a94ef2af4b3fc37cf305f96e8405602941ce794eaef9fa1",
+        "wall_seconds": 3.9542986000014935,
+        "raw_sha256": {
+          "experiment.json": "d9962e916b5b473f632416bcffe1e5fc70cd7a9a3f0f1786d0c547ec170571f6",
+          "summary.json": "c1bb38940cbe59cf9e6655044e50ee949c2ec4d1d432f3a0810c04802ac304fc",
+          "trace.csv": "e325088c58f1bcd937a0ef63a9aedf8a14d2068a53d24cba6556c8789776afeb",
+          "events.csv": "3d608fb8f1b014cc63ba3dec57bfab139b4cf4a707fa4793120aa0d3958d6b1f",
+          "weights.csv": "f751dcb99cca6c6e83065097a611f00d46373666243bca5913e5c7ef9cc174b9"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "external_report_weight": 0.1523,
+      "difference_from_external": 0.027959293051584955
+    },
+    {
+      "case": "width1_t2a_pre_post_1Hz",
+      "workload": "controls",
+      "label": "width1_t2a_pre_post_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 1.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.13259892783586727,
+      "spike_counts": [
+        100,
+        100
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.1319571749267551,
+          "spikes": [
+            98,
+            98
+          ]
+        },
+        "99": {
+          "weight": 0.13227811071005283,
+          "spikes": [
+            99,
+            99
+          ]
+        },
+        "100": {
+          "weight": 0.13259892783586727,
+          "spikes": [
+            100,
+            100
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 200,
+        "strictly_earlier_fast_pairs_enumerated": 10000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.03259892783586689,
+        "summed_LTD": 1.162279907536307e-45,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 4.440892098500626e-16,
+        "final_weight": 0.13259892783586683
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "ed867262fee7d34b6b5cbfa3fa6d9558f03a3a914aa4a0470c4c996d1ff2e81d",
+        "wall_seconds": 1.925651499972446,
+        "raw_sha256": {
+          "experiment.json": "a1f6e80860f9e8c2a48fdaea3caf2dce4dc136e2528c09031d1a94e67e6fb64b",
+          "summary.json": "a54863db1ddbf7164c59d9c913812c5977ac2b911eae640c3ee931a176fc5ffd",
+          "trace.csv": "5b6c7107dfd634b0ec1547b98e07d1cd5a4e4471191be2f4348afd8b37a95d7a",
+          "events.csv": "adc96535ab54345d41f88f59e2d2336c3d4306541ccdf789edf1d2f1ad94b3bd",
+          "weights.csv": "13d8946624a272f17cbd921ec6a0813a700b8c2ad0987096e4abe5aa8220f29e"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "note": "Changed1ms diagnostic stimulus; not reproduction of the manual3ms protocol.",
+      "expected_stimuli_per_frame": [
+        1,
+        1
+      ],
+      "all_frames_have_expected_spike_count": [
+        true,
+        true
+      ]
+    },
+    {
+      "case": "width1_t2a_triplet_pre_post_1Hz",
+      "workload": "controls",
+      "label": "width1_t2a_triplet_pre_post_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 1.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.10000149192362966,
+      "spike_counts": [
+        100,
+        100
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.10000146178399742,
+          "spikes": [
+            98,
+            98
+          ]
+        },
+        "99": {
+          "weight": 0.10000147685381366,
+          "spikes": [
+            99,
+            99
+          ]
+        },
+        "100": {
+          "weight": 0.10000149192362966,
+          "spikes": [
+            100,
+            100
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 200,
+        "strictly_earlier_fast_pairs_enumerated": 10000,
+        "same_time_groups": 0,
+        "summed_LTP": 1.4919236296536156e-06,
+        "summed_LTD": 9.986929410586311e-46,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 0.0,
+        "final_weight": 0.10000149192362966
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "573b96d083b259af4241c039007ea74af6e45be49509548dca5f3934b02f3739",
+        "wall_seconds": 1.9364148999738973,
+        "raw_sha256": {
+          "experiment.json": "2e284ea077d40213872ba4ad95ab95e0d7ed22253bc70aec2c53d0dec5e69bf1",
+          "summary.json": "ce6d23f1bdf663fbb80324660ec1684861762a8bf275187789db855c769337b3",
+          "trace.csv": "3e1ea164d5e3d1cd471ceb4865a49684e3a9c5a2d76a8bdfefd52cb60c8a337f",
+          "events.csv": "e9f8326d5b09a4e3491028f94215ee826f28eee1e357be3c562f3c48e8fe1495",
+          "weights.csv": "4d339e28496357b9efee37386e876943ccbf6a759f37aa599e0086fcceac64a3"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "note": "Changed1ms diagnostic stimulus; not reproduction of the manual3ms protocol.",
+      "expected_stimuli_per_frame": [
+        1,
+        1
+      ],
+      "all_frames_have_expected_spike_count": [
+        true,
+        true
+      ]
+    },
+    {
+      "case": "width1_t2a_pre_post_10Hz",
+      "workload": "controls",
+      "label": "width1_t2a_pre_post_10Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 1.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.3791358036713522,
+      "spike_counts": [
+        1000,
+        1000
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.37448117729874103,
+          "spikes": [
+            980,
+            980
+          ]
+        },
+        "99": {
+          "weight": 0.37681283845389596,
+          "spikes": [
+            990,
+            990
+          ]
+        },
+        "100": {
+          "weight": 0.3791358036713522,
+          "spikes": [
+            1000,
+            1000
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1000,
+          "counts_per_frame": {
+            "1": 1000
+          },
+          "first_10s_counts_per_frame": {
+            "1": 100
+          },
+          "last_10s_counts_per_frame": {
+            "1": 100
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1000,
+          "counts_per_frame": {
+            "1": 1000
+          },
+          "first_10s_counts_per_frame": {
+            "1": 100
+          },
+          "last_10s_counts_per_frame": {
+            "1": 100
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 2000,
+        "strictly_earlier_fast_pairs_enumerated": 1000000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.2791660671146501,
+        "summed_LTD": 3.0263443300654582e-05,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 2.4980018054066022e-15,
+        "final_weight": 0.3791358036713497
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "341361912ff820f9d52f63c498a2c219402735be7160d2683ec75cb6cfa02aad",
+        "wall_seconds": 1.9094106999982614,
+        "raw_sha256": {
+          "experiment.json": "d20d4e05d8f4d868417b5305d72c47d7aafa99206e3f8b134c6aa236895f90a2",
+          "summary.json": "176add1b7c820fc6e173208c60bc236c3a4fa2c7289bd3b38fcbd1dc69614af2",
+          "trace.csv": "2be93f3e2593fd1f26f6e946c58f71378bd2ce5124c4a933f409d5201ac5db99",
+          "events.csv": "31fa0dfdd10814ca1612b19c296b4679223914fe697b3ce4e823ffe973fbf939",
+          "weights.csv": "97375026f817ad123b9f68e2836edcf3092c68ea711c39606a06390a6549e543"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "note": "Changed1ms diagnostic stimulus; not reproduction of the manual3ms protocol.",
+      "expected_stimuli_per_frame": [
+        1,
+        1
+      ],
+      "all_frames_have_expected_spike_count": [
+        true,
+        true
+      ]
+    },
+    {
+      "case": "width1_t2a_triplet_pre_post_10Hz",
+      "workload": "controls",
+      "label": "width1_t2a_triplet_pre_post_10Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 1.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.2742924880813876,
+      "spike_counts": [
+        1000,
+        1000
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.2711472043786389,
+          "spikes": [
+            980,
+            980
+          ]
+        },
+        "99": {
+          "weight": 0.27272154786220903,
+          "spikes": [
+            990,
+            990
+          ]
+        },
+        "100": {
+          "weight": 0.2742924880813876,
+          "spikes": [
+            1000,
+            1000
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1000,
+          "counts_per_frame": {
+            "1": 1000
+          },
+          "first_10s_counts_per_frame": {
+            "1": 100
+          },
+          "last_10s_counts_per_frame": {
+            "1": 100
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 1000,
+          "spikes_in_frames": 1000,
+          "counts_per_frame": {
+            "1": 1000
+          },
+          "first_10s_counts_per_frame": {
+            "1": 100
+          },
+          "last_10s_counts_per_frame": {
+            "1": 100
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 2000,
+        "strictly_earlier_fast_pairs_enumerated": 1000000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.17431574291079258,
+        "summed_LTD": 2.325482941505632e-05,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 9.43689570931383e-15,
+        "final_weight": 0.2742924880813782
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "69a7f11bb82f300a56cbaa34242c2e4b65b8c132539cb6738506b1d573faefce",
+        "wall_seconds": 1.9284288999915589,
+        "raw_sha256": {
+          "experiment.json": "3ac4cff1f5d014174cfa95a72dcfc0036e4e26d98d322d6b9c677e04ac13dbcb",
+          "summary.json": "1297227537483f63e70270bc3c2fb94ddf4e5c497d5ec735fce5615c3eb33bf8",
+          "trace.csv": "f89369029ea80e93be76bbf2f4e16d4c4c6bd688cb44d8024e3a786892fc4fbf",
+          "events.csv": "a27ec8246d01e9e8923597dd7ca696617673f1c47de5a7d2aab18355af2d6b0f",
+          "weights.csv": "b6b98fdf9cdf1156bc3845ed8059c656c69198670dd3adb55551857011918eeb"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "note": "Changed1ms diagnostic stimulus; not reproduction of the manual3ms protocol.",
+      "expected_stimuli_per_frame": [
+        1,
+        1
+      ],
+      "all_frames_have_expected_spike_count": [
+        true,
+        true
+      ]
+    },
+    {
+      "case": "width1_t2b_pair_pre_post_pre_1Hz",
+      "workload": "controls",
+      "label": "width1_t2b_pair_pre_post_pre_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 1.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.13259892783586727,
+      "spike_counts": [
+        100,
+        100
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.1319571749267551,
+          "spikes": [
+            98,
+            98
+          ]
+        },
+        "99": {
+          "weight": 0.13227811071005283,
+          "spikes": [
+            99,
+            99
+          ]
+        },
+        "100": {
+          "weight": 0.13259892783586727,
+          "spikes": [
+            100,
+            100
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 200,
+        "strictly_earlier_fast_pairs_enumerated": 10000,
+        "same_time_groups": 0,
+        "summed_LTP": 0.03259892783586689,
+        "summed_LTD": 1.162279907536307e-45,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 4.440892098500626e-16,
+        "final_weight": 0.13259892783586683
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "8d8215e24187ce2ca1e33b537f934d4608467787b1381f15130d493a1040a532",
+        "wall_seconds": 1.9755809000052977,
+        "raw_sha256": {
+          "experiment.json": "34443d380afa90d2b2613366f7fdc7c759cd38898778ef3916f80c897bed831e",
+          "summary.json": "a54863db1ddbf7164c59d9c913812c5977ac2b911eae640c3ee931a176fc5ffd",
+          "trace.csv": "9bf7437a1612a6fd5213853e468d1893f2effbc3fe0d827a293a9a76ed1be9e8",
+          "events.csv": "adc96535ab54345d41f88f59e2d2336c3d4306541ccdf789edf1d2f1ad94b3bd",
+          "weights.csv": "13d8946624a272f17cbd921ec6a0813a700b8c2ad0987096e4abe5aa8220f29e"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "note": "Changed1ms diagnostic stimulus; not reproduction of the manual3ms protocol.",
+      "expected_stimuli_per_frame": [
+        2,
+        1
+      ],
+      "all_frames_have_expected_spike_count": [
+        false,
+        true
+      ]
+    },
+    {
+      "case": "width1_t2b_triplet_pre_post_pre_1Hz",
+      "workload": "controls",
+      "label": "width1_t2b_triplet_pre_post_pre_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 1.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.10000149192362966,
+      "spike_counts": [
+        100,
+        100
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.10000146178399742,
+          "spikes": [
+            98,
+            98
+          ]
+        },
+        "99": {
+          "weight": 0.10000147685381366,
+          "spikes": [
+            99,
+            99
+          ]
+        },
+        "100": {
+          "weight": 0.10000149192362966,
+          "spikes": [
+            100,
+            100
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 200,
+        "strictly_earlier_fast_pairs_enumerated": 10000,
+        "same_time_groups": 0,
+        "summed_LTP": 1.4919236296536156e-06,
+        "summed_LTD": 9.986929410586311e-46,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 0.0,
+        "final_weight": 0.10000149192362966
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "4e2d600872c88352c2836ebc4417ba57413c32cf9432e1ce479e172d12b809d9",
+        "wall_seconds": 2.0524177000042982,
+        "raw_sha256": {
+          "experiment.json": "fd1134b22edbe8e79792f981715437d5b2ebe8b94310be649d1f167b51b6f13c",
+          "summary.json": "ce6d23f1bdf663fbb80324660ec1684861762a8bf275187789db855c769337b3",
+          "trace.csv": "80bb41ed1a30c763eb95495873bb72be40c26f0e82280c476f5b0317a1d314e6",
+          "events.csv": "e9f8326d5b09a4e3491028f94215ee826f28eee1e357be3c562f3c48e8fe1495",
+          "weights.csv": "4d339e28496357b9efee37386e876943ccbf6a759f37aa599e0086fcceac64a3"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "note": "Changed1ms diagnostic stimulus; not reproduction of the manual3ms protocol.",
+      "expected_stimuli_per_frame": [
+        2,
+        1
+      ],
+      "all_frames_have_expected_spike_count": [
+        false,
+        true
+      ]
+    },
+    {
+      "case": "width1_t2b_pair_post_pre_post_1Hz",
+      "workload": "controls",
+      "label": "width1_t2b_pair_post_pre_post_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 1.0,
+      "rule": "multiplicative",
+      "gain": 2.0,
+      "final_weight": 0.09638730983720961,
+      "spike_counts": [
+        100,
+        100
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.09645826680958336,
+          "spikes": [
+            98,
+            98
+          ]
+        },
+        "99": {
+          "weight": 0.09642278179629306,
+          "spikes": [
+            99,
+            99
+          ]
+        },
+        "100": {
+          "weight": 0.09638730983720961,
+          "spikes": [
+            100,
+            100
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 200,
+        "strictly_earlier_fast_pairs_enumerated": 10000,
+        "same_time_groups": 0,
+        "summed_LTP": 9.028864616811172e-45,
+        "summed_LTD": 0.0036126901627902865,
+        "rule": "multiplicative",
+        "slow_trace_increment_after_update": false,
+        "max_sample_weight_abs_error": 5.551115123125783e-17,
+        "final_weight": 0.09638730983720967
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "a3144ce70870c33eb1c2fd834b0f74a54a7558d29b077e31a1e32f305dbf5a44",
+        "wall_seconds": 2.0578356999903917,
+        "raw_sha256": {
+          "experiment.json": "ab2d002e42d454bce908f5338451a6848aa9b6bcda504b1007e3c6f8e8b80422",
+          "summary.json": "5b1758f0a6e684fc2110d5279289696b2b68501708bb2094a5d59b386dd2189c",
+          "trace.csv": "15a1e3c0d6377a20b51fba8cbb8abdd3a05a53a7a0a27b49c584a4a981ce8990",
+          "events.csv": "efa960e44544306871adc0dc2b86aa78954e1143f743a80d79e24037efc1a365",
+          "weights.csv": "9f2bf6e7df7dba0eb226f4c734b98def4830c040f7ed087c373c6b965dc3a3c7"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "note": "Changed1ms diagnostic stimulus; not reproduction of the manual3ms protocol.",
+      "expected_stimuli_per_frame": [
+        1,
+        2
+      ],
+      "all_frames_have_expected_spike_count": [
+        true,
+        false
+      ]
+    },
+    {
+      "case": "width1_t2b_triplet_post_pre_post_1Hz",
+      "workload": "controls",
+      "label": "width1_t2b_triplet_post_pre_post_1Hz_dt25us",
+      "dt_us": 25.0,
+      "width_ms": 1.0,
+      "rule": "triplet",
+      "gain": 2.0,
+      "final_weight": 0.09638730983720961,
+      "spike_counts": [
+        100,
+        100
+      ],
+      "checkpoints": {
+        "98": {
+          "weight": 0.09645826680958336,
+          "spikes": [
+            98,
+            98
+          ]
+        },
+        "99": {
+          "weight": 0.09642278179629306,
+          "spikes": [
+            99,
+            99
+          ]
+        },
+        "100": {
+          "weight": 0.09638730983720961,
+          "spikes": [
+            100,
+            100
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 100,
+          "counts_per_frame": {
+            "1": 100
+          },
+          "first_10s_counts_per_frame": {
+            "1": 10
+          },
+          "last_10s_counts_per_frame": {
+            "1": 10
+          },
+          "first_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_10_frame_counts": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "event_groups": 200,
+        "strictly_earlier_fast_pairs_enumerated": 10000,
+        "same_time_groups": 0,
+        "summed_LTP": 4.099324065281753e-49,
+        "summed_LTD": 0.0036126901627902865,
+        "rule": "triplet",
+        "slow_trace_increment_after_update": true,
+        "max_sample_weight_abs_error": 5.551115123125783e-17,
+        "final_weight": 0.09638730983720967
+      },
+      "baseline_byte_matches": null,
+      "provenance": {
+        "cli_path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+        "config_sha256": "6093061e2ae561f26be613a1b7100814f6e8d639c22aceda2d0465638b0a9bc0",
+        "wall_seconds": 1.987952800001949,
+        "raw_sha256": {
+          "experiment.json": "63d1690772ff2ddf87930aef6a09f33948df492c2c0fe8b0e6effb7af6683e34",
+          "summary.json": "5b1758f0a6e684fc2110d5279289696b2b68501708bb2094a5d59b386dd2189c",
+          "trace.csv": "15a1e3c0d6377a20b51fba8cbb8abdd3a05a53a7a0a27b49c584a4a981ce8990",
+          "events.csv": "efa960e44544306871adc0dc2b86aa78954e1143f743a80d79e24037efc1a365",
+          "weights.csv": "9f2bf6e7df7dba0eb226f4c734b98def4830c040f7ed087c373c6b965dc3a3c7"
+        }
+      },
+      "snapshot_exact_after_default_normalization": true,
+      "note": "Changed1ms diagnostic stimulus; not reproduction of the manual3ms protocol.",
+      "expected_stimuli_per_frame": [
+        1,
+        2
+      ],
+      "all_frames_have_expected_spike_count": [
+        true,
+        false
+      ]
+    }
+  ],
+  "user_report": "E:\\asp\\26_27\\labs\\lab4_report\\Отчёт_ЛР4.md",
+  "user_report_sha256": "5e64628b521f964aa0a03da6d7c5164e39cd243d4009f9effa6feadfcce3f500",
+  "planned_protocols_sha256": "db05e5215f78f2c96a3335837148904280f802156f7e24ad6c7d847eec02c188",
+  "limitations": [
+    "All-time-pair replay verifies learning on supplied native events; it does not validate underlying event accuracy.",
+    "The original NeuroNet triplet implementation, conduction delay and exact initial conditions are not established.",
+    "External pre-post-pre triplet weight.0887917 has uncertain uninterrupted rule selection per user report.",
+    "Width1ms controls explicitly alter the experiment and may still fail to produce the requested number of spikes; actual counts are reported."
+  ]
+}

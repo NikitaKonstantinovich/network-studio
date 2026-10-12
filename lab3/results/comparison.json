@@ -1,0 +1,933 @@
+{
+  "description": "Native RK4 versus screenshot estimates; coarse Euler is diagnostic translation only",
+  "cli_sha256": "0facadb2e952a11ec034ee172b5a9fd913009b6e5830fc41c59ac0d0bf07b99d",
+  "source_report": "E:\\asp\\26_27\\labs\\lab3_report\\Отчёт_ЛР3.md",
+  "source_report_sha256": "93cef5b3130fd87c36805f84af4edf3a287488cec888919b1dd43105ca991fdd",
+  "code_sha256": {
+    "compare.py": "83cc67c06cd3d33ce81ebf41122ef6ba7836ff60c4a0ceb692fcedfe5f83c108",
+    "reference_tm.py": "a4024890d3f8933847754d22d973dcd90c7ec3f6bfc728ea0ddbdf81f5422c53",
+    "network.cpp": "5755b020351fa63f31111fc2ba28af8e2fafda48ba0ffb57c866820d36131937"
+  },
+  "screenshot_sha256": {
+    "task1_0p1Hz.png": "7504c049110459d6d960331b44964e478b3ced300699bdee357f4036b8b100d1",
+    "task1_0p5Hz.png": "8526adcecb733b9bf2e3ec55bf2c8cafc559d50c50438a9f8bef633948a80fb1",
+    "task1_100Hz.png": "2487ecfb80f3b26193aba0fab904d4a81026fe6e5aa083e07be465c3c8c7effa",
+    "task1_100Hz_Em.png": "bc04b25a50776858eaebf816bb1fac3c4fc8bb1d0588f5cb0c5bfecd52e3ee28",
+    "task1_10Hz.png": "1e038a239f24803cf20ec03c6f4488ffaf59923078a8dbb037d5e8c7f299746e",
+    "task1_1Hz.png": "c2bb070e4f5c3174b3a1ffaf52a06350db2119575f32742d31e1122840d90f6f",
+    "task1_25Hz.png": "8a906690e2a3c9377d9d20d68960046fc0aa384d04dff4f356d77bb663e3db1a",
+    "task1_50Hz.png": "254a5892ebcdf64e548ed9b5950fe30120c17459421fd9daaece96b353326bf2",
+    "task1_5Hz.png": "9a074c5d9b924a7bf1dd8213c8988b5a5cb1579a2a5be1308072aa717db4c5fe"
+  },
+  "cases": [
+    {
+      "stimulus_frequency_hz": 0.1,
+      "observed_peak_approx": 14.5,
+      "native": {
+        "steady_window_s": [
+          26.0,
+          56.0
+        ],
+        "periods": 3,
+        "responding_periods": 3,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 0.2,
+        "peak_mean": 15.973381318473104,
+        "peak_min": 15.973381318471137,
+        "peak_max": 15.973381318474086,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.175000000000594
+        ],
+        "name": "f0p1",
+        "dt_us": 25.0,
+        "rows": 57001,
+        "exact_tm_max_abs_errors": {
+          "u": 6.328271240363392e-15,
+          "x": 1.1102230246251565e-13,
+          "y": 1.0663692151524629e-13
+        },
+        "config_sha256": "f3fbabc084cb60b397e3b5ca13255d25b78db70e9f639a2dc9e6f481d1c597dd",
+        "events_sha256": "3646cc8f6933c2e05f639454a7b1376cf73c00e462785e2850d4b578336aae44",
+        "trace_sha256": "2edaebc3e4da3a2fbb756835b33456f8051bc98533674426f4e941dfe8c0779b"
+      },
+      "fine": {
+        "steady_window_s": [
+          26.0,
+          56.0
+        ],
+        "periods": 3,
+        "responding_periods": 3,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 0.2,
+        "peak_mean": 15.983708630103557,
+        "peak_min": 15.983708630103548,
+        "peak_max": 15.98370863010356,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.162500000000179
+        ],
+        "name": "f0p1_fine",
+        "dt_us": 12.5,
+        "rows": 57001,
+        "exact_tm_max_abs_errors": {
+          "u": 1.2323475573339238e-14,
+          "x": 2.220446049250313e-13,
+          "y": 1.5631940186722204e-13
+        },
+        "config_sha256": "199343d967d76c84d01e43c83475439a32208c19c717af654b84f42fd055b04d",
+        "events_sha256": "e8bc4f22173331082e2ebfc6341bc0243ef3806533ed09b6dc69f424edf97273",
+        "trace_sha256": "6f4078d9cc4ac71c051c4f9b24812a4302263a2f47d940db4e133a1523ce69b6"
+      },
+      "coarse_euler_neuron_exact_tm": {
+        "steady_window_s": [
+          26.0,
+          56.0
+        ],
+        "periods": 3,
+        "responding_periods": 3,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 0.2,
+        "peak_mean": 14.295781009611707,
+        "peak_min": 14.295781009610229,
+        "peak_max": 14.295781009614664,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "coarse_euler_neuron_euler_tm": {
+        "steady_window_s": [
+          26.0,
+          56.0
+        ],
+        "periods": 3,
+        "responding_periods": 3,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 0.2,
+        "peak_mean": 14.217339443088488,
+        "peak_min": 14.21733944308848,
+        "peak_max": 14.217339443088491,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "fine_peak_change_percent": 0.06465325922264017
+    },
+    {
+      "stimulus_frequency_hz": 0.5,
+      "observed_peak_approx": 14.5,
+      "native": {
+        "steady_window_s": [
+          12.0,
+          20.0
+        ],
+        "periods": 4,
+        "responding_periods": 4,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 1.0,
+        "peak_mean": 16.312148400081654,
+        "peak_min": 16.31213946144159,
+        "peak_max": 16.312151519917432,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.175000000000594
+        ],
+        "name": "f0p5",
+        "dt_us": 25.0,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 4.440892098500626e-15,
+          "x": 1.1102230246251565e-13,
+          "y": 1.0663692151524629e-13
+        },
+        "config_sha256": "8332b4667f19c9ed23002c503ad9d229dc714a0e1c000cd285a02d92e2e3a8be",
+        "events_sha256": "91e2d448e53e44d4304c79c42100323e7d9c8af9e43a3ed76ae4ce5075bec847",
+        "trace_sha256": "7d42b2c8577eab818da81a9f0f322ddfc3d273bc70d3635e6293aa2c4764b721"
+      },
+      "fine": {
+        "steady_window_s": [
+          12.0,
+          20.0
+        ],
+        "periods": 4,
+        "responding_periods": 4,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 1.0,
+        "peak_mean": 16.32354429584314,
+        "peak_min": 16.323535326541656,
+        "peak_max": 16.32354742638061,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.162500000000179
+        ],
+        "name": "f0p5_fine",
+        "dt_us": 12.5,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 1.3378187446733136e-14,
+          "x": 2.220446049250313e-13,
+          "y": 1.588729148238599e-13
+        },
+        "config_sha256": "5a11699f15f5c1bc465c834240903643adf82b9f427a5e8b5c150e7e54e4cb7b",
+        "events_sha256": "60c6b5c23250508c214b0c271c5bf7ba26fc3cc51a933dd635368a5e2d3c2d74",
+        "trace_sha256": "a97f244cb46ee99be7a74169c3641857ff5db7c003a8c1daf85a8c0d1d1c755e"
+      },
+      "coarse_euler_neuron_exact_tm": {
+        "steady_window_s": [
+          12.0,
+          20.0
+        ],
+        "periods": 4,
+        "responding_periods": 4,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 1.0,
+        "peak_mean": 14.462261593641246,
+        "peak_min": 14.46225759464021,
+        "peak_max": 14.462262989405408,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "coarse_euler_neuron_euler_tm": {
+        "steady_window_s": [
+          12.0,
+          20.0
+        ],
+        "periods": 4,
+        "responding_periods": 4,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 1.0,
+        "peak_mean": 14.375127953805851,
+        "peak_min": 14.37512421021994,
+        "peak_max": 14.375129260391581,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "fine_peak_change_percent": 0.06986140318235312
+    },
+    {
+      "stimulus_frequency_hz": 1.0,
+      "observed_peak_approx": 14.5,
+      "native": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 9,
+        "responding_periods": 9,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 2.0,
+        "peak_mean": 16.80273361978536,
+        "peak_min": 16.802730159889975,
+        "peak_max": 16.80273410218313,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.175000000000594
+        ],
+        "name": "f1",
+        "dt_us": 25.0,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 5.88418203051333e-15,
+          "x": 2.250977182427505e-14,
+          "y": 1.1601830607332886e-13
+        },
+        "config_sha256": "d14481128c1522c14f9681c5ac0247985a940125475c88944479c6f5fd73e1c6",
+        "events_sha256": "6ec62242441e1535a255c86e118cdf7261903e426c6ac8d2d7e6fe921e094a15",
+        "trace_sha256": "d5facef0032cd70c48792544fce73c72f448db7f42c4a28a10980a15ab584278"
+      },
+      "fine": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 9,
+        "responding_periods": 9,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 2.0,
+        "peak_mean": 16.816147223221414,
+        "peak_min": 16.816143745545922,
+        "peak_max": 16.81614770809819,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.162500000000179
+        ],
+        "name": "f1_fine",
+        "dt_us": 12.5,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 1.2323475573339238e-14,
+          "x": 5.329070518200751e-15,
+          "y": 8.382183835919932e-15
+        },
+        "config_sha256": "9a10a4860e8846a94041966d25792ef98ffb70ee3d2fe5bf324e32c997161ee7",
+        "events_sha256": "9dbbe32ff0ed6b0212e4b2416ef271bc90ed3d94211301a9fc452aacb4e24705",
+        "trace_sha256": "c343b656fba886388d370286aff40d5f6c3e69c7b2d1f9feac95e4de6163f4f8"
+      },
+      "coarse_euler_neuron_exact_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 9,
+        "responding_periods": 9,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 2.0,
+        "peak_mean": 14.628270542731455,
+        "peak_min": 14.628269938747355,
+        "peak_max": 14.628270626943749,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "coarse_euler_neuron_euler_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 9,
+        "responding_periods": 9,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 2.0,
+        "peak_mean": 14.524666063107725,
+        "peak_min": 14.524665605981454,
+        "peak_max": 14.524666126840986,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "fine_peak_change_percent": 0.07982988803832725
+    },
+    {
+      "stimulus_frequency_hz": 5.0,
+      "observed_peak_approx": 17.5,
+      "native": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 45,
+        "responding_periods": 45,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 10.0,
+        "peak_mean": 17.325312391955933,
+        "peak_min": 17.325312391955926,
+        "peak_max": 17.32531239195594,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.175000000000594
+        ],
+        "name": "f5",
+        "dt_us": 25.0,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 7.216449660063518e-15,
+          "x": 2.2176704916887502e-14,
+          "y": 1.2118084313783584e-13
+        },
+        "config_sha256": "1970d21266b32ba0e20b4ad0cd9fc4cf50438fcc8d1f95c7e62eff4b550c90f7",
+        "events_sha256": "c9ced0eccda51ecc35bd758a1c9b8ed08dad1e2dac9e713d3c5e26a030f0107f",
+        "trace_sha256": "9e36e6e666787f6dc13570e5766c79fe3cc3870bf8dfea28718b125adfbbff8f"
+      },
+      "fine": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 45,
+        "responding_periods": 45,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 10.0,
+        "peak_mean": 17.325312391955933,
+        "peak_min": 17.325312391955926,
+        "peak_max": 17.32531239195594,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.162500000000179
+        ],
+        "name": "f5_fine",
+        "dt_us": 12.5,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 9.992007221626409e-15,
+          "x": 4.9960036108132044e-15,
+          "y": 8.881784197001252e-15
+        },
+        "config_sha256": "79f6bd080fc94489a9cb3f8579ca8648b9d375b59114aef7e2302c9dccf102a3",
+        "events_sha256": "452887d97c001d02091d2b63dc0a4e96bf6d8a10d50be692481b10e6b590f7f0",
+        "trace_sha256": "f4c9753cd9ca49e610853a24f3e72b0ebce26f40e925b9824fbd0e2df45c3fa2"
+      },
+      "coarse_euler_neuron_exact_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 45,
+        "responding_periods": 45,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 10.0,
+        "peak_mean": 17.330566024373038,
+        "peak_min": 17.330566024373034,
+        "peak_max": 17.33056602437304,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "coarse_euler_neuron_euler_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 45,
+        "responding_periods": 45,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 10.0,
+        "peak_mean": 17.338679463705986,
+        "peak_min": 17.338679463705986,
+        "peak_max": 17.338679463705986,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "fine_peak_change_percent": 0.0
+    },
+    {
+      "stimulus_frequency_hz": 10.0,
+      "observed_peak_approx": 15.5,
+      "native": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 90,
+        "responding_periods": 90,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 20.0,
+        "peak_mean": 15.68171249503016,
+        "peak_min": 15.681712495030025,
+        "peak_max": 15.681712495030231,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.175000000000594
+        ],
+        "name": "f10",
+        "dt_us": 25.0,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 6.8833827526759706e-15,
+          "x": 2.2176704916887502e-14,
+          "y": 1.0663692151524629e-13
+        },
+        "config_sha256": "64bb5e4b63a5aa92449ae049c0dd864361c4aeb195ee635d1ce06b20d2fb9a78",
+        "events_sha256": "4f39abae56732efa859c235e0855e0782f259e242ac53b7b80a70adb603ab40f",
+        "trace_sha256": "6ab7a14840fdf3cd430d66579eac05ca06e1f95dc5148421fa3174c895aef032"
+      },
+      "fine": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 90,
+        "responding_periods": 90,
+        "spikes_per_period_min": 2,
+        "spikes_per_period_max": 2,
+        "spikes_per_period_mean": 2,
+        "spike_rate_hz": 20.0,
+        "peak_mean": 15.681920531734058,
+        "peak_min": 15.681920531733924,
+        "peak_max": 15.681920531734132,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.162500000000179
+        ],
+        "name": "f10_fine",
+        "dt_us": 12.5,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 5.440092820663267e-15,
+          "x": 3.9968028886505635e-15,
+          "y": 7.827072323607354e-15
+        },
+        "config_sha256": "45ebfa3257c4e066918feebd25ed8447c56c3dbcea61497ba334caf45417ade4",
+        "events_sha256": "da44cd442bcd1e39ffdedb86fd75b0e217cce634c8064d6a0c404dc4d85a3ac8",
+        "trace_sha256": "00bb14feb82007112216a3dc1c9d11d8434ba8d07dcf865e6ff4180db9190b31"
+      },
+      "coarse_euler_neuron_exact_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 90,
+        "responding_periods": 90,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 10.0,
+        "peak_mean": 15.49499118006457,
+        "peak_min": 15.494991180064464,
+        "peak_max": 15.494991180064648,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "coarse_euler_neuron_euler_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 90,
+        "responding_periods": 90,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 10.0,
+        "peak_mean": 15.521739004346156,
+        "peak_min": 15.521739004346156,
+        "peak_max": 15.521739004346156,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "fine_peak_change_percent": 0.001326619806117436
+    },
+    {
+      "stimulus_frequency_hz": 25.0,
+      "observed_peak_approx": 10.0,
+      "native": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 225,
+        "responding_periods": 225,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 25.0,
+        "peak_mean": 9.916333693192014,
+        "peak_min": 9.916333693191842,
+        "peak_max": 9.916333693192463,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.175000000000594
+        ],
+        "name": "f25",
+        "dt_us": 25.0,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 3.552713678800501e-15,
+          "x": 2.2176704916887502e-14,
+          "y": 1.0663692151524629e-13
+        },
+        "config_sha256": "7cac0b561650d3b359d2471e9d7ee0f26dc3b5e7bf7d761f43e807826733fe83",
+        "events_sha256": "fc3070647086f04af70e7073471915785f571381b7f84e18638f02218b27aea6",
+        "trace_sha256": "6724a05e127c4eda6a4f20b8ad35f857ce37c24bdd313417e11d6a077f465471"
+      },
+      "fine": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 225,
+        "responding_periods": 225,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 25.0,
+        "peak_mean": 9.916333693192014,
+        "peak_min": 9.916333693191842,
+        "peak_max": 9.916333693192463,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.162500000000179
+        ],
+        "name": "f25_fine",
+        "dt_us": 12.5,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 5.773159728050814e-15,
+          "x": 2.1094237467877974e-15,
+          "y": 7.105427357601002e-15
+        },
+        "config_sha256": "5098397da2267a6336f7dc39194492e40b522242f4c3ec2fec3dd91bdd32febf",
+        "events_sha256": "42a046159f570f5ebe28b16494c6b527b1aabfb770999c5c8386b0d3512815d3",
+        "trace_sha256": "5979839c26de4d74a0de54ae8ab86de04fb8f03d103716cf7c8494c8cf1456ed"
+      },
+      "coarse_euler_neuron_exact_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 225,
+        "responding_periods": 225,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 25.0,
+        "peak_mean": 9.916333693192014,
+        "peak_min": 9.916333693191842,
+        "peak_max": 9.916333693192463,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "coarse_euler_neuron_euler_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 225,
+        "responding_periods": 225,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 25.0,
+        "peak_mean": 9.931747703477567,
+        "peak_min": 9.931747703477567,
+        "peak_max": 9.931747703477567,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "fine_peak_change_percent": 0.0
+    },
+    {
+      "stimulus_frequency_hz": 50.0,
+      "observed_peak_approx": 6.75,
+      "native": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 450,
+        "responding_periods": 450,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 50.0,
+        "peak_mean": 6.566966578153823,
+        "peak_min": 6.566966578153748,
+        "peak_max": 6.566966578154351,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.175000000000594
+        ],
+        "name": "f50",
+        "dt_us": 25.0,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 4.9960036108132044e-15,
+          "x": 2.2176704916887502e-14,
+          "y": 1.0663692151524629e-13
+        },
+        "config_sha256": "f02844d4e81fc95e922e48a2f4d4689c54298ce65329ac5d209b6ad22abd30c1",
+        "events_sha256": "3b3d22511ae8fd02392ed02c44f9c251c30534f6f63dfdf29ee9f8a9d5bf4338",
+        "trace_sha256": "16deca1874ca256a57e6d40dc50a84e0888ee70dc0180d1dfeef3aaa7b75a52e"
+      },
+      "fine": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 450,
+        "responding_periods": 450,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 50.0,
+        "peak_mean": 6.566966578153823,
+        "peak_min": 6.566966578153748,
+        "peak_max": 6.566966578154351,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.162500000000179
+        ],
+        "name": "f50_fine",
+        "dt_us": 12.5,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 3.552713678800501e-15,
+          "x": 1.3600232051658168e-15,
+          "y": 7.105427357601002e-15
+        },
+        "config_sha256": "b8120923c12a9c98d74505b0860df158d1b29baf79c7a4cfea47ae5be3d2ff5f",
+        "events_sha256": "2bd748d67e4148c816d2b9c0280f0f48eaf34c7dcaa6a24b3ecdfd2140e00026",
+        "trace_sha256": "3ccb95f768876142e20ef218c268f425b1ae8de70916f81a050d110eb733d3ca"
+      },
+      "coarse_euler_neuron_exact_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 450,
+        "responding_periods": 450,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 50.0,
+        "peak_mean": 6.5669665781538225,
+        "peak_min": 6.566966578153748,
+        "peak_max": 6.566966578154351,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "coarse_euler_neuron_euler_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 450,
+        "responding_periods": 450,
+        "spikes_per_period_min": 1,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 1,
+        "spike_rate_hz": 50.0,
+        "peak_mean": 6.540014185644388,
+        "peak_min": 6.540014185644388,
+        "peak_max": 6.540014185644388,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "fine_peak_change_percent": 0.0
+    },
+    {
+      "stimulus_frequency_hz": 100.0,
+      "observed_peak_approx": 6.75,
+      "native": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 900,
+        "responding_periods": 450,
+        "spikes_per_period_min": 0,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 0.5,
+        "spike_rate_hz": 50.0,
+        "peak_mean": 6.5669665781538225,
+        "peak_min": 6.566966578153748,
+        "peak_max": 6.566966578154351,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.175000000000594
+        ],
+        "name": "f100",
+        "dt_us": 25.0,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 4.884981308350689e-15,
+          "x": 2.2176704916887502e-14,
+          "y": 1.2784218128558678e-13
+        },
+        "config_sha256": "827c9231446ad86c8e4bec0449c76eb3a25cfab0474567ee0b01bd158aa3de10",
+        "events_sha256": "848647af368a6cda2a541ef31af0e3e8f8e32b9593720608da4cb94ce2d2667f",
+        "trace_sha256": "559fa0232f275d6b8cf09b477fde0879ed5af9d9171cebcf6f60dac654be41b9"
+      },
+      "fine": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 900,
+        "responding_periods": 450,
+        "spikes_per_period_min": 0,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 0.5,
+        "spike_rate_hz": 50.0,
+        "peak_mean": 6.5669665781538225,
+        "peak_min": 6.566966578153748,
+        "peak_max": 6.566966578154351,
+        "first_period_spike_times_after_stimulus_ms": [
+          1.5000000000000568,
+          3.162500000000179
+        ],
+        "name": "f100_fine",
+        "dt_us": 12.5,
+        "rows": 20001,
+        "exact_tm_max_abs_errors": {
+          "u": 3.219646771412954e-15,
+          "x": 1.2490009027033011e-15,
+          "y": 8.1601392309949e-15
+        },
+        "config_sha256": "9b9893ed820ea2c52c8e8ccc867db7e8470e5c8d01265e728ad8c4a8ede062f9",
+        "events_sha256": "82b588eff3c7424c6496661ac617224bca2e30265bc56158457c560bc36b4dcc",
+        "trace_sha256": "a2d8ed271a32a808edd87b0bf75bcce683acebb52c85f7c14f8f6cb101aa87a9"
+      },
+      "coarse_euler_neuron_exact_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 900,
+        "responding_periods": 450,
+        "spikes_per_period_min": 0,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 0.5,
+        "spike_rate_hz": 50.0,
+        "peak_mean": 6.566966578153823,
+        "peak_min": 6.566966578153748,
+        "peak_max": 6.566966578154351,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "coarse_euler_neuron_euler_tm": {
+        "steady_window_s": [
+          11.0,
+          20.0
+        ],
+        "periods": 900,
+        "responding_periods": 450,
+        "spikes_per_period_min": 0,
+        "spikes_per_period_max": 1,
+        "spikes_per_period_mean": 0.5,
+        "spike_rate_hz": 50.0,
+        "peak_mean": 6.540014185644388,
+        "peak_min": 6.540014185644388,
+        "peak_max": 6.540014185644388,
+        "first_period_spike_times_after_stimulus_ms": [
+          2.500000000000391,
+          6.49999999999995
+        ]
+      },
+      "fine_peak_change_percent": 0.0
+    }
+  ],
+  "reference_frequency_curve": [
+    {
+      "spike_frequency_hz": 0.1,
+      "peak": 10.000227004801815,
+      "jump": 10.000227004801815
+    },
+    {
+      "spike_frequency_hz": 0.5,
+      "peak": 10.72578883495754,
+      "jump": 10.72578883495754
+    },
+    {
+      "spike_frequency_hz": 1.0,
+      "peak": 12.253996716261657,
+      "jump": 12.253996716261657
+    },
+    {
+      "spike_frequency_hz": 5.0,
+      "peak": 16.60314656467651,
+      "jump": 16.60314653045488
+    },
+    {
+      "spike_frequency_hz": 10.0,
+      "peak": 15.49499118006457,
+      "jump": 15.494287708553324
+    },
+    {
+      "spike_frequency_hz": 25.0,
+      "peak": 9.91633369319201,
+      "jump": 9.734709706167317
+    },
+    {
+      "spike_frequency_hz": 50.0,
+      "peak": 6.5669665781538225,
+      "jump": 5.6782242962940055
+    },
+    {
+      "spike_frequency_hz": 100.0,
+      "peak": 4.859937861927493,
+      "jump": 3.0720666371536733
+    }
+  ],
+  "single_spike_control": {
+    "steady_window_s": [
+      26.0,
+      56.0
+    ],
+    "periods": 3,
+    "responding_periods": 3,
+    "spikes_per_period_min": 1,
+    "spikes_per_period_max": 1,
+    "spikes_per_period_mean": 1,
+    "spike_rate_hz": 0.1,
+    "peak_mean": 10.000227004801776,
+    "peak_min": 10.000227004801696,
+    "peak_max": 10.000227004801815,
+    "first_period_spike_times_after_stimulus_ms": [
+      1.7500000000003624
+    ],
+    "name": "single_spike_control",
+    "dt_us": 25.0,
+    "rows": 57001,
+    "exact_tm_max_abs_errors": {
+      "u": 5.6066262743570405e-15,
+      "x": 1.1102230246251565e-13,
+      "y": 5.972999872483342e-14
+    },
+    "config_sha256": "716b96c89ea2710b69ffb0bda0bbbe9ccc9d7ba169f0a5940edf9d0c31e0d483",
+    "events_sha256": "4842027817a10f689a530f0b9de4a33ee894ade9d269ca73ec573871efa0dc24",
+    "trace_sha256": "e109bf07646cc304c74b6094bad7e6934ae6eb135661cd92ff244adb3ba3553d",
+    "first_peak": 10.0
+  },
+  "total_native_runs": 17,
+  "checked_trace_rows": 451017,
+  "original_snapshot_checks": {
+    "first_output": 10.0,
+    "euler_decay_max_raw_residuals": {
+      "Output": 2.9999999995311555e-06,
+      "parameter_x": 5.110000000030368e-05,
+      "parameter_z": 1.9999999989472883e-06,
+      "parameter_u": 6.249999999208278e-07
+    },
+    "fixture_sha256": "a95a08809bce64402cffb3e3276d64d9f05c6a16c14ced76e1f5f4be5744a54d",
+    "records": 21
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "source_pdf_sha256": "ce57a4758a90f3a2a9ff9c57f001d5e40363bf02ddb1630a3a2d1ec9efff8af3",
+  "source_pages": [
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "scenarios": {
+    "k15_seed11": {
+      "graph": "k15_seed11",
+      "role": "main"
+    },
+    "k30_seed11": {
+      "graph": "k30_seed11",
+      "role": "main"
+    },
+    "k15_seed42": {
+      "graph": "k15_seed42",
+      "role": "main"
+    },
+    "k30_seed42": {
+      "graph": "k30_seed42",
+      "role": "main"
+    },
+    "k15_seed101": {
+      "graph": "k15_seed101",
+      "role": "main"
+    },
+    "k30_seed101": {
+      "graph": "k30_seed101",
+      "role": "main"
+    },
+    "k15_seed42_nearest": {
+      "graph": "k15_seed42_nearest",
+      "role": "topology_control"
+    },
+    "k30_seed42_nearest": {
+      "graph": "k30_seed42_nearest",
+      "role": "topology_control"
+    },
+    "k15_seed42_short": {
+      "graph": "k15_seed42",
+      "role": "step_control"
+    },
+    "k15_seed42_fine": {
+      "graph": "k15_seed42",
+      "role": "step_control"
+    },
+    "k15_seed42_quiet": {
+      "graph": "k15_seed42",
+      "role": "zero_noise_control"
+    },
+    "k30_seed42_short": {
+      "graph": "k30_seed42",
+      "role": "step_control"
+    },
+    "k30_seed42_fine": {
+      "graph": "k30_seed42",
+      "role": "step_control"
+    },
+    "k30_seed42_quiet": {
+      "graph": "k30_seed42",
+      "role": "zero_noise_control"
+    },
+    "k30_seed42_repeat": {
+      "graph": "k30_seed42",
+      "role": "replay"
+    }
+  },
+  "protocol": {
+    "neurons": 500,
+    "excitatory": 400,
+    "inhibitory": 100,
+    "graph": "uniform sources without replacement, excluding self edges; fixed source sign",
+    "degree": "rounded Gaussian, clipped to [0,499]",
+    "weight": "Gaussian magnitude .5 +/-.1, rejection outside [0,1]",
+    "noise": "native Gaussian sample-and-hold current, sigma=3, interval=1 ms",
+    "dynamics": "RS Izhikevich and Tsodyks-Markram; STDP off; no axonal delays",
+    "burst_detector": "local maxima of 50-ms population rate strictly above 5 Hz, plateau center, 50-ms minimum peak separation; height priority, earlier ties",
+    "topology_control": "k nearest Euclidean neighbors of uniform points in [0,1200]^2; not an emulation of the undocumented wizard"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "verified_date": "2026-10-12",
+  "sources": [
+    {
+      "id": "tsodyks1998",
+      "type": "primary_research",
+      "title": "Tsodyks, Pawelzik, Markram (1998). Neural Networks with Dynamic Synapses. Neural Computation 10:821–835.",
+      "url": "https://zpkilpat.github.io/appm4370/papers/tsodyks98.pdf",
+      "checked_sections": "Section 2, equations 2.1–2.3; section 3, fast inactivation approximation before 3.2",
+      "supports": "Three-pool resource flow, facilitating utilization and post-facilitation release; fast-inactivation reduction distinction."
+    },
+    {
+      "id": "gutig2003",
+      "type": "primary_research_author_institution_copy",
+      "title": "Gütig, Aharonov, Rotter, Sompolinsky (2003). Learning Input Correlations through Nonlinear Temporally Asymmetric Hebbian Plasticity. J Neurosci 23:3697–3714.",
+      "url": "https://brainworks.biologie.uni-freiburg.de/2003/journal%20papers/guetig-jns-2003.pdf",
+      "checked_sections": "Materials and Methods, equations 1–2 and all-pairs paragraph; Integrate-and-fire neuron conductance equation on page 3699",
+      "supports": "Additive/multiplicative pair rule, all previous pairs, small-learning caveat, current weight multiplying the synaptic kernel sum."
+    },
+    {
+      "id": "neuronaldynamics2014",
+      "type": "authoritative_author_textbook",
+      "title": "Gerstner, Kistler, Naud, Paninski. Neuronal Dynamics, section 3.1 Synapses.",
+      "url": "https://neuronaldynamics.epfl.ch/online/Ch3.S1.html",
+      "checked_sections": "3.1.1, conductance reversal and exponential synaptic conductance",
+      "supports": "Conductance-current sign convention and voltage-dependent polarity."
+    }
+  ]
+}

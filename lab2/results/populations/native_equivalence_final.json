@@ -1,0 +1,56 @@
+{
+  "initial_executable_sha256": "956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037",
+  "final_executable_sha256": "43b957619b72d5b97f77a5a99dd7334046ab062d41c9ee2588fb43a40e1358f5",
+  "preserved_initial_executable": "verification/lab2_runner_used.exe",
+  "changes_since_production": "Self-test: additional seeded-random topology only; simulation and CLI unchanged.",
+  "ctest": {
+    "name": "population_equivalence",
+    "passed": true,
+    "cases": 24,
+    "compared_steps": 171392,
+    "matched_spikes": 294,
+    "synapse_models": [
+      "tsodyks_markram",
+      "exponential_current"
+    ],
+    "dt_us": [
+      50,
+      25,
+      12.5
+    ],
+    "topology_and_input_cases": [
+      "ring, tonic input",
+      "chords, global noise",
+      "parallel/self/zero-weight edges, individual noise and pulses",
+      "seeded random directed graph, global noise"
+    ],
+    "comparison": "Every state step, all native event identities/times and sample cadence, including shortened final step.",
+    "state_tolerance": "2e-8*(1+abs(expected))",
+    "event_time_tolerance": 0
+  },
+  "replay": {
+    "scenario": "k30_seed42_short",
+    "neurons": 500,
+    "edges": 15017,
+    "time_s": 10,
+    "steps": 400000,
+    "spikes": 231739,
+    "wall_seconds": 8.9779943,
+    "complete": true,
+    "byte_identical": true,
+    "files": {
+      "trace.csv": {
+        "production_sha256": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+        "final_sha256": "ca808f20b146b03ccd8aae57738213efba99afbb34e4fae3caa842231c58751f",
+        "byte_identical": true,
+        "bytes": 507535
+      },
+      "events.csv": {
+        "production_sha256": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+        "final_sha256": "ccdccdc02a1cd999b758a213a3c5845187b8d5e428242b2b10b179caedc53039",
+        "byte_identical": true,
+        "bytes": 6558359
+      }
+    }
+  }
+}

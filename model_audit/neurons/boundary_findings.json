@@ -1,0 +1,43 @@
+{
+  "cli_sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+  "HH_threshold_is_observer_only": true,
+  "HH_detector_variants": [
+    {
+      "V_spike_mV": 0,
+      "events": 4,
+      "first_event_ms": 1.925,
+      "peak_voltage_mV": 40.22831427496461
+    },
+    {
+      "V_spike_mV": 20,
+      "events": 4,
+      "first_event_ms": 1.975,
+      "peak_voltage_mV": 40.22831427496461
+    },
+    {
+      "V_spike_mV": 100,
+      "events": 0,
+      "first_event_ms": null,
+      "peak_voltage_mV": 40.22831427496461
+    }
+  ],
+  "Izh_invalid_initial_reset_rejected": [
+    {
+      "name": "initial_at_peak",
+      "exit_code": 1,
+      "message": "Izhikevich initial and reset voltages must be below the spike peak."
+    },
+    {
+      "name": "initial_above_peak",
+      "exit_code": 1,
+      "message": "Izhikevich initial and reset voltages must be below the spike peak."
+    },
+    {
+      "name": "reset_at_peak",
+      "exit_code": 1,
+      "message": "Izhikevich initial and reset voltages must be below the spike peak."
+    }
+  ],
+  "successful_native_runs": 3,
+  "rejected_native_configs": 3
+}

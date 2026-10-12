@@ -1,0 +1,789 @@
+{
+  "scope": "Compare 12 published-release network runs with frozen lab5 CSV outputs.\n\nThis check neither changes production files nor regenerates baseline results.\nNew optional JSON fields may be serialized with their inactive default values;\nthe trace, events, and weights CSV files must remain byte-identical.\n\nPrepare (read-only): python check_release_networks.py --prepare-only\nRun after publishing: python check_release_networks.py --expected-cli-sha256 HASH\n",
+  "checked_at_utc": "2026-10-12T16:50:03.371705+00:00",
+  "cli": "E:/asp/26_27/cudaynamics/standalone/network_studio/build/Release/network_studio_cli.exe",
+  "cli_sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+  "script_sha256": "e1aac84d2406835a02a72225d24af1227b172bf5146e592ae0ff4663df9aa343",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "baseline": {
+    "cli_sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+    "findings_sha256": {
+      "paths/findings.json": "1c253140ab7cbdc93ebd2a350e44bc698010c157b04e30cfa7ce15e4620d7d0a",
+      "duration/findings.json": "b7661bbf5f209501a8a839ecf1b3e64593e52592a40bdf8daa062dcf27331d72"
+    }
+  },
+  "expected_run_count": 12,
+  "output_directory": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks",
+  "runs": [
+    {
+      "case": "two_seed00_noise3_dt25us",
+      "series": "paths",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/configs/two_seed00_noise3_dt25us.json",
+      "config_sha256": "452caafb66cf8b0f9352a0da9fb1d9879942cc16f8a9c3ff109aac3f14850b8b",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise3_dt25us",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\paths\\configs\\two_seed00_noise3_dt25us.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\paths__two_seed00_noise3_dt25us"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 5,
+      "steps": 200000,
+      "neuron_spikes": [
+        74,
+        6
+      ],
+      "final_synapse_weights": [
+        0.10180366501912261
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/two_seed00_noise3_dt25us_trace.csv",
+          "baseline_sha256": "a68c5a92ebd16c3b891c77dca2a5eb2a5488ccd99bbdebcaf944eb4de257effd",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise3_dt25us_trace.csv",
+          "release_sha256": "a68c5a92ebd16c3b891c77dca2a5eb2a5488ccd99bbdebcaf944eb4de257effd",
+          "baseline_bytes": 9180151,
+          "release_bytes": 9180151,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/two_seed00_noise3_dt25us_events.csv",
+          "baseline_sha256": "59f1ab25161c7976f1b4f06f02436d583fc52408762d4154cbcdc07a11934a19",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise3_dt25us_events.csv",
+          "release_sha256": "59f1ab25161c7976f1b4f06f02436d583fc52408762d4154cbcdc07a11934a19",
+          "baseline_bytes": 1964,
+          "release_bytes": 1964,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/two_seed00_noise3_dt25us_weights.csv",
+          "baseline_sha256": "610ff44ae084eb1c15591c624aaaef5aaed0349b929f91dd037d4478ceec6637",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise3_dt25us_weights.csv",
+          "release_sha256": "610ff44ae084eb1c15591c624aaaef5aaed0349b929f91dd037d4478ceec6637",
+          "baseline_bytes": 1823237,
+          "release_bytes": 1823237,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.5822514000174124
+    },
+    {
+      "case": "two_seed00_noise3_dt12.5us",
+      "series": "paths",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/configs/two_seed00_noise3_dt12.5us.json",
+      "config_sha256": "69df856d6c2418ec7edb4486682f4827fd0a4112834660cf635d3bc03054cd2d",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise3_dt12.5us",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\paths\\configs\\two_seed00_noise3_dt12.5us.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\paths__two_seed00_noise3_dt12.5us"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 5,
+      "steps": 400000,
+      "neuron_spikes": [
+        74,
+        6
+      ],
+      "final_synapse_weights": [
+        0.10180405173076934
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/two_seed00_noise3_dt12.5us_trace.csv",
+          "baseline_sha256": "171ce3636542800bb0b6e5675513e2bf28c1e5af4ccb4bd95989eefb9ee12a41",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise3_dt12.5us_trace.csv",
+          "release_sha256": "171ce3636542800bb0b6e5675513e2bf28c1e5af4ccb4bd95989eefb9ee12a41",
+          "baseline_bytes": 9180636,
+          "release_bytes": 9180636,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/two_seed00_noise3_dt12.5us_events.csv",
+          "baseline_sha256": "246cfce4d78c16c965ecbc2e777911be58ab9c0e59534eb23a5af30a530e4d7c",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise3_dt12.5us_events.csv",
+          "release_sha256": "246cfce4d78c16c965ecbc2e777911be58ab9c0e59534eb23a5af30a530e4d7c",
+          "baseline_bytes": 1997,
+          "release_bytes": 1997,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/two_seed00_noise3_dt12.5us_weights.csv",
+          "baseline_sha256": "cf6fce3c7854cbc2c8c5ce7f77c0eab2d2738bd8e18453c3a6c305b3b829ec61",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise3_dt12.5us_weights.csv",
+          "release_sha256": "cf6fce3c7854cbc2c8c5ce7f77c0eab2d2738bd8e18453c3a6c305b3b829ec61",
+          "baseline_bytes": 1823835,
+          "release_bytes": 1823835,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.7149267000204418
+    },
+    {
+      "case": "two_seed00_noise0_dt25us",
+      "series": "paths",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/configs/two_seed00_noise0_dt25us.json",
+      "config_sha256": "aa6444c1ec97028cacdc9d1d8a1eb12def8482772e5a3af5e436bcb90b16eb81",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise0_dt25us",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\paths\\configs\\two_seed00_noise0_dt25us.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\paths__two_seed00_noise0_dt25us"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 5,
+      "steps": 200000,
+      "neuron_spikes": [
+        75,
+        0
+      ],
+      "final_synapse_weights": [
+        0.1
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/two_seed00_noise0_dt25us_trace.csv",
+          "baseline_sha256": "48ba5f7538283a22bf55c4e685885bae706ffcc165cafe9838639d50ab198147",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise0_dt25us_trace.csv",
+          "release_sha256": "48ba5f7538283a22bf55c4e685885bae706ffcc165cafe9838639d50ab198147",
+          "baseline_bytes": 9179760,
+          "release_bytes": 9179760,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/two_seed00_noise0_dt25us_events.csv",
+          "baseline_sha256": "e88abdaaceae2fe7b392fb3d07c88d501e33906a508a3ff8172871a6c96044a8",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise0_dt25us_events.csv",
+          "release_sha256": "e88abdaaceae2fe7b392fb3d07c88d501e33906a508a3ff8172871a6c96044a8",
+          "baseline_bytes": 1903,
+          "release_bytes": 1903,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/two_seed00_noise0_dt25us_weights.csv",
+          "baseline_sha256": "306f4462cb1fbbf0cef95b95b3373b6d4a9e824da441b665870f59f6f22b6430",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__two_seed00_noise0_dt25us_weights.csv",
+          "release_sha256": "306f4462cb1fbbf0cef95b95b3373b6d4a9e824da441b665870f59f6f22b6430",
+          "baseline_bytes": 1825021,
+          "release_bytes": 1825021,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.5230999999912456
+    },
+    {
+      "case": "chain_seed00_noise3_dt25us",
+      "series": "paths",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/configs/chain_seed00_noise3_dt25us.json",
+      "config_sha256": "611ef87b080ab640261cfff06c7ac86b538ed25ff596fa46e815a5e7d07b6963",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise3_dt25us",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\paths\\configs\\chain_seed00_noise3_dt25us.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\paths__chain_seed00_noise3_dt25us"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 5,
+      "steps": 200000,
+      "neuron_spikes": [
+        74,
+        6,
+        4
+      ],
+      "final_synapse_weights": [
+        0.10180366501912261,
+        0.1000055145847208
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/chain_seed00_noise3_dt25us_trace.csv",
+          "baseline_sha256": "323b8218347e61b913aa973ed024d53a9ef51c25b0e33aea6bb8fa503b892d50",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise3_dt25us_trace.csv",
+          "release_sha256": "323b8218347e61b913aa973ed024d53a9ef51c25b0e33aea6bb8fa503b892d50",
+          "baseline_bytes": 15357762,
+          "release_bytes": 15357762,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/chain_seed00_noise3_dt25us_events.csv",
+          "baseline_sha256": "cfe05155c4c4545835f7f3cd4716a6aa594976990836e1254e1c239fda036042",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise3_dt25us_events.csv",
+          "release_sha256": "cfe05155c4c4545835f7f3cd4716a6aa594976990836e1254e1c239fda036042",
+          "baseline_bytes": 2061,
+          "release_bytes": 2061,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/chain_seed00_noise3_dt25us_weights.csv",
+          "baseline_sha256": "897c0727fb84b969b3b2cf5bf27f9c9d608c88940f8fd6f9b09c603c497e8c26",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise3_dt25us_weights.csv",
+          "release_sha256": "897c0727fb84b969b3b2cf5bf27f9c9d608c88940f8fd6f9b09c603c497e8c26",
+          "baseline_bytes": 2819859,
+          "release_bytes": 2819859,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.8226353999925777
+    },
+    {
+      "case": "chain_seed00_noise3_dt12.5us",
+      "series": "paths",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/configs/chain_seed00_noise3_dt12.5us.json",
+      "config_sha256": "e831fe7aaf16532e7d2b60997d77ea9c704e2639f64880bace4c286667d0c75c",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise3_dt12.5us",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\paths\\configs\\chain_seed00_noise3_dt12.5us.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\paths__chain_seed00_noise3_dt12.5us"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 5,
+      "steps": 400000,
+      "neuron_spikes": [
+        74,
+        6,
+        4
+      ],
+      "final_synapse_weights": [
+        0.10180405173076934,
+        0.10000551458472755
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/chain_seed00_noise3_dt12.5us_trace.csv",
+          "baseline_sha256": "1e01267891e2d07dee3c7dcc17d7cfaf1433537455f53459df72eb62d5559d2f",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise3_dt12.5us_trace.csv",
+          "release_sha256": "1e01267891e2d07dee3c7dcc17d7cfaf1433537455f53459df72eb62d5559d2f",
+          "baseline_bytes": 15358222,
+          "release_bytes": 15358222,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/chain_seed00_noise3_dt12.5us_events.csv",
+          "baseline_sha256": "cbb52866c7094a9da226b93e7903db0209d7d7f0a1d84f119c49d3b6e99b6fbe",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise3_dt12.5us_events.csv",
+          "release_sha256": "cbb52866c7094a9da226b93e7903db0209d7d7f0a1d84f119c49d3b6e99b6fbe",
+          "baseline_bytes": 2094,
+          "release_bytes": 2094,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/chain_seed00_noise3_dt12.5us_weights.csv",
+          "baseline_sha256": "4ceec094cdfd8b51f9801981007b6b446d96854417a9f95ca5a0579e81a4a73a",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise3_dt12.5us_weights.csv",
+          "release_sha256": "4ceec094cdfd8b51f9801981007b6b446d96854417a9f95ca5a0579e81a4a73a",
+          "baseline_bytes": 2823865,
+          "release_bytes": 2823865,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.9838930999976583
+    },
+    {
+      "case": "chain_seed00_noise0_dt25us",
+      "series": "paths",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/configs/chain_seed00_noise0_dt25us.json",
+      "config_sha256": "4bc51ab830beed2414cd4a585da343dd99e0c55e3e53668d6e4295809f9e8cae",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise0_dt25us",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\paths\\configs\\chain_seed00_noise0_dt25us.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\paths__chain_seed00_noise0_dt25us"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 5,
+      "steps": 200000,
+      "neuron_spikes": [
+        75,
+        0,
+        0
+      ],
+      "final_synapse_weights": [
+        0.1,
+        0.1
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/chain_seed00_noise0_dt25us_trace.csv",
+          "baseline_sha256": "2a76f2035c921601bc8ef88233d628f531d19302a48c7c5f063a9bb23ee039df",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise0_dt25us_trace.csv",
+          "release_sha256": "2a76f2035c921601bc8ef88233d628f531d19302a48c7c5f063a9bb23ee039df",
+          "baseline_bytes": 11777623,
+          "release_bytes": 11777623,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/chain_seed00_noise0_dt25us_events.csv",
+          "baseline_sha256": "e88abdaaceae2fe7b392fb3d07c88d501e33906a508a3ff8172871a6c96044a8",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise0_dt25us_events.csv",
+          "release_sha256": "e88abdaaceae2fe7b392fb3d07c88d501e33906a508a3ff8172871a6c96044a8",
+          "baseline_bytes": 1903,
+          "release_bytes": 1903,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/chain_seed00_noise0_dt25us_weights.csv",
+          "baseline_sha256": "9b72a49e4dea2cf40c331697fae2ce6e65db21eafe330552c6f6053a5b04add1",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__chain_seed00_noise0_dt25us_weights.csv",
+          "release_sha256": "9b72a49e4dea2cf40c331697fae2ce6e65db21eafe330552c6f6053a5b04add1",
+          "baseline_bytes": 2825051,
+          "release_bytes": 2825051,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.7204711000085808
+    },
+    {
+      "case": "shortcut_seed00_noise3_dt25us",
+      "series": "paths",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/configs/shortcut_seed00_noise3_dt25us.json",
+      "config_sha256": "169de27bbf07e0e67d795dd318bb2d70aceb64f96fa3aba7a71cf1978d4e655e",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise3_dt25us",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\paths\\configs\\shortcut_seed00_noise3_dt25us.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\paths__shortcut_seed00_noise3_dt25us"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 5,
+      "steps": 200000,
+      "neuron_spikes": [
+        74,
+        6,
+        6
+      ],
+      "final_synapse_weights": [
+        0.10180366501912261,
+        0.10064127632972114,
+        0.10390885552081996
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/shortcut_seed00_noise3_dt25us_trace.csv",
+          "baseline_sha256": "92febe2b444b47fdceeffc6be276d641bd31ff701e6131f45fb722de666aaf12",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise3_dt25us_trace.csv",
+          "release_sha256": "92febe2b444b47fdceeffc6be276d641bd31ff701e6131f45fb722de666aaf12",
+          "baseline_bytes": 19336236,
+          "release_bytes": 19336236,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/shortcut_seed00_noise3_dt25us_events.csv",
+          "baseline_sha256": "f4559e5f633784a232ec0057f92867bf1d14a1bc9fc4d36c6eab718f9c8bfe7b",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise3_dt25us_events.csv",
+          "release_sha256": "f4559e5f633784a232ec0057f92867bf1d14a1bc9fc4d36c6eab718f9c8bfe7b",
+          "baseline_bytes": 2115,
+          "release_bytes": 2115,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/shortcut_seed00_noise3_dt25us_weights.csv",
+          "baseline_sha256": "e82324fd2ce67778e1307cc6498ef75dbdd545fbcdd8827a20e64524f52c6f0a",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise3_dt25us_weights.csv",
+          "release_sha256": "e82324fd2ce67778e1307cc6498ef75dbdd545fbcdd8827a20e64524f52c6f0a",
+          "baseline_bytes": 3817340,
+          "release_bytes": 3817340,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 1.0198070000042208
+    },
+    {
+      "case": "shortcut_seed00_noise3_dt12.5us",
+      "series": "paths",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/configs/shortcut_seed00_noise3_dt12.5us.json",
+      "config_sha256": "c5097c83e406e1559e3163d2de7e60e09524992be3f04069f667686e02ac826f",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise3_dt12.5us",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\paths\\configs\\shortcut_seed00_noise3_dt12.5us.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\paths__shortcut_seed00_noise3_dt12.5us"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 5,
+      "steps": 400000,
+      "neuron_spikes": [
+        74,
+        6,
+        6
+      ],
+      "final_synapse_weights": [
+        0.10180405173076934,
+        0.10064048207256607,
+        0.10391187397671067
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/shortcut_seed00_noise3_dt12.5us_trace.csv",
+          "baseline_sha256": "56539ba9aa15e359c0d3c81905dde669df484af645bbb96ee4e5690a67f58b71",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise3_dt12.5us_trace.csv",
+          "release_sha256": "56539ba9aa15e359c0d3c81905dde669df484af645bbb96ee4e5690a67f58b71",
+          "baseline_bytes": 19336398,
+          "release_bytes": 19336398,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/shortcut_seed00_noise3_dt12.5us_events.csv",
+          "baseline_sha256": "84ce03d542de8f3b3be71677072bce34ae5e687477b98cf0fb1d18ec1ab41529",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise3_dt12.5us_events.csv",
+          "release_sha256": "84ce03d542de8f3b3be71677072bce34ae5e687477b98cf0fb1d18ec1ab41529",
+          "baseline_bytes": 2148,
+          "release_bytes": 2148,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/shortcut_seed00_noise3_dt12.5us_weights.csv",
+          "baseline_sha256": "dd9adcfeb652322b94dbe17c2496fdf701f91f5642d5d31bc69eff42b4bfa146",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise3_dt12.5us_weights.csv",
+          "release_sha256": "dd9adcfeb652322b94dbe17c2496fdf701f91f5642d5d31bc69eff42b4bfa146",
+          "baseline_bytes": 3820782,
+          "release_bytes": 3820782,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 1.1755085999902803
+    },
+    {
+      "case": "shortcut_seed00_noise0_dt25us",
+      "series": "paths",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/configs/shortcut_seed00_noise0_dt25us.json",
+      "config_sha256": "ba32c56e1990b52ebcf18c189bbe7472eea69daebbec859698aa230b1b9de612",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise0_dt25us",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\paths\\configs\\shortcut_seed00_noise0_dt25us.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\paths__shortcut_seed00_noise0_dt25us"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 5,
+      "steps": 200000,
+      "neuron_spikes": [
+        75,
+        0,
+        0
+      ],
+      "final_synapse_weights": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/shortcut_seed00_noise0_dt25us_trace.csv",
+          "baseline_sha256": "abfdd2ccd64386a22838fa9e4b0ed5088bf386a0abfc7df787f14ab18265208b",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise0_dt25us_trace.csv",
+          "release_sha256": "abfdd2ccd64386a22838fa9e4b0ed5088bf386a0abfc7df787f14ab18265208b",
+          "baseline_bytes": 15747091,
+          "release_bytes": 15747091,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/shortcut_seed00_noise0_dt25us_events.csv",
+          "baseline_sha256": "e88abdaaceae2fe7b392fb3d07c88d501e33906a508a3ff8172871a6c96044a8",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise0_dt25us_events.csv",
+          "release_sha256": "e88abdaaceae2fe7b392fb3d07c88d501e33906a508a3ff8172871a6c96044a8",
+          "baseline_bytes": 1903,
+          "release_bytes": 1903,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/paths/raw/shortcut_seed00_noise0_dt25us_weights.csv",
+          "baseline_sha256": "38eaea78834f08019f1223877dc067ee297113bcb066019fad3bb7456d482fb6",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/paths__shortcut_seed00_noise0_dt25us_weights.csv",
+          "release_sha256": "38eaea78834f08019f1223877dc067ee297113bcb066019fad3bb7456d482fb6",
+          "baseline_bytes": 3825081,
+          "release_bytes": 3825081,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.8713549999811221
+    },
+    {
+      "case": "two_seed00_duration6.1",
+      "series": "duration",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/configs/two_seed00_duration6.1.json",
+      "config_sha256": "a33f8be6d92e19127a31f0ffaaac116144b084471b69b9c92e3cf6f4e3bc9a99",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__two_seed00_duration6.1",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\duration\\configs\\two_seed00_duration6.1.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\duration__two_seed00_duration6.1"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 6.1,
+      "steps": 244000,
+      "neuron_spikes": [
+        89,
+        7
+      ],
+      "final_synapse_weights": [
+        0.10193398417298617
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/raw/two_seed00_duration6.1_trace.csv",
+          "baseline_sha256": "a5ec0af5914241932dd19960b03f97afc7c1e51607dee135c03fe13f3c62e33d",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__two_seed00_duration6.1_trace.csv",
+          "release_sha256": "a5ec0af5914241932dd19960b03f97afc7c1e51607dee135c03fe13f3c62e33d",
+          "baseline_bytes": 224254,
+          "release_bytes": 224254,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/raw/two_seed00_duration6.1_events.csv",
+          "baseline_sha256": "3e299d4cf16421cb5bd47fac528ed450059bc0e071de5e9d10635ad0025e82f5",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__two_seed00_duration6.1_events.csv",
+          "release_sha256": "3e299d4cf16421cb5bd47fac528ed450059bc0e071de5e9d10635ad0025e82f5",
+          "baseline_bytes": 2352,
+          "release_bytes": 2352,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/raw/two_seed00_duration6.1_weights.csv",
+          "baseline_sha256": "bde7772045c08d33f9771f4b8d792ebcd5b25782fa603b5f6ca44870c6211662",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__two_seed00_duration6.1_weights.csv",
+          "release_sha256": "bde7772045c08d33f9771f4b8d792ebcd5b25782fa603b5f6ca44870c6211662",
+          "baseline_bytes": 44476,
+          "release_bytes": 44476,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.19474579999223351
+    },
+    {
+      "case": "chain_seed00_duration12.525",
+      "series": "duration",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/configs/chain_seed00_duration12.525.json",
+      "config_sha256": "c8faa006a59848b25f1fd8a2788380f86de9285218ed7307dd6c8a9d47978a03",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__chain_seed00_duration12.525",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\duration\\configs\\chain_seed00_duration12.525.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\duration__chain_seed00_duration12.525"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 12.525,
+      "steps": 501000,
+      "neuron_spikes": [
+        185,
+        10,
+        5
+      ],
+      "final_synapse_weights": [
+        0.10285083890191642,
+        0.1000055145847208
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/raw/chain_seed00_duration12.525_trace.csv",
+          "baseline_sha256": "35c73c4207118e88782ed8fb57029cd9729454a8bb47da4cb994d7b532b87669",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__chain_seed00_duration12.525_trace.csv",
+          "release_sha256": "35c73c4207118e88782ed8fb57029cd9729454a8bb47da4cb994d7b532b87669",
+          "baseline_bytes": 778794,
+          "release_bytes": 778794,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/raw/chain_seed00_duration12.525_events.csv",
+          "baseline_sha256": "596b1ff354d1004f6a81a450079b0efcc5251e780fae42cc52782dcbfd5b6200",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__chain_seed00_duration12.525_events.csv",
+          "release_sha256": "596b1ff354d1004f6a81a450079b0efcc5251e780fae42cc52782dcbfd5b6200",
+          "baseline_bytes": 4974,
+          "release_bytes": 4974,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/raw/chain_seed00_duration12.525_weights.csv",
+          "baseline_sha256": "ec339f625d57c0e8da0ecf170236770fe97030fd8a374483cfe58ffcb6d25f7f",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__chain_seed00_duration12.525_weights.csv",
+          "release_sha256": "ec339f625d57c0e8da0ecf170236770fe97030fd8a374483cfe58ffcb6d25f7f",
+          "baseline_bytes": 139105,
+          "release_bytes": 139105,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.4657469999801833
+    },
+    {
+      "case": "shortcut_seed00_duration12.525",
+      "series": "duration",
+      "config": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/configs/shortcut_seed00_duration12.525.json",
+      "config_sha256": "bc35521084474a69df4c53ad29e0e4f74a0509742dff5b70f747979fedb66f64",
+      "output_prefix": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__shortcut_seed00_duration12.525",
+      "command": [
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\duration\\configs\\shortcut_seed00_duration12.525.json",
+        "--output",
+        "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\reproducibility\\lab5\\qa\\release_networks\\duration__shortcut_seed00_duration12.525"
+      ],
+      "passed": true,
+      "complete": true,
+      "exit_code": 0,
+      "time_s": 12.525,
+      "steps": 501000,
+      "neuron_spikes": [
+        185,
+        10,
+        9
+      ],
+      "final_synapse_weights": [
+        0.10285083890191642,
+        0.10058780944553886,
+        0.10534530459877244
+      ],
+      "summary_semantically_equal": true,
+      "config_snapshot_equal_ignoring_new_inactive_defaults": true,
+      "csv": {
+        "trace.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/raw/shortcut_seed00_duration12.525_trace.csv",
+          "baseline_sha256": "78a9b0ba0fe3e708caa647db762eeb919eda5749a6abf570814c464e94d90a04",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__shortcut_seed00_duration12.525_trace.csv",
+          "release_sha256": "78a9b0ba0fe3e708caa647db762eeb919eda5749a6abf570814c464e94d90a04",
+          "baseline_bytes": 979279,
+          "release_bytes": 979279,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "events.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/raw/shortcut_seed00_duration12.525_events.csv",
+          "baseline_sha256": "f342cf325518cdb297baf016b710b4bf5212257b3eac42891b158d224bdcdb28",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__shortcut_seed00_duration12.525_events.csv",
+          "release_sha256": "f342cf325518cdb297baf016b710b4bf5212257b3eac42891b158d224bdcdb28",
+          "baseline_bytes": 5073,
+          "release_bytes": 5073,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        },
+        "weights.csv": {
+          "baseline_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/duration/raw/shortcut_seed00_duration12.525_weights.csv",
+          "baseline_sha256": "161a3135f0e20534fb492bb843d9c962f8a0c63db8fd3901c2bf32595c961031",
+          "release_path": "E:/asp/26_27/cudaynamics/standalone/network_studio/reproducibility/lab5/qa/release_networks/duration__shortcut_seed00_duration12.525_weights.csv",
+          "release_sha256": "161a3135f0e20534fb492bb843d9c962f8a0c63db8fd3901c2bf32595c961031",
+          "baseline_bytes": 190128,
+          "release_bytes": 190128,
+          "byte_identical": true,
+          "frozen_hash_unchanged": true
+        }
+      },
+      "input_hash_unchanged": true,
+      "wall_seconds": 0.4903696999826934
+    }
+  ],
+  "cli_sha256_after": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f",
+  "baseline_findings_unchanged": true,
+  "run_count": 12,
+  "byte_identical_csv_count": 36,
+  "wall_seconds": 8.584501500008628,
+  "passed": true
+}

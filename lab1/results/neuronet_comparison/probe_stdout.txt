@@ -1,0 +1,5 @@
+Original NeuroNet observations are documented separately in README.md; no raw event log was exported.
+Steady window: [1000, 3000) ms; stimulus: 10 Hz, amplitude 30, width 3 ms.
+Python translation, Euler 0.5 ms: 20 events, 10 Hz.
+Python translation, Euler 0.025 ms: 40 events, 20 Hz.
+Actual studio CLI, RK4 0.025 ms: 40 events, 20 Hz.

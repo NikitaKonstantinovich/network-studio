@@ -1,0 +1,1222 @@
+{
+  "scenarios": {
+    "01_rest": {
+      "neurons": [
+        {
+          "spikes": 0,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 0.4,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": null,
+          "last_spike_s": null
+        }
+      ],
+      "samples": 4001,
+      "dt_s": 2.5e-05,
+      "duration_s": 0.4
+    },
+    "02_single_pulse": {
+      "neurons": [
+        {
+          "spikes": 1,
+          "analyzed_spikes": 1,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 0.4,
+          "rate_hz": 2.5,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": 0.10175000000000001,
+          "last_spike_s": 0.10175000000000001
+        },
+        {
+          "spikes": 0,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 0.4,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": null,
+          "last_spike_s": null
+        }
+      ],
+      "samples": 8001,
+      "dt_s": 2.5e-05,
+      "duration_s": 0.4
+    },
+    "02_reference_30x3ms": {
+      "neurons": [
+        {
+          "spikes": 2,
+          "analyzed_spikes": 2,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 0.4,
+          "rate_hz": 5.0,
+          "mean_isi_ms": 1.6749999999999958,
+          "isi_frequency_hz": 597.0149253731357,
+          "isi_cv": 0.0,
+          "first_spike_s": 0.1015,
+          "last_spike_s": 0.103175
+        },
+        {
+          "spikes": 0,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 0.4,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": null,
+          "last_spike_s": null
+        }
+      ],
+      "samples": 8001,
+      "dt_s": 2.5e-05,
+      "duration_s": 0.4
+    },
+    "03_autonomous": {
+      "neurons": [
+        {
+          "spikes": 48,
+          "analyzed_spikes": 38,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 9.5,
+          "mean_isi_ms": 105.35945945945949,
+          "isi_frequency_hz": 9.491316727804426,
+          "isi_cv": 0.00012761812034842634,
+          "first_spike_s": 0.008625,
+          "last_spike_s": 4.9563250000000005
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "04_periodic_02hz": {
+      "neurons": [
+        {
+          "spikes": 6,
+          "analyzed_spikes": 6,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 3.2,
+          "rate_hz": 1.875,
+          "mean_isi_ms": 500.0,
+          "isi_frequency_hz": 2.0,
+          "isi_cv": 0.0,
+          "first_spike_s": 0.10175000000000001,
+          "last_spike_s": 2.60175
+        }
+      ],
+      "samples": 32001,
+      "dt_s": 2.5e-05,
+      "duration_s": 3.2
+    },
+    "04_periodic_10hz": {
+      "neurons": [
+        {
+          "spikes": 30,
+          "analyzed_spikes": 30,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 3.2,
+          "rate_hz": 9.375,
+          "mean_isi_ms": 100.0051724137931,
+          "isi_frequency_hz": 9.999482785373171,
+          "isi_cv": 0.0002736842554072431,
+          "first_spike_s": 0.10175000000000001,
+          "last_spike_s": 3.0019
+        }
+      ],
+      "samples": 32001,
+      "dt_s": 2.5e-05,
+      "duration_s": 3.2
+    },
+    "04_periodic_20hz": {
+      "neurons": [
+        {
+          "spikes": 60,
+          "analyzed_spikes": 60,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 3.2,
+          "rate_hz": 18.75,
+          "mean_isi_ms": 50.0364406779661,
+          "isi_frequency_hz": 19.985434344460817,
+          "isi_cv": 0.0025811829920488615,
+          "first_spike_s": 0.10175000000000001,
+          "last_spike_s": 3.0539
+        }
+      ],
+      "samples": 32001,
+      "dt_s": 2.5e-05,
+      "duration_s": 3.2
+    },
+    "04_reference_10hz_30x3ms": {
+      "neurons": [
+        {
+          "spikes": 60,
+          "analyzed_spikes": 60,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 3.2,
+          "rate_hz": 18.75,
+          "mean_isi_ms": 49.18644067796611,
+          "isi_frequency_hz": 20.330806340454856,
+          "isi_cv": 0.9789785557795467,
+          "first_spike_s": 0.1015,
+          "last_spike_s": 3.0035000000000003
+        }
+      ],
+      "samples": 32001,
+      "dt_s": 2.5e-05,
+      "duration_s": 3.2
+    },
+    "05_dc_4": {
+      "neurons": [
+        {
+          "spikes": 36,
+          "analyzed_spikes": 28,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 7.0,
+          "mean_isi_ms": 139.93240740740742,
+          "isi_frequency_hz": 7.146307410323766,
+          "isi_cv": 8.157925457363383e-05,
+          "first_spike_s": 0.01225,
+          "last_spike_s": 4.907325
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "06_noise_global_0": {
+      "neurons": [
+        {
+          "spikes": 0,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": null,
+          "last_spike_s": null
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "06_noise_global_5": {
+      "neurons": [
+        {
+          "spikes": 28,
+          "analyzed_spikes": 21,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 5.25,
+          "mean_isi_ms": 179.30750000000003,
+          "isi_frequency_hz": 5.577011558356453,
+          "isi_cv": 0.693768691046321,
+          "first_spike_s": 0.041,
+          "last_spike_s": 4.830125000000001
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "06_noise_global_8": {
+      "neurons": [
+        {
+          "spikes": 57,
+          "analyzed_spikes": 43,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 10.75,
+          "mean_isi_ms": 93.1434523809524,
+          "isi_frequency_hz": 10.736127708795316,
+          "isi_cv": 0.38606003764351626,
+          "first_spike_s": 0.020375,
+          "last_spike_s": 4.9578500000000005
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "07_noise_individual": {
+      "neurons": [
+        {
+          "spikes": 28,
+          "analyzed_spikes": 21,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 5.25,
+          "mean_isi_ms": 179.30750000000003,
+          "isi_frequency_hz": 5.577011558356453,
+          "isi_cv": 0.693768691046321,
+          "first_spike_s": 0.041,
+          "last_spike_s": 4.830125000000001
+        },
+        {
+          "spikes": 54,
+          "analyzed_spikes": 43,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 10.75,
+          "mean_isi_ms": 92.89404761904761,
+          "isi_frequency_hz": 10.76495239071651,
+          "isi_cv": 0.4081487633530587,
+          "first_spike_s": 0.014125,
+          "last_spike_s": 4.950125
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_0p00": {
+      "neurons": [
+        {
+          "spikes": 0,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": null,
+          "last_spike_s": null
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_2p00": {
+      "neurons": [
+        {
+          "spikes": 0,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": null,
+          "last_spike_s": null
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_3p00": {
+      "neurons": [
+        {
+          "spikes": 0,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": null,
+          "last_spike_s": null
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_3p50": {
+      "neurons": [
+        {
+          "spikes": 1,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": 0.0298,
+          "last_spike_s": 0.0298
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_3p70": {
+      "neurons": [
+        {
+          "spikes": 1,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": 0.0175,
+          "last_spike_s": 0.0175
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_3p75": {
+      "neurons": [
+        {
+          "spikes": 1,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": 0.0162,
+          "last_spike_s": 0.0162
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_3p80": {
+      "neurons": [
+        {
+          "spikes": 29,
+          "analyzed_spikes": 23,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 5.75,
+          "mean_isi_ms": 178.05,
+          "isi_frequency_hz": 5.616399887672002,
+          "isi_cv": 0.0001197420479391109,
+          "first_spike_s": 0.01515,
+          "last_spike_s": 4.9983
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_3p90": {
+      "neurons": [
+        {
+          "spikes": 33,
+          "analyzed_spikes": 26,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 6.5,
+          "mean_isi_ms": 152.46,
+          "isi_frequency_hz": 6.5590974681883765,
+          "isi_cv": 8.03322098510017e-05,
+          "first_spike_s": 0.0135,
+          "last_spike_s": 4.889975000000001
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_4p00": {
+      "neurons": [
+        {
+          "spikes": 36,
+          "analyzed_spikes": 28,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 7.0,
+          "mean_isi_ms": 139.93240740740742,
+          "isi_frequency_hz": 7.146307410323766,
+          "isi_cv": 8.157925457363383e-05,
+          "first_spike_s": 0.01225,
+          "last_spike_s": 4.907325
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_4p20": {
+      "neurons": [
+        {
+          "spikes": 41,
+          "analyzed_spikes": 33,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 8.25,
+          "mean_isi_ms": 124.26328124999999,
+          "isi_frequency_hz": 8.047429537838637,
+          "isi_cv": 0.0001003962065338576,
+          "first_spike_s": 0.010475,
+          "last_spike_s": 4.97785
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_4p50": {
+      "neurons": [
+        {
+          "spikes": 46,
+          "analyzed_spikes": 36,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 9.0,
+          "mean_isi_ms": 109.5107142857143,
+          "isi_frequency_hz": 9.13152659557121,
+          "isi_cv": 0.0001368175127238756,
+          "first_spike_s": 0.0088,
+          "last_spike_s": 4.932675000000001
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_5p00": {
+      "neurons": [
+        {
+          "spikes": 54,
+          "analyzed_spikes": 43,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 10.75,
+          "mean_isi_ms": 93.8875,
+          "isi_frequency_hz": 10.651045133803756,
+          "isi_cv": 0.0001331380641725182,
+          "first_spike_s": 0.007125,
+          "last_spike_s": 4.977475
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_6p00": {
+      "neurons": [
+        {
+          "spikes": 67,
+          "analyzed_spikes": 53,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 13.25,
+          "mean_isi_ms": 75.39038461538462,
+          "isi_frequency_hz": 13.264290998137897,
+          "isi_cv": 0.00016132835038950875,
+          "first_spike_s": 0.0054,
+          "last_spike_s": 4.9723500000000005
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "sweep_dc_8p00": {
+      "neurons": [
+        {
+          "spikes": 90,
+          "analyzed_spikes": 71,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 17.75,
+          "mean_isi_ms": 55.80357142857143,
+          "isi_frequency_hz": 17.919999999999998,
+          "isi_cv": 0.00015676734353803652,
+          "first_spike_s": 0.003875,
+          "last_spike_s": 4.955275
+        }
+      ],
+      "samples": 25001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    },
+    "noise_sigma5_seed11": {
+      "neurons": [
+        {
+          "spikes": 52,
+          "analyzed_spikes": 48,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 5.333333333333333,
+          "mean_isi_ms": 188.61914893617023,
+          "isi_frequency_hz": 5.30168864423413,
+          "isi_cv": 0.34443144560635014,
+          "first_spike_s": 0.15,
+          "last_spike_s": 9.947600000000001
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "noise_sigma5_seed23": {
+      "neurons": [
+        {
+          "spikes": 51,
+          "analyzed_spikes": 45,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 5.0,
+          "mean_isi_ms": 197.48636363636365,
+          "isi_frequency_hz": 5.063640757704789,
+          "isi_cv": 0.6183340947013554,
+          "first_spike_s": 0.0872,
+          "last_spike_s": 9.893
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "noise_sigma5_seed42": {
+      "neurons": [
+        {
+          "spikes": 54,
+          "analyzed_spikes": 47,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 5.222222222222222,
+          "mean_isi_ms": 184.51521739130436,
+          "isi_frequency_hz": 5.419607196295816,
+          "isi_cv": 0.659426188172172,
+          "first_spike_s": 0.041,
+          "last_spike_s": 9.731675000000001
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "noise_sigma5_seed71": {
+      "neurons": [
+        {
+          "spikes": 51,
+          "analyzed_spikes": 46,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 5.111111111111111,
+          "mean_isi_ms": 193.27055555555555,
+          "isi_frequency_hz": 5.174093886808072,
+          "isi_cv": 0.506780202078316,
+          "first_spike_s": 0.049875,
+          "last_spike_s": 9.807525
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "noise_sigma5_seed101": {
+      "neurons": [
+        {
+          "spikes": 40,
+          "analyzed_spikes": 33,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 3.6666666666666665,
+          "mean_isi_ms": 271.878125,
+          "isi_frequency_hz": 3.678118642314456,
+          "isi_cv": 0.6718505287839539,
+          "first_spike_s": 0.082,
+          "last_spike_s": 9.924675
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "noise_sigma8_seed11": {
+      "neurons": [
+        {
+          "spikes": 111,
+          "analyzed_spikes": 101,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 11.222222222222221,
+          "mean_isi_ms": 88.53775000000002,
+          "isi_frequency_hz": 11.294617267775608,
+          "isi_cv": 0.37976721807873554,
+          "first_spike_s": 0.08687500000000001,
+          "last_spike_s": 9.927025
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "noise_sigma8_seed23": {
+      "neurons": [
+        {
+          "spikes": 108,
+          "analyzed_spikes": 98,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 10.88888888888889,
+          "mean_isi_ms": 92.26881443298969,
+          "isi_frequency_hz": 10.837898006441288,
+          "isi_cv": 0.3808564860428583,
+          "first_spike_s": 0.059175000000000005,
+          "last_spike_s": 9.99255
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "noise_sigma8_seed42": {
+      "neurons": [
+        {
+          "spikes": 115,
+          "analyzed_spikes": 101,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 11.222222222222221,
+          "mean_isi_ms": 89.20450000000002,
+          "isi_frequency_hz": 11.210196795004734,
+          "isi_cv": 0.3761288539205753,
+          "first_spike_s": 0.020375,
+          "last_spike_s": 9.966275000000001
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "noise_sigma8_seed71": {
+      "neurons": [
+        {
+          "spikes": 108,
+          "analyzed_spikes": 99,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 11.0,
+          "mean_isi_ms": 91.2920918367347,
+          "isi_frequency_hz": 10.95385131264583,
+          "isi_cv": 0.37173847449779696,
+          "first_spike_s": 0.046225,
+          "last_spike_s": 9.964500000000001
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "noise_sigma8_seed101": {
+      "neurons": [
+        {
+          "spikes": 98,
+          "analyzed_spikes": 87,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 10.0,
+          "rate_hz": 9.666666666666666,
+          "mean_isi_ms": 102.77529069767442,
+          "isi_frequency_hz": 9.729965181432737,
+          "isi_cv": 0.37527816131556224,
+          "first_spike_s": 0.027525,
+          "last_spike_s": 9.879100000000001
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 10.0
+    },
+    "fine_01_rest": {
+      "neurons": [
+        {
+          "spikes": 0,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 0.4,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": null,
+          "last_spike_s": null
+        }
+      ],
+      "samples": 4001,
+      "dt_s": 1.25e-05,
+      "duration_s": 0.4
+    },
+    "fine_02_single_pulse": {
+      "neurons": [
+        {
+          "spikes": 1,
+          "analyzed_spikes": 1,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 0.4,
+          "rate_hz": 2.5,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": 0.10175000000000001,
+          "last_spike_s": 0.10175000000000001
+        },
+        {
+          "spikes": 0,
+          "analyzed_spikes": 0,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 0.4,
+          "rate_hz": 0.0,
+          "mean_isi_ms": null,
+          "isi_frequency_hz": null,
+          "isi_cv": null,
+          "first_spike_s": null,
+          "last_spike_s": null
+        }
+      ],
+      "samples": 8001,
+      "dt_s": 1.25e-05,
+      "duration_s": 0.4
+    },
+    "fine_03_autonomous": {
+      "neurons": [
+        {
+          "spikes": 48,
+          "analyzed_spikes": 38,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 9.5,
+          "mean_isi_ms": 105.34054054054054,
+          "isi_frequency_hz": 9.493021346469622,
+          "isi_cv": 8.899346344848257e-05,
+          "first_spike_s": 0.008625,
+          "last_spike_s": 4.9555
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 1.25e-05,
+      "duration_s": 5.0
+    },
+    "fine_04_periodic_02hz": {
+      "neurons": [
+        {
+          "spikes": 6,
+          "analyzed_spikes": 6,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 3.2,
+          "rate_hz": 1.875,
+          "mean_isi_ms": 499.9975,
+          "isi_frequency_hz": 2.0000100000500005,
+          "isi_cv": 1.0000050000226696e-05,
+          "first_spike_s": 0.10175000000000001,
+          "last_spike_s": 2.6017375
+        }
+      ],
+      "samples": 32001,
+      "dt_s": 1.25e-05,
+      "duration_s": 3.2
+    },
+    "fine_04_periodic_10hz": {
+      "neurons": [
+        {
+          "spikes": 30,
+          "analyzed_spikes": 30,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 3.2,
+          "rate_hz": 9.375,
+          "mean_isi_ms": 100.0051724137931,
+          "isi_frequency_hz": 9.999482785373171,
+          "isi_cv": 0.0002510992821686547,
+          "first_spike_s": 0.10175000000000001,
+          "last_spike_s": 3.0019
+        }
+      ],
+      "samples": 32001,
+      "dt_s": 1.25e-05,
+      "duration_s": 3.2
+    },
+    "fine_04_periodic_20hz": {
+      "neurons": [
+        {
+          "spikes": 60,
+          "analyzed_spikes": 60,
+          "analyzed_from_s": 0.0,
+          "analyzed_to_s": 3.2,
+          "rate_hz": 18.75,
+          "mean_isi_ms": 50.0364406779661,
+          "isi_frequency_hz": 19.985434344460817,
+          "isi_cv": 0.0025601976714342664,
+          "first_spike_s": 0.10175000000000001,
+          "last_spike_s": 3.0539
+        }
+      ],
+      "samples": 32001,
+      "dt_s": 1.25e-05,
+      "duration_s": 3.2
+    },
+    "fine_05_dc_4": {
+      "neurons": [
+        {
+          "spikes": 36,
+          "analyzed_spikes": 28,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 7.0,
+          "mean_isi_ms": 139.91851851851854,
+          "isi_frequency_hz": 7.147016782254222,
+          "isi_cv": 4.4638207300643125e-05,
+          "first_spike_s": 0.0122375,
+          "last_spike_s": 4.90685
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 1.25e-05,
+      "duration_s": 5.0
+    },
+    "repeat_noise": {
+      "neurons": [
+        {
+          "spikes": 28,
+          "analyzed_spikes": 21,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 5.25,
+          "mean_isi_ms": 179.30750000000003,
+          "isi_frequency_hz": 5.577011558356453,
+          "isi_cv": 0.693768691046321,
+          "first_spike_s": 0.041,
+          "last_spike_s": 4.830125000000001
+        },
+        {
+          "spikes": 54,
+          "analyzed_spikes": 43,
+          "analyzed_from_s": 1.0,
+          "analyzed_to_s": 5.0,
+          "rate_hz": 10.75,
+          "mean_isi_ms": 92.89404761904761,
+          "isi_frequency_hz": 10.76495239071651,
+          "isi_cv": 0.4081487633530587,
+          "first_spike_s": 0.014125,
+          "last_spike_s": 4.950125
+        }
+      ],
+      "samples": 50001,
+      "dt_s": 2.5e-05,
+      "duration_s": 5.0
+    }
+  },
+  "checks": {
+    "quiet_RS_and_single_spike": true,
+    "periodic": {
+      "2": {
+        "pulses": 6,
+        "spikes": 6,
+        "isi_frequency_hz": 2.0,
+        "one_spike_per_pulse": true
+      },
+      "10": {
+        "pulses": 30,
+        "spikes": 30,
+        "isi_frequency_hz": 9.999482785373171,
+        "one_spike_per_pulse": true
+      },
+      "20": {
+        "pulses": 60,
+        "spikes": 60,
+        "isi_frequency_hz": 19.985434344460817,
+        "one_spike_per_pulse": true
+      }
+    },
+    "autonomous_and_DC_sustained": true,
+    "noise_replay_identical": true,
+    "global_noise_matches_inherited_node": true,
+    "noise_rate_increases_across_seeds": true
+  },
+  "convergence": {
+    "01_rest": {
+      "same_spike_count": true,
+      "coarse_spikes": 0,
+      "fine_spikes": 0,
+      "max_event_time_difference_ms": 0.0
+    },
+    "02_single_pulse": {
+      "same_spike_count": true,
+      "coarse_spikes": 1,
+      "fine_spikes": 1,
+      "max_event_time_difference_ms": 0.0
+    },
+    "03_autonomous": {
+      "same_spike_count": true,
+      "coarse_spikes": 48,
+      "fine_spikes": 48,
+      "max_event_time_difference_ms": 0.8250000000007418
+    },
+    "04_periodic_02hz": {
+      "same_spike_count": true,
+      "coarse_spikes": 6,
+      "fine_spikes": 6,
+      "max_event_time_difference_ms": 0.012499999999970868
+    },
+    "04_periodic_10hz": {
+      "same_spike_count": true,
+      "coarse_spikes": 30,
+      "fine_spikes": 30,
+      "max_event_time_difference_ms": 0.012499999999998623
+    },
+    "04_periodic_20hz": {
+      "same_spike_count": true,
+      "coarse_spikes": 60,
+      "fine_spikes": 60,
+      "max_event_time_difference_ms": 0.024999999999997247
+    },
+    "05_dc_4": {
+      "same_spike_count": true,
+      "coarse_spikes": 36,
+      "fine_spikes": 36,
+      "max_event_time_difference_ms": 0.47499999999978115
+    }
+  },
+  "dc_sweep": [
+    {
+      "current": 0.0,
+      "spikes": 0,
+      "analyzed_spikes": 0,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 0.0,
+      "mean_isi_ms": null,
+      "isi_frequency_hz": null,
+      "isi_cv": null,
+      "first_spike_s": null,
+      "last_spike_s": null
+    },
+    {
+      "current": 2.0,
+      "spikes": 0,
+      "analyzed_spikes": 0,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 0.0,
+      "mean_isi_ms": null,
+      "isi_frequency_hz": null,
+      "isi_cv": null,
+      "first_spike_s": null,
+      "last_spike_s": null
+    },
+    {
+      "current": 3.0,
+      "spikes": 0,
+      "analyzed_spikes": 0,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 0.0,
+      "mean_isi_ms": null,
+      "isi_frequency_hz": null,
+      "isi_cv": null,
+      "first_spike_s": null,
+      "last_spike_s": null
+    },
+    {
+      "current": 3.5,
+      "spikes": 1,
+      "analyzed_spikes": 0,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 0.0,
+      "mean_isi_ms": null,
+      "isi_frequency_hz": null,
+      "isi_cv": null,
+      "first_spike_s": 0.0298,
+      "last_spike_s": 0.0298
+    },
+    {
+      "current": 3.7,
+      "spikes": 1,
+      "analyzed_spikes": 0,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 0.0,
+      "mean_isi_ms": null,
+      "isi_frequency_hz": null,
+      "isi_cv": null,
+      "first_spike_s": 0.0175,
+      "last_spike_s": 0.0175
+    },
+    {
+      "current": 3.75,
+      "spikes": 1,
+      "analyzed_spikes": 0,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 0.0,
+      "mean_isi_ms": null,
+      "isi_frequency_hz": null,
+      "isi_cv": null,
+      "first_spike_s": 0.0162,
+      "last_spike_s": 0.0162
+    },
+    {
+      "current": 3.8,
+      "spikes": 29,
+      "analyzed_spikes": 23,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 5.75,
+      "mean_isi_ms": 178.05,
+      "isi_frequency_hz": 5.616399887672002,
+      "isi_cv": 0.0001197420479391109,
+      "first_spike_s": 0.01515,
+      "last_spike_s": 4.9983
+    },
+    {
+      "current": 3.9,
+      "spikes": 33,
+      "analyzed_spikes": 26,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 6.5,
+      "mean_isi_ms": 152.46,
+      "isi_frequency_hz": 6.5590974681883765,
+      "isi_cv": 8.03322098510017e-05,
+      "first_spike_s": 0.0135,
+      "last_spike_s": 4.889975000000001
+    },
+    {
+      "current": 4.0,
+      "spikes": 36,
+      "analyzed_spikes": 28,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 7.0,
+      "mean_isi_ms": 139.93240740740742,
+      "isi_frequency_hz": 7.146307410323766,
+      "isi_cv": 8.157925457363383e-05,
+      "first_spike_s": 0.01225,
+      "last_spike_s": 4.907325
+    },
+    {
+      "current": 4.2,
+      "spikes": 41,
+      "analyzed_spikes": 33,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 8.25,
+      "mean_isi_ms": 124.26328124999999,
+      "isi_frequency_hz": 8.047429537838637,
+      "isi_cv": 0.0001003962065338576,
+      "first_spike_s": 0.010475,
+      "last_spike_s": 4.97785
+    },
+    {
+      "current": 4.5,
+      "spikes": 46,
+      "analyzed_spikes": 36,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 9.0,
+      "mean_isi_ms": 109.5107142857143,
+      "isi_frequency_hz": 9.13152659557121,
+      "isi_cv": 0.0001368175127238756,
+      "first_spike_s": 0.0088,
+      "last_spike_s": 4.932675000000001
+    },
+    {
+      "current": 5.0,
+      "spikes": 54,
+      "analyzed_spikes": 43,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 10.75,
+      "mean_isi_ms": 93.8875,
+      "isi_frequency_hz": 10.651045133803756,
+      "isi_cv": 0.0001331380641725182,
+      "first_spike_s": 0.007125,
+      "last_spike_s": 4.977475
+    },
+    {
+      "current": 6.0,
+      "spikes": 67,
+      "analyzed_spikes": 53,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 13.25,
+      "mean_isi_ms": 75.39038461538462,
+      "isi_frequency_hz": 13.264290998137897,
+      "isi_cv": 0.00016132835038950875,
+      "first_spike_s": 0.0054,
+      "last_spike_s": 4.9723500000000005
+    },
+    {
+      "current": 8.0,
+      "spikes": 90,
+      "analyzed_spikes": 71,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 17.75,
+      "mean_isi_ms": 55.80357142857143,
+      "isi_frequency_hz": 17.919999999999998,
+      "isi_cv": 0.00015676734353803652,
+      "first_spike_s": 0.003875,
+      "last_spike_s": 4.955275
+    }
+  ],
+  "noise_replicates": {
+    "5": {
+      "seeds": [
+        11,
+        23,
+        42,
+        71,
+        101
+      ],
+      "analysis_window_s": [
+        1.0,
+        10.0
+      ],
+      "rates_hz": [
+        5.333333333333333,
+        5.0,
+        5.222222222222222,
+        5.111111111111111,
+        3.6666666666666665
+      ],
+      "mean_rate_hz": 4.866666666666666,
+      "sd_rate_hz": 0.6822258414670556,
+      "mean_isi_cv": 0.5601644918684295
+    },
+    "8": {
+      "seeds": [
+        11,
+        23,
+        42,
+        71,
+        101
+      ],
+      "analysis_window_s": [
+        1.0,
+        10.0
+      ],
+      "rates_hz": [
+        11.222222222222221,
+        10.88888888888889,
+        11.222222222222221,
+        11.0,
+        9.666666666666666
+      ],
+      "mean_rate_hz": 10.799999999999999,
+      "sd_rate_hz": 0.6497862896539309,
+      "mean_isi_cv": 0.3767538387711057
+    }
+  }
+}

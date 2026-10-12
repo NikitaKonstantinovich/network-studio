@@ -1,0 +1,35 @@
+{
+  "path_base": "standalone/network_studio",
+  "config": "lab2/configs/rings/exp_n10_w0p7.json",
+  "config_sha256": "9e019087d21762f11a72de006dc3cfab00e94e6a536fcaf07afb39d3ca00dd3b",
+  "gui_executable_sha256": "9e8572fe4bc234a12c5e76e0ce09a94c98bcd1e89019859aa6e4bf5f1184ef0c",
+  "smoke_directory": "verification/lab2_ring_gui",
+  "renderer": "frames=24\nminimum_vertices=11632\nsamples=5001\nerror=\n",
+  "native_exports_equal_cli": {
+    "_trace.csv": {
+      "sha256": "cd4273f4566dc4718dabd69c16a8569e99abc08eae6c3be57a79dbfaee46afb3",
+      "byte_identical": true
+    },
+    "_events.csv": {
+      "sha256": "b90d8cee230a16cee0e3ef217a4aee90af22e5a893d5c5cd18bde7177c0fd993",
+      "byte_identical": true
+    },
+    "_weights.csv": {
+      "sha256": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+      "byte_identical": true
+    },
+    "_experiment.json": {
+      "sha256": "d52c3fc5bba8f3ceea179c5c2b7d0f747bcf59753d37491066cd3a076e8b7486",
+      "byte_identical": true
+    },
+    "_summary.json": {
+      "sha256": "9d5ebf66c688c5aa3238bbcd7c91caf08b738896bf906d489e97dee38da53598",
+      "byte_identical": true
+    }
+  },
+  "visually_inspected_images": {
+    "verification/lab2_ring_gui/tab_0.png": "f1d4fb9ea280636fb6f4c8c214bb7a4ba7737b979fdbe9e719d0cbdb3fd82dfb",
+    "verification/lab2_ring_gui/tab_2.png": "ddc635be428959965fa62e893a1a48590058257c635ebbc0e83df9b1aa90f06a"
+  },
+  "visual_note": "Ring topology and periodic voltage/raster activity render correctly. The ten-item voltage legend is partially clipped by the short plot height."
+}

@@ -1,0 +1,166 @@
+{
+  "created_utc": "2026-10-12T15:44:15.556450+00:00",
+  "scope": "Laboratory works 1 through 3, current native configuration engine",
+  "git_commit": "a65a5eb08af767c095415c3d31db484efd5eeb0e",
+  "git_branch": "feature/izhikevich-lab1",
+  "working_tree_is_dirty": true,
+  "platform": "Windows-11-10.0.26100-SP0",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "python_packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "pillow": "12.3.0",
+    "pymupdf": "1.28.2",
+    "reportlab": "4.4.9"
+  },
+  "manual": {
+    "path": "C:\\Users\\N1kit\\Downloads\\UMP_Lobov_i_dr_Neyrokiberneticheskie_printsipy_fin.pdf",
+    "bytes": 3281890,
+    "sha256": "ce57a4758a90f3a2a9ff9c57f001d5e40363bf02ddb1630a3a2d1ec9efff8af3"
+  },
+  "user_reports": [
+    {
+      "path": "E:\\asp\\26_27\\labs\\lab1_report\\Отчёт_ЛР1.md",
+      "bytes": 9722,
+      "sha256": "3b08e8c708345a383c00c09e30d935718f695f9affaedc29d24e4cd73c43aea9"
+    },
+    {
+      "path": "E:\\asp\\26_27\\labs\\lab2_report\\Отчёт_ЛР2.md",
+      "bytes": 14393,
+      "sha256": "875205e68c9122b5b7022c206e9fa0860fffd42dfc8ac1eaeca65750970cf9b6"
+    },
+    {
+      "path": "E:\\asp\\26_27\\labs\\lab3_report\\Отчёт_ЛР3.md",
+      "bytes": 15234,
+      "sha256": "93cef5b3130fd87c36805f84af4edf3a287488cec888919b1dd43105ca991fdd"
+    }
+  ],
+  "implementation": [
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\network.h",
+      "bytes": 5393,
+      "sha256": "bdf49dff0eb55b127f00394ef0074084106505d11f8b92cc8c496233aad7e598"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\network.cpp",
+      "bytes": 23530,
+      "sha256": "1dcd73ba34fa83dfbbd30a6e4050e62bb94002a6e0257674c0fe7846ce8c19d3"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\io.h",
+      "bytes": 363,
+      "sha256": "468b5f0fba7ba9c32226fc41a9548fbc0005a558ddfa9fad8b40ecfffde5cd6e"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\io.cpp",
+      "bytes": 17891,
+      "sha256": "7ce8d935b1b3082ba34ab303bff01222f8e5a7225c2c3b738bc4adaa64deecdd"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\cli.cpp",
+      "bytes": 3292,
+      "sha256": "e83c15f05309ff34c73c4855cf09194846c589c9776c42d00e3c8edcd4dbc3b8"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\gui.cpp",
+      "bytes": 65127,
+      "sha256": "00cbf307dae351be56dc9ff62dcb437a439f9c8f5b776cb764bf19f94c6716a9"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\generator.h",
+      "bytes": 2573,
+      "sha256": "6033936c868fdd4fe7933c63a33ce3cfd75a3907114de783a6d8f1d705ab6ce9"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\generator.cpp",
+      "bytes": 11133,
+      "sha256": "2590a75be12f7e1200ce6ec5f2f36f909a1b44c7c25cf0f361dd246500f93ba4"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\population.h",
+      "bytes": 1292,
+      "sha256": "ebca1ce51d9922d8a22f4afb30c81e1ffb16e1337e236a4daf7b7114c0a77541"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\population.cpp",
+      "bytes": 21943,
+      "sha256": "b4a35ac14cbaab10894d48e693a7cd6e8274a4edab75ba5e97711955739ec595"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+      "bytes": 482816,
+      "sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio.exe",
+      "bytes": 1341440,
+      "sha256": "31716f9b1c5873c28f61c18e986f88d2fb1258d5fbfbf92af16210068539c2a8"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_population.exe",
+      "bytes": 526336,
+      "sha256": "fda4f67e7fe8fb2fb1367eb832095db06de24e489f371876214e8695d06e9e95"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\systems\\neuro_astro\\model.cuh",
+      "bytes": 8231,
+      "sha256": "04a9249a42f30c83deeb337a30a043ed2df494bebefab85e839da6120f44f7db"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\CMakeLists.txt",
+      "bytes": 6055,
+      "sha256": "401eaaa4de184761203824e3971746819011bfcaa8c5f9dde88b445bfc52f495"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab1\\config_compat.py",
+      "bytes": 1307,
+      "sha256": "3c0b3226fb680a6f6d7f362200f85d6ebb2aef3224e0375fe951ba702f918c29"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab1\\reproduce.py",
+      "bytes": 43445,
+      "sha256": "8ff3259522a3662336ad6e4ed38b80e59ef273afba8094d52fc33e252becff45"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab1\\neuronet_probe.py",
+      "bytes": 8239,
+      "sha256": "055ff2a89c0068306f6fa85fe5a046d274191f9b16e65994f0f8b7e4ea0a8321"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\rings.py",
+      "bytes": 22574,
+      "sha256": "587461548b1988bee34f2748b0f8e885d7a081a0509f2283a11cfb26f64c460e"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\populations.py",
+      "bytes": 20511,
+      "sha256": "0b012c07a13d350daa92685436a9f0bac6f64bdeb23da90791b41e5e8f9b5f4e"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab2\\check_metrics.py",
+      "bytes": 17219,
+      "sha256": "3a89c1624b4803ca4b7cbeef05e0ff0e15eff3662a4d185bc655defc71a07a27"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab3\\reference_tm.py",
+      "bytes": 11546,
+      "sha256": "a4024890d3f8933847754d22d973dcd90c7ec3f6bfc728ea0ddbdf81f5422c53"
+    },
+    {
+      "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab3\\extract_neuronet_reference.py",
+      "bytes": 12554,
+      "sha256": "6671d36e9aedc027e4e263116e6fd9d495cc77b0b2dafda9039fc505d9299671"
+    }
+  ],
+  "ctest_log": {
+    "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\verification\\repro_labs_20261012\\ctest.log",
+    "bytes": 589,
+    "sha256": "6cb70f9652371b86c054900dec1cf969ee23ac67df1b2fb4ca613ab8f76cc0da"
+  },
+  "notes": [
+    "Runs use the current working-tree build; commit alone does not identify it.",
+    "Existing user data and historical lab results are not overwritten.",
+    "A matching CSV hash establishes replay agreement, not independent numerical or biological validity."
+  ]
+}

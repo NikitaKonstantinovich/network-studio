@@ -1,0 +1,151 @@
+{
+  "scope": "Lab5 task1 six pair cases + task2A two pair cases; native multiplicative all-to-all STDP, no triplet rule or external-program equivalence claim.",
+  "cli_sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+  "cli_unchanged": true,
+  "user_report": "E:\\asp\\26_27\\labs\\lab4_report\\Отчёт_ЛР4.md",
+  "user_report_sha256": "5e64628b521f964aa0a03da6d7c5164e39cd243d4009f9effa6feadfcce3f500",
+  "new_runs": 1,
+  "distinct_protocols": 1,
+  "rows": [
+    {
+      "case": "t1_pre_post_1Hz",
+      "dt_us": 25.0,
+      "label": "t1_pre_post_1Hz_dt25us",
+      "wall_seconds": 2.055996699986281,
+      "spike_counts": [
+        200,
+        200
+      ],
+      "final_weight": 0.23040331014173043,
+      "external_report_weight": 0.501333,
+      "difference_from_external": -0.2709296898582696,
+      "checkpoints": {
+        "98": {
+          "time_s": 98.0,
+          "weight": 0.22794699030420554,
+          "spikes": [
+            196,
+            196
+          ]
+        },
+        "99": {
+          "time_s": 99.0,
+          "weight": 0.2291738972296351,
+          "spikes": [
+            198,
+            198
+          ]
+        },
+        "100": {
+          "time_s": 100.0,
+          "weight": 0.23040331014173043,
+          "spikes": [
+            200,
+            200
+          ]
+        }
+      },
+      "cycles": [
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "full_frames": 100,
+          "spikes_in_frames": 200,
+          "counts_per_frame": {
+            "2": 100
+          },
+          "first_10s_counts_per_frame": {
+            "2": 10
+          },
+          "last_10s_counts_per_frame": {
+            "2": 10
+          },
+          "first_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "last_10_frame_counts": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        }
+      ],
+      "stdp_replay": {
+        "max_sample_weight_abs_error": 1.4988010832439613e-15,
+        "final_weight": 0.23040331014172893,
+        "event_groups": 400,
+        "strictly_earlier_pairs_enumerated": 40000,
+        "zero_lag_mutual_pairs_excluded": true
+      },
+      "config_snapshot_exact": true,
+      "config_sha256": "e5a8e64c7ad892c53fc5dd9925c691d8d25fe0f0a5032e977f6d4d4a8685e476",
+      "raw_sha256": {
+        "experiment.json": "e288fd5d29db06c0c2dc79cc42c844d26c4478446e5114900f5dbab2f5e30a3b",
+        "summary.json": "6211d1c0e543b974611bbd81b6165d224008e09535b7434118b25e15737ac33e",
+        "trace.csv": "2780398db1bdd578b8ff1596a9a272323add5e57252aaa74634ec6b4cf09b7c8",
+        "events.csv": "fceaad0cf1e3d4ff9e60e3f2e70bff3d7ad74c9e2b5100682de1100604b2a558",
+        "weights.csv": "494ac8c9fb1dbed7a01bfe12af22204d21751cc338106c395256bfb94570ad67"
+      }
+    }
+  ],
+  "step_comparisons": [],
+  "initial_condition_choice": "Both nodes V=-65mV,u=bV=-13; independent reset before each run. Exact NeuroNet initial u/elapsed state is not established by the report.",
+  "external_limitations": [
+    "NeuroNet uses Step0.500ms, current Studio RK4 uses25/12.5us; pulse amplitude and width are held fixed at25x3ms.",
+    "NeuroNet Sp.Velocity=.050 can imply transmission delay; Studio has no conduction delays.",
+    "Native learning rule is the configured multiplicative all-to-all rule; the proprietary original implementation is not asserted equivalent.",
+    "External duration approximately98-101s and stimulus phase at reset are not fully documented; native checkpoints98/99/100s are provided.",
+    "Per-cycle count is per full global frame[k/f,(k+1)/f); it describes actual events, not a guarantee one response belongs causally to one pulse."
+  ]
+}

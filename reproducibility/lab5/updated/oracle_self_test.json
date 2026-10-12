@@ -1,0 +1,48 @@
+{
+  "scope": "Analytical tests of the independent Python replay, not tests of the C++ implementation.",
+  "passed": true,
+  "cases": [
+    {
+      "case": "isolated_pair_no_triplet_LTP",
+      "expected": 0.1,
+      "actual": 0.1,
+      "absolute_error": 0.0
+    },
+    {
+      "case": "same_time_no_self_pair",
+      "expected": 0.1,
+      "actual": 0.1,
+      "absolute_error": 0.0
+    },
+    {
+      "case": "pre_post_pre",
+      "expected": 0.09996321205588286,
+      "actual": 0.09996321205588286,
+      "absolute_error": 0.0
+    },
+    {
+      "case": "post_pre_post",
+      "expected": 0.10023429792691968,
+      "actual": 0.10023429792691968,
+      "absolute_error": 0.0
+    },
+    {
+      "case": "same_time_with_prior_history",
+      "expected": 0.10022076937730286,
+      "actual": 0.10022076937730286,
+      "absolute_error": 0.0
+    },
+    {
+      "case": "all_previous_presynaptic_spikes",
+      "expected": 0.10050596715064411,
+      "actual": 0.10050596715064411,
+      "absolute_error": 0.0
+    },
+    {
+      "case": "multiplicative_pair_control",
+      "expected": 0.1003310914970543,
+      "actual": 0.1003310914970543,
+      "absolute_error": 0.0
+    }
+  ]
+}

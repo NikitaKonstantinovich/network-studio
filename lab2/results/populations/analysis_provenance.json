@@ -1,0 +1,45 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "source_sha256_at_analysis": {
+    "lab2\\populations.py": "3b971201b2a4a453a2ac0079d18cd995085144abbe27490e520f4cd85e010a7e",
+    "lab2\\population.cpp": "b4a35ac14cbaab10894d48e693a7cd6e8274a4edab75ba5e97711955739ec595",
+    "lab2\\population.h": "ebca1ce51d9922d8a22f4afb30c81e1ffb16e1337e236a4daf7b7114c0a77541",
+    "network.cpp": "5755b020351fa63f31111fc2ba28af8e2fafda48ba0ffb57c866820d36131937",
+    "network.h": "b132486b7b9bd2863a4f9764afe8ca15c43205ef585851f411acf9fac91b1cd3",
+    "io.cpp": "32dda45a7e0208e9525ca42d31819be68e2615a905833b88313141b910fc3e31"
+  },
+  "source_pdf_sha256": "ce57a4758a90f3a2a9ff9c57f001d5e40363bf02ddb1630a3a2d1ec9efff8af3",
+  "selected": [
+    "k15_seed11",
+    "k30_seed11",
+    "k15_seed42",
+    "k30_seed42",
+    "k15_seed101",
+    "k30_seed101",
+    "k15_seed42_nearest",
+    "k30_seed42_nearest",
+    "k15_seed42_short",
+    "k15_seed42_fine",
+    "k15_seed42_quiet",
+    "k30_seed42_short",
+    "k30_seed42_fine",
+    "k30_seed42_quiet",
+    "k30_seed42_repeat"
+  ],
+  "source_sha256_at_delivery": {
+    "lab2\\populations.py": "3698d2b2d5e47704f3d98ba65ea74f4186781293d46a8058885aa760437d0740",
+    "lab2\\population.cpp": "b4a35ac14cbaab10894d48e693a7cd6e8274a4edab75ba5e97711955739ec595",
+    "lab2\\population.h": "ebca1ce51d9922d8a22f4afb30c81e1ffb16e1337e236a4daf7b7114c0a77541",
+    "network.cpp": "5755b020351fa63f31111fc2ba28af8e2fafda48ba0ffb57c866820d36131937",
+    "network.h": "b132486b7b9bd2863a4f9764afe8ca15c43205ef585851f411acf9fac91b1cd3",
+    "io.cpp": "32dda45a7e0208e9525ca42d31819be68e2615a905833b88313141b910fc3e31"
+  },
+  "figure_sha256": {
+    "populations_activity.png": "d0f79f32896dbba8618c28a25d958e1a8b766692fec9b77bb9af81f2ce7307ec",
+    "populations_distributions.png": "19643e1ca3b3e5f084f8d84f756cb71df0b567a7d26e8c8dd88a02863282f1d8"
+  },
+  "figure_note": "Compared panels use a common vertical scale; numerical CSV values unchanged."
+}

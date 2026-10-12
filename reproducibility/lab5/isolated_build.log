@@ -1,0 +1,33 @@
+Isolated Release build completed; final no-op verification: ninja: no work to do.
+Command: reproducibility/lab5/build_triplet.ps1 -Test
+Initial configure hit MSVC C1902 in debug try_compile; final configure uses Release try_compile and /Z7 debug info.
+Actual Ninja compilation/link history follows:
+# ninja log v6
+51	942	8135266396013098	CMakeFiles/network_core.dir/json_standalone.cpp.obj	c8a8dbba28f742e
+44	1278	8135266395938003	CMakeFiles/network_core.dir/generator.cpp.obj	5ce9162ab4a6d4c4
+28	1351	8135266395782844	CMakeFiles/network_core.dir/network.cpp.obj	bd79333b258fded5
+1352	2616	8135266409011179	CMakeFiles/studio_gui.dir/E_/asp/26_27/cudaynamics/imgui/imgui_draw.cpp.obj	473b11f0d835528d
+2617	3455	8135266421672445	CMakeFiles/studio_gui.dir/E_/asp/26_27/cudaynamics/imgui/imgui_tables.cpp.obj	7aa82109b3373043
+943	3530	8135266404930248	CMakeFiles/studio_gui.dir/gui.cpp.obj	5511cd0de915f6e8
+37	3634	8135266395862884	CMakeFiles/network_core.dir/io.cpp.obj	152ad989aa31a593
+3634	3759	8135266431835793	network_core.lib	5b5614f9c8d0256c
+3455	5715	8135266430053466	CMakeFiles/studio_gui.dir/E_/asp/26_27/cudaynamics/imgui/imgui_widgets.cpp.obj	9d7147a7471f674a
+1278	6731	8135266408287022	CMakeFiles/studio_gui.dir/imgui_standalone.cpp.obj	63fe96ecced7ec8f
+3531	6771	8135266430803170	CMakeFiles/studio_gui.dir/implot_standalone.cpp.obj	78c68f5ac14b4ef8
+5715	7268	8135266452645572	CMakeFiles/network_studio_cli.dir/cli.cpp.obj	f96e6e69d628b4bd
+6772	8820	8135266463219191	CMakeFiles/network_studio_generator_tests.dir/generator_tests.cpp.obj	95ed5e5641f5de1b
+7269	11223	8135266468185715	CMakeFiles/network_studio_population.dir/lab2/population.cpp.obj	8969d84dec2441c3
+11224	11456	8135266507736008	CMakeFiles/network_studio.dir/test_hooks_stub.cpp.obj	66ccce0e5acee30e
+8821	11473	8135266483713691	CMakeFiles/network_studio.dir/main.cpp.obj	831e2a757ee8529b
+6732	11699	8135266462822089	CMakeFiles/network_studio_tests.dir/tests.cpp.obj	148e9b4d556fd32f
+11457	11836	8135266510065522	CMakeFiles/network_studio.dir/E_/asp/26_27/cudaynamics/imgui/backends/imgui_impl_win32.cpp.obj	3bf756c1fbafb38b
+11473	12094	8135266510228924	CMakeFiles/network_studio.dir/E_/asp/26_27/cudaynamics/imgui/backends/imgui_impl_dx11.cpp.obj	40dbb9e43036e42e
+11836	12104	8135266513862903	E:/asp/26_27/cudaynamics/standalone/network_studio/build/lab5_triplet/Release/network_studio_cli.exe	2ef69ed970a2e000
+12094	12378	8135266516440780	E:/asp/26_27/cudaynamics/standalone/network_studio/build/lab5_triplet/Release/network_studio_tests.exe	5ee5dd4762d2c4b9
+12105	12390	8135266516546001	E:/asp/26_27/cudaynamics/standalone/network_studio/build/lab5_triplet/Release/network_studio_generator_tests.exe	e52b912d9624a971
+12379	12618	8135266519290161	E:/asp/26_27/cudaynamics/standalone/network_studio/build/lab5_triplet/Release/network_studio_population.exe	fb6502f66b7f6241
+11699	14442	8135266512492721	CMakeFiles/network_studio_gui_tests.dir/gui_tests.cpp.obj	d06ae5809ad59c0
+3760	16747	8135266433099199	CMakeFiles/studio_gui.dir/implot_items_standalone.cpp.obj	e41cc35ee6a03125
+16747	16880	8135266562973858	studio_gui.lib	a9361630d11a70b6
+16880	17171	8135266564298908	E:/asp/26_27/cudaynamics/standalone/network_studio/build/lab5_triplet/Release/network_studio.exe	43cf4823340ac7a0
+16891	17176	8135266564400476	E:/asp/26_27/cudaynamics/standalone/network_studio/build/lab5_triplet/Release/network_studio_gui_tests.exe	1947348b842246ab

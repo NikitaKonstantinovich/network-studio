@@ -1,0 +1,28 @@
+{
+  "status": "isolated build and all four CTest suites passed; 24 baseline CSVs byte-identical",
+  "sources": {
+    "network.h": "8e66bf2d329395a52c273e47931891f993d5682cee9eff6b23ea6b3e37ac976d",
+    "network.cpp": "d23f328cd4952c30d697721788fb6113041c8f212ff8540fae885dca603abdda",
+    "io.cpp": "b7074d9d85bc55d3c39596d1f0815dbdd193a44de89a8a6f46c76fbc858acd72",
+    "gui.cpp": "8cf948ffe0fa4e4e8ccd986ad31d3d0f0336dfaaeb10f8f4cb1fe630d37e3de9",
+    "gui_tests.cpp": "4875635e2567c32669f2baceaa63591709d9a0e83ade296bc923d9cb9259f64e",
+    "tests.cpp": "b7f451383856abc29202cd18508c13178d02984cbaa0cec872ad909610550c59",
+    "README.md": "7cff04f0ed3ab517afcb8e50d7f151f5d0a222980b9820ebb21442c8fcda4e8e",
+    "examples/stdp_triplet.json": "4b3ec5abe76d2d079324dca6cf75bf61b0eaf5e4762e6998e2280eb379bc44c2",
+    "examples/stdp_triplet_burst.json": "f433620ffb21756838ad5db9b5d5138bdfd99762dc8a1a43f15209e7f343a336"
+  },
+  "isolated_binaries": {
+    "network_studio.exe": "0393371b7f6fc5a65a1a0bbaa57dae083c70a12be48c0aa4fde997d7b6ed50f9",
+    "network_studio_cli.exe": "78b0af5e2768fd9745f6c0063bbfec5f8cf7c05a9457622f3eaec2647a657cc9",
+    "network_studio_generator_tests.exe": "4c0ee405025d06edb90c01f199d1ccc7b98e5fc12f775cb3266b33c0eaa04124",
+    "network_studio_gui_tests.exe": "c912372284174a1becabf8392889f3acbea0d300d8aaabd95797833ec4100458",
+    "network_studio_population.exe": "1c12698835a24ad76033e1d8c6cb526d84cebcaaee79dcc252aec54feaf0340b",
+    "network_studio_tests.exe": "eaf6446da5fbdc2c511f1b637ff36f83f2bc025653ba313a596947a21d8b6cd0"
+  },
+  "tests": "isolated_ctest.log",
+  "build": "isolated_build.log",
+  "legacy_csv": "../../verification/lab5_triplet/legacy/results.json",
+  "primary_triplet_source": "https://lcnwww.epfl.ch/gerstner/PUBLICATIONS/Pfister06b.pdf",
+  "convention": "Minimal multiplicative triplet: only old post-slow history in LTP, pair LTD, grouped same-step old histories then increments, one clamp; pulse intervals half-open relative to start",
+  "peer_review": "lab_spec: validated core/IO/GUI; exact-cycle origin issue corrected by checking adjacent cycles and nextafter regression tests"
+}

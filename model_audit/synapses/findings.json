@@ -1,0 +1,158 @@
+{
+  "audit_date": "2026-10-12",
+  "scope": "Three synapse models and additive/multiplicative STDP in existing native network_core.lib; no production modifications",
+  "overall": "No equation implementation defects found within tested scope; one GUI unit-label issue",
+  "results": "results.json",
+  "report": "README.md",
+  "checks": {
+    "state_cases": 54,
+    "state_rows": 48708,
+    "direct_current_cases": 360,
+    "grouped_stdp_updates": 2800,
+    "passed": true
+  },
+  "findings": [
+    {
+      "id": "SYN-UI-01",
+      "severity": "P2",
+      "classification": "presentation_units",
+      "title": "Conductance field shows physical units even for Izhikevich targets",
+      "references": [
+        {
+          "file": "gui.cpp",
+          "line": 414
+        },
+        {
+          "file": "network.cpp",
+          "line": 265
+        },
+        {
+          "file": "network.cpp",
+          "line": 293
+        },
+        {
+          "file": "../../systems/neuro_astro/model.cuh",
+          "line": 102
+        }
+      ],
+      "evidence": "Izhikevich uses g*w*s*(Erev-V) as model current without HH Cm scaling; GUI unconditionally labels g as mS/cm². README already distinguishes model current units.",
+      "reproduction": "izh_conductance_units.json; raw/currents.csv includes both target models with Cm=2.5",
+      "recommendation": "Use model-current-unit/mV label for Izhikevich conductance, or explicitly document a physical conversion. No dynamics change is implied."
+    },
+    {
+      "id": "SYN-MODEL-01",
+      "severity": "info",
+      "classification": "chosen_model",
+      "title": "ConductanceSTP uses reduced resource recovery, not three-pool conservation",
+      "references": [
+        {
+          "file": "network.cpp",
+          "line": 259
+        },
+        {
+          "file": "gui.cpp",
+          "line": 708
+        }
+      ],
+      "evidence": "dx=(1-x)/tau_d and additive s can yield x+s>1; observed maximum 2.3362633545686364. TM instead uses dx=(1-x-y)/tau_d and passed resource-bound checks.",
+      "bug": false
+    },
+    {
+      "id": "SYN-MODEL-02",
+      "severity": "info",
+      "classification": "chosen_model",
+      "title": "Plasticity rescales the entire existing current tail",
+      "references": [
+        {
+          "file": "network.cpp",
+          "line": 263
+        },
+        {
+          "file": "network.cpp",
+          "line": 399
+        },
+        {
+          "file": "README.md",
+          "line": 110
+        }
+      ],
+      "evidence": "At t=.002s a post-only event changes weight .6 to .7902458849001428; the existing tail efficacy changes by factor 1.3170764748335715. Documented and consistent with use of current w(t).",
+      "bug": false
+    },
+    {
+      "id": "SYN-MODEL-03",
+      "severity": "info",
+      "classification": "chosen_model_and_numerics",
+      "title": "Grouped events exclude mutual zero-lag pairs and multiplicative updates are clamped",
+      "references": [
+        {
+          "file": "network.cpp",
+          "line": 243
+        },
+        {
+          "file": "network.cpp",
+          "line": 244
+        },
+        {
+          "file": "network.cpp",
+          "line": 245
+        },
+        {
+          "file": "network.cpp",
+          "line": 402
+        }
+      ],
+      "evidence": "Old histories contribute to simultaneous groups; newly inserted events do not pair with each other. Bounds apply after the combined update. Explicit all-pairs oracle agrees in 2800 updates, including large traces and both limits.",
+      "limitation": "Sub-step event order is unavailable; halving dt is required to assess the effect in a network. At large A, multiplicative rule includes a hard safety boundary beyond its small-learning interpretation.",
+      "bug": false
+    },
+    {
+      "id": "SYN-NUM-01",
+      "severity": "info",
+      "classification": "numerical_verification",
+      "title": "RK4 synaptic flow converges against the exact fixed-event solution",
+      "evidence": "Fast-resource case errors in u/x/s decrease by 16.337 when dt halves from 50 to 25 us. Maximum errors: ConductanceSTP 1.58656048e-8 to 9.71137393e-10; TM 1.04364669e-8 to 6.38818581e-10.",
+      "limitation": "Fixed injected events isolate synaptic flow. This is not a fourth-order convergence assertion for threshold/reset dynamics of a free-running network.",
+      "bug": false
+    }
+  ],
+  "excluded": [
+    "Full neuronal trajectory and threshold accuracy",
+    "Astrocytic modulation of U and SIC",
+    "External stimulus integration",
+    "All arbitrary parameter combinations",
+    "Biological or NeuroNet equivalence"
+  ],
+  "unit_demo_provenance": {
+    "units_demo_events.csv": "64acde326a2eef818c28284ae19103ed1da408c7e2a909cc03725d0a001f6475",
+    "units_demo_experiment.json": "a842fc5ec2bd612b427d01da9aea942bc0862d4feef54d8d26e2218514854ffc",
+    "units_demo_summary.json": "c1c7879036f4e0a5d398a0e3e445b377b76c10bb8678d3651b6dcb68ffdaced7",
+    "units_demo_trace.csv": "dc427f2ff9445035aa065e2842050bc9959c045638d4210b8087ef08fca35db5",
+    "units_demo_weights.csv": "7c08f6849abba29dec7d6817267178bb41d11330c08d17c9c83bdf913afce98e",
+    "izh_conductance_units.json": "f88567f8bf6e0d5e5f5e6d5c8bce0489a22d4aed9f745a7feb4b317a7c3322e8"
+  },
+  "unit_demo_result": {
+    "time_s": 0.03,
+    "steps": 1200,
+    "complete": true,
+    "error": "",
+    "record_all": true,
+    "recorded_dimension": 13,
+    "recorded_neurons_0based": [
+      0,
+      1
+    ],
+    "recorded_synapses_0based": [
+      0
+    ],
+    "all_astrocytes_recorded": true,
+    "neuron_spikes": [
+      1,
+      0
+    ],
+    "astrocyte_releases": [],
+    "final_synapse_weights": [
+      1
+    ]
+  }
+}

@@ -1,0 +1,7146 @@
+{
+  "schema_version": 1,
+  "scope": "Source extraction only; no simulator run or exact NeuroNet algorithm claim.",
+  "manual": {
+    "path": "C:/Users/N1kit/Downloads/UMP_Lobov_i_dr_Neyrokiberneticheskie_printsipy_fin.pdf",
+    "sha256": "ce57a4758a90f3a2a9ff9c57f001d5e40363bf02ddb1630a3a2d1ec9efff8af3",
+    "bytes": 3281890
+  },
+  "manual_pages": [
+    24,
+    25,
+    26,
+    27
+  ],
+  "theory_pages": [
+    8,
+    9
+  ],
+  "report": {
+    "path": "E:/asp/26_27/labs/lab4_report/Отчёт_ЛР4.md",
+    "sha256": "5e64628b521f964aa0a03da6d7c5164e39cd243d4009f9effa6feadfcce3f500",
+    "bytes": 28959
+  },
+  "screenshot_sources": [
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/01_t1_pre_post_10Hz.png",
+      "sha256": "b36a4a3cef012ea351cd901100dfa61a28814915cdfcc262c9eeb2042f992a10",
+      "bytes": 159910
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/02_t1_post_pre_10Hz.png",
+      "sha256": "098c26a3b210d48cfbd4a105091b50901281f41b1634cbfbb488d700349f1e59",
+      "bytes": 171216
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/03_t1_pre_post_1Hz.png",
+      "sha256": "a1e426e3441fc4565c01874c34a698646d575b22aff5aea1068b60774cd50822",
+      "bytes": 173213
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/04_t1_post_pre_1Hz.png",
+      "sha256": "f99cff1a1106fc67a89842604d6680211cf611f2af06a8a8fad2cd29bc592e3c",
+      "bytes": 203007
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/05_t1_pre_post_40Hz.png",
+      "sha256": "e0d9d0af373a577530cd7e7f92cc08116c109b62fb399af43c137163a27b62b2",
+      "bytes": 172842
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/06_t1_post_pre_40Hz.png",
+      "sha256": "6455aae724eaea920fb217394e6418b660d79c33edc774a8da5e7121e79650a8",
+      "bytes": 213323
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/07_t1_double_spikes.png",
+      "sha256": "eb73620df050903063798a846b98d3b66e92460445607ad7f9c8e85d5200bd66",
+      "bytes": 196240
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/08_t2_pair_10Hz.png",
+      "sha256": "3217db407569f6ff54b0c78d87aab2db1739c65a2267f4e40f2a2f4bf78aab73",
+      "bytes": 179982
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/09_t2_triplet_10Hz.png",
+      "sha256": "90e1ddfae4e43ce8b25ee4b216fcd6214dcfe9a779c9c0b83e4381b92c28d489",
+      "bytes": 176269
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/10_t2_pair_1Hz.png",
+      "sha256": "48a70f60aa08abc9a3084e8cd02b8d6f44479ba01d51afd6874ce0e3d62ddbd2",
+      "bytes": 246046
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/11_t2_triplet_1Hz.png",
+      "sha256": "0bd898eb852a2d8fcb2d09a2360025a89d69c872f65a8bea1b84271f9a7f0752",
+      "bytes": 203893
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/12_t2_pre_post_pre_pair.png",
+      "sha256": "e3e3e414845ec8de9f24edbdf8e3a662e9576c98dab6c6c4b71296a32603bda1",
+      "bytes": 195980
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/13_t2_pre_post_pre_triplet.png",
+      "sha256": "c1e6c9220604a56160362c078083347794b8e6735a3e7cb1454ee5be8445d52d",
+      "bytes": 215023
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/14_t2_post_pre_post_pair.png",
+      "sha256": "85aa0245110c09eb5a5a48a46c42437d986e6cb9efb139a02a991d342fd127b2",
+      "bytes": 208737
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/15_t2_post_pre_post_triplet.png",
+      "sha256": "223ae4ffc4cc27ee498c634f976e49083fee4cfa96203bd1580771dbc4effd30",
+      "bytes": 244772
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/16_t2_pre_post_pre_validation.png",
+      "sha256": "7f420535284c3a6f2e8fddef943584df56d0b31dc385db8f6e49dca7a3b270b4",
+      "bytes": 220409
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/17_t2_post_pre_post_validation.png",
+      "sha256": "fd6a9aa9084a39f3eede7edf107389266baad3e351f62e7660af4e389ec23354",
+      "bytes": 248557
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/18_t3_two_activity.png",
+      "sha256": "37ed4a1a05c3cbe3ea77bc6f931ac58fb77c2a9198b65a14aa6b7e9d53d6848e",
+      "bytes": 310200
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/19_t3_two_weight.png",
+      "sha256": "6782134109bb37cb7169c33fafbc6335208f84b03dc9e9bcf51864a98b229817",
+      "bytes": 352381
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/20_t3_chain_activity.png",
+      "sha256": "518db6044f4ff62333f9fc445b9e698e5042cd9e0549714f0c5b3837e46356ac",
+      "bytes": 332123
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/21_t3_chain_weights.png",
+      "sha256": "a9be2f3fbe17493b2635b41b91a9d2fa8e874d158a31f8ae3c655a076e3e44e0",
+      "bytes": 94478
+    },
+    {
+      "path": "E:/asp/26_27/labs/lab4_report/images/22_t3_shortcut_weights.png",
+      "sha256": "da09bcabf4e49fa2bc5067981e85b8eee381d0b4cda5d0edb924fe4bc1fb16f1",
+      "bytes": 281824
+    }
+  ],
+  "visually_reviewed_screenshots": [
+    "01_t1_pre_post_10Hz.png",
+    "07_t1_double_spikes.png",
+    "08_t2_pair_10Hz.png",
+    "09_t2_triplet_10Hz.png",
+    "11_t2_triplet_1Hz.png",
+    "12_t2_pre_post_pre_pair.png",
+    "13_t2_pre_post_pre_triplet.png",
+    "15_t2_post_pre_post_triplet.png",
+    "16_t2_pre_post_pre_validation.png",
+    "18_t3_two_activity.png",
+    "20_t3_chain_activity.png",
+    "22_t3_shortcut_weights.png"
+  ],
+  "measurements_task1_task2": [
+    {
+      "task": 1,
+      "condition": "pre_post_1Hz",
+      "stimulus_frequency_hz": 1,
+      "protocol": "pre-post",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.501333,
+      "weight_final_net": 0.501333,
+      "net_report_equal": true,
+      "relative_change_percent": 401.33299999999997,
+      "result_model_time_s": 99.355,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_1Hz.net",
+      "net_sha256": "2f0c379a2bdf30f66efd9308de63bbeda5d09ec88e8a4b338e0e3701b662c3ad",
+      "screenshot": "03_t1_pre_post_1Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 5,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 20,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 1,
+      "condition": "post_pre_1Hz",
+      "stimulus_frequency_hz": 1,
+      "protocol": "post-pre",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.0157814,
+      "weight_final_net": 0.0157814,
+      "net_report_equal": true,
+      "relative_change_percent": -84.2186,
+      "result_model_time_s": 109.145,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_1Hz.net",
+      "net_sha256": "fe6fc535992d26ee687d86869b0a641bbb8a93122114cbc7bf666efa1bae67bd",
+      "screenshot": "04_t1_post_pre_1Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 5,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 20,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 1,
+      "condition": "pre_post_10Hz",
+      "stimulus_frequency_hz": 10,
+      "protocol": "pre-post",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.999748,
+      "weight_final_net": 0.999748,
+      "net_report_equal": true,
+      "relative_change_percent": 899.7479999999999,
+      "result_model_time_s": 107.91,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_10Hz.net",
+      "net_sha256": "caa4ad30f577f6eb070dbb46fa28965b3087b53b974d24823d9a12a55280967f",
+      "screenshot": "01_t1_pre_post_10Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 5,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 20,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 1,
+      "condition": "post_pre_10Hz",
+      "stimulus_frequency_hz": 10,
+      "protocol": "post-pre",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 8.03577e-05,
+      "weight_final_net": 8.03577e-05,
+      "net_report_equal": true,
+      "relative_change_percent": -99.9196423,
+      "result_model_time_s": 111.82,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_10Hz.net",
+      "net_sha256": "7b5483821af533b93ea8eeaaf2b9488dfbb047b03a28acd978d3b6070ccb052b",
+      "screenshot": "02_t1_post_pre_10Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 5,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 20,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 1,
+      "condition": "pre_post_40Hz",
+      "stimulus_frequency_hz": 40,
+      "protocol": "pre-post",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.335617,
+      "weight_final_net": 0.335617,
+      "net_report_equal": true,
+      "relative_change_percent": 235.61699999999996,
+      "result_model_time_s": 107.0,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_40Hz.net",
+      "net_sha256": "c9bc17840f792f70eb888f7ff13ae0729c89fb9eb261bda092b8897ae3a3efd3",
+      "screenshot": "05_t1_pre_post_40Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 5,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 20,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 1,
+      "condition": "post_pre_40Hz",
+      "stimulus_frequency_hz": 40,
+      "protocol": "post-pre",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.153155,
+      "weight_final_net": 0.153155,
+      "net_report_equal": true,
+      "relative_change_percent": 53.154999999999994,
+      "result_model_time_s": 109.16,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_40Hz.net",
+      "net_sha256": "b3e13949fa58c580540e8a70b3d6dd52c2d617f96e62dd2ed9d6fc7d273d0f34",
+      "screenshot": "06_t1_post_pre_40Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 5,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 20,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 2,
+      "condition": "task2_pair_1Hz",
+      "stimulus_frequency_hz": 1,
+      "protocol": "pre-post",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.147829,
+      "weight_final_net": 0.147829,
+      "net_report_equal": true,
+      "relative_change_percent": 47.828999999999986,
+      "result_model_time_s": 109.185,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_pair_1Hz.net",
+      "net_sha256": "40bb001974f35c3d58438f56e65937ef1ce3fe5f108f163c6b2564f585b2241a",
+      "screenshot": "10_t2_pair_1Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 1,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 2,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 2,
+      "condition": "task2_triplet_1Hz",
+      "stimulus_frequency_hz": 1,
+      "protocol": "pre-post",
+      "rule_reported": "triplet",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.119444,
+      "weight_final_net": 0.119444,
+      "net_report_equal": true,
+      "relative_change_percent": 19.443999999999996,
+      "result_model_time_s": 109.325,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_triplet_1Hz.net",
+      "net_sha256": "fe786ee356d43117be66ae3f2cd60f43e46eeeb6e76380b5138f134043e2f416",
+      "screenshot": "11_t2_triplet_1Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 1,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 2,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 2,
+      "condition": "task2_pair_10Hz",
+      "stimulus_frequency_hz": 10,
+      "protocol": "pre-post",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.5437,
+      "weight_final_net": 0.5437,
+      "net_report_equal": true,
+      "relative_change_percent": 443.69999999999993,
+      "result_model_time_s": 107.945,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_pair_10Hz.net",
+      "net_sha256": "8f7e91e85adc5f6625ccd96deb40e28bca8d70e9ab3bba10c38a70b2d2cda620",
+      "screenshot": "08_t2_pair_10Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 1,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 2,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 2,
+      "condition": "task2_triplet_10Hz",
+      "stimulus_frequency_hz": 10,
+      "protocol": "pre-post",
+      "rule_reported": "triplet",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.459589,
+      "weight_final_net": 0.459589,
+      "net_report_equal": true,
+      "relative_change_percent": 359.589,
+      "result_model_time_s": 108.445,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_triplet_10Hz.net",
+      "net_sha256": "7d1062a21b849e83cde331949607e7023455173528d4209e061cf20927d96a10",
+      "screenshot": "09_t2_triplet_10Hz.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 1,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 2,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 2,
+      "condition": "pre_post_pre_pair",
+      "stimulus_frequency_hz": 1,
+      "protocol": "pre-post-pre",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.1141,
+      "weight_final_net": 0.1141,
+      "net_report_equal": true,
+      "relative_change_percent": 14.09999999999998,
+      "result_model_time_s": 105.94,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_pre_pair.net",
+      "net_sha256": "c4d7960bacfcacf481de17526869344f3b9840177d8250aefdc41080363ac8e5",
+      "screenshot": "12_t2_pre_post_pre_pair.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 1,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 2,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 2,
+      "condition": "pre_post_pre_triplet",
+      "stimulus_frequency_hz": 1,
+      "protocol": "pre-post-pre",
+      "rule_reported": "triplet_provisional",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.0887917,
+      "weight_final_net": 0.0887917,
+      "net_report_equal": true,
+      "relative_change_percent": -11.208300000000005,
+      "result_model_time_s": 109.81,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_pre_triplet.net",
+      "net_sha256": "a17da3697cf9af0a7debecd10252df682b49ef9bd8059e7d1ac4475d20a1d3ef",
+      "screenshot": "13_t2_pre_post_pre_triplet.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 1,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 2,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 2,
+      "condition": "post_pre_post_pair",
+      "stimulus_frequency_hz": 1,
+      "protocol": "post-pre-post",
+      "rule_reported": "pair",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.141625,
+      "weight_final_net": 0.141625,
+      "net_report_equal": true,
+      "relative_change_percent": 41.625,
+      "result_model_time_s": 109.665,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_post_pair.net",
+      "net_sha256": "98947fab17065170e1a9d95943b1f3c0913e84e079bc062540d24ad9acd4e5a5",
+      "screenshot": "14_t2_post_pre_post_pair.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 1,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 2,
+      "post_resource_total_reported": 20
+    },
+    {
+      "task": 2,
+      "condition": "post_pre_post_triplet",
+      "stimulus_frequency_hz": 1,
+      "protocol": "post-pre-post",
+      "rule_reported": "triplet",
+      "weight_initial_reported": 0.1,
+      "weight_final_report": 0.1523,
+      "weight_final_net": 0.1523,
+      "net_report_equal": true,
+      "relative_change_percent": 52.29999999999999,
+      "result_model_time_s": 109.705,
+      "net_path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_post_triplet.net",
+      "net_sha256": "f29494702bfea7e22a64ebce7607d5cf25e2fe0a389d7be59a0e468fc0281a1c",
+      "screenshot": "15_t2_post_pre_post_triplet.png",
+      "training_elapsed_s": null,
+      "training_elapsed_note": "Approximately 100 s reported; result timestamp is not duration.",
+      "alpha_reported": 1,
+      "learning_rate_reported": 0.001,
+      "noise_sigma_reported": 0,
+      "pre_resource_total_reported": 2,
+      "post_resource_total_reported": 20
+    }
+  ],
+  "task3_time_evidence": {
+    "two_neurons_initial_s": 11.675,
+    "two_neurons_result_s": 17.775,
+    "two_snapshot_difference_s": 6.1,
+    "chain_initial_s": 17.775,
+    "chain_snapshot_s": 18.515,
+    "shortcut_all_weights_point_one_snapshot_s": 19.895,
+    "shortcut_result_s": 32.42,
+    "shortcut_snapshot_difference_s": 12.525,
+    "note": "Timestamp differences are not proved uninterrupted learning durations. Chain endpoints and all intervening actions are not logged.",
+    "two_final_weights": [
+      [
+        5,
+        6,
+        0.1
+      ]
+    ],
+    "chain_observed_weights": [
+      [
+        5,
+        6,
+        0.1
+      ],
+      [
+        6,
+        7,
+        0.1
+      ]
+    ],
+    "shortcut_final_weights": [
+      [
+        5,
+        6,
+        0.1
+      ],
+      [
+        6,
+        7,
+        0.1
+      ],
+      [
+        5,
+        7,
+        0.106812
+      ]
+    ]
+  },
+  "task3_intermediate_snapshots": [
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/16.7s.net",
+      "sha256": "457dc80aea839fb0b9b98ca9230cf851d774928347035c72b5a851272877199f",
+      "bytes": 2408,
+      "model_time_ms": 16700.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -74.3161,
+          "E_m_old": -73.8752,
+          "variable_U_e": -11.1005,
+          "Output": 0.125014,
+          "Output_old": 0.131594,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 11.3213,
+          "parameter_z": 8.55368,
+          "parameter_u": 0.871155,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.125014,
+            0.131594,
+            0.13852,
+            0.14581,
+            0.153485
+          ],
+          "resource_sum_x_Output_z": 19.999994
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0539,
+          "E_m_old": -69.068,
+          "variable_U_e": -13.881,
+          "Output": 9.40395e-37,
+          "Output_old": 9.40395e-37,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.70198e-36,
+          "parameter_u": 0.00328811,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37
+          ],
+          "resource_sum_x_Output_z": 20.0
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.0,
+          "CoordinateY": 77.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              0.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              0.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": []
+        }
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/18.515s.net",
+      "sha256": "7cd09db3252dd1e3c923692565d1b7fd04bf5bdaf0e43fd4f7c9182d4ad2f704",
+      "bytes": 3081,
+      "model_time_ms": 18515.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -71.8395,
+          "E_m_old": -72.4374,
+          "variable_U_e": -11.9941,
+          "Output": 0.0268329,
+          "Output_old": 0.0282451,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 13.564,
+          "parameter_z": 6.40921,
+          "parameter_u": 0.858182,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.0268329,
+            0.0282451,
+            0.0297317,
+            0.0312966,
+            0.0329437
+          ],
+          "resource_sum_x_Output_z": 20.0000429
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -72.019,
+          "E_m_old": -68.6152,
+          "variable_U_e": -13.9259,
+          "Output": 9.40395e-37,
+          "Output_old": 9.40395e-37,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.70198e-36,
+          "parameter_u": 0.000535185,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 6.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37
+          ],
+          "resource_sum_x_Output_z": 20.0
+        },
+        {
+          "Neuron ID": 7.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 147.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -70.805,
+          "E_m_old": -68.4802,
+          "variable_U_e": -13.919,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 0.0,
+          "parameter_u": 0.0,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 6,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "resource_sum_x_Output_z": 20.0
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.0,
+          "CoordinateY": 77.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              0.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              0.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": []
+        }
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/19.895s.net",
+      "sha256": "1baf359ca9c0c9213db267a35c81233f2ac8542ed9eb1c3d7c40551d3c29484d",
+      "bytes": 3163,
+      "model_time_ms": 19895.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -74.3519,
+          "E_m_old": -74.2387,
+          "variable_U_e": -10.6982,
+          "Output": 0.208797,
+          "Output_old": 0.219786,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 10.4214,
+          "parameter_z": 9.36983,
+          "parameter_u": 0.875523,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 11.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.208797,
+            0.219786,
+            0.231353,
+            0.24353,
+            0.256347,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "resource_sum_x_Output_z": 20.000027
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.5241,
+          "E_m_old": -69.9548,
+          "variable_U_e": -13.8473,
+          "Output": 9.40395e-37,
+          "Output_old": 9.40395e-37,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.70198e-36,
+          "parameter_u": 0.000134595,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 6.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37
+          ],
+          "resource_sum_x_Output_z": 20.0
+        },
+        {
+          "Neuron ID": 7.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 147.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -68.0015,
+          "E_m_old": -69.3282,
+          "variable_U_e": -13.9363,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 0.0,
+          "parameter_u": 0.0,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 6,
+              "weight": 0.1
+            },
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "resource_sum_x_Output_z": 20.0
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.0,
+          "CoordinateY": 77.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              0.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              0.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": []
+        }
+      ]
+    }
+  ],
+  "theory": {
+    "pair": "Traces ds/dt=-s/tau+sum(delta); LTP=lambda*(1-w)*s_pre; LTD=-lambda*alpha*w*s_post.",
+    "pair_defaults_page8": {
+      "lambda": 0.001,
+      "alpha": 5,
+      "tau_ms": 10
+    },
+    "minimal_triplet_page9": "LTP=lambda*(1-w)*fast_pre*slow_post; LTD same as pair.",
+    "triplet_recommendation_page9": {
+      "lambda": 0.01,
+      "alpha": 1,
+      "tau_depression_ms": 10,
+      "tau_fast_ms": 10,
+      "tau_slow_ms": 100
+    },
+    "lab5_task2_override_pages25_26": {
+      "lambda": 0.001,
+      "alpha": 1
+    },
+    "ambiguities": [
+      "Slow postsynaptic trace is not annotated t-minus vs t-plus in equation12.",
+      "Actual NeuroNet R05 implementation and arrival-vs-emission timing are unavailable.",
+      "Synaptic forgetting eq13 is described separately; lab5 does not request enabling it."
+    ]
+  },
+  "named_snapshots": [
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pair_initial.net",
+      "sha256": "5d5935d614f4dd812ae17b52a0dc55d621fa9d89308184ae2b728fe1b9510652",
+      "bytes": 2334,
+      "model_time_ms": 7500.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -73.8559,
+          "E_m_old": -73.8967,
+          "variable_U_e": -11.1726,
+          "Output": 0.125014,
+          "Output_old": 0.131594,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 11.3213,
+          "parameter_z": 8.55368,
+          "parameter_u": 0.871155,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.125014,
+            0.131594,
+            0.13852,
+            0.14581,
+            0.153485
+          ],
+          "resource_sum_x_Output_z": 19.999994
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -74.7706,
+          "E_m_old": -74.8184,
+          "variable_U_e": -10.3075,
+          "Output": 0.348728,
+          "Output_old": 0.367082,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 9.43812,
+          "parameter_z": 10.2132,
+          "parameter_u": 0.879913,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            0.348728,
+            0.367082,
+            0.386403
+          ],
+          "resource_sum_x_Output_z": 20.000048
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.25,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/7.5s.net"
+      ],
+      "same_time_calculation_log_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_7.5s.log"
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_10Hz.net",
+      "sha256": "7b5483821af533b93ea8eeaaf2b9488dfbb047b03a28acd978d3b6070ccb052b",
+      "bytes": 2353,
+      "model_time_ms": 111820.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -73.1108,
+          "E_m_old": -73.145,
+          "variable_U_e": -11.8142,
+          "Output": 0.0448158,
+          "Output_old": 0.0471745,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 12.8873,
+          "parameter_z": 7.0679,
+          "parameter_u": 0.862485,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.0448158,
+            0.0471745,
+            0.0496574,
+            0.052271,
+            0.0550221
+          ],
+          "resource_sum_x_Output_z": 20.0000158
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -72.4901,
+          "E_m_old": -72.5184,
+          "variable_U_e": -12.314,
+          "Output": 0.0160659,
+          "Output_old": 0.0169115,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 14.1773,
+          "parameter_z": 5.80664,
+          "parameter_u": 0.853901,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 8.03577e-05
+            }
+          ],
+          "Output_deque": [
+            0.0160659,
+            0.0169115,
+            0.0178015
+          ],
+          "resource_sum_x_Output_z": 20.0000059
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/111.82s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/111.82s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_1Hz.net",
+      "sha256": "fe6fc535992d26ee687d86869b0a641bbb8a93122114cbc7bf666efa1bae67bd",
+      "bytes": 2368,
+      "model_time_ms": 109145.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -71.6305,
+          "E_m_old": -71.6501,
+          "variable_U_e": -12.9541,
+          "Output": 0.00272223,
+          "Output_old": 0.0028655,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 17.054,
+          "parameter_z": 2.94329,
+          "parameter_u": 0.56442,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.00272223,
+            0.0028655,
+            0.00301632,
+            0.00317507,
+            0.00334218
+          ],
+          "resource_sum_x_Output_z": 20.00001223
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 113.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -71.2822,
+          "E_m_old": -71.2979,
+          "variable_U_e": -13.1961,
+          "Output": 0.000975883,
+          "Output_old": 0.00102725,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 17.5902,
+          "parameter_z": 2.40891,
+          "parameter_u": 0.558802,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.0157814
+            }
+          ],
+          "Output_deque": [
+            0.000975883,
+            0.00102725,
+            0.00108131
+          ],
+          "resource_sum_x_Output_z": 20.000085883
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.145s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_40Hz.net",
+      "sha256": "b3e13949fa58c580540e8a70b3d6dd52c2d617f96e62dd2ed9d6fc7d273d0f34",
+      "bytes": 2318,
+      "model_time_ms": 109160.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -82.3159,
+          "E_m_old": -82.4167,
+          "variable_U_e": -0.743567,
+          "Output": 1.51384,
+          "Output_old": 1.59352,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 4.49714,
+          "parameter_z": 13.989,
+          "parameter_u": 0.960885,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            1.51384,
+            1.59352,
+            1.67739,
+            1.76567,
+            1.8586
+          ],
+          "resource_sum_x_Output_z": 19.99998
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -75.433,
+          "E_m_old": -65.0,
+          "variable_U_e": 4.96913,
+          "Output": 7.05299,
+          "Output_old": 7.4242,
+          "Time_cur_spike": 0.5,
+          "Is_spike": 1.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 0.293308,
+          "parameter_z": 12.6538,
+          "parameter_u": 0.975411,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.153155
+            }
+          ],
+          "Output_deque": [
+            7.05299,
+            7.4242,
+            0.601321
+          ],
+          "resource_sum_x_Output_z": 20.000098
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 25.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              15.0,
+              0.0
+            ],
+            [
+              18.0,
+              25.0
+            ],
+            [
+              25.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              15.0,
+              18.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 25.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              5.0,
+              0.0
+            ],
+            [
+              8.0,
+              25.0
+            ],
+            [
+              25.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              5.0,
+              8.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.16s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.16s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_post_initial.net",
+      "sha256": "c02d7281044d40794fdc01c212c2dccd105d1bcc01ace5742d401448c0b701bf",
+      "bytes": 2415,
+      "model_time_ms": 11675.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 6.72904e-28,
+          "Output_old": 7.0832e-28,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.99999,
+          "parameter_z": 7.05746e-06,
+          "parameter_u": 0.336803,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            6.72904e-28,
+            7.0832e-28,
+            7.45601e-28,
+            7.84843e-28,
+            8.2615e-28
+          ],
+          "resource_sum_x_Output_z": 1.99999705746
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 1.66033e-26,
+          "Output_old": 1.74772e-26,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 19.9999,
+          "parameter_z": 0.000127046,
+          "parameter_u": 0.500981,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            1.66033e-26,
+            1.74772e-26,
+            1.8397e-26
+          ],
+          "resource_sum_x_Output_z": 20.000027046
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.25,
+          "CoordinateY": 77.75,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              50.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              73.0,
+              50.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/11.675s.net",
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task3_two_initial.net"
+      ],
+      "same_time_calculation_log_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_11.675s.log"
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_post_pair.net",
+      "sha256": "98947fab17065170e1a9d95943b1f3c0913e84e079bc062540d24ad9acd4e5a5",
+      "bytes": 2425,
+      "model_time_ms": 109665.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 1.85129e-27,
+          "Output_old": 1.94873e-27,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.99999,
+          "parameter_z": 8.51016e-06,
+          "parameter_u": 0.335516,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            1.85129e-27,
+            1.94873e-27,
+            2.05129e-27,
+            2.15925e-27,
+            2.2729e-27
+          ],
+          "resource_sum_x_Output_z": 1.99999851016
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 4.62256e-26,
+          "Output_old": 4.86586e-26,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 19.9998,
+          "parameter_z": 0.000155312,
+          "parameter_u": 0.506246,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.141625
+            }
+          ],
+          "Output_deque": [
+            4.62256e-26,
+            4.86586e-26,
+            5.12195e-26
+          ],
+          "resource_sum_x_Output_z": 19.999955312
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.25,
+          "CoordinateY": 77.75,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              50.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              73.0,
+              50.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.665s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.665s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_post_triplet.net",
+      "sha256": "f29494702bfea7e22a64ebce7607d5cf25e2fe0a389d7be59a0e468fc0281a1c",
+      "bytes": 2413,
+      "model_time_ms": 109705.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 3.05747e-29,
+          "Output_old": 3.21839e-29,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.99999,
+          "parameter_z": 3.80849e-06,
+          "parameter_u": 0.322357,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            3.05747e-29,
+            3.21839e-29,
+            3.38778e-29,
+            3.56608e-29,
+            3.75377e-29
+          ],
+          "resource_sum_x_Output_z": 1.99999380849
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 7.63435e-28,
+          "Output_old": 8.03616e-28,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 6.95056e-05,
+          "parameter_u": 0.486391,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1523
+            }
+          ],
+          "Output_deque": [
+            7.63435e-28,
+            8.03616e-28,
+            8.45911e-28
+          ],
+          "resource_sum_x_Output_z": 20.0000695056
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.0,
+          "CoordinateY": 77.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              50.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              73.0,
+              50.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.705s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.705s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_10Hz.net",
+      "sha256": "caa4ad30f577f6eb070dbb46fa28965b3087b53b974d24823d9a12a55280967f",
+      "bytes": 2351,
+      "model_time_ms": 107910.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -73.1108,
+          "E_m_old": -73.145,
+          "variable_U_e": -11.8142,
+          "Output": 0.0448158,
+          "Output_old": 0.0471746,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 12.8873,
+          "parameter_z": 7.0679,
+          "parameter_u": 0.862485,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.0448158,
+            0.0471746,
+            0.0496574,
+            0.052271,
+            0.0550221
+          ],
+          "resource_sum_x_Output_z": 20.0000158
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -76.7059,
+          "E_m_old": -76.7671,
+          "variable_U_e": -8.2472,
+          "Output": 0.0914502,
+          "Output_old": 0.0962634,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 11.1628,
+          "parameter_z": 8.74573,
+          "parameter_u": 0.923351,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.999748
+            }
+          ],
+          "Output_deque": [
+            0.0914502,
+            0.0962634,
+            0.10133
+          ],
+          "resource_sum_x_Output_z": 19.9999802
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.25,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107.91s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107.91s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_1Hz.net",
+      "sha256": "2f0c379a2bdf30f66efd9308de63bbeda5d09ec88e8a4b338e0e3701b662c3ad",
+      "bytes": 2383,
+      "model_time_ms": 99355.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0048,
+          "E_m_old": -70.0048,
+          "variable_U_e": -13.9973,
+          "Output": 4.29844e-13,
+          "Output_old": 4.52467e-13,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 19.9646,
+          "parameter_z": 0.0353851,
+          "parameter_u": 0.452933,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            4.29844e-13,
+            4.52467e-13,
+            4.76281e-13,
+            5.01349e-13,
+            5.27736e-13
+          ],
+          "resource_sum_x_Output_z": 19.99998510000043
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0142,
+          "E_m_old": -70.0144,
+          "variable_U_e": -13.9919,
+          "Output": 1.85049e-12,
+          "Output_old": 1.94788e-12,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 19.9335,
+          "parameter_z": 0.0665081,
+          "parameter_u": 0.617361,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.501333
+            }
+          ],
+          "Output_deque": [
+            1.85049e-12,
+            1.94788e-12,
+            2.0504e-12
+          ],
+          "resource_sum_x_Output_z": 20.00000810000185
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/99.355s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/99.355s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_40Hz.net",
+      "sha256": "c9bc17840f792f70eb888f7ff13ae0729c89fb9eb261bda092b8897ae3a3efd3",
+      "bytes": 2326,
+      "model_time_ms": 107000.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -82.3159,
+          "E_m_old": -82.4167,
+          "variable_U_e": -0.743567,
+          "Output": 1.51384,
+          "Output_old": 1.59352,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 4.49714,
+          "parameter_z": 13.989,
+          "parameter_u": 0.960885,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            1.51384,
+            1.59352,
+            1.67739,
+            1.76567,
+            1.8586
+          ],
+          "resource_sum_x_Output_z": 19.99998
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -84.2684,
+          "E_m_old": -84.366,
+          "variable_U_e": 3.10162,
+          "Output": 4.22288,
+          "Output_old": 4.44514,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.6387,
+          "parameter_z": 14.1385,
+          "parameter_u": 0.970545,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.335617
+            }
+          ],
+          "Output_deque": [
+            4.22288,
+            4.44514,
+            4.67909
+          ],
+          "resource_sum_x_Output_z": 20.00008
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 44.75,
+          "CoordinateY": 42.25,
+          "Frame duration": 25.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              5.0,
+              0.0
+            ],
+            [
+              8.0,
+              25.0
+            ],
+            [
+              25.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              5.0,
+              8.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 25.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              15.0,
+              0.0
+            ],
+            [
+              18.0,
+              25.0
+            ],
+            [
+              25.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              15.0,
+              18.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_pre_initial.net",
+      "sha256": "9892aa65ed6f5bb9d1035b9db8f1219726069445091856073efddce392582936",
+      "bytes": 2403,
+      "model_time_ms": 9680.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 8.5458e-28,
+          "Output_old": 8.99558e-28,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.99999,
+          "parameter_z": 1.06751e-05,
+          "parameter_u": 0.466648,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            8.5458e-28,
+            8.99558e-28,
+            9.46903e-28,
+            9.9674e-28,
+            1.0492e-27
+          ],
+          "resource_sum_x_Output_z": 2.0000006751
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 4.71301e-27,
+          "Output_old": 4.96106e-27,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 7.46638e-05,
+          "parameter_u": 0.392024,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            4.71301e-27,
+            4.96106e-27,
+            5.22217e-27
+          ],
+          "resource_sum_x_Output_z": 20.0000746638
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              73.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/9.68s.net"
+      ],
+      "same_time_calculation_log_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_9.68s.log"
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_pre_pair.net",
+      "sha256": "c4d7960bacfcacf481de17526869344f3b9840177d8250aefdc41080363ac8e5",
+      "bytes": 2412,
+      "model_time_ms": 105940.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 9.40395e-37,
+          "Output_old": 9.40395e-37,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 2.0,
+          "parameter_z": 5.63067e-08,
+          "parameter_u": 0.344819,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37
+          ],
+          "resource_sum_x_Output_z": 2.0000000563067
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 9.40395e-37,
+          "Output_old": 9.40395e-37,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0001,
+          "parameter_z": 3.38296e-07,
+          "parameter_u": 0.254831,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1141
+            }
+          ],
+          "Output_deque": [
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37
+          ],
+          "resource_sum_x_Output_z": 20.000100338296
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              73.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/105.94s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/105.94s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_pre_post_pre_triplet.net",
+      "sha256": "a17da3697cf9af0a7debecd10252df682b49ef9bd8059e7d1ac4475d20a1d3ef",
+      "bytes": 2410,
+      "model_time_ms": 109810.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 1.45301e-33,
+          "Output_old": 1.52946e-33,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 2.0,
+          "parameter_z": 7.68083e-07,
+          "parameter_u": 0.392703,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            1.45301e-33,
+            1.52946e-33,
+            1.60996e-33,
+            1.69469e-33,
+            1.78384e-33
+          ],
+          "resource_sum_x_Output_z": 2.000000768083
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 6.41698e-33,
+          "Output_old": 6.75467e-33,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.61471e-06,
+          "parameter_u": 0.290218,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.0887917
+            }
+          ],
+          "Output_deque": [
+            6.41698e-33,
+            6.75467e-33,
+            7.11014e-33
+          ],
+          "resource_sum_x_Output_z": 20.00000461471
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ],
+            [
+              70.0,
+              73.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.81s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.81s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_initial.net",
+      "sha256": "419971adfe4a8cdd2011179ee11a08523a22e249c057dbd3b243dabcda400de5",
+      "bytes": 2352,
+      "model_time_ms": 8425.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -72.2216,
+          "E_m_old": -72.2473,
+          "variable_U_e": -12.5204,
+          "Output": 0.000961921,
+          "Output_old": 0.00101255,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.47328,
+          "parameter_z": 0.525755,
+          "parameter_u": 0.849641,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.000961921,
+            0.00101255,
+            0.00106584,
+            0.00112194,
+            0.00118099
+          ],
+          "resource_sum_x_Output_z": 1.999996921
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -72.7886,
+          "E_m_old": -72.8197,
+          "variable_U_e": -12.0775,
+          "Output": 0.026833,
+          "Output_old": 0.0282452,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 13.564,
+          "parameter_z": 6.40922,
+          "parameter_u": 0.858182,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            0.026833,
+            0.0282452,
+            0.0297318
+          ],
+          "resource_sum_x_Output_z": 20.000053
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/8.425s.net",
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_initial_1Hz.net"
+      ],
+      "same_time_calculation_log_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_8.425s.log"
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_initial_1Hz.net",
+      "sha256": "b9bf8cee3a11ee9596f80a5709d0c81634c756cc32d0f4cf5eea5f40ea7ab360",
+      "bytes": 2356,
+      "model_time_ms": 8425.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -72.2216,
+          "E_m_old": -72.2473,
+          "variable_U_e": -12.5204,
+          "Output": 0.000961921,
+          "Output_old": 0.00101255,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.47328,
+          "parameter_z": 0.525755,
+          "parameter_u": 0.849641,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.000961921,
+            0.00101255,
+            0.00106584,
+            0.00112194,
+            0.00118099
+          ],
+          "resource_sum_x_Output_z": 1.999996921
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -72.7886,
+          "E_m_old": -72.8197,
+          "variable_U_e": -12.0775,
+          "Output": 0.0268329,
+          "Output_old": 0.0282452,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 13.564,
+          "parameter_z": 6.4092,
+          "parameter_u": 0.858182,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            0.026833,
+            0.0282452,
+            0.0297318
+          ],
+          "resource_sum_x_Output_z": 20.0000329
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/8.425s.net",
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_initial.net"
+      ],
+      "same_time_calculation_log_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_8.425s.log"
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_pair_10Hz.net",
+      "sha256": "8f7e91e85adc5f6625ccd96deb40e28bca8d70e9ab3bba10c38a70b2d2cda620",
+      "bytes": 2371,
+      "model_time_ms": 107945.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -71.3839,
+          "E_m_old": -71.4008,
+          "variable_U_e": -13.1265,
+          "Output": 0.000123619,
+          "Output_old": 0.000130125,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.64751,
+          "parameter_z": 0.352365,
+          "parameter_u": 0.832813,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.000123619,
+            0.000130125,
+            0.000136973,
+            0.000144183,
+            0.000151771
+          ],
+          "resource_sum_x_Output_z": 1.999998619
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -71.7697,
+          "E_m_old": -71.7908,
+          "variable_U_e": -12.8545,
+          "Output": 0.00344836,
+          "Output_old": 0.00362985,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 15.6909,
+          "parameter_z": 4.30572,
+          "parameter_u": 0.841185,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.5437
+            }
+          ],
+          "Output_deque": [
+            0.00344836,
+            0.00362985,
+            0.0038209
+          ],
+          "resource_sum_x_Output_z": 20.00006836
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107.945s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107.945s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_pair_1Hz.net",
+      "sha256": "40bb001974f35c3d58438f56e65937ef1ce3fe5f108f163c6b2564f585b2241a",
+      "bytes": 2380,
+      "model_time_ms": 109185.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 47.0,
+          "refractory_time": 1.0,
+          "E_m": -70.4642,
+          "E_m_old": -70.4703,
+          "variable_U_e": -13.7249,
+          "Output": 1.6117e-06,
+          "Output_old": 1.69653e-06,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.89214,
+          "parameter_z": 0.107856,
+          "parameter_u": 0.536886,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            1.6117e-06,
+            1.69653e-06,
+            1.78582e-06,
+            1.87981e-06,
+            1.97875e-06
+          ],
+          "resource_sum_x_Output_z": 1.9999976117
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 45.0,
+          "refractory_time": 1.0,
+          "E_m": -70.6025,
+          "E_m_old": -70.6103,
+          "variable_U_e": -13.6394,
+          "Output": 4.49586e-05,
+          "Output_old": 4.73249e-05,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 18.6813,
+          "parameter_z": 1.31866,
+          "parameter_u": 0.542283,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.147829
+            }
+          ],
+          "Output_deque": [
+            4.49586e-05,
+            4.73249e-05,
+            4.98156e-05
+          ],
+          "resource_sum_x_Output_z": 20.0000049586
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.185s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.185s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_triplet_10Hz.net",
+      "sha256": "7d1062a21b849e83cde331949607e7023455173528d4209e061cf20927d96a10",
+      "bytes": 2373,
+      "model_time_ms": 108445.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 86.0,
+          "CoordinateY": 40.0,
+          "refractory_time": 1.0,
+          "E_m": -71.3839,
+          "E_m_old": -71.4008,
+          "variable_U_e": -13.1265,
+          "Output": 0.000123618,
+          "Output_old": 0.000130125,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.64751,
+          "parameter_z": 0.352364,
+          "parameter_u": 0.832813,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.000123618,
+            0.000130125,
+            0.000136973,
+            0.000144182,
+            0.000151771
+          ],
+          "resource_sum_x_Output_z": 1.999997618
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 112.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -71.768,
+          "E_m_old": -71.7891,
+          "variable_U_e": -12.8557,
+          "Output": 0.00344835,
+          "Output_old": 0.00362984,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 15.6908,
+          "parameter_z": 4.30571,
+          "parameter_u": 0.841185,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.459589
+            }
+          ],
+          "Output_deque": [
+            0.00344835,
+            0.00362984,
+            0.00382089
+          ],
+          "resource_sum_x_Output_z": 19.99995835
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/108.445s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/108.445s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task2_triplet_1Hz.net",
+      "sha256": "fe786ee356d43117be66ae3f2cd60f43e46eeeb6e76380b5138f134043e2f416",
+      "bytes": 2383,
+      "model_time_ms": 109325.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 85.0,
+          "CoordinateY": 41.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0108,
+          "E_m_old": -70.0109,
+          "variable_U_e": -13.9938,
+          "Output": 9.33026e-13,
+          "Output_old": 9.82133e-13,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 1.99353,
+          "parameter_z": 0.00646708,
+          "parameter_u": 0.46673,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            9.33026e-13,
+            9.82133e-13,
+            1.03382e-12,
+            1.08824e-12,
+            1.14551e-12
+          ],
+          "resource_sum_x_Output_z": 1.999997080000933
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0142,
+          "E_m_old": -70.0144,
+          "variable_U_e": -13.9919,
+          "Output": 2.60269e-11,
+          "Output_old": 2.73968e-11,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 19.921,
+          "parameter_z": 0.079069,
+          "parameter_u": 0.471422,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.119444
+            }
+          ],
+          "Output_deque": [
+            2.60269e-11,
+            2.73968e-11,
+            2.88387e-11
+          ],
+          "resource_sum_x_Output_z": 20.000069000026027
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 114.0,
+          "CoordinateY": 78.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              60.0,
+              0.0
+            ],
+            [
+              63.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              60.0,
+              63.0,
+              25.0
+            ]
+          ]
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.325s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.325s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task3_chain_initial.net",
+      "sha256": "820a4f3416d9aca101e85ffea8f20286569b94ad52907bbb2f1b578fca96f79d",
+      "bytes": 3012,
+      "model_time_ms": 17775.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -76.3134,
+          "E_m_old": -75.6666,
+          "variable_U_e": -8.65104,
+          "Output": 1.62472,
+          "Output_old": 1.71023,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 6.00973,
+          "parameter_z": 12.3656,
+          "parameter_u": 0.893214,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            1.62472,
+            1.71023,
+            1.80025,
+            1.89499,
+            1.99473
+          ],
+          "resource_sum_x_Output_z": 20.00005
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.9563,
+          "E_m_old": -72.4434,
+          "variable_U_e": -13.895,
+          "Output": 9.40395e-37,
+          "Output_old": 9.40395e-37,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.70198e-36,
+          "parameter_u": 0.00112192,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 6.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "resource_sum_x_Output_z": 20.0
+        },
+        {
+          "Neuron ID": 7.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 147.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": 0.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 0.0,
+          "parameter_u": 0.0,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 2.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 6,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            0.0,
+            0.0
+          ],
+          "resource_sum_x_Output_z": 20.0
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.0,
+          "CoordinateY": 77.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              0.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              0.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": []
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/17.775s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/17.775s.net",
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task3_two_result.net"
+      ],
+      "same_time_calculation_log_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_17.775s.log"
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task3_shortcut_result.net",
+      "sha256": "3c0cb84ce21a0b9ebff4d5a9e57008af3e22c5ce8a1e50cc72d296ad11e51193",
+      "bytes": 3290,
+      "model_time_ms": 32420.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -71.2687,
+          "E_m_old": -72.9534,
+          "variable_U_e": -12.241,
+          "Output": 0.0152133,
+          "Output_old": 0.0160139,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 14.2358,
+          "parameter_z": 5.74895,
+          "parameter_u": 0.853773,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 11.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            0.0152133,
+            0.0160139,
+            0.0168568,
+            0.017744,
+            0.0186779,
+            0.0196609,
+            0.0206957,
+            0.021785,
+            0.0229315,
+            0.0241385,
+            0.0254089
+          ],
+          "resource_sum_x_Output_z": 19.999963299999997
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -65.7478,
+          "E_m_old": -67.5535,
+          "variable_U_e": -13.908,
+          "Output": 9.40395e-37,
+          "Output_old": 9.40395e-37,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.70198e-36,
+          "parameter_u": 4.87673e-10,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 6.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37
+          ],
+          "resource_sum_x_Output_z": 20.0
+        },
+        {
+          "Neuron ID": 7.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 147.0,
+          "CoordinateY": 42.0,
+          "refractory_time": 1.0,
+          "E_m": -69.1896,
+          "E_m_old": -71.0485,
+          "variable_U_e": -13.8035,
+          "Output": 9.40395e-37,
+          "Output_old": 9.40395e-37,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.70198e-36,
+          "parameter_u": 0.000319106,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 6,
+              "weight": 0.1
+            },
+            {
+              "from": 5,
+              "weight": 0.106812
+            }
+          ],
+          "Output_deque": [
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37
+          ],
+          "resource_sum_x_Output_z": 20.0
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.0,
+          "CoordinateY": 77.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              0.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              0.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": []
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/32.42s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/32.42s.net"
+      ],
+      "same_time_calculation_log_paths": []
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task3_two_initial.net",
+      "sha256": "0366aacfd86a0521a37069b7e8a67364c533a9b07ed8523bbba033858a95596e",
+      "bytes": 2405,
+      "model_time_ms": 11675.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 6.72905e-27,
+          "Output_old": 7.0832e-28,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 19.9999,
+          "parameter_z": 7.05747e-05,
+          "parameter_u": 0.336803,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            6.72904e-28,
+            7.0832e-28,
+            7.45601e-28,
+            7.84843e-28,
+            8.2615e-28
+          ],
+          "resource_sum_x_Output_z": 19.9999705747
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.0,
+          "E_m_old": -70.0,
+          "variable_U_e": -14.0,
+          "Output": 1.66033e-26,
+          "Output_old": 1.74772e-26,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 19.9999,
+          "parameter_z": 0.000127046,
+          "parameter_u": 0.500981,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            1.66033e-26,
+            1.74772e-26,
+            1.8397e-26
+          ],
+          "resource_sum_x_Output_z": 20.000027046
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.0,
+          "CoordinateY": 77.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              0.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              0.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": []
+        }
+      ],
+      "byte_identical_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/11.675s.net"
+      ],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/11.675s.net",
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_post_pre_post_initial.net"
+      ],
+      "same_time_calculation_log_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_11.675s.log"
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task3_two_result.net",
+      "sha256": "d4dd74e314d6c5c8418548d885ea43ce5738865bd623f284de6883af8608c8a1",
+      "bytes": 2404,
+      "model_time_ms": 17775.0,
+      "neurons": [
+        {
+          "Neuron ID": 5.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 81.0,
+          "CoordinateY": 43.0,
+          "refractory_time": 1.0,
+          "E_m": -76.3134,
+          "E_m_old": -75.6666,
+          "variable_U_e": -8.65104,
+          "Output": 1.62472,
+          "Output_old": 1.71023,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 6.00973,
+          "parameter_z": 12.3656,
+          "parameter_u": 0.893214,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 5.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            1.62472,
+            1.71023,
+            1.80025,
+            1.89499,
+            1.99473
+          ],
+          "resource_sum_x_Output_z": 20.00005
+        },
+        {
+          "Neuron ID": 6.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 110.0,
+          "CoordinateY": 44.0,
+          "refractory_time": 1.0,
+          "E_m": -70.9563,
+          "E_m_old": -72.4434,
+          "variable_U_e": -13.895,
+          "Output": 9.40395e-37,
+          "Output_old": 9.40395e-37,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.70198e-36,
+          "parameter_u": 0.00112192,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 5,
+              "weight": 0.1
+            }
+          ],
+          "Output_deque": [
+            9.40395e-37,
+            9.40395e-37,
+            9.40395e-37
+          ],
+          "resource_sum_x_Output_z": 20.0
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 43.0,
+          "CoordinateY": 42.0,
+          "Frame duration": 100.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            5
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              25.0
+            ],
+            [
+              100.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              50.0,
+              53.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 121.0,
+          "CoordinateY": 77.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            6
+          ],
+          "table_end_ms_voltage": [
+            [
+              50.0,
+              0.0
+            ],
+            [
+              53.0,
+              0.0
+            ],
+            [
+              70.0,
+              0.0
+            ],
+            [
+              73.0,
+              0.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": []
+        }
+      ],
+      "byte_identical_snapshot_paths": [],
+      "same_model_time_snapshot_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/17.775s.net",
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab4_task3_chain_initial.net"
+      ],
+      "same_time_calculation_log_paths": [
+        "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_17.775s.log"
+      ]
+    }
+  ],
+  "triplet_templates": [
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/NET_files/STDP/triplet_STDP/2N_post_pre_post.net",
+      "sha256": "b17f267b7885139f8a1b72b461446031c61325a23e21974930cca4b4ad826707",
+      "bytes": 2404,
+      "model_time_ms": 0.0,
+      "neurons": [
+        {
+          "Neuron ID": 1.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 38.0,
+          "CoordinateY": 59.0,
+          "refractory_time": 1.0,
+          "E_m": -69.9685,
+          "E_m_old": -70.5561,
+          "variable_U_e": -13.8346,
+          "Output": 1.92593e-34,
+          "Output_old": 1.92593e-33,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 2.0,
+          "parameter_z": 2.26309e-08,
+          "parameter_u": 0.249783,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 4.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            1.92593e-33,
+            1.92593e-33,
+            1.92593e-33,
+            1.92593e-33
+          ],
+          "resource_sum_x_Output_z": 2.0000000226309
+        },
+        {
+          "Neuron ID": 2.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 57.0,
+          "CoordinateY": 59.0,
+          "refractory_time": 1.0,
+          "E_m": -70.2646,
+          "E_m_old": -74.285,
+          "variable_U_e": -13.9311,
+          "Output": 1.92593e-33,
+          "Output_old": 1.92593e-33,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.04403e-07,
+          "parameter_u": 0.339711,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 1,
+              "weight": 0.2
+            }
+          ],
+          "Output_deque": [
+            1.92593e-33,
+            1.92593e-33,
+            1.92593e-33
+          ],
+          "resource_sum_x_Output_z": 20.000000404403
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 59.0,
+          "CoordinateY": 69.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            2
+          ],
+          "table_end_ms_voltage": [
+            [
+              10.0,
+              0.0
+            ],
+            [
+              13.0,
+              25.0
+            ],
+            [
+              30.0,
+              0.0
+            ],
+            [
+              33.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              10.0,
+              13.0,
+              25.0
+            ],
+            [
+              30.0,
+              33.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 29.0,
+          "CoordinateY": 69.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            1
+          ],
+          "table_end_ms_voltage": [
+            [
+              20.0,
+              0.0
+            ],
+            [
+              23.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              20.0,
+              23.0,
+              25.0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/NET_files/STDP/triplet_STDP/2N_pre-post_pre.net",
+      "sha256": "97cc05c4b4120791a2d9f41364d0545d38b90b058c3ad381e0a50d10569620e5",
+      "bytes": 2404,
+      "model_time_ms": 0.0,
+      "neurons": [
+        {
+          "Neuron ID": 1.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 38.0,
+          "CoordinateY": 59.0,
+          "refractory_time": 1.0,
+          "E_m": -69.9685,
+          "E_m_old": -70.5561,
+          "variable_U_e": -13.8346,
+          "Output": 1.92593e-34,
+          "Output_old": 1.92593e-33,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 2.0,
+          "parameter_z": 2.26309e-08,
+          "parameter_u": 0.249783,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 4.0,
+          "STDP_YES": true,
+          "inputs": [],
+          "Output_deque": [
+            1.92593e-33,
+            1.92593e-33,
+            1.92593e-33,
+            1.92593e-33
+          ],
+          "resource_sum_x_Output_z": 2.0000000226309
+        },
+        {
+          "Neuron ID": 2.0,
+          "Type": "excitory",
+          "Class": "Izh",
+          "CoordinateX": 57.0,
+          "CoordinateY": 59.0,
+          "refractory_time": 1.0,
+          "E_m": -70.2646,
+          "E_m_old": -74.285,
+          "variable_U_e": -13.9311,
+          "Output": 1.92593e-33,
+          "Output_old": 1.92593e-33,
+          "Time_cur_spike": 0.0,
+          "Is_spike": 0.0,
+          "parameter_a": 0.02,
+          "parameter_b": 0.2,
+          "parameter_c": -65.0,
+          "parameter_d": 8.0,
+          "parameter_x": 20.0,
+          "parameter_z": 4.04403e-07,
+          "parameter_u": 0.339711,
+          "parameter_U": 0.5,
+          "tau_recovery": 50.0,
+          "tau_I": 10.0,
+          "tau_facility": 1000.0,
+          "Output_deque size": 3.0,
+          "STDP_YES": true,
+          "inputs": [
+            {
+              "from": 1,
+              "weight": 0.2
+            }
+          ],
+          "Output_deque": [
+            1.92593e-33,
+            1.92593e-33,
+            1.92593e-33
+          ],
+          "resource_sum_x_Output_z": 20.000000404403
+        }
+      ],
+      "stimulators": [
+        {
+          "Stimulator ID": 3.0,
+          "CoordinateX": 28.0,
+          "CoordinateY": 69.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            1
+          ],
+          "table_end_ms_voltage": [
+            [
+              10.0,
+              0.0
+            ],
+            [
+              13.0,
+              25.0
+            ],
+            [
+              30.0,
+              0.0
+            ],
+            [
+              33.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              10.0,
+              13.0,
+              25.0
+            ],
+            [
+              30.0,
+              33.0,
+              25.0
+            ]
+          ]
+        },
+        {
+          "Stimulator ID": 4.0,
+          "CoordinateX": 61.0,
+          "CoordinateY": 68.0,
+          "Frame duration": 1000.0,
+          "Pulse_amplitude": 20.0,
+          "Pulse_duration": 5.0,
+          "Output": 0.0,
+          "Output_old": 0.0,
+          "targets": [
+            2
+          ],
+          "table_end_ms_voltage": [
+            [
+              20.0,
+              0.0
+            ],
+            [
+              23.0,
+              25.0
+            ],
+            [
+              1000.0,
+              0.0
+            ]
+          ],
+          "active_intervals_ms_voltage": [
+            [
+              20.0,
+              23.0,
+              25.0
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "calculation_logs": [
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_0s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 0.0,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_10.73s.log",
+      "sha256": "3de7db72974213a32c8466183e9be4c1f242fdebeb41a9772ff99c80d4ffc7be",
+      "bytes": 185,
+      "filename_time_s": 10.73,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_10.785s.log",
+      "sha256": "becbad095fb23a669328774f96a3be7425c77c2ab0e8110b7520eeb8cb787d24",
+      "bytes": 189,
+      "filename_time_s": 10.785,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_105.32s.log",
+      "sha256": "1a55abdc19ef29540a93849742ac21055cd55440b47bba638c7d71326fb631ce",
+      "bytes": 181,
+      "filename_time_s": 105.32,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Triple-based STDP",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_105.79s.log",
+      "sha256": "e34339f5d816370609fab7566033ca684ef68ea1748ab532da57e5228d27e242",
+      "bytes": 189,
+      "filename_time_s": 105.79,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_106.5s.log",
+      "sha256": "becbad095fb23a669328774f96a3be7425c77c2ab0e8110b7520eeb8cb787d24",
+      "bytes": 189,
+      "filename_time_s": 106.5,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_106.61s.log",
+      "sha256": "becbad095fb23a669328774f96a3be7425c77c2ab0e8110b7520eeb8cb787d24",
+      "bytes": 189,
+      "filename_time_s": 106.61,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_106.745s.log",
+      "sha256": "becbad095fb23a669328774f96a3be7425c77c2ab0e8110b7520eeb8cb787d24",
+      "bytes": 189,
+      "filename_time_s": 106.745,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_106.88s.log",
+      "sha256": "becbad095fb23a669328774f96a3be7425c77c2ab0e8110b7520eeb8cb787d24",
+      "bytes": 189,
+      "filename_time_s": 106.88,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_107.535s.log",
+      "sha256": "becbad095fb23a669328774f96a3be7425c77c2ab0e8110b7520eeb8cb787d24",
+      "bytes": 189,
+      "filename_time_s": 107.535,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_11.675s.log",
+      "sha256": "6651f2f7b0c655385c17fd8ad6517295228ec5fbc8155f7eea46aeb1c9806606",
+      "bytes": 189,
+      "filename_time_s": 11.675,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "3",
+        "Learning rate": "0.001",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_111.09s.log",
+      "sha256": "becbad095fb23a669328774f96a3be7425c77c2ab0e8110b7520eeb8cb787d24",
+      "bytes": 189,
+      "filename_time_s": 111.09,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_16.7s.log",
+      "sha256": "6651f2f7b0c655385c17fd8ad6517295228ec5fbc8155f7eea46aeb1c9806606",
+      "bytes": 189,
+      "filename_time_s": 16.7,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "3",
+        "Learning rate": "0.001",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_17.775s.log",
+      "sha256": "6651f2f7b0c655385c17fd8ad6517295228ec5fbc8155f7eea46aeb1c9806606",
+      "bytes": 189,
+      "filename_time_s": 17.775,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "3",
+        "Learning rate": "0.001",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_18.515s.log",
+      "sha256": "6651f2f7b0c655385c17fd8ad6517295228ec5fbc8155f7eea46aeb1c9806606",
+      "bytes": 189,
+      "filename_time_s": 18.515,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "3",
+        "Learning rate": "0.001",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_19.895s.log",
+      "sha256": "6651f2f7b0c655385c17fd8ad6517295228ec5fbc8155f7eea46aeb1c9806606",
+      "bytes": 189,
+      "filename_time_s": 19.895,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "3",
+        "Learning rate": "0.001",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_224.45s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 224.45,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_26.91s.log",
+      "sha256": "1a55abdc19ef29540a93849742ac21055cd55440b47bba638c7d71326fb631ce",
+      "bytes": 181,
+      "filename_time_s": 26.91,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Triple-based STDP",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_451.095s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 451.095,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_479.635s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 479.635,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_48.535s.log",
+      "sha256": "e34339f5d816370609fab7566033ca684ef68ea1748ab532da57e5228d27e242",
+      "bytes": 189,
+      "filename_time_s": 48.535,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_525.565s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 525.565,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_53.99s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 53.99,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_569.56s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 569.56,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_577.285s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 577.285,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_578.05s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 578.05,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_578.74s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 578.74,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_581.945s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 581.945,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_583.775s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 583.775,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_598.615s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 598.615,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_599.865s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 599.865,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_6.84s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 6.84,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_600.06s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 600.06,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_601.485s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 601.485,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_601.635s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 601.635,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_66.09s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 66.09,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_7.5s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 7.5,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_8.005s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 8.005,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_8.175s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 8.175,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_8.23s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 8.23,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_8.31s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 8.31,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_8.36s.log",
+      "sha256": "becbad095fb23a669328774f96a3be7425c77c2ab0e8110b7520eeb8cb787d24",
+      "bytes": 189,
+      "filename_time_s": 8.36,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0.001",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_8.425s.log",
+      "sha256": "4d7c1fb83c33330826dabcdafbda75d66034d365818143d71fadaaafd292063f",
+      "bytes": 177,
+      "filename_time_s": 8.425,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Triple-based STDP",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_9.25s.log",
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "bytes": 185,
+      "filename_time_s": 9.25,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "5"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/calculate_9.68s.log",
+      "sha256": "3de7db72974213a32c8466183e9be4c1f242fdebeb41a9772ff99c80d4ffc7be",
+      "bytes": 185,
+      "filename_time_s": 9.68,
+      "fields": {
+        "Step": "0.5",
+        "Spike velocity": "0.05",
+        "Noise sigma": "0",
+        "Learning rate": "0",
+        "Alfa learn": "1"
+      },
+      "rule_text": "Pair-based STDP (classic)",
+      "minus_plus_off": true
+    }
+  ],
+  "other_small_snapshots": [
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/0s.net",
+      "sha256": "b501fc7551473cdd4a05e29589032e6c49bd5300ad54b4baddc166c4da512540",
+      "bytes": 2168,
+      "model_time_ms": 0.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/10.73s.net",
+      "sha256": "1caeaa399e778e15d8719376444c823e460cd0c9374937ad3495bf9f7a37d316",
+      "bytes": 2407,
+      "model_time_ms": 10730.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/10.785s.net",
+      "sha256": "d9353a225e8c132d1d73104b9e4a0d5033fcef9ee945bdb5a4d70415fd1d4d2b",
+      "bytes": 2328,
+      "model_time_ms": 10785.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/105.32s.net",
+      "sha256": "722f657e32dd55ded74b7d447f637e73122d0e592daf1602b82f25dbbb24a533",
+      "bytes": 2385,
+      "model_time_ms": 105320.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.118683
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/105.79s.net",
+      "sha256": "2ee26e393fe0c4844a58c1bf82fd931bd3e0d680f2c782a89aabf45dc8e6e4c5",
+      "bytes": 2415,
+      "model_time_ms": 105790.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.140292
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/105.94s.net",
+      "sha256": "c4d7960bacfcacf481de17526869344f3b9840177d8250aefdc41080363ac8e5",
+      "bytes": 2412,
+      "model_time_ms": 105940.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1141
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/106.5s.net",
+      "sha256": "0f249f8e00063bdb74d3ece2d58f338129fa5b364b62b42b6063f57facc2b48b",
+      "bytes": 2326,
+      "model_time_ms": 106500.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.335617
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/106.61s.net",
+      "sha256": "703c592af08b0b32799ab1f739485faae624592fb991448bafc30bdfbb7e18fb",
+      "bytes": 2331,
+      "model_time_ms": 106610.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.335617
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/106.745s.net",
+      "sha256": "dc3a037bcc0a8b09bf9fc9c79ac7ccd06b1bcc7d817894107421c3301dc0fb27",
+      "bytes": 2324,
+      "model_time_ms": 106745.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.335617
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/106.88s.net",
+      "sha256": "247ee532634cf8b0237f0c6b810812298e34ac04d83cfe9cf9052fc9fb67409c",
+      "bytes": 2326,
+      "model_time_ms": 106880.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.335617
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107.535s.net",
+      "sha256": "f3545d8313e727ba0357c36ea2b90003a6639e6cc9cd4b4d82afc4c9bea124f8",
+      "bytes": 2367,
+      "model_time_ms": 107535.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.999748
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107.91s.net",
+      "sha256": "caa4ad30f577f6eb070dbb46fa28965b3087b53b974d24823d9a12a55280967f",
+      "bytes": 2351,
+      "model_time_ms": 107910.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.999748
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107.945s.net",
+      "sha256": "8f7e91e85adc5f6625ccd96deb40e28bca8d70e9ab3bba10c38a70b2d2cda620",
+      "bytes": 2371,
+      "model_time_ms": 107945.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.5437
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/107s.net",
+      "sha256": "c9bc17840f792f70eb888f7ff13ae0729c89fb9eb261bda092b8897ae3a3efd3",
+      "bytes": 2326,
+      "model_time_ms": 107000.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.335617
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/108.445s.net",
+      "sha256": "7d1062a21b849e83cde331949607e7023455173528d4209e061cf20927d96a10",
+      "bytes": 2373,
+      "model_time_ms": 108445.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.459589
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.145s.net",
+      "sha256": "1004e4de2237485917f9c5510cf21797248e4b6aca3517c105c856e516487e6e",
+      "bytes": 2368,
+      "model_time_ms": 109145.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.0157814
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.16s.net",
+      "sha256": "b3e13949fa58c580540e8a70b3d6dd52c2d617f96e62dd2ed9d6fc7d273d0f34",
+      "bytes": 2318,
+      "model_time_ms": 109160.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.153155
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.185s.net",
+      "sha256": "40bb001974f35c3d58438f56e65937ef1ce3fe5f108f163c6b2564f585b2241a",
+      "bytes": 2380,
+      "model_time_ms": 109185.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.147829
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.325s.net",
+      "sha256": "fe786ee356d43117be66ae3f2cd60f43e46eeeb6e76380b5138f134043e2f416",
+      "bytes": 2383,
+      "model_time_ms": 109325.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.119444
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.665s.net",
+      "sha256": "98947fab17065170e1a9d95943b1f3c0913e84e079bc062540d24ad9acd4e5a5",
+      "bytes": 2425,
+      "model_time_ms": 109665.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.141625
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.705s.net",
+      "sha256": "f29494702bfea7e22a64ebce7607d5cf25e2fe0a389d7be59a0e468fc0281a1c",
+      "bytes": 2413,
+      "model_time_ms": 109705.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1523
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/109.81s.net",
+      "sha256": "a17da3697cf9af0a7debecd10252df682b49ef9bd8059e7d1ac4475d20a1d3ef",
+      "bytes": 2410,
+      "model_time_ms": 109810.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.0887917
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/11.675s.net",
+      "sha256": "0366aacfd86a0521a37069b7e8a67364c533a9b07ed8523bbba033858a95596e",
+      "bytes": 2405,
+      "model_time_ms": 11675.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/111.09s.net",
+      "sha256": "72a85b295b776a11621f6a24744c54e7e324917df90911ee55e0313e01cfabfd",
+      "bytes": 2338,
+      "model_time_ms": 111090.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          8.03577e-05
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/111.82s.net",
+      "sha256": "7b5483821af533b93ea8eeaaf2b9488dfbb047b03a28acd978d3b6070ccb052b",
+      "bytes": 2353,
+      "model_time_ms": 111820.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          8.03577e-05
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/16.7s.net",
+      "sha256": "457dc80aea839fb0b9b98ca9230cf851d774928347035c72b5a851272877199f",
+      "bytes": 2408,
+      "model_time_ms": 16700.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/17.775s.net",
+      "sha256": "820a4f3416d9aca101e85ffea8f20286569b94ad52907bbb2f1b578fca96f79d",
+      "bytes": 3012,
+      "model_time_ms": 17775.0,
+      "neuron_ids": [
+        5.0,
+        6.0,
+        7.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ],
+        [
+          6,
+          7.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/18.515s.net",
+      "sha256": "7cd09db3252dd1e3c923692565d1b7fd04bf5bdaf0e43fd4f7c9182d4ad2f704",
+      "bytes": 3081,
+      "model_time_ms": 18515.0,
+      "neuron_ids": [
+        5.0,
+        6.0,
+        7.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ],
+        [
+          6,
+          7.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/19.895s.net",
+      "sha256": "1baf359ca9c0c9213db267a35c81233f2ac8542ed9eb1c3d7c40551d3c29484d",
+      "bytes": 3163,
+      "model_time_ms": 19895.0,
+      "neuron_ids": [
+        5.0,
+        6.0,
+        7.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ],
+        [
+          6,
+          7.0,
+          0.1
+        ],
+        [
+          5,
+          7.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/224.45s.net",
+      "sha256": "448c152e3bd438c2927368496872b9a89488148a54a0a2d20fddbae38feda53b",
+      "bytes": 1950,
+      "model_time_ms": 224450.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/26.91s.net",
+      "sha256": "00fb166cb80a1fd8750f92026549d6b83f02a4eb30a07d134b010fe847b0ed95",
+      "bytes": 2407,
+      "model_time_ms": 26910.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.109802
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/32.42s.net",
+      "sha256": "3c0cb84ce21a0b9ebff4d5a9e57008af3e22c5ce8a1e50cc72d296ad11e51193",
+      "bytes": 3290,
+      "model_time_ms": 32420.0,
+      "neuron_ids": [
+        5.0,
+        6.0,
+        7.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ],
+        [
+          6,
+          7.0,
+          0.1
+        ],
+        [
+          5,
+          7.0,
+          0.106812
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/451.095s.net",
+      "sha256": "f53357a433ccca5ce850c30a0a9702c0eab4126bc50f1f8cbf27ee84751c29f3",
+      "bytes": 1945,
+      "model_time_ms": 451095.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/479.635s.net",
+      "sha256": "f1703fa1d4d26c1b33b9e45e5d2e77e96a4ebda70ad13aa18dd6a25386874167",
+      "bytes": 1954,
+      "model_time_ms": 479635.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/48.535s.net",
+      "sha256": "bede3bd97acf72dd7c8746bdd25e4470d06d924db5e8e5c0c1f295e596cf7402",
+      "bytes": 2432,
+      "model_time_ms": 48535.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.106379
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/525.565s.net",
+      "sha256": "0a7cc689b4f33bd42d3196bfd74aad3494878c06ff6f7b54ad9ea0c5961311e1",
+      "bytes": 1973,
+      "model_time_ms": 525565.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/53.99s.net",
+      "sha256": "65e6683352593a3a7c6e8450957626efa2220e9749b234f40e764237dadfea53",
+      "bytes": 1955,
+      "model_time_ms": 53990.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/569.56s.net",
+      "sha256": "1da4bd96a447429698f4b7d1ca59952ae9e3f100297666cd02ae4fd50f0ce825",
+      "bytes": 1927,
+      "model_time_ms": 569560.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/577.285s.net",
+      "sha256": "c3864a96f6131339181a523527634bdb72f8dfbaea618e15f43b313339b7047c",
+      "bytes": 1940,
+      "model_time_ms": 577285.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/578.05s.net",
+      "sha256": "bd141aa1ff2b46de7feca341726732180770e8dce9d32de0012b92eb2cfcf723",
+      "bytes": 1933,
+      "model_time_ms": 578050.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/578.74s.net",
+      "sha256": "09a4cff6ff778d3e8f9c3a0530e30fceccf4bda3bcfb31998ad424ece8358317",
+      "bytes": 1928,
+      "model_time_ms": 578740.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/581.945s.net",
+      "sha256": "3939c34bed4f36d8c3ed8ce72e62a316a7bd0a5ea5919350f0a0d203bb0668b5",
+      "bytes": 1948,
+      "model_time_ms": 581945.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/583.775s.net",
+      "sha256": "d636e785ee20d5d524fd7a0c7474c19e5979ccf1eaeef3395ef961ea3cedf645",
+      "bytes": 1948,
+      "model_time_ms": 583775.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/598.615s.net",
+      "sha256": "fa1713e58ed6005ccb1bc4e97980235180a2c2385e0f16f9f58dae7ac8e3ac52",
+      "bytes": 1950,
+      "model_time_ms": 598615.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/599.865s.net",
+      "sha256": "bf84d966d0cc6608466c8fc7ace92f8a96f9c0cb50caf583c2d6eb06c22cf8d4",
+      "bytes": 1950,
+      "model_time_ms": 599865.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/6.84s.net",
+      "sha256": "3bf451955666641830b67ec4067064af93e19286965ce888daca2b4c57a2efaa",
+      "bytes": 2357,
+      "model_time_ms": 6840.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/600.06s.net",
+      "sha256": "3cbe7565afd482e6c050c867770c15bd102d1424b727d8263bb0d84b3ae76e93",
+      "bytes": 1946,
+      "model_time_ms": 600060.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/601.485s.net",
+      "sha256": "62a90608ed321b4b71a59b564f5d8db06b6d295462278c7f7f112fb8bf6b02e6",
+      "bytes": 1950,
+      "model_time_ms": 601485.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/601.635s.net",
+      "sha256": "87f5b7e83da46c27e30b521dabb0a996fd6dbbf1e5c17e347801b47d43ea77ac",
+      "bytes": 1950,
+      "model_time_ms": 601635.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/601.77s.net",
+      "sha256": "74985f2f15acc94cfc59c6db6ab3c191e0a9c032d3387287ea17188b1051dabc",
+      "bytes": 1943,
+      "model_time_ms": 601770.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/66.09s.net",
+      "sha256": "81b9402591c927d35936cb61c369c5473d5507ab2ba3d12938a667673f4314cb",
+      "bytes": 1939,
+      "model_time_ms": 66090.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/7.5s.net",
+      "sha256": "f7e112899ebe23efa71f3648abbe6c1a552c46398e2bce7dc83964223a24bec7",
+      "bytes": 2333,
+      "model_time_ms": 7500.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/8.005s.net",
+      "sha256": "450eb76c6c8079c57bb1cdbaa372d479c6d6da82bd6560213a975879d984867a",
+      "bytes": 2347,
+      "model_time_ms": 8005.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/8.175s.net",
+      "sha256": "e29f40dcabe1fc11e1d04623e74a87229b7aa234f7856d64fd20b93c5845c8c2",
+      "bytes": 2326,
+      "model_time_ms": 8175.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/8.23s.net",
+      "sha256": "33ad6714049b5fc2ea604beb43645d22f70ff46c524045ba6633de0e6a9d6465",
+      "bytes": 2319,
+      "model_time_ms": 8230.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/8.31s.net",
+      "sha256": "f6243235e42fc1ff5a85dcc71b8e34cde7deb19754c2318b33f53821ca85b120",
+      "bytes": 2342,
+      "model_time_ms": 8310.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/8.36s.net",
+      "sha256": "ec14e770531e187f21afa4b42c286867e4ea987fd52f738d0367c349627c6d68",
+      "bytes": 2323,
+      "model_time_ms": 8360.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/8.425s.net",
+      "sha256": "d8581ed8c7f7d6f7899938b9053b931fff62e123ee44bc49210ceeee9197706b",
+      "bytes": 2417,
+      "model_time_ms": 8425.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/9.25s.net",
+      "sha256": "8d99f31297a13b97283382d1de9907dd777fd32094b417367447a06d2f0334db",
+      "bytes": 2361,
+      "model_time_ms": 9250.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/9.68s.net",
+      "sha256": "749c9f39017be8490b033f6b7ad6d3516b2a011570f55d56154279d1b9476cd3",
+      "bytes": 2414,
+      "model_time_ms": 9680.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.1
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/99.355s.net",
+      "sha256": "2f0c379a2bdf30f66efd9308de63bbeda5d09ec88e8a4b338e0e3701b662c3ad",
+      "bytes": 2383,
+      "model_time_ms": 99355.0,
+      "neuron_ids": [
+        5.0,
+        6.0
+      ],
+      "weights": [
+        [
+          5,
+          6.0,
+          0.501333
+        ]
+      ]
+    },
+    {
+      "path": "C:/Users/N1kit/Downloads/1_NeuroNet/1_NeuroNet/3/lab3_task1.net",
+      "sha256": "74985f2f15acc94cfc59c6db6ab3c191e0a9c032d3387287ea17188b1051dabc",
+      "bytes": 1943,
+      "model_time_ms": 601770.0,
+      "neuron_ids": [
+        1.0,
+        2.0
+      ],
+      "weights": [
+        [
+          1,
+          2.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "interpretation_notes": [
+    "Model time in .net is milliseconds; filename/display time is seconds. A result timestamp is not an elapsed training duration.",
+    "Each interval table voltage applies up to that row's end time; Pulse_amplitude/Pulse_duration are different controls and do not specify rhythmic pulses.",
+    "STDP_YES is per-neuron permission; pair/triplet, learning rate, asymmetry and global noise are absent from .net and occur in calculation logs / screenshots.",
+    "Log filename is an observed time label, not independently proven learning start or end. Exact-name time association does not prove uninterrupted mode.",
+    "Initial x in GUI is resource total/scaling; serialized parameter_x is current available resource. x+Output+z approximately conserves that total.",
+    "refractory_time=1 is serialized but GUI Izh label is Spike showing=1; real hard refractory behavior is not established by this field alone.",
+    "Output_deque serializes delayed signal history. Mapping of velocity/geometry to transmission delay and pairing event time is not established.",
+    "No local source files cpp/c/h/hpp/pas/dfm/dpr/cs were found under Downloads/1_NeuroNet. Numerical method and trace ordering cannot be derived from file names.",
+    "Manual p27 direct path text 1->2 conflicts with common endpoints of 1->2->3; figures and report imply 1->3. Report realizes 5->7."
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "cli_sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+  "reference": "Exact capacitor integral, all ionic conductances zero; no spike events.",
+  "rows": [
+    {
+      "start_us": 101,
+      "width_us": 10,
+      "dt_us": 25,
+      "exact_final_voltage_mV": -64.0,
+      "cli_final_voltage_mV": -65.0,
+      "voltage_error_mV": -1.0,
+      "delivered_charge_ratio": 0.0
+    },
+    {
+      "start_us": 101,
+      "width_us": 10,
+      "dt_us": 12.5,
+      "exact_final_voltage_mV": -64.0,
+      "cli_final_voltage_mV": -63.75,
+      "voltage_error_mV": 0.25,
+      "delivered_charge_ratio": 1.25
+    },
+    {
+      "start_us": 101,
+      "width_us": 10,
+      "dt_us": 5,
+      "exact_final_voltage_mV": -64.0,
+      "cli_final_voltage_mV": -64.0,
+      "voltage_error_mV": 0.0,
+      "delivered_charge_ratio": 1.0
+    },
+    {
+      "start_us": 101,
+      "width_us": 10,
+      "dt_us": 1,
+      "exact_final_voltage_mV": -64.0,
+      "cli_final_voltage_mV": -64.00000000000006,
+      "voltage_error_mV": -5.684341886080802e-14,
+      "delivered_charge_ratio": 0.9999999999999432
+    },
+    {
+      "start_us": 110,
+      "width_us": 10,
+      "dt_us": 25,
+      "exact_final_voltage_mV": -64.0,
+      "cli_final_voltage_mV": -62.5,
+      "voltage_error_mV": 1.5,
+      "delivered_charge_ratio": 2.5
+    },
+    {
+      "start_us": 110,
+      "width_us": 10,
+      "dt_us": 12.5,
+      "exact_final_voltage_mV": -64.0,
+      "cli_final_voltage_mV": -63.75,
+      "voltage_error_mV": 0.25,
+      "delivered_charge_ratio": 1.25
+    },
+    {
+      "start_us": 110,
+      "width_us": 10,
+      "dt_us": 5,
+      "exact_final_voltage_mV": -64.0,
+      "cli_final_voltage_mV": -64.0,
+      "voltage_error_mV": 0.0,
+      "delivered_charge_ratio": 1.0
+    },
+    {
+      "start_us": 110,
+      "width_us": 10,
+      "dt_us": 1,
+      "exact_final_voltage_mV": -64.0,
+      "cli_final_voltage_mV": -64.00000000000006,
+      "voltage_error_mV": -5.684341886080802e-14,
+      "delivered_charge_ratio": 0.9999999999999432
+    }
+  ],
+  "decay_rows": [
+    {
+      "dt_us": 25,
+      "release_time_s": 2.4999999999999998e-05,
+      "initial_Y_uM": 500.0,
+      "final_Y_uM": 1.099946589891779e+47,
+      "exact_final_Y_uM": 1.0269422770204129e-82,
+      "grew_after_release": true,
+      "max_Y_uM": 1.099946589891779e+47,
+      "successful_cli_exit": true
+    },
+    {
+      "dt_us": 12.5,
+      "release_time_s": 1.2499999999999999e-05,
+      "initial_Y_uM": 500.0,
+      "final_Y_uM": 6.863595800829805e-13,
+      "exact_final_Y_uM": 8.42965553960417e-84,
+      "grew_after_release": false,
+      "max_Y_uM": 500.0,
+      "successful_cli_exit": true
+    },
+    {
+      "dt_us": 5,
+      "release_time_s": 4.9999999999999996e-06,
+      "initial_Y_uM": 500.0,
+      "final_Y_uM": 8.53477904321576e-83,
+      "exact_final_Y_uM": 1.8809103905480304e-84,
+      "grew_after_release": false,
+      "max_Y_uM": 500.0,
+      "successful_cli_exit": true
+    },
+    {
+      "dt_us": 1,
+      "release_time_s": 4e-06,
+      "initial_Y_uM": 500.0,
+      "final_Y_uM": 1.544800583506123e-84,
+      "exact_final_Y_uM": 1.5399591805256075e-84,
+      "grew_after_release": false,
+      "max_Y_uM": 500.0,
+      "successful_cli_exit": true
+    }
+  ],
+  "finding": "Valid sub-step stimuli can be completely missed or have 2.5 times their specified charge at dt=25us.",
+  "scope": "Input quadrature/validation limitation, not an error in HH differential equations.",
+  "decay_finding": "Allowed Omega_Y=200000/s with dt=25us silently grows decaying Y: RK4 stability is not checked against editable rates.",
+  "code": [
+    "network.cpp:118-120",
+    "network.cpp:208-210",
+    "network.cpp:332-340"
+  ],
+  "source": "https://computing.llnl.gov/projects/sundials/usage-notes"
+}

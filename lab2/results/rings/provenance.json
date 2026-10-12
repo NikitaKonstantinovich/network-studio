@@ -1,0 +1,535 @@
+{
+  "cli_filename": "network_studio_cli.exe",
+  "cli_sha256": "0facadb2e952a11ec034ee172b5a9fd913009b6e5830fc41c59ac0d0bf07b99d",
+  "script_sha256": "04bc1ab4681a4773e332aa8d24b876751ebe8c06bd85113b4befbfed49759f7a",
+  "python_version": "3.12.14",
+  "raw_outputs_are_ignored": true,
+  "core_sources_sha256": {
+    "network.cpp": "5755b020351fa63f31111fc2ba28af8e2fafda48ba0ffb57c866820d36131937",
+    "network.h": "b132486b7b9bd2863a4f9764afe8ca15c43205ef585851f411acf9fac91b1cd3",
+    "io.cpp": "32dda45a7e0208e9525ca42d31819be68e2615a905833b88313141b910fc3e31"
+  },
+  "all_config_snapshots_exact": true,
+  "all_runs_complete": true,
+  "all_traces_finite": true,
+  "all_event_counts_match_summaries": true,
+  "all_static_weights_unchanged": true,
+  "runs": {
+    "tm_n03_w1": {
+      "config": "configs/rings/tm_n03_w1.json",
+      "config_sha256": "a8e80ac77d1e5f9b9b0ec33ea86de7034c2047c3adeb1293089ab7ce63203419",
+      "files": {
+        "results/rings/raw/tm_n03_w1_experiment.json": "d51072d61af29ba60bea10228f821015caa2e82b9beb101780b00dc1ebebeca7",
+        "results/rings/raw/tm_n03_w1_summary.json": "2c6916ef239b127eab98cb8ce5c1b9eb7df6ddc29030e8daa1d06b3acb682f82",
+        "results/rings/raw/tm_n03_w1_events.csv": "aad5e24df015586a3dfb5e822d3117d1f8a4cada69b499b20ad21f10d40ae2bf",
+        "results/rings/raw/tm_n03_w1_trace.csv": "88c1e85a571fcf34d81405eb8de7656f9219de2ec7a11fb1533b5816280838be",
+        "results/rings/raw/tm_n03_w1_weights.csv": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "results/rings/raw/tm_n03_w1_cli.log": "ecc96e4fb60beaab837f16e63ab06a1246f7cf7cca9f0afc21283398515398fc"
+      }
+    },
+    "tm_n04_w1": {
+      "config": "configs/rings/tm_n04_w1.json",
+      "config_sha256": "701797ad45ee6f4025098578b460e2b32ca94c120210b9ba939e10b6234f5a99",
+      "files": {
+        "results/rings/raw/tm_n04_w1_experiment.json": "caa670db4e1f2f4f400be6fc34e1b49981428c1f67c5865656855a747abe44fd",
+        "results/rings/raw/tm_n04_w1_summary.json": "25b290c87a6353c040fab41c9a680a7517ba65b2407eabbfea7fc4fc51c7281b",
+        "results/rings/raw/tm_n04_w1_events.csv": "59c7ab5bc0e9916241406ee98e1ffb3ae7eae543cbdc344241422e1a4793ecef",
+        "results/rings/raw/tm_n04_w1_trace.csv": "0d74ff8f481d6d8c6b4b8441ba4815697a950375c9060fdf3d0cca56a79b1b01",
+        "results/rings/raw/tm_n04_w1_weights.csv": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "results/rings/raw/tm_n04_w1_cli.log": "fac8037a86ff8a2aaf749df0caa2bffcc9be724b3cc76d625597875f6df724ab"
+      }
+    },
+    "tm_n05_w1": {
+      "config": "configs/rings/tm_n05_w1.json",
+      "config_sha256": "ce96695aef01b30be64925a8ecf68e416b662816d7ed12def86bf4a99dd7b9a4",
+      "files": {
+        "results/rings/raw/tm_n05_w1_experiment.json": "44e37c359a343ffa3e643fa08f55043100f09b847eb1f74edf7c17fb046344af",
+        "results/rings/raw/tm_n05_w1_summary.json": "b2e2837b4a48a4870fee5472e26a35b9ab92e8cebd50f1a6bba91fc3db877d5b",
+        "results/rings/raw/tm_n05_w1_events.csv": "a67429d469eebd85539b4f38897c3e06696f702b867b5216a4b7e0aaeefb4a7a",
+        "results/rings/raw/tm_n05_w1_trace.csv": "dcf1291adc78a1f112d8fc83409c82f038f8cf973390b4f17a3125f634180909",
+        "results/rings/raw/tm_n05_w1_weights.csv": "c64c52ae433c46f263f77ae5edd15591de901a279cf6169c97e96d435a6bd2e2",
+        "results/rings/raw/tm_n05_w1_cli.log": "f8090f32de3d270f5a37488d2540c96a904ea30f9e9e7169315f0d5f53032265"
+      }
+    },
+    "tm_n06_w1": {
+      "config": "configs/rings/tm_n06_w1.json",
+      "config_sha256": "e0acf4da10d9c5173d8961fd72ba3ff27f2750ca45c02a75fc04824695d62c7e",
+      "files": {
+        "results/rings/raw/tm_n06_w1_experiment.json": "c45b1c5de1b1fc4f519b66bd8198f9dd809bd569f3df9ecfdde01c47efda84dd",
+        "results/rings/raw/tm_n06_w1_summary.json": "16b8abc692760c2e87068096749073dbd8ca66b4890fd656618b208a20ae2a76",
+        "results/rings/raw/tm_n06_w1_events.csv": "32f4ea37359a7c904aa13b75ce2e528a228c484082b0aabee2f67d1cb5ba379d",
+        "results/rings/raw/tm_n06_w1_trace.csv": "5abf770566b2e725647c140e5911e5786ecca3ef7ebf8e4142b25c5aeddce453",
+        "results/rings/raw/tm_n06_w1_weights.csv": "ffbe6008539991cdf239aae443dbae1165a4fa0610d83ab5d3a234da12d8b1f7",
+        "results/rings/raw/tm_n06_w1_cli.log": "cd91d59f30013194f5ae9ec5b5b4e6b40d769d5eef8faaf1ff8e6270d5939e77"
+      }
+    },
+    "tm_n07_w1": {
+      "config": "configs/rings/tm_n07_w1.json",
+      "config_sha256": "1a19b9e42bb2f60b624d16844d45f29f351e9cd8b290d61a9e50da053ccbd913",
+      "files": {
+        "results/rings/raw/tm_n07_w1_experiment.json": "1c5b539a608ef47a80ea02c6c2dac3281b4b3bb46234d5015fcab9ef2233d86a",
+        "results/rings/raw/tm_n07_w1_summary.json": "2cd24dd8f21f360dcf59f8f6ac32e0a4938cc3a06740d3d8804fb3967fd36f3b",
+        "results/rings/raw/tm_n07_w1_events.csv": "769a2a10fc1536a9de5b20346ee0cf2cb15f02789d9a1e4461c7ecc615ad76ab",
+        "results/rings/raw/tm_n07_w1_trace.csv": "3d7b9e5bbec2e76648c1085053e98b34606596531548eb4bd09705dec6f14e5d",
+        "results/rings/raw/tm_n07_w1_weights.csv": "5a5954c290fba057f1fa8e91b438c9392fac6fd8258a3034280225b9eaa5f8d5",
+        "results/rings/raw/tm_n07_w1_cli.log": "f5d08a481889b709d7465424b4e56b1badec3cd5122cb269f8ed8e3c41a81274"
+      }
+    },
+    "tm_n08_w1": {
+      "config": "configs/rings/tm_n08_w1.json",
+      "config_sha256": "df828167f8284ba4459f41122e684b03c88204b6e3e7f5e0b130c8a4b2e08029",
+      "files": {
+        "results/rings/raw/tm_n08_w1_experiment.json": "eec5cd668471500a1cf1257ee82ea1b9c07745d80c9ad042c9d572ebccf934b5",
+        "results/rings/raw/tm_n08_w1_summary.json": "b3209d341ea079106b83823bcd427cd3bf7e51af9b2011525910977eef08efac",
+        "results/rings/raw/tm_n08_w1_events.csv": "382b0ab8c0b09c13f16dbc8e104290b9f0672a84406a133b8a4642ebc83efbf6",
+        "results/rings/raw/tm_n08_w1_trace.csv": "77e7106fd1f3a5ef5dca2bb2306748732bd05fdc4c48b0d0fa2adfc4f2ca5a35",
+        "results/rings/raw/tm_n08_w1_weights.csv": "b123f9b7f0cbf3d9152a7dc6e224dd27334f74b8ed5bd7df444e5255b0af19e5",
+        "results/rings/raw/tm_n08_w1_cli.log": "de325cd91f31f2752db216766fe855dd607772cbf04098f22fc3d6e4246ec411"
+      }
+    },
+    "tm_n09_w1": {
+      "config": "configs/rings/tm_n09_w1.json",
+      "config_sha256": "255b768bc8d401974d928f543a3f0f53e3cfdeb8621b510838653618244b3488",
+      "files": {
+        "results/rings/raw/tm_n09_w1_experiment.json": "01b7f609d45e327f451f97877dba4492bdc596dba5893ded89f692f329c371b3",
+        "results/rings/raw/tm_n09_w1_summary.json": "e647dcf6a779e7ae7ecf54438a56203de58a6fb00c09f699eada4a56fd35ee7f",
+        "results/rings/raw/tm_n09_w1_events.csv": "4f6baf8d683c6783d77fe33711a4dd6c1914b587f6dc4b68af25fa5f62124932",
+        "results/rings/raw/tm_n09_w1_trace.csv": "3ad58baee55cab58ebe476fd481bc4bc4a54b1c18197172b07d174d89eef3801",
+        "results/rings/raw/tm_n09_w1_weights.csv": "eb6a2ce00ced901e71828a5831baf9ae876568620f8d736b92fe26838243994d",
+        "results/rings/raw/tm_n09_w1_cli.log": "eb2fe08c0b89486b3061629c1a8a62ccba8493d75ee87a36c17f55e90240cdf5"
+      }
+    },
+    "tm_n10_w1": {
+      "config": "configs/rings/tm_n10_w1.json",
+      "config_sha256": "362710251807afc2e59c65f88c5aceb2ea6b43c6b88207e584d3bbd4419c4310",
+      "files": {
+        "results/rings/raw/tm_n10_w1_experiment.json": "1608aa86c10b5b8447d28156a1c9d1ad1b7cb004d51cb0bd2b24917f8eecac6a",
+        "results/rings/raw/tm_n10_w1_summary.json": "a2393297e4b1d1d5b72dcbf3903166c13f92f20b0cfe2c1965351d41e02a69c4",
+        "results/rings/raw/tm_n10_w1_events.csv": "3876971377979526f9235331bfea4a7bab153ccbced41a181b5c479700060909",
+        "results/rings/raw/tm_n10_w1_trace.csv": "589d4caa857bd0c869dd2f70f753aad5da4b08a1007ff3a39002de1e2d991070",
+        "results/rings/raw/tm_n10_w1_weights.csv": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "results/rings/raw/tm_n10_w1_cli.log": "b101fba4ccf750025b2c8c6a72a002316a40052f1d737d975ced5c869a0f99c4"
+      }
+    },
+    "tm_n10_w0p7": {
+      "config": "configs/rings/tm_n10_w0p7.json",
+      "config_sha256": "b0611b0c99751595477511104efe41ba54653ff46ba31cd5db31262ead464ae9",
+      "files": {
+        "results/rings/raw/tm_n10_w0p7_experiment.json": "3cd29aaf3f9bb6b8daac5c2079faf96f0463237bdb8224274f9c436228848aa5",
+        "results/rings/raw/tm_n10_w0p7_summary.json": "bad997b818211af74ed3c031484fe8b13dd27f8a2fca173b59476fbc21be1147",
+        "results/rings/raw/tm_n10_w0p7_events.csv": "40be07291e88e6a0fd3908eba0ca6ed068235ad1f16f4e61f30670dae8fdf240",
+        "results/rings/raw/tm_n10_w0p7_trace.csv": "6609165a03768301403235476bad9ebd368923f7ccba88721fa1006f7773fab3",
+        "results/rings/raw/tm_n10_w0p7_weights.csv": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "results/rings/raw/tm_n10_w0p7_cli.log": "b101fba4ccf750025b2c8c6a72a002316a40052f1d737d975ced5c869a0f99c4"
+      }
+    },
+    "tm_n10_w0p5": {
+      "config": "configs/rings/tm_n10_w0p5.json",
+      "config_sha256": "afc2f99ffb4d1c074034f317d021a15c30e7a3cd65005ce7de0133c95ad4c7f2",
+      "files": {
+        "results/rings/raw/tm_n10_w0p5_experiment.json": "eb7a3f4f1d85641200a884a182866f4fc24c72be12213c5cadea2833664cfcc1",
+        "results/rings/raw/tm_n10_w0p5_summary.json": "714e60d406e9cf1203da8d6887a75a7b8d79f762e4021d724093f72d1c69b030",
+        "results/rings/raw/tm_n10_w0p5_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/tm_n10_w0p5_trace.csv": "0363954f6f0614c9baa0302ac1144c27507b2b2f2b388c7c1f015414549f83a9",
+        "results/rings/raw/tm_n10_w0p5_weights.csv": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+        "results/rings/raw/tm_n10_w0p5_cli.log": "e1d0ffc81d80bb58432a22cef47ba86be2fd856934bc1de5e73a9500c29dae09"
+      }
+    },
+    "tm_n10_w0p2": {
+      "config": "configs/rings/tm_n10_w0p2.json",
+      "config_sha256": "9f45c8e8faf380137855b14c8d4f2260c792c4a4c2959aee80f65b64d97d44af",
+      "files": {
+        "results/rings/raw/tm_n10_w0p2_experiment.json": "cf87ec35b9755b822824aa5af2da08bf5ea406d27a272961e6e830ab91334dad",
+        "results/rings/raw/tm_n10_w0p2_summary.json": "44e67b4043d02f62ecdd5f9c74b0f81ecfae6f1ab24094910fe785702ae5f6e4",
+        "results/rings/raw/tm_n10_w0p2_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/tm_n10_w0p2_trace.csv": "73aa0cfce4d7b72bb2367b5a326aeb85780668cc02868f218f026f9add46dec4",
+        "results/rings/raw/tm_n10_w0p2_weights.csv": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+        "results/rings/raw/tm_n10_w0p2_cli.log": "e1d0ffc81d80bb58432a22cef47ba86be2fd856934bc1de5e73a9500c29dae09"
+      }
+    },
+    "tm_n10_w0": {
+      "config": "configs/rings/tm_n10_w0.json",
+      "config_sha256": "bba8914ef8afbf73d412c31e2ddd8e1ab4b5f5e230bfab33ae3dea38f96e99bb",
+      "files": {
+        "results/rings/raw/tm_n10_w0_experiment.json": "ee374c792ca2b744b742097e8a55fb25028d6f37e60615f4d415cbd67e3b9104",
+        "results/rings/raw/tm_n10_w0_summary.json": "5b2f016e382e72ccc54884f7b431610fb0ef64b300ad04eb4e1834a7b4d36c74",
+        "results/rings/raw/tm_n10_w0_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/tm_n10_w0_trace.csv": "863efde72be03d4ec4ca444362f9b71c9376b55f1cbcfb69898547b9dbc80778",
+        "results/rings/raw/tm_n10_w0_weights.csv": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+        "results/rings/raw/tm_n10_w0_cli.log": "e1d0ffc81d80bb58432a22cef47ba86be2fd856934bc1de5e73a9500c29dae09"
+      }
+    },
+    "tm_n03_w1_dt12p5us": {
+      "config": "configs/rings/tm_n03_w1_dt12p5us.json",
+      "config_sha256": "2f6fda5791eadf3623638050edc1dfd9b55ac50c69126ccd73fe4f731fc47321",
+      "files": {
+        "results/rings/raw/tm_n03_w1_dt12p5us_experiment.json": "d00b42716653d89d09992f2ccf65e78a2fefb5b3eef2e65ebd621d305024ee9c",
+        "results/rings/raw/tm_n03_w1_dt12p5us_summary.json": "5aac6de96ffb832797dbb2f00ba0eab6aadc103b01b7fa3829fbc6f40294801f",
+        "results/rings/raw/tm_n03_w1_dt12p5us_events.csv": "71eb05af3ba887dea5dcef0639a5ce5273514922fa7bb6a5ff3b378129446141",
+        "results/rings/raw/tm_n03_w1_dt12p5us_trace.csv": "912d7549cb72af9850426c54c00b7c5a15eecc5a4cd2d391dfac35c855a6ee1f",
+        "results/rings/raw/tm_n03_w1_dt12p5us_weights.csv": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "results/rings/raw/tm_n03_w1_dt12p5us_cli.log": "840b717b5cc92f9a299e3c8572d0e2b6f87f4acc6bada27c1beaeb0a37f95c5b"
+      }
+    },
+    "tm_n04_w1_dt12p5us": {
+      "config": "configs/rings/tm_n04_w1_dt12p5us.json",
+      "config_sha256": "e0884d67638c19190ceec169e9cb3bb7bd39b6716cba4557ab6ca02fbc169d3a",
+      "files": {
+        "results/rings/raw/tm_n04_w1_dt12p5us_experiment.json": "d7f434caa31f7732ce8b6ac0ee97c6280529738254ad8703da8540d72186a82c",
+        "results/rings/raw/tm_n04_w1_dt12p5us_summary.json": "b490d1e175ca66e32b466b4a1f1b4deac4d86a42a60edb7c8ab8d97aeb48aba8",
+        "results/rings/raw/tm_n04_w1_dt12p5us_events.csv": "1e639954e7afcf43c3de0af189a557b868c1a396b688ba59e1e09016c68fc1db",
+        "results/rings/raw/tm_n04_w1_dt12p5us_trace.csv": "5f407f9962508c11677da24a98dcf4834e867d67b7b176ff3f1b50cf6816018f",
+        "results/rings/raw/tm_n04_w1_dt12p5us_weights.csv": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "results/rings/raw/tm_n04_w1_dt12p5us_cli.log": "37bfb169dda3278f294ebb882afb25de4589dd55fabc7242690f551d23169911"
+      }
+    },
+    "tm_n05_w1_dt12p5us": {
+      "config": "configs/rings/tm_n05_w1_dt12p5us.json",
+      "config_sha256": "f4276f92e04364d34812734e0d53566efe600eb8c4f87d25e8b47998cc31c387",
+      "files": {
+        "results/rings/raw/tm_n05_w1_dt12p5us_experiment.json": "13fedfe8d177f7bf26c2bf0bd618d5e62d98bc669757690434907eca469861f4",
+        "results/rings/raw/tm_n05_w1_dt12p5us_summary.json": "d5559736199a92257bb928aee741c62095cd0ea89e06d530ea398ab1f4bc3951",
+        "results/rings/raw/tm_n05_w1_dt12p5us_events.csv": "9f89f153fe567cbf7601d738787d029b0a7012cbc77db91da229947d1d52e96c",
+        "results/rings/raw/tm_n05_w1_dt12p5us_trace.csv": "fa54ed2aaf6896780e36f6f8c13071d90def9a501e28274cba70cc1b9c614e77",
+        "results/rings/raw/tm_n05_w1_dt12p5us_weights.csv": "c64c52ae433c46f263f77ae5edd15591de901a279cf6169c97e96d435a6bd2e2",
+        "results/rings/raw/tm_n05_w1_dt12p5us_cli.log": "bba27175693f8ab1c340518fb0306b0c3e211ec928c71f630418827420a5fdc7"
+      }
+    },
+    "tm_n06_w1_dt12p5us": {
+      "config": "configs/rings/tm_n06_w1_dt12p5us.json",
+      "config_sha256": "b52599e807411c0119e5eacc47d8a76b238b8fdbeacaeefa4db1789c7abd27b3",
+      "files": {
+        "results/rings/raw/tm_n06_w1_dt12p5us_experiment.json": "981eeff10a8cd4640f4dda3806b8c6010a14caf7f2aa94ccb7c6cab7a05c7872",
+        "results/rings/raw/tm_n06_w1_dt12p5us_summary.json": "fd648c4a0ff14d37d79fcf153f41a5ad9649a1926a99d061399757da55037854",
+        "results/rings/raw/tm_n06_w1_dt12p5us_events.csv": "ae3aa83c5bf8716ee47d3289a11500a054cc116e1bd26097309db853996addab",
+        "results/rings/raw/tm_n06_w1_dt12p5us_trace.csv": "858d472611af9e7a0e5fc9da327eb39fe33819dfd15afbf97b3af81a1b3c8371",
+        "results/rings/raw/tm_n06_w1_dt12p5us_weights.csv": "ffbe6008539991cdf239aae443dbae1165a4fa0610d83ab5d3a234da12d8b1f7",
+        "results/rings/raw/tm_n06_w1_dt12p5us_cli.log": "b3ce48c921ceafdcac69aeed0785bf7bb03c211d68b54a10a6eaf05847aa3263"
+      }
+    },
+    "tm_n07_w1_dt12p5us": {
+      "config": "configs/rings/tm_n07_w1_dt12p5us.json",
+      "config_sha256": "e5db7cbaa926726697b43e69efd2226d064ab4129c0fbb3973b11b409bfec4c3",
+      "files": {
+        "results/rings/raw/tm_n07_w1_dt12p5us_experiment.json": "64a35b82e4d0c3e7bf04c67bf29137575ec7c0f3181f5c80574a8e843dc2ed1d",
+        "results/rings/raw/tm_n07_w1_dt12p5us_summary.json": "783d27ffbd784b6fc5ce161b8bf2cf006074e4d0d9b5fa211e4104f68fa9b51a",
+        "results/rings/raw/tm_n07_w1_dt12p5us_events.csv": "53e8e24c875c6212cbbf71408d3b2ca0b0244abe706115a8574810e20be437c7",
+        "results/rings/raw/tm_n07_w1_dt12p5us_trace.csv": "eca38eef722c0e780780d9c642cd4a886fa9de67050be5e54a59f37274581a6a",
+        "results/rings/raw/tm_n07_w1_dt12p5us_weights.csv": "5a5954c290fba057f1fa8e91b438c9392fac6fd8258a3034280225b9eaa5f8d5",
+        "results/rings/raw/tm_n07_w1_dt12p5us_cli.log": "bfdaf42663df2225fd4973d1007c2f961751baa54cdd1a17e42245bfbfecbbf5"
+      }
+    },
+    "tm_n08_w1_dt12p5us": {
+      "config": "configs/rings/tm_n08_w1_dt12p5us.json",
+      "config_sha256": "92fd09a25f7eb8e516c00048b028f7c515d31d87ddf38a7457578a49d5929275",
+      "files": {
+        "results/rings/raw/tm_n08_w1_dt12p5us_experiment.json": "9d99d9d2ef91092eb02ac1098eebcb64ebf1a823a30d861064398acd9876bc9c",
+        "results/rings/raw/tm_n08_w1_dt12p5us_summary.json": "5b0c67ea44f46d91ffce277c7f16c224d54a2ad2d8b8863a527958d886b0ea0d",
+        "results/rings/raw/tm_n08_w1_dt12p5us_events.csv": "f8e85ce71ba7d98719ab9c3f86f8dbbf28761fa8c89b20df1c09b8ced436ef0a",
+        "results/rings/raw/tm_n08_w1_dt12p5us_trace.csv": "f204e3c70bcb0ca0a2f6548da436974d180a580c238ac854f173624fba52ccd0",
+        "results/rings/raw/tm_n08_w1_dt12p5us_weights.csv": "b123f9b7f0cbf3d9152a7dc6e224dd27334f74b8ed5bd7df444e5255b0af19e5",
+        "results/rings/raw/tm_n08_w1_dt12p5us_cli.log": "78cb6a2e0d05baad4d71c89b350b76a6f489bbcd15a21a6aebe1dc6f70948a58"
+      }
+    },
+    "tm_n09_w1_dt12p5us": {
+      "config": "configs/rings/tm_n09_w1_dt12p5us.json",
+      "config_sha256": "d7c50096927b7fcba595a77d3d737a2f830c833c719d94fc0a66491c0f23432e",
+      "files": {
+        "results/rings/raw/tm_n09_w1_dt12p5us_experiment.json": "013a9bcca564224930aaebb4685afb37073183d1b5d8b7989bf1c923744ef648",
+        "results/rings/raw/tm_n09_w1_dt12p5us_summary.json": "41f990efedd54a442613bc7012ec2f3b282a1c26fb39f92357a18f16d939f59f",
+        "results/rings/raw/tm_n09_w1_dt12p5us_events.csv": "2be36675fffaa55a304f69dfd5325d01c4bd813a1f664f9289afb89f579252d8",
+        "results/rings/raw/tm_n09_w1_dt12p5us_trace.csv": "5d2ce7789734c1014ce002a8bdc2bdb9abd5ed8958c230166e7443179d169ab1",
+        "results/rings/raw/tm_n09_w1_dt12p5us_weights.csv": "eb6a2ce00ced901e71828a5831baf9ae876568620f8d736b92fe26838243994d",
+        "results/rings/raw/tm_n09_w1_dt12p5us_cli.log": "81ed268c9399a8b4beb06c44efe750efcdbcd2dc6a2791831a622fd559f443e1"
+      }
+    },
+    "tm_n10_w1_dt12p5us": {
+      "config": "configs/rings/tm_n10_w1_dt12p5us.json",
+      "config_sha256": "d675562d5d96676a123719fd987275d51b14e2aad97c98dc07c7fa3e767a9b3f",
+      "files": {
+        "results/rings/raw/tm_n10_w1_dt12p5us_experiment.json": "e50440a8b09d2985ba888a242b505eaed36603d7b6ea0e3417a9575b1c4fc99b",
+        "results/rings/raw/tm_n10_w1_dt12p5us_summary.json": "6506c145d077f7f59ca9c399ab13d37167cab936a56610796bb253285ed66c84",
+        "results/rings/raw/tm_n10_w1_dt12p5us_events.csv": "28945e27cf03a22a8f87757b09637f9b333ab400cb0eb49a0d4ee61b0a0c702c",
+        "results/rings/raw/tm_n10_w1_dt12p5us_trace.csv": "3f2a2bcdc0a168da182c0c44d3bf16a339c77bdf429329e056dd45030885a09a",
+        "results/rings/raw/tm_n10_w1_dt12p5us_weights.csv": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "results/rings/raw/tm_n10_w1_dt12p5us_cli.log": "2fda218e0cc6fe717e1fa980133325e1e382c0f9b3054bfdbb84e84fb87c1e0f"
+      }
+    },
+    "tm_n10_w0p7_dt12p5us": {
+      "config": "configs/rings/tm_n10_w0p7_dt12p5us.json",
+      "config_sha256": "45cbf37ac5c9be9726cf99720985b57772f78bc96a74c5b45f5d421a0542af51",
+      "files": {
+        "results/rings/raw/tm_n10_w0p7_dt12p5us_experiment.json": "cfc80bb234143ff0998f65f52dfc139ec6dca1b51f6ac864940758a094b35fbf",
+        "results/rings/raw/tm_n10_w0p7_dt12p5us_summary.json": "4ec85e9c0a04e4c7ab50054d148d8902f792a97b64fa3928dbc84b6a8973b79d",
+        "results/rings/raw/tm_n10_w0p7_dt12p5us_events.csv": "d93584bfa793e69105aa00713920d9d8ae709aff3c5c21f35d8f881386240548",
+        "results/rings/raw/tm_n10_w0p7_dt12p5us_trace.csv": "2643301a16852a152f00149e4eec2213b7dbe7288e2106e5c0d9938e4441d46b",
+        "results/rings/raw/tm_n10_w0p7_dt12p5us_weights.csv": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "results/rings/raw/tm_n10_w0p7_dt12p5us_cli.log": "2fda218e0cc6fe717e1fa980133325e1e382c0f9b3054bfdbb84e84fb87c1e0f"
+      }
+    },
+    "tm_n10_w0p5_dt12p5us": {
+      "config": "configs/rings/tm_n10_w0p5_dt12p5us.json",
+      "config_sha256": "8c4d42ead9613d3c09cddfbe719b285dde00cdcfd15625834e405a394d5d57b2",
+      "files": {
+        "results/rings/raw/tm_n10_w0p5_dt12p5us_experiment.json": "675068c7ed856ae34129d3508cd975dc87b8816ab706095bb9288da7be6d6004",
+        "results/rings/raw/tm_n10_w0p5_dt12p5us_summary.json": "3b11e02b91c49cc436ce21a0b001ebbe0f21ff25eb813f94b38ae6cfe3f64530",
+        "results/rings/raw/tm_n10_w0p5_dt12p5us_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/tm_n10_w0p5_dt12p5us_trace.csv": "e448b1eb44a1581689ea97d1e7c3de7a9644557d5ef0c9dc3a5c31c4cc5a641f",
+        "results/rings/raw/tm_n10_w0p5_dt12p5us_weights.csv": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+        "results/rings/raw/tm_n10_w0p5_dt12p5us_cli.log": "ce1a70692ae4593054c37a9836740d329e5da707c34df63936236d1470f49f83"
+      }
+    },
+    "tm_n10_w0p2_dt12p5us": {
+      "config": "configs/rings/tm_n10_w0p2_dt12p5us.json",
+      "config_sha256": "0183780bb817e9b77f9d6de4ed86d49815164f2aa6c99134ca60c4699cf5d766",
+      "files": {
+        "results/rings/raw/tm_n10_w0p2_dt12p5us_experiment.json": "ed70c3ef0a9a0d4dc5bfba685a441260d78243127f571b6ef7940e8c881f131a",
+        "results/rings/raw/tm_n10_w0p2_dt12p5us_summary.json": "043f476681e3f60f310d597765e5fe064ed5d9095600bc23b63e832b1377b162",
+        "results/rings/raw/tm_n10_w0p2_dt12p5us_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/tm_n10_w0p2_dt12p5us_trace.csv": "b64c0d400505874a64009e8de8b376dad4d68ad07b8c49a8c0444e6c47553c77",
+        "results/rings/raw/tm_n10_w0p2_dt12p5us_weights.csv": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+        "results/rings/raw/tm_n10_w0p2_dt12p5us_cli.log": "ce1a70692ae4593054c37a9836740d329e5da707c34df63936236d1470f49f83"
+      }
+    },
+    "tm_n10_w0_dt12p5us": {
+      "config": "configs/rings/tm_n10_w0_dt12p5us.json",
+      "config_sha256": "c7dc726d91567780c605f6eb63a146d7b042713226e7d297cfa407e0f4afba6e",
+      "files": {
+        "results/rings/raw/tm_n10_w0_dt12p5us_experiment.json": "6706bf640229ec417a822f7b05fceb19910dfe90e2c090160bb4b2b0e44080fd",
+        "results/rings/raw/tm_n10_w0_dt12p5us_summary.json": "0cdf713b561aa30570fddc3fc782d116f1dea7e986f6c3f6488e166b41ce9027",
+        "results/rings/raw/tm_n10_w0_dt12p5us_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/tm_n10_w0_dt12p5us_trace.csv": "9fd8cc36aad248caa669f41b35ecb506b3924b1a39425e81a38ff4e84a2bd7ab",
+        "results/rings/raw/tm_n10_w0_dt12p5us_weights.csv": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+        "results/rings/raw/tm_n10_w0_dt12p5us_cli.log": "ce1a70692ae4593054c37a9836740d329e5da707c34df63936236d1470f49f83"
+      }
+    },
+    "exp_n03_w1": {
+      "config": "configs/rings/exp_n03_w1.json",
+      "config_sha256": "3560d5ec640b57e521b188d238ba75233b757ce29178415dcfd19d53dd072d0d",
+      "files": {
+        "results/rings/raw/exp_n03_w1_experiment.json": "db856265f1d474e480972955c2e66683d6b5eaabfab3172b92fde05ddac6b67d",
+        "results/rings/raw/exp_n03_w1_summary.json": "aa3078490b1c373d47820eb85d3bb79903ad28c50abf87ee3d09ef72062c7097",
+        "results/rings/raw/exp_n03_w1_events.csv": "a919c8dc548e7e7b24467456125417f9f5886cfd53e285fdf181901f05e34edf",
+        "results/rings/raw/exp_n03_w1_trace.csv": "3d497bcb554fb903070f57e89e8bef93ce7b61b879a4e83a36fdbc06ba6943b1",
+        "results/rings/raw/exp_n03_w1_weights.csv": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "results/rings/raw/exp_n03_w1_cli.log": "3359f8af313d6242678c0a5c2815ccf4863f8195fb2fd3cb9da6c209de48d8aa"
+      }
+    },
+    "exp_n03_w0p7": {
+      "config": "configs/rings/exp_n03_w0p7.json",
+      "config_sha256": "8ca132d1a24bbd0b789a80aaedcff2b023c352beef41764f95b786bd69e24d75",
+      "files": {
+        "results/rings/raw/exp_n03_w0p7_experiment.json": "403195191442a47c6b6a6e16527400acd7f0ddb25324059ba26f21485134bbe1",
+        "results/rings/raw/exp_n03_w0p7_summary.json": "7efe9c17bc63f4896b79520a6102bf9b354404ded33f267116ce703c3bf019b1",
+        "results/rings/raw/exp_n03_w0p7_events.csv": "c01145f6f04711942f3659edbd22224b6ddf0ce1539cc35479848ea357a94a2c",
+        "results/rings/raw/exp_n03_w0p7_trace.csv": "9725b1654294cb599291c225ecf28810b27862b492f62b16267009367d8f08d0",
+        "results/rings/raw/exp_n03_w0p7_weights.csv": "a718178a707bc1296b5eebd3ec65be6c4b47afb00df87a0e118a09542e855df5",
+        "results/rings/raw/exp_n03_w0p7_cli.log": "ecc96e4fb60beaab837f16e63ab06a1246f7cf7cca9f0afc21283398515398fc"
+      }
+    },
+    "exp_n03_w0p5": {
+      "config": "configs/rings/exp_n03_w0p5.json",
+      "config_sha256": "7085e49f3cfa531383c8f3fca23ea557a5d7a3ae79cab6da733259d1e9c02d03",
+      "files": {
+        "results/rings/raw/exp_n03_w0p5_experiment.json": "fb508c2096d5594aa7a0d8dd5052ece6cbe7a961ca28f25946b0b558aaacaaa9",
+        "results/rings/raw/exp_n03_w0p5_summary.json": "983de89cee9a1d5d8baadea2a4120b5aee7f07e43df3b5281f2e0350a8f2498d",
+        "results/rings/raw/exp_n03_w0p5_events.csv": "aad5e24df015586a3dfb5e822d3117d1f8a4cada69b499b20ad21f10d40ae2bf",
+        "results/rings/raw/exp_n03_w0p5_trace.csv": "66b504cac6c5f6123c88180ed0251c07e5d335689f46be48f6ace230df0d9838",
+        "results/rings/raw/exp_n03_w0p5_weights.csv": "f3223c22fcb750d21fe7989fb13b41fa283cf7289eb906e7a5c622f34a2388e3",
+        "results/rings/raw/exp_n03_w0p5_cli.log": "ecc96e4fb60beaab837f16e63ab06a1246f7cf7cca9f0afc21283398515398fc"
+      }
+    },
+    "exp_n03_w0p2": {
+      "config": "configs/rings/exp_n03_w0p2.json",
+      "config_sha256": "12da20224cb6247b0bb9c5699f35c6e5b091ff06b9548e32ca5035e31469959b",
+      "files": {
+        "results/rings/raw/exp_n03_w0p2_experiment.json": "34da0e0abe1a97fcffdc37de430874495bee43fd131a249806ced85deae41e88",
+        "results/rings/raw/exp_n03_w0p2_summary.json": "97e6e4e7874e884b1dd96d6001b27f3e7776196d2220fcfda940cf76689e3e1d",
+        "results/rings/raw/exp_n03_w0p2_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/exp_n03_w0p2_trace.csv": "4cb75d76ff6f61d463fd3f6b2ab59bcd1ecc649b1d877b674a6ca78c002ee9b7",
+        "results/rings/raw/exp_n03_w0p2_weights.csv": "f4a4fc1066267a295ced03f08533d678d2254dfb7deada52951d51811df2e342",
+        "results/rings/raw/exp_n03_w0p2_cli.log": "46b3c2529dab41b51a492eee06a8de843df9aebf9588a5bc1583dc8b9ce79d8e"
+      }
+    },
+    "exp_n03_w0": {
+      "config": "configs/rings/exp_n03_w0.json",
+      "config_sha256": "b8bcd71c0980918bd23c632de038d80b35643de85af6b70ec05c220033068bda",
+      "files": {
+        "results/rings/raw/exp_n03_w0_experiment.json": "99542dda26878541a481def1508af22e66a9ed39f59e8dd06606d5683f2dc336",
+        "results/rings/raw/exp_n03_w0_summary.json": "2d9859b6a833831b5e2f6de4f2e384be92c9a18589bcd1e3ecc70e93dbaa1a00",
+        "results/rings/raw/exp_n03_w0_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/exp_n03_w0_trace.csv": "0256358f0621da477498545f70eacd57fd0ea8c35581ed5e9cc88e9f5251dccd",
+        "results/rings/raw/exp_n03_w0_weights.csv": "f438594e4d07bbc2c471b1ef39961e7bacb76102fbc12ebda8614512c45f51df",
+        "results/rings/raw/exp_n03_w0_cli.log": "46b3c2529dab41b51a492eee06a8de843df9aebf9588a5bc1583dc8b9ce79d8e"
+      }
+    },
+    "exp_n04_w1": {
+      "config": "configs/rings/exp_n04_w1.json",
+      "config_sha256": "c433d6713d2b60f29db4d463085228210c2d4e7b14f16f8d90d7bdcfb0ae4689",
+      "files": {
+        "results/rings/raw/exp_n04_w1_experiment.json": "30a49d936ca960b26deca3de92e9c1c2bc544a61159248a7fec94265bb73e5a6",
+        "results/rings/raw/exp_n04_w1_summary.json": "031273bfee685e8abf81dba260e129828a800b327089d90d227b867207ac83ba",
+        "results/rings/raw/exp_n04_w1_events.csv": "de813a394b183dd174e09953b964333c9cc784934ec2d9ced61091759813683d",
+        "results/rings/raw/exp_n04_w1_trace.csv": "0252c63bb025416895cd77498a9bcd8e5353dd4bc397b2d4ba903aadb1cc739f",
+        "results/rings/raw/exp_n04_w1_weights.csv": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "results/rings/raw/exp_n04_w1_cli.log": "cfd2662baea97a0cc83dda00ebeb00a38ab4d23e72f809c1f74c4471772ce26f"
+      }
+    },
+    "exp_n04_w0p7": {
+      "config": "configs/rings/exp_n04_w0p7.json",
+      "config_sha256": "4e9095e0c9019246111a76e905b6eb518df90460faa8adde2a8f8392ff4ab2b0",
+      "files": {
+        "results/rings/raw/exp_n04_w0p7_experiment.json": "89f48c89d7e8529fd982ba8166a0fc8cde6804d911afde0a21f6224fd3f609bd",
+        "results/rings/raw/exp_n04_w0p7_summary.json": "5443e1f6d3365e3a92f22c3bc28f277fdd81d0b9690d4a41559afe2126844dc8",
+        "results/rings/raw/exp_n04_w0p7_events.csv": "af6f80bb9de481bfd946105a1f63bc7af67a3e43920663d4c0733f02da66301c",
+        "results/rings/raw/exp_n04_w0p7_trace.csv": "01b23e274b5471156533573edd2e09944d2c400a9a746ba8a4d9895c8debdcb1",
+        "results/rings/raw/exp_n04_w0p7_weights.csv": "9ca5876dc47cf188e74781cf28d669b04f52aa9c84163d52e06b4f5dcb9e486e",
+        "results/rings/raw/exp_n04_w0p7_cli.log": "fac8037a86ff8a2aaf749df0caa2bffcc9be724b3cc76d625597875f6df724ab"
+      }
+    },
+    "exp_n04_w0p5": {
+      "config": "configs/rings/exp_n04_w0p5.json",
+      "config_sha256": "512c9e71eb652ea4866548e08f54ff24a50cdb4bda0828044e4b3325ebffe452",
+      "files": {
+        "results/rings/raw/exp_n04_w0p5_experiment.json": "f2ed31d09c7c8961c00719032fc6db847a17e85c3a7c453e9c626c7e8465a377",
+        "results/rings/raw/exp_n04_w0p5_summary.json": "f7d5d2f43af8cc4c79c44c1de506736e3e0d6cd78e4c7d70977424705d7831b7",
+        "results/rings/raw/exp_n04_w0p5_events.csv": "59c7ab5bc0e9916241406ee98e1ffb3ae7eae543cbdc344241422e1a4793ecef",
+        "results/rings/raw/exp_n04_w0p5_trace.csv": "aecaa2ff01e8455ccaa1ae80bd4367edb80515218e86f792191613fa31e08fcb",
+        "results/rings/raw/exp_n04_w0p5_weights.csv": "2e735fecadf8267ab4f06cd7f05b972cc3e78bc6da4da0db24a144c8b9c6d6ee",
+        "results/rings/raw/exp_n04_w0p5_cli.log": "fac8037a86ff8a2aaf749df0caa2bffcc9be724b3cc76d625597875f6df724ab"
+      }
+    },
+    "exp_n04_w0p2": {
+      "config": "configs/rings/exp_n04_w0p2.json",
+      "config_sha256": "60d02c4267aefd84ccada54201d36376b9752335593c991e6698d2e3d7dd3465",
+      "files": {
+        "results/rings/raw/exp_n04_w0p2_experiment.json": "e7bfccb5a420c19617d788152e3ced1f65f135acecf3148be5ab4b1d662b33fc",
+        "results/rings/raw/exp_n04_w0p2_summary.json": "04ccd339ea9573ca97fb82e35e8b1d093bfec8a62618dd90a675dae614330f58",
+        "results/rings/raw/exp_n04_w0p2_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/exp_n04_w0p2_trace.csv": "e18e26f00c0f572add1c413018d4fbe72337544d7e46aeba26b624836b0193e3",
+        "results/rings/raw/exp_n04_w0p2_weights.csv": "74e43f95e30e40edc07b975c6e8b7d77a3445da409ba7202a7b484cf5d5dbc83",
+        "results/rings/raw/exp_n04_w0p2_cli.log": "150745171c8c2665107bd817ed66db56408a84ce178f9813155d1fb879a05243"
+      }
+    },
+    "exp_n04_w0": {
+      "config": "configs/rings/exp_n04_w0.json",
+      "config_sha256": "73dcad58df2efdfea6db62bab0fdccac90518c875a38878c71440f8283d66a40",
+      "files": {
+        "results/rings/raw/exp_n04_w0_experiment.json": "28371edbf8eea4034156121635b7eed337239fadb6cad24865d377799e9fd365",
+        "results/rings/raw/exp_n04_w0_summary.json": "e55707ec0acbda9ca27aa639f6f86f8aed69615333cc3364f66ca803b8274476",
+        "results/rings/raw/exp_n04_w0_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/exp_n04_w0_trace.csv": "26033246d083d812f9a738d1158205bb4d88139afabd35523c3c12bc0936911a",
+        "results/rings/raw/exp_n04_w0_weights.csv": "68ac3c2099115f37aab46ca6c10432e285782be5f8c610e42a52065221f379ae",
+        "results/rings/raw/exp_n04_w0_cli.log": "150745171c8c2665107bd817ed66db56408a84ce178f9813155d1fb879a05243"
+      }
+    },
+    "exp_n10_w1": {
+      "config": "configs/rings/exp_n10_w1.json",
+      "config_sha256": "76a44980065108b913c6adeeba7906c82574b76d194c58afc6b771e718d0106f",
+      "files": {
+        "results/rings/raw/exp_n10_w1_experiment.json": "ac16ce179d0425c624c9dea49bc6fef3162e173632de1e6dbec92dc6bcb006bd",
+        "results/rings/raw/exp_n10_w1_summary.json": "88935d96493c1dd56e41cc913e44de825cae14557becb8a239e6f54db880f56d",
+        "results/rings/raw/exp_n10_w1_events.csv": "75ce9d22d6c29f459ead550e61a4445546a1500cc3e0719bd9abd5217b5d6d7b",
+        "results/rings/raw/exp_n10_w1_trace.csv": "d6181ca40612e8b903e45d01b07c4a4010a152a39d5fcc4ecd95e59690b3ba4e",
+        "results/rings/raw/exp_n10_w1_weights.csv": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "results/rings/raw/exp_n10_w1_cli.log": "d7a8d4bab1c9f948c6ce63e705c0607b1aa29487b035652651e75aa626aacae1"
+      }
+    },
+    "exp_n10_w0p7": {
+      "config": "configs/rings/exp_n10_w0p7.json",
+      "config_sha256": "9e019087d21762f11a72de006dc3cfab00e94e6a536fcaf07afb39d3ca00dd3b",
+      "files": {
+        "results/rings/raw/exp_n10_w0p7_experiment.json": "d52c3fc5bba8f3ceea179c5c2b7d0f747bcf59753d37491066cd3a076e8b7486",
+        "results/rings/raw/exp_n10_w0p7_summary.json": "9d5ebf66c688c5aa3238bbcd7c91caf08b738896bf906d489e97dee38da53598",
+        "results/rings/raw/exp_n10_w0p7_events.csv": "b90d8cee230a16cee0e3ef217a4aee90af22e5a893d5c5cd18bde7177c0fd993",
+        "results/rings/raw/exp_n10_w0p7_trace.csv": "cd4273f4566dc4718dabd69c16a8569e99abc08eae6c3be57a79dbfaee46afb3",
+        "results/rings/raw/exp_n10_w0p7_weights.csv": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "results/rings/raw/exp_n10_w0p7_cli.log": "42a966b7d93400a854e308e27deeb1a77527f5aabcc6337338cf4740de55c8cf"
+      }
+    },
+    "exp_n10_w0p5": {
+      "config": "configs/rings/exp_n10_w0p5.json",
+      "config_sha256": "c1f05ad76220bf04493f8ca891632e222f885c05819c7b41e443cb1052c01af6",
+      "files": {
+        "results/rings/raw/exp_n10_w0p5_experiment.json": "dc0830484d08af77045f0cf50b8c96f196240e90ace750bb7c4580836fecf9ff",
+        "results/rings/raw/exp_n10_w0p5_summary.json": "c8653dcac295bf78fa2d6b63a226a5a2ce1a0245f14068c98c93b050a66de678",
+        "results/rings/raw/exp_n10_w0p5_events.csv": "3876971377979526f9235331bfea4a7bab153ccbced41a181b5c479700060909",
+        "results/rings/raw/exp_n10_w0p5_trace.csv": "3f370d274db8dfbb5234e40768cc8f5c7ee2f186638df03fd382846d2becf763",
+        "results/rings/raw/exp_n10_w0p5_weights.csv": "9c3e702b89b2e70ef0d9ed458a3154410bb6e37f077353c400194f9c62fe88ea",
+        "results/rings/raw/exp_n10_w0p5_cli.log": "b101fba4ccf750025b2c8c6a72a002316a40052f1d737d975ced5c869a0f99c4"
+      }
+    },
+    "exp_n10_w0p2": {
+      "config": "configs/rings/exp_n10_w0p2.json",
+      "config_sha256": "5d62829b5ad317e881dcee17fa15bb77505d4d8380f778d4b830bf6ea8c3a02c",
+      "files": {
+        "results/rings/raw/exp_n10_w0p2_experiment.json": "95c53700e6c1a0965c915a28ce02f8e81145d8a8c2be46e9c5fb845d7fce65de",
+        "results/rings/raw/exp_n10_w0p2_summary.json": "44e67b4043d02f62ecdd5f9c74b0f81ecfae6f1ab24094910fe785702ae5f6e4",
+        "results/rings/raw/exp_n10_w0p2_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/exp_n10_w0p2_trace.csv": "beb594ca2f0cbacb4e66df5522b82ecf459d45f58667475be1cfdc7f8bbd8577",
+        "results/rings/raw/exp_n10_w0p2_weights.csv": "f8c87ca80480cbf74ecaa26f801f4f703dd8765de72b9654de4e3eafcff9a5b9",
+        "results/rings/raw/exp_n10_w0p2_cli.log": "e1d0ffc81d80bb58432a22cef47ba86be2fd856934bc1de5e73a9500c29dae09"
+      }
+    },
+    "exp_n10_w0": {
+      "config": "configs/rings/exp_n10_w0.json",
+      "config_sha256": "7c164037427556d913777b68d593e9474d084630e3da2392b8dc0f74a242b162",
+      "files": {
+        "results/rings/raw/exp_n10_w0_experiment.json": "7e111d6e8a856190c0a517156f563f52527882d85f423891b8a1247b1c97835a",
+        "results/rings/raw/exp_n10_w0_summary.json": "5b2f016e382e72ccc54884f7b431610fb0ef64b300ad04eb4e1834a7b4d36c74",
+        "results/rings/raw/exp_n10_w0_events.csv": "4d33b7f28a2f38eac56bee930e3fb83660ae58afbb08d1503a29ddee6e0a4544",
+        "results/rings/raw/exp_n10_w0_trace.csv": "d5a7480e83383686bc56d1343208230cfe833784088bc4739272ccf54e2deec5",
+        "results/rings/raw/exp_n10_w0_weights.csv": "9d14c4f226f7097fde826cee774e049cc0cf4e176450391540ffd73103de99ed",
+        "results/rings/raw/exp_n10_w0_cli.log": "e1d0ffc81d80bb58432a22cef47ba86be2fd856934bc1de5e73a9500c29dae09"
+      }
+    },
+    "tm_n03_w1_noise3": {
+      "config": "configs/rings/tm_n03_w1_noise3.json",
+      "config_sha256": "e9965546e36e926c3e689fe485eae6f10cea501ec300f67057dc7c6927820cb8",
+      "files": {
+        "results/rings/raw/tm_n03_w1_noise3_experiment.json": "9723b02b32bbf442c2e71a7d2f14bcb61c216c9ed440781c5d51917ad1c1be83",
+        "results/rings/raw/tm_n03_w1_noise3_summary.json": "e31387ed27b05d2047d706f15642b5895455dd6619104712bb6fd9eb2af6f08c",
+        "results/rings/raw/tm_n03_w1_noise3_events.csv": "1961d97bc94e1999794961ea482d72577bdabf38917d1f5366f76717d6b23021",
+        "results/rings/raw/tm_n03_w1_noise3_trace.csv": "87984796a62b71b293721063f60d8cb1ffa0f1c9697997224607bca9144b617d",
+        "results/rings/raw/tm_n03_w1_noise3_weights.csv": "1856de1ff80d0ae958873ad8dc1958106381b501b7ee1dda0db8d034b953b1c1",
+        "results/rings/raw/tm_n03_w1_noise3_cli.log": "3832f14cb6ac07f5ae565c5c79c2d2dff49109ace0e373ee9f47d69bb00be3c3"
+      }
+    },
+    "tm_n04_w1_noise3": {
+      "config": "configs/rings/tm_n04_w1_noise3.json",
+      "config_sha256": "401e7a1bd9d862da9fbc55e0f36e88a3a8bde9a7d26f924d3b430b1ddf285f6d",
+      "files": {
+        "results/rings/raw/tm_n04_w1_noise3_experiment.json": "25f82030486ce822efef5991cac672d4f98c03a6d9b249640039434c6a9de0f8",
+        "results/rings/raw/tm_n04_w1_noise3_summary.json": "24414494bb1708508ddb8c4213d3d03c64062b75b1f4c5065d572bf396d6be01",
+        "results/rings/raw/tm_n04_w1_noise3_events.csv": "d27d003ec1b381cb1aecf3f4c353a7cb509719d2f6110a860ebddb1c625c3efb",
+        "results/rings/raw/tm_n04_w1_noise3_trace.csv": "34db82aa90a8d323081c299a4dc3d2fa58fba321da561ac77885274b0fe3155d",
+        "results/rings/raw/tm_n04_w1_noise3_weights.csv": "a50940c728c91533d87c5b1670814f294a193cee67a8a79e68dc1cc9e377afca",
+        "results/rings/raw/tm_n04_w1_noise3_cli.log": "a43de386f0d971031535b5b676e91773d09ee9dbc8eba5ce0dc255579b8be657"
+      }
+    },
+    "tm_n10_w1_noise3": {
+      "config": "configs/rings/tm_n10_w1_noise3.json",
+      "config_sha256": "db5632958b643e4321c5b371787f3ccaa38044dc569e8c1265fdc0aedf270002",
+      "files": {
+        "results/rings/raw/tm_n10_w1_noise3_experiment.json": "70397901b4bd1faabe0528bb536008437df8775ce58537c1737e9083b2860559",
+        "results/rings/raw/tm_n10_w1_noise3_summary.json": "4efed2443182beeab628564c26bc501ddcc0160d4b0f072e5f4df545d52ca65b",
+        "results/rings/raw/tm_n10_w1_noise3_events.csv": "674c5e0afc7c3ccfa192528b1e353b8b63b0998a0d0cfc11f6da0ce5db938fed",
+        "results/rings/raw/tm_n10_w1_noise3_trace.csv": "9c16c6a001db2aa14812609f0d93a9f481511badf030a3ff4062de4774c2b306",
+        "results/rings/raw/tm_n10_w1_noise3_weights.csv": "918610ed968de1e2f2a92b9adfe5b54e20af1df5a192302be65b7dd19a80b3eb",
+        "results/rings/raw/tm_n10_w1_noise3_cli.log": "0b3cebaa059cddec2b7079099994659ae1c027fe3aaf99fb77f4ef13756ee553"
+      }
+    },
+    "exp_n10_w0p7_dt12p5us": {
+      "config": "configs/rings/exp_n10_w0p7_dt12p5us.json",
+      "config_sha256": "6ec7d8b86e8cb948833aeb77a6724c000e303abdc1977a35556cb500fc639ea8",
+      "files": {
+        "results/rings/raw/exp_n10_w0p7_dt12p5us_experiment.json": "c0ece35553f3e7e3fd4e7b55fa1575cc56cb0dc6eec09de0c4ea2597ae143dba",
+        "results/rings/raw/exp_n10_w0p7_dt12p5us_summary.json": "8dfbcea4c23edf99a6941aa6902bb460afe83be95c222296a775c1a8abb1f675",
+        "results/rings/raw/exp_n10_w0p7_dt12p5us_events.csv": "698313cd8983964f3c630a0d2735b7f49bd089be1d2c35aa1af9ccc52fdd838f",
+        "results/rings/raw/exp_n10_w0p7_dt12p5us_trace.csv": "8dea8cdd25613e85b8e09201b46a1e5b80e3ca522811bb744d04b7cf556045d1",
+        "results/rings/raw/exp_n10_w0p7_dt12p5us_weights.csv": "db059858d88be84d0c19eb72c3e17fad06bdcb07dde131489b4671a47f3e9cbd",
+        "results/rings/raw/exp_n10_w0p7_dt12p5us_cli.log": "72ac5a92620103598e74b9f831ad5fb4f5e93eade681b0950465f85cbadc51f9"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+Initial population runner verification
+Executable SHA256: 956d524d1389dde4bb436322f0d3d1ad9468d10ac162b2538fdbfd86e4e69037
+Command: network_studio_population --self-test
+PASS population equivalence: 18 cases, 128544 steps, 234 spikes; strict bounds checked.
+
+Cases: TM and exponential current; dt=50,25,12.5 us; 5-neuron rings
+and directed chord networks, including signed inhibitory, parallel, self,
+and zero-weight edges. External input cases: tonic/no noise, global noise,
+and individual noise plus pulses and a manually initialized recovery variable.
+The deterministic noise generator is shared with the native core.
+
+Every integration step (including every recorded state and shortened final
+step) compares V, recovery u, per-source synaptic u/x/y, glutamate, and total
+signed postsynaptic current against the original per-edge Simulator.
+Numerical tolerance: abs(actual-expected) <= 2e-8*(1+abs(expected)).
+Spike count, identity and grid-end times, and sample cadence match exactly.
+Invalid population size, endpoints, NaN weights, STDP and template weights
+are rejected. This comparison validates the restricted homogeneous model,
+not arbitrary heterogeneous kinetics, astrocytes, conductance or STDP.
+
+Initial build.ps1 -Test: 3/3 CTest tests passed:
+network_model_and_io; population_equivalence; gui_interactions_and_plots.
+After these production runs, an additional seeded-random-topology fixture
+was added. Final test and byte-identical replay results are recorded in
+native_equivalence_final.json; numerical simulation code was unchanged.

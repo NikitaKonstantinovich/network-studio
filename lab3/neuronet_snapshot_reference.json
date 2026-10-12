@@ -1,0 +1,820 @@
+{
+  "created_utc": "2026-10-12T13:56:52.498018+00:00",
+  "extractor": {
+    "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\lab3\\extract_neuronet_reference.py",
+    "sha256": "6671d36e9aedc027e4e263116e6fd9d495cc77b0b2dafda9039fc505d9299671"
+  },
+  "scope": "Original saved state of presynaptic neuron 189, one first response and its available early decay; no numerical simulation performed by this extractor.",
+  "pdf_source": {
+    "path": "C:\\Users\\N1kit\\Downloads\\UMP_Lobov_i_dr_Neyrokiberneticheskie_printsipy_fin.pdf",
+    "sha256": "ce57a4758a90f3a2a9ff9c57f001d5e40363bf02ddb1630a3a2d1ec9efff8af3",
+    "relevant_pages": [
+      5,
+      6,
+      7,
+      22,
+      23,
+      24
+    ]
+  },
+  "snapshot_directory": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP",
+  "neuron_id_1based": 189,
+  "neuron_type": "excitory",
+  "neuron_class": "Izh",
+  "network_neuron_count": 500,
+  "saved_per_neuron_stdp_flag": "STDP_YES",
+  "run_log": {
+    "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\calculate_0s.log",
+    "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+    "text": "The network calculate log file\nBy Sergey Lobov 2010.\n\nStep: 0.5\nSpike velocity: 0.05\nNoise sigma: 0\nLearning rate: 0\nAlfa learn: 5\nPair-based STDP (classic)\nMinus-plus is off\n"
+  },
+  "parameters_raw": {
+    "parameter_U": 0.5,
+    "tau_recovery": 50.0,
+    "tau_I": 10.0,
+    "tau_facility": 1000.0,
+    "refractory_time": 1.0,
+    "parameter_a": 0.02,
+    "parameter_b": 0.2,
+    "parameter_c": -65.0,
+    "parameter_d": 8.0
+  },
+  "parameter_units": {
+    "tau_recovery": "ms",
+    "tau_I": "ms",
+    "tau_facility": "ms",
+    "refractory_time": "ms",
+    "parameter_U": "dimensionless",
+    "parameter_a": "Izhikevich millisecond convention",
+    "parameter_b": "Izhikevich convention",
+    "parameter_c": "mV",
+    "parameter_d": "recovery-variable units"
+  },
+  "state_units": {
+    "time_s": "s",
+    "raw_model_time_ms": "ms (original Model time header)",
+    "parameter_x": "scaled resource/output units",
+    "Output": "scaled resource/output units",
+    "Output_old": "scaled resource/output units",
+    "parameter_z": "scaled resource/output units",
+    "parameter_u": "dimensionless",
+    "E_m": "mV",
+    "E_m_old": "mV",
+    "variable_U_e": "Izhikevich recovery-variable units",
+    "Time_cur_spike": "ms",
+    "Is_spike": "saved state flag, not an independent event counter"
+  },
+  "stimulator": {
+    "stimulator_count": 1,
+    "stimulator_id_1based": 501,
+    "target_neuron_ids_1based": [
+      453,
+      208,
+      189,
+      213,
+      373
+    ],
+    "frame_duration_ms": 10000.0,
+    "interval_table": [
+      {
+        "end_time_ms": 5.0,
+        "voltage_setting": 0.0
+      },
+      {
+        "end_time_ms": 8.0,
+        "voltage_setting": 30.0
+      },
+      {
+        "end_time_ms": 10000.0,
+        "voltage_setting": 0.0
+      }
+    ],
+    "other_saved_fields": {
+      "Pulse_amplitude": 20.0,
+      "Pulse_duration": 5.0,
+      "Touch_freq": 100.0
+    },
+    "interpretation_note": "Preserved interval-table and other pulse fields without assuming they are interchangeable."
+  },
+  "normalization": {
+    "raw_resource_capacity": 20.0,
+    "normalized_resource_capacity": 1,
+    "gain_for_normalized_model": 20,
+    "mapping": "x=parameter_x/20, y=Output/20, z=parameter_z/20; u=parameter_u. The normalized current/output uses g=20 ONCE.",
+    "evidence": "Initial x+Output+z=20; the same total is preserved across the saved sequence within decimal serialization precision. PDF p.22 specifies default g=20.",
+    "maximum_resource_sum_error": 2.999999999886427e-05
+  },
+  "pre_spike_reference": {
+    "time_s": 0.0065,
+    "raw_x": 20.0,
+    "raw_y": 0.0,
+    "raw_z": 0.0,
+    "u": 0.0
+  },
+  "first_observed_response": {
+    "time_s": 0.007,
+    "raw_output": 10.0,
+    "normalized_y": 0.5,
+    "updated_u": 0.5,
+    "interpretation": "u changes from 0 to U=.5 before release; raw x=20 gives a raw output jump 10, equivalent to normalized release .5 and gain20."
+  },
+  "available_interval_s": [
+    0.0,
+    0.01
+  ],
+  "requested_interval_s": [
+    0.0,
+    0.02
+  ],
+  "missing_half_ms_times_s": [
+    0.0105,
+    0.011,
+    0.0115,
+    0.012,
+    0.0125,
+    0.013000000000000001,
+    0.0135,
+    0.014,
+    0.0145,
+    0.015,
+    0.0155,
+    0.016,
+    0.0165,
+    0.017,
+    0.0175,
+    0.018000000000000002,
+    0.0185,
+    0.019,
+    0.0195,
+    0.02
+  ],
+  "records": [
+    {
+      "time_s": 0.0,
+      "raw_model_time_ms": 0.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0s.net",
+        "sha256": "2a996368e7b19b4d07b87f3b412a486a11f822e3aac97e999bafb7f3904e771e"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.0005,
+      "raw_model_time_ms": 0.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0005s.net",
+        "sha256": "a03d346c53c5112a9673ae576a2a1a9af15702bc212ae35fc851369754715274"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.001,
+      "raw_model_time_ms": 1.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.001s.net",
+        "sha256": "e72a5b1e5d1590e260a3cf9160491d03dee62de4b9fc44fd34a48c122fe358e0"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.0015,
+      "raw_model_time_ms": 1.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0015s.net",
+        "sha256": "5c693c728937b88697a5bfa54e5f8e4e798284d9c2d692af869c12eb899e8a80"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.002,
+      "raw_model_time_ms": 2.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.002s.net",
+        "sha256": "5e488748456ec1adb1f1bdb9fcbb8bbc859b57f748f9a39f9946e15b3f638958"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.0025,
+      "raw_model_time_ms": 2.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0025s.net",
+        "sha256": "a8e6fe8a0643c6905ba043ac63a03e8d835348d7261dd235349df50102900a36"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.003,
+      "raw_model_time_ms": 3.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.003s.net",
+        "sha256": "633cf1fe6202f0ad84f505199dd95552bcaded978f140d63abfe2f0fdbd1b550"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.0035,
+      "raw_model_time_ms": 3.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0035s.net",
+        "sha256": "d9b0f2161003135157ddd4d6d7d0ad63b936499b028c27e1965fbee4d366f435"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.004,
+      "raw_model_time_ms": 4.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.004s.net",
+        "sha256": "3783981686ae4d97320d7f67f0c7c77ef93109a1700584ce7a969b2ff9d21002"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.0045,
+      "raw_model_time_ms": 4.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0045s.net",
+        "sha256": "c16183091533a66cc6ab53d18d8d8e49bd92e6647d0d7b8a5ecca74c5001d549"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.005,
+      "raw_model_time_ms": 5.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.005s.net",
+        "sha256": "fd202472cba7fee9ab5a40c955e1aac18f30fa2b9909ed05cb6b28b28b80e143"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -70.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.0055,
+      "raw_model_time_ms": 5.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0055s.net",
+        "sha256": "478a4eb140b416167e08b03cd3d94495b31b691b1c1c082be77ec9365e2c713a"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -55.0,
+        "E_m_old": -70.0,
+        "variable_U_e": -14.0,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.006,
+      "raw_model_time_ms": 6.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.006s.net",
+        "sha256": "a3fa7fbaf8a155daab7851e994547ca2ebe58c48b066bf02fd3c60646a0be787"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -40.0,
+        "E_m_old": -55.0,
+        "variable_U_e": -13.97,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.0065,
+      "raw_model_time_ms": 6.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0065s.net",
+        "sha256": "8838ba2098366d6b8b411ce120dabdee3187fffe3d4990344b5c8c363a2b71bc"
+      },
+      "raw": {
+        "parameter_x": 20.0,
+        "Output": 0.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.0,
+        "E_m": -16.015,
+        "E_m_old": -40.0,
+        "variable_U_e": -13.9103,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0,
+        "u": 0.0
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.007,
+      "raw_model_time_ms": 7.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.007s.net",
+        "sha256": "27a7a647f00528d366a51b9749acef475a3a364448b45f149e5cbc1e709f9cb4"
+      },
+      "raw": {
+        "parameter_x": 10.0,
+        "Output": 10.0,
+        "Output_old": 0.0,
+        "parameter_z": 0.0,
+        "parameter_u": 0.5,
+        "E_m": -65.0,
+        "E_m_old": 30.0,
+        "variable_U_e": -5.80323,
+        "Time_cur_spike": 1.0,
+        "Is_spike": 1.0
+      },
+      "normalized": {
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.0,
+        "u": 0.5
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.0075,
+      "raw_model_time_ms": 7.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0075s.net",
+        "sha256": "f98d0f2a32356c55b8abc8a5e0b734948e415da5ff35babc293cf8215f41e203"
+      },
+      "raw": {
+        "parameter_x": 10.0,
+        "Output": 9.5,
+        "Output_old": 10.0,
+        "parameter_z": 0.5,
+        "parameter_u": 0.49975,
+        "E_m": -55.0984,
+        "E_m_old": -65.0,
+        "variable_U_e": -5.87519,
+        "Time_cur_spike": 0.5,
+        "Is_spike": 1.0
+      },
+      "normalized": {
+        "x": 0.5,
+        "y": 0.475,
+        "z": 0.025,
+        "u": 0.49975
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.008,
+      "raw_model_time_ms": 8.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.008s.net",
+        "sha256": "16a874e353fd93d951bd77f19b6a8451cd16a6f4a1c1b92d1aa0631297488513"
+      },
+      "raw": {
+        "parameter_x": 10.005,
+        "Output": 9.025,
+        "Output_old": 9.5,
+        "parameter_z": 0.97,
+        "parameter_u": 0.4995,
+        "E_m": -43.2372,
+        "E_m_old": -55.0984,
+        "variable_U_e": -5.92664,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 0.5002500000000001,
+        "y": 0.45125000000000004,
+        "z": 0.0485,
+        "u": 0.4995
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.0085,
+      "raw_model_time_ms": 8.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0085s.net",
+        "sha256": "685411a78cb5a25381971f27cba6ca9f3def75b042edc9a0f96a2379141a7fdb"
+      },
+      "raw": {
+        "parameter_x": 10.0147,
+        "Output": 8.57375,
+        "Output_old": 9.025,
+        "parameter_z": 1.41155,
+        "parameter_u": 0.49925,
+        "E_m": -40.2778,
+        "E_m_old": -43.2372,
+        "variable_U_e": -5.95385,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 0.5007349999999999,
+        "y": 0.4286875,
+        "z": 0.0705775,
+        "u": 0.49925
+      },
+      "raw_resource_sum": 20.0,
+      "raw_resource_sum_error": 0.0
+    },
+    {
+      "time_s": 0.009,
+      "raw_model_time_ms": 9.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.009s.net",
+        "sha256": "7c86ef67d3cf7daf46dabae7327b3d1c7d3f8a9ccbee2b9f5d463bdf0e85a699"
+      },
+      "raw": {
+        "parameter_x": 10.0288,
+        "Output": 8.14506,
+        "Output_old": 8.57375,
+        "parameter_z": 1.82612,
+        "parameter_u": 0.499001,
+        "E_m": -34.8846,
+        "E_m_old": -40.2778,
+        "variable_U_e": -5.97486,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 0.50144,
+        "y": 0.40725300000000003,
+        "z": 0.091306,
+        "u": 0.499001
+      },
+      "raw_resource_sum": 19.99998,
+      "raw_resource_sum_error": -1.9999999999242846e-05
+    },
+    {
+      "time_s": 0.0095,
+      "raw_model_time_ms": 9.5,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.0095s.net",
+        "sha256": "20e7f4ac3aeb267333aa39c87840e20448ab079c9e767c145451be7d398e7d1b"
+      },
+      "raw": {
+        "parameter_x": 10.0471,
+        "Output": 7.73781,
+        "Output_old": 8.14506,
+        "parameter_z": 2.21511,
+        "parameter_u": 0.498751,
+        "E_m": -22.9591,
+        "E_m_old": -34.8846,
+        "variable_U_e": -5.98489,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 0.502355,
+        "y": 0.38689049999999997,
+        "z": 0.1107555,
+        "u": 0.498751
+      },
+      "raw_resource_sum": 20.00002,
+      "raw_resource_sum_error": 1.9999999999242846e-05
+    },
+    {
+      "time_s": 0.01,
+      "raw_model_time_ms": 10.0,
+      "source": {
+        "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\NET_files\\STP\\0.01s.net",
+        "sha256": "36f5fdabb71f38e0f221ff0701cc8d7bb1bfd2db44e7f748f3409de8436d1d4c"
+      },
+      "raw": {
+        "parameter_x": 10.0692,
+        "Output": 7.35092,
+        "Output_old": 7.73781,
+        "parameter_z": 2.57985,
+        "parameter_u": 0.498502,
+        "E_m": 4.89835,
+        "E_m_old": -22.9591,
+        "variable_U_e": -5.97095,
+        "Time_cur_spike": 0.0,
+        "Is_spike": 0.0
+      },
+      "normalized": {
+        "x": 0.50346,
+        "y": 0.36754600000000004,
+        "z": 0.1289925,
+        "u": 0.498502
+      },
+      "raw_resource_sum": 19.99997,
+      "raw_resource_sum_error": -2.999999999886427e-05
+    }
+  ],
+  "explicit_euler_decay_residuals": [
+    {
+      "from_time_s": 0.007,
+      "to_time_s": 0.0075,
+      "step_ms": 0.49999999999999956,
+      "raw_field_residuals": {
+        "Output": 0.0,
+        "parameter_x": 0.0,
+        "parameter_z": 4.440892098500626e-16,
+        "parameter_u": 0.0
+      }
+    },
+    {
+      "from_time_s": 0.0075,
+      "to_time_s": 0.008,
+      "step_ms": 0.5000000000000004,
+      "raw_field_residuals": {
+        "Output": 0.0,
+        "parameter_x": 0.0,
+        "parameter_z": -4.440892098500626e-16,
+        "parameter_u": -1.250000000729834e-07
+      }
+    },
+    {
+      "from_time_s": 0.008,
+      "to_time_s": 0.0085,
+      "step_ms": 0.5000000000000004,
+      "raw_field_residuals": {
+        "Output": 0.0,
+        "parameter_x": -1.7763568394002505e-15,
+        "parameter_z": -4.440892098500626e-16,
+        "parameter_u": -2.4999999997943334e-07
+      }
+    },
+    {
+      "from_time_s": 0.0085,
+      "to_time_s": 0.009,
+      "step_ms": 0.4999999999999987,
+      "raw_field_residuals": {
+        "Output": -2.500000000793534e-06,
+        "parameter_x": -1.5499999999946112e-05,
+        "parameter_z": -1.9999999989472883e-06,
+        "parameter_u": 6.249999999208278e-07
+      }
+    },
+    {
+      "from_time_s": 0.009,
+      "to_time_s": 0.0095,
+      "step_ms": 0.5000000000000004,
+      "raw_field_residuals": {
+        "Output": 2.9999999995311555e-06,
+        "parameter_x": 3.8800000000449586e-05,
+        "parameter_z": -1.8000000001627825e-06,
+        "parameter_u": -4.994999999730076e-07
+      }
+    },
+    {
+      "from_time_s": 0.0095,
+      "to_time_s": 0.01,
+      "step_ms": 0.5000000000000004,
+      "raw_field_residuals": {
+        "Output": 5.000000014021566e-07,
+        "parameter_x": -5.110000000030368e-05,
+        "parameter_z": 5.999999994621419e-07,
+        "parameter_u": 3.754999999827646e-07
+      }
+    }
+  ],
+  "limitations": [
+    "The files show a fully recovered initialized state, not an observed >5-second silent history.",
+    "The first response belongs to neuron189 in a connected 500-neuron network; directly stimulated neuron IDs are listed in the stimulus metadata. It is not an isolated two-neuron experiment.",
+    "No trace is supplied at 10.5..20 ms in this snapshot series. Later files are isolated snapshots of longer runs and are excluded.",
+    "Snapshot Is_spike can remain1 across successive files; consecutive nonzero flags must not be counted as separate spikes.",
+    "The local calculate_0s.log records noise0 and learning-rate0. Per-neuron STDP_YES alone does not establish that learning was active.",
+    "Observed decay agrees with explicit Euler at0.5ms within serialized-state precision. This does not establish every branch, delay, or stimulus detail of NeuroNet's numerical implementation.",
+    "Output is the presynaptic scaled synaptic signal. A postsynaptic voltage maximum, synaptic current multiplied by an arbitrary target weight, and an event release increment are different observables.",
+    "Only positive tau_facility=1000ms and U=.5 occur in these snapshots; the tau_facility=0 implementation cannot be inferred from them.",
+    "This reference supports the first amplitude, normalization, event ordering and early synaptic decay; it does not determine the full steady-state frequency response or recruitment-area curve."
+  ]
+}

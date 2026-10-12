@@ -1,0 +1,117 @@
+{
+  "binary": "neuronet_3_SM.exe",
+  "sha256": "997fe22f54185a4bba16903d9d4d357c0d3d6589678579580e715cdddea2c333",
+  "version_string": "NeuroNet SM R05 based on Neuronet Ver. 3.0R24. Added the ability to connect a virtual robot. By Sergey Lobov and Alexey Zharinov 2009-2022",
+  "method": "Static llvm-objdump disassembly, x86 Intel syntax; separate manual execution by the user is documented by screenshots.",
+  "neuron_fields": {
+    "V": "object+0x08",
+    "V_old_plot": "object+0x10",
+    "refractory_time_Spike_showing": "object+0x38",
+    "spike_timer": "object+0x40",
+    "Is_spike": "object+0x180",
+    "input_current": "object+0x1a0",
+    "a": "object+0x1a8",
+    "b": "object+0x1b0",
+    "c": "object+0x1b8",
+    "d": "object+0x1c0",
+    "u": "object+0x1c8",
+    "network_pointer": "object+0xb0",
+    "dt": "network+0x990",
+    "time": "network+0x998"
+  },
+  "izh_confirmed": [
+    "Function 0x445d90. Always integrate V/u; no pre-integration threshold or spike timer branch.",
+    "Compute dV=.04*Vold^2+5*Vold+140-uold+I and du=a*(b*Vold-uold).",
+    "V=Vold+dt*dV and u=uold+dt*du (single explicit Euler step).",
+    "Then compare new V against30. If V>=30: Is_spike=true,V=c,V_old_plot=30,u+=d.",
+    "After reset/threshold block: if spike_timer!=0, spike_timer-=dt; if timer<=0 set Is_spike=false and timer=0.",
+    "Then jump to common output/plasticity function0x417ec4.",
+    "Common output updates continuous synaptic resource variables using Euler, then registers a spike only when timer==0 and Is_spike!=0.",
+    "On registration: timer=refractory_time, facilitate u_syn +=U*(1-u_syn), output+=u_syn*x, x-=u_syn*x."
+  ],
+  "stimulator_confirmed": [
+    "Function0x44b880. With normal rhythmic stimulation/no NXT, reset Output=0, compute interval phase, add voltage of selected table row.",
+    "phase=(int64_trunc(time*10) % (int64_trunc(frame_duration)*10))/10; time quantized to0.1ms.",
+    "Choose first table index j for which table_time[j]>=phase (including equality).",
+    "For rows(50,0),(53,30),(100,0), input is30 at50<phase<=53; at dt=.5 the nonzero phases are50.5,51,51.5,52,52.5,53.",
+    "Main update loop calls stimulators before neuron virtual calculation; model time increments afterward."
+  ],
+  "not_confirmed": [
+    "No original event log was exported for this comparison.",
+    "The initial state and history of the manual GUI session are unknown.",
+    "Historical lab screenshots do not establish the time step or raw spike times.",
+    "The Python translation is not a bitwise reconstruction of the x87 executable."
+  ],
+  "files": [
+    "binary_evidence.asm",
+    "nn_step_0p5.png",
+    "nn_step_0p025.png"
+  ],
+  "stimulator_imports": {
+    "0x45d618": "jmp[0x51fc34] -> libgcc_s_dw2-1.dll::__moddi3",
+    "0x502974": "float10.0"
+  },
+  "zero_timer_warning": "refractory_time=0 is unsafe as a control: Is_spike is cleared only inside the nonzero timer branch. Zero timer can leave the flag true after the first event and register on subsequent steps. Use a strictly positive short timer instead.",
+  "frequency_counter": {
+    "formula": "Frequency = 1000 * size(spike_time_deque within [time-window,time]) / window_ms",
+    "field": "neuron+0x188",
+    "window_field": "network+0x9e8",
+    "default_window_ms": 50.0,
+    "constructor_evidence": "0x4253fb/0x425405 initialize IEEE double0x4049000000000000=50",
+    "counter_evidence": "0x418054..0x4180b7; 0x41838c..0x4183a9 removes expired timestamps",
+    "UI_evidence": "0x41eab8..0x41eadb passes the stored frequency double directly to the display",
+    "dialog_strings": [
+      "Frequency Window:",
+      "Change Frequency Window"
+    ],
+    "implication": "A single event every100ms can display20 during the50ms following an event and0 between; the display is not a long-run average."
+  },
+  "size_bytes": 1193472,
+  "pe_timestamp_utc": "2022-10-10T11:07:09Z",
+  "version_info_fields": "empty; version identified using the embedded string",
+  "observed_screenshots": [
+    {
+      "file": "nn_step_0p5.png",
+      "sha256": "1489641afd1c29220cf8a9f4c000f7b12e29fbcafaa1de5a6ed59ad87617e08f",
+      "step_ms": 0.5,
+      "Em_frame_ms": 100,
+      "visible_full_spikes": 1,
+      "displayed_Frequency": 20,
+      "evidence_kind": "original program screenshot supplied by user; not an exported event log"
+    },
+    {
+      "file": "nn_step_0p025.png",
+      "sha256": "2ab77263b97a31c58b5cfd9f86e9dbc32cf76a0dd35a0ddd2a3ce532d538a8f4",
+      "step_ms": 0.025,
+      "Em_frame_ms": 100,
+      "visible_full_spikes": 2,
+      "displayed_Frequency": 40,
+      "evidence_kind": "original program screenshot supplied by user; not an exported event log"
+    }
+  ],
+  "controlled_parameters": {
+    "a": 0.02,
+    "b": 0.2,
+    "c": -65,
+    "d": 8,
+    "Spike showing_ms": 1,
+    "Noise": 0,
+    "individual_noise_enabled": false,
+    "frame_duration_ms": 100,
+    "interval_table_time_ms_value": [
+      [
+        50,
+        0
+      ],
+      [
+        53,
+        30
+      ],
+      [
+        100,
+        0
+      ]
+    ],
+    "stimulation_frequency_hz": 10
+  }
+}

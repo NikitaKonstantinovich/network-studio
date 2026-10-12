@@ -1,0 +1,1819 @@
+{
+  "snapshots": [
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\0s.net",
+      "sha256": "9ee6db7b50963808c48f2ead7948c5c673753b2ffefbb63be0b6471105c16d13",
+      "model_time_ms": 0.0,
+      "neurons": 500,
+      "excitatory": 400,
+      "inhibitory": 100,
+      "edges": 5946,
+      "number_of_bursts": 0,
+      "in_degree": {
+        "count": 500,
+        "minimum": 4,
+        "maximum": 17,
+        "mean": 11.892,
+        "population_sd": 2.859429313691807
+      },
+      "weights": {
+        "count": 5946,
+        "minimum": 0.155259,
+        "maximum": 0.835464,
+        "mean": 0.4968972161116717,
+        "population_sd": 0.10643062565210495
+      },
+      "deque_sizes": {
+        "count": 500,
+        "minimum": 6,
+        "maximum": 15,
+        "mean": 9.076,
+        "population_sd": 1.5199421041605499
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": null
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\0.0005s.net",
+      "sha256": "5d1e467f09ee9573769e708a54132b698c8dedd99631b9a6c3097ceb131a9c6f",
+      "model_time_ms": 0.5,
+      "neurons": 500,
+      "excitatory": 400,
+      "inhibitory": 100,
+      "edges": 5946,
+      "number_of_bursts": 0,
+      "in_degree": {
+        "count": 500,
+        "minimum": 4,
+        "maximum": 17,
+        "mean": 11.892,
+        "population_sd": 2.859429313691807
+      },
+      "weights": {
+        "count": 5946,
+        "minimum": 0.155259,
+        "maximum": 0.835464,
+        "mean": 0.4968972161116717,
+        "population_sd": 0.10643062565210495
+      },
+      "deque_sizes": {
+        "count": 500,
+        "minimum": 6,
+        "maximum": 15,
+        "mean": 9.076,
+        "population_sd": 1.5199421041605499
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": null
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\12962.1s.net",
+      "sha256": "17c524d768d3919db13516f299747042dfb4512079330db94edf74bd9b6df479",
+      "model_time_ms": 12962055.0,
+      "neurons": 3,
+      "excitatory": 3,
+      "inhibitory": 0,
+      "edges": 3,
+      "number_of_bursts": 15,
+      "in_degree": {
+        "count": 3,
+        "minimum": 1,
+        "maximum": 1,
+        "mean": 1,
+        "population_sd": 0.0
+      },
+      "weights": {
+        "count": 3,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "mean": 1.0,
+        "population_sd": 0.0
+      },
+      "deque_sizes": {
+        "count": 3,
+        "minimum": 6,
+        "maximum": 7,
+        "mean": 6.666666666666667,
+        "population_sd": 0.4714045207910317
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": [
+        {
+          "id": 1,
+          "type": "excitory",
+          "x": 56.0,
+          "y": 37.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 2,
+          "type": "excitory",
+          "x": 92.0,
+          "y": 37.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 3,
+          "type": "excitory",
+          "x": 75.0,
+          "y": 72.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\114.15s.net",
+      "sha256": "257c55c87eb61c2622f60e6a4a04f22dfc71bf68c2ab4fa75422d15dbe76c2f7",
+      "model_time_ms": 114150.0,
+      "neurons": 5,
+      "excitatory": 5,
+      "inhibitory": 0,
+      "edges": 5,
+      "number_of_bursts": 2,
+      "in_degree": {
+        "count": 5,
+        "minimum": 1,
+        "maximum": 1,
+        "mean": 1,
+        "population_sd": 0.0
+      },
+      "weights": {
+        "count": 5,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "mean": 1.0,
+        "population_sd": 0.0
+      },
+      "deque_sizes": {
+        "count": 5,
+        "minimum": 6,
+        "maximum": 7,
+        "mean": 6.4,
+        "population_sd": 0.4898979485566356
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": false,
+      "node_details": [
+        {
+          "id": 1,
+          "type": "excitory",
+          "x": 34.0,
+          "y": 37.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 2,
+          "type": "excitory",
+          "x": 71.0,
+          "y": 15.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 3,
+          "type": "excitory",
+          "x": 100.0,
+          "y": 39.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 4,
+          "type": "excitory",
+          "x": 82.0,
+          "y": 70.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 3.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_b": 0.0
+          }
+        },
+        {
+          "id": 5,
+          "type": "excitory",
+          "x": 49.0,
+          "y": 68.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\192.245s.net",
+      "sha256": "4c1845c9cc9ecba715671fda40dbf63da75a3fb51df51b116fdc33d7cb8bd4a8",
+      "model_time_ms": 192245.0,
+      "neurons": 10,
+      "excitatory": 10,
+      "inhibitory": 0,
+      "edges": 10,
+      "number_of_bursts": 0,
+      "in_degree": {
+        "count": 10,
+        "minimum": 1,
+        "maximum": 1,
+        "mean": 1,
+        "population_sd": 0.0
+      },
+      "weights": {
+        "count": 10,
+        "minimum": 0.2,
+        "maximum": 0.2,
+        "mean": 0.2,
+        "population_sd": 0.0
+      },
+      "deque_sizes": {
+        "count": 10,
+        "minimum": 5,
+        "maximum": 7,
+        "mean": 6.3,
+        "population_sd": 0.6403124237432849
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": [
+        {
+          "id": 2,
+          "type": "excitory",
+          "x": 36.0,
+          "y": 50.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 3,
+          "type": "excitory",
+          "x": 54.0,
+          "y": 21.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 4,
+          "type": "excitory",
+          "x": 89.0,
+          "y": 11.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 5,
+          "type": "excitory",
+          "x": 129.0,
+          "y": 15.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 6,
+          "type": "excitory",
+          "x": 154.0,
+          "y": 38.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 7,
+          "type": "excitory",
+          "x": 163.0,
+          "y": 69.0,
+          "inputs": 1,
+          "output_deque_size": 5,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 8,
+          "type": "excitory",
+          "x": 149.0,
+          "y": 95.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 9,
+          "type": "excitory",
+          "x": 123.0,
+          "y": 113.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 10,
+          "type": "excitory",
+          "x": 82.0,
+          "y": 113.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 11,
+          "type": "excitory",
+          "x": 46.0,
+          "y": 90.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\32.44s.net",
+      "sha256": "ad471d093659184a4f3f06ce249565218c43b28aaec9db3f00a149f7b1c43db3",
+      "model_time_ms": 32440.0,
+      "neurons": 10,
+      "excitatory": 10,
+      "inhibitory": 0,
+      "edges": 10,
+      "number_of_bursts": 0,
+      "in_degree": {
+        "count": 10,
+        "minimum": 1,
+        "maximum": 1,
+        "mean": 1,
+        "population_sd": 0.0
+      },
+      "weights": {
+        "count": 10,
+        "minimum": 0.7,
+        "maximum": 0.7,
+        "mean": 0.7,
+        "population_sd": 0.0
+      },
+      "deque_sizes": {
+        "count": 10,
+        "minimum": 5,
+        "maximum": 8,
+        "mean": 6.4,
+        "population_sd": 0.8
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": [
+        {
+          "id": 2,
+          "type": "excitory",
+          "x": 35.0,
+          "y": 48.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 3,
+          "type": "excitory",
+          "x": 54.0,
+          "y": 21.0,
+          "inputs": 1,
+          "output_deque_size": 5,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 4,
+          "type": "excitory",
+          "x": 89.0,
+          "y": 11.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 5,
+          "type": "excitory",
+          "x": 129.0,
+          "y": 15.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 6,
+          "type": "excitory",
+          "x": 154.0,
+          "y": 38.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 7,
+          "type": "excitory",
+          "x": 163.0,
+          "y": 69.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 8,
+          "type": "excitory",
+          "x": 149.0,
+          "y": 95.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 9,
+          "type": "excitory",
+          "x": 123.0,
+          "y": 113.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 10,
+          "type": "excitory",
+          "x": 85.0,
+          "y": 114.0,
+          "inputs": 1,
+          "output_deque_size": 8,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 11,
+          "type": "excitory",
+          "x": 46.0,
+          "y": 90.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\48.13s.net",
+      "sha256": "c0050c9bda5a84c4981c7286b79c9c6e3b9c4e96140ec8f7ffcedc5baf929903",
+      "model_time_ms": 48130.0,
+      "neurons": 10,
+      "excitatory": 10,
+      "inhibitory": 0,
+      "edges": 10,
+      "number_of_bursts": 0,
+      "in_degree": {
+        "count": 10,
+        "minimum": 1,
+        "maximum": 1,
+        "mean": 1,
+        "population_sd": 0.0
+      },
+      "weights": {
+        "count": 10,
+        "minimum": 0.5,
+        "maximum": 0.5,
+        "mean": 0.5,
+        "population_sd": 0.0
+      },
+      "deque_sizes": {
+        "count": 10,
+        "minimum": 5,
+        "maximum": 8,
+        "mean": 6.4,
+        "population_sd": 0.8
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": [
+        {
+          "id": 2,
+          "type": "excitory",
+          "x": 36.0,
+          "y": 50.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 3,
+          "type": "excitory",
+          "x": 54.0,
+          "y": 21.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 4,
+          "type": "excitory",
+          "x": 89.0,
+          "y": 11.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 5,
+          "type": "excitory",
+          "x": 129.0,
+          "y": 15.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 6,
+          "type": "excitory",
+          "x": 154.0,
+          "y": 38.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 7,
+          "type": "excitory",
+          "x": 163.0,
+          "y": 69.0,
+          "inputs": 1,
+          "output_deque_size": 5,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 8,
+          "type": "excitory",
+          "x": 149.0,
+          "y": 95.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 9,
+          "type": "excitory",
+          "x": 123.0,
+          "y": 113.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 10,
+          "type": "excitory",
+          "x": 82.0,
+          "y": 113.0,
+          "inputs": 1,
+          "output_deque_size": 8,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 11,
+          "type": "excitory",
+          "x": 46.0,
+          "y": 90.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\67.91s.net",
+      "sha256": "3c75a1305b1758e7e5a5991fe597dc78925183a3c88f1c8f629b1e2171c3956d",
+      "model_time_ms": 67910.0,
+      "neurons": 10,
+      "excitatory": 10,
+      "inhibitory": 0,
+      "edges": 10,
+      "number_of_bursts": 0,
+      "in_degree": {
+        "count": 10,
+        "minimum": 1,
+        "maximum": 1,
+        "mean": 1,
+        "population_sd": 0.0
+      },
+      "weights": {
+        "count": 10,
+        "minimum": 0.2,
+        "maximum": 0.2,
+        "mean": 0.2,
+        "population_sd": 0.0
+      },
+      "deque_sizes": {
+        "count": 10,
+        "minimum": 5,
+        "maximum": 7,
+        "mean": 6.3,
+        "population_sd": 0.6403124237432849
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": [
+        {
+          "id": 2,
+          "type": "excitory",
+          "x": 36.0,
+          "y": 50.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 3,
+          "type": "excitory",
+          "x": 54.0,
+          "y": 21.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 4,
+          "type": "excitory",
+          "x": 89.0,
+          "y": 11.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 5,
+          "type": "excitory",
+          "x": 129.0,
+          "y": 15.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 6,
+          "type": "excitory",
+          "x": 154.0,
+          "y": 38.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 7,
+          "type": "excitory",
+          "x": 163.0,
+          "y": 69.0,
+          "inputs": 1,
+          "output_deque_size": 5,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 8,
+          "type": "excitory",
+          "x": 149.0,
+          "y": 95.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 9,
+          "type": "excitory",
+          "x": 123.0,
+          "y": 113.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 10,
+          "type": "excitory",
+          "x": 82.0,
+          "y": 113.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 11,
+          "type": "excitory",
+          "x": 46.0,
+          "y": 90.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\ring_N10_w1.net",
+      "sha256": "d22a95b5f69e14ef33a03b820447c75bf6d0efbc43fb8f14f613b3511f14e0aa",
+      "model_time_ms": 32440.0,
+      "neurons": 11,
+      "excitatory": 11,
+      "inhibitory": 0,
+      "edges": 11,
+      "number_of_bursts": 0,
+      "in_degree": {
+        "count": 11,
+        "minimum": 1,
+        "maximum": 1,
+        "mean": 1,
+        "population_sd": 0.0
+      },
+      "weights": {
+        "count": 11,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "mean": 1.0,
+        "population_sd": 0.0
+      },
+      "deque_sizes": {
+        "count": 11,
+        "minimum": 5,
+        "maximum": 7,
+        "mean": 5.818181818181818,
+        "population_sd": 0.7158188976374373
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": [
+        {
+          "id": 1,
+          "type": "excitory",
+          "x": 33.0,
+          "y": 68.0,
+          "inputs": 1,
+          "output_deque_size": 5,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 2,
+          "type": "excitory",
+          "x": 35.0,
+          "y": 37.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 3,
+          "type": "excitory",
+          "x": 61.0,
+          "y": 15.0,
+          "inputs": 1,
+          "output_deque_size": 5,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 4,
+          "type": "excitory",
+          "x": 89.0,
+          "y": 11.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 5,
+          "type": "excitory",
+          "x": 127.0,
+          "y": 14.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 6,
+          "type": "excitory",
+          "x": 154.0,
+          "y": 38.0,
+          "inputs": 1,
+          "output_deque_size": 5,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 7,
+          "type": "excitory",
+          "x": 161.0,
+          "y": 66.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 8,
+          "type": "excitory",
+          "x": 149.0,
+          "y": 95.0,
+          "inputs": 1,
+          "output_deque_size": 5,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 9,
+          "type": "excitory",
+          "x": 123.0,
+          "y": 112.0,
+          "inputs": 1,
+          "output_deque_size": 7,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 10,
+          "type": "excitory",
+          "x": 85.0,
+          "y": 114.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        },
+        {
+          "id": 11,
+          "type": "excitory",
+          "x": 51.0,
+          "y": 99.0,
+          "inputs": 1,
+          "output_deque_size": 6,
+          "stp_label": true,
+          "parameters": {
+            "refractory_time": 1.0,
+            "parameter_U": 0.5,
+            "tau_recovery": 50.0,
+            "tau_I": 10.0,
+            "tau_facility": 1000.0,
+            "parameter_a": 0.02,
+            "parameter_b": 0.2,
+            "parameter_c": -65.0,
+            "parameter_d": 8.0
+          }
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\29.97s.net",
+      "sha256": "e8def652c59367d3543265a7f8fa85ed80c88e748aa64f3da0a61bd4d0498059",
+      "model_time_ms": 29970.0,
+      "neurons": 500,
+      "excitatory": 400,
+      "inhibitory": 100,
+      "edges": 11891,
+      "number_of_bursts": 32,
+      "in_degree": {
+        "count": 500,
+        "minimum": 6,
+        "maximum": 38,
+        "mean": 23.782,
+        "population_sd": 6.225309309584545
+      },
+      "weights": {
+        "count": 11891,
+        "minimum": 0.129476,
+        "maximum": 0.842779,
+        "mean": 0.4990730803969389,
+        "population_sd": 0.10312868963361982
+      },
+      "deque_sizes": {
+        "count": 500,
+        "minimum": 7,
+        "maximum": 22,
+        "mean": 14.616,
+        "population_sd": 2.623079106698843
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": null
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\network500_k30_initial.net",
+      "sha256": "93047de876abe792552ab9e0d63654e4c79b4f9f22104e6b6d4367ddb992c99b",
+      "model_time_ms": 0.0,
+      "neurons": 500,
+      "excitatory": 400,
+      "inhibitory": 100,
+      "edges": 11891,
+      "number_of_bursts": 0,
+      "in_degree": {
+        "count": 500,
+        "minimum": 6,
+        "maximum": 38,
+        "mean": 23.782,
+        "population_sd": 6.225309309584545
+      },
+      "weights": {
+        "count": 11891,
+        "minimum": 0.129476,
+        "maximum": 0.842779,
+        "mean": 0.4990730803969389,
+        "population_sd": 0.10312868963361982
+      },
+      "deque_sizes": {
+        "count": 500,
+        "minimum": 7,
+        "maximum": 22,
+        "mean": 14.616,
+        "population_sd": 2.623079106698843
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": null
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\3\\29.185s.net",
+      "sha256": "9c1e174cbee8ae10a82b5531a9769ffc0c34c587c851730ca55573726512f8fe",
+      "model_time_ms": 29185.0,
+      "neurons": 500,
+      "excitatory": 400,
+      "inhibitory": 100,
+      "edges": 5577,
+      "number_of_bursts": 29,
+      "in_degree": {
+        "count": 500,
+        "minimum": 3,
+        "maximum": 17,
+        "mean": 11.154,
+        "population_sd": 2.7155632933150353
+      },
+      "weights": {
+        "count": 5577,
+        "minimum": 0.160395,
+        "maximum": 0.879091,
+        "mean": 0.5056502440380133,
+        "population_sd": 0.09552245869405988
+      },
+      "deque_sizes": {
+        "count": 500,
+        "minimum": 5,
+        "maximum": 14,
+        "mean": 8.58,
+        "population_sd": 1.3533661736573734
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": null
+    },
+    {
+      "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\1_NeuroNet\\3\\3.net",
+      "sha256": "e4754368d1c09731dfad948f2a5979690b84dffa42b2d7820b430f02552b657c",
+      "model_time_ms": 80910.0,
+      "neurons": 500,
+      "excitatory": 400,
+      "inhibitory": 100,
+      "edges": 7625,
+      "number_of_bursts": 29,
+      "in_degree": {
+        "count": 500,
+        "minimum": 5,
+        "maximum": 22,
+        "mean": 15.25,
+        "population_sd": 3.6577998851768805
+      },
+      "weights": {
+        "count": 7625,
+        "minimum": 0.041086,
+        "maximum": 0.499522,
+        "mean": 0.24219391521311476,
+        "population_sd": 0.10269168344393599
+      },
+      "deque_sizes": {
+        "count": 500,
+        "minimum": 7,
+        "maximum": 17,
+        "mean": 10.846,
+        "population_sd": 1.9448095022392295
+      },
+      "common_parameters": {
+        "refractory_time": 1.0,
+        "parameter_U": 0.5,
+        "tau_recovery": 50.0,
+        "tau_I": 10.0,
+        "tau_facility": 1000.0,
+        "parameter_a": 0.02,
+        "parameter_b": 0.2,
+        "parameter_c": -65.0,
+        "parameter_d": 8.0
+      },
+      "all_parameters_identical": true,
+      "node_details": null
+    }
+  ],
+  "logs": {
+    "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\calculate_0s.log": {
+      "sha256": "6dca4d024527d3196606d1cb1d85ba3c0fa75af604451548ad2cf15aa907f449",
+      "text": "The network calculate log file\nBy Sergey Lobov 2010.\n\nStep: 0.5\nSpike velocity: 0.05\nNoise sigma: 3\nLearning rate: 0\nAlfa learn: 5\nPair-based STDP (classic)\nMinus-plus is off\n"
+    },
+    "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\calculate_32.44s.log": {
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "text": "The network calculate log file\nBy Sergey Lobov 2010.\n\nStep: 0.5\nSpike velocity: 0.05\nNoise sigma: 0\nLearning rate: 0\nAlfa learn: 5\nPair-based STDP (classic)\nMinus-plus is off\n"
+    },
+    "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\calculate_48.13s.log": {
+      "sha256": "5262300ca5409dec040eb89b9400d67707a496779a1047d5399e9f8cf98e008e",
+      "text": "The network calculate log file\nBy Sergey Lobov 2010.\n\nStep: 0.5\nSpike velocity: 0.05\nNoise sigma: 0\nLearning rate: 0\nAlfa learn: 5\nPair-based STDP (classic)\nMinus-plus is off\n"
+    },
+    "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\wizard_13-32_30-09-26.log": {
+      "sha256": "6362e2be2c2a11aac0fa5d51bb0f5bd1b63cfe6b1a40cf074c02e7224600c536",
+      "text": "The network creating by wizard log file\nBy Sergey Lobov 2010.\n\nNeurons type: Izhikevich's\n\nNumber of excitory neurons: 400\nNumber of inhibitory neurons: 100\n\nSpecific parameters: \nParameter a: 0.02+-0\nParameter b: 0.2+-0\nParameter c: -65+-0\nParameter d: 8+-0\nSpike showing: 1+-0\n\nPlasticity parameters:\ninitial x: 20+-0\nU: 0.5+-0\ntau recovery: 50+-0\ntau inhibitory: 10+-0\ntau facility: 1000+-0\n\nIncomming connections for each neuron:\nnumber: 30+-3\nweight: 0.5+-0.1\nNeighborhood connection with density: 2\n"
+    },
+    "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\wizard_13-47_30-09-26.log": {
+      "sha256": "60c68f4db662c107b228000ca92944a4231fc3e0aef7608d3d1408fa06542841",
+      "text": "The network creating by wizard log file\nBy Sergey Lobov 2010.\n\nNeurons type: Izhikevich's\n\nNumber of excitory neurons: 400\nNumber of inhibitory neurons: 100\n\nSpecific parameters: \nParameter a: 0.02+-0\nParameter b: 0.2+-0\nParameter c: -65+-0\nParameter d: 8+-0\nSpike showing: 1+-0\n\nPlasticity parameters:\ninitial x: 20+-0\nU: 0.5+-0\ntau recovery: 50+-0\ntau inhibitory: 10+-0\ntau facility: 1000+-0\n\nIncomming connections for each neuron:\nnumber: 15+-2\nweight: 0.5+-0.1\nNeighborhood connection with density: 2\n"
+    },
+    "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\wizard_13-48_30-09-26.log": {
+      "sha256": "60c68f4db662c107b228000ca92944a4231fc3e0aef7608d3d1408fa06542841",
+      "text": "The network creating by wizard log file\nBy Sergey Lobov 2010.\n\nNeurons type: Izhikevich's\n\nNumber of excitory neurons: 400\nNumber of inhibitory neurons: 100\n\nSpecific parameters: \nParameter a: 0.02+-0\nParameter b: 0.2+-0\nParameter c: -65+-0\nParameter d: 8+-0\nSpike showing: 1+-0\n\nPlasticity parameters:\ninitial x: 20+-0\nU: 0.5+-0\ntau recovery: 50+-0\ntau inhibitory: 10+-0\ntau facility: 1000+-0\n\nIncomming connections for each neuron:\nnumber: 15+-2\nweight: 0.5+-0.1\nNeighborhood connection with density: 2\n"
+    }
+  },
+  "delay_matrix": {
+    "path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\dls_0.0005.txt",
+    "sha256": "b34231a590b8eab87b5a0a7e507068d18232aa7699a272d886a6c4a469bff359",
+    "rows": 500,
+    "columns": 500,
+    "nonzero_entries": 5915,
+    "positive_values": {
+      "count": 5915,
+      "minimum": 0.5,
+      "maximum": 7.0,
+      "mean": 2.2547759932375318,
+      "population_sd": 1.0578413543887952
+    },
+    "values_on_snapshot_edges": {
+      "count": 5946,
+      "minimum": 0.0,
+      "maximum": 7.0,
+      "mean": 2.243020517995291,
+      "population_sd": 1.067502669533564
+    },
+    "positive_entries_outside_snapshot_edges": 0,
+    "snapshot_edges_with_zero": 31,
+    "ratio_to_coordinate_distance": {
+      "count": 5915,
+      "minimum": 0.03834824944236852,
+      "maximum": 0.09284766908852593,
+      "mean": 0.07040345760075062,
+      "population_sd": 0.007806252993471893
+    },
+    "snapshot_path": "C:\\Users\\N1kit\\Downloads\\1_NeuroNet\\2\\0.0005s.net",
+    "units": "literal export values; no unit metadata in matrix",
+    "limitation": "This matrix belongs to the 500-node 0.0005s snapshot, not a ring snapshot or the 29.97s network."
+  }
+}

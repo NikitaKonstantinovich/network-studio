@@ -1,0 +1,4693 @@
+{
+  "provenance": {
+    "created_utc": "2026-10-12T12:34:10.439738+00:00",
+    "python": "3.12.14",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "cli_sha256": "b8ddc5980e8ff675e0c32057f24fe568ec03225fc07bd5235ee23d03d908a7df",
+    "script_sha256": "768f8b1577fca1e94283c3c8dbbfea2d1baae6b03d93be66345664db857f7d18",
+    "source_sha256": {
+      "network.cpp": "ffb7f8fa06e13f1adebf584a5e5c92eaf030983b3981bf7cc94822df0a3ebfb4",
+      "network.h": "8ff7698e6ffadef7fef4eb44c32d70069ff1676c264d796f10c24782a63ce284",
+      "io.cpp": "c3fe0edd1253260ceda54a8b83c9399b2a61a281b6cd2265e9b024a154cbc1e5",
+      "tests.cpp": "e85f8f45460113bca96a1d8ec3ceb0dd18695aa916bedb07d273c35516ead8b6"
+    },
+    "source_references": [
+      "https://www.izhikevich.org/publications/spikes.htm",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC8070389/"
+    ],
+    "tolerance": {
+      "rtol": 1e-11,
+      "atol": 1e-12,
+      "max_step_ms": 0.5
+    },
+    "checks": {
+      "reference_counts_equal": true,
+      "reference_max_event_difference_ms": 2.9842794901924208e-12,
+      "cpp_counts_equal_reference": true,
+      "cpp_dose_max_error": 8.526512829121202e-14
+    }
+  },
+  "mechanism": {
+    "first_reset": {
+      "time_ms": 101.4986522548012,
+      "latency_ms": 1.4986522548012005,
+      "v_before": 30.00000000000496,
+      "u_before": -13.76028629071877,
+      "v_after": -65.0,
+      "u_after": -5.760286290718771,
+      "reset_time_ms": 101.4986522548012
+    },
+    "onset_state": [
+      -70.12554604057377,
+      -13.927390295096451
+    ],
+    "offset_state": [
+      -2.821774032144516,
+      -5.855462836192261
+    ],
+    "stimulus_remaining_after_first_reset_ms": 1.5013477451987995,
+    "dv_after_first_reset_with_current": 19.76028629071877,
+    "dv_after_first_reset_without_current": -10.23971370928123,
+    "dv_at_offset_after_current_removed": 132.06508902300908
+  },
+  "results": {
+    "reference_DOP853": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -5.760286290718771,
+          "reset_time_ms": 101.4986522548012
+        },
+        {
+          "time_ms": 103.15652250159829,
+          "latency_ms": 3.156522501598289,
+          "v_before": 29.999999999997126,
+          "u_before": -5.830224998947916,
+          "v_after": -65.0,
+          "u_after": 2.169775001052084,
+          "reset_time_ms": 103.15652250159829
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -2.821774032144516,
+          -5.855462836192261
+        ]
+      },
+      "final": [
+        -72.20605860849365,
+        -12.5321563016747
+      ],
+      "dose_current_ms": 90.0
+    },
+    "reference_Radau": {
+      "method": "Radau",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.49865225480279,
+          "latency_ms": 1.498652254802792,
+          "v_before": 29.99999999999813,
+          "u_before": -13.760286290718547,
+          "v_after": -65.0,
+          "u_after": -5.760286290718547,
+          "reset_time_ms": 101.49865225480279
+        },
+        {
+          "time_ms": 103.15652250160127,
+          "latency_ms": 3.1565225016012732,
+          "v_before": 29.99999999999766,
+          "u_before": -5.8302249989478065,
+          "v_after": -65.0,
+          "u_after": 2.1697750010521935,
+          "reset_time_ms": 103.15652250160127
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057352,
+          -13.927390295096423
+        ],
+        "offset": [
+          -2.8217740327651404,
+          -5.855462836192579
+        ]
+      },
+      "final": [
+        -72.2060586084902,
+        -12.532156301674501
+      ],
+      "dose_current_ms": 90.0
+    },
+    "euler_1ms": {
+      "method": "euler",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 103.0,
+          "latency_ms": 3.0,
+          "v_before": 231.72811436007075,
+          "u_before": -13.506739975536822,
+          "v_after": -65.0,
+          "u_after": -5.5067399755368225,
+          "reset_time_ms": 103.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12163092255199,
+          -13.929675617816974
+        ],
+        "offset": [
+          -65.0,
+          -5.5067399755368225
+        ]
+      },
+      "final": [
+        -71.12916657486777,
+        -13.299299493380795
+      ],
+      "dose_current_ms": 90.0
+    },
+    "euler_0.5ms": {
+      "method": "euler",
+      "hold": "none",
+      "step_ms": 0.5,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 102.0,
+          "latency_ms": 2.0,
+          "v_before": 39.853073153318405,
+          "u_before": -13.736256737279499,
+          "v_after": -65.0,
+          "u_after": -5.736256737279499,
+          "reset_time_ms": 102.0
+        },
+        {
+          "time_ms": 106.0,
+          "latency_ms": 6.0,
+          "v_before": 57.09065252679407,
+          "u_before": -5.893118042395059,
+          "v_after": -65.0,
+          "u_after": 2.1068819576049407,
+          "reset_time_ms": 106.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12356049844246,
+          -13.928549459996121
+        ],
+        "offset": [
+          -44.26663823327181,
+          -5.861068971470358
+        ]
+      },
+      "final": [
+        -72.31624727509423,
+        -12.448357092622066
+      ],
+      "dose_current_ms": 90.0
+    },
+    "euler_0.25ms": {
+      "method": "euler",
+      "hold": "none",
+      "step_ms": 0.25,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 102.0,
+          "latency_ms": 2.0,
+          "v_before": 119.8619711361397,
+          "u_before": -13.654998493376738,
+          "v_after": -65.0,
+          "u_after": -5.654998493376738,
+          "reset_time_ms": 102.0
+        },
+        {
+          "time_ms": 105.25,
+          "latency_ms": 5.25,
+          "v_before": 71.54751602553937,
+          "u_before": -5.758843054053662,
+          "v_after": -65.0,
+          "u_after": 2.2411569459463383,
+          "reset_time_ms": 105.25
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12454690834736,
+          -13.927973634925022
+        ],
+        "offset": [
+          -43.263921958327394,
+          -5.770913998797624
+        ]
+      },
+      "final": [
+        -72.30941722115367,
+        -12.45354700238184
+      ],
+      "dose_current_ms": 90.0
+    },
+    "euler_0.1ms": {
+      "method": "euler",
+      "hold": "none",
+      "step_ms": 0.1,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.7,
+          "latency_ms": 1.7000000000000028,
+          "v_before": 61.105228690695,
+          "u_before": -13.721285102497042,
+          "v_after": -65.0,
+          "u_after": -5.721285102497042,
+          "reset_time_ms": 101.7
+        },
+        {
+          "time_ms": 103.7,
+          "latency_ms": 3.700000000000003,
+          "v_before": 45.964343922218575,
+          "u_before": -5.788004466355599,
+          "v_after": -65.0,
+          "u_after": 2.2119955336444006,
+          "reset_time_ms": 103.7
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12514493567876,
+          -13.927624489434365
+        ],
+        "offset": [
+          -29.025194589206045,
+          -5.839482499815437
+        ]
+      },
+      "final": [
+        -72.23361677887569,
+        -12.51128695574187
+      ],
+      "dose_current_ms": 90.0
+    },
+    "euler_0.025ms": {
+      "method": "euler",
+      "hold": "none",
+      "step_ms": 0.025,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.55000000000001,
+          "latency_ms": 1.5500000000000114,
+          "v_before": 37.588961440124635,
+          "u_before": -13.750547200286158,
+          "v_after": -65.0,
+          "u_after": -5.750547200286158,
+          "reset_time_ms": 101.55000000000001
+        },
+        {
+          "time_ms": 103.275,
+          "latency_ms": 3.2750000000000057,
+          "v_before": 32.46620453221219,
+          "u_before": -5.82028184288413,
+          "v_after": -65.0,
+          "u_after": 2.17971815711587,
+          "reset_time_ms": 103.275
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12544558797062,
+          -13.927448948007328
+        ],
+        "offset": [
+          -12.990735135046442,
+          -5.855386866139893
+        ]
+      },
+      "final": [
+        -72.2119538737522,
+        -12.527697620621904
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_1ms": {
+      "method": "historical",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 102.0,
+          "latency_ms": 2.0,
+          "v_before": 39.731998903422806,
+          "u_before": -13.377314450391923,
+          "v_after": -65.0,
+          "u_after": -5.377314450391923,
+          "reset_time_ms": 102.0
+        },
+        {
+          "time_ms": 107.0,
+          "latency_ms": 7.0,
+          "v_before": 504.4648012233014,
+          "u_before": -3.2849870444914133,
+          "v_after": -65.0,
+          "u_after": 4.715012955508587,
+          "reset_time_ms": 107.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12146109912607,
+          -13.930339195472772
+        ],
+        "offset": [
+          -44.71414969558084,
+          -5.448624760166408
+        ]
+      },
+      "final": [
+        -72.72576634365986,
+        -12.143366070782884
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_0.5ms": {
+      "method": "historical",
+      "hold": "none",
+      "step_ms": 0.5,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 102.0,
+          "latency_ms": 2.0,
+          "v_before": 119.55277800935623,
+          "u_before": -13.341701709441613,
+          "v_after": -65.0,
+          "u_after": -5.3417017094416135,
+          "reset_time_ms": 102.0
+        },
+        {
+          "time_ms": 105.5,
+          "latency_ms": 5.5,
+          "v_before": 95.13399731073736,
+          "u_before": -5.197818797679721,
+          "v_after": -65.0,
+          "u_after": 2.802181202320279,
+          "reset_time_ms": 105.5
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.1234546876253,
+          -13.92887412491667
+        ],
+        "offset": [
+          -43.696242910555455,
+          -5.43236180315634
+        ]
+      },
+      "final": [
+        -72.39497794423106,
+        -12.393665525071548
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_0.25ms": {
+      "method": "historical",
+      "hold": "none",
+      "step_ms": 0.25,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.75,
+          "latency_ms": 1.75,
+          "v_before": 69.61878562175494,
+          "u_before": -13.60066985015484,
+          "v_after": -65.0,
+          "u_after": -5.600669850154841,
+          "reset_time_ms": 101.75
+        },
+        {
+          "time_ms": 104.0,
+          "latency_ms": 4.0,
+          "v_before": 107.26258618391267,
+          "u_before": -5.4985201158281525,
+          "v_after": -65.0,
+          "u_after": 2.5014798841718475,
+          "reset_time_ms": 104.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12448859884815,
+          -13.928134908995911
+        ],
+        "offset": [
+          -32.638453332438395,
+          -5.6992356547805105
+        ]
+      },
+      "final": [
+        -72.28389965522685,
+        -12.47566786046665
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_0.1ms": {
+      "method": "historical",
+      "hold": "none",
+      "step_ms": 0.1,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.6,
+          "latency_ms": 1.5999999999999943,
+          "v_before": 44.993578992614275,
+          "u_before": -13.705991594263086,
+          "v_after": -65.0,
+          "u_after": -5.705991594263086,
+          "reset_time_ms": 101.6
+        },
+        {
+          "time_ms": 103.4,
+          "latency_ms": 3.4000000000000057,
+          "v_before": 33.992522335810094,
+          "u_before": -5.7476325633540215,
+          "v_after": -65.0,
+          "u_after": 2.2523674366459785,
+          "reset_time_ms": 103.4
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12512029269293,
+          -13.927688825804506
+        ],
+        "offset": [
+          -20.023368969564345,
+          -5.804935896394188
+        ]
+      },
+      "final": [
+        -72.22551935220206,
+        -12.51841805505339
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_0.025ms": {
+      "method": "historical",
+      "hold": "none",
+      "step_ms": 0.025,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.525,
+          "latency_ms": 1.5250000000000057,
+          "v_before": 33.98909008930568,
+          "u_before": -13.747415981335577,
+          "v_after": -65.0,
+          "u_after": -5.7474159813355765,
+          "reset_time_ms": 101.525
+        },
+        {
+          "time_ms": 103.22500000000001,
+          "latency_ms": 3.2250000000000085,
+          "v_before": 34.156380580443304,
+          "u_before": -5.808021017608063,
+          "v_after": -65.0,
+          "u_after": 2.1919789823919373,
+          "reset_time_ms": 103.22500000000001
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.1254392607065,
+          -13.927465015799385
+        ],
+        "offset": [
+          -8.603905146633444,
+          -5.844105790298332
+        ]
+      },
+      "final": [
+        -72.21150073123118,
+        -12.528282432881522
+      ],
+      "dose_current_ms": 90.0
+    },
+    "semi_implicit_1ms": {
+      "method": "semi_implicit",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 103.0,
+          "latency_ms": 3.0,
+          "v_before": 230.6538568973829,
+          "u_before": -12.313300230655287,
+          "v_after": -65.0,
+          "u_after": -4.313300230655287,
+          "reset_time_ms": 103.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.1204247429972,
+          -13.930357039483212
+        ],
+        "offset": [
+          -65.0,
+          -4.313300230655287
+        ]
+      },
+      "final": [
+        -71.29435930862564,
+        -13.187680465030315
+      ],
+      "dose_current_ms": 90.0
+    },
+    "semi_implicit_0.5ms": {
+      "method": "semi_implicit",
+      "hold": "none",
+      "step_ms": 0.5,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 102.0,
+          "latency_ms": 2.0,
+          "v_before": 39.640399881316895,
+          "u_before": -13.519162701373137,
+          "v_after": -65.0,
+          "u_after": -5.519162701373137,
+          "reset_time_ms": 102.0
+        },
+        {
+          "time_ms": 106.5,
+          "latency_ms": 6.5,
+          "v_before": 159.99623973839087,
+          "u_before": -5.186895315638355,
+          "v_after": -65.0,
+          "u_after": 2.8131046843616447,
+          "reset_time_ms": 106.5
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12294253881743,
+          -13.928898704316843
+        ],
+        "offset": [
+          -44.5241622657397,
+          -5.607755717072932
+        ]
+      },
+      "final": [
+        -72.44539016296406,
+        -12.348652082050105
+      ],
+      "dose_current_ms": 90.0
+    },
+    "semi_implicit_0.25ms": {
+      "method": "semi_implicit",
+      "hold": "none",
+      "step_ms": 0.25,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 102.0,
+          "latency_ms": 2.0,
+          "v_before": 119.47469796247967,
+          "u_before": -13.467177110138755,
+          "v_after": -65.0,
+          "u_after": -5.4671771101387545,
+          "reset_time_ms": 102.0
+        },
+        {
+          "time_ms": 105.25,
+          "latency_ms": 5.25,
+          "v_before": 40.8045784056132,
+          "u_before": -5.507296743183271,
+          "v_after": -65.0,
+          "u_after": 2.4927032568167293,
+          "reset_time_ms": 105.25
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12423409751909,
+          -13.928150456880282
+        ],
+        "offset": [
+          -43.51463791119626,
+          -5.565786846925192
+        ]
+      },
+      "final": [
+        -72.34583343708547,
+        -12.425560756954527
+      ],
+      "dose_current_ms": 90.0
+    },
+    "semi_implicit_0.1ms": {
+      "method": "semi_implicit",
+      "hold": "none",
+      "step_ms": 0.1,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.7,
+          "latency_ms": 1.7000000000000028,
+          "v_before": 60.98925565407917,
+          "u_before": -13.669404537066338,
+          "v_after": -65.0,
+          "u_after": -5.669404537066338,
+          "reset_time_ms": 101.7
+        },
+        {
+          "time_ms": 103.7,
+          "latency_ms": 3.700000000000003,
+          "v_before": 44.03959440474432,
+          "u_before": -5.696582167725237,
+          "v_after": -65.0,
+          "u_after": 2.3034178322747634,
+          "reset_time_ms": 103.7
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12501887738965,
+          -13.927695754669944
+        ],
+        "offset": [
+          -29.18406942019745,
+          -5.774977270176552
+        ]
+      },
+      "final": [
+        -72.24660067765062,
+        -12.501399460698561
+      ],
+      "dose_current_ms": 90.0
+    },
+    "semi_implicit_0.025ms": {
+      "method": "semi_implicit",
+      "hold": "none",
+      "step_ms": 0.025,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.55000000000001,
+          "latency_ms": 1.5500000000000114,
+          "v_before": 37.56394186146801,
+          "u_before": -13.739903481966454,
+          "v_after": -65.0,
+          "u_after": -5.739903481966454,
+          "reset_time_ms": 101.55000000000001
+        },
+        {
+          "time_ms": 103.275,
+          "latency_ms": 3.2750000000000057,
+          "v_before": 32.198558406398284,
+          "u_before": -5.800594493534055,
+          "v_after": -65.0,
+          "u_after": 2.1994055064659452,
+          "reset_time_ms": 103.275
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12541395563883,
+          -13.92746683196787
+        ],
+        "offset": [
+          -13.057995676996615,
+          -5.839992102259449
+        ]
+      },
+      "final": [
+        -72.21475998538378,
+        -12.525566005588816
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_old_u_1ms": {
+      "method": "historical_old_u",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 102.0,
+          "latency_ms": 2.0,
+          "v_before": 39.95072214738728,
+          "u_before": -13.813696365543626,
+          "v_after": -65.0,
+          "u_after": -5.813696365543626,
+          "reset_time_ms": 102.0
+        },
+        {
+          "time_ms": 106.0,
+          "latency_ms": 6.0,
+          "v_before": 67.88350624604843,
+          "u_before": -6.0327784683459935,
+          "v_after": -65.0,
+          "u_after": 1.9672215316540065,
+          "reset_time_ms": 106.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12267653896323,
+          -13.929662756157851
+        ],
+        "offset": [
+          -44.214075634403784,
+          -5.957422438232753
+        ]
+      },
+      "final": [
+        -72.28083066635926,
+        -12.488268235252043
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_old_u_0.5ms": {
+      "method": "historical_old_u",
+      "hold": "none",
+      "step_ms": 0.5,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 102.0,
+          "latency_ms": 2.0,
+          "v_before": 120.1407980923814,
+          "u_before": -13.718396248671404,
+          "v_after": -65.0,
+          "u_after": -5.718396248671404,
+          "reset_time_ms": 102.0
+        },
+        {
+          "time_ms": 105.5,
+          "latency_ms": 5.5,
+          "v_before": 287.86708051961796,
+          "u_before": -5.793666584099571,
+          "v_after": -65.0,
+          "u_after": 2.2063334159004286,
+          "reset_time_ms": 105.5
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12407515696944,
+          -13.928525836131714
+        ],
+        "offset": [
+          -43.19877863174155,
+          -5.843588708042114
+        ]
+      },
+      "final": [
+        -72.30926147244803,
+        -12.459462573261346
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_old_u_0.25ms": {
+      "method": "historical_old_u",
+      "hold": "none",
+      "step_ms": 0.25,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.75,
+          "latency_ms": 1.75,
+          "v_before": 69.884476030775,
+          "u_before": -13.739155891298191,
+          "v_after": -65.0,
+          "u_after": -5.739155891298191,
+          "reset_time_ms": 101.75
+        },
+        {
+          "time_ms": 104.0,
+          "latency_ms": 4.0,
+          "v_before": 120.48016726279864,
+          "u_before": -5.795703226326869,
+          "v_after": -65.0,
+          "u_after": 2.204296773673131,
+          "reset_time_ms": 104.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12480205825509,
+          -13.927958294355742
+        ],
+        "offset": [
+          -32.285327422658874,
+          -5.865954638191804
+        ]
+      },
+      "final": [
+        -72.24212953834223,
+        -12.507485288870228
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_old_u_0.1ms": {
+      "method": "historical_old_u",
+      "hold": "none",
+      "step_ms": 0.1,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.6,
+          "latency_ms": 1.5999999999999943,
+          "v_before": 45.09296808811709,
+          "u_before": -13.75155094173773,
+          "v_after": -65.0,
+          "u_after": -5.7515509417377295,
+          "reset_time_ms": 101.6
+        },
+        {
+          "time_ms": 103.4,
+          "latency_ms": 3.4000000000000057,
+          "v_before": 35.223044189093514,
+          "u_before": -5.82987670365445,
+          "v_after": -65.0,
+          "u_after": 2.17012329634555,
+          "reset_time_ms": 103.4
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12524645662545,
+          -13.927617590926038
+        ],
+        "offset": [
+          -19.808700419743058,
+          -5.866778570002171
+        ]
+      },
+      "final": [
+        -72.21381599822682,
+        -12.52730794334054
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_old_u_0.025ms": {
+      "method": "historical_old_u",
+      "hold": "none",
+      "step_ms": 0.025,
+      "endpoints": "left_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.525,
+          "latency_ms": 1.5250000000000057,
+          "v_before": 34.01317074291836,
+          "u_before": -13.757706845346524,
+          "v_after": -65.0,
+          "u_after": -5.757706845346524,
+          "reset_time_ms": 101.525
+        },
+        {
+          "time_ms": 103.22500000000001,
+          "latency_ms": 3.2250000000000085,
+          "v_before": 34.424084053455985,
+          "u_before": -5.827582118762274,
+          "v_after": -65.0,
+          "u_after": 2.1724178812377257,
+          "reset_time_ms": 103.22500000000001
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12547089969671,
+          -13.927447133651931
+        ],
+        "offset": [
+          -8.526686635719097,
+          -5.859588405368709
+        ]
+      },
+      "final": [
+        -72.20871345554951,
+        -12.53039872642683
+      ],
+      "dose_current_ms": 90.0
+    },
+    "euler_1ms_both_closed": {
+      "method": "euler",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "both_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 103.0,
+          "latency_ms": 3.0,
+          "v_before": 231.72811436007075,
+          "u_before": -13.506739975536822,
+          "v_after": -65.0,
+          "u_after": -5.5067399755368225,
+          "reset_time_ms": 103.0
+        },
+        {
+          "time_ms": 109.0,
+          "latency_ms": 9.0,
+          "v_before": 50.32338591636368,
+          "u_before": -5.8236293993311,
+          "v_after": -65.0,
+          "u_after": 2.1763706006689,
+          "reset_time_ms": 109.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12163092255199,
+          -13.929675617816974
+        ],
+        "offset": [
+          -65.0,
+          -5.5067399755368225
+        ]
+      },
+      "final": [
+        -72.46125557356024,
+        -12.336550386454693
+      ],
+      "dose_current_ms": 120.0
+    },
+    "euler_1ms_both_open": {
+      "method": "euler",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "both_open",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 104.0,
+          "latency_ms": 4.0,
+          "v_before": 201.80036174464777,
+          "u_before": -13.508454159971027,
+          "v_after": -65.0,
+          "u_after": -5.508454159971027,
+          "reset_time_ms": 104.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12163092255199,
+          -13.929675617816974
+        ],
+        "offset": [
+          7.611312522104875,
+          -13.815203479652496
+        ]
+      },
+      "final": [
+        -71.1573733132492,
+        -13.280432191717903
+      ],
+      "dose_current_ms": 60.0
+    },
+    "euler_1ms_right_closed": {
+      "method": "euler",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "right_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 104.0,
+          "latency_ms": 4.0,
+          "v_before": 231.80036174464777,
+          "u_before": -13.508454159971027,
+          "v_after": -65.0,
+          "u_after": -5.508454159971027,
+          "reset_time_ms": 104.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12163092255199,
+          -13.929675617816974
+        ],
+        "offset": [
+          7.611312522104875,
+          -13.815203479652496
+        ]
+      },
+      "final": [
+        -71.1573733132492,
+        -13.280432191717903
+      ],
+      "dose_current_ms": 90.0
+    },
+    "historical_1ms_both_closed": {
+      "method": "historical",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "both_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 102.0,
+          "latency_ms": 2.0,
+          "v_before": 39.731998903422806,
+          "u_before": -13.377314450391923,
+          "v_after": -65.0,
+          "u_after": -5.377314450391923,
+          "reset_time_ms": 102.0
+        },
+        {
+          "time_ms": 105.0,
+          "latency_ms": 5.0,
+          "v_before": 516.7840045469217,
+          "u_before": -3.151842333016704,
+          "v_after": -65.0,
+          "u_after": 4.848157666983296,
+          "reset_time_ms": 105.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12146109912607,
+          -13.930339195472772
+        ],
+        "offset": [
+          -44.71414969558084,
+          -5.448624760166408
+        ]
+      },
+      "final": [
+        -72.62363428747143,
+        -12.223876185876245
+      ],
+      "dose_current_ms": 120.0
+    },
+    "historical_1ms_both_open": {
+      "method": "historical",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "both_open",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 103.0,
+          "latency_ms": 3.0,
+          "v_before": 39.762616708310304,
+          "u_before": -13.378964453742487,
+          "v_after": -65.0,
+          "u_after": -5.378964453742487,
+          "reset_time_ms": 103.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12146109912607,
+          -13.930339195472772
+        ],
+        "offset": [
+          -65.0,
+          -5.378964453742487
+        ]
+      },
+      "final": [
+        -71.15720377891355,
+        -13.286355912481332
+      ],
+      "dose_current_ms": 60.0
+    },
+    "historical_1ms_right_closed": {
+      "method": "historical",
+      "hold": "none",
+      "step_ms": 1.0,
+      "endpoints": "right_closed",
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 103.0,
+          "latency_ms": 3.0,
+          "v_before": 39.762616708310304,
+          "u_before": -13.378964453742487,
+          "v_after": -65.0,
+          "u_after": -5.378964453742487,
+          "reset_time_ms": 103.0
+        },
+        {
+          "time_ms": 108.0,
+          "latency_ms": 8.0,
+          "v_before": 508.6217033560466,
+          "u_before": -3.269044519369119,
+          "v_after": -65.0,
+          "u_after": 4.730955480630881,
+          "reset_time_ms": 108.0
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12146109912607,
+          -13.930339195472772
+        ],
+        "offset": [
+          -65.0,
+          -5.378964453742487
+        ]
+      },
+      "final": [
+        -72.78967581251938,
+        -12.092557315680686
+      ],
+      "dose_current_ms": 90.0
+    },
+    "hypothesis_hold_1ms_peak_frozen": {
+      "method": "DOP853",
+      "hold": "peak_frozen",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -5.760286290718771,
+          "reset_time_ms": 102.4986522548012
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -54.91324082459511,
+          -5.8226073874109225
+        ]
+      },
+      "final": [
+        -71.12915522440417,
+        -13.299257465285672
+      ],
+      "dose_current_ms": 90.0
+    },
+    "hypothesis_hold_1ms_peak_recovery": {
+      "method": "DOP853",
+      "hold": "peak_recovery",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -5.369006406324182,
+          "reset_time_ms": 102.4986522548012
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -55.12506547522558,
+          -5.4354330657811705
+        ]
+      },
+      "final": [
+        -71.1817940226462,
+        -13.263990508222815
+      ],
+      "dose_current_ms": 90.0
+    },
+    "hypothesis_hold_1ms_reset_frozen": {
+      "method": "DOP853",
+      "hold": "reset_frozen",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -5.760286290718771,
+          "reset_time_ms": 101.4986522548012
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -54.91324082459511,
+          -5.8226073874109225
+        ]
+      },
+      "final": [
+        -71.12915522440417,
+        -13.299257465285672
+      ],
+      "dose_current_ms": 90.0
+    },
+    "hypothesis_hold_1ms_reset_recovery": {
+      "method": "DOP853",
+      "hold": "reset_recovery",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -5.760286290718771,
+          "reset_time_ms": 101.4986522548012
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -54.83548648421014,
+          -5.964459070838419
+        ]
+      },
+      "final": [
+        -71.10986849204855,
+        -13.312121587715824
+      ],
+      "dose_current_ms": 90.0
+    },
+    "cpp_50us": {
+      "method": "C++ RK4/end-step reset",
+      "hold": "none",
+      "step_ms": 0.05,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.5,
+          "latency_ms": 1.5
+        },
+        {
+          "time_ms": 103.19999999999999,
+          "latency_ms": 3.1999999999999886
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604058593,
+          -13.92739029508923
+        ],
+        "offset": [
+          -3.0438861348748336,
+          -5.8550941559975875
+        ]
+      },
+      "checkpoint_sample_offsets_ms": {
+        "onset": -1.4210854715202004e-14,
+        "offset": 0.0
+      },
+      "dose_current_ms": 90.00000000000009,
+      "active_steps": 60,
+      "json_roundtrip_exact": true,
+      "cli_summary": {
+        "time_s": 0.2,
+        "steps": 4001,
+        "complete": true,
+        "error": "",
+        "neuron_spikes": [
+          2
+        ],
+        "astrocyte_releases": []
+      }
+    },
+    "cpp_25us": {
+      "method": "C++ RK4/end-step reset",
+      "hold": "none",
+      "step_ms": 0.025,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.5,
+          "latency_ms": 1.5
+        },
+        {
+          "time_ms": 103.17499999999998,
+          "latency_ms": 3.174999999999983
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057438,
+          -13.92739029509598
+        ],
+        "offset": [
+          -3.043824287853467,
+          -5.855092031969908
+        ]
+      },
+      "checkpoint_sample_offsets_ms": {
+        "onset": -1.4210854715202004e-14,
+        "offset": 0.0
+      },
+      "dose_current_ms": 90.00000000000009,
+      "active_steps": 120,
+      "json_roundtrip_exact": true,
+      "cli_summary": {
+        "time_s": 0.2,
+        "steps": 8001,
+        "complete": true,
+        "error": "",
+        "neuron_spikes": [
+          2
+        ],
+        "astrocyte_releases": []
+      }
+    },
+    "cpp_12.5us": {
+      "method": "C++ RK4/end-step reset",
+      "hold": "none",
+      "step_ms": 0.0125,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.5,
+          "latency_ms": 1.5
+        },
+        {
+          "time_ms": 103.1625,
+          "latency_ms": 3.1624999999999943
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057364,
+          -13.927390295096421
+        ],
+        "offset": [
+          -3.043820895446018,
+          -5.855091885601303
+        ]
+      },
+      "checkpoint_sample_offsets_ms": {
+        "onset": -1.4210854715202004e-14,
+        "offset": 0.0
+      },
+      "dose_current_ms": 90.00000000000009,
+      "active_steps": 240,
+      "json_roundtrip_exact": true,
+      "cli_summary": {
+        "time_s": 0.2,
+        "steps": 16001,
+        "complete": true,
+        "error": "",
+        "neuron_spikes": [
+          2
+        ],
+        "astrocyte_releases": []
+      }
+    },
+    "cpp_5us": {
+      "method": "C++ RK4/end-step reset",
+      "hold": "none",
+      "step_ms": 0.005,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.5,
+          "latency_ms": 1.5
+        },
+        {
+          "time_ms": 103.15999999999998,
+          "latency_ms": 3.1599999999999824
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057355,
+          -13.92739029509647
+        ],
+        "offset": [
+          -3.043820694689641,
+          -5.855091875643478
+        ]
+      },
+      "checkpoint_sample_offsets_ms": {
+        "onset": -1.4210854715202004e-14,
+        "offset": 0.0
+      },
+      "dose_current_ms": 90.00000000000009,
+      "active_steps": 600,
+      "json_roundtrip_exact": true,
+      "cli_summary": {
+        "time_s": 0.2,
+        "steps": 40001,
+        "complete": true,
+        "error": "",
+        "neuron_spikes": [
+          2
+        ],
+        "astrocyte_releases": []
+      }
+    },
+    "cpp_2us": {
+      "method": "C++ RK4/end-step reset",
+      "hold": "none",
+      "step_ms": 0.002,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.5,
+          "latency_ms": 1.5
+        },
+        {
+          "time_ms": 103.16,
+          "latency_ms": 3.1599999999999966
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057351,
+          -13.927390295096474
+        ],
+        "offset": [
+          -3.0438206898748974,
+          -5.855091875381986
+        ]
+      },
+      "checkpoint_sample_offsets_ms": {
+        "onset": -1.4210854715202004e-14,
+        "offset": 0.0
+      },
+      "dose_current_ms": 90.00000000000009,
+      "active_steps": 1500,
+      "json_roundtrip_exact": true,
+      "cli_summary": {
+        "time_s": 0.2,
+        "steps": 100001,
+        "complete": true,
+        "error": "",
+        "neuron_spikes": [
+          2
+        ],
+        "astrocyte_releases": []
+      }
+    },
+    "cpp_1us": {
+      "method": "C++ RK4/end-step reset",
+      "hold": "none",
+      "step_ms": 0.001,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.499,
+          "latency_ms": 1.4989999999999952
+        },
+        {
+          "time_ms": 103.157,
+          "latency_ms": 3.1569999999999965
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057357,
+          -13.927390295096407
+        ],
+        "offset": [
+          -2.879203862584504,
+          -5.855367486837154
+        ]
+      },
+      "checkpoint_sample_offsets_ms": {
+        "onset": -1.4210854715202004e-14,
+        "offset": 0.0
+      },
+      "dose_current_ms": 90.00000000000009,
+      "active_steps": 3000,
+      "json_roundtrip_exact": true,
+      "cli_summary": {
+        "time_s": 0.2,
+        "steps": 200001,
+        "complete": true,
+        "error": "",
+        "neuron_spikes": [
+          2
+        ],
+        "astrocyte_releases": []
+      }
+    },
+    "cpp_equilibrium_overrides_manual": {
+      "method": "C++ RK4/end-step reset",
+      "hold": "none",
+      "step_ms": 0.025,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.5,
+          "latency_ms": 1.5
+        },
+        {
+          "time_ms": 103.17499999999998,
+          "latency_ms": 3.174999999999983
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057438,
+          -13.92739029509598
+        ],
+        "offset": [
+          -3.043824287853467,
+          -5.855092031969908
+        ]
+      },
+      "checkpoint_sample_offsets_ms": {
+        "onset": -1.4210854715202004e-14,
+        "offset": 0.0
+      },
+      "dose_current_ms": 90.00000000000009,
+      "active_steps": 120,
+      "json_roundtrip_exact": true,
+      "cli_summary": {
+        "time_s": 0.2,
+        "steps": 8001,
+        "complete": true,
+        "error": "",
+        "neuron_spikes": [
+          2
+        ],
+        "astrocyte_releases": []
+      }
+    },
+    "initial_onset0_v-70_du-5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -70.0,
+        "u0": -19.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.3363221719123666,
+          "latency_ms": 1.3363221719123666,
+          "v_before": 29.99999999999996,
+          "u_before": -18.71045776475959,
+          "v_after": -65.0,
+          "u_after": -10.710457764759589,
+          "reset_time_ms": 1.3363221719123666
+        },
+        {
+          "time_ms": 2.762022434581141,
+          "latency_ms": 2.762022434581141,
+          "v_before": 29.999999999999787,
+          "u_before": -10.626821542068257,
+          "v_after": -65.0,
+          "u_after": -2.6268215420682566,
+          "reset_time_ms": 2.762022434581141
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.0,
+          -19.0
+        ],
+        "offset": [
+          -61.082058447569054,
+          -2.6742118135842152
+        ]
+      },
+      "final": [
+        -71.5517958130945,
+        -13.009615559318325
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset0_v-70_du0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -70.0,
+        "u0": -14.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.4918767264957162,
+          "latency_ms": 1.4918767264957162,
+          "v_before": 30.000000000000018,
+          "u_before": -13.830934172656852,
+          "v_after": -65.0,
+          "u_after": -5.8309341726568515,
+          "reset_time_ms": 1.4918767264957162
+        },
+        {
+          "time_ms": 3.1438751260561895,
+          "latency_ms": 3.1438751260561895,
+          "v_before": 30.00000000000002,
+          "u_before": -5.8985196096147074,
+          "v_after": -65.0,
+          "u_after": 2.1014803903852926,
+          "reset_time_ms": 3.1438751260561895
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.0,
+          -14.0
+        ],
+        "offset": [
+          -1.1063413044251642,
+          -5.92257075659699
+        ]
+      },
+      "final": [
+        -72.19637557042168,
+        -12.53947933854712
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset0_v-70_du5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -70.0,
+        "u0": -9.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.6998289927415842,
+          "latency_ms": 1.6998289927415842,
+          "v_before": 30.00000000000002,
+          "u_before": -8.983885155995589,
+          "v_after": -65.0,
+          "u_after": -0.9838851559955888,
+          "reset_time_ms": 1.6998289927415842
+        },
+        {
+          "time_ms": 4.309817139452089,
+          "latency_ms": 4.309817139452089,
+          "v_before": 29.99999999999958,
+          "u_before": -1.3312662288957522,
+          "v_after": -65.0,
+          "u_after": 6.668733771104248,
+          "reset_time_ms": 4.309817139452089
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.0,
+          -9.0
+        ],
+        "offset": [
+          -39.50650186242144,
+          -1.2364725688315081
+        ]
+      },
+      "final": [
+        -72.86485924275591,
+        -12.015878158013267
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset0_v-65_du-5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -18.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.211582265442979,
+          "latency_ms": 1.211582265442979,
+          "v_before": 30.000000000000007,
+          "u_before": -17.74598698726984,
+          "v_after": -65.0,
+          "u_after": -9.745986987269841,
+          "reset_time_ms": 1.211582265442979
+        },
+        {
+          "time_ms": 2.673072693616109,
+          "latency_ms": 2.673072693616109,
+          "v_before": 29.999999999999954,
+          "u_before": -9.689584682714298,
+          "v_after": -65.0,
+          "u_after": -1.6895846827142975,
+          "reset_time_ms": 2.673072693616109
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -65.0,
+          -18.0
+        ],
+        "offset": [
+          -59.91257446608305,
+          -1.7599810253804504
+        ]
+      },
+      "final": [
+        -71.67659200381635,
+        -12.921265337793708
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset0_v-65_du0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.3488175161499225,
+          "latency_ms": 1.3488175161499225,
+          "v_before": 29.999999999999993,
+          "u_before": -12.856737216224914,
+          "v_after": -65.0,
+          "u_after": -4.856737216224914,
+          "reset_time_ms": 1.3488175161499225
+        },
+        {
+          "time_ms": 3.037182607386111,
+          "latency_ms": 3.037182607386111,
+          "v_before": 29.999999999999883,
+          "u_before": -4.963194048657127,
+          "v_after": -65.0,
+          "u_after": 3.036805951342873,
+          "reset_time_ms": 3.037182607386111
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -65.0,
+          -13.0
+        ],
+        "offset": [
+          19.184040762757903,
+          -4.970510727225118
+        ]
+      },
+      "final": [
+        -72.31427609584483,
+        -12.44979065266988
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset0_v-65_du5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -8.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.5323834340183649,
+          "latency_ms": 1.5323834340183649,
+          "v_before": 30.000000000000007,
+          "u_before": -7.99664317751807,
+          "v_after": -65.0,
+          "u_after": 0.003356822481929811,
+          "reset_time_ms": 1.5323834340183649
+        },
+        {
+          "time_ms": 3.94017531416403,
+          "latency_ms": 3.94017531416403,
+          "v_before": 30.00000000000006,
+          "u_before": -0.3694429534642232,
+          "v_after": -65.0,
+          "u_after": 7.630557046535777,
+          "reset_time_ms": 3.94017531416403
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -65.0,
+          -8.0
+        ],
+        "offset": [
+          -35.84667403000194,
+          -0.304120871090962
+        ]
+      },
+      "final": [
+        -72.96650276745277,
+        -11.933062802329955
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset0_v-60_du-5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -60.0,
+        "u0": -17.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.0737572390235965,
+          "latency_ms": 1.0737572390235965,
+          "v_before": 29.99999999999998,
+          "u_before": -16.780654740682827,
+          "v_after": -65.0,
+          "u_after": -8.780654740682827,
+          "reset_time_ms": 1.0737572390235965
+        },
+        {
+          "time_ms": 2.5734025256227615,
+          "latency_ms": 2.5734025256227615,
+          "v_before": 29.999999999999993,
+          "u_before": -8.752945149182185,
+          "v_after": -65.0,
+          "u_after": -0.7529451491821852,
+          "reset_time_ms": 2.5734025256227615
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -60.0,
+          -17.0
+        ],
+        "offset": [
+          -58.72952341803399,
+          -0.8516820594621216
+        ]
+      },
+      "final": [
+        -71.79998270716838,
+        -12.832646882534794
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset0_v-60_du0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -60.0,
+        "u0": -12.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.187611657163714,
+          "latency_ms": 1.187611657163714,
+          "v_before": 30.00000000000004,
+          "u_before": -11.880081684897268,
+          "v_after": -65.0,
+          "u_after": -3.8800816848972683,
+          "reset_time_ms": 1.187611657163714
+        },
+        {
+          "time_ms": 2.928130718715096,
+          "latency_ms": 2.928130718715096,
+          "v_before": 29.999999999999925,
+          "u_before": -4.026463457042064,
+          "v_after": -65.0,
+          "u_after": 3.9735365429579357,
+          "reset_time_ms": 2.928130718715096
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -60.0,
+          -12.0
+        ],
+        "offset": [
+          -64.28319798233441,
+          3.9492597036510766
+        ]
+      },
+      "final": [
+        -72.43212302777695,
+        -12.359003530025962
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset0_v-60_du5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -60.0,
+        "u0": -7.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.3381246594829306,
+          "latency_ms": 1.3381246594829306,
+          "v_before": 30.000000000000004,
+          "u_before": -7.003909278296909,
+          "v_after": -65.0,
+          "u_after": 0.9960907217030908,
+          "reset_time_ms": 1.3381246594829306
+        },
+        {
+          "time_ms": 3.6588022926561585,
+          "latency_ms": 3.6588022926561585,
+          "v_before": 29.99999999999998,
+          "u_before": 0.5825767232262699,
+          "v_after": -65.0,
+          "u_after": 8.58257672322627,
+          "reset_time_ms": 3.6588022926561585
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -60.0,
+          -7.0
+        ],
+        "offset": [
+          -30.673556153819757,
+          0.6240315853743139
+        ]
+      },
+      "final": [
+        -73.07039459027554,
+        -11.84754400264945
+      ],
+      "dose_current_ms": 90.0
+    },
+    "reference_Radau_onset0": {
+      "method": "Radau",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.348817516152439,
+          "latency_ms": 1.348817516152439,
+          "v_before": 29.999999999999996,
+          "u_before": -12.856737216224664,
+          "v_after": -65.0,
+          "u_after": -4.856737216224664,
+          "reset_time_ms": 1.348817516152439
+        },
+        {
+          "time_ms": 3.037182607391536,
+          "latency_ms": 3.037182607391536,
+          "v_before": 29.999999999999964,
+          "u_before": -4.963194048656954,
+          "v_after": -65.0,
+          "u_after": 3.0368059513430463,
+          "reset_time_ms": 3.037182607391536
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -65.0,
+          -13.0
+        ],
+        "offset": [
+          19.18404076138783,
+          -4.970510727225903
+        ]
+      },
+      "final": [
+        -72.31427609584338,
+        -12.449790652669634
+      ],
+      "dose_current_ms": 90.0
+    },
+    "cpp_onset0": {
+      "method": "C++ RK4/end-step reset",
+      "hold": "none",
+      "step_ms": 0.025,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 0.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1.3499999999999999,
+          "latency_ms": 1.3499999999999999
+        },
+        {
+          "time_ms": 3.05,
+          "latency_ms": 3.05
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -65.0,
+          -13.0
+        ],
+        "offset": [
+          18.8406631779062,
+          -4.970292784389906
+        ]
+      },
+      "checkpoint_sample_offsets_ms": {
+        "onset": 0.0,
+        "offset": -4.440892098500626e-16
+      },
+      "dose_current_ms": 90.0,
+      "active_steps": 120,
+      "json_roundtrip_exact": true,
+      "cli_summary": {
+        "time_s": 0.1,
+        "steps": 4001,
+        "complete": true,
+        "error": "",
+        "neuron_spikes": [
+          2
+        ],
+        "astrocyte_releases": []
+      }
+    },
+    "initial_onset100_v-70_du-5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -70.0,
+        "u0": -19.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 7.2497926270118755,
+          "latency_ms": -92.75020737298813,
+          "v_before": 29.999999999999403,
+          "u_before": -17.900661684096978,
+          "v_after": -65.0,
+          "u_after": -9.900661684096978,
+          "reset_time_ms": 7.2497926270118755
+        },
+        {
+          "time_ms": 101.52599754064019,
+          "latency_ms": 1.5259975406401907,
+          "v_before": 30.00000000000097,
+          "u_before": -13.469784877508898,
+          "v_after": -65.0,
+          "u_after": -5.469784877508898,
+          "reset_time_ms": 101.52599754064019
+        },
+        {
+          "time_ms": 103.20972423791463,
+          "latency_ms": 3.209724237914628,
+          "v_before": 30.00000000000113,
+          "u_before": -5.5496159406502485,
+          "v_after": -65.0,
+          "u_after": 2.4503840593497515,
+          "reset_time_ms": 103.20972423791463
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.61978813373265,
+          -13.628605074178113
+        ],
+        "offset": [
+          -9.017359382942129,
+          -5.578634779782119
+        ]
+      },
+      "final": [
+        -72.24591381454182,
+        -12.50193379354824
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset100_v-70_du0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -70.0,
+        "u0": -14.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.49187672649573,
+          "latency_ms": 1.4918767264957324,
+          "v_before": 30.000000000005862,
+          "u_before": -13.830934172656846,
+          "v_after": -65.0,
+          "u_after": -5.830934172656846,
+          "reset_time_ms": 101.49187672649573
+        },
+        {
+          "time_ms": 103.1438751260562,
+          "latency_ms": 3.1438751260562015,
+          "v_before": 29.999999999999357,
+          "u_before": -5.898519609614701,
+          "v_after": -65.0,
+          "u_after": 2.1014803903852988,
+          "reset_time_ms": 103.1438751260562
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.0,
+          -14.0
+        ],
+        "offset": [
+          -1.1063413044271169,
+          -5.922570756596985
+        ]
+      },
+      "final": [
+        -72.1963755704214,
+        -12.539479338547116
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset100_v-70_du5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -70.0,
+        "u0": -9.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.52635613921554,
+          "latency_ms": 1.5263561392155367,
+          "v_before": 30.0000000000011,
+          "u_before": -13.465923427904704,
+          "v_after": -65.0,
+          "u_after": -5.465923427904704,
+          "reset_time_ms": 101.52635613921554
+        },
+        {
+          "time_ms": 103.21044641797174,
+          "latency_ms": 3.2104464179717382,
+          "v_before": 29.999999999999293,
+          "u_before": -5.5458885336817945,
+          "v_after": -65.0,
+          "u_after": 2.4541114663182055,
+          "reset_time_ms": 103.21044641797174
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.62614045879003,
+          -13.62463121753722
+        ],
+        "offset": [
+          -9.09167717566375,
+          -5.574946304222915
+        ]
+      },
+      "final": [
+        -72.24644409322012,
+        -12.501530800436312
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset100_v-65_du-5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -18.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 7.84597553583601,
+          "latency_ms": -92.154024464164,
+          "v_before": 30.000000000000107,
+          "u_before": -16.932626116655797,
+          "v_after": -65.0,
+          "u_after": -8.932626116655797,
+          "reset_time_ms": 7.84597553583601
+        },
+        {
+          "time_ms": 101.53504647488091,
+          "latency_ms": 1.5350464748809145,
+          "v_before": 30.000000000001222,
+          "u_before": -13.371975254633389,
+          "v_after": -65.0,
+          "u_after": -5.371975254633389,
+          "reset_time_ms": 101.53504647488091
+        },
+        {
+          "time_ms": 103.22815600645362,
+          "latency_ms": 3.2281560064536166,
+          "v_before": 29.999999999999588,
+          "u_before": -5.455224185600544,
+          "v_after": -65.0,
+          "u_after": 2.544775814399456,
+          "reset_time_ms": 103.22815600645362
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.77909017696135,
+          -13.527930043490407
+        ],
+        "offset": [
+          -10.843830793423773,
+          -5.485141358349477
+        ]
+      },
+      "final": [
+        -72.25935052839199,
+        -12.49171524969078
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset100_v-65_du0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -5.760286290718771,
+          "reset_time_ms": 101.4986522548012
+        },
+        {
+          "time_ms": 103.15652250159829,
+          "latency_ms": 3.156522501598289,
+          "v_before": 29.999999999997126,
+          "u_before": -5.830224998947916,
+          "v_after": -65.0,
+          "u_after": 2.169775001052084,
+          "reset_time_ms": 103.15652250159829
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -2.821774032144516,
+          -5.855462836192261
+        ]
+      },
+      "final": [
+        -72.20605860849365,
+        -12.5321563016747
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset100_v-65_du5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -8.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.53385169404042,
+          "latency_ms": 1.5338516940404219,
+          "v_before": 29.999999999997534,
+          "u_before": -13.384932686889867,
+          "v_after": -65.0,
+          "u_after": -5.384932686889867,
+          "reset_time_ms": 101.53385169404042
+        },
+        {
+          "time_ms": 103.2256971388816,
+          "latency_ms": 3.2256971388816,
+          "v_before": 30.00000000000188,
+          "u_before": -5.46772607510987,
+          "v_after": -65.0,
+          "u_after": 2.53227392489013,
+          "reset_time_ms": 103.2256971388816
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.75817455252225,
+          -13.541269238279748
+        ],
+        "offset": [
+          -10.608372494007192,
+          -5.497534670933036
+        ]
+      },
+      "final": [
+        -72.25756988245803,
+        -12.493070272200569
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset100_v-60_du-5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -60.0,
+        "u0": -17.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 6.260065268138798,
+          "latency_ms": -93.7399347318612,
+          "v_before": 29.99999999999941,
+          "u_before": -16.172934576001882,
+          "v_after": -65.0,
+          "u_after": -8.172934576001882,
+          "reset_time_ms": 6.260065268138798
+        },
+        {
+          "time_ms": 101.53978642537227,
+          "latency_ms": 1.5397864253722702,
+          "v_before": 29.999999999997414,
+          "u_before": -13.320446429012556,
+          "v_after": -65.0,
+          "u_after": -5.320446429012556,
+          "reset_time_ms": 101.53978642537227
+        },
+        {
+          "time_ms": 103.23798862005948,
+          "latency_ms": 3.2379886200594825,
+          "v_before": 30.00000000000111,
+          "u_before": -5.405515589808389,
+          "v_after": -65.0,
+          "u_after": 2.594484410191611,
+          "reset_time_ms": 103.23798862005948
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.86171704266025,
+          -13.474876536959387
+        ],
+        "offset": [
+          -11.761551989147474,
+          -5.4358333918901796
+        ]
+      },
+      "final": [
+        -72.26643369456396,
+        -12.486322579777484
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset100_v-60_du0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -60.0,
+        "u0": -12.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.50574441000666,
+          "latency_ms": 1.5057444100066562,
+          "v_before": 29.999999999996646,
+          "u_before": -13.685738428091373,
+          "v_after": -65.0,
+          "u_after": -5.685738428091373,
+          "reset_time_ms": 101.50574441000666
+        },
+        {
+          "time_ms": 103.1699799781556,
+          "latency_ms": 3.1699799781555953,
+          "v_before": 30.000000000001656,
+          "u_before": -5.75818143261956,
+          "v_after": -65.0,
+          "u_after": 2.24181856738044,
+          "reset_time_ms": 103.1699799781556
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.25562589175779,
+          -13.850749609296168
+        ],
+        "offset": [
+          -4.535585933278623,
+          -5.7845544773456625
+        ]
+      },
+      "final": [
+        -72.21627970609335,
+        -12.524417994455082
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset100_v-60_du5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -60.0,
+        "u0": -7.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.54148784841527,
+          "latency_ms": 1.5414878484152723,
+          "v_before": 29.999999999998288,
+          "u_before": -13.301902785206062,
+          "v_after": -65.0,
+          "u_after": -5.301902785206062,
+          "reset_time_ms": 101.54148784841527
+        },
+        {
+          "time_ms": 103.24154885393463,
+          "latency_ms": 3.2415488539346313,
+          "v_before": 30.000000000001503,
+          "u_before": -5.387630437087437,
+          "v_after": -65.0,
+          "u_after": 2.612369562912563,
+          "reset_time_ms": 103.24154885393463
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.89124071170667,
+          -13.455781676374432
+        ],
+        "offset": [
+          -12.084728813207011,
+          -5.418080299775912
+        ]
+      },
+      "final": [
+        -72.26898348926112,
+        -12.48438032152995
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset1000_v-70_du-5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -70.0,
+        "u0": -19.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 7.2497926270118755,
+          "latency_ms": -992.7502073729881,
+          "v_before": 29.999999999999403,
+          "u_before": -17.900661684096978,
+          "v_after": -65.0,
+          "u_after": -9.900661684096978,
+          "reset_time_ms": 7.2497926270118755
+        },
+        {
+          "time_ms": 1001.4918767264967,
+          "latency_ms": 1.4918767264966846,
+          "v_before": 29.99999999998711,
+          "u_before": -13.830934172646453,
+          "v_after": -65.0,
+          "u_after": -5.830934172646453,
+          "reset_time_ms": 1001.4918767264967
+        },
+        {
+          "time_ms": 1003.143875126058,
+          "latency_ms": 3.143875126057992,
+          "v_before": 29.999999999995836,
+          "u_before": -5.898519609604658,
+          "v_after": -65.0,
+          "u_after": 2.1014803903953423,
+          "reset_time_ms": 1003.143875126058
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000000001862,
+          -13.999999999989301
+        ],
+        "offset": [
+          -1.1063413046790909,
+          -5.922570756587115
+        ]
+      },
+      "final": [
+        -72.19637557042304,
+        -12.539479338546048
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset1000_v-70_du0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -70.0,
+        "u0": -14.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1001.4918767264957,
+          "latency_ms": 1.4918767264956614,
+          "v_before": 29.999999999979334,
+          "u_before": -13.83093417265687,
+          "v_after": -65.0,
+          "u_after": -5.830934172656869,
+          "reset_time_ms": 1001.4918767264957
+        },
+        {
+          "time_ms": 1003.1438751260561,
+          "latency_ms": 3.1438751260560593,
+          "v_before": 29.999999999980542,
+          "u_before": -5.89851960961474,
+          "v_after": -65.0,
+          "u_after": 2.1014803903852597,
+          "reset_time_ms": 1003.1438751260561
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.0,
+          -14.0
+        ],
+        "offset": [
+          -1.106341304415134,
+          -5.922570756597001
+        ]
+      },
+      "final": [
+        -72.19637557042144,
+        -12.539479338547126
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset1000_v-70_du5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -70.0,
+        "u0": -9.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1001.4918767264967,
+          "latency_ms": 1.4918767264966846,
+          "v_before": 29.999999999982006,
+          "u_before": -13.830934172646348,
+          "v_after": -65.0,
+          "u_after": -5.830934172646348,
+          "reset_time_ms": 1001.4918767264967
+        },
+        {
+          "time_ms": 1003.143875126058,
+          "latency_ms": 3.143875126057992,
+          "v_before": 29.999999999992863,
+          "u_before": -5.898519609604559,
+          "v_after": -65.0,
+          "u_after": 2.101480390395441,
+          "reset_time_ms": 1003.143875126058
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000000001887,
+          -13.999999999989184
+        ],
+        "offset": [
+          -1.1063413046803219,
+          -5.922570756587016
+        ]
+      },
+      "final": [
+        -72.1963755704228,
+        -12.53947933854603
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset1000_v-65_du-5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -18.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 7.84597553583601,
+          "latency_ms": -992.154024464164,
+          "v_before": 30.000000000000107,
+          "u_before": -16.932626116655797,
+          "v_after": -65.0,
+          "u_after": -8.932626116655797,
+          "reset_time_ms": 7.84597553583601
+        },
+        {
+          "time_ms": 1001.4918767264969,
+          "latency_ms": 1.491876726496912,
+          "v_before": 29.999999999967486,
+          "u_before": -13.830934172643609,
+          "v_after": -65.0,
+          "u_after": -5.830934172643609,
+          "reset_time_ms": 1001.4918767264969
+        },
+        {
+          "time_ms": 1003.1438751260584,
+          "latency_ms": 3.1438751260584468,
+          "v_before": 29.99999999999955,
+          "u_before": -5.898519609601907,
+          "v_after": -65.0,
+          "u_after": 2.101480390398093,
+          "reset_time_ms": 1003.1438751260584
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000000002379,
+          -13.999999999986356
+        ],
+        "offset": [
+          -1.106341304741096,
+          -5.9225707565844115
+        ]
+      },
+      "final": [
+        -72.19637557042313,
+        -12.539479338545748
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset1000_v-65_du0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1001.4918767264959,
+          "latency_ms": 1.4918767264958888,
+          "v_before": 29.9999999999894,
+          "u_before": -13.830934172654846,
+          "v_after": -65.0,
+          "u_after": -5.830934172654846,
+          "reset_time_ms": 1001.4918767264959
+        },
+        {
+          "time_ms": 1003.1438751260565,
+          "latency_ms": 3.143875126056514,
+          "v_before": 29.99999999999934,
+          "u_before": -5.89851960961277,
+          "v_after": -65.0,
+          "u_after": 2.1014803903872297,
+          "reset_time_ms": 1003.1438751260565
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000000000362,
+          -13.999999999997929
+        ],
+        "offset": [
+          -1.1063413044708383,
+          -5.922570756595083
+        ]
+      },
+      "final": [
+        -72.19637557042174,
+        -12.53947933854691
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset1000_v-65_du5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -8.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1001.4918767264969,
+          "latency_ms": 1.491876726496912,
+          "v_before": 29.99999999998026,
+          "u_before": -13.830934172643984,
+          "v_after": -65.0,
+          "u_after": -5.830934172643984,
+          "reset_time_ms": 1001.4918767264969
+        },
+        {
+          "time_ms": 1003.1438751260584,
+          "latency_ms": 3.1438751260584468,
+          "v_before": 30.00000000000654,
+          "u_before": -5.898519609602262,
+          "v_after": -65.0,
+          "u_after": 2.1014803903977377,
+          "reset_time_ms": 1003.1438751260584
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000000002314,
+          -13.999999999986757
+        ],
+        "offset": [
+          -1.1063413047381743,
+          -5.922570756584769
+        ]
+      },
+      "final": [
+        -72.19637557042333,
+        -12.539479338545794
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset1000_v-60_du-5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -60.0,
+        "u0": -17.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 6.260065268138798,
+          "latency_ms": -993.7399347318612,
+          "v_before": 29.99999999999941,
+          "u_before": -16.172934576001882,
+          "v_after": -65.0,
+          "u_after": -8.172934576001882,
+          "reset_time_ms": 6.260065268138798
+        },
+        {
+          "time_ms": 1001.4918767264971,
+          "latency_ms": 1.4918767264971393,
+          "v_before": 29.999999999998842,
+          "u_before": -13.83093417264206,
+          "v_after": -65.0,
+          "u_after": -5.83093417264206,
+          "reset_time_ms": 1001.4918767264971
+        },
+        {
+          "time_ms": 1003.1438751260588,
+          "latency_ms": 3.143875126058788,
+          "v_before": 29.999999999985345,
+          "u_before": -5.898519609600419,
+          "v_after": -65.0,
+          "u_after": 2.1014803903995807,
+          "reset_time_ms": 1003.1438751260588
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000000002646,
+          -13.999999999984798
+        ],
+        "offset": [
+          -1.1063413047948565,
+          -5.922570756582951
+        ]
+      },
+      "final": [
+        -72.19637557042357,
+        -12.539479338545586
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset1000_v-60_du0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -60.0,
+        "u0": -12.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1001.4918767264961,
+          "latency_ms": 1.4918767264961161,
+          "v_before": 29.999999999998177,
+          "u_before": -13.830934172652702,
+          "v_after": -65.0,
+          "u_after": -5.830934172652702,
+          "reset_time_ms": 1001.4918767264961
+        },
+        {
+          "time_ms": 1003.143875126057,
+          "latency_ms": 3.143875126056969,
+          "v_before": 30.000000000011454,
+          "u_before": -5.8985196096106876,
+          "v_after": -65.0,
+          "u_after": 2.1014803903893124,
+          "reset_time_ms": 1003.143875126057
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000000000745,
+          -13.999999999995733
+        ],
+        "offset": [
+          -1.106341304529376,
+          -5.9225707565930525
+        ]
+      },
+      "final": [
+        -72.19637557042212,
+        -12.53947933854669
+      ],
+      "dose_current_ms": 90.0
+    },
+    "initial_onset1000_v-60_du5": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -60.0,
+        "u0": -7.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1001.4918767264971,
+          "latency_ms": 1.4918767264971393,
+          "v_before": 29.99999999997953,
+          "u_before": -13.830934172641536,
+          "v_after": -65.0,
+          "u_after": -5.830934172641536,
+          "reset_time_ms": 1001.4918767264971
+        },
+        {
+          "time_ms": 1003.1438751260589,
+          "latency_ms": 3.1438751260589015,
+          "v_before": 30.0000000000102,
+          "u_before": -5.8985196095998935,
+          "v_after": -65.0,
+          "u_after": 2.1014803904001065,
+          "reset_time_ms": 1003.1438751260589
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000000002743,
+          -13.999999999984237
+        ],
+        "offset": [
+          -1.106341304800261,
+          -5.922570756582448
+        ]
+      },
+      "final": [
+        -72.19637557042353,
+        -12.539479338545526
+      ],
+      "dose_current_ms": 90.0
+    },
+    "reference_Radau_onset1000": {
+      "method": "Radau",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1001.4918767264977,
+          "latency_ms": 1.4918767264977078,
+          "v_before": 29.99999999999852,
+          "u_before": -13.830934172654633,
+          "v_after": -65.0,
+          "u_after": -5.830934172654633,
+          "reset_time_ms": 1001.4918767264977
+        },
+        {
+          "time_ms": 1003.1438751260623,
+          "latency_ms": 3.143875126062312,
+          "v_before": 30.0000000000466,
+          "u_before": -5.898519609612554,
+          "v_after": -65.0,
+          "u_after": 2.1014803903874464,
+          "reset_time_ms": 1003.1438751260623
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000000000361,
+          -13.999999999997927
+        ],
+        "offset": [
+          -1.10634130516243,
+          -5.922570756595466
+        ]
+      },
+      "final": [
+        -72.19637557041898,
+        -12.539479338546611
+      ],
+      "dose_current_ms": 90.0
+    },
+    "cpp_onset1000": {
+      "method": "C++ RK4/end-step reset",
+      "hold": "none",
+      "step_ms": 0.025,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 1000.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 1001.4999999999999,
+          "latency_ms": 1.4999999999998863
+        },
+        {
+          "time_ms": 1003.175,
+          "latency_ms": 3.1749999999999545
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.0000000000041,
+          -13.999999999997817
+        ],
+        "offset": [
+          -2.490634345200084,
+          -5.9203324006127325
+        ]
+      },
+      "checkpoint_sample_offsets_ms": {
+        "onset": -1.1368683772161603e-13,
+        "offset": -1.1368683772161603e-13
+      },
+      "dose_current_ms": 90.00000000000009,
+      "active_steps": 120,
+      "json_roundtrip_exact": true,
+      "cli_summary": {
+        "time_s": 1.1,
+        "steps": 44001,
+        "complete": true,
+        "error": "",
+        "neuron_spikes": [
+          2
+        ],
+        "astrocyte_releases": []
+      }
+    },
+    "parameter_a_0.01": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.01,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.51634347678761,
+          "latency_ms": 1.5163434767876112,
+          "v_before": 29.999999999999055,
+          "u_before": -13.645834922426625,
+          "v_after": -65.0,
+          "u_after": -5.645834922426625,
+          "reset_time_ms": 101.51634347678761
+        },
+        {
+          "time_ms": 103.18787097679737,
+          "latency_ms": 3.1878709767973703,
+          "v_before": 29.999999999997847,
+          "u_before": -5.683325999573359,
+          "v_after": -65.0,
+          "u_after": 2.316674000426641,
+          "reset_time_ms": 103.18787097679737
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.4512634683911,
+          -13.72692215217716
+        ],
+        "offset": [
+          -6.654260008882098,
+          -5.697192735600913
+        ]
+      },
+      "final": [
+        -76.09520912997151,
+        -8.915174862804642
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_a_0.04": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.04,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.49327685286399,
+          "latency_ms": 1.4932768528639855,
+          "v_before": 30.00000000000454,
+          "u_before": -13.659816335515133,
+          "v_after": -65.0,
+          "u_after": -5.659816335515133,
+          "reset_time_ms": 101.49327685286399
+        },
+        {
+          "time_ms": 103.1523113709686,
+          "latency_ms": 3.1523113709686044,
+          "v_before": 30.000000000001975,
+          "u_before": -5.801942301089378,
+          "v_after": -65.0,
+          "u_after": 2.198057698910622,
+          "reset_time_ms": 103.1523113709686
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00886178017022,
+          -13.995163807600024
+        ],
+        "offset": [
+          -2.258682682043074,
+          -5.851431169158736
+        ]
+      },
+      "final": [
+        -70.19581971751826,
+        -13.891465386872
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_a_0.1": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.1,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.49556435961917,
+          "latency_ms": 1.4955643596191663,
+          "v_before": 30.000000000006583,
+          "u_before": -13.179535630629541,
+          "v_after": -65.0,
+          "u_after": -5.179535630629541,
+          "reset_time_ms": 101.49556435961917
+        },
+        {
+          "time_ms": 103.17266243180538,
+          "latency_ms": 3.172662431805378,
+          "v_before": 29.99999999999879,
+          "u_before": -5.578129240092374,
+          "v_after": -65.0,
+          "u_after": 2.421870759907626,
+          "reset_time_ms": 103.17266243180538
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.00000177887578,
+          -13.999999188556183
+        ],
+        "offset": [
+          -4.853254822572171,
+          -5.709248798909598
+        ]
+      },
+      "final": [
+        -70.00005121548713,
+        -13.999976637606812
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_b_0.18": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.18,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -11.7,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.59799792511838,
+          "latency_ms": 1.5979979251183778,
+          "v_before": 29.999999999998835,
+          "u_before": -12.63393631991004,
+          "v_after": -65.0,
+          "u_after": -4.63393631991004,
+          "reset_time_ms": 101.59799792511838
+        },
+        {
+          "time_ms": 103.37507598389246,
+          "latency_ms": 3.375075983892458,
+          "v_before": 29.99999999999754,
+          "u_before": -4.717646300944228,
+          "v_after": -65.0,
+          "u_after": 3.282353699055772,
+          "reset_time_ms": 103.37507598389246
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -71.79878527071466,
+          -12.794887501520623
+        ],
+        "offset": [
+          -21.49000396080765,
+          -4.748910715007132
+        ]
+      },
+      "final": [
+        -73.70909540311823,
+        -11.269814169819997
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_b_0.22": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.22,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -14.3,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.39971266385682,
+          "latency_ms": 1.3997126638568176,
+          "v_before": 29.99999999999993,
+          "u_before": -14.779206321732385,
+          "v_after": -65.0,
+          "u_after": -6.779206321732385,
+          "reset_time_ms": 101.39971266385682
+        },
+        {
+          "time_ms": 102.98648162815513,
+          "latency_ms": 2.9864816281551327,
+          "v_before": 29.99999999999766,
+          "u_before": -6.8410728561457175,
+          "v_after": -65.0,
+          "u_after": 1.1589271438542825,
+          "reset_time_ms": 102.98648162815513
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -68.2068078849192,
+          -14.949899280363063
+        ],
+        "offset": [
+          -64.82661043914835,
+          1.1547532764833244
+        ]
+      },
+      "final": [
+        -70.54363370804113,
+        -13.719682651173162
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_b_0.25": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.25,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -16.25,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.23930018960148,
+          "latency_ms": 1.2393001896014795,
+          "v_before": 30.000000000007187,
+          "u_before": -15.93523926621382,
+          "v_after": -65.0,
+          "u_after": -7.93523926621382,
+          "reset_time_ms": 101.23930018960148
+        },
+        {
+          "time_ms": 102.77317739458402,
+          "latency_ms": 2.7731773945840246,
+          "v_before": 30.000000000000114,
+          "u_before": -7.993543455660809,
+          "v_after": -65.0,
+          "u_after": 0.0064565443391906285,
+          "reset_time_ms": 102.77317739458402
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -64.41418263478708,
+          -16.103431954785602
+        ],
+        "offset": [
+          -61.8592041284769,
+          -0.06534130784427235
+        ]
+      },
+      "final": [
+        -67.53471199688174,
+        -15.317021673885549
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_b_0.27": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.27,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -17.55,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 8.616516140854822,
+          "latency_ms": -91.38348385914517,
+          "v_before": 30.00000000000054,
+          "u_before": -17.080585620998512,
+          "v_after": -65.0,
+          "u_after": -9.080585620998512,
+          "reset_time_ms": 8.616516140854822
+        },
+        {
+          "time_ms": 101.10832878684661,
+          "latency_ms": 1.108328786846613,
+          "v_before": 29.99999999999892,
+          "u_before": -16.307268442047825,
+          "v_after": -65.0,
+          "u_after": -8.307268442047825,
+          "reset_time_ms": 101.10832878684661
+        },
+        {
+          "time_ms": 102.62585751567771,
+          "latency_ms": 2.6258575156777084,
+          "v_before": 29.99999999999969,
+          "u_before": -8.376530617647418,
+          "v_after": -65.0,
+          "u_after": -0.37653061764741835,
+          "reset_time_ms": 102.62585751567771
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -60.73799964009252,
+          -16.46660908373924
+        ],
+        "offset": [
+          -59.6555074744296,
+          -0.499184251135004
+        ]
+      },
+      "final": [
+        -64.63205424394661,
+        -16.20867122286505
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_c_-70": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -70.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -70.0,
+          "u_after": -5.760286290718771,
+          "reset_time_ms": 101.4986522548012
+        },
+        {
+          "time_ms": 103.50842843853667,
+          "latency_ms": 3.5084284385366686,
+          "v_before": 29.999999999998124,
+          "u_before": -5.861906690890787,
+          "v_after": -70.0,
+          "u_after": 2.1380933091092134,
+          "reset_time_ms": 103.50842843853667
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -27.856728357056845,
+          -5.903529930460858
+        ]
+      },
+      "final": [
+        -72.21706537261693,
+        -12.523822818033155
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_c_-60": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -60.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -60.0,
+          "u_after": -5.760286290718771,
+          "reset_time_ms": 101.4986522548012
+        },
+        {
+          "time_ms": 102.88221715470418,
+          "latency_ms": 2.882217154704179,
+          "v_before": 29.999999999994984,
+          "u_before": -5.800129909367012,
+          "v_after": -60.0,
+          "u_after": 2.199870090632988,
+          "reset_time_ms": 102.88221715470418
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -58.58855602667255,
+          2.1667898397949656
+        ]
+      },
+      "final": [
+        -72.20199322681951,
+        -12.53523178438329
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_c_-55": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -55.0,
+        "d": 8.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -55.0,
+          "u_after": -5.760286290718771,
+          "reset_time_ms": 101.4986522548012
+        },
+        {
+          "time_ms": 102.64014111002983,
+          "latency_ms": 2.6401411100298304,
+          "v_before": 30.000000000000767,
+          "u_before": -5.7729534560066815,
+          "v_after": -55.0,
+          "u_after": 2.2270465439933185,
+          "reset_time_ms": 102.64014111002983
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -49.29791906840323,
+          2.1360804545094747
+        ]
+      },
+      "final": [
+        -72.2082341312732,
+        -12.530509949970545
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_d_2": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 2.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -11.76028629071877,
+          "reset_time_ms": 101.4986522548012
+        },
+        {
+          "time_ms": 102.88778159740045,
+          "latency_ms": 2.8877815974004477,
+          "v_before": 29.999999999995122,
+          "u_before": -11.648485419260139,
+          "v_after": -65.0,
+          "u_after": -9.648485419260139,
+          "reset_time_ms": 102.88778159740045
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -62.3650119594175,
+          -9.655407056143202
+        ]
+      },
+      "final": [
+        -70.59223769055788,
+        -13.6458008126099
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_d_4": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 4.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -9.76028629071877,
+          "reset_time_ms": 101.4986522548012
+        },
+        {
+          "time_ms": 102.95959563492525,
+          "latency_ms": 2.9595956349252504,
+          "v_before": 30.000000000001393,
+          "u_before": -9.703470088976728,
+          "v_after": -65.0,
+          "u_after": -5.703470088976728,
+          "reset_time_ms": 102.95959563492525
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -64.20664493092488,
+          -5.7092997782674555
+        ]
+      },
+      "final": [
+        -71.13425494676362,
+        -13.295850818555547
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_d_10": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 10.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -3.7602862907187706,
+          "reset_time_ms": 101.4986522548012
+        },
+        {
+          "time_ms": 103.30210424119917,
+          "latency_ms": 3.3021042411991743,
+          "v_before": 29.99999999999971,
+          "u_before": -3.908067436164113,
+          "v_after": -65.0,
+          "u_after": 6.091932563835887,
+          "reset_time_ms": 103.30210424119917
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -16.734565510986776,
+          -3.9327454289647954
+        ]
+      },
+      "final": [
+        -72.72745820125333,
+        -12.126485772789408
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_d_12": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 12.0,
+        "peak": 30.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.4986522548012,
+          "latency_ms": 1.4986522548012005,
+          "v_before": 30.00000000000496,
+          "u_before": -13.76028629071877,
+          "v_after": -65.0,
+          "u_after": -1.7602862907187706,
+          "reset_time_ms": 101.4986522548012
+        },
+        {
+          "time_ms": 103.51402704100933,
+          "latency_ms": 3.514027041009328,
+          "v_before": 29.999999999999584,
+          "u_before": -2.0047497771959235,
+          "v_after": -65.0,
+          "u_after": 9.995250222804076,
+          "reset_time_ms": 103.51402704100933
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -27.125244133196844,
+          -2.007685711589701
+        ]
+      },
+      "final": [
+        -73.23993636254684,
+        -11.70609440562408
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_peak_0": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 0.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.38329170238111,
+          "latency_ms": 1.3832917023811149,
+          "v_before": -9.85878045867139e-14,
+          "u_before": -13.798198644492565,
+          "v_after": -65.0,
+          "u_after": -5.798198644492565,
+          "reset_time_ms": 101.38329170238111
+        },
+        {
+          "time_ms": 102.89944697901338,
+          "latency_ms": 2.8994469790133763,
+          "v_before": 4.6879167214797235e-14,
+          "u_before": -5.890212976672621,
+          "v_after": -65.0,
+          "u_after": 2.109787023327379,
+          "reset_time_ms": 102.89944697901338
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -63.81295096885903,
+          2.0796699335583706
+        ]
+      },
+      "final": [
+        -72.18696108592346,
+        -12.546591895578384
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_peak_20": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 20.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.46861107726801,
+          "latency_ms": 1.468611077268008,
+          "v_before": 20.000000000000988,
+          "u_before": -13.77154034792764,
+          "v_after": -65.0,
+          "u_after": -5.77154034792764,
+          "reset_time_ms": 101.46861107726801
+        },
+        {
+          "time_ms": 103.08562984566532,
+          "latency_ms": 3.0856298456653235,
+          "v_before": 20.000000000001606,
+          "u_before": -5.849130599448699,
+          "v_after": -65.0,
+          "u_after": 2.1508694005513007,
+          "reset_time_ms": 103.08562984566532
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          2.5312611396868423,
+          -5.862770122060579
+        ]
+      },
+      "final": [
+        -72.19998336840236,
+        -12.53675175174659
+      ],
+      "dose_current_ms": 90.0
+    },
+    "parameter_peak_40": {
+      "method": "DOP853",
+      "hold": "none",
+      "step_ms": null,
+      "parameters": {
+        "a": 0.02,
+        "b": 0.2,
+        "c": -65.0,
+        "d": 8.0,
+        "peak": 40.0,
+        "v0": -65.0,
+        "u0": -13.0,
+        "onset": 100.0,
+        "width": 3.0,
+        "amplitude": 30.0,
+        "after": 100.0
+      },
+      "events": [
+        {
+          "time_ms": 101.52323160489244,
+          "latency_ms": 1.5232316048924446,
+          "v_before": 39.999999999998025,
+          "u_before": -13.750098943354669,
+          "v_after": -65.0,
+          "u_after": -5.7500989433546685,
+          "reset_time_ms": 101.52323160489244
+        },
+        {
+          "time_ms": 103.21487395827258,
+          "latency_ms": 3.2148739582725767,
+          "v_before": 39.99999999999876,
+          "u_before": -5.812885402033919,
+          "v_after": -65.0,
+          "u_after": 2.1871145979660813,
+          "reset_time_ms": 103.21487395827258
+        }
+      ],
+      "checkpoints": {
+        "onset": [
+          -70.12554604057377,
+          -13.927390295096451
+        ],
+        "offset": [
+          -6.658895236316029,
+          -5.848077072380056
+        ]
+      },
+      "final": [
+        -72.21130371896263,
+        -12.528186343671337
+      ],
+      "dose_current_ms": 90.0
+    }
+  }
+}

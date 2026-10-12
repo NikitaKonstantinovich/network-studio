@@ -1,0 +1,43 @@
+{
+  "checked_at_utc": "2026-10-12T16:58:01.714147+00:00",
+  "branch": "feature/izhikevich-lab1",
+  "scope": "Windows CPU standalone Network Studio; not the CUDA executable",
+  "published_cli": {
+    "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio_cli.exe",
+    "sha256": "38e1a6a15f357fee98f0f674656de0e6e0332db68cdccf43267de5185ec8373f"
+  },
+  "published_gui": {
+    "path": "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\build\\Release\\network_studio.exe",
+    "sha256": "ceb37933826265906e084bd03787e2efb0623746d0919acaadc670572838c748"
+  },
+  "core_library_sha256": "9fd82d63a16cd094aa2066655fcd8bf0bb20c4c03b2735c842e7fb93db987d9c",
+  "production_files": {
+    "network.h": "8e66bf2d329395a52c273e47931891f993d5682cee9eff6b23ea6b3e37ac976d",
+    "network.cpp": "d23f328cd4952c30d697721788fb6113041c8f212ff8540fae885dca603abdda",
+    "io.cpp": "b7074d9d85bc55d3c39596d1f0815dbdd193a44de89a8a6f46c76fbc858acd72",
+    "gui.cpp": "8cf948ffe0fa4e4e8ccd986ad31d3d0f0336dfaaeb10f8f4cb1fe630d37e3de9",
+    "gui.h": "c5277865316ba48603f5042fbc3ebbb1d67d6b6b67a54ce8a7f3a086db1f8c5e",
+    "tests.cpp": "b7f451383856abc29202cd18508c13178d02984cbaa0cec872ad909610550c59",
+    "gui_tests.cpp": "4875635e2567c32669f2baceaa63591709d9a0e83ade296bc923d9cb9259f64e",
+    "README.md": "0f2bbc84ef61dd8a2e2e2423df463499b1e4ad6222281981df833f522bb61cbf",
+    "CMakeLists.txt": "401eaaa4de184761203824e3971746819011bfcaa8c5f9dde88b445bfc52f495",
+    "generator.h": "6033936c868fdd4fe7933c63a33ce3cfd75a3907114de783a6d8f1d705ab6ce9",
+    "generator.cpp": "2590a75be12f7e1200ce6ec5f2f36f909a1b44c7c25cf0f361dd246500f93ba4",
+    "cli.cpp": "e83c15f05309ff34c73c4855cf09194846c589c9776c42d00e3c8edcd4dbc3b8",
+    "main.cpp": "3a7ef2bebe041b7562e436889b94ef39665d9c417e3f8f6aec7abbafc5701be6",
+    "examples/stdp_triplet.json": "4b3ec5abe76d2d079324dca6cf75bf61b0eaf5e4762e6998e2280eb379bc44c2",
+    "examples/stdp_triplet_burst.json": "f433620ffb21756838ad5db9b5d5138bdfd99762dc8a1a43f15209e7f343a336"
+  },
+  "validation": {
+    "ctest_suites_passed": 4,
+    "official_new_lab_runs": 28,
+    "width1_diagnostic_runs": 8,
+    "baseline_pair_repeats": 16,
+    "baseline_network_runs": 36,
+    "duration_sensitivity_runs": 30,
+    "published_network_regressions": 12,
+    "gui_smoke_frames": 24,
+    "gui_cli_burst_spikes_and_final_weight_equal": true
+  },
+  "source_reference_sha256": "23ee9aa6494103abed3ee2795b3d5b131df818cf03a577ab7259e4aebf60b3b1"
+}

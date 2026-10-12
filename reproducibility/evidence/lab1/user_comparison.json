@@ -1,0 +1,706 @@
+{
+  "cli_sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+  "source_report": "E:\\asp\\26_27\\labs\\lab1_report\\Отчёт_ЛР1.md",
+  "source_sha256": {
+    "Отчёт_ЛР1.md": "3b08e8c708345a383c00c09e30d935718f695f9affaedc29d24e4cd73c43aea9",
+    "images\\task2.png": "d94618f0b4a0e56027f15e516d28884f346e0a28f1dd159bc203f79abf5b70e7",
+    "images\\task3b.png": "7c2569e93eeb583546d4446b1adaf8f49916577812f005febb604c883ccc15c9",
+    "images\\task3_10hz.png": "fad8eb1cc92dc113149a1c96c0c3c946a026c08733f76f3fc3dca5f65f99a344",
+    "images\\task3_20hz.png": "337d8e73a9864044b96b7f82f942a64ccc4233d6a5839da4ad80854c48115b4a",
+    "images\\task3_2hz.png": "4216ae9c5b952e06739c44ff1090c46f139184e2c609ecb4a498a3631e75c87f",
+    "images\\task4_global.png": "c7ef14d689a9e6e76e9f284162d3c290659b5d226b2f6f91b3253b5756a12493",
+    "images\\task4_individual.png": "527daec403e2b82e6f087211d220c45c1301d0b02c2ac016ffb64532de7419bb"
+  },
+  "source_observations": [
+    "Task1 is claimed by the experimenter, but no separate Fire! screenshot was supplied.",
+    "Task2: b=.27, a=.02,c=-65,d=8, individual sigma0. External stimulation is not separately shown as disabled.",
+    "Task3A 2Hz table: (50,0),(53,30),(500,0);20Hz:(20,0),(23,30),(50,0). Step and global Noise are not visible.",
+    "Task3A shows Output envelopes, not zoomed Em: close spikes cannot be counted from these images.",
+    "Task3B: constant3.8, individual sigma0; stable repetitive Em.",
+    "Task4 report gives sigma0,4,4.5; individual4.5 visible; global sigma value is outside the supplied global-noise image.",
+    "Neither stimulus/initial-state/time-series/seed completeness nor exact numerical equivalence follows from the screenshots."
+  ],
+  "noise": {
+    "0.0": {
+      "noise_hold_ms": 1.0,
+      "simulation_duration_s": 10.0,
+      "window_s": [
+        1,
+        10
+      ],
+      "runs": [
+        {
+          "seed": 42,
+          "neurons": [
+            {
+              "spikes": 0,
+              "analyzed_spikes": 0,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 0.0,
+              "mean_isi_ms": null,
+              "isi_frequency_hz": null,
+              "isi_cv": null,
+              "first_spike_s": null,
+              "last_spike_s": null
+            },
+            {
+              "spikes": 0,
+              "analyzed_spikes": 0,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 0.0,
+              "mean_isi_ms": null,
+              "isi_frequency_hz": null,
+              "isi_cv": null,
+              "first_spike_s": null,
+              "last_spike_s": null
+            }
+          ]
+        }
+      ],
+      "mean_rate_hz": 0.0,
+      "sd_across_neuron_seed_hz": 0.0,
+      "same_seed_explicit_vs_global_csv_identical": {
+        "trace.csv": true,
+        "events.csv": true
+      }
+    },
+    "4.0": {
+      "noise_hold_ms": 1.0,
+      "simulation_duration_s": 10.0,
+      "window_s": [
+        1,
+        10
+      ],
+      "runs": [
+        {
+          "seed": 11,
+          "neurons": [
+            {
+              "spikes": 25,
+              "analyzed_spikes": 24,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.6666666666666665,
+              "mean_isi_ms": 379.69239130434784,
+              "isi_frequency_hz": 2.633710927323892,
+              "isi_cv": 0.6882137661657133,
+              "first_spike_s": 0.152625,
+              "last_spike_s": 9.818375
+            },
+            {
+              "spikes": 22,
+              "analyzed_spikes": 20,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.2222222222222223,
+              "mean_isi_ms": 412.3986842105263,
+              "isi_frequency_hz": 2.424837998487667,
+              "isi_cv": 0.637810157179407,
+              "first_spike_s": 0.52695,
+              "last_spike_s": 9.767475000000001
+            }
+          ]
+        },
+        {
+          "seed": 23,
+          "neurons": [
+            {
+              "spikes": 23,
+              "analyzed_spikes": 20,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.2222222222222223,
+              "mean_isi_ms": 360.1486842105263,
+              "isi_frequency_hz": 2.776630996700924,
+              "isi_cv": 0.8188314652244275,
+              "first_spike_s": 0.193675,
+              "last_spike_s": 9.234925
+            },
+            {
+              "spikes": 26,
+              "analyzed_spikes": 23,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.5555555555555554,
+              "mean_isi_ms": 390.60795454545456,
+              "isi_frequency_hz": 2.5601117139657004,
+              "isi_cv": 0.8132541696877891,
+              "first_spike_s": 0.148425,
+              "last_spike_s": 9.872025
+            }
+          ]
+        },
+        {
+          "seed": 42,
+          "neurons": [
+            {
+              "spikes": 23,
+              "analyzed_spikes": 19,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.111111111111111,
+              "mean_isi_ms": 400.1027777777779,
+              "isi_frequency_hz": 2.499357803897609,
+              "isi_cv": 0.5604129270864382,
+              "first_spike_s": 0.1907,
+              "last_spike_s": 9.655375000000001
+            },
+            {
+              "spikes": 25,
+              "analyzed_spikes": 24,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.6666666666666665,
+              "mean_isi_ms": 372.62500000000006,
+              "isi_frequency_hz": 2.683663200268366,
+              "isi_cv": 0.48947982209474306,
+              "first_spike_s": 0.8953500000000001,
+              "last_spike_s": 9.66055
+            }
+          ]
+        },
+        {
+          "seed": 71,
+          "neurons": [
+            {
+              "spikes": 25,
+              "analyzed_spikes": 23,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.5555555555555554,
+              "mean_isi_ms": 395.4443181818181,
+              "isi_frequency_hz": 2.5288010322106036,
+              "isi_cv": 0.5466198001211843,
+              "first_spike_s": 0.41455000000000003,
+              "last_spike_s": 9.811475
+            },
+            {
+              "spikes": 22,
+              "analyzed_spikes": 19,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.111111111111111,
+              "mean_isi_ms": 488.45,
+              "isi_frequency_hz": 2.0472924557273005,
+              "isi_cv": 0.8680718371652288,
+              "first_spike_s": 0.30862500000000004,
+              "last_spike_s": 9.998025
+            }
+          ]
+        },
+        {
+          "seed": 101,
+          "neurons": [
+            {
+              "spikes": 17,
+              "analyzed_spikes": 14,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 1.5555555555555556,
+              "mean_isi_ms": 658.975,
+              "isi_frequency_hz": 1.5175082514511173,
+              "isi_cv": 0.8864260427421322,
+              "first_spike_s": 0.4315,
+              "last_spike_s": 9.793000000000001
+            },
+            {
+              "spikes": 20,
+              "analyzed_spikes": 18,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.0,
+              "mean_isi_ms": 506.1558823529412,
+              "isi_frequency_hz": 1.9756759426589112,
+              "isi_cv": 0.893694077469593,
+              "first_spike_s": 0.19625,
+              "last_spike_s": 9.89065
+            }
+          ]
+        }
+      ],
+      "mean_rate_hz": 2.2666666666666666,
+      "sd_across_neuron_seed_hz": 0.3521441281186581,
+      "same_seed_explicit_vs_global_csv_identical": {
+        "trace.csv": true,
+        "events.csv": true
+      }
+    },
+    "4.5": {
+      "noise_hold_ms": 1.0,
+      "simulation_duration_s": 10.0,
+      "window_s": [
+        1,
+        10
+      ],
+      "runs": [
+        {
+          "seed": 11,
+          "neurons": [
+            {
+              "spikes": 38,
+              "analyzed_spikes": 36,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 4.0,
+              "mean_isi_ms": 253.3785714285714,
+              "isi_frequency_hz": 3.9466636596848312,
+              "isi_cv": 0.48147435010595513,
+              "first_spike_s": 0.15102500000000002,
+              "last_spike_s": 9.95255
+            },
+            {
+              "spikes": 37,
+              "analyzed_spikes": 32,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 3.5555555555555554,
+              "mean_isi_ms": 275.2153225806452,
+              "isi_frequency_hz": 3.6335186232480723,
+              "isi_cv": 0.5591681344291061,
+              "first_spike_s": 0.173925,
+              "last_spike_s": 9.922725
+            }
+          ]
+        },
+        {
+          "seed": 23,
+          "neurons": [
+            {
+              "spikes": 37,
+              "analyzed_spikes": 32,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 3.5555555555555554,
+              "mean_isi_ms": 276.0379032258065,
+              "isi_frequency_hz": 3.6226908997420293,
+              "isi_cv": 0.5599753244321952,
+              "first_spike_s": 0.192825,
+              "last_spike_s": 9.896700000000001
+            },
+            {
+              "spikes": 35,
+              "analyzed_spikes": 31,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 3.4444444444444446,
+              "mean_isi_ms": 286.4716666666667,
+              "isi_frequency_hz": 3.490746612521308,
+              "isi_cv": 0.5732069853552482,
+              "first_spike_s": 0.14452500000000001,
+              "last_spike_s": 9.871975
+            }
+          ]
+        },
+        {
+          "seed": 42,
+          "neurons": [
+            {
+              "spikes": 37,
+              "analyzed_spikes": 30,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 3.3333333333333335,
+              "mean_isi_ms": 283.86206896551727,
+              "isi_frequency_hz": 3.522837706511176,
+              "isi_cv": 0.5404850820654029,
+              "first_spike_s": 0.042825,
+              "last_spike_s": 9.65455
+            },
+            {
+              "spikes": 38,
+              "analyzed_spikes": 35,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 3.888888888888889,
+              "mean_isi_ms": 251.9066176470588,
+              "isi_frequency_hz": 3.9697250089756655,
+              "isi_cv": 0.48505735470075295,
+              "first_spike_s": 0.34137500000000004,
+              "last_spike_s": 9.6571
+            }
+          ]
+        },
+        {
+          "seed": 71,
+          "neurons": [
+            {
+              "spikes": 33,
+              "analyzed_spikes": 30,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 3.3333333333333335,
+              "mean_isi_ms": 299.97499999999997,
+              "isi_frequency_hz": 3.3336111342611887,
+              "isi_cv": 0.5195185114773382,
+              "first_spike_s": 0.412775,
+              "last_spike_s": 9.81015
+            },
+            {
+              "spikes": 34,
+              "analyzed_spikes": 30,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 3.3333333333333335,
+              "mean_isi_ms": 301.3560344827586,
+              "isi_frequency_hz": 3.3183340818655904,
+              "isi_cv": 0.474108241902304,
+              "first_spike_s": 0.19995000000000002,
+              "last_spike_s": 9.9437
+            }
+          ]
+        },
+        {
+          "seed": 101,
+          "neurons": [
+            {
+              "spikes": 32,
+              "analyzed_spikes": 26,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 2.888888888888889,
+              "mean_isi_ms": 342.67600000000004,
+              "isi_frequency_hz": 2.9182084534662476,
+              "isi_cv": 0.7473706801567556,
+              "first_spike_s": 0.08375,
+              "last_spike_s": 9.792125
+            },
+            {
+              "spikes": 36,
+              "analyzed_spikes": 34,
+              "analyzed_from_s": 1.0,
+              "analyzed_to_s": 10.0,
+              "rate_hz": 3.7777777777777777,
+              "mean_isi_ms": 260.7,
+              "isi_frequency_hz": 3.8358266206367473,
+              "isi_cv": 0.4793784084146241,
+              "first_spike_s": 0.1955,
+              "last_spike_s": 9.885825
+            }
+          ]
+        }
+      ],
+      "mean_rate_hz": 3.5111111111111106,
+      "sd_across_neuron_seed_hz": 0.3237299760505504,
+      "same_seed_explicit_vs_global_csv_identical": {
+        "trace.csv": true,
+        "events.csv": true
+      }
+    }
+  },
+  "pulse_protocols": {
+    "2": {
+      "stimulus_hz": 2,
+      "onset_ms": 50,
+      "duration_s": 5.0,
+      "analysis_window_s": [
+        1,
+        5
+      ],
+      "native_vs_DOP853": {
+        "actual_spikes": 20,
+        "reference_spikes": 20,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.05251856310133779
+      },
+      "native_events_per_period": {
+        "2": 8
+      },
+      "native_late_spikes": 16,
+      "native_last_output_peak": 17.125262510246046,
+      "translated_Euler_dt_ms": 0.5,
+      "translated_events_s": [
+        0.0525,
+        0.552,
+        0.556,
+        1.052,
+        1.056,
+        1.552,
+        1.556,
+        2.052,
+        2.056,
+        2.552,
+        2.556,
+        3.052,
+        3.056,
+        3.552,
+        3.556,
+        4.052,
+        4.056,
+        4.552,
+        4.556
+      ],
+      "translated_events_per_period": {
+        "2": 8
+      },
+      "translated_late_spikes": 16,
+      "translated_last_output_peak": 14.451110633095892,
+      "caveat": "Diagnostic translation, not original binary execution. Noise0, V0=-70,u0=0 and Euler0.5ms are chosen conditions; screenshot does not confirm all of these."
+    },
+    "20": {
+      "stimulus_hz": 20,
+      "onset_ms": 20,
+      "duration_s": 5.0,
+      "analysis_window_s": [
+        1,
+        5
+      ],
+      "native_vs_DOP853": {
+        "actual_spikes": 133,
+        "reference_spikes": 133,
+        "same_spike_count": true,
+        "max_event_error_ms": 2.0081961310631504
+      },
+      "native_events_per_period": {
+        "1": 53,
+        "2": 27
+      },
+      "native_late_spikes": 107,
+      "native_last_output_peak": 11.0143305546141,
+      "translated_Euler_dt_ms": 0.5,
+      "translated_events_s": [
+        0.023,
+        0.0725,
+        0.1225,
+        0.1725,
+        0.2225,
+        0.2725,
+        0.3225,
+        0.3725,
+        0.4225,
+        0.4725,
+        0.5225,
+        0.5725,
+        0.6225,
+        0.6725,
+        0.7225,
+        0.7725,
+        0.8225,
+        0.8725,
+        0.9225,
+        0.9725,
+        1.0225,
+        1.0725,
+        1.1225,
+        1.1725,
+        1.2225,
+        1.2725,
+        1.3225,
+        1.3725,
+        1.4225,
+        1.4725,
+        1.5225,
+        1.5725,
+        1.6225,
+        1.6725,
+        1.7225,
+        1.7725,
+        1.8225,
+        1.8725,
+        1.9225,
+        1.9725,
+        2.0225,
+        2.0725,
+        2.1225,
+        2.1725,
+        2.2225,
+        2.2725,
+        2.3225,
+        2.3725,
+        2.4225,
+        2.4725,
+        2.5225,
+        2.5725,
+        2.6225,
+        2.6725,
+        2.7225,
+        2.7725,
+        2.8225,
+        2.8725,
+        2.9225,
+        2.9725,
+        3.0225,
+        3.0725,
+        3.1225,
+        3.1725,
+        3.2225,
+        3.2725,
+        3.3225,
+        3.3725,
+        3.4225,
+        3.4725,
+        3.5225,
+        3.5725,
+        3.6225,
+        3.6725,
+        3.7225,
+        3.7725,
+        3.8225,
+        3.8725,
+        3.9225,
+        3.9725,
+        4.0225,
+        4.0725,
+        4.1225,
+        4.1725,
+        4.2225,
+        4.2725,
+        4.3225,
+        4.3725,
+        4.4225,
+        4.4725,
+        4.5225,
+        4.5725,
+        4.6225,
+        4.6725,
+        4.7225,
+        4.7725,
+        4.8225,
+        4.8725,
+        4.9225,
+        4.9725
+      ],
+      "translated_events_per_period": {
+        "1": 80
+      },
+      "translated_late_spikes": 80,
+      "translated_last_output_peak": 11.373138742957515,
+      "caveat": "Diagnostic translation, not original binary execution. Noise0, V0=-70,u0=0 and Euler0.5ms are chosen conditions; screenshot does not confirm all of these.",
+      "native_dt1.25e-05_vs_DOP853": {
+        "actual_spikes": 133,
+        "reference_spikes": 133,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.3331961310631404
+      },
+      "native_dt5e-06_vs_DOP853": {
+        "actual_spikes": 133,
+        "reference_spikes": 133,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.07511179672725632
+      }
+    }
+  },
+  "image_periods": {
+    "autonomous_b027": {
+      "image": "task2.png",
+      "axis_rectangle_pixels": [
+        398,
+        116,
+        1009,
+        608
+      ],
+      "axis_duration_ms": 5000,
+      "peak_columns": [
+        405.5,
+        418.5,
+        431.5,
+        444.5,
+        457.5,
+        470.5,
+        483.5,
+        496.5,
+        509.5,
+        522.5,
+        535.5,
+        548.5,
+        561.5,
+        575.0,
+        588.0,
+        601.5,
+        614.5
+      ],
+      "detected_peaks": 17,
+      "ms_per_pixel": 8.183306055646481,
+      "approximate_mean_isi_ms": 106.89443535188215,
+      "interval_range_ms": [
+        106.38297872340425,
+        110.47463175122749
+      ],
+      "limitation": "Approximate raster-image measurement; no original event log, initial state or integration step."
+    },
+    "dc3p8": {
+      "image": "task3b.png",
+      "axis_rectangle_pixels": [
+        429,
+        121,
+        1042,
+        613
+      ],
+      "axis_duration_ms": 5000,
+      "peak_columns": [
+        434.5,
+        456.5,
+        478.5,
+        500.5,
+        522.0,
+        543.5,
+        565.5,
+        587.5,
+        609.5,
+        630.5,
+        652.5,
+        674.5,
+        696.5,
+        718.5,
+        739.5,
+        761.5,
+        783.5,
+        805.5,
+        827.5,
+        848.5
+      ],
+      "detected_peaks": 20,
+      "ms_per_pixel": 8.156606851549755,
+      "approximate_mean_isi_ms": 177.72817034429465,
+      "interval_range_ms": [
+        171.28874388254485,
+        179.4453507340946
+      ],
+      "limitation": "Approximate raster-image measurement; no original event log, initial state or integration step."
+    }
+  },
+  "dc3p8": {
+    "native25us": {
+      "actual_spikes": 29,
+      "reference_spikes": 29,
+      "same_spike_count": true,
+      "max_event_error_ms": 1.031585620159703
+    },
+    "native12_5us": {
+      "actual_spikes": 29,
+      "reference_spikes": 29,
+      "same_spike_count": true,
+      "max_event_error_ms": 0.4690856201596816
+    },
+    "native_metrics": {
+      "spikes": 29,
+      "analyzed_spikes": 23,
+      "analyzed_from_s": 1.0,
+      "analyzed_to_s": 5.0,
+      "rate_hz": 5.75,
+      "mean_isi_ms": 178.05,
+      "isi_frequency_hz": 5.616399887672002,
+      "isi_cv": 0.0001197420479391109,
+      "first_spike_s": 0.01515,
+      "last_spike_s": 4.9983
+    }
+  },
+  "equilibrium_analysis": {
+    "RS_stable_rest_mV": -70.0,
+    "RS_rest_u": -14.0,
+    "RS_Jacobian_eigenvalues_per_ms": [
+      {
+        "real": -0.5930194339616981,
+        "imag": 0.0
+      },
+      {
+        "real": -0.026980566038301887,
+        "imag": 0.0
+      }
+    ],
+    "autonomous_b027_equilibrium_discriminant": -0.027099999999997237,
+    "local_equilibrium_stability_loss_current": 3.797500000000028,
+    "caveat": "Local continuous-ODE stability boundary, not a proof of a global/reset-dependent firing threshold."
+  }
+}

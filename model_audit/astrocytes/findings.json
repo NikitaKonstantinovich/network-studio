@@ -1,0 +1,2338 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "scope": "Astrocyte mathematical audit; production binaries unchanged",
+  "cli_sha256": "4965bb5cc41f13f243bf9823f9c3d6c68c1ab0a77d1677574007003f50342a8e",
+  "core_library_sha256": "de46f7e42751fdb7bf66f2b893953e26999bb07946907ebc891920851b481a42",
+  "harness_sha256": "81c5e06372ee9fe5189e30d54c455907d2207cfe8a77416ededa1434dde5b4f0",
+  "source_sha256": {
+    "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\network.cpp": "1dcd73ba34fa83dfbbd30a6e4050e62bb94002a6e0257674c0fe7846ce8c19d3",
+    "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\network.h": "bdf49dff0eb55b127f00394ef0074084106505d11f8b92cc8c496233aad7e598",
+    "E:\\asp\\26_27\\cudaynamics\\standalone\\network_studio\\io.cpp": "7ce8d935b1b3082ba34ab303bff01222f8e5a7225c2c3b738bc4adaa64deecdd",
+    "E:\\asp\\26_27\\cudaynamics\\systems\\neuro_astro\\model.cuh": "04a9249a42f30c83deeb337a30a043ed2df494bebefab85e839da6120f44f7db",
+    "E:\\asp\\26_27\\cudaynamics\\systems\\neuro_astro\\parameters.inc": "1b1631d0502e2344ad8d2642eea385f62ffe558f56a586a0786a8efbb6f50baa",
+    "E:\\asp\\26_27\\cudaynamics\\systems\\neuro_astro\\variables.inc": "6b8bcf24a95d03ac846f30b58302399bee2fab1e45204b3fb88d50656686b8c0"
+  },
+  "script_sha256": "05f9e74df60a07bc22146ce4104d951e1f653d8327cf855db2c277a0a8b79805",
+  "runs": [
+    {
+      "name": "active_25",
+      "scenario": "active",
+      "dt_us": 25.0,
+      "duration_s": 5,
+      "wall_s": 0.3549452999723144,
+      "astro_events_s": [
+        2.9030500000000004
+      ],
+      "neuron_spikes": [
+        40,
+        13,
+        36
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.09127752018994743,
+        "h": 0.7215103383566236,
+        "xA": 0.40037987969206634,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.3857886681033597,
+        "IP3_uM": 0.33114219237363085,
+        "Ca_uM": 0.6732689715288929,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.9971513533214145,
+        "GammaS": 0.9438808165951723
+      },
+      "final_astro": [
+        0.3850758676864526,
+        0.293831290824509,
+        0.6493016753535362,
+        0.7215103383566236,
+        0.8517406672691806,
+        0.36849147154237794,
+        0.9405759880305861
+      ],
+      "files_sha256": {
+        "trace.csv": "1a1f186eb4392d42ff8d10b9e05763746efd4752105dda7ef61b46506346e61a",
+        "events.csv": "164e6b879328d6ba8f91b59d827926b42511df1d5f2a8ec40d56d39a145cc492",
+        "weights.csv": "455ff3344e553ce7a1a9824a614a09a1ad741e81aa3383fe14acf0d58c419ec2",
+        "experiment.json": "65e01aac0aa0fb47cc6a7d3618d117dd997d480ffe9ded4bd6bfd4c9d0f9a998",
+        "initial_state.csv": "1b5c90104592f713bd2ee002c9ee5a2bd85055184636c1080804ca356f9b1261"
+      }
+    },
+    {
+      "name": "active_12p5",
+      "scenario": "active",
+      "dt_us": 12.5,
+      "duration_s": 5,
+      "wall_s": 0.5719353000167757,
+      "astro_events_s": [
+        2.903025
+      ],
+      "neuron_spikes": [
+        40,
+        13,
+        36
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.09127756245347683,
+        "h": 0.7215093877465522,
+        "xA": 0.400389873277458,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.38578873076742315,
+        "IP3_uM": 0.3311421524760058,
+        "Ca_uM": 0.6732690983745816,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.997076425474181,
+        "GammaS": 0.9438808169786597
+      },
+      "final_astro": [
+        0.38507484691561406,
+        0.29383123667789707,
+        0.649300418104948,
+        0.7215093877465522,
+        0.851743138237463,
+        0.36848225937075074,
+        0.9405756334495823
+      ],
+      "files_sha256": {
+        "trace.csv": "db0a646c50a9daed55a5a272046c0f6adb9b309afdbf71cc877aa539dd4ad26a",
+        "events.csv": "28567415592161be606b4e31d3f0265a4fbdc43d260f3ec4c699bed44f72d465",
+        "weights.csv": "455ff3344e553ce7a1a9824a614a09a1ad741e81aa3383fe14acf0d58c419ec2",
+        "experiment.json": "958f0d564111fdb76be58233b6e9cafd02e45b56bceee464501a10a07e6fbbd1",
+        "initial_state.csv": "1b5c90104592f713bd2ee002c9ee5a2bd85055184636c1080804ca356f9b1261"
+      }
+    },
+    {
+      "name": "active_6p25",
+      "scenario": "active",
+      "dt_us": 6.25,
+      "duration_s": 5,
+      "wall_s": 1.1555200000002515,
+      "astro_events_s": [
+        2.90301875
+      ],
+      "neuron_spikes": [
+        40,
+        13,
+        36
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.0912775835867433,
+        "h": 0.7215089250767206,
+        "xA": 0.40039237164778085,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.3857887312322909,
+        "IP3_uM": 0.3311420926302249,
+        "Ca_uM": 0.6732690927800042,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.9970576938050586,
+        "GammaS": 0.9438808170699006
+      },
+      "final_astro": [
+        0.38507430622398814,
+        0.2938312061900101,
+        0.6492997395605684,
+        0.7215089250767206,
+        0.8517437559730991,
+        0.3684799563638079,
+        0.9405755448019303
+      ],
+      "files_sha256": {
+        "trace.csv": "da87b0e766c92d58065cf91ef0f7bb2b9c57f85dd12a248c3046655c81f378ac",
+        "events.csv": "bd1d328882b30a8d7c50c32e7df080423071d3cca8285f6fd50ea867f397b462",
+        "weights.csv": "455ff3344e553ce7a1a9824a614a09a1ad741e81aa3383fe14acf0d58c419ec2",
+        "experiment.json": "e373fe47dfb082124d0b6a946fde4fc70b0effd9cf85b330a05b56d6344643cd",
+        "initial_state.csv": "1b5c90104592f713bd2ee002c9ee5a2bd85055184636c1080804ca356f9b1261"
+      }
+    },
+    {
+      "name": "active_3p125",
+      "scenario": "active",
+      "dt_us": 3.125,
+      "duration_s": 5,
+      "wall_s": 1.980594699998619,
+      "astro_events_s": [
+        2.903015625
+      ],
+      "neuron_spikes": [
+        40,
+        13,
+        36
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.09127759415374363,
+        "h": 0.7215086937422696,
+        "xA": 0.40039362082903895,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.3857887313516589,
+        "IP3_uM": 0.33114206270275925,
+        "Ca_uM": 0.6732690899770042,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.997048328014401,
+        "GammaS": 0.943880817114837
+      },
+      "final_astro": [
+        0.3850740358169012,
+        0.29383119094673815,
+        0.6492994002858367,
+        0.7215086937422696,
+        0.851744064839978,
+        0.36847880486574225,
+        0.9405755004777573
+      ],
+      "files_sha256": {
+        "trace.csv": "e45893ce4fa6fffd3c1266ad38073ec3bbc6767b0eae8cc5dbab5d660289b2b8",
+        "events.csv": "53e4e879db1a043d2faed86a16f50de65df2ee612eb2d6d888e1b83607d612e9",
+        "weights.csv": "455ff3344e553ce7a1a9824a614a09a1ad741e81aa3383fe14acf0d58c419ec2",
+        "experiment.json": "fde4cf1625ac4ddb9239564b2d2c98d78fa3d749e805bf4efa3b4fa2be852568",
+        "initial_state.csv": "1b5c90104592f713bd2ee002c9ee5a2bd85055184636c1080804ca356f9b1261"
+      }
+    },
+    {
+      "name": "active_off_25",
+      "scenario": "active_off",
+      "dt_us": 25.0,
+      "duration_s": 5,
+      "wall_s": 0.41693259999738075,
+      "astro_events_s": [
+        2.9030500000000004
+      ],
+      "neuron_spikes": [
+        40,
+        13,
+        12
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.09127752018994743,
+        "h": 0.7236279007531593,
+        "xA": 0.40037987969206634,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.3295388325693099,
+        "IP3_uM": 0.3266625511734915,
+        "Ca_uM": 0.6568714616078487,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.9971513533214145,
+        "GammaS": 0.9438808165951723
+      },
+      "final_astro": [
+        0.32902671568667274,
+        0.27783197790715575,
+        0.6244112042869853,
+        0.7236279007531593,
+        0.8517406672691806,
+        0.36849147154237794,
+        0.9405759880305861
+      ],
+      "files_sha256": {
+        "trace.csv": "ae0b2bedc0cb63bc9ae459520ac6c52efb68155b3a8fa66734d7f3cee03bcaef",
+        "events.csv": "d7d8dada05c5e64cf98b0bd175fddc241a7af9baab6582583cb0f879376153fd",
+        "weights.csv": "455ff3344e553ce7a1a9824a614a09a1ad741e81aa3383fe14acf0d58c419ec2",
+        "experiment.json": "2f5cf41981782c86b573ef7685239701db65d24877fd95118152f349517efe7e",
+        "initial_state.csv": "1b5c90104592f713bd2ee002c9ee5a2bd85055184636c1080804ca356f9b1261"
+      }
+    },
+    {
+      "name": "active_off_12p5",
+      "scenario": "active_off",
+      "dt_us": 12.5,
+      "duration_s": 5,
+      "wall_s": 0.7365433000086341,
+      "astro_events_s": [
+        2.903025
+      ],
+      "neuron_spikes": [
+        40,
+        13,
+        12
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.09127756245347683,
+        "h": 0.723627009211135,
+        "xA": 0.400389873277458,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.3295388632412583,
+        "IP3_uM": 0.32666244391375915,
+        "Ca_uM": 0.6568714741161322,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.997076425474181,
+        "GammaS": 0.9438808169786597
+      },
+      "final_astro": [
+        0.3290258541776389,
+        0.27783188459850117,
+        0.6244096333414485,
+        0.723627009211135,
+        0.851743138237463,
+        0.36848225937075074,
+        0.9405756334495823
+      ],
+      "files_sha256": {
+        "trace.csv": "324d0a3135b4626761582e10b2f8cd6b35f5007665291c9a67a59f024203607c",
+        "events.csv": "0c09575ee348d72260cde7d0d900f75169b080b1e8c8f38508b2ea702a495c11",
+        "weights.csv": "455ff3344e553ce7a1a9824a614a09a1ad741e81aa3383fe14acf0d58c419ec2",
+        "experiment.json": "09ba9ca92b244bd808765e085e1b2db4147baca62d442f1064b4fa0c6b55cbc0",
+        "initial_state.csv": "1b5c90104592f713bd2ee002c9ee5a2bd85055184636c1080804ca356f9b1261"
+      }
+    },
+    {
+      "name": "active_off_6p25",
+      "scenario": "active_off",
+      "dt_us": 6.25,
+      "duration_s": 5,
+      "wall_s": 1.180625200009672,
+      "astro_events_s": [
+        2.90301875
+      ],
+      "neuron_spikes": [
+        40,
+        13,
+        12
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.0912775835867433,
+        "h": 0.7236265634420483,
+        "xA": 0.40039237164778085,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.32953887818526395,
+        "IP3_uM": 0.3266623902635764,
+        "Ca_uM": 0.6568714803453175,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.9970576938050586,
+        "GammaS": 0.9438808170699006
+      },
+      "final_astro": [
+        0.3290254232017129,
+        0.277831837948013,
+        0.6244088478590581,
+        0.7236265634420483,
+        0.8517437559730991,
+        0.3684799563638079,
+        0.9405755448019303
+      ],
+      "files_sha256": {
+        "trace.csv": "c6f54dfc3712828fd1b82745529fa192f96b6786e294a6bf8d00eb32f54c03ab",
+        "events.csv": "1be86446a6412fc39934fa49924a33d88c76a35f171595373f709749961b3d74",
+        "weights.csv": "455ff3344e553ce7a1a9824a614a09a1ad741e81aa3383fe14acf0d58c419ec2",
+        "experiment.json": "17c77ffdfb61b6a1af214c7b305def5f2951045812a69e874db03d128b19fa54",
+        "initial_state.csv": "1b5c90104592f713bd2ee002c9ee5a2bd85055184636c1080804ca356f9b1261"
+      }
+    },
+    {
+      "name": "active_off_3p125",
+      "scenario": "active_off",
+      "dt_us": 3.125,
+      "duration_s": 5,
+      "wall_s": 1.899763899971731,
+      "astro_events_s": [
+        2.903015625
+      ],
+      "neuron_spikes": [
+        40,
+        13,
+        12
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.09127759415374363,
+        "h": 0.723626340558023,
+        "xA": 0.40039362082903895,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.3295388855593015,
+        "IP3_uM": 0.32666236343343047,
+        "Ca_uM": 0.6568714834537107,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.997048328014401,
+        "GammaS": 0.943880817114837
+      },
+      "final_astro": [
+        0.32902520765841137,
+        0.2778318146236983,
+        0.6244084551154473,
+        0.723626340558023,
+        0.851744064839978,
+        0.36847880486574225,
+        0.9405755004777573
+      ],
+      "files_sha256": {
+        "trace.csv": "2dd84a4bf038d0f15ae523266f9f0cdc252856c07175d662bd2da760d7dd5854",
+        "events.csv": "fdf02a58b195b0368230387b7382b24b9790b238b693ecd319b412e8e7004065",
+        "weights.csv": "455ff3344e553ce7a1a9824a614a09a1ad741e81aa3383fe14acf0d58c419ec2",
+        "experiment.json": "ff1eac95992716983a0c0a4c5932a95dc71756084eeb772ae7bff209949c5872",
+        "initial_state.csv": "1b5c90104592f713bd2ee002c9ee5a2bd85055184636c1080804ca356f9b1261"
+      }
+    },
+    {
+      "name": "gap_25",
+      "scenario": "gap",
+      "dt_us": 25.0,
+      "duration_s": 2,
+      "wall_s": 0.10564620001241565,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0,
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.4,
+        "Ca_uM": 0.1,
+        "h": 0.8704358736765505,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.7756759749499089,
+        "Ca_uM": 0.17981034820053454,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.7756759749499089,
+        0.17981034820053454,
+        0.8704358736765505,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "9ba14fb67d19ef27a800384703f27cada239a47e268e8adacc01bdb87df10cdb",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "c045ecf534bd4a3ebcd0057190bc43cd51b93500d881d5a3955c3ba2f6f557b0",
+        "experiment.json": "b55b2c7186d86e5641790b5b0d0a50113cae7f8da1ecb4cc2a8c758ff117941f",
+        "initial_state.csv": "0a5ac9af4c70f49eef69ec2441997f5082ea0dc1f32a033f9281adc0c0040e35"
+      },
+      "analytic_diffusion_errors": {
+        "IP3": 6.328271240363392e-15,
+        "Ca": 1.0547118733938987e-15,
+        "sum_IP3": 8.43769498715119e-15,
+        "sum_Ca": 3.552713678800501e-15
+      }
+    },
+    {
+      "name": "gap_12p5",
+      "scenario": "gap",
+      "dt_us": 12.5,
+      "duration_s": 2,
+      "wall_s": 0.15782089999993332,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0,
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.4,
+        "Ca_uM": 0.1,
+        "h": 0.870435873676572,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.7756759749499039,
+        "Ca_uM": 0.17981034820053302,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.7756759749499039,
+        0.17981034820053302,
+        0.870435873676572,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "e410516da07cbbf13412cffd2f0a75af73389ca9cec2016e5b78b9885dcd2314",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "c045ecf534bd4a3ebcd0057190bc43cd51b93500d881d5a3955c3ba2f6f557b0",
+        "experiment.json": "07ebb74665e39e1d34c26e78be72b1c3f2cb6e29d3ae8b3ca87e8386c1aee5d5",
+        "initial_state.csv": "0a5ac9af4c70f49eef69ec2441997f5082ea0dc1f32a033f9281adc0c0040e35"
+      },
+      "analytic_diffusion_errors": {
+        "IP3": 1.3211653993039363e-14,
+        "Ca": 2.220446049250313e-15,
+        "sum_IP3": 2.3092638912203256e-14,
+        "sum_Ca": 2.3869795029440866e-15
+      }
+    },
+    {
+      "name": "gap_6p25",
+      "scenario": "gap",
+      "dt_us": 6.25,
+      "duration_s": 2,
+      "wall_s": 0.2955039999797009,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0,
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.4,
+        "Ca_uM": 0.1,
+        "h": 0.8704358736765696,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.7756759749498997,
+        "Ca_uM": 0.179810348200536,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.7756759749498997,
+        0.179810348200536,
+        0.8704358736765696,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "1be530c803558271e0fcfcfdaef6186a32c2f45540a455317d9d4babb17247de",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "c045ecf534bd4a3ebcd0057190bc43cd51b93500d881d5a3955c3ba2f6f557b0",
+        "experiment.json": "7f46214a4f7650dcba370c571b0b6b572db6a4307758bd837c88cab741d44a3e",
+        "initial_state.csv": "0a5ac9af4c70f49eef69ec2441997f5082ea0dc1f32a033f9281adc0c0040e35"
+      },
+      "analytic_diffusion_errors": {
+        "IP3": 1.6653345369377348e-14,
+        "Ca": 2.6922908347160046e-15,
+        "sum_IP3": 2.2870594307278225e-14,
+        "sum_Ca": 9.492406860545088e-15
+      }
+    },
+    {
+      "name": "gap_3p125",
+      "scenario": "gap",
+      "dt_us": 3.125,
+      "duration_s": 2,
+      "wall_s": 0.4964227999735158,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0,
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.4,
+        "Ca_uM": 0.1,
+        "h": 0.8704358736765416,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.7756759749499104,
+        "Ca_uM": 0.17981034820051958,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.7756759749499104,
+        0.17981034820051958,
+        0.8704358736765416,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "566eeb38905acc870190fe68b4b825b19f10193377bf68847a158bdca0407872",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "c045ecf534bd4a3ebcd0057190bc43cd51b93500d881d5a3955c3ba2f6f557b0",
+        "experiment.json": "752bca2d5c567734fd22ef5101b3126b69e5386fec1464c282fac31cb0f24cc3",
+        "initial_state.csv": "0a5ac9af4c70f49eef69ec2441997f5082ea0dc1f32a033f9281adc0c0040e35"
+      },
+      "analytic_diffusion_errors": {
+        "IP3": 1.2323475573339238e-14,
+        "Ca": 1.50712775592865e-14,
+        "sum_IP3": 1.509903313490213e-14,
+        "sum_Ca": 2.1094237467877974e-14
+      }
+    },
+    {
+      "name": "initial_above_25",
+      "scenario": "initial_above",
+      "dt_us": 25.0,
+      "duration_s": 0.001,
+      "wall_s": 0.019754600012674928,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.7999504403083768,
+        "Ca_uM": 0.3,
+        "h": 0.8999570525821715,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.8,
+        "Ca_uM": 0.30158449126178505,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.7999504403083768,
+        0.30158449126178505,
+        0.8999570525821715,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "97781f0f9f34d19e2bd0c79872ca9f5d141c29b380b84210b019a6122456a890",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "f8523fcf2d2e43b913f2f0a545214c98db6bb94f66c5e2f81081547d60c5bc03",
+        "experiment.json": "9a676cfaf9af07f3a855001414507e83ee333086ed46cc02b18c360f5728491b",
+        "initial_state.csv": "fb2328dc94004c48ca27e6ac28ea161eca66ca05801e740a58523f93edac9337"
+      }
+    },
+    {
+      "name": "receptors_25",
+      "scenario": "receptors",
+      "dt_us": 25.0,
+      "duration_s": 2,
+      "wall_s": 0.12998030000017025,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0,
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.1,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.0990899504412057,
+        "h": 0.812643517594088,
+        "xA": 1.0,
+        "GA_uM": 3.0,
+        "GammaS": 0.2
+      },
+      "state_max": {
+        "GammaA": 0.49609677491132625,
+        "IP3_uM": 0.4015433344969633,
+        "Ca_uM": 0.772040897821658,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 3.0,
+        "GammaS": 0.9889228834609937
+      },
+      "final_astro": [
+        0.49609677491132625,
+        0.38711458084852185,
+        0.772040897821658,
+        0.812643517594088,
+        1.0,
+        3.0,
+        0.9889228834609937
+      ],
+      "files_sha256": {
+        "trace.csv": "2dc8bfacde8c9ffdb573a2d84f9141a23c3cbe0b4e141f4adb68b05bc5eef889",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "3ef54b685d58ec1d391a8b3bd98e3f71d115fa7fd125950abba94679f0150cbf",
+        "experiment.json": "a3625e004a9a98bd140c5dc3d78caff3ef54046d74bdee89eec9cf2ffc5a0567",
+        "initial_state.csv": "374b9fb994a8d7e89d110e4105fbe9030a33f9caf87b484a8bc5a39c92ae7a55"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 5.051514762044462e-15,
+        "IP3_uM": 1.226796442210798e-14,
+        "Ca_uM": 3.164135620181696e-14,
+        "h": 9.103828801926284e-15
+      },
+      "continuous_upcrossing_times_s": [],
+      "closed_form_receptor_errors": {
+        "GammaA": 5.051514762044462e-15,
+        "GammaS": 4.3298697960381105e-15
+      }
+    },
+    {
+      "name": "receptors_12p5",
+      "scenario": "receptors",
+      "dt_us": 12.5,
+      "duration_s": 2,
+      "wall_s": 0.19223209997289814,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0,
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.1,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.09908995044120493,
+        "h": 0.8126435175940986,
+        "xA": 1.0,
+        "GA_uM": 3.0,
+        "GammaS": 0.2
+      },
+      "state_max": {
+        "GammaA": 0.4960967749113251,
+        "IP3_uM": 0.4015433344969602,
+        "Ca_uM": 0.7720408978216603,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 3.0,
+        "GammaS": 0.9889228834609989
+      },
+      "final_astro": [
+        0.4960967749113251,
+        0.387114580848522,
+        0.7720408978216603,
+        0.8126435175940986,
+        1.0,
+        3.0,
+        0.9889228834609989
+      ],
+      "files_sha256": {
+        "trace.csv": "cf34562d7fbc818666c3f710019f59f179538ea5a592e7d467b8e26df425ace4",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "3ef54b685d58ec1d391a8b3bd98e3f71d115fa7fd125950abba94679f0150cbf",
+        "experiment.json": "38db35b8b2582b525f903032625febcb80e1804ba639136112343a27240f0f6e",
+        "initial_state.csv": "374b9fb994a8d7e89d110e4105fbe9030a33f9caf87b484a8bc5a39c92ae7a55"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 3.885780586188048e-15,
+        "IP3_uM": 1.482147737874584e-14,
+        "Ca_uM": 3.419486915845482e-14,
+        "h": 1.4765966227514582e-14
+      },
+      "continuous_upcrossing_times_s": [],
+      "closed_form_receptor_errors": {
+        "GammaA": 3.885780586188048e-15,
+        "GammaS": 7.438494264988549e-15
+      }
+    },
+    {
+      "name": "receptors_6p25",
+      "scenario": "receptors",
+      "dt_us": 6.25,
+      "duration_s": 2,
+      "wall_s": 0.3682087000051979,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0,
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.1,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.09908995044120607,
+        "h": 0.8126435175940773,
+        "xA": 1.0,
+        "GA_uM": 3.0,
+        "GammaS": 0.2
+      },
+      "state_max": {
+        "GammaA": 0.49609677491132614,
+        "IP3_uM": 0.4015433344969592,
+        "Ca_uM": 0.7720408978216371,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 3.0,
+        "GammaS": 0.9889228834609932
+      },
+      "final_astro": [
+        0.49609677491132614,
+        0.38711458084852307,
+        0.7720408978216371,
+        0.8126435175940773,
+        1.0,
+        3.0,
+        0.9889228834609932
+      ],
+      "files_sha256": {
+        "trace.csv": "8bb8e81dc9de59b5a8e7b0002ff81b6cc91f3f06456811a299b555d29a435db2",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "3ef54b685d58ec1d391a8b3bd98e3f71d115fa7fd125950abba94679f0150cbf",
+        "experiment.json": "d8a4a33dc7846fba597716501a70d5228af43324d2bfabc70510e238549ee7cf",
+        "initial_state.csv": "374b9fb994a8d7e89d110e4105fbe9030a33f9caf87b484a8bc5a39c92ae7a55"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 7.494005416219807e-15,
+        "IP3_uM": 1.3433698597964394e-14,
+        "Ca_uM": 3.0309088572266774e-14,
+        "h": 1.9984014443252818e-14
+      },
+      "continuous_upcrossing_times_s": [],
+      "closed_form_receptor_errors": {
+        "GammaA": 7.438494264988549e-15,
+        "GammaS": 8.326672684688674e-15
+      }
+    },
+    {
+      "name": "receptors_3p125",
+      "scenario": "receptors",
+      "dt_us": 3.125,
+      "duration_s": 2,
+      "wall_s": 0.6346344000194222,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0,
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.1,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.0990899504412059,
+        "h": 0.8126435175941041,
+        "xA": 1.0,
+        "GA_uM": 3.0,
+        "GammaS": 0.2
+      },
+      "state_max": {
+        "GammaA": 0.49609677491132964,
+        "IP3_uM": 0.40154333449696206,
+        "Ca_uM": 0.7720408978216758,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 3.0,
+        "GammaS": 0.9889228834609906
+      },
+      "final_astro": [
+        0.49609677491132964,
+        0.38711458084852285,
+        0.7720408978216758,
+        0.8126435175941041,
+        1.0,
+        3.0,
+        0.9889228834609906
+      ],
+      "files_sha256": {
+        "trace.csv": "0a6c8af0773d2a81217198765efe094ee6a4343143f476fcd79a94f32167bef9",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "3ef54b685d58ec1d391a8b3bd98e3f71d115fa7fd125950abba94679f0150cbf",
+        "experiment.json": "3579487f007105b4649cf45f9594689e28a3a33a0c8835cbbe1e4f5e176046b6",
+        "initial_state.csv": "374b9fb994a8d7e89d110e4105fbe9030a33f9caf87b484a8bc5a39c92ae7a55"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 1.1657341758564144e-14,
+        "IP3_uM": 1.226796442210798e-14,
+        "Ca_uM": 5.084821452783217e-14,
+        "h": 1.9872992140790302e-14
+      },
+      "continuous_upcrossing_times_s": [],
+      "closed_form_receptor_errors": {
+        "GammaA": 1.1601830607332886e-14,
+        "GammaS": 1.4210854715202004e-14
+      }
+    },
+    {
+      "name": "release_25",
+      "scenario": "release",
+      "dt_us": 25.0,
+      "duration_s": 3,
+      "wall_s": 0.15032429998973384,
+      "astro_events_s": [
+        0.0001
+      ],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.11049176044930539,
+        "Ca_uM": 0.14256200198927096,
+        "h": 0.6399079334248665,
+        "xA": 0.4003598920215967,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.8,
+        "Ca_uM": 1.033296283662586,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.9973012146355815,
+        "GammaS": 0.9438808157396743
+      },
+      "final_astro": [
+        0.0,
+        0.11385395592605677,
+        0.14256200198927096,
+        0.6399079334248665,
+        0.9187934164662487,
+        0.14937614197092922,
+        0.9205157947823364
+      ],
+      "files_sha256": {
+        "trace.csv": "8ce6a9889c782b4323c3e37b073e8003633fe013767249026ab216c790fbb9fd",
+        "events.csv": "cf72529a77e591dca0244d1ad325be4623008a438ea11034a78d32c2e853d543",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "d3c51627c0bcb4a911951abfa488b7a7686eebff0770e9ed5e8728f75c090a5d",
+        "initial_state.csv": "87b6e2ac935c5a78cc6ea6e04db2094514c73ef74f97789b70684d8e00682a42"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 1.63202784619898e-14,
+        "Ca_uM": 5.523359547510154e-14,
+        "h": 1.176836406102666e-14
+      },
+      "continuous_upcrossing_times_s": [
+        8.207516150908368e-05
+      ],
+      "release_event_error_s": 1.792483849091632e-05,
+      "event_replay_resource_errors": {
+        "xA": 7.771561172376096e-15,
+        "GA": 2.042810365310288e-14,
+        "GammaS": 7.327471962526033e-15
+      }
+    },
+    {
+      "name": "release_12p5",
+      "scenario": "release",
+      "dt_us": 12.5,
+      "duration_s": 3,
+      "wall_s": 0.19385999999940395,
+      "astro_events_s": [
+        8.75e-05
+      ],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.1104917604493016,
+        "Ca_uM": 0.1425620019892804,
+        "h": 0.6399079334248535,
+        "xA": 0.4003648890016757,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.8,
+        "Ca_uM": 1.033296283662588,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.9972637486045643,
+        "GammaS": 0.9438808159646241
+      },
+      "final_astro": [
+        0.0,
+        0.11385395592605316,
+        0.1425620019892804,
+        0.6399079334248535,
+        0.918794093184974,
+        0.14937427478082269,
+        0.9205154420787671
+      ],
+      "files_sha256": {
+        "trace.csv": "75c0615ba307e58da7611fb32f121791e10d41be9a48942cf5ca712cc0e76cc8",
+        "events.csv": "0a2d2570c03f1b9c9105b2c954d701f6f4edce19489e3d95c2206bde15e96eb5",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "bcd46571eea99da5461e8685b7e58767eb8e6dd36e50cdcca11d960318a12a78",
+        "initial_state.csv": "87b6e2ac935c5a78cc6ea6e04db2094514c73ef74f97789b70684d8e00682a42"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 2.020605904817785e-14,
+        "Ca_uM": 5.562217353372034e-14,
+        "h": 2.5091040356528538e-14
+      },
+      "continuous_upcrossing_times_s": [
+        8.207516150908368e-05
+      ],
+      "release_event_error_s": 5.424838490916315e-06,
+      "event_replay_resource_errors": {
+        "xA": 1.532107773982716e-14,
+        "GA": 3.4638958368304884e-14,
+        "GammaS": 2.0650148258027912e-14
+      }
+    },
+    {
+      "name": "release_6p25",
+      "scenario": "release",
+      "dt_us": 6.25,
+      "duration_s": 3,
+      "wall_s": 0.4173951000266243,
+      "astro_events_s": [
+        8.75e-05
+      ],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.11049176044930353,
+        "Ca_uM": 0.1425620019892897,
+        "h": 0.6399079334248685,
+        "xA": 0.40036488900167616,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.8,
+        "Ca_uM": 1.0332962836625785,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.997263748604562,
+        "GammaS": 0.9438808159646291
+      },
+      "final_astro": [
+        0.0,
+        0.11385395592605613,
+        0.1425620019892897,
+        0.6399079334248685,
+        0.9187940931849591,
+        0.1493742747808355,
+        0.9205154420787502
+      ],
+      "files_sha256": {
+        "trace.csv": "604c187f50615675161ed4298f729862c249e0e6e4bb86a872d0a0f2b89714e9",
+        "events.csv": "0a2d2570c03f1b9c9105b2c954d701f6f4edce19489e3d95c2206bde15e96eb5",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "f07bd85098db2bf2a6df891c7a9ae24ba9576dcbf86c6ace60b4ef07a8260d97",
+        "initial_state.csv": "87b6e2ac935c5a78cc6ea6e04db2094514c73ef74f97789b70684d8e00682a42"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 1.3877787807814457e-14,
+        "Ca_uM": 5.651035195342047e-14,
+        "h": 1.865174681370263e-14
+      },
+      "continuous_upcrossing_times_s": [
+        8.207516150908368e-05
+      ],
+      "release_event_error_s": 5.424838490916315e-06,
+      "event_replay_resource_errors": {
+        "xA": 2.475797344914099e-14,
+        "GA": 7.571721027943568e-14,
+        "GammaS": 1.709743457922741e-14
+      }
+    },
+    {
+      "name": "release_3p125",
+      "scenario": "release",
+      "dt_us": 3.125,
+      "duration_s": 3,
+      "wall_s": 0.6740854000090621,
+      "astro_events_s": [
+        8.4375e-05
+      ],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        1
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.11049176044930702,
+        "Ca_uM": 0.14256200198927318,
+        "h": 0.6399079334248892,
+        "xA": 0.40036613824018946,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.8,
+        "Ca_uM": 1.0332962836625263,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 2.9972543821699817,
+        "GammaS": 0.943880816019702
+      },
+      "final_astro": [
+        0.0,
+        0.11385395592605917,
+        0.14256200198927318,
+        0.6399079334248892,
+        0.9187942623637482,
+        0.1493738079869445,
+        0.9205153539025799
+      ],
+      "files_sha256": {
+        "trace.csv": "2490265356b5fc56ba7f9eb682fd667a40934c95657903d98e94792146f70a80",
+        "events.csv": "41e3b49f42400313b46238c9f89a3765ca1605c7846f3d15a54450889228e714",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "b287481bf5743603034dd81515f044a00c38ab86cbfe8aa81002a1400d8f4f46",
+        "initial_state.csv": "87b6e2ac935c5a78cc6ea6e04db2094514c73ef74f97789b70684d8e00682a42"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 1.8318679906315083e-14,
+        "Ca_uM": 5.551115123125783e-14,
+        "h": 5.1181281435219717e-14
+      },
+      "continuous_upcrossing_times_s": [
+        8.207516150908368e-05
+      ],
+      "release_event_error_s": 2.2998384909163203e-06,
+      "event_replay_resource_errors": {
+        "xA": 5.0737192225369654e-14,
+        "GA": 4.773959005888173e-14,
+        "GammaS": 2.7422508708241367e-14
+      }
+    },
+    {
+      "name": "rest_25",
+      "scenario": "rest",
+      "dt_us": 25.0,
+      "duration_s": 3,
+      "wall_s": 0.11687769999844022,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.08722898783405478,
+        "h": 0.8708978250442297,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16476954826790513,
+        "Ca_uM": 0.1,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.16476954826790513,
+        0.08722898783405478,
+        0.8708978250442297,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "96c43ababdc41bfeed3ee5438567f3075aa3c502114c16c7007804fce369f10e",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "44acd77501b351566528b328056745bdfb68fd683406da059e99f724520057e0",
+        "initial_state.csv": "8c6d13bb7c16762bcb298f78d4b66b2e8fb1be98719ca3c2b9131382cb8f315d"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 4.218847493575595e-15,
+        "Ca_uM": 1.1934897514720433e-15,
+        "h": 1.5654144647214707e-14
+      },
+      "continuous_upcrossing_times_s": []
+    },
+    {
+      "name": "rest_12p5",
+      "scenario": "rest",
+      "dt_us": 12.5,
+      "duration_s": 3,
+      "wall_s": 0.1940918999898713,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.08722898783406097,
+        "h": 0.8708978250442526,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.1647695482679064,
+        "Ca_uM": 0.1,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.1647695482679064,
+        0.08722898783406097,
+        0.8708978250442526,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "6958018944ae2ea26214e740efee1775232ae04096274285b8d375b349a2debb",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "de4c7fbfd0c8d03ef7e2b7f6248fd18b6469301c1f0c27ee478a8f876a6641bd",
+        "initial_state.csv": "8c6d13bb7c16762bcb298f78d4b66b2e8fb1be98719ca3c2b9131382cb8f315d"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 2.1649348980190553e-15,
+        "Ca_uM": 6.147859998861804e-15,
+        "h": 2.6756374893466273e-14
+      },
+      "continuous_upcrossing_times_s": []
+    },
+    {
+      "name": "rest_6p25",
+      "scenario": "rest",
+      "dt_us": 6.25,
+      "duration_s": 3,
+      "wall_s": 0.34911660000216216,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.08722898783406059,
+        "h": 0.8708978250442491,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.1647695482679133,
+        "Ca_uM": 0.1,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.1647695482679133,
+        0.08722898783406059,
+        0.8708978250442491,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "5cdb05b2b64fecc6143d0b3300b537187630c62dfdfc2dac5ee8321f2c895dfd",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "6ecd2df93631ecb909f5ee0ce9a6039675ff0477da4e6fe486815c6d5eefd27a",
+        "initial_state.csv": "8c6d13bb7c16762bcb298f78d4b66b2e8fb1be98719ca3c2b9131382cb8f315d"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 9.742207041085749e-15,
+        "Ca_uM": 5.648259637780484e-15,
+        "h": 1.3766765505351941e-14
+      },
+      "continuous_upcrossing_times_s": []
+    },
+    {
+      "name": "rest_3p125",
+      "scenario": "rest",
+      "dt_us": 3.125,
+      "duration_s": 3,
+      "wall_s": 0.7568506999814417,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16,
+        "Ca_uM": 0.08722898783405399,
+        "h": 0.8708978250442169,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.16476954826790446,
+        "Ca_uM": 0.1,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.16476954826790446,
+        0.08722898783405399,
+        0.8708978250442169,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "5f4f7d63a4cc6ecf2ce0682168ff6473d2f857b2a3750accda3d62bf908a7066",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "1eb8922860d777b7224bb1c6de412caae2ef952323b54ae05f4141b639f2708e",
+        "initial_state.csv": "8c6d13bb7c16762bcb298f78d4b66b2e8fb1be98719ca3c2b9131382cb8f315d"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 8.409939411535561e-15,
+        "Ca_uM": 4.773959005888173e-15,
+        "h": 3.7192471324942744e-14
+      },
+      "continuous_upcrossing_times_s": []
+    },
+    {
+      "name": "transient_25",
+      "scenario": "transient",
+      "dt_us": 25.0,
+      "duration_s": 3,
+      "wall_s": 0.12739449998480268,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.11115561120431175,
+        "Ca_uM": 0.1,
+        "h": 0.6402784929242539,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.8,
+        "Ca_uM": 1.0293509595176293,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.11358600527448953,
+        0.1831432576478772,
+        0.6402784929242539,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "79427c3b82506f7523bace150adf0fe24d44254ff87e3043ef65b34330799ce3",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "f2fc1770c1c6282f07d483ac7e2f06546574ac74cfb7d0ef033f49be31dce067",
+        "initial_state.csv": "d894e8dc0e8571bcba112c0365688c156a6d0913f656d6ffadd27c8fa822a6f4"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 1.2989609388114332e-14,
+        "Ca_uM": 1.8321455463876646e-13,
+        "h": 1.0880185641326534e-14
+      },
+      "continuous_upcrossing_times_s": []
+    },
+    {
+      "name": "transient_12p5",
+      "scenario": "transient",
+      "dt_us": 12.5,
+      "duration_s": 3,
+      "wall_s": 0.2272538999968674,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.11115561120431455,
+        "Ca_uM": 0.1,
+        "h": 0.6402784929242706,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.8,
+        "Ca_uM": 1.0293509595176196,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.11358600527449096,
+        0.18314325764788406,
+        0.6402784929242706,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "e369fcc8e379bc405327242b1e3fa0e7f19f00f664b260c6594973d7aab97a12",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "4a9ed6aa1870b0d22c3ac36cbc4dd5a2df055b7754b1e3e506ce29cff8832a17",
+        "initial_state.csv": "d894e8dc0e8571bcba112c0365688c156a6d0913f656d6ffadd27c8fa822a6f4"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 1.4210854715202004e-14,
+        "Ca_uM": 1.826871987020695e-13,
+        "h": 1.1546319456101628e-14
+      },
+      "continuous_upcrossing_times_s": []
+    },
+    {
+      "name": "transient_6p25",
+      "scenario": "transient",
+      "dt_us": 6.25,
+      "duration_s": 3,
+      "wall_s": 0.3377108999993652,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.11115561120431276,
+        "Ca_uM": 0.1,
+        "h": 0.6402784929242785,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.8,
+        "Ca_uM": 1.0293509595176236,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.11358600527449074,
+        0.18314325764788694,
+        0.6402784929242785,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "2ef2e5eba266c5a81b4e58f2bf08a1520a80ba81024db9954797952b9f047e14",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "a01f9748701a93051d47a14dd5556f6eb468c2a73d583e6a57f8c37588d06bb5",
+        "initial_state.csv": "d894e8dc0e8571bcba112c0365688c156a6d0913f656d6ffadd27c8fa822a6f4"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 2.3869795029440866e-14,
+        "Ca_uM": 1.8324231021438209e-13,
+        "h": 1.7319479184152442e-14
+      },
+      "continuous_upcrossing_times_s": []
+    },
+    {
+      "name": "transient_3p125",
+      "scenario": "transient",
+      "dt_us": 3.125,
+      "duration_s": 3,
+      "wall_s": 0.7650212000007741,
+      "astro_events_s": [],
+      "neuron_spikes": [
+        0
+      ],
+      "astro_releases": [
+        0
+      ],
+      "state_min": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.11115561120431303,
+        "Ca_uM": 0.1,
+        "h": 0.640278492924279,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "state_max": {
+        "GammaA": 0.0,
+        "IP3_uM": 0.8,
+        "Ca_uM": 1.0293509595176153,
+        "h": 0.9,
+        "xA": 1.0,
+        "GA_uM": 0.0,
+        "GammaS": 0.0
+      },
+      "final_astro": [
+        0.0,
+        0.11358600527448988,
+        0.18314325764789463,
+        0.640278492924279,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "files_sha256": {
+        "trace.csv": "cccde3957bff3fcb96e82f1270b0565d99d62d6a87affa87c2eff6378492d978",
+        "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+        "weights.csv": "6ec00ddcfb4c2e57b9c6922db4182b0e80e1b0be77e398b98a4f11155273d8ca",
+        "experiment.json": "797e2169c94d81dcc4fa40e08de83804849a1e06b9d5bbf84a24ad592c32c39e",
+        "initial_state.csv": "d894e8dc0e8571bcba112c0365688c156a6d0913f656d6ffadd27c8fa822a6f4"
+      },
+      "dop853_first4_max_abs_errors": {
+        "GammaA": 0.0,
+        "IP3_uM": 2.6756374893466273e-14,
+        "Ca_uM": 1.7955081865750344e-13,
+        "h": 3.019806626980426e-14
+      },
+      "continuous_upcrossing_times_s": []
+    }
+  ],
+  "audit_sources_sha256": {
+    "harness.cpp": "8a23959df067a547e6550399193559dffd0a9d3969814d5ce234d88e32fb671d",
+    "CMakeLists.txt": "759fe36b583343ac8878e67c48976b3d49208c6015e612cd041d2eab4c42ab38",
+    "check.py": "05f9e74df60a07bc22146ce4104d951e1f653d8327cf855db2c277a0a8b79805"
+  },
+  "primary_references": [
+    {
+      "title": "Li and Rinzel 1994",
+      "doi": "10.1006/jtbi.1994.1041",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/8176949/",
+      "scope": "Origin of the reduced calcium/IP3-receptor gating model"
+    },
+    {
+      "title": "De Pitta et al. 2009",
+      "url": "https://arxiv.org/pdf/0912.3057",
+      "sections": "equations 5-6, 14-17 and Table 1",
+      "scope": "IP3 metabolism and Li-Rinzel core; original G-ChI uses a different algebraic glutamate/Ca-dependent receptor term"
+    },
+    {
+      "title": "De Pitta and Brunel 2016",
+      "doi": "10.1155/2016/7607924",
+      "url": "https://webhome.phy.duke.edu/~nb170/pdfs/depitta16.pdf",
+      "pages": [
+        17,
+        18
+      ],
+      "equations": "A.3-A.11",
+      "scope": "Closest receptor/IP3/Ca/resource/feedback structure; current SIC remains a further reduction"
+    }
+  ],
+  "rhs_probes": {
+    "count": 200,
+    "independent_formula_max_abs_error": {
+      "GammaA": 0.0,
+      "IP3_uM": 2.220446049250313e-16,
+      "Ca_uM": 2.220446049250313e-15,
+      "h": 0.0,
+      "xA": 0.0,
+      "GA_uM": 0.0,
+      "GammaS": 0.0
+    },
+    "original_kernel_max_abs_error": {
+      "GammaA": 0.0,
+      "IP3_uM": 0.0,
+      "Ca_uM": 0.0,
+      "h": 0.0,
+      "xA": 0.0,
+      "GA_uM": 0.0,
+      "GammaS": 0.0
+    },
+    "boundary_checks": 34,
+    "boundaries_inward": true
+  },
+  "SIC_probe": {
+    "expected_added_dV_dt": 866.6666666666667,
+    "actual_added_dV_dt": 866.6666666666667,
+    "duplicate_contact_difference": 0.0
+  },
+  "gap_physical_interpretation": [
+    {
+      "cell": "0",
+      "Ca": "0.10000000000000001",
+      "dCa_dt": "0.080000000000000002",
+      "inferred_ER": "10.27027027027027",
+      "dER_dt": "-0.43243243243243246",
+      "local_total": "2",
+      "dtotal_dt": "0"
+    },
+    {
+      "cell": "1",
+      "Ca": "0.29999999999999999",
+      "dCa_dt": "-0.080000000000000002",
+      "inferred_ER": "9.1891891891891895",
+      "dER_dt": "0.43243243243243246",
+      "local_total": "2",
+      "dtotal_dt": "0"
+    }
+  ],
+  "convergence": {
+    "rest": [
+      {
+        "dt_us": 25.0,
+        "max_final_astro_difference_vs_3p125us": 1.2878587085651816e-14,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 6.661338147750939e-16,
+          "Ca_uM": 7.91033905045424e-16,
+          "h": 1.2878587085651816e-14,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 12.5,
+        "max_final_astro_difference_vs_3p125us": 3.574918139293004e-14,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 1.942890293094024e-15,
+          "Ca_uM": 6.980527267330672e-15,
+          "h": 3.574918139293004e-14,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 6.25,
+        "max_final_astro_difference_vs_3p125us": 3.219646771412954e-14,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 8.826273045769994e-15,
+          "Ca_uM": 6.6058269965196814e-15,
+          "h": 3.219646771412954e-14,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 3.125,
+        "max_final_astro_difference_vs_3p125us": 0.0,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 0.0,
+          "Ca_uM": 0.0,
+          "h": 0.0,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      }
+    ],
+    "transient": [
+      {
+        "dt_us": 25.0,
+        "max_final_astro_difference_vs_3p125us": 2.5091040356528538e-14,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 3.469446951953614e-16,
+          "Ca_uM": 1.7430501486614958e-14,
+          "h": 2.5091040356528538e-14,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 12.5,
+        "max_final_astro_difference_vs_3p125us": 1.0574874309554616e-14,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 1.0824674490095276e-15,
+          "Ca_uM": 1.0574874309554616e-14,
+          "h": 8.326672684688674e-15,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 6.25,
+        "max_final_astro_difference_vs_3p125us": 7.688294445529209e-15,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 8.604228440844963e-16,
+          "Ca_uM": 7.688294445529209e-15,
+          "h": 4.440892098500626e-16,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 3.125,
+        "max_final_astro_difference_vs_3p125us": 0.0,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 0.0,
+          "Ca_uM": 0.0,
+          "h": 0.0,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      }
+    ],
+    "release": [
+      {
+        "dt_us": 25.0,
+        "max_final_astro_difference_vs_3p125us": 2.3339839847202892e-06,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 2.400857290751901e-15,
+          "Ca_uM": 2.220446049250313e-15,
+          "h": 2.2648549702353193e-14,
+          "xA": 8.458974994907109e-07,
+          "GA_uM": 2.3339839847202892e-06,
+          "GammaS": 4.4087975648032796e-07
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 12.5,
+        "max_final_astro_difference_vs_3p125us": 4.6679387818993057e-07,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 6.00908212078366e-15,
+          "Ca_uM": 7.216449660063518e-15,
+          "h": 3.5638159090467525e-14,
+          "xA": 1.6917877421196437e-07,
+          "GA_uM": 4.6679387818993057e-07,
+          "GammaS": 8.817618724066278e-08
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 6.25,
+        "max_final_astro_difference_vs_3p125us": 4.667938910130065e-07,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 3.039235529911366e-15,
+          "Ca_uM": 1.6514567491299204e-14,
+          "h": 2.0650148258027912e-14,
+          "xA": 1.691787890889529e-07,
+          "GA_uM": 4.667938910130065e-07,
+          "GammaS": 8.817617036527281e-08
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 3.125,
+        "max_final_astro_difference_vs_3p125us": 0.0,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 0.0,
+          "Ca_uM": 0.0,
+          "h": 0.0,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      }
+    ],
+    "gap": [
+      {
+        "dt_us": 25.0,
+        "max_final_astro_difference_vs_3p125us": 1.4960255256823984e-14,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 1.4432899320127035e-15,
+          "Ca_uM": 1.4960255256823984e-14,
+          "h": 8.881784197001252e-15,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0,
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 12.5,
+        "max_final_astro_difference_vs_3p125us": 3.042011087472929e-14,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 6.439293542825908e-15,
+          "Ca_uM": 1.3433698597964394e-14,
+          "h": 3.042011087472929e-14,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0,
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 6.25,
+        "max_final_astro_difference_vs_3p125us": 2.7977620220553945e-14,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 1.0658141036401503e-14,
+          "Ca_uM": 1.6431300764452317e-14,
+          "h": 2.7977620220553945e-14,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0,
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      },
+      {
+        "dt_us": 3.125,
+        "max_final_astro_difference_vs_3p125us": 0.0,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 0.0,
+          "Ca_uM": 0.0,
+          "h": 0.0,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0,
+          0
+        ],
+        "neuron_spikes": [
+          0
+        ]
+      }
+    ],
+    "receptors": [
+      {
+        "dt_us": 25.0,
+        "max_final_astro_difference_vs_3p125us": 1.787459069646502e-14,
+        "final_difference_by_variable": {
+          "GammaA": 3.3861802251067274e-15,
+          "IP3_uM": 9.992007221626409e-16,
+          "Ca_uM": 1.787459069646502e-14,
+          "h": 1.609823385706477e-14,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 3.1086244689504383e-15
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0,
+          0
+        ]
+      },
+      {
+        "dt_us": 12.5,
+        "max_final_astro_difference_vs_3p125us": 1.554312234475219e-14,
+        "final_difference_by_variable": {
+          "GammaA": 4.551914400963142e-15,
+          "IP3_uM": 8.326672684688674e-16,
+          "Ca_uM": 1.554312234475219e-14,
+          "h": 5.551115123125783e-15,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 8.326672684688674e-15
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0,
+          0
+        ]
+      },
+      {
+        "dt_us": 6.25,
+        "max_final_astro_difference_vs_3p125us": 3.8746783559417963e-14,
+        "final_difference_by_variable": {
+          "GammaA": 3.497202527569243e-15,
+          "IP3_uM": 2.220446049250313e-16,
+          "Ca_uM": 3.8746783559417963e-14,
+          "h": 2.6867397195928788e-14,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 2.6645352591003757e-15
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0,
+          0
+        ]
+      },
+      {
+        "dt_us": 3.125,
+        "max_final_astro_difference_vs_3p125us": 0.0,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 0.0,
+          "Ca_uM": 0.0,
+          "h": 0.0,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          0
+        ],
+        "neuron_spikes": [
+          0,
+          0
+        ]
+      }
+    ],
+    "active": [
+      {
+        "dt_us": 25.0,
+        "max_final_astro_difference_vs_3p125us": 1.2666676635686436e-05,
+        "final_difference_by_variable": {
+          "GammaA": 1.8318695513830363e-06,
+          "IP3_uM": 9.987777083164673e-08,
+          "Ca_uM": 2.275067699564204e-06,
+          "h": 1.6446143540349567e-06,
+          "xA": 3.3975707973699087e-06,
+          "GA_uM": 1.2666676635686436e-05,
+          "GammaS": 4.875528287762165e-07
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          40,
+          13,
+          36
+        ]
+      },
+      {
+        "dt_us": 12.5,
+        "max_final_astro_difference_vs_3p125us": 3.4545050084933138e-06,
+        "final_difference_by_variable": {
+          "GammaA": 8.110987128606695e-07,
+          "IP3_uM": 4.573115891526314e-08,
+          "Ca_uM": 1.017819111326368e-06,
+          "h": 6.940042825975823e-07,
+          "xA": 9.266025150500568e-07,
+          "GA_uM": 3.4545050084933138e-06,
+          "GammaS": 1.3297182499538707e-07
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          40,
+          13,
+          36
+        ]
+      },
+      {
+        "dt_us": 6.25,
+        "max_final_astro_difference_vs_3p125us": 1.1514980656768259e-06,
+        "final_difference_by_variable": {
+          "GammaA": 2.704070869441466e-07,
+          "IP3_uM": 1.524327192248265e-08,
+          "Ca_uM": 3.392747317532141e-07,
+          "h": 2.3133445103962202e-07,
+          "xA": 3.088668788508997e-07,
+          "GA_uM": 1.1514980656768259e-06,
+          "GammaS": 4.432417299859992e-08
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          40,
+          13,
+          36
+        ]
+      },
+      {
+        "dt_us": 3.125,
+        "max_final_astro_difference_vs_3p125us": 0.0,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 0.0,
+          "Ca_uM": 0.0,
+          "h": 0.0,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          40,
+          13,
+          36
+        ]
+      }
+    ],
+    "active_off": [
+      {
+        "dt_us": 25.0,
+        "max_final_astro_difference_vs_3p125us": 1.2666676635686436e-05,
+        "final_difference_by_variable": {
+          "GammaA": 1.5080282613766371e-06,
+          "IP3_uM": 1.6328345742167016e-07,
+          "Ca_uM": 2.749171537974604e-06,
+          "h": 1.5601951363075628e-06,
+          "xA": 3.3975707973699087e-06,
+          "GA_uM": 1.2666676635686436e-05,
+          "GammaS": 4.875528287762165e-07
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          40,
+          13,
+          12
+        ]
+      },
+      {
+        "dt_us": 12.5,
+        "max_final_astro_difference_vs_3p125us": 3.4545050084933138e-06,
+        "final_difference_by_variable": {
+          "GammaA": 6.465192275428855e-07,
+          "IP3_uM": 6.997480284098856e-08,
+          "Ca_uM": 1.1782260012083157e-06,
+          "h": 6.686531119903805e-07,
+          "xA": 9.266025150500568e-07,
+          "GA_uM": 3.4545050084933138e-06,
+          "GammaS": 1.3297182499538707e-07
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          40,
+          13,
+          12
+        ]
+      },
+      {
+        "dt_us": 6.25,
+        "max_final_astro_difference_vs_3p125us": 1.1514980656768259e-06,
+        "final_difference_by_variable": {
+          "GammaA": 2.155433015404995e-07,
+          "IP3_uM": 2.332431470186691e-08,
+          "Ca_uM": 3.92743610855284e-07,
+          "h": 2.2288402534709206e-07,
+          "xA": 3.088668788508997e-07,
+          "GA_uM": 1.1514980656768259e-06,
+          "GammaS": 4.432417299859992e-08
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          40,
+          13,
+          12
+        ]
+      },
+      {
+        "dt_us": 3.125,
+        "max_final_astro_difference_vs_3p125us": 0.0,
+        "final_difference_by_variable": {
+          "GammaA": 0.0,
+          "IP3_uM": 0.0,
+          "Ca_uM": 0.0,
+          "h": 0.0,
+          "xA": 0.0,
+          "GA_uM": 0.0,
+          "GammaS": 0.0
+        },
+        "astro_releases": [
+          1
+        ],
+        "neuron_spikes": [
+          40,
+          13,
+          12
+        ]
+      }
+    ]
+  },
+  "cli_harness_checks": {
+    "active": {
+      "trace": true,
+      "events": true,
+      "weights": true
+    },
+    "active_off": {
+      "trace": true,
+      "events": true,
+      "weights": true
+    }
+  },
+  "status": "PASS: equations/numerics within tested regimes; physical calcium-gap limitation documented separately",
+  "independence_scope": {
+    "RHS": "Independent Python equations versus both network_core.lib and header model.cuh; 200 states and 34 boundary conditions.",
+    "DOP853": "Isolated first-four-variable astrocyte module with prescribed zero or constant glutamate, not an independent full neuron-synapse-astrocyte trajectory.",
+    "resources": "Analytic xA/GA and independent scalar GammaS ODE conditional on exported release events; separate exact continuous calcium event-time check.",
+    "full_system": "Step refinement of the complete 2-pre/1-post/1-astrocyte system on 5 seconds; binary-equivalence check against the existing production CLI; not an independent full-system ODE reference."
+  },
+  "confirmed_astro_implementation_defects_in_tested_default_regimes": [],
+  "limitations": [
+    {
+      "id": "ASTRO-L1",
+      "severity": "P2 scientific interpretation when calcium gap is used as physical intercellular transport",
+      "location": "network.cpp:276,284-287",
+      "condition": "Gap.calcium > 0; fixed local C_T closure",
+      "finding": "Cytosolic concentrations exchange conservatively, but each inferred local total remains constant. With all ER fluxes off, an inferred ER concentration changes to compensate calcium-gap flux.",
+      "reproduction": "harness probe / gap scenarios: dC=(+.08,-.08) uM/s but inferred dCER=(-.432432,+.432432) uM/s while dCT=0.",
+      "recommendation": "Call this phenomenological calcium coupling, or add per-cell total calcium / explicit ER state if physical mass transport is intended.",
+      "boundary": "Default calcium gap is zero; ordinary IP3-only coupling and isolated astrocyte equations are unaffected."
+    },
+    {
+      "id": "ASTRO-L2",
+      "severity": "scope",
+      "location": "network.cpp:281-282; model.cuh:85-87",
+      "finding": "SIC is an instantaneous saturating glutamate-dependent conductance without explicit NMDAR kinetics or magnesium block; README already discloses this reduction."
+    },
+    {
+      "id": "ASTRO-L3",
+      "severity": "numerical scope",
+      "location": "network.cpp:105-113,333-341",
+      "finding": "Wide globally accepted rate ranges are not an RK4 stability guarantee; the root audit independently tests that problem. This component audit validates the stated default/controlled parameter regimes only."
+    }
+  ]
+}
