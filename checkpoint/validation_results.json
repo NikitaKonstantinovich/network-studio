@@ -1,0 +1,247 @@
+{
+  "restart_cases": [
+    {
+      "case": 0,
+      "stop_times": [
+        0.012025000000000001,
+        0.02205
+      ],
+      "final": {
+        "time_s": 0.035,
+        "steps": 1400,
+        "complete": true,
+        "error": "",
+        "integrator": "event-localized RK4 step doubling; exact linear kinetics; input/sample boundaries",
+        "record_all": true,
+        "recorded_dimension": 13,
+        "recorded_neurons_0based": [
+          0,
+          1
+        ],
+        "recorded_synapses_0based": [
+          0
+        ],
+        "all_astrocytes_recorded": true,
+        "neuron_spikes": [
+          2,
+          3
+        ],
+        "astrocyte_releases": [],
+        "final_synapse_weights": [
+          0.9777275855021194
+        ]
+      },
+      "equal_sha256": {
+        ".nscp": "1ae66720bdefe39db2c40b892c0e165b1104fad52007437b51bc833d8d3478c7",
+        "_trace.csv": "73dd397b00be78dde0f058bd615b29f41c8268b376294d02282d5d3745585c2f",
+        "_weights.csv": "e83fd502a7d683b900c9d8ba2f31858db32e393858b87a00a692f365745afea7",
+        "_events.csv": "47b76449eda67414aad2c49c31b09ed964f4094123ca5ba1fa31e9216ce59b46",
+        "_summary.json": "5409c01e1876a8adebd8d887e2c7ef52d8be512c94cf6a1c271c3273fe611191",
+        "_experiment.json": "d9c5a0c66f5a16079a70eb7d4b14342a7d0bcad4b94a46b3b338489b1d12a5fc"
+      }
+    },
+    {
+      "case": 1,
+      "stop_times": [
+        0.012025000000000001,
+        0.02205
+      ],
+      "final": {
+        "time_s": 0.035,
+        "steps": 1400,
+        "complete": true,
+        "error": "",
+        "integrator": "event-localized RK4 step doubling; exact linear kinetics; input/sample boundaries",
+        "record_all": true,
+        "recorded_dimension": 13,
+        "recorded_neurons_0based": [
+          0,
+          1
+        ],
+        "recorded_synapses_0based": [
+          0
+        ],
+        "all_astrocytes_recorded": true,
+        "neuron_spikes": [
+          2,
+          3
+        ],
+        "astrocyte_releases": [],
+        "final_synapse_weights": [
+          0.9818513937390758
+        ]
+      },
+      "equal_sha256": {
+        ".nscp": "573dc2365a935c0865da92463b3c069f5d313a1b191bb30391792321a5849407",
+        "_trace.csv": "ba0aa8f82080a54316b748d841231639fe19389c2b1052392a0f680e9f23bb0a",
+        "_weights.csv": "6914079db534727051b2dacc4b82df8ac722813943711cd1b4bfb0365db1cfea",
+        "_events.csv": "b3df9db83e8f838cfb6a2dc2dc4325b334f2e8b2050b1b7f8a289fd2f9e4c34f",
+        "_summary.json": "56bb0af38151533d9b8a04bea669856c2020bc11c1e76eee07736c9037b353ae",
+        "_experiment.json": "2c9876f65ac1e63803ba4bc19b83a9c50f1a7691b05b7245739f480600f1e1bf"
+      }
+    },
+    {
+      "case": 2,
+      "stop_times": [
+        0.012025000000000001,
+        0.02205
+      ],
+      "final": {
+        "time_s": 0.035,
+        "steps": 1400,
+        "complete": true,
+        "error": "",
+        "integrator": "event-localized RK4 step doubling; exact linear kinetics; input/sample boundaries",
+        "record_all": true,
+        "recorded_dimension": 13,
+        "recorded_neurons_0based": [
+          0,
+          1
+        ],
+        "recorded_synapses_0based": [
+          0
+        ],
+        "all_astrocytes_recorded": true,
+        "neuron_spikes": [
+          2,
+          2
+        ],
+        "astrocyte_releases": [],
+        "final_synapse_weights": [
+          0.9642653212323152
+        ]
+      },
+      "equal_sha256": {
+        ".nscp": "a1bcb6173d4a7f0d0b97b5b1de32c46835b4c53abc740fe7b721e1cd97873d92",
+        "_trace.csv": "121c876a505aeff8820bed1e6bff9d9c1606e2778f5d595344b6fa50c11237d8",
+        "_weights.csv": "2098a5d7531c20f88d5dec92bf156d8b814d6e8cc5720effe672984812f08945",
+        "_events.csv": "4842b5adc26a8a8500e44e5e0628bd6610996ecbb391d75866b7f0e7d87c239f",
+        "_summary.json": "3eddbccd63145d08c913109601197cbc7a1306ee8d6e2c84da857463ed493662",
+        "_experiment.json": "cbb0fcea5f7e37d93fc9765b09c270df21f93de62f24560c012b9ceb56301679"
+      }
+    },
+    {
+      "case": 3,
+      "stop_times": [
+        0.012025000000000001,
+        0.02205
+      ],
+      "final": {
+        "time_s": 0.035,
+        "steps": 1400,
+        "complete": true,
+        "error": "",
+        "integrator": "event-localized RK4 step doubling; exact linear kinetics; input/sample boundaries",
+        "record_all": true,
+        "recorded_dimension": 50,
+        "recorded_neurons_0based": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "recorded_synapses_0based": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "all_astrocytes_recorded": true,
+        "neuron_spikes": [
+          3,
+          3,
+          3,
+          3
+        ],
+        "astrocyte_releases": [
+          1,
+          1
+        ],
+        "final_synapse_weights": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "equal_sha256": {
+        ".nscp": "92c8fdc73c7718c8750ada311782682bcb0fa58353832303c005ab1482140b50",
+        "_trace.csv": "26630299a930a21721dda97e3ccc062425ea87d776b84d948ecad06cb189620e",
+        "_weights.csv": "c767976fe6065f699081b9482765993cee8e0f498b64ba0503e2920826b03da6",
+        "_events.csv": "d0b744bc1081ed5827388077cca00aa990e3b84270b8215a057eec469e73b585",
+        "_summary.json": "a73a732855520baf90de5ce5928016511429ef6e4768e35c5050d48a9480428b",
+        "_experiment.json": "db9f6a7da77930a973a9906b61bdc13daa2c144ce59219c2428762b8ea1c24ab"
+      }
+    },
+    {
+      "case": 4,
+      "stop_times": [
+        0.012025000000000001,
+        0.02205
+      ],
+      "final": {
+        "time_s": 0.035,
+        "steps": 1400,
+        "complete": true,
+        "error": "",
+        "integrator": "event-localized RK4 step doubling; exact linear kinetics; input/sample boundaries",
+        "record_all": false,
+        "recorded_dimension": 11,
+        "recorded_neurons_0based": [
+          1
+        ],
+        "recorded_synapses_0based": [],
+        "all_astrocytes_recorded": true,
+        "neuron_spikes": [
+          2,
+          3,
+          3
+        ],
+        "astrocyte_releases": [
+          1
+        ],
+        "final_synapse_weights": [
+          0.9669526078171414,
+          1
+        ]
+      },
+      "equal_sha256": {
+        ".nscp": "1945072d36e2b4da240b4bcb64bcccade13bb7cf67c85334c1edff6e85d62549",
+        "_trace.csv": "9f1a1c63ed08d3d3b32e8a5f41443daaf2a7b5adc72807a9931072ceff0ea1a2",
+        "_weights.csv": "b305282e9633ca465256d694a2747fdcab5d0d212828f121bfe1fbf5076d366e",
+        "_events.csv": "d8303bb656599a3ae778e94aed02f995bd913f25d6c97234ec81af7951c6d3d7",
+        "_summary.json": "37e12cad37d45a211496971ee15718875597bec84fdc0915ea9867266d177a6a",
+        "_experiment.json": "68bc18162970d566bfc9ef62f3754e1cdea6e71d449691866c5aaa7bc0e5568f"
+      }
+    }
+  ],
+  "baseline_cases": [
+    {
+      "case": 0,
+      "exports_byte_identical": true
+    },
+    {
+      "case": 1,
+      "exports_byte_identical": true
+    },
+    {
+      "case": 2,
+      "exports_byte_identical": true
+    },
+    {
+      "case": 3,
+      "exports_byte_identical": true
+    },
+    {
+      "case": 4,
+      "exports_byte_identical": true
+    }
+  ],
+  "binaries": {
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe": "981944900ad098d2f05f3ca8240135d02a4abab49ba6ce42c8a86a865c2c1e8c",
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe": "99638ad1a06e87cc7d1f448e09b1391fce4d585b876b1efb186086096927712b"
+  },
+  "previous_cli_sha256": "17eaba325c6864b2dba95f9e849463669e07b8ce63ac764e4d83960b80ee7b9e",
+  "solver_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"8c0ec755388f311f3131796c3a441d5d215a7187c9b93e8506adde6bc0963d94\"",
+  "historical_files_unchanged": 2001
+}

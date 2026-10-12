@@ -127,7 +127,12 @@ public:
     bool step();
     bool done() const;
     void record();
+    // Absolute final time; extending does not reset learning or history.
+    void extend_duration(double end_time);
 private:
+    friend struct CheckpointAccess;
+    bool stepping=false, checkpoint_boundary=true;
+    bool step_impl();
     numerical::Flow flow;
     std::vector<numerical::Threshold> thresholds;
     double held_input_time=0, suggested_step=0;

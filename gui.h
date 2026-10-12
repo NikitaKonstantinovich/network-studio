@@ -15,6 +15,7 @@ public:
     int request_plot_tab = -1; // Used by the renderer smoke test; -1 leaves user selection alone.
     bool request_network_wizard = false;
     std::function<std::filesystem::path(bool,bool)> file_dialog;
+    std::function<std::filesystem::path(bool)> checkpoint_dialog;
     App();
     void draw();
     void advance();
@@ -22,6 +23,8 @@ public:
     void replace(Config c);
     void save(const std::filesystem::path& path);
     void load(const std::filesystem::path& path);
+    void save_state(const std::filesystem::path& path);
+    bool restore_state(const std::filesystem::path& path);
 private:
     bool changed = false, follow = true;
     double window_seconds = 1;

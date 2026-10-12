@@ -67,20 +67,21 @@ static void capture_png(const std::filesystem::path& path) {
     }catch(...){context->Unmap(staging.Get(),0);throw;}
     context->Unmap(staging.Get(),0);
 }
-static std::filesystem::path dialog(HWND hwnd,bool save,bool csv) {
-    wchar_t buf[32768]{};if(save)wcscpy_s(buf,csv?L"experiment.csv":L"network.json");
+static std::filesystem::path dialog(HWND hwnd,bool save,bool csv,bool checkpoint=false) {
+    wchar_t buf[32768]{};if(save)wcscpy_s(buf,checkpoint?L"experiment.nscp":csv?L"experiment.csv":L"network.json");
     OPENFILENAMEW ofn{};ofn.lStructSize=sizeof(ofn);ofn.hwndOwner=hwnd;ofn.lpstrFile=buf;ofn.nMaxFile=32768;
-    ofn.lpstrFilter=csv?L"CSV results\0*.csv\0\0":L"Network configuration\0*.json\0\0";
-    ofn.lpstrDefExt=csv?L"csv":L"json";ofn.Flags=OFN_NOCHANGEDIR|OFN_PATHMUSTEXIST|(save?OFN_OVERWRITEPROMPT:OFN_FILEMUSTEXIST);
+    ofn.lpstrFilter=checkpoint?L"Network Studio checkpoint\0*.nscp\0\0":csv?L"CSV results\0*.csv\0\0":L"Network configuration\0*.json\0\0";
+    ofn.lpstrDefExt=checkpoint?L"nscp":csv?L"csv":L"json";ofn.Flags=OFN_NOCHANGEDIR|OFN_PATHMUSTEXIST|(save?OFN_OVERWRITEPROMPT:OFN_FILEMUSTEXIST);
     if(save?GetSaveFileNameW(&ofn):GetOpenFileNameW(&ofn))return buf;return {};
 }
 int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     int argc=0;wchar_t** args=CommandLineToArgvW(GetCommandLineW(),&argc);
-    std::filesystem::path smoke,config_path;int smoke_preset=0;bool smoke_wizard=false;
+    std::filesystem::path smoke,config_path,checkpoint_path;int smoke_preset=0;bool smoke_wizard=false;
     for(int i=1;i<argc;++i) {
         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
         else if(std::wstring(args[i])==L"--preset"&&i+1<argc)smoke_preset=_wtoi(args[++i]);
         else if(std::wstring(args[i])==L"--smoke-wizard")smoke_wizard=true;
+        else if(std::wstring(args[i])==L"--resume"&&i+1<argc)checkpoint_path=args[++i];
         else config_path=args[i];
     }LocalFree(args);
     HWND hwnd=nullptr;bool imgui=false,backends=false;int result=0;
@@ -105,12 +106,17 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         studio::apply_style();
         if(!ImGui_ImplWin32_Init(hwnd)||!ImGui_ImplDX11_Init(device.Get(),context.Get()))throw std::runtime_error("ImGui backend initialization failed.");backends=true;
         studio::App app;app.file_dialog=[&](bool save,bool csv){return dialog(hwnd,save,csv);};
+        app.checkpoint_dialog=[&](bool save){return dialog(hwnd,save,false,true);};
         // A command-line configuration must fail explicitly rather than silently
         // running the default experiment when reading the requested file fails.
         if(!config_path.empty())app.replace(studio::load_config(config_path));
+        if(!checkpoint_path.empty()) {
+            // Validate before changing the GUI; startup failures are explicit.
+            if(!app.restore_state(checkpoint_path))throw std::runtime_error(app.status);
+        }
         if(!smoke.empty()) {
             std::filesystem::create_directories(smoke);
-            if(config_path.empty()) app.replace(studio::preset(smoke_preset));
+            if(config_path.empty()&&checkpoint_path.empty()) app.replace(studio::preset(smoke_preset));
             while(!app.simulation->done())if(!app.simulation->step())break;
             if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
             app.status="Проверка прототипа: расчёт завершён, графики построены.";

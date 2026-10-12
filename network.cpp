@@ -391,6 +391,19 @@ Simulator::Simulator(const Config& c):config(c) {
     spikes.resize(c.neurons.size()); releases.resize(c.astrocytes.size()); record();
 }
 bool Simulator::done() const { return !error.empty() || time>=config.duration; }
+void Simulator::extend_duration(double end_time) {
+    if(stepping || !checkpoint_boundary || !error.empty())throw std::runtime_error("Cannot extend an unsafe or failed simulation.");
+    if(!std::isfinite(end_time) || end_time<config.duration)throw std::runtime_error("Final time may only be extended.");
+    Config candidate=config;candidate.duration=end_time;
+    const auto message=validate(candidate);if(!message.empty())throw std::runtime_error(message);
+    // Earlier off-grid terminal samples are retained when extending a run.
+    size_t extra=0;uint64_t grid=0;
+    for(double t:history.time) {if(t==double(grid)*config.sample)++grid;else ++extra;}
+    const double rows=std::ceil(end_time/config.sample)+2+extra;
+    if(rows>MaxSamples || rows*recorded_dimension(config)>MaxStoredValues)
+        throw std::runtime_error("Extended history would exceed the recording limits.");
+    config.duration=end_time;
+}
 void Simulator::record() {
     if(history.time.size()>=MaxSamples) { error="Recording limit exceeded."; return; }
     history.time.push_back(time);

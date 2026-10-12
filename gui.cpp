@@ -42,6 +42,28 @@ void App::load(const std::filesystem::path& path) {
     try { auto c=load_config(path); replace(std::move(c)); filename=path; }
     catch(const std::exception& e){status=e.what();}
 }
+void App::save_state(const std::filesystem::path& path) {
+    if(path.empty())return;
+    if(running){status="Приостановите расчёт перед сохранением состояния.";return;}
+    try {
+        save_checkpoint(*simulation,path);
+        status=simulation->error.empty()?"Полное состояние сохранено.":"Сохранён диагностический снимок ошибки; продолжение запрещено.";
+    }catch(const std::exception& e){status=e.what();}
+}
+bool App::restore_state(const std::filesystem::path& path) {
+    if(path.empty())return false;
+    try {
+        auto restored=load_checkpoint(path);Config restored_config=restored->config;
+        std::string message="Состояние восстановлено: t = "+std::to_string(restored->time)+" с. ";
+        message+=!restored->error.empty()?"Диагностический снимок: продолжение запрещено. "+restored->error:
+            restored->done()?"Расчёт завершён; увеличьте конечное время или выполните сброс.":"Пауза. Нажмите «Продолжить».";
+        config=std::move(restored_config);simulation=std::move(restored);running=false;dirty=false;
+        selected_kind=selected_index=0;preset_index=-1;filename.clear();
+        neuron_plot=neuron_view=syn_plot=syn_view=astro_plot=0;drag_kind=drag_index=-1;
+        link_source=0;link_target=std::min(1,int(config.neurons.size())-1);generation_preview.reset();status=std::move(message);
+        return true;
+    }catch(const std::exception& e){status=e.what();return false;}
+}
 void App::advance() {
     if(!running)return;
     const auto begin=std::chrono::steady_clock::now();
@@ -224,10 +246,10 @@ void App::toolbar() {
     ImGui::TextColored(Teal,"NEURO / ASTRO"); ImGui::SameLine(); ImGui::TextDisabled("Конструктор малых сетей");
     ImGui::SameLine(ImGui::GetWindowWidth()-365); ImGui::TextDisabled("HH / Ижикевич · IP3 / Ca · RK4 · CPU");
     ImGui::Separator();
-    ImGui::BeginDisabled(!simulation->error.empty());
+    ImGui::BeginDisabled(!simulation->error.empty() || (!running && simulation->done()));
     ImGui::PushStyleColor(ImGuiCol_Button,{.10f,.38f,.33f,1});
-    if(ImGui::Button(running?"Пауза":"Запуск",{90,30})) {
-        if(!running && simulation->done())reset(); running=!running; status=running?"Выполняется расчёт…":"Расчёт приостановлен.";
+    if(ImGui::Button(running?"Пауза":simulation->time>0?"Продолжить":"Запуск",{110,30})) {
+        running=!running; status=running?"Выполняется расчёт…":"Расчёт приостановлен.";
     } ImGui::PopStyleColor(); ImGui::EndDisabled();
     ImGui::SameLine(); if(ImGui::Button("Сброс",{80,30})) {reset();status="Начальные состояния восстановлены.";}
     ImGui::SameLine(); ImGui::BeginDisabled(running||!simulation->error.empty()||simulation->done());
@@ -247,6 +269,11 @@ void App::toolbar() {
         catch(const std::exception& e){status=e.what();}
     } ImGui::EndDisabled();
     ImGui::SameLine(); ImGui::TextColored(running?Teal:Muted,"  %.3f / %.3f с",simulation->time,config.duration);
+    ImGui::BeginDisabled(running);
+    if(ImGui::Button("Сохранить состояние…")&&checkpoint_dialog) {auto path=checkpoint_dialog(true);if(!path.empty())save_state(path);}
+    ImGui::SameLine();
+    if(ImGui::Button("Восстановить состояние…")&&checkpoint_dialog) {auto path=checkpoint_dialog(false);if(!path.empty())restore_state(path);}
+    ImGui::EndDisabled();
     ImGui::ProgressBar(float(simulation->time/config.duration),{-1,4},"");
 }
 void App::editor() {
@@ -258,7 +285,13 @@ void App::editor() {
         ImGui::EndCombo();
     }
     if(text("Название",config.name,120))edit();
-    if(scalar("Длительность, с",config.duration,.001,120,.1))edit();
+    double end_time=config.duration;
+    if(scalar("Длительность, с",end_time,.001,120,.1)) {
+        if(simulation->time==0){config.duration=end_time;edit();}
+        else try {simulation->extend_duration(end_time);config.duration=end_time;dirty=true;status="Конечное время продлено; состояния и обучение сохранены.";}
+        catch(const std::exception& e){status=e.what();}
+    }
+    if(simulation->time>0)ImGui::TextDisabled("Конечное время от t=0; можно увеличить.");
     double dt=config.dt*1e6;
     if(scalar("Шаг, мкс",dt,1,50,1,"%.1f")){config.dt=dt*1e-6;edit();}
     double sample=config.sample*1000;

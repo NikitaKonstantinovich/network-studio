@@ -1,0 +1,37 @@
+{
+  "branch": "feature/checkpoint-resume",
+  "base_commit": "7c0fbb51fd8a85bae627d6a9bb1dfbd8f95a5bc7",
+  "checkpoint_schema": 1,
+  "solver_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"8c0ec755388f311f3131796c3a441d5d215a7187c9b93e8506adde6bc0963d94\"",
+  "binaries_sha256": {
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe": "981944900ad098d2f05f3ca8240135d02a4abab49ba6ce42c8a86a865c2c1e8c",
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe": "99638ad1a06e87cc7d1f448e09b1391fce4d585b876b1efb186086096927712b"
+  },
+  "ctest": "7/7 passed, 205.77 s",
+  "roundtrips": 686,
+  "roundtrip_checks": 23667,
+  "restart_processes": 20,
+  "restart_cases": 5,
+  "baseline_cases": 5,
+  "gui_resume_exports_byte_identical": true,
+  "historical_files_verified": 2001,
+  "evidence_directory": "E:\\asp\\26_27\\configurator\\verification\\checkpoint_20261012",
+  "source_sha256": {
+    "CMakeLists.txt": "941b4ab4b98fde856d8c0ca539b3a636f7ca2a79c377c7b7283d01aa18778ac2",
+    "network.h": "41daf1e8fa95819617e1b62ce6b3c74f84cf03fc6700374aeebf99fa919231dc",
+    "network.cpp": "e3f20161191a8c1a2d85fcde55713086a7e9f43212e57851a1b76b69e514ac3f",
+    "integrator.cpp": "2d5b12337c8a19f6cd5299340ab5881f5d75fde8ddfd7e0521246e50c7345ef1",
+    "numerics/integrator.h": "6b366052bc1f81596385d878070aa65ed38c46d60d3f914c9a8f687b662591c5",
+    "io.h": "d9db17399b05c4daa602493d1d773871d135b211f1eb8071d033bfe0dca6ee5f",
+    "io.cpp": "52969e2094a016103a437a0c0cad7f1289dc7d012ca0a28fb2f8d133c4548e5b",
+    "checkpoint.cpp": "e5321d0ae67e2a04fba619eb6e0110ed8030a4383ccbf37973713316203e4bd7",
+    "gui.h": "27a96aa16c4d9c272de25de81528a36b3e5f2bbf0d7b0fd14175b1a007fd0c25",
+    "gui.cpp": "fd356e358efa004a338156ffb5907d6fbffe78320e24cae63eeda5c56e8e5d22",
+    "main.cpp": "8e54093d584dd382799dce87816a95f8202c5cd88752b02ed1fdb1c1d00ba413",
+    "cli.cpp": "75cc81ed83fe35cf0838d52d6bd4062302c9d1e5ebeb2bc26f5f2b42439c02e9",
+    "checkpoint_tests.cpp": "58143c9d776e9eb2aec272be127686c736cac22fde2d0deeaa656ccf1720a1c7",
+    "gui_tests.cpp": "0d23c5472babf101587eacce44c27d398b4f8657d59e81f0b2ac79e99e4dc1a7",
+    "build.ps1": "e83c5899b40ab6016f00e89e0518f3f94158f13fa22fa54d20f829de17a8efe9",
+    "checkpoint/process_test.cmake": "eed672ac05e83b81796dd31d40c9c05956234808e4ba99e6229afcc330c414b9"
+  }
+}

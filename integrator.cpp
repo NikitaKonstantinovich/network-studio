@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <stdexcept>
 
 namespace studio {
 void Simulator::exact_flow(const State& old,double h,State& out) const {
@@ -94,6 +95,16 @@ bool Simulator::physical(const State& y) const {
 }
 bool Simulator::step() {
     if(done())return false;
+    if(stepping)throw std::runtime_error("Simulator::step is not reentrant.");
+    stepping=true;checkpoint_boundary=false;
+    try {
+        const bool ok=step_impl();
+        checkpoint_boundary=ok;stepping=false;return ok;
+    } catch(const std::exception& e) {
+        stepping=false;error=std::string("Integration failed: ")+e.what();return false;
+    } catch(...) {stepping=false;error="Integration failed with an unknown exception.";return false;}
+}
+bool Simulator::step_impl() {
     const auto& c=config;const auto& p=c.parameters;
     flow.rhs=[this](const State& y,State& dy){derivative(config,y,held_input_time,dy,&plasticity);};
     flow.exact=[this](const State& y,double h,State& out){exact_flow(y,h,out);};

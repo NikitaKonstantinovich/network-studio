@@ -164,6 +164,29 @@ int main() {
         const auto saved_path=std::filesystem::current_path()/("network_studio_gui_stdp_"+
             std::to_string(std::chrono::steady_clock::now().time_since_epoch().count())+".json");
         app.file_dialog=[&](bool,bool){return saved_path;};
+        auto checkpoint_path=saved_path;checkpoint_path.replace_extension(".nscp");
+        app.checkpoint_dialog=[&](bool){return checkpoint_path;};
+        const auto checkpoint_time=app.simulation->time;
+        const auto checkpoint_weight=app.simulation->plasticity[0].weight;
+        const auto checkpoint_values=app.simulation->history.values;
+        const auto checkpoint_state=app.simulation->state;
+        click(app,"Сохранить состояние…");
+        require(std::filesystem::is_regular_file(checkpoint_path),("Checkpoint button failed: "+app.status).c_str());
+        require(app.simulation->time==checkpoint_time&&app.simulation->state==checkpoint_state,"Saving checkpoint altered state.");
+        click(app,"Сброс");click(app,"Восстановить состояние…");
+        require(!app.running&&app.simulation->time==checkpoint_time&&app.simulation->state==checkpoint_state&&
+            app.simulation->plasticity[0].weight==checkpoint_weight&&app.simulation->history.values==checkpoint_values,"GUI restore lost trajectory/training/history.");
+        auto* checkpoint_instance=app.simulation.get();
+        app.checkpoint_dialog=[](bool){return std::filesystem::path{};};
+        click(app,"Восстановить состояние…");
+        require(app.simulation.get()==checkpoint_instance&&app.simulation->time==checkpoint_time,"Cancelled load replaced experiment.");
+        app.checkpoint_dialog=[&](bool){return checkpoint_path.parent_path()/"missing-checkpoint.nscp";};
+        click(app,"Восстановить состояние…");
+        require(app.simulation.get()==checkpoint_instance&&app.simulation->history.values==checkpoint_values,"Failed load replaced experiment.");
+        click(app,"Продолжить");require(app.running&&app.simulation.get()==checkpoint_instance,"Continue constructed a new simulator.");
+        click(app,"Пауза");require(app.simulation->time>checkpoint_time,"Restored experiment did not advance.");
+        app.restore_state(checkpoint_path);
+        std::filesystem::remove(checkpoint_path);
         click(app,"Сохранить…");
         require(std::filesystem::is_regular_file(saved_path),("GUI save did not write the STDP configuration: "+app.status).c_str());
         auto saved_config=studio::load_config(saved_path);
@@ -278,7 +301,12 @@ int main() {
             }
         }
         io.DisplaySize={1120,720};frame(app);frame(app);
-        require(items.count("Запуск")>0&&items.count("network_canvas")>0,"Controls missing at minimum size.");
+        require(items.count("Продолжить")>0&&items.count("network_canvas")>0&&items.count("Восстановить состояние…")>0,"Controls missing at minimum size.");
+        const auto completed_state=app.simulation->state;const auto completed_time=app.simulation->time;
+        click(app,"Продолжить");require(app.simulation->time==completed_time&&!app.running,"Completed run silently restarted.");
+        enter_scalar(app,"Длительность, с","0.002");
+        require(app.simulation->state==completed_state&&app.simulation->time==completed_time&&app.config.duration==.002,"Duration extension reset state.");
+        click(app,"Шаг 50 мс");require(app.simulation->time==.002,"Completed run did not extend.");
         ImPlot::DestroyContext();ImGui::DestroyContext();
         std::cout<<"PASS: "<<checks<<" GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.\n";return 0;
     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}

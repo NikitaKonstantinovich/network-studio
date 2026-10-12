@@ -32,7 +32,7 @@ if ($Test) {
 }
 if ($Smoke) {
     $exe = Join-Path $buildDir 'Release\network_studio.exe'
-    $report = if (-not $SmokeOutput) { Join-Path $PSScriptRoot 'verification\gui' }
+    $report = if (-not $SmokeOutput) { Join-Path $PSScriptRoot ('verification\gui_' + (Get-Date -Format 'yyyyMMdd_HHmmss_fffffff')) }
               elseif ([IO.Path]::IsPathRooted($SmokeOutput)) { $SmokeOutput }
               else { Join-Path $PSScriptRoot $SmokeOutput }
     $process = Start-Process -FilePath $exe -ArgumentList @('--smoke', ('"' + $report + '"')) -WindowStyle Hidden -Wait -PassThru

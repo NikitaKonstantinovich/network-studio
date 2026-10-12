@@ -234,6 +234,7 @@ static void write_file(const std::filesystem::path& path,const std::string& cont
     } catch(...) { std::error_code ec; std::filesystem::remove(temporary,ec); throw; }
 }
 void save_config(const Config& c,const std::filesystem::path& path) { write_file(path,serialize(c)+"\n"); }
+void write_atomic(const std::filesystem::path& path,const std::string& bytes) {write_file(path,bytes);}
 void export_results(const Simulator& s,const std::filesystem::path& prefix) {
     if(s.history.time.empty())throw std::runtime_error("No data to export.");
     if(s.history.weights.size()!=s.config.synapses.size()||s.plasticity.size()!=s.config.synapses.size())
