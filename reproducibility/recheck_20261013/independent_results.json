@@ -1,0 +1,337 @@
+{
+  "lab1": {
+    "01_rest": {
+      "archive_25us": {
+        "spikes": 0,
+        "reference_spikes": 0,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.0
+      },
+      "current_25us": {
+        "spikes": 0,
+        "reference_spikes": 0,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.0
+      },
+      "current_12p5us": {
+        "spikes": 0,
+        "reference_spikes": 0,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.0
+      },
+      "current_6p25us": {
+        "spikes": 0,
+        "reference_spikes": 0,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.0
+      }
+    },
+    "02_single_pulse": {
+      "archive_25us": {
+        "spikes": 1,
+        "reference_spikes": 1,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.007571893983399081
+      },
+      "current_25us": {
+        "spikes": 1,
+        "reference_spikes": 1,
+        "same_spike_count": true,
+        "max_event_error_ms": 3.3401753585238225e-09
+      },
+      "current_12p5us": {
+        "spikes": 1,
+        "reference_spikes": 1,
+        "same_spike_count": true,
+        "max_event_error_ms": 7.84830533895331e-10
+      },
+      "current_6p25us": {
+        "spikes": 1,
+        "reference_spikes": 1,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.4609147225286279e-10
+      }
+    },
+    "03_autonomous": {
+      "archive_25us": {
+        "spikes": 48,
+        "reference_spikes": 48,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.6807914446852479
+      },
+      "current_25us": {
+        "spikes": 48,
+        "reference_spikes": 48,
+        "same_spike_count": true,
+        "max_event_error_ms": 2.5644375512001716e-08
+      },
+      "current_12p5us": {
+        "spikes": 48,
+        "reference_spikes": 48,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.609290478654657e-08
+      },
+      "current_6p25us": {
+        "spikes": 48,
+        "reference_spikes": 48,
+        "same_spike_count": true,
+        "max_event_error_ms": 6.405631580719273e-08
+      }
+    },
+    "04_periodic_02hz": {
+      "archive_25us": {
+        "spikes": 6,
+        "reference_spikes": 6,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.023015734920139863
+      },
+      "current_25us": {
+        "spikes": 6,
+        "reference_spikes": 6,
+        "same_spike_count": true,
+        "max_event_error_ms": 5.210498699170785e-09
+      },
+      "current_12p5us": {
+        "spikes": 6,
+        "reference_spikes": 6,
+        "same_spike_count": true,
+        "max_event_error_ms": 9.254819133275305e-10
+      },
+      "current_6p25us": {
+        "spikes": 6,
+        "reference_spikes": 6,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.8074430840897548e-10
+      }
+    },
+    "04_periodic_10hz": {
+      "archive_25us": {
+        "spikes": 30,
+        "reference_spikes": 30,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.020356894826850658
+      },
+      "current_25us": {
+        "spikes": 30,
+        "reference_spikes": 30,
+        "same_spike_count": true,
+        "max_event_error_ms": 5.780265155408415e-09
+      },
+      "current_12p5us": {
+        "spikes": 30,
+        "reference_spikes": 30,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.0724754417879012e-09
+      },
+      "current_6p25us": {
+        "spikes": 30,
+        "reference_spikes": 30,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.709743457922741e-10
+      }
+    },
+    "04_periodic_20hz": {
+      "archive_25us": {
+        "spikes": 60,
+        "reference_spikes": 60,
+        "same_spike_count": true,
+        "max_event_error_ms": 0.0401105807945612
+      },
+      "current_25us": {
+        "spikes": 60,
+        "reference_spikes": 60,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.0941914041495693e-08
+      },
+      "current_12p5us": {
+        "spikes": 60,
+        "reference_spikes": 60,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.6820989046095747e-09
+      },
+      "current_6p25us": {
+        "spikes": 60,
+        "reference_spikes": 60,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.5276668818842154e-09
+      }
+    },
+    "05_dc_4": {
+      "archive_25us": {
+        "spikes": 36,
+        "reference_spikes": 36,
+        "same_spike_count": true,
+        "max_event_error_ms": 1.138423385675047
+      },
+      "current_25us": {
+        "spikes": 36,
+        "reference_spikes": 36,
+        "same_spike_count": true,
+        "max_event_error_ms": 4.447819890174287e-08
+      },
+      "current_12p5us": {
+        "spikes": 36,
+        "reference_spikes": 36,
+        "same_spike_count": true,
+        "max_event_error_ms": 2.2369661678567354e-08
+      },
+      "current_6p25us": {
+        "spikes": 36,
+        "reference_spikes": 36,
+        "same_spike_count": true,
+        "max_event_error_ms": 6.195044477408373e-08
+      }
+    }
+  },
+  "convergence": {
+    "lab2_rings/tm_n03_w1": {
+      "dt_us": 6.25,
+      "spikes": [
+        1,
+        1,
+        1
+      ],
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\independent\\raw\\lab2_rings_tm_n03_w1_6p25us"
+    },
+    "lab2_rings/tm_n10_w1": {
+      "dt_us": 6.25,
+      "spikes": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "weights": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\independent\\raw\\lab2_rings_tm_n10_w1_6p25us"
+    },
+    "lab2_rings/exp_n10_w0p7": {
+      "dt_us": 6.25,
+      "spikes": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        99,
+        99,
+        99,
+        99,
+        99
+      ],
+      "weights": [
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7
+      ],
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\independent\\raw\\lab2_rings_exp_n10_w0p7_6p25us"
+    },
+    "lab3/f5": {
+      "dt_us": 6.25,
+      "spikes": [
+        140,
+        139
+      ],
+      "weights": [
+        1
+      ],
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\independent\\raw\\lab3_f5_6p25us"
+    },
+    "lab3/f100": {
+      "dt_us": 6.25,
+      "spikes": [
+        702,
+        1
+      ],
+      "weights": [
+        1
+      ],
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\independent\\raw\\lab3_f100_6p25us"
+    },
+    "lab4_updated/t1_pre_post_10Hz_dt25us": {
+      "dt_us": 6.25,
+      "spikes": [
+        1500,
+        1996
+      ],
+      "weights": [
+        0.7682419746327703
+      ],
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\independent\\raw\\lab4_updated_t1_pre_post_10Hz_dt25us_6p25us",
+      "replay_errors": [
+        9.95148408122759e-12
+      ]
+    },
+    "lab4_updated/t1_post_pre_10Hz_dt25us": {
+      "dt_us": 6.25,
+      "spikes": [
+        1500,
+        1500
+      ],
+      "weights": [
+        0.0009373168946014809
+      ],
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\independent\\raw\\lab4_updated_t1_post_pre_10Hz_dt25us_6p25us",
+      "replay_errors": [
+        7.743181096309115e-13
+      ]
+    },
+    "lab4_updated/t2a_triplet_pre_post_10Hz_dt25us": {
+      "dt_us": 6.25,
+      "spikes": [
+        1500,
+        1500
+      ],
+      "weights": [
+        0.6967759585834602
+      ],
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\independent\\raw\\lab4_updated_t2a_triplet_pre_post_10Hz_dt25us_6p25us",
+      "replay_errors": [
+        2.41184849869569e-11
+      ]
+    },
+    "lab4_updated/t2b_triplet_pre_post_pre_1Hz_dt25us": {
+      "dt_us": 6.25,
+      "spikes": [
+        300,
+        200
+      ],
+      "weights": [
+        0.14760117085686061
+      ],
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\independent\\raw\\lab4_updated_t2b_triplet_pre_post_pre_1Hz_dt25us_6p25us",
+      "replay_errors": [
+        1.6616430453808562e-12
+      ]
+    }
+  },
+  "reference_source_sha256": "1b19f3a70ad9ff07e77f26de3b916bde712a09c44d443a8ed8f38c914d3ba023"
+}

@@ -1,6 +1,7 @@
 #include "network.h"
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 #include <iostream>
 #include <limits>
 #include <stdexcept>
@@ -137,5 +138,38 @@ static void event_tests() {
         close(simultaneous.plasticity[0].weight,s.weight,2e-12,"Fresh simultaneous events learned a zero-lag pair.");
     }
 }
-int main(){try{stimulus_tests();kinetics_tests();event_tests();std::cout<<"PASS numerical regressions: "<<checks<<" checks\n";return 0;}
+static void projection_tests() {
+    // An inert, disconnected astrocyte forces the full-state localization path.
+    // Its constant coordinates add zero error and cannot alter the step bound.
+    for(auto model:{NeuronModel::Izhikevich,NeuronModel::HodgkinHuxley})for(int variant=0;variant<3;++variant) {
+        auto c=preset(4);c.duration=.04;c.sample=.00013;c.noise_sigma=2;c.noise_interval=.00073;
+        c.neurons.resize(3,c.neurons[0]);c.synapses.clear();c.astrocytes.clear();c.gaps.clear();
+        for(int k=0;k<3;++k) {auto& n=c.neurons[k];n.model=model;n.current=10+k;n.amplitude=5;n.start=.002101;n.stop=.039;n.frequency=100;n.width=13e-6;}
+        for(int k=0;k<3;++k) {
+            Synapse s;s.source=k;s.target=(k+1)%3;s.model=SynapseModel(k);s.gain=.7;s.conductance=.02;
+            s.tau_f=.012+.01*k;s.tau_d=.073+.01*k;s.tau_syn=.002+.001*k;
+            s.delay=.000031*k;s.stdp=true;s.stdp_rule=StdpRule(variant);s.stdp_timing=variant==1?StdpTiming::Emission:StdpTiming::Arrival;
+            c.synapses.push_back(s);
+        }
+        for(int k:{na::O_N,na::Omega_N,na::O_G,na::Omega_S,na::Omega_G,na::O_beta,na::O_delta,na::O_3K,na::Omega_5P,na::O_2,na::Omega_C,na::Omega_L,na::O_P})c.parameters[k]=0;
+        auto full=c;full.astrocytes={{}};full.astrocytes[0].feedback=false;full.astrocytes[0].threshold=1;
+        Simulator projected(c),reference(full);finish(projected);finish(reference);
+        auto bits=[&](const State& a,const State& b){return a.size()==b.size() && std::memcmp(a.data(),b.data(),a.size()*sizeof(double))==0;};
+        require(std::memcmp(projected.state.data(),reference.state.data(),projected.state.size()*sizeof(double))==0,"Projected root search changed terminal state bits.");
+        require(projected.spikes==reference.spikes && projected.steps==reference.steps,"Projected root search changed counters.");
+        require(projected.history.events.size()==reference.history.events.size() && !projected.history.events.empty(),"Projected root fixture lacks matching events.");
+        for(size_t i=0;i<projected.history.events.size();++i) {
+            const auto& a=projected.history.events[i];const auto& b=reference.history.events[i];
+            require(a.time==b.time && a.index==b.index && a.astro==b.astro,"Projected root search changed localized events.");
+        }
+        require(bits(projected.history.time,reference.history.time),"Projected root search changed sample clock bits.");
+        for(size_t i=0;i<projected.history.values.size();++i)require(bits(projected.history.values[i],reference.history.values[i]),"Projected root search changed history bits.");
+        for(size_t i=0;i<c.synapses.size();++i) {
+            const auto& a=projected.plasticity[i];const auto& b=reference.plasticity[i];
+            State x={a.weight,a.pre_trace,a.post_trace,a.post_slow_trace},y={b.weight,b.pre_trace,b.post_trace,b.post_slow_trace};
+            require(bits(x,y) && bits(projected.history.weights[i],reference.history.weights[i]),"Projected root search changed learning bits.");
+        }
+    }
+}
+int main(){try{stimulus_tests();kinetics_tests();event_tests();projection_tests();std::cout<<"PASS numerical regressions: "<<checks<<" checks\n";return 0;}
 catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<'\n';return 1;}}

@@ -41,6 +41,21 @@ inline double recovered(double a,double b,double h) {
 class Flow {
     Vector k1,k2,k3,k4,stage,full,scratch;
     void rk4(const Vector& old,double h,Vector& out) {
+        if(nonlinear_prefix) {
+            // exact() replaces every suffix coordinate independently of stage.
+            // Keep identical nonlinear arithmetic; reuse the identical linear
+            // values at stages 2/3 and at stage 4/the final RK combination.
+            rhs(old,k1);
+            for(size_t i=0;i<nonlinear_prefix;++i)stage[i]=old[i]+h*.5*k1[i];
+            exact(old,h*.5,stage);rhs(stage,k2);
+            for(size_t i=0;i<nonlinear_prefix;++i)stage[i]=old[i]+h*.5*k2[i];
+            rhs(stage,k3);
+            for(size_t i=0;i<nonlinear_prefix;++i)stage[i]=old[i]+h*k3[i];
+            exact(old,h,stage);rhs(stage,k4);
+            out=stage;
+            for(size_t i=0;i<nonlinear_prefix;++i)out[i]=old[i]+h/6*(k1[i]+2*k2[i]+2*k3[i]+k4[i]);
+            return;
+        }
         rhs(old,k1);
         for(size_t i=0;i<old.size();++i)stage[i]=old[i]+h*.5*k1[i];
         exact(old,h*.5,stage);rhs(stage,k2);
@@ -52,8 +67,13 @@ class Flow {
         exact(old,h,out);
     }
 public:
+    // Opt-in only: all remaining coordinates MUST have independent exact flow,
+    // and exact() MUST leave this prefix unchanged. Zero keeps the general path.
+    size_t nonlinear_prefix=0;
     std::function<void(const Vector&,Vector&)> rhs;
     std::function<void(const Vector&,double,Vector&)> exact;
+    // Optional projection of sample() onto an independent threshold coordinate.
+    std::function<double(const Vector&,double,int)> threshold_sample;
     Vector half,next;
     explicit Flow(size_t size=0):k1(size),k2(size),k3(size),k4(size),stage(size),full(size),scratch(size),half(size),next(size) {}
     void sample(const Vector& old,double h,Vector& out) {
@@ -91,8 +111,10 @@ public:
             const auto& e=thresholds[c.index];
             for(int iter=0;iter<60 && c.high-c.low>tolerance;++iter) {
                 const double mid=c.low+(c.high-c.low)*.5;
-                sample(old,mid,next);
-                if(next[e.coordinate]>=e.value-threshold_tolerance(e.value))c.high=mid;else c.low=mid;
+                double value;
+                if(threshold_sample)value=threshold_sample(old,mid,e.coordinate);
+                else {sample(old,mid,next);value=next[e.coordinate];}
+                if(value>=e.value-threshold_tolerance(e.value))c.high=mid;else c.low=mid;
             }
             first=std::min(first,c.high);
         }

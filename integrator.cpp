@@ -5,19 +5,72 @@
 #include <stdexcept>
 
 namespace studio {
+double Simulator::neuron_threshold_sample(const State& old,double h,int coordinate) const {
+    // Without astrocytes, each neuron's between-event flow depends only on its
+    // own state and independent incoming activity tails. Preserve the full
+    // solver's arithmetic and edge summation order, including both half steps.
+    const auto& c=config;const auto& p=c.parameters;
+    const int index=coordinate/4;const auto& n=c.neurons[index];const auto& edges=incoming[index];
+    State initial(4+edges.size());
+    for(int k=0;k<4;++k)initial[k]=old[coordinate+k];
+    for(size_t k=0;k<edges.size();++k)initial[4+k]=old[syn_offset(c,edges[k])+2];
+    numerical::Flow local(initial.size());
+    const double external=external_current(c,index,held_input_time);
+    local.rhs=[&](const State& y,State& dy) {
+        dy.assign(y.size(),0);double input=external;
+        for(size_t k=0;k<edges.size();++k) {
+            const int j=edges[k];const auto& s=c.synapses[j];if(!s.enabled)continue;
+            const double weight=plasticity[j].weight;
+            if(s.model==SynapseModel::ConductanceSTP)
+                input+=s.conductance*weight*y[4+k]*(s.reversal-y[0]);
+            else input+=weight*s.gain*y[4+k];
+        }
+        if(n.model==NeuronModel::Izhikevich) {
+            dy[0]=1000*(.04*y[0]*y[0]+5*y[0]+140-y[1]+input);
+            dy[1]=1000*n.izh_a*(n.izh_b*y[0]-y[1]);
+        } else na::hh_rhs(y.data(),dy.data(),0,input,p.data());
+    };
+    local.exact=[&](const State& y,double dt,State& out) {
+        double previous_tau=0,decay=0;
+        for(size_t k=0;k<edges.size();++k) {
+            const double tau=c.synapses[edges[k]].tau_syn;
+            if(tau!=previous_tau){decay=std::exp(-dt/tau);previous_tau=tau;}
+            out[4+k]=y[4+k]*decay;
+        }
+    };
+    local.sample(initial,h,local.next);return local.next[0];
+}
 void Simulator::exact_flow(const State& old,double h,State& out) const {
     const auto& c=config;const auto& p=c.parameters;
+    // These transitions depend only on h and the kinetic parameters, not state.
+    // Reuse the last parameter tuple within this call (no persistent solver state).
+    const double glutamate_decay=std::exp(-h*p[na::Omega_Y]);
+    const Synapse* previous=nullptr;
+    double facilitation_decay=0,recovery=0,active_decay=0,transfer=0;
     for(int i=0;i<int(c.synapses.size());++i) {
         const auto& s=c.synapses[i];const int b=syn_offset(c,i);
+        if(!previous || s.model!=previous->model || s.tau_f!=previous->tau_f ||
+           s.tau_d!=previous->tau_d || s.tau_syn!=previous->tau_syn) {
+            active_decay=std::exp(-h/s.tau_syn);
+            if(s.model!=SynapseModel::ExponentialCurrent) {
+                facilitation_decay=std::exp(-h/s.tau_f);
+                if(s.model==SynapseModel::TsodyksMarkram) {
+                    const double a=1/s.tau_d,r=1/s.tau_syn;
+                    recovery=-std::expm1(-a*h);
+                    transfer=numerical::recovered(a,r,h);
+                } else recovery=-std::expm1(-h/s.tau_d);
+            }
+            previous=&s;
+        }
         if(s.model!=SynapseModel::ExponentialCurrent) {
-            out[b]=old[b]*std::exp(-h/s.tau_f);
+            out[b]=old[b]*facilitation_decay;
             if(s.model==SynapseModel::TsodyksMarkram) {
-                const double z=1-old[b+1]-old[b+2],a=1/s.tau_d,r=1/s.tau_syn;
-                out[b+1]=old[b+1]+z*(-std::expm1(-a*h))+old[b+2]*numerical::recovered(a,r,h);
-            } else out[b+1]=old[b+1]+(1-old[b+1])*(-std::expm1(-h/s.tau_d));
+                const double z=1-old[b+1]-old[b+2];
+                out[b+1]=old[b+1]+z*recovery+old[b+2]*transfer;
+            } else out[b+1]=old[b+1]+(1-old[b+1])*recovery;
         } else {out[b]=old[b];out[b+1]=old[b+1];}
-        out[b+2]=old[b+2]*std::exp(-h/s.tau_syn);
-        out[b+3]=old[b+3]*std::exp(-h*p[na::Omega_Y]);
+        out[b+2]=old[b+2]*active_decay;
+        out[b+3]=old[b+3]*glutamate_decay;
     }
     for(int i=0;i<int(c.astrocytes.size());++i) {
         const int b=astro_offset(c,i);
@@ -106,8 +159,12 @@ bool Simulator::step() {
 }
 bool Simulator::step_impl() {
     const auto& c=config;const auto& p=c.parameters;
-    flow.rhs=[this](const State& y,State& dy){derivative(config,y,held_input_time,dy,&plasticity);};
+    flow.rhs=[this](const State& y,State& dy){derivative(config,y,held_input_time,dy,&plasticity,flow.nonlinear_prefix!=0);};
     flow.exact=[this](const State& y,double h,State& out){exact_flow(y,h,out);};
+    flow.threshold_sample={};
+    if(c.astrocytes.empty())flow.threshold_sample=[this](const State& y,double h,int coordinate) {
+        return neuron_threshold_sample(y,h,coordinate);
+    };
     const double macro_end=std::min(double(steps+1)*c.dt,c.duration);
     size_t pieces=0;
     while(time<macro_end) {

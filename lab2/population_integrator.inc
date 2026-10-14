@@ -25,14 +25,20 @@ bool Population::step() {
         }
     };
     flow.exact=[&](const State& old,double h,State& out) {
+        const double decay=std::exp(-h/s.tau_syn),glutamate_decay=std::exp(-h*p[na::Omega_Y]);
+        double facilitation_decay=0,recovery=0,transfer=0;
+        if(s.model==SynapseModel::TsodyksMarkram) {
+            facilitation_decay=std::exp(-h/s.tau_f);
+            recovery=-std::expm1(-h/s.tau_d);
+            transfer=numerical::recovered(1/s.tau_d,1/s.tau_syn,h);
+        }
         for(size_t i=0;i<count;++i) {
-            const size_t b=7*i;const double decay=std::exp(-h/s.tau_syn);
-            out[b+2]=old[b+2]*decay;out[b+5]=old[b+5]*decay;out[b+6]=old[b+6]*std::exp(-h*p[na::Omega_Y]);
+            const size_t b=7*i;
+            out[b+2]=old[b+2]*decay;out[b+5]=old[b+5]*decay;out[b+6]=old[b+6]*glutamate_decay;
             out[b+3]=old[b+3];out[b+4]=old[b+4];
             if(s.model==SynapseModel::TsodyksMarkram) {
-                out[b+3]=old[b+3]*std::exp(-h/s.tau_f);
-                out[b+4]=old[b+4]+(1-old[b+4]-old[b+5])*(-std::expm1(-h/s.tau_d))+
-                    old[b+5]*numerical::recovered(1/s.tau_d,1/s.tau_syn,h);
+                out[b+3]=old[b+3]*facilitation_decay;
+                out[b+4]=old[b+4]+(1-old[b+4]-old[b+5])*recovery+old[b+5]*transfer;
             }
         }
     };
@@ -43,6 +49,23 @@ bool Population::step() {
                v[b+4]<-1e-10||v[b+4]>1+1e-10||v[b+5]<-1e-10||v[b+6]<-1e-10||
                (s.model==SynapseModel::TsodyksMarkram && v[b+4]+v[b+5]>1+1e-10))return false;
         }return true;
+    };
+    flow.threshold_sample=[&](const State& old,double h,int coordinate) {
+        // Each homogeneous node is independent until the next delivery/reset.
+        // Project the same two-half-step RK flow; do not interpolate its root.
+        const size_t index=size_t(coordinate)/7;
+        // Resources and glutamate do not enter V/u/current between events.
+        State initial(old.begin()+coordinate,old.begin()+coordinate+3);
+        numerical::Flow local(3);
+        local.rhs=[&](const State& v,State& d) {
+            d.assign(3,0);
+            d[0]=1000*(.04*v[0]*v[0]+5*v[0]+140-v[1]+input[index]+v[2]);
+            d[1]=1000*n.izh_a*(n.izh_b*v[0]-v[1]);
+        };
+        local.exact=[&](const State& v,double dt,State& out) {
+            out[2]=v[2]*std::exp(-dt/s.tau_syn);
+        };
+        local.sample(initial,h,local.next);return local.next[0];
     };
     fired.clear();events.clear();samples.clear();sampled=false;
     const double macro_end=std::min(double(steps+1)*config.dt,config.duration);

@@ -1,0 +1,2490 @@
+{
+  "base_commit": "d8ddfcb88c9d66d387c9dd88c9888809f223b502",
+  "completed_at": "2026-10-14T03:48:26+03:00",
+  "archive_runs": 282,
+  "extra_dt_runs": 18,
+  "ctest": "9/9",
+  "binary_sha256": {
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe": "48f0f10a394b6ff09063f4ed471ca98dd5c9a3bcc3f4279ce3fc5853091aece3",
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe": "48e4d8d345324ddf9b4d57d1f9723dff86c56159e0348a5b6a1be6d6f590ab41",
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_population.exe": "c88003f2efad643d386b2fccc91465447a9a40cf1135b548f8074913acdbaf2f"
+  },
+  "raw_directory": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact",
+  "interfaces": [
+    {
+      "kind": "checkpoint_build",
+      "name": "03_autonomous",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true
+      }
+    },
+    {
+      "kind": "checkpoint_build",
+      "name": "exp_n10_w0p7",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true
+      }
+    },
+    {
+      "kind": "checkpoint_build",
+      "name": "f5",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true
+      }
+    },
+    {
+      "kind": "checkpoint_build",
+      "name": "t1_pre_post_1Hz_dt25us",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true
+      }
+    },
+    {
+      "kind": "checkpoint_build",
+      "name": "t2a_triplet_pre_post_10Hz_dt25us",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true
+      }
+    },
+    {
+      "kind": "checkpoint_build",
+      "name": "shortcut_seed00_noise3_dt25us",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true
+      }
+    },
+    {
+      "kind": "gui",
+      "name": "03_autonomous",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true,
+        "deliveries.csv": true,
+        "pending_deliveries.csv": true,
+        "summary.json": true,
+        "experiment.json": true
+      }
+    },
+    {
+      "kind": "gui",
+      "name": "exp_n10_w0p7",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true,
+        "deliveries.csv": true,
+        "pending_deliveries.csv": true,
+        "summary.json": true,
+        "experiment.json": true
+      }
+    },
+    {
+      "kind": "gui",
+      "name": "f5",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true,
+        "deliveries.csv": true,
+        "pending_deliveries.csv": true,
+        "summary.json": true,
+        "experiment.json": true
+      }
+    },
+    {
+      "kind": "gui",
+      "name": "t1_pre_post_1Hz_dt25us",
+      "byte_identical": {
+        "events.csv": true,
+        "trace.csv": true,
+        "weights.csv": true,
+        "deliveries.csv": true,
+        "pending_deliveries.csv": true,
+        "summary.json": true,
+        "experiment.json": true
+      }
+    }
+  ],
+  "bridge": {
+    "neurons": 500,
+    "duration_s": 0.2,
+    "spikes": 5624,
+    "per_node_counts_equal": true,
+    "max_event_difference_s": 9.811110257551547e-12,
+    "max_voltage_difference_mV": 1.152652728819703e-07,
+    "explanation": "The aggregated state has a different error-norm dimension; check numerical agreement, not bit equality."
+  },
+  "optimization": {
+    "cases": [
+      {
+        "name": "delay_transmission",
+        "exact": true,
+        "files": {
+          "events.csv": "4952a010cae6837c3cfd30b06226abd04108e5841da4e2061491474c0508e51b",
+          "trace.csv": "810ea3b99a2f93659b6c67ed23d8cf4cd87194d70263ecd9828b07a128706ad3",
+          "weights.csv": "768504168f62eeed3a0d841ede10be4e2f356823018473c6c660db7d6e857dd1",
+          "deliveries.csv": "f8adc1d7b500c7706a7c45455b0405c91838a27b616c6587edeebb40ad809934",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.16453570005251095,
+          "optimized": 0.7587402999633923
+        },
+        "speedup": 0.216853777320711,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\delay_transmission",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\delay_transmission",
+        "config_sha256": "557e481d3361549226089cb5154a7977e447a248ed42921aa675503178ed6589"
+      },
+      {
+        "name": "four_neurons",
+        "exact": true,
+        "files": {
+          "events.csv": "e50298d440db86dd36af1c063bea4485455fda1b764c0510b0fe76990fc94470",
+          "trace.csv": "dccaea0360e0c9e3170014331ed0af75b539981831f835410104bf7ef8ab55b2",
+          "weights.csv": "e28c2dbba3d26edede879522ce27b4abbd89f1104898cefea299fe17c3fa97ab",
+          "deliveries.csv": "4fedf48a079c347310dc903a995ea8e752d4cb7fe905fa64e1f21161bee07767",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.35614689998328686,
+          "optimized": 1.1328787000384182
+        },
+        "speedup": 0.314373374635086,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\four_neurons",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\four_neurons",
+        "config_sha256": "91016bc2208743ed85122e6ee5aceb9609bbcce06d644e5fda4cd79e97fcd8c0"
+      },
+      {
+        "name": "heterogeneous_delays",
+        "exact": true,
+        "files": {
+          "events.csv": "1072420a9c67842b0eb127c4468f3e61bf9182eacf4223cf1dcb8dd552629547",
+          "trace.csv": "9824f7958294b6ca1261f13a3cc168a12ad0888002d6339f3eed42d2559eee10",
+          "weights.csv": "6e51af0e02c515420db959605a145072d725c21bc94fa1e377d58e47563255df",
+          "deliveries.csv": "9e4faf8bf61ed2e0cc3eb36532ac023301d8cbfb2b34c9b56a053759c9e2642f",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.3665294999955222,
+          "optimized": 0.40823449997697026
+        },
+        "speedup": 0.8978405794125661,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\heterogeneous_delays",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\heterogeneous_delays",
+        "config_sha256": "fedb7a075b3f72f49f50373a3fc7b3e6751aa05d6ccfd124c773a641532a3eb4"
+      },
+      {
+        "name": "large_core",
+        "exact": true,
+        "files": {
+          "events.csv": "1d4d6ae8de9270e1a5d3705d1b11959392007c786b50d51b4d51449dc24d4a93",
+          "trace.csv": "ac2d8a3e8fa2061b0d591f2b6b37b4192fd53c70c3a0b3847e53436d890cc51d",
+          "weights.csv": "d5b09f06f7a37c0e4496cffdfadcfa849c9151bad3cb21ec6ab238b94b3a4cc6",
+          "deliveries.csv": "685fcf271f81e85cd9c9fa84bccdb80faccdef3fc9299a078b322c058ecd12ac",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 50.77582959999563,
+          "optimized": 20.190450399997644
+        },
+        "speedup": 2.514843829338327,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\large_core",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\large_core",
+        "config_sha256": "2a56e47f58f727e7e68a61a83e71382f2728c89eab52cd366ed79d314fe98aeb"
+      },
+      {
+        "name": "mixed_kinetics",
+        "exact": true,
+        "files": {
+          "events.csv": "58acfd0ccced7e7ba16464c2a0b31e15d93598f6b8e0202f078658317d8a9511",
+          "trace.csv": "4baa84d6f5dce800d7d894c1c5487c2078e6e03c989e6918a8bcc29a12c94718",
+          "weights.csv": "96ad52fa87daac6a20e4fc4477141a8358a12291a49bb656ad2fef9bfbe8ccdc",
+          "deliveries.csv": "2279c477e0cc5f04a717cc7eae7ca31ac930fa8489e61668d2ef957c741b1c2f",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.16441409999970347,
+          "optimized": 0.33290159999160096
+        },
+        "speedup": 0.4938819759468011,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\mixed_kinetics",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\mixed_kinetics",
+        "config_sha256": "40640d3ddf015aee0cb7e7b12257e6d74fca6cb11c12db58747cd2436201e68e"
+      },
+      {
+        "name": "preset_0",
+        "exact": true,
+        "files": {
+          "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+          "trace.csv": "a9d134b57da7e6c771cc3330af1f64e701ee76bc4174ebdf6d3d160b8171e641",
+          "weights.csv": "c563557306f9c10b70d0fa4a791d408280ed2e74930efe3a99b80aedf1a4dde1",
+          "deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.25942690001102164,
+          "optimized": 0.47125150001375005
+        },
+        "speedup": 0.5505062583428427,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\preset_0",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\preset_0",
+        "config_sha256": "705bfb04fa59cce0ace0021224e9a9e3ae63247a7c7178e396958ae5b7bab321"
+      },
+      {
+        "name": "preset_1",
+        "exact": true,
+        "files": {
+          "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+          "trace.csv": "a9d134b57da7e6c771cc3330af1f64e701ee76bc4174ebdf6d3d160b8171e641",
+          "weights.csv": "c563557306f9c10b70d0fa4a791d408280ed2e74930efe3a99b80aedf1a4dde1",
+          "deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.28263030003290623,
+          "optimized": 0.5108045999659225
+        },
+        "speedup": 0.5533041402754819,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\preset_1",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\preset_1",
+        "config_sha256": "687822d407e4116def954a2eaa24c493488a3452656c91f89a343c5d50fa6aa2"
+      },
+      {
+        "name": "preset_2",
+        "exact": true,
+        "files": {
+          "events.csv": "e50298d440db86dd36af1c063bea4485455fda1b764c0510b0fe76990fc94470",
+          "trace.csv": "dccaea0360e0c9e3170014331ed0af75b539981831f835410104bf7ef8ab55b2",
+          "weights.csv": "e28c2dbba3d26edede879522ce27b4abbd89f1104898cefea299fe17c3fa97ab",
+          "deliveries.csv": "4fedf48a079c347310dc903a995ea8e752d4cb7fe905fa64e1f21161bee07767",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.37094260001322255,
+          "optimized": 0.6557820000452921
+        },
+        "speedup": 0.5656492553738942,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\preset_2",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\preset_2",
+        "config_sha256": "91016bc2208743ed85122e6ee5aceb9609bbcce06d644e5fda4cd79e97fcd8c0"
+      },
+      {
+        "name": "preset_3",
+        "exact": true,
+        "files": {
+          "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+          "trace.csv": "1b4d7d9f661826823812ff53efe29093a3dd402c2ec5e66a72be87e3916a7f69",
+          "weights.csv": "61d158c2b1fce6779abd8bc2242fd9eb472e49078ead6e51cdb6104c4f23a688",
+          "deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.11749100004089996,
+          "optimized": 0.26115729997400194
+        },
+        "speedup": 0.44988595016335414,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\preset_3",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\preset_3",
+        "config_sha256": "e5dac5531e8a1b9e8db2c761ac9412d1438f32ee36ef7220463c1d1acaaa5b36"
+      },
+      {
+        "name": "preset_4",
+        "exact": true,
+        "files": {
+          "events.csv": "fea29c6fa9a69283e9b3a54da76ac9322320dea2280562c200848bb9e76e1c80",
+          "trace.csv": "be8ad53a23b408bfbdca8bcfb694e26b45d4d0de257bc62fc96f311dc99f3300",
+          "weights.csv": "f56542c022ca06dca9ffc94ae79d33ae50103f9f3d324c3fd7f37f65c1499cbe",
+          "deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.10271840001223609,
+          "optimized": 0.20297919999575242
+        },
+        "speedup": 0.5060538223344342,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\preset_4",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\preset_4",
+        "config_sha256": "dab005e023279f9fee07a465d4c8c52ab4f417712b5546a0c302e618e100225b"
+      },
+      {
+        "name": "preset_5",
+        "exact": true,
+        "files": {
+          "events.csv": "a6689274c9d4cb8f992b7d17322ac7675b53bc32cebf283ae8e1ec0090e5656e",
+          "trace.csv": "9f2c6bb1f2ff7ef63b7197f576e4c4f5407ebed9f0e1459949f6720a4f4694d2",
+          "weights.csv": "293a080e7218dc79fcea54ca3809db422dddffcd9fb8b6abb34806c4bf1813e0",
+          "deliveries.csv": "e1f8bcd18160b9cd0e14a674f233bd28b9bec5493c8b68518561ef89dba250c6",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.18974879995221272,
+          "optimized": 0.28435510001145303
+        },
+        "speedup": 0.6672952232774098,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\preset_5",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\preset_5",
+        "config_sha256": "64db21fb99cde1132b2b2192d8ae62fcbb5c206f09676c0eafda03c1ca0b3fb2"
+      },
+      {
+        "name": "preset_6",
+        "exact": true,
+        "files": {
+          "events.csv": "980213201b561e9e3f5444e6a7d09c16e214d83f9f0a35b043600d4c60df8905",
+          "trace.csv": "cd774a3a3fd099658d6e15395e57310cb6dd266044be3f2a965a720645e17e87",
+          "weights.csv": "76245626655f6e68850f009b7c47f53181ca72ebde8cc446abe9157d21dc5265",
+          "deliveries.csv": "e1f8bcd18160b9cd0e14a674f233bd28b9bec5493c8b68518561ef89dba250c6",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.1256703999824822,
+          "optimized": 0.21391619998030365
+        },
+        "speedup": 0.5874749083709102,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\preset_6",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\preset_6",
+        "config_sha256": "3c4403ea05d232b47e268cb89a0cb8289680044df33c49bfbb55b1d89bc929cc"
+      },
+      {
+        "name": "preset_7",
+        "exact": true,
+        "files": {
+          "events.csv": "a4641f733ee5bbd49d5a2deab5cc6e08864dfadb8f0ea675a4bd5b14d911d7d8",
+          "trace.csv": "a21f81919f0d77fad38d41e21ef6e7030ba90f360446623e269e979a99521068",
+          "weights.csv": "f41022dbaf0f4fcaf7f35b80d2abb5415053d287478c1e396883727a43727dd2",
+          "deliveries.csv": "e7ba475efdf4733c2c469260af44e9709c12c7e09f26d17724d319cbe8152c62",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.13511960004689172,
+          "optimized": 0.2222823000047356
+        },
+        "speedup": 0.6078738614996024,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\preset_7",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\preset_7",
+        "config_sha256": "69b51f89547c44fb48995df7d0f4a2661fdd863d98284a903da254bde9fb7bd6"
+      },
+      {
+        "name": "stdp_arrival",
+        "exact": true,
+        "files": {
+          "events.csv": "51eeb6588cc5af30948c5e3ed4718dc3e95b0294e71c991fc3409b6a1d529159",
+          "trace.csv": "1e75308b9930e7f4250e5e4098195789797997d20dac2a2a05f0a2cb55f6e44e",
+          "weights.csv": "cd4113dc8e519503b96ff454d2222b332c284b14ee55dcce39f08f5ad0a20737",
+          "deliveries.csv": "7478d59e3e95126a09e472b48fe8846ccc02f67e4554e6b12bcf786af46b01d2",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.13874759996542707,
+          "optimized": 0.2657594000338577
+        },
+        "speedup": 0.5220797456185958,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\stdp_arrival",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\stdp_arrival",
+        "config_sha256": "131b956d971e169b75f5cb678920d490c2ae79b79eb7406a2429ceee7f84b37f"
+      },
+      {
+        "name": "stdp_depression",
+        "exact": true,
+        "files": {
+          "events.csv": "a4641f733ee5bbd49d5a2deab5cc6e08864dfadb8f0ea675a4bd5b14d911d7d8",
+          "trace.csv": "a21f81919f0d77fad38d41e21ef6e7030ba90f360446623e269e979a99521068",
+          "weights.csv": "f41022dbaf0f4fcaf7f35b80d2abb5415053d287478c1e396883727a43727dd2",
+          "deliveries.csv": "e7ba475efdf4733c2c469260af44e9709c12c7e09f26d17724d319cbe8152c62",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.11288700002478436,
+          "optimized": 0.22071869997307658
+        },
+        "speedup": 0.511451907058869,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\stdp_depression",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\stdp_depression",
+        "config_sha256": "69b51f89547c44fb48995df7d0f4a2661fdd863d98284a903da254bde9fb7bd6"
+      },
+      {
+        "name": "stdp_emission",
+        "exact": true,
+        "files": {
+          "events.csv": "51eeb6588cc5af30948c5e3ed4718dc3e95b0294e71c991fc3409b6a1d529159",
+          "trace.csv": "1e75308b9930e7f4250e5e4098195789797997d20dac2a2a05f0a2cb55f6e44e",
+          "weights.csv": "85bdd3300888ddf335f39a7109f982143d91d63835886f079f3c1bbb59781ed4",
+          "deliveries.csv": "7478d59e3e95126a09e472b48fe8846ccc02f67e4554e6b12bcf786af46b01d2",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.13328870001714677,
+          "optimized": 0.27192420000210404
+        },
+        "speedup": 0.49016858380429335,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\stdp_emission",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\stdp_emission",
+        "config_sha256": "5bd2bfc87ba94c3b25e496bac00e5b2bfc8d87c49aa4c899377b3da7210860e5"
+      },
+      {
+        "name": "stdp_manual",
+        "exact": true,
+        "files": {
+          "events.csv": "deed0358389ab1f6e0db0cdab9c8cd623c528dbb82f233430f09cc1fcbc6482c",
+          "trace.csv": "ed71a39ac6cc5d9f849ecaf0fde4296f63599220c78e92493ef389c6e9bfd5c6",
+          "weights.csv": "92a8e129518e0953ec5380389b0deef0958612c6a200b04b9e1e12162da1e98a",
+          "deliveries.csv": "e1f8bcd18160b9cd0e14a674f233bd28b9bec5493c8b68518561ef89dba250c6",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.11370480002369732,
+          "optimized": 0.21515080000972375
+        },
+        "speedup": 0.5284888553449879,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\stdp_manual",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\stdp_manual",
+        "config_sha256": "e8fab868b803da233d54a9b61a35d4236f4be938022eab2cd460362c5dc84ebd"
+      },
+      {
+        "name": "stdp_potentiation",
+        "exact": true,
+        "files": {
+          "events.csv": "980213201b561e9e3f5444e6a7d09c16e214d83f9f0a35b043600d4c60df8905",
+          "trace.csv": "cd774a3a3fd099658d6e15395e57310cb6dd266044be3f2a965a720645e17e87",
+          "weights.csv": "76245626655f6e68850f009b7c47f53181ca72ebde8cc446abe9157d21dc5265",
+          "deliveries.csv": "e1f8bcd18160b9cd0e14a674f233bd28b9bec5493c8b68518561ef89dba250c6",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.11811300000408664,
+          "optimized": 0.22860559995751828
+        },
+        "speedup": 0.5166671333774656,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\stdp_potentiation",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\stdp_potentiation",
+        "config_sha256": "3c4403ea05d232b47e268cb89a0cb8289680044df33c49bfbb55b1d89bc929cc"
+      },
+      {
+        "name": "stdp_triplet",
+        "exact": true,
+        "files": {
+          "events.csv": "99359c5bd5ef8a8de9030f51915f0d78e7a1b5e8b3b346463c0e1a0a9a357927",
+          "trace.csv": "ce866f5bc71f23250a4bcf95ca7d2bce24fa6cdaa5fea2fca12e676f29129951",
+          "weights.csv": "373543f104827c121fed723bb60d8f5dbbb11b28ca32f0b7f795a4e53f8d1b68",
+          "deliveries.csv": "47613464411edccbc174aa63045ee925d05c11416b42e0569e7e3d1f098c6bb5",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.15077419998124242,
+          "optimized": 0.2566783999791369
+        },
+        "speedup": 0.5874050952222607,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\stdp_triplet",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\stdp_triplet",
+        "config_sha256": "f88eb1fca045e18ba628cf6cc80e6f1a6ebad3746ab7657259e04572785fbcaa"
+      },
+      {
+        "name": "stdp_triplet_burst",
+        "exact": true,
+        "files": {
+          "events.csv": "0da087c259c45efb9cdca963d36b9ecbbde6c71f481d99b3dfe170e72b9ca22c",
+          "trace.csv": "a373f77bb8b279d44f5bd2e5f8eecc816dffcd8363551192458a1baba925f924",
+          "weights.csv": "c5c9a32c2f0e5fd4e567d146ab956decdde787a20a701d5bc8077e34290dbcb1",
+          "deliveries.csv": "443e5e454ade694f6e510c6ce0105922aac517b7ca9b00a7b0ca8e85e72da024",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.15424990002065897,
+          "optimized": 0.287755900004413
+        },
+        "speedup": 0.5360442653592625,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\stdp_triplet_burst",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\stdp_triplet_burst",
+        "config_sha256": "201c0405b177503dfe6152fc85a9bd4781ac29757a3a04206a1052925f569b10"
+      },
+      {
+        "name": "tm",
+        "exact": true,
+        "files": {
+          "events.csv": "2ecf304f18460fd5915644316777f07e091431d191e4f762023f9a9e22e63c29",
+          "trace.csv": "3700dff5d8928bba5c4c5db8e99823aa173fcac8a346c0ca850a10c04f0073be"
+        },
+        "full_checkpoint": false,
+        "wall_seconds": {
+          "original": 1.6810402999981306,
+          "optimized": 0.890018800040707
+        },
+        "speedup": 1.8887694281528036,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\tm",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\tm",
+        "config_sha256": "0a958740497487527a9ca15289d829b6d3496ad314fe3423216cdedba510870b"
+      },
+      {
+        "name": "tsodyks_markram_active",
+        "exact": true,
+        "files": {
+          "events.csv": "3a409e4efe8dbe1f6b541eaedb2cee3f85ba4c357f8ac7a975e73d31e9be0c04",
+          "trace.csv": "1a16890aa184b6ab7eb5ffc3ce6dd23d9c41a36880ac2aef6ed13dd4763e78f6"
+        },
+        "full_checkpoint": false,
+        "wall_seconds": {
+          "original": 339.1538211000152,
+          "optimized": 10.898595499980729
+        },
+        "speedup": 31.119039246902492,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\tsodyks_markram_active",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\tsodyks_markram_active",
+        "config_sha256": "a2938e5a76173ad9d08ddc7da9b24ce110a9fa52f9611ef06ebcc8d85fba81ca"
+      },
+      {
+        "name": "two_inputs",
+        "exact": true,
+        "files": {
+          "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+          "trace.csv": "a9d134b57da7e6c771cc3330af1f64e701ee76bc4174ebdf6d3d160b8171e641",
+          "weights.csv": "c563557306f9c10b70d0fa4a791d408280ed2e74930efe3a99b80aedf1a4dde1",
+          "deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.2709978999919258,
+          "optimized": 0.5190975000150502
+        },
+        "speedup": 0.5220558757922524,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\two_inputs",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\two_inputs",
+        "config_sha256": "705bfb04fa59cce0ace0021224e9a9e3ae63247a7c7178e396958ae5b7bab321"
+      },
+      {
+        "name": "without_feedback",
+        "exact": true,
+        "files": {
+          "events.csv": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407",
+          "trace.csv": "a9d134b57da7e6c771cc3330af1f64e701ee76bc4174ebdf6d3d160b8171e641",
+          "weights.csv": "c563557306f9c10b70d0fa4a791d408280ed2e74930efe3a99b80aedf1a4dde1",
+          "deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+          "pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+        },
+        "full_checkpoint": true,
+        "wall_seconds": {
+          "original": 0.26258960005361587,
+          "optimized": 0.6062367000267841
+        },
+        "speedup": 0.4331469870465025,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_verified\\original\\without_feedback",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\without_feedback",
+        "config_sha256": "687822d407e4116def954a2eaa24c493488a3452656c91f89a343c5d50fa6aa2"
+      },
+      {
+        "name": "exponential_current_active",
+        "exact": true,
+        "files": {
+          "events.csv": "46c6d66445033c7396233060e67584df19807b1ad6c20c74fdfaa73599c763a1",
+          "trace.csv": "ef5598c2ce8afb62b47c55437f34239239db36e0dabf81f581572a360a7fa38b"
+        },
+        "full_checkpoint": false,
+        "wall_seconds": {
+          "original": 22.585968200000934,
+          "optimized": 7.383683799998835
+        },
+        "speedup": 3.0589024139961816,
+        "original_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261013_release\\optimization_exponential_control\\original\\exponential_current_active",
+        "optimized_prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\optimization_verified\\optimized\\exponential_current_active",
+        "config_sha256": "ad043e82cdde63e4f21ff3f54760c000193e1707e16a5be9db159ddc1a35ba41"
+      }
+    ],
+    "original_binaries": {
+      "network_studio.exe": "8e08f066ad17e18543a3414526611cf65c40a4b873f34f2c4285e7f306f5051a",
+      "network_studio_cli.exe": "b02af92a826b931fb99f5ac55d246093504a0cc881d791ec92fa9194c741fb64",
+      "network_studio_population.exe": "c93ee03e9c1391a5243904b90a77a507d42e9e87cbfce7be5d8e55397ef08c65"
+    },
+    "optimized_binaries": {
+      "network_studio.exe": "48f0f10a394b6ff09063f4ed471ca98dd5c9a3bcc3f4279ce3fc5853091aece3",
+      "network_studio_cli.exe": "48e4d8d345324ddf9b4d57d1f9723dff86c56159e0348a5b6a1be6d6f590ab41",
+      "network_studio_population.exe": "c88003f2efad643d386b2fccc91465447a9a40cf1135b548f8074913acdbaf2f"
+    }
+  },
+  "optimization_archive": {
+    "cases": 154,
+    "csv_files": 770,
+    "results": [
+      {
+        "group": "lab1",
+        "name": "01_rest",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "02_reference_30x3ms",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "02_single_pulse",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "03_autonomous",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "04_periodic_02hz",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "04_periodic_10hz",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "04_periodic_20hz",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "04_reference_10hz_30x3ms",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "05_dc_4",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "06_noise_global_0",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "06_noise_global_5",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "06_noise_global_8",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "07_noise_individual",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "fine_01_rest",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "fine_02_single_pulse",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "fine_03_autonomous",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "fine_04_periodic_02hz",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "fine_04_periodic_10hz",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "fine_04_periodic_20hz",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "fine_05_dc_4",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma5_seed101",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma5_seed11",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma5_seed23",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma5_seed42",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma5_seed71",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma8_seed101",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma8_seed11",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma8_seed23",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma8_seed42",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "noise_sigma8_seed71",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "repeat_noise",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_0p00",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_2p00",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_3p00",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_3p50",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_3p70",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_3p75",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_3p80",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_3p90",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_4p00",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_4p20",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_4p50",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_5p00",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_6p00",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1",
+        "name": "sweep_dc_8p00",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "02_reference_30x3ms_12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "02_reference_30x3ms_1us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "02_reference_30x3ms_2us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "02_reference_30x3ms_50us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "02_reference_30x3ms_5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "03_autonomous_5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "04_reference_10hz_30x3ms_12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "05_dc_4_5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "individual_zero_global8",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "noise_sigma5_seed42_12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "noise_sigma8_seed42_12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "reference_02hz_30x3ms",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "reference_02hz_30x3ms_12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "reference_20hz_30x3ms",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "reference_20hz_30x3ms_12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "reference_20hz_30x3ms_5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_dc3p8_12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_0p0_seed42",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_0p0_seed42_individual",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p0_seed101",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p0_seed11",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p0_seed23",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p0_seed42",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p0_seed42_individual",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p0_seed71",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p5_seed101",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p5_seed11",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p5_seed23",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p5_seed42",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p5_seed42_individual",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_noise_global_4p5_seed71",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_pulse_20hz",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_pulse_20hz_dt125",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_pulse_20hz_dt50",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab1_extra",
+        "name": "user_pulse_2hz",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_ring11",
+        "name": "tm_n11_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_ring11",
+        "name": "tm_n11_w1_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n03_w0",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n03_w0p2",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n03_w0p5",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n03_w0p7",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n03_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n04_w0",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n04_w0p2",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n04_w0p5",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n04_w0p7",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n04_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n10_w0",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n10_w0p2",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n10_w0p5",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n10_w0p7",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n10_w0p7_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "exp_n10_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n03_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n03_w1_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n03_w1_noise3",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n04_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n04_w1_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n04_w1_noise3",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n05_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n05_w1_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n06_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n06_w1_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n07_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n07_w1_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n08_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n08_w1_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n09_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n09_w1_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w0",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w0_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w0p2",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w0p2_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w0p5",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w0p5_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w0p7",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w0p7_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w1_dt12p5us",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab2_rings",
+        "name": "tm_n10_w1_noise3",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f0p1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f0p1_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f0p5",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f0p5_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f10",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f100",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f100_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f10_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f1_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f25",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f25_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f5",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f50",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f50_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "f5_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3",
+        "name": "single_spike_control",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f0p1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f0p5",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f1",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f10",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f100",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f100_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f25",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f5",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f50",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f50_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_calibrated",
+        "name": "calibrated_f5_fine",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      },
+      {
+        "group": "lab3_network_convergence",
+        "name": "network_benchmark",
+        "byte_identical": {
+          "events.csv": true,
+          "trace.csv": true,
+          "weights.csv": true,
+          "deliveries.csv": true,
+          "pending_deliveries.csv": true
+        }
+      }
+    ]
+  },
+  "integrity": {
+    "checked": 282,
+    "configurations_identical_after_explicit_migration": true,
+    "differences": [],
+    "repeats": {
+      "lab1": {
+        "trace.csv": true,
+        "events.csv": true
+      },
+      "lab2_populations": {
+        "trace.csv": true,
+        "events.csv": true
+      }
+    }
+  },
+  "source_manifest": {
+    "source_sha256": {
+      "network.h": "ed678b183e0216f8651f6babfee5eaec08dbff135cbd176ea8c9ff061d748147",
+      "network.cpp": "54696cb937c1a75c7e89180fcd0adf5c542a37b8cbf3fdce7591aca14b7daee3",
+      "integrator.cpp": "680232e7bdef8ed8d8ede8fb196128435fdac661daf03342aae3b626e9eea0ee",
+      "numerics/integrator.h": "50e375c4edb6afb74a68a36b56a77c21ef78619d8eb01fcbba54e2098284ec23",
+      "numerics_tests.cpp": "7e09382932c9e7cb2a8421422c1cfd533549197336951a1643dba6367db879f2",
+      "lab2/population_integrator.inc": "18619c795bca7e026a4178ece982a9c1da14ad01dadfd3e250bd83d873544f73",
+      "lab2/population.cpp": "92c4cac4c5e696af9a8011c46ba0f1f2dedf96210833657116005ffb548fde6b",
+      "lab2/population.h": "72b95263b08009405a10595fddd1551c89e7da42fc6a2fcca27e59da8353fee1",
+      "io.h": "21222bc6065dfc76025380804f76cced6fab9b7f32b47063ab5a09664af76f70",
+      "io.cpp": "2960ea3d2d924c3a274877f6d4a351d93eda24a7034f331f6b776713819037dd",
+      "checkpoint.cpp": "89bb26422d82d0393165302fd4caf6207cabe2e39de5bb962e27718780d012fa",
+      "cli.cpp": "c87f325cacfda199744e81b55f6c929d8c50c364adf1ba2f5823e4960daf5f80",
+      "gui.h": "27a96aa16c4d9c272de25de81528a36b3e5f2bbf0d7b0fd14175b1a007fd0c25",
+      "gui.cpp": "1d7684e97bfbba7f10ae5154219e4945872b38faf69930755977c84f83c9181c",
+      "CMakeLists.txt": "099edb8b1ffeeb4ee64ecd1737dafac7a2861ae2bfcee395ce1a3bf8b3953127",
+      "build.ps1": "e83c5899b40ab6016f00e89e0518f3f94158f13fa22fa54d20f829de17a8efe9"
+    },
+    "created_at_epoch": 1791926810.8331835,
+    "stage": "independent linear suffix, exact bitwise validation passed"
+  },
+  "environment": {
+    "os": "Windows-11-10.0.26100-SP0",
+    "python": "3.12.14",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "compiler": "MSVC",
+    "compiler_version": "19.44.35217.0"
+  },
+  "burst_convergence": {
+    "duration_s": 0.5,
+    "reason": "Archive 0.1 Hz changes 4864 to 7438 spikes; earlier 0.2 s refinement missed burst tail.",
+    "executable_sha256": "48e4d8d345324ddf9b4d57d1f9723dff86c56159e0348a5b6a1be6d6f590ab41",
+    "reference_dt_us": 6.25,
+    "rows": [
+      {
+        "dt_us": 25.0,
+        "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\lab3_network\\raw\\network_net1_0p1Hz",
+        "source": "completed 30-second replay, restricted to [0, 0.5)",
+        "spikes": 2495,
+        "active_neurons": 495,
+        "last_spike_s": 0.36976581859067126,
+        "same_per_neuron_counts_as_finest": true,
+        "max_event_difference_ms": 0.01836837029134397,
+        "recorded_voltage_rms_difference_mV": 0.00024177521085564786
+      },
+      {
+        "dt_us": 12.5,
+        "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us",
+        "command": [
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\binaries\\network_studio_cli.exe",
+          "--config",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us.json",
+          "--output",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us"
+        ],
+        "wall_seconds": 147.75074124336243,
+        "config_sha256": "a50d1284cd0af42502b3f7551ff9b275ea20af6a1181dd5d880766f0bd80bc57",
+        "outputs_sha256": {
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_cli.log": "f62424632d16e41196d67392ee29291264fb64fb90592c071f2c21d7326b7d36",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_deliveries.csv": "6af10154fd9a7dccf1aef928bbba361664f20f6d09d15dd33d7b6eadd061704c",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_events.csv": "03abddabacba3c485a6d3ec30663af7ae8ec4d0f9a799cb7b493fed824f4ddae",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_experiment.json": "ce0e2ef62e6f5e833d5518ca94c7b82499133921d4da0ece9c5e4d0c3b6499c1",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_summary.json": "94e2e547db87a8b475a5c370299f136cbfa23bdbedd019b8a1818fc2cc38af86",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_trace.csv": "4777a78953c7fc460c72fbdb161a6b353a74580a4f98f6ae75e392bf008a65a7",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_weights.csv": "6eaf7056db45d921a03b79e5e8a284772f052a615bc0174ccaa4d7325c1bcf7f"
+        },
+        "spikes": 2495,
+        "active_neurons": 495,
+        "last_spike_s": 0.36976592266494407,
+        "same_per_neuron_counts_as_finest": true,
+        "max_event_difference_ms": 0.004307855366314506,
+        "recorded_voltage_rms_difference_mV": 6.39696066176403e-05
+      },
+      {
+        "dt_us": 6.25,
+        "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us",
+        "command": [
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\binaries\\network_studio_cli.exe",
+          "--config",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us.json",
+          "--output",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us"
+        ],
+        "wall_seconds": 548.3840622901917,
+        "config_sha256": "e449011b7c0e682f9b2a37a311b467e07ea4d010a8940605b64db617e2d6bfec",
+        "outputs_sha256": {
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_cli.log": "9d9f10da21755eac906f42023ac5789b0924cc6bee825d641064865b2f4c48d4",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_deliveries.csv": "2f392289c8777e6dd1c7fd633e5b69de194426c9c2eaf60b27286dc55546f9a9",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_events.csv": "edcfa69005a4b027ee682c4d1717bb5404b8834937175f4d27be29f5f6ad78a2",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_experiment.json": "30568dc30494f39b4eff0fc7be6518311c9ca7bac085e1e5baf82e31eb2626e3",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_summary.json": "619d8a701db5c243d8d7d5ae0329402e97b3436041f573914cf687d9710f04ee",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_trace.csv": "e6f853a1bb1605890e7af5b0111dacaec17767861e2c0bfcde2f94c828d2038a",
+          "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_weights.csv": "6eaf7056db45d921a03b79e5e8a284772f052a615bc0174ccaa4d7325c1bcf7f"
+        },
+        "spikes": 2495,
+        "active_neurons": 495,
+        "last_spike_s": 0.36976595953274516,
+        "same_per_neuron_counts_as_finest": true,
+        "max_event_difference_ms": 0.0,
+        "recorded_voltage_rms_difference_mV": 0.0
+      }
+    ]
+  },
+  "progress_reconciliation": {
+    "reason": "The completed main dispatcher reported WinError 5 while atomically replacing progress.json. Native worker results completed independently.",
+    "verified_records": 241,
+    "native_returncodes": [
+      0
+    ],
+    "simulation_reruns": 0,
+    "original_log_sha256": "9caf0b63b49fe3585bbf45395e435c06b3332347304dac12ab392c45898dbce4"
+  },
+  "report_sha256": "3c5546a30f20e7dfe1ef0466ac6927379a61678d61ae81c716f9239969a58d19",
+  "script_sha256": {
+    "analyze.py": "d99247023d5359719826f0dbc29014349ecb4c537ce18e757f28332ac15bf9c6",
+    "bridge.py": "a6e8625dfbb8b706ca370a60c5686550f59d253352693d4f6443f7b33f60bca9",
+    "burst_convergence.py": "19b55935922f36948f53845dbd5b2bce484e4921111e09db586ac58c308f6c15",
+    "compare_optimization_archive.py": "82d30d107aada35c1944248f01df09fdb876240ed9889deb7509749d6a8a7575",
+    "complete_queued_benchmarks.py": "d22f01a4bfa34158b6d4c871e37404fbb99093099c8819dd61dc2a3dbac54487",
+    "extras.py": "8026654ef306f79418a983fac611f29f41f3ed7a667a8b47df240035899e7f6f",
+    "finalize.py": "4358d7a28972eed787a70d1868de753f88b10ad8cbd423cb53b2dd9e8a347c3b",
+    "finalize_optimization.py": "02ed648c5945999d0024263223289274c985e16094588653a909980d346cba82",
+    "independent.py": "ae66bdb2b945605b0eb93a02dfd1125dc807552baaeab43b62715abcac41d586",
+    "integrity.py": "25d33005b1a4700aa8a3c3c045bf0df5316bbed8096fc24a3398208163bf2796",
+    "interface_controls.py": "98135c5e33af9bb156cc1df5943587d1e11f9516ebe22c0c8fccf64fa085e639",
+    "manifest_scope.py": "08d93e9e1fcd6c6e6294a87e7a5f54277252b554fcf5c5c9cb07ded38f29ac00",
+    "optimization.py": "f95d13eb84f56aec3c5f4aa31d11617f8c62fdd903817133ad8390bbc816bee3",
+    "plots.py": "a4d75d26fae9545204207180077a425bbb4d0d8513d040ab463c2429866ede0e",
+    "population_parallel.py": "d8231de66549e51a573248f2b4f027ff83524266a4398325ba128850d47e1795",
+    "queue_barrier.py": "4ddcc48b9169058624aade2b546ff1a80ce7f5462c118312aa9a9dcf85087237",
+    "reconcile_completed.py": "9f46cf3bbbaa3cd4fe7cf37087a69cde26f28b59a6654dcda0e9c5d558a9168e",
+    "replay.py": "9840cc46d7e1c47de9f626d051e7f9d212d0f3188793afffcaa8fd015599da38",
+    "report.py": "fce617d9ad3168160e7c99041aa4836441646ea6b8853f34ccb575e9ae32de24",
+    "validate_compact.py": "7b6c09dfd1d651a07b76a5b4dbcfaa204c03e63781be2872f7c534caa13011fb"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "duration_s": 0.5,
+  "reason": "Archive 0.1 Hz changes 4864 to 7438 spikes; earlier 0.2 s refinement missed burst tail.",
+  "executable_sha256": "48e4d8d345324ddf9b4d57d1f9723dff86c56159e0348a5b6a1be6d6f590ab41",
+  "reference_dt_us": 6.25,
+  "rows": [
+    {
+      "dt_us": 25.0,
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\lab3_network\\raw\\network_net1_0p1Hz",
+      "source": "completed 30-second replay, restricted to [0, 0.5)",
+      "spikes": 2495,
+      "active_neurons": 495,
+      "last_spike_s": 0.36976581859067126,
+      "same_per_neuron_counts_as_finest": true,
+      "max_event_difference_ms": 0.01836837029134397,
+      "recorded_voltage_rms_difference_mV": 0.00024177521085564786
+    },
+    {
+      "dt_us": 12.5,
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\binaries\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us.json",
+        "--output",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us"
+      ],
+      "wall_seconds": 147.75074124336243,
+      "config_sha256": "a50d1284cd0af42502b3f7551ff9b275ea20af6a1181dd5d880766f0bd80bc57",
+      "outputs_sha256": {
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_cli.log": "f62424632d16e41196d67392ee29291264fb64fb90592c071f2c21d7326b7d36",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_deliveries.csv": "6af10154fd9a7dccf1aef928bbba361664f20f6d09d15dd33d7b6eadd061704c",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_events.csv": "03abddabacba3c485a6d3ec30663af7ae8ec4d0f9a799cb7b493fed824f4ddae",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_experiment.json": "ce0e2ef62e6f5e833d5518ca94c7b82499133921d4da0ece9c5e4d0c3b6499c1",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_summary.json": "94e2e547db87a8b475a5c370299f136cbfa23bdbedd019b8a1818fc2cc38af86",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_trace.csv": "4777a78953c7fc460c72fbdb161a6b353a74580a4f98f6ae75e392bf008a65a7",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_12.5us_weights.csv": "6eaf7056db45d921a03b79e5e8a284772f052a615bc0174ccaa4d7325c1bcf7f"
+      },
+      "spikes": 2495,
+      "active_neurons": 495,
+      "last_spike_s": 0.36976592266494407,
+      "same_per_neuron_counts_as_finest": true,
+      "max_event_difference_ms": 0.004307855366314506,
+      "recorded_voltage_rms_difference_mV": 6.39696066176403e-05
+    },
+    {
+      "dt_us": 6.25,
+      "prefix": "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\binaries\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us.json",
+        "--output",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us"
+      ],
+      "wall_seconds": 548.3840622901917,
+      "config_sha256": "e449011b7c0e682f9b2a37a311b467e07ea4d010a8940605b64db617e2d6bfec",
+      "outputs_sha256": {
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_cli.log": "9d9f10da21755eac906f42023ac5789b0924cc6bee825d641064865b2f4c48d4",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_deliveries.csv": "2f392289c8777e6dd1c7fd633e5b69de194426c9c2eaf60b27286dc55546f9a9",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_events.csv": "edcfa69005a4b027ee682c4d1717bb5404b8834937175f4d27be29f5f6ad78a2",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_experiment.json": "30568dc30494f39b4eff0fc7be6518311c9ca7bac085e1e5baf82e31eb2626e3",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_summary.json": "619d8a701db5c243d8d7d5ae0329402e97b3436041f573914cf687d9710f04ee",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_trace.csv": "e6f853a1bb1605890e7af5b0111dacaec17767861e2c0bfcde2f94c828d2038a",
+        "E:\\asp\\26_27\\configurator\\verification\\labs_1_4_20261014_compact\\burst_convergence\\burst_6.25us_weights.csv": "6eaf7056db45d921a03b79e5e8a284772f052a615bc0174ccaa4d7325c1bcf7f"
+      },
+      "spikes": 2495,
+      "active_neurons": 495,
+      "last_spike_s": 0.36976595953274516,
+      "same_per_neuron_counts_as_finest": true,
+      "max_event_difference_ms": 0.0,
+      "recorded_voltage_rms_difference_mV": 0.0
+    }
+  ]
+}

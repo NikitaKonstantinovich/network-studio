@@ -1,0 +1,6 @@
+# Preserve the byte hashes of this audit snapshot across Windows checkouts.
+* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+README_RU.md text eol=lf
+.gitattributes text eol=lf
+# Matplotlib uses trailing separators inside generated SVG path attributes.
+figures/*.svg -whitespace

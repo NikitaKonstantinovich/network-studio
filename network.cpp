@@ -313,7 +313,7 @@ void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,do
 void update_synaptic_stdp(const Synapse& s,StdpState& state,uint64_t emitted,uint64_t arrived,uint64_t post,double dt) {
     update_stdp(s,state,s.stdp_timing==StdpTiming::Arrival ? arrived : emitted,post,dt);
 }
-void derivative(const Config& c,const State& y,double midpoint,State& dy,const std::vector<StdpState>* plasticity) {
+void derivative(const Config& c,const State& y,double midpoint,State& dy,const std::vector<StdpState>* plasticity,bool omit_synapse_kinetics) {
     if(y.size()!=size_t(dimension(c)))throw std::invalid_argument("State dimension does not match the network.");
     dy.assign(y.size(),0); const auto& p=c.parameters;
     std::array<double,MaxNeurons> input{};
@@ -322,11 +322,13 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
     for(int i=0;i<int(c.neurons.size());++i) input[i]=external_current(c,i,midpoint);
     for(int i=0;i<int(c.synapses.size());++i) {
         const auto& s=c.synapses[i]; int b=syn_offset(c,i);
-        if(s.model!=SynapseModel::ExponentialCurrent) {
-            dy[b]=-y[b]/s.tau_f;
-            dy[b+1]=(1-y[b+1]-(s.model==SynapseModel::TsodyksMarkram ? y[b+2] : 0))/s.tau_d;
+        if(!omit_synapse_kinetics) {
+            if(s.model!=SynapseModel::ExponentialCurrent) {
+                dy[b]=-y[b]/s.tau_f;
+                dy[b+1]=(1-y[b+1]-(s.model==SynapseModel::TsodyksMarkram ? y[b+2] : 0))/s.tau_d;
+            }
+            dy[b+2]=-y[b+2]/s.tau_syn; dy[b+3]=-p[na::Omega_Y]*y[b+3];
         }
-        dy[b+2]=-y[b+2]/s.tau_syn; dy[b+3]=-p[na::Omega_Y]*y[b+3];
         if (!s.enabled) continue;
         const double weight=plasticity ? (*plasticity)[i].weight : s.weight;
         if(s.model==SynapseModel::ConductanceSTP)
@@ -368,8 +370,10 @@ Simulator::Simulator(const Config& c):config(c) {
     if(!error.empty()) return;
     state=initial_state(c); history.values.resize(dimension(c));
     flow=numerical::Flow(state.size());
+    if(c.astrocytes.empty())flow.nonlinear_prefix=c.neurons.size()*4;
     history.weights.resize(c.synapses.size());
     outgoing.resize(c.neurons.size());
+    incoming.resize(c.neurons.size());
     suggested_step=c.dt;
     // Bind at each step as Simulator is movable (GUI replacement / test returns).
     for(int i=0;i<int(c.neurons.size());++i) {
@@ -386,6 +390,7 @@ Simulator::Simulator(const Config& c):config(c) {
         for(int k=0;k<4;++k)recorded_state.push_back(i*4+k);
     for(int i=0;i<int(c.synapses.size());++i) {
         outgoing[c.synapses[i].source].push_back(i);
+        incoming[c.synapses[i].target].push_back(i);
         if(synapse_mask[i]) {
             for(int k=0;k<4;++k)recorded_state.push_back(syn_offset(c,i)+k);
             recorded_weights.push_back(i);
