@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cmath>
 #include <cstdio>
+#include <limits>
 
 namespace studio {
 static const ImVec4 Teal(.25f,.84f,.72f,1),Blue(.38f,.65f,1,1),Gold(1,.74f,.36f,1),Muted(.58f,.65f,.74f,1),Rose(.93f,.43f,.53f,1);
@@ -25,14 +26,16 @@ void apply_style() {
     p.Colors[ImPlotCol_PlotBg]={.055f,.078f,.108f,1}; p.Colors[ImPlotCol_FrameBg]={.078f,.105f,.145f,1};
 }
 App::App() { reset(); }
-void App::reset() { running=false; simulation=std::make_unique<Simulator>(config); if(!simulation->error.empty())status=simulation->error; }
+void App::reset() { running=false; simulation=std::make_unique<Simulator>(config); plot_windows.data_changed(config); if(!simulation->error.empty())status=simulation->error; }
 void App::replace(Config c) {
     config=std::move(c); selected_kind=selected_index=0; preset_index=-1; filename.clear(); dirty=false;
     syn_plot=syn_view=0;
     for(int i=0;i<int(config.synapses.size());++i)if(config.synapses[i].stdp) {
         selected_kind=2;selected_index=syn_plot=i;syn_view=1;break;
     }
-    link_source=0; link_target=std::min(1,int(config.neurons.size())-1); reset(); status="Конфигурация загружена.";
+    link_source=0; link_target=std::min(1,int(config.neurons.size())-1); reset();
+    plot_windows.data_changed(config,true);plot_windows.embedded[3].object=syn_plot;plot_windows.embedded[3].view=syn_view;
+    status="Конфигурация загружена.";
 }
 void App::save(const std::filesystem::path& path) {
     try { save_config(config,path); filename=path; dirty=false; status="Конфигурация сохранена."; }
@@ -61,6 +64,7 @@ bool App::restore_state(const std::filesystem::path& path) {
         selected_kind=selected_index=0;preset_index=-1;filename.clear();
         neuron_plot=neuron_view=syn_plot=syn_view=astro_plot=0;drag_kind=drag_index=-1;
         link_source=0;link_target=std::min(1,int(config.neurons.size())-1);generation_preview.reset();status=std::move(message);
+        plot_windows.data_changed(config);
         return true;
     }catch(const std::exception& e){status=e.what();return false;}
 }
@@ -77,6 +81,12 @@ void App::advance() {
 }
 static bool scalar(const char* label,double& v,double lo,double hi,double speed=.01,const char* fmt="%.4g") {
     return ImGui::DragScalar(label,ImGuiDataType_Double,&v,float(speed),&lo,&hi,fmt,ImGuiSliderFlags_AlwaysClamp);
+}
+static bool scalar_min(const char* label,double& v,double lo,double speed=.01) {
+    const double before=v;
+    if(!ImGui::DragScalar(label,ImGuiDataType_Double,&v,float(speed),&lo,nullptr,"%.8g",ImGuiSliderFlags_AlwaysClamp))return false;
+    v=std::isfinite(v)?std::max(lo,v):before;
+    return v!=before;
 }
 static bool delay_settings(Synapse& s) {
     bool changed=false;double ms=s.delay*1000;
@@ -219,9 +229,9 @@ void App::network_wizard() {
             } else ImGui::TextDisabled(generation.synapse.model==SynapseModel::TsodyksMarkram?"Обучение весов выключено; короткая пластичность TM сохраняется.":"Обучение весов выключено.");
             ImGui::Separator();ImGui::BeginDisabled(generation_append);
             modified|=text("Имя новой сети",generation.name,120);
-            modified|=scalar("Расчёт, с",generation.duration,.001,120,.1);
+            modified|=scalar_min("Расчёт, с",generation.duration,.001,.1);
             double sample=generation.sample*1000;
-            if(scalar("Запись новой сети, мс",sample,.025,1000,.1)){generation.sample=sample*.001;modified=true;}
+            if(scalar_min("Запись новой сети, мс",sample,.025,.1)){generation.sample=sample*.001;modified=true;}
             ImGui::EndDisabled();ImGui::PopItemWidth();
             ImGui::TextWrapped(generation_append?"Новая группа создаётся без импульсных входов; общий шум и параметры текущего расчёта сохраняются. Добавьте стимулы нейронам в инспекторе.":"Новая сеть создаётся без внешних стимулов и шума. Добавьте вход нейрону в инспекторе.");
             ImGui::EndTabItem();
@@ -295,7 +305,7 @@ void App::editor() {
     }
     if(text("Название",config.name,120))edit();
     double end_time=config.duration;
-    if(scalar("Длительность, с",end_time,.001,120,.1)) {
+    if(scalar_min("Длительность, с",end_time,.001,.1)) {
         if(simulation->time==0){config.duration=end_time;edit();}
         else try {simulation->extend_duration(end_time);config.duration=end_time;dirty=true;status="Конечное время продлено; состояния и обучение сохранены.";}
         catch(const std::exception& e){status=e.what();}
@@ -304,9 +314,12 @@ void App::editor() {
     double dt=config.dt*1e6;
     if(scalar("Шаг, мкс",dt,1,50,1,"%.1f")){config.dt=dt*1e-6;edit();}
     double sample=config.sample*1000;
-    if(scalar("Запись, мс",sample,config.dt*1000,1000,.05)){config.sample=sample*.001;edit();}
+    if(scalar_min("Запись, мс",sample,config.dt*1000,.05)){config.sample=sample*.001;edit();}
     ImGui::PopItemWidth();
     if(ImGui::Checkbox("Записывать все состояния",&config.record_all))edit();
+    const auto rows=planned_samples(config.duration,config.sample);
+    if(rows<=MaxSamples)ImGui::TextDisabled("История: %zu / 1 000 000 отсчётов",rows);
+    else ImGui::TextDisabled("История: более 1 000 000 отсчётов");
     if(!config.record_all)ImGui::TextDisabled("Запись: %zu нейронов, %zu связей; события всех узлов",config.record_neurons.size(),config.record_synapses.size());
     ImGui::TextDisabled("%zu нейронов · %zu астроцитов · %zu синапсов",config.neurons.size(),config.astrocytes.size(),config.synapses.size());
     ImGui::Spacing();
@@ -421,7 +434,7 @@ void App::inspector() {
         if(scalar(n.model==NeuronModel::Izhikevich?"Импульс, ед. модели":"Импульс, мкА/см²",n.amplitude,-30,100,.1))edit();
         if(scalar("Частота, Гц",n.frequency,0,200,.5))edit();
         if(scalar("Начало, с",n.start,0,n.stop,.1))edit();
-        if(scalar("Конец, с",n.stop,n.start,120,.1))edit();
+        if(scalar_min("Конец, с",n.stop,n.start,.1))edit();
         double width=n.width*1000;
         ImGui::BeginDisabled(!n.pulse_intervals.empty());
         if(scalar("Ширина, мс",width,0,1000,.1)){n.width=width*.001;edit();}
@@ -435,7 +448,7 @@ void App::inspector() {
         if(ImGui::IsItemHovered())ImGui::SetTooltip("Интервалы внутри каждого периода, относительно поля «Начало, с».\nГраницы [от, до); амплитуда общая. Пустая таблица использует поле «Ширина».\nНапример: Начало=0, частота=1 Гц, интервалы 50–53 и 70–73 мс.");
         if(interval_table) {
             ImGui::TextWrapped("Интервалы от начала периода, мс. Упорядочены, не пересекаются.");
-            const double period=n.frequency>0?1/n.frequency:120.;
+            const double period=n.frequency>0?1/n.frequency:std::numeric_limits<double>::max();
             if(ImGui::BeginTable("pulse_intervals",3,ImGuiTableFlags_Borders|ImGuiTableFlags_SizingStretchProp)) {
                 ImGui::TableSetupColumn("От, мс");ImGui::TableSetupColumn("До, мс");ImGui::TableSetupColumn("",ImGuiTableColumnFlags_WidthFixed,25);
                 ImGui::TableHeadersRow();int remove=-1;
@@ -443,10 +456,10 @@ void App::inspector() {
                     auto& interval=n.pulse_intervals[i];ImGui::TableNextRow();
                     ImGui::TableSetColumnIndex(0);ImGui::SetNextItemWidth(-1);
                     double start_ms=interval.start*1000;
-                    if(scalar(("##pulse_start_"+std::to_string(i)).c_str(),start_ms,0,120000,.1)){interval.start=start_ms*.001;edit();}
+                    if(scalar_min(("##pulse_start_"+std::to_string(i)).c_str(),start_ms,0,.1)){interval.start=start_ms*.001;edit();}
                     ImGui::TableSetColumnIndex(1);ImGui::SetNextItemWidth(-1);
                     double stop_ms=interval.stop*1000;
-                    if(scalar(("##pulse_stop_"+std::to_string(i)).c_str(),stop_ms,0,120000,.1)){interval.stop=stop_ms*.001;edit();}
+                    if(scalar_min(("##pulse_stop_"+std::to_string(i)).c_str(),stop_ms,0,.1)){interval.stop=stop_ms*.001;edit();}
                     ImGui::TableSetColumnIndex(2);
                     if(ImGui::SmallButton(("×##pulse_delete_"+std::to_string(i)).c_str()))remove=i;
                 }
@@ -508,7 +521,7 @@ void App::inspector() {
         if(ImGui::Checkbox("STDP: обучение веса",&s.stdp)) {
             if(s.stdp) {
                 s.weight_min=std::min(s.weight_min,s.weight);s.weight_max=std::max(s.weight_max,s.weight);
-                syn_plot=selected_index;syn_view=1;
+                syn_plot=selected_index;syn_view=1;plot_windows.embedded[3].object=syn_plot;plot_windows.embedded[3].view=1;
             }
             edit();
         }
@@ -687,198 +700,37 @@ void App::canvas() {
     }
 }
 void App::plots(float height) {
-    title("РЕЗУЛЬТАТЫ");
-    ImGui::Checkbox("Следить за временем",&follow);ImGui::SameLine();ImGui::SetNextItemWidth(110);
-    scalar("Окно, с",window_seconds,.05,120,.05);ImGui::SameLine();
-    ImGui::TextDisabled("Колесо: масштаб · ЛКМ: панорама · Двойной клик: вписать");
-    const auto& s=*simulation; const auto& c=s.config;const auto& h=s.history;
-    bool valid=s.error.empty()||!h.time.empty();int count=int(h.time.size());
-    if(!valid||count==0) {ImGui::TextWrapped("Исправьте параметры модели для построения графиков.");return;}
-    auto axes=[&](const char* y,bool fast=false) {
-        ImPlot::SetupAxes("Время, с",y,0,follow?(ImPlotAxisFlags_AutoFit|(fast?ImPlotAxisFlags_RangeFit:0)):0);
-        if(follow)ImPlot::SetupAxisLimits(ImAxis_X1,fast?std::max(0.,s.time-window_seconds):0,std::max(fast?window_seconds:.1,s.time),ImPlotCond_Always);
-    };
-    auto line=[&](const std::string& label,int column,const ImVec4& col) {
-        if(column<0||column>=int(h.values.size())||h.values[column].size()!=h.time.size())return;
-        ImPlot::SetNextLineStyle(col);ImPlot::PlotLine(label.c_str(),h.time.data(),h.values[column].data(),count);
-    };
-    float plot_height=std::max(130.f,height-92);
-    // Notices and selectors consume different amounts of vertical space.
-    // Size the actual plot after those controls, so its axes stay in the panel.
-    auto plot_size=[&](float requested) {
-        return ImVec2(-1,std::max(65.f,std::min(requested,ImGui::GetContentRegionAvail().y-4)));
-    };
+    const char* names[]={"Потенциалы","Астроциты","Растр событий","Синапсы","Фазовый портрет","Нейрон / вход","Доставки"};
+    if(ImGui::Button("Новый график"))ImGui::OpenPopup("new_plot");
+    if(ImGui::BeginPopup("new_plot")) {
+        for(int i=0;i<7;++i)if(ImGui::MenuItem(names[i]))plot_windows.create(PlotKind(i));
+        ImGui::EndPopup();
+    }
+    ImGui::SameLine();if(ImGui::Button("Рабочее пространство…"))ImGui::OpenPopup("workspace_menu");
+    if(ImGui::BeginPopup("workspace_menu")) {
+        ImGui::MenuItem("Область docking",nullptr,&plot_windows.host_open);
+        if(ImGui::MenuItem("Пример: четыре графика"))plot_windows.demo();
+        if(ImGui::MenuItem("Сохранить рабочее пространство…")&&workspace_dialog)plot_windows.save(workspace_dialog(true));
+        if(ImGui::MenuItem("Открыть рабочее пространство…")&&workspace_dialog)plot_windows.load(workspace_dialog(false));
+        if(ImGui::MenuItem("Сбросить расположение окон"))plot_windows.reset_layout();
+        if(!plot_windows.message.empty())ImGui::TextWrapped("%s",plot_windows.message.c_str());
+        ImGui::EndPopup();
+    }
+    ImGui::SameLine();ImGui::TextDisabled("Колесо: масштаб · ЛКМ: панорама · Двойной клик: вписать");
     if(ImGui::BeginTabBar("plots")) {
-        if(ImGui::BeginTabItem("Потенциалы",nullptr,request_plot_tab==0?ImGuiTabItemFlags_SetSelected:0)) {
-            std::vector<int> shown;
-            for(int i=0;i<int(c.neurons.size());++i)if(records_neuron(c,i)&&shown.size()<32)shown.push_back(i);
-            if(selected_kind==0&&selected_index>=0&&selected_index<int(c.neurons.size())&&records_neuron(c,selected_index)&&
-               std::find(shown.begin(),shown.end(),selected_index)==shown.end())shown.push_back(selected_index);
-            if(shown.empty())ImGui::TextDisabled("Потенциалы не записывались. Включите запись нейронов в инспекторе и повторите расчёт.");
-            else if(!c.record_all)ImGui::TextDisabled("Показаны записанные нейроны. Состав записи меняется в инспекторе перед новым расчётом.");
-            else if(c.neurons.size()>32)ImGui::TextDisabled("Первые 32 нейрона и выбранный узел. Для сравнения отдельных узлов настройте запись в инспекторе.");
-            std::vector<std::vector<double>> peaks(c.neurons.size());
-            std::vector<bool> plotted(c.neurons.size(),false);for(int i:shown)plotted[i]=true;
-            for(const auto& e:h.events)if(!e.astro&&plotted[e.index]&&(!follow||e.time>=s.time-window_seconds))peaks[e.index].push_back(e.time);
-            if(ImPlot::BeginPlot("##voltages",plot_size(plot_height))) {
-                axes("V, мВ",true);
-                for(int i:shown) {
-                    const auto col=i%3==0?Teal:(i%3==1?Blue:Gold);
-                    const auto label="N"+std::to_string(i+1)+" "+c.neurons[i].name;
-                    line(label,i*4,col);
-                    if(c.neurons[i].model==NeuronModel::Izhikevich) {
-                        // Izhikevich state is recorded after reset; event markers retain the peak.
-                        const auto& times=peaks[i];std::vector<double> voltage(times.size(),c.neurons[i].izh_peak);
-                        ImPlot::SetNextMarkerStyle(ImPlotMarker_Circle,2.5f,col,1,col);
-                        ImPlot::PlotScatter(label.c_str(),times.data(),voltage.data(),int(times.size()));
-                    }
-                } ImPlot::EndPlot();
-            } ImGui::EndTabItem();
-        }
-        if(ImGui::BeginTabItem("Астроциты",nullptr,request_plot_tab==1?ImGuiTabItemFlags_SetSelected:0)) {
-            if(c.astrocytes.empty())ImGui::TextDisabled("Добавьте астроцит к сети.");
-            else if(ImPlot::BeginPlot("##astro",plot_size(plot_height))) {
-                axes("Ca / IP3, мкМ");
-                for(int i=0;i<int(c.astrocytes.size());++i) {
-                    int b=astro_offset(c,i);line("A"+std::to_string(i+1)+" Ca",b+2,i%2?Gold:Blue);
-                    line("A"+std::to_string(i+1)+" IP3",b+1,i%2?Teal:ImVec4(.72f,.56f,.94f,1));
-                }ImPlot::EndPlot();
-            } ImGui::EndTabItem();
-        }
-        if(ImGui::BeginTabItem("Растр событий",nullptr,request_plot_tab==2?ImGuiTabItemFlags_SetSelected:0)) {
-            if(ImPlot::BeginPlot("##raster",plot_size(plot_height))) {
-                const double start=follow&&c.neurons.size()>32?std::max(0.,s.time-window_seconds):0.;
-                ImPlot::SetupAxes("Время, с","Номер узла");
-                if(follow)ImPlot::SetupAxisLimits(ImAxis_X1,start,std::max(start+.1,s.time),ImPlotCond_Always);
-                ImPlot::SetupAxisLimits(ImAxis_Y1,.5,c.neurons.size()+c.astrocytes.size()+.5,ImPlotCond_Always);
-                std::vector<double> tx,ny,ta,ay;
-                const auto first=std::lower_bound(h.events.begin(),h.events.end(),start,[](const auto& e,double t){return e.time<t;});
-                for(auto it=first;it!=h.events.end();++it)if(it->astro){ta.push_back(it->time);ay.push_back(double(c.neurons.size()+it->index+1));}
-                    else {tx.push_back(it->time);ny.push_back(it->index+1.);}
-                ImPlot::SetNextMarkerStyle(ImPlotMarker_Cross,3,Teal,1,Teal);
-                ImPlot::PlotScatter("Нейроны",tx.data(),ny.data(),int(tx.size()));
-                ImPlot::SetNextMarkerStyle(ImPlotMarker_Diamond,5,Blue,1,Blue);
-                ImPlot::PlotScatter("Астроциты (после нейронов)",ta.data(),ay.data(),int(ta.size()));ImPlot::EndPlot();
-            } ImGui::EndTabItem();
-        }
-        if(ImGui::BeginTabItem("Доставки",nullptr,request_plot_tab==6?ImGuiTabItemFlags_SetSelected:0)) {
-            ImGui::Text("Доставлено: %llu · В очереди: %llu",static_cast<unsigned long long>(h.deliveries.size()),static_cast<unsigned long long>(s.pending_deliveries.size()));
-            ImGui::TextWrapped("Растр показывает генерацию нейронных спайков. Здесь — фактические приходы по связям. Полный журнал и будущая очередь экспортируются отдельно в CSV.");
-            if(ImGui::BeginTable("delivery_journal",5,ImGuiTableFlags_Borders|ImGuiTableFlags_RowBg|ImGuiTableFlags_ScrollY,{0,plot_height-60})) {
-                for(const char* label:{"Связь","Источник","Приёмник","t emit, с","t arrival, с"})ImGui::TableSetupColumn(label);
-                ImGui::TableSetupScrollFreeze(0,1);ImGui::TableHeadersRow();
-                ImGuiListClipper clip;clip.Begin(int(h.deliveries.size()));
-                while(clip.Step())for(int row=clip.DisplayStart;row<clip.DisplayEnd;++row) {
-                    const auto& e=h.deliveries[row];const auto& edge=c.synapses[e.synapse];
-                    ImGui::TableNextRow();ImGui::TableNextColumn();ImGui::Text("S%d",e.synapse+1);
-                    ImGui::TableNextColumn();ImGui::Text("N%d",edge.source+1);ImGui::TableNextColumn();ImGui::Text("N%d",edge.target+1);
-                    ImGui::TableNextColumn();ImGui::Text("%.12g",e.t_emit);ImGui::TableNextColumn();ImGui::Text("%.12g",e.t_arrival);
-                }ImGui::EndTable();
-            }ImGui::EndTabItem();
-        }
-        if(ImGui::BeginTabItem("Синапсы",nullptr,request_plot_tab==3?ImGuiTabItemFlags_SetSelected:0)) {
-            if(c.synapses.empty())ImGui::TextDisabled("Добавьте синапс к сети.");
-            else {
-                syn_plot=std::clamp(syn_plot,0,int(c.synapses.size())-1);ImGui::SetNextItemWidth(120);
-                int selected=syn_plot+1;ImGui::SliderInt("Синапс",&selected,1,int(c.synapses.size()),"S%d");syn_plot=selected-1;
-                ImGui::SameLine();ImGui::SetNextItemWidth(185);
-                const char* views[]={"Ресурсы и ток","Вес w(t)"};
-                ImGui::Combo("График связи",&syn_view,views,2);
-                const bool recorded=records_synapse(c,syn_plot)&&h.weights[syn_plot].size()==h.time.size();
-                const auto& selected_synapse=c.synapses[syn_plot];
-                const bool current_available=selected_synapse.model!=SynapseModel::ConductanceSTP||h.values[selected_synapse.target*4].size()==h.time.size();
-                if(!recorded)ImGui::TextWrapped("Состояние этой связи не записывалось. Включите «Записывать синапс» в инспекторе и запустите расчёт заново.");
-                else if(syn_view==0&&!current_available)ImGui::TextWrapped("Для тока проводимости включите запись нейрона-приёмника и повторите расчёт. Ресурсы синапса доступны.");
-                if(recorded&&syn_view==1&&ImPlot::BeginPlot("##synapse_weight",plot_size(plot_height-35))) {
-                    axes("Вес w");
-                    ImPlot::SetNextLineStyle(Teal);
-                    ImPlot::PlotLine("Текущий вес",h.time.data(),h.weights[syn_plot].data(),count);
-                    const auto& syn=c.synapses[syn_plot];
-                    const double span[]={h.time.front(),std::max(.1,h.time.back())};
-                    const double initial[]={syn.weight,syn.weight};
-                    ImPlot::SetNextLineStyle(Muted);
-                    ImPlot::PlotLine("Начальный вес",span,initial,2);
-                    if(syn.stdp) {
-                        const double minimum[]={syn.weight_min,syn.weight_min},maximum[]={syn.weight_max,syn.weight_max};
-                        ImPlot::SetNextLineStyle(Gold);ImPlot::PlotLine("Минимум",span,minimum,2);
-                        ImPlot::SetNextLineStyle(Gold);ImPlot::PlotLine("Максимум",span,maximum,2);
-                    }
-                    ImPlot::EndPlot();
-                } else if(recorded&&syn_view==0&&ImPlot::BeginPlot("##synapse",plot_size(plot_height-35))) {
-                    const auto& syn=c.synapses[syn_plot];int b=syn_offset(c,syn_plot);
-                    axes(syn.model==SynapseModel::TsodyksMarkram?"u, x, y, z":"u, x, s");
-                    ImPlot::SetupAxis(ImAxis_Y2,"I syn",ImPlotAxisFlags_Opposite|(follow?ImPlotAxisFlags_AutoFit:0));
-                    if(syn.model!=SynapseModel::ExponentialCurrent) {
-                        line("u: использование",b,Gold);line("x: ресурс",b+1,Teal);
-                    }
-                    line(syn.model==SynapseModel::TsodyksMarkram?"y: активный ресурс":"s: активация",b+2,Blue);
-                    if(syn.model==SynapseModel::TsodyksMarkram) {
-                        std::vector<double> inactive;inactive.reserve(count);
-                        for(int k=0;k<count;++k)inactive.push_back(1-h.values[b+1][k]-h.values[b+2][k]);
-                        ImPlot::SetNextLineStyle(ImVec4(.72f,.56f,.94f,1));
-                        ImPlot::PlotLine("z: неактивный ресурс",h.time.data(),inactive.data(),count);
-                    }
-                    std::vector<double> current;current.reserve(count);
-                    if(current_available)for(int k=0;k<count;++k) {
-                        double scale=syn.model==SynapseModel::ConductanceSTP?
-                            syn.conductance*(syn.reversal-h.values[syn.target*4][k]):syn.gain;
-                        current.push_back(syn.enabled?h.weights[syn_plot][k]*scale*h.values[b+2][k]:0);
-                    }
-                    if(current_available) {
-                        ImPlot::SetAxes(ImAxis_X1,ImAxis_Y2);ImPlot::SetNextLineStyle(ImVec4(.98f,.5f,.58f,1));
-                        ImPlot::PlotLine("Синаптический ток",h.time.data(),current.data(),count);
-                    }
-                    ImPlot::EndPlot();
-                }
-            } ImGui::EndTabItem();
-        }
-        if(ImGui::BeginTabItem("Фазовый портрет",nullptr,request_plot_tab==4?ImGuiTabItemFlags_SetSelected:0)) {
-            if(c.astrocytes.empty())ImGui::TextDisabled("Добавьте астроцит к сети.");
-            else {
-                astro_plot=std::clamp(astro_plot,0,int(c.astrocytes.size())-1);ImGui::SetNextItemWidth(120);
-                int selected=astro_plot+1;ImGui::SliderInt("Астроцит",&selected,1,int(c.astrocytes.size()),"A%d");astro_plot=selected-1;
-                if(ImPlot::BeginPlot("##phase",plot_size(plot_height-35))) {
-                    ImPlot::SetupAxes("IP3, мкМ","Ca, мкМ",follow?ImPlotAxisFlags_AutoFit:0,follow?ImPlotAxisFlags_AutoFit:0);
-                    int b=astro_offset(c,astro_plot);ImPlot::SetNextLineStyle(Blue);
-                    ImPlot::PlotLine("Траектория",h.values[b+1].data(),h.values[b+2].data(),count);ImPlot::EndPlot();
-                }
-            } ImGui::EndTabItem();
-        }
-        if(ImGui::BeginTabItem("Нейрон / вход",nullptr,request_plot_tab==5?ImGuiTabItemFlags_SetSelected:0)) {
-            neuron_plot=std::clamp(neuron_plot,0,int(c.neurons.size())-1);
-            int selected=neuron_plot+1;ImGui::SetNextItemWidth(120);
-            ImGui::SliderInt("Нейрон графика",&selected,1,int(c.neurons.size()),"N%d");neuron_plot=selected-1;
-            ImGui::SameLine();ImGui::SetNextItemWidth(185);
-            const char* views[]={"Внешний ток I(t)","Восстановление u(t)","Фаза V / u"};
-            const bool izh=c.neurons[neuron_plot].model==NeuronModel::Izhikevich;
-            if(!izh)neuron_view=0;
-            ImGui::Combo("Представление",&neuron_view,views,izh?3:1);
-            const float available=std::max(100.f,plot_height-35);
-            const bool recorded=h.values[neuron_plot*4].size()==h.time.size()&&h.values[neuron_plot*4+1].size()==h.time.size();
-            if(neuron_view!=0&&!recorded)ImGui::TextWrapped("Состояние этого нейрона не записывалось. Включите «Записывать нейрон» в инспекторе и запустите расчёт заново.");
-            if(neuron_view==0&&ImPlot::BeginPlot("##neuron_input",plot_size(available))) {
-                axes(izh?"I, ед. модели":"I, мкА/см²",true);
-                std::vector<double> input;input.reserve(count);
-                for(double t:h.time)input.push_back(external_current(c,neuron_plot,t));
-                ImPlot::SetNextLineStyle(Gold);ImPlot::PlotLine("DC + импульс + шум",h.time.data(),input.data(),count);
-                ImPlot::EndPlot();
-            } else if(recorded&&neuron_view==1&&ImPlot::BeginPlot("##neuron_recovery",plot_size(available))) {
-                axes("u",true);line("Переменная восстановления",neuron_plot*4+1,Teal);ImPlot::EndPlot();
-            } else if(recorded&&neuron_view==2&&ImPlot::BeginPlot("##neuron_phase",plot_size(available))) {
-                ImPlot::SetupAxes("V, мВ","u",follow?ImPlotAxisFlags_AutoFit:0,follow?ImPlotAxisFlags_AutoFit:0);
-                ImPlot::SetNextLineStyle(Teal);
-                ImPlot::PlotLine("Траектория V / u",h.values[neuron_plot*4].data(),h.values[neuron_plot*4+1].data(),count);
-                ImPlot::EndPlot();
-            }
+        for(int i=0;i<7;++i)if(ImGui::BeginTabItem(names[i],nullptr,request_plot_tab==i?ImGuiTabItemFlags_SetSelected:0)) {
+            ImGui::PushID(i);plot_windows.draw_view(plot_windows.embedded[i],*simulation,height-60,false);ImGui::PopID();
             ImGui::EndTabItem();
-        } ImGui::EndTabBar();
+        }
+        ImGui::EndTabBar();
     }
     request_plot_tab=-1;
 }
 void App::draw() {
     changed=false;advance();const auto* viewport=ImGui::GetMainViewport();
+    ImGui::SetNextWindowViewport(viewport->ID);
     ImGui::SetNextWindowPos(viewport->WorkPos);ImGui::SetNextWindowSize(viewport->WorkSize);
-    ImGui::Begin("Network Studio",nullptr,ImGuiWindowFlags_NoDecoration|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoSavedSettings);
+    ImGui::Begin("Network Studio",nullptr,ImGuiWindowFlags_NoDecoration|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoSavedSettings|ImGuiWindowFlags_NoDocking);
     toolbar();float width=ImGui::GetContentRegionAvail().x,height=ImGui::GetContentRegionAvail().y;
     float left=std::clamp(width*.23f,260.f,320.f),right=std::clamp(width*.25f,300.f,360.f);
     float bottom=std::clamp(height*.40f,260.f,340.f),top=height-bottom-8;
@@ -890,5 +742,6 @@ void App::draw() {
     ImGui::TextColored(simulation->error.empty()?Muted:ImVec4(1,.45f,.42f,1),"%s%s",dirty?"● ":"",status.c_str());
     network_wizard();
     ImGui::End();
+    plot_windows.draw(*simulation);
 }
 }

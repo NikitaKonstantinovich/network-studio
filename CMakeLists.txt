@@ -71,6 +71,12 @@ add_test(NAME checkpoint_process_resume COMMAND ${CMAKE_COMMAND}
     "-DCLI=$<TARGET_FILE:network_studio_cli>" "-DFIXTURES=$<TARGET_FILE:network_studio_checkpoint_tests>"
     "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/checkpoint-process" -P "${CMAKE_CURRENT_SOURCE_DIR}/checkpoint/process_test.cmake")
 add_test(NAME population_equivalence COMMAND network_studio_population --self-test)
+add_executable(network_studio_long_history_tests long_history_tests.cpp)
+target_link_libraries(network_studio_long_history_tests PRIVATE network_core)
+add_test(NAME long_history_limits COMMAND network_studio_long_history_tests)
+add_test(NAME long_history_process_resume COMMAND ${CMAKE_COMMAND}
+    "-DCLI=$<TARGET_FILE:network_studio_cli>" "-DFIXTURES=$<TARGET_FILE:network_studio_long_history_tests>"
+    "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/long-process" -P "${CMAKE_CURRENT_SOURCE_DIR}/long_runs/process_test.cmake")
 if(WIN32)
     # The CUDAynamics fork includes an unused fullscreen header which pulls in
     # the entire CUDA application. Remove only that include in a generated copy.
@@ -90,7 +96,7 @@ if(WIN32)
     write_generated("${CMAKE_CURRENT_BINARY_DIR}/implot_internal.h" "${IMPLOT_INTERNAL}")
     configure_file("${VENDOR}/implot/implot.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_standalone.cpp" COPYONLY)
     configure_file("${VENDOR}/implot/implot_items.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_items_standalone.cpp" COPYONLY)
-    add_library(studio_gui gui.cpp
+    add_library(studio_gui gui.cpp plot_windows.cpp plot_workspace.cpp
         "${CMAKE_CURRENT_BINARY_DIR}/imgui_standalone.cpp" "${VENDOR}/imgui/imgui_draw.cpp"
         "${VENDOR}/imgui/imgui_tables.cpp" "${VENDOR}/imgui/imgui_widgets.cpp"
         "${CMAKE_CURRENT_BINARY_DIR}/implot_standalone.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_items_standalone.cpp")
@@ -108,4 +114,11 @@ if(WIN32)
     target_include_directories(network_studio_gui_tests BEFORE PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
     target_link_libraries(network_studio_gui_tests PRIVATE studio_gui)
     add_test(NAME gui_interactions_and_plots COMMAND network_studio_gui_tests)
+    add_executable(network_studio_plot_tests plot_window_tests.cpp test_hooks_stub.cpp)
+    target_link_libraries(network_studio_plot_tests PRIVATE studio_gui)
+    add_test(NAME plot_windows_and_workspace COMMAND network_studio_plot_tests)
+    add_test(NAME win32_dx11_plot_viewports COMMAND ${CMAKE_COMMAND}
+        "-DGUI=$<TARGET_FILE:network_studio>" "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/viewport-smoke"
+        -P "${CMAKE_CURRENT_SOURCE_DIR}/plots/native_process_test.cmake")
+    set_tests_properties(win32_dx11_plot_viewports PROPERTIES RUN_SERIAL TRUE)
 endif()

@@ -9,9 +9,10 @@
 
 static std::map<ImGuiID,ImRect> bounds;
 static std::map<ImGuiID,ImGuiWindow*> owners;
+static std::map<ImGuiID,ImGuiID> scopes;
 static std::map<std::string,ImRect> items;
 static std::map<ImGuiID,std::string> labels;
-void ImGuiTestEngineHook_ItemAdd(ImGuiContext* ctx,ImGuiID id,const ImRect& bb,const ImGuiLastItemData*) {bounds[id]=bb;owners[id]=ctx->CurrentWindow;}
+void ImGuiTestEngineHook_ItemAdd(ImGuiContext* ctx,ImGuiID id,const ImRect& bb,const ImGuiLastItemData*) {bounds[id]=bb;owners[id]=ctx->CurrentWindow;scopes[id]=ctx->CurrentWindow->IDStack.back();}
 void ImGuiTestEngineHook_ItemInfo(ImGuiContext*,ImGuiID id,const char* label,ImGuiItemStatusFlags) {
     labels[id]=label;
     if(bounds.count(id))items[label]=bounds[id];
@@ -21,7 +22,7 @@ const char* ImGuiTestEngine_FindItemDebugLabel(ImGuiContext*,ImGuiID id) {return
 static int checks=0;
 static void require(bool ok,const char* msg) {++checks;if(!ok)throw std::runtime_error(msg);}
 static void frame(studio::App& app) {
-    bounds.clear();owners.clear();items.clear();ImGui::NewFrame();app.draw();ImGui::Render();
+    bounds.clear();owners.clear();items.clear();scopes.clear();ImGui::NewFrame();app.draw();ImGui::Render();
     require(ImGui::GetDrawData()->TotalVtxCount>100,"GUI emitted no geometry.");
 }
 static void click_point(studio::App& app,ImVec2 p) {
@@ -35,6 +36,7 @@ static void click(studio::App& app,const char* label) {
         // ImGui IDs as well as labels, then click only within the visible panel.
         std::vector<ImGuiID> candidates;
         for(const auto& entry:labels)if(entry.second==label)candidates.push_back(entry.first);
+        for(const auto& entry:scopes)if(ImHashStr(label,0,entry.second)==entry.first)candidates.push_back(entry.first);
         for(auto* window:GImGui->Windows)candidates.push_back(window->GetID(label));
         for(int i=0;i<GImGui->TabBars.GetBufSize();++i) {
             candidates.push_back(ImHashStr(label,0,GImGui->TabBars.Buf[i].ID));
@@ -73,7 +75,7 @@ static void enter_scalar(studio::App& app,const char* label,const char* value) {
 int main() {
     try {
         ImGui::CreateContext();ImPlot::CreateContext();auto& io=ImGui::GetIO();
-        io.DisplaySize={1462,953};io.DeltaTime=1.f/60;io.IniFilename=nullptr;io.BackendFlags|=ImGuiBackendFlags_RendererHasVtxOffset;
+        io.DisplaySize={1462,953};io.DeltaTime=1.f/60;io.IniFilename=nullptr;io.BackendFlags|=ImGuiBackendFlags_RendererHasVtxOffset;io.ConfigFlags|=ImGuiConfigFlags_DockingEnable;
         ImGuiPlatformMonitor monitor;monitor.MainPos=monitor.WorkPos={0,0};monitor.MainSize=monitor.WorkSize=io.DisplaySize;monitor.DpiScale=1;
         ImGui::GetPlatformIO().Monitors.push_back(monitor);GImGui->TestEngineHookItems=true;
         io.Fonts->AddFontFromFileTTF("C:/Windows/Fonts/segoeui.ttf",17,nullptr,io.Fonts->GetGlyphRangesCyrillic());
@@ -332,6 +334,29 @@ int main() {
         enter_scalar(app,"Длительность, с","0.002");
         require(app.simulation->state==completed_state&&app.simulation->time==completed_time&&app.config.duration==.002,"Duration extension reset state.");
         click(app,"Шаг 50 мс");require(app.simulation->time==.002,"Completed run did not extend.");
+        io.DisplaySize={1600,1000};frame(app);frame(app);
+        const auto plot_state=app.simulation->state;const auto plot_steps=app.simulation->steps;
+        click(app,"Новый график");frame(app);
+        require(items.count("Потенциалы")!=0,"New plot popup has no voltage action.");
+        click_point(app,items.at("Потенциалы").GetCenter());frame(app);
+        require(app.plot_windows.windows.size()==1,"New plot menu did not create an independent window.");
+        const auto plot_id=app.plot_windows.windows.front().id;
+        auto copy_id=app.plot_windows.duplicate(plot_id);frame(app);
+        app.plot_windows.find(copy_id)->follow=false;app.plot_windows.find(copy_id)->objects={999};frame(app);
+        require(app.plot_windows.find(plot_id)->follow&&app.plot_windows.find(plot_id)->objects==std::vector<int>{0},"Duplicate changes propagated to source plot.");
+        app.plot_windows.close(copy_id);frame(app);
+        require(app.plot_windows.windows.size()==1&&app.simulation->state==plot_state&&app.simulation->steps==plot_steps,"Window commands advanced or reset simulation.");
+        app.plot_windows.windows.clear();app.replace(studio::preset(0));frame(app);
+        enter_scalar(app,"Длительность, с","200");
+        require(app.config.duration==200&&app.simulation->error.empty(),"GUI still caps 200 s experiment or its 800001-row history.");
+        enter_scalar(app,"Запись, мс","2000");
+        enter_scalar(app,"Длительность, с","3600");
+        require(app.config.sample==2&&app.config.duration==3600&&app.simulation->error.empty(),"GUI caps sparse sampling or long experiments.");
+        app.selected_kind=0;app.selected_index=0;frame(app);
+        enter_scalar(app,"Конец, с","3500");enter_scalar(app,"Начало, с","1000");
+        require(app.config.neurons[0].start==1000&&app.config.neurons[0].stop==3500,"GUI caps stimulus times.");
+        app.request_plot_tab=0;frame(app);enter_scalar(app,"Окно, с","3600");
+        require(app.plot_windows.embedded[0].seconds==3600,"Plot time window remains capped.");
         ImPlot::DestroyContext();ImGui::DestroyContext();
         std::cout<<"PASS: "<<checks<<" GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.\n";return 0;
     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}

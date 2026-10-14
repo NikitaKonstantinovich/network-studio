@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-14T17:25:43.5595710+03:00",
+  "branch": "feature/independent-plot-windows",
+  "base_commit": "a4a218c1b637ed0686bde0e58b1cbf5155af91d0",
+  "binaries": [
+    {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "bytes": 1505280,
+      "sha256": "4b53c676538cfcb343d16d22f6875715c71083efe89fea4a01b9d6d62d47cc73"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "bytes": 581120,
+      "sha256": "48e4d8d345324ddf9b4d57d1f9723dff86c56159e0348a5b6a1be6d6f590ab41"
+    }
+  ],
+  "tests": {
+    "full_suite": "11/11",
+    "final_gui_regression": "3/3",
+    "final_native_process_restart": "passed",
+    "smoke": "passed",
+    "checkpoint_comparison": "byte-identical",
+    "numerical_sources": "unchanged",
+    "physical_monitors": 2
+  },
+  "report": "plots/REPORT_RU.md"
+}

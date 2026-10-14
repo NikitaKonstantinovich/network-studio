@@ -242,7 +242,7 @@ Config generate_network(const Config& base, const NetworkGeneration& g,
     // Preserve an existing explicit selection; a full history that would exceed
     // the budget falls back to the first eight neurons and eight synapses.
     if (c.record_all && std::isfinite(c.duration) && std::isfinite(c.sample) && c.sample > 0) {
-        const double rows = std::ceil(c.duration/c.sample)+2;
+        const size_t rows = planned_samples(c.duration,c.sample);
         if (rows*recorded_dimension(c) > MaxStoredValues) {
             c.record_all = false;
             c.record_neurons.resize(std::min(8,static_cast<int>(c.neurons.size())));

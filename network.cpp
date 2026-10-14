@@ -23,6 +23,17 @@ int recorded_dimension(const Config& c) {
     return int(4*(c.record_all?c.neurons.size():c.record_neurons.size())+
                5*(c.record_all?c.synapses.size():c.record_synapses.size())+7*c.astrocytes.size());
 }
+size_t planned_samples(double duration,double interval) {
+    if(!std::isfinite(duration)||duration<0||!std::isfinite(interval)||interval<=0)return MaxSamples+1;
+    const double quotient=std::floor(duration/interval);
+    if(!std::isfinite(quotient)||quotient>double(MaxSamples))return MaxSamples+1;
+    size_t last=size_t(quotient);
+    // Use the same multiplied sample clock as the integrator. Division may
+    // round an exact boundary to the adjacent bin, so check both neighbours.
+    if(last && double(last)*interval>duration)--last;
+    if(double(last+1)*interval<=duration)++last;
+    return std::min(MaxSamples+1,last+1+size_t(double(last)*interval<duration));
+}
 int syn_offset(const Config& c, int i) { return int(c.neurons.size()*4)+i*4; }
 int astro_offset(const Config& c, int i) { return int((c.neurons.size()+c.synapses.size())*4)+i*7; }
 Config preset(int index) {
@@ -86,8 +97,14 @@ static bool name_valid(const std::string& s,size_t max) {
 std::string validate(const Config& c) {
     if (c.neurons.empty() || c.neurons.size()>MaxNeurons || c.astrocytes.size()>MaxAstrocytes ||
         c.synapses.size()>MaxSynapses || c.gaps.size()>MaxGaps) return "Network size is outside supported limits.";
-    if (!range(c.dt,1e-6,5e-5) || !range(c.duration,0.001,120) || !range(c.sample,c.dt,120))
-        return "Use dt = 1..50 us, duration = 0.001..120 s, sample >= dt.";
+    if (!range(c.dt,1e-6,5e-5) || !std::isfinite(c.duration) || c.duration<.001 ||
+        !std::isfinite(c.sample) || c.sample<c.dt)
+        return "Use finite duration >= 0.001 s, dt = 1..50 us and finite sample >= dt.";
+    // No fixed time horizon. Reject clocks whose double precision cannot
+    // resolve RK stages, and prevent overflow of integer step/noise counters.
+    if(!std::isfinite(c.duration/c.dt) || c.duration/c.dt>=double(UINT64_MAX) ||
+        c.duration+c.dt/8==c.duration)
+        return "Duration is too large to resolve the integration step with double precision.";
     if(!range(c.noise_sigma,0,100) || !range(c.noise_interval,c.dt,1))
         return "Noise sigma must be 0..100 and its sampling interval dt..1 s.";
     auto valid_selection=[](const std::vector<int>& selected,size_t count) {
@@ -97,9 +114,11 @@ std::string validate(const Config& c) {
     };
     if(!valid_selection(c.record_neurons,c.neurons.size()) || !valid_selection(c.record_synapses,c.synapses.size()))
         return "Recording selections must contain unique existing zero-based node/edge indices.";
-    const double rows = std::ceil(c.duration/c.sample)+2;
-    if (rows>MaxSamples || rows*recorded_dimension(c)>MaxStoredValues)
-        return "Too much recorded data. Select fewer neurons/synapses or increase the sample interval.";
+    const size_t rows = planned_samples(c.duration,c.sample);
+    if(rows>MaxSamples)
+        return "History exceeds 1,000,000 samples (including initial/final samples). Increase the sample interval.";
+    if(rows*size_t(recorded_dimension(c))>MaxStoredValues)
+        return "History exceeds 32,000,000 state/weight values. Select fewer recorded objects or increase the sample interval.";
     if (!name_valid(c.name,120)) return "Experiment name is empty, too long or contains control characters.";
     const auto& p = c.parameters;
     for (int i:SharedParameters) {
@@ -116,7 +135,8 @@ std::string validate(const Config& c) {
             return "Unknown neuron model.";
         if (!name_valid(n.name,64) || !range(n.px,0,1) || !range(n.py,0,1) ||
             !range(n.voltage,-100,60) || !range(n.current,-30,100) || !range(n.amplitude,-30,100) ||
-            !range(n.frequency,0,200) || !range(n.start,0,120) || !range(n.stop,n.start,120) ||
+            !range(n.frequency,0,200) || !std::isfinite(n.start) || n.start<0 ||
+            !std::isfinite(n.stop) || n.stop<n.start ||
             !range(n.width,0,1)) return "Invalid neuron name, position, initial voltage or stimulus.";
         if(!range(n.noise_sigma,0,100) || !range(n.izh_a,.0001,1) || !range(n.izh_b,-2,2) ||
             !range(n.izh_c,-100,0) || !range(n.izh_d,-100,100) || !range(n.izh_peak,0,100) ||
@@ -126,7 +146,7 @@ std::string validate(const Config& c) {
         if(n.pulse_intervals.size()>64)return "At most 64 stimulus intervals per period are supported.";
         double previous_stop=0;
         // Frequency zero disables the train, while retaining a valid table.
-        const double period=n.frequency>0 ? 1/n.frequency : 120;
+        const double period=n.frequency>0 ? 1/n.frequency : std::numeric_limits<double>::max();
         for(const auto& interval:n.pulse_intervals) {
             if(!range(interval.start,previous_stop,period) ||
                !range(interval.stop,interval.start,period) || interval.stop<=interval.start)
@@ -405,12 +425,13 @@ bool Simulator::done() const { return !error.empty() || time>=config.duration; }
 void Simulator::extend_duration(double end_time) {
     if(stepping || !checkpoint_boundary || !error.empty())throw std::runtime_error("Cannot extend an unsafe or failed simulation.");
     if(!std::isfinite(end_time) || end_time<config.duration)throw std::runtime_error("Final time may only be extended.");
+    if(end_time==config.duration)return;
     Config candidate=config;candidate.duration=end_time;
     const auto message=validate(candidate);if(!message.empty())throw std::runtime_error(message);
     // Earlier off-grid terminal samples are retained when extending a run.
     size_t extra=0;uint64_t grid=0;
     for(double t:history.time) {if(t==double(grid)*config.sample)++grid;else ++extra;}
-    const double rows=std::ceil(end_time/config.sample)+2+extra;
+    const size_t rows=planned_samples(end_time,config.sample)+extra;
     if(rows>MaxSamples || rows*recorded_dimension(config)>MaxStoredValues)
         throw std::runtime_error("Extended history would exceed the recording limits.");
     config.duration=end_time;

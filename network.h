@@ -10,7 +10,7 @@ namespace studio {
 namespace na = neuro_astro;
 constexpr int MaxNeurons = 1000, MaxAstrocytes = 8, MaxSynapses = 50000, MaxGaps = 28;
 constexpr int MaxState = 4*MaxNeurons + 4*MaxSynapses + 7*MaxAstrocytes;
-constexpr size_t MaxSamples = 100001, MaxStoredValues = 16000000, MaxEvents = 2000000;
+constexpr size_t MaxSamples = 1000000, MaxStoredValues = 32000000, MaxEvents = 2000000;
 constexpr size_t MaxPendingDeliveries = 1000000, MaxDeliveries = 2000000;
 using State = std::vector<double>;
 // Only these parameters are shared. Stimuli, synapses, initial conditions and
@@ -101,6 +101,8 @@ bool records_neuron(const Config& c,int index);
 bool records_synapse(const Config& c,int index);
 // Number of stored scalar columns, including selected synaptic weights.
 int recorded_dimension(const Config& c);
+// Includes t=0 and a final off-grid sample; saturates at MaxSamples+1.
+size_t planned_samples(double duration, double interval);
 int syn_offset(const Config& c, int index);
 int astro_offset(const Config& c, int index);
 State initial_state(const Config& c);

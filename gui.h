@@ -2,6 +2,7 @@
 #include "io.h"
 #include "generator.h"
 #include "imgui.h"
+#include "plot_windows.h"
 #include <memory>
 #include <functional>
 namespace studio {
@@ -16,6 +17,8 @@ public:
     bool request_network_wizard = false;
     std::function<std::filesystem::path(bool,bool)> file_dialog;
     std::function<std::filesystem::path(bool)> checkpoint_dialog;
+    std::function<std::filesystem::path(bool)> workspace_dialog;
+    PlotWindows plot_windows;
     App();
     void draw();
     void advance();
@@ -26,8 +29,7 @@ public:
     void save_state(const std::filesystem::path& path);
     bool restore_state(const std::filesystem::path& path);
 private:
-    bool changed = false, follow = true;
-    double window_seconds = 1;
+    bool changed = false;
     int preset_index = 0, link_source = 0, link_target = 1, link_astro = 0;
     int syn_plot = 0, syn_view = 0, astro_plot = 0;
     int neuron_plot = 0, neuron_view = 0;

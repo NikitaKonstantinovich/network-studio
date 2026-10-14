@@ -175,7 +175,7 @@ void test_append_and_recording() {
     require(c.neurons.size()==500 && summary.recording_reduced && !c.record_all,"large generation selects compact recording");
     require(c.record_neurons==std::vector<int>({0,1,2,3,4,5,6,7}) &&
             c.record_synapses==std::vector<int>({0,1,2,3,4,5,6,7}),"recording fallback selects first eight nodes/edges");
-    require(validate(c).empty() && (std::ceil(c.duration/c.sample)+2)*recorded_dimension(c)<=MaxStoredValues,
+    require(validate(c).empty() && planned_samples(c.duration,c.sample)*recorded_dimension(c)<=MaxStoredValues,
             "large recording within budget");
     require(std::abs(summary.degrees.mean-15)<.5 && std::abs(summary.absolute_weights.mean-.5)<.03,
             "Gaussian degree and weight summaries are plausible");
