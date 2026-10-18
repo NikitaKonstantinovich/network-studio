@@ -19,6 +19,7 @@ public:
     std::function<std::filesystem::path(bool)> checkpoint_dialog;
     std::function<std::filesystem::path(bool)> workspace_dialog;
     PlotWindows plot_windows;
+    WeightField weight_field;
     App();
     void draw();
     void advance();
@@ -34,7 +35,6 @@ private:
     int syn_plot = 0, syn_view = 0, astro_plot = 0;
     int neuron_plot = 0, neuron_view = 0;
     int drag_kind = -1, drag_index = -1;
-    bool show_all_edges = false;
     NetworkGeneration generation;
     GenerationSummary generation_summary;
     std::unique_ptr<Config> generation_preview;
@@ -45,6 +45,8 @@ private:
     void editor();
     void inspector();
     void canvas();
+    void field_controls();
+    void field_overlay(ImVec2 base,ImVec2 span,bool tooltip);
     void plots(float height);
     void network_wizard();
     void edit() { changed = true; dirty = true; }

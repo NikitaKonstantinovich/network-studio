@@ -59,7 +59,7 @@ int main() {
         auto damaged=saved;damaged[55]^=1;studio::write_atomic(dir/L"damaged.nsworkspace",damaged);
         require(!plots.load(dir/L"damaged.nsworkspace")&&plots.find(first)->seconds==.025,"Corrupt workspace mutated current views.");
         auto incompatible=saved;
-        const size_t version=8+std::string("Network Studio plot workspace").size();incompatible[version]=2;
+        const size_t version=8+std::string("Network Studio plot workspace").size();incompatible[version]=99;
         uint64_t hash=14695981039346656037ull;for(size_t i=0;i<incompatible.size()-8;++i){hash^=static_cast<unsigned char>(incompatible[i]);hash*=1099511628211ull;}
         for(int i=0;i<8;++i)incompatible[incompatible.size()-8+i]=char(hash>>(8*i));studio::write_atomic(dir/L"version.nsworkspace",incompatible);
         require(!plots.load(dir/L"version.nsworkspace"),"Unknown workspace schema was accepted.");

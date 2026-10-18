@@ -357,6 +357,20 @@ int main() {
         require(app.config.neurons[0].start==1000&&app.config.neurons[0].stop==3500,"GUI caps stimulus times.");
         app.request_plot_tab=0;frame(app);enter_scalar(app,"Окно, с","3600");
         require(app.plot_windows.embedded[0].seconds==3600,"Plot time window remains capped.");
+        const auto config_before_field=studio::serialize(app.config);const auto steps_before_field=app.simulation->steps;
+        click(app,"Векторное поле весов");click(app,"Обычные связи");click(app,"Сетка");click(app,"Настройки поля…");
+        enter_scalar(app,"Столбцы","8");enter_scalar(app,"Строки","6");enter_scalar(app,"Масштаб стрелок","0.08");
+        click(app,"##field_source");click(app,"Начальные веса");
+        click(app,"Тип связей");click(app,"Тормозные");click(app,"Модель поля");click(app,"Экспоненциальный ток");
+        click(app,"Автомасштаб поля");
+        const auto& view=app.plot_windows.topology;
+        require(view.field&&!view.edges&&!view.grid&&!view.current&&view.columns==8&&view.rows==6&&view.scale==.08&&view.auto_scale&&
+            view.polarity==studio::FieldPolarity::Inhibitory&&view.model==studio::FieldModel::ExponentialCurrent,"Field controls did not apply.");
+        click(app,"Готово");frame(app);
+        const auto field_canvas=items.at("network_canvas");const auto focus=field_canvas.GetCenter();
+        io.AddMousePosEvent(focus.x,focus.y);frame(app);frame(app);io.AddMouseWheelEvent(0,1);frame(app);frame(app);
+        require(view.zoom>1,"Topology wheel zoom did not work");click(app,"Вписать схему");require(view.zoom==1,"Topology reset view failed");
+        require(studio::serialize(app.config)==config_before_field&&app.simulation->steps==steps_before_field,"Field controls edited the model or advanced simulation");
         ImPlot::DestroyContext();ImGui::DestroyContext();
         std::cout<<"PASS: "<<checks<<" GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.\n";return 0;
     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}

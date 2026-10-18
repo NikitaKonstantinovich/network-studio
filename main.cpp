@@ -13,6 +13,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <unordered_map>
+#include <chrono>
 
 using Microsoft::WRL::ComPtr;
 static ComPtr<ID3D11Device> device;
@@ -100,9 +101,10 @@ static std::filesystem::path dialog(HWND hwnd,bool save,bool csv,bool checkpoint
 }
 int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     int argc=0;wchar_t** args=CommandLineToArgvW(GetCommandLineW(),&argc);
-    std::filesystem::path smoke,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false;
+    std::filesystem::path smoke,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false;
     for(int i=1;i<argc;++i) {
         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
+        else if(std::wstring(args[i])==L"--field-smoke"&&i+1<argc){smoke=args[++i];field_smoke=true;}
         else if(std::wstring(args[i])==L"--viewport-smoke"&&i+1<argc){smoke=args[++i];viewport_smoke=true;}
         else if(std::wstring(args[i])==L"--workspace"&&i+1<argc)workspace_path=args[++i];
         else if(std::wstring(args[i])==L"--plot-demo")plot_demo=true;
@@ -117,7 +119,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     RegisterClassExW(&wc);
     try {
         ImGui_ImplWin32_EnableDpiAwareness();
-        hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,1480,1000,nullptr,nullptr,instance,nullptr);
+        hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,field_smoke?1800:1480,field_smoke?1300:1000,nullptr,nullptr,instance,nullptr);
         if(!hwnd)throw std::runtime_error("Cannot create the application window.");create_device(hwnd);resize_w=resize_h=0;
         IMGUI_CHECKVERSION();ImGui::CreateContext();ImPlot::CreateContext();imgui=true;
         auto& io=ImGui::GetIO();io.ConfigFlags|=ImGuiConfigFlags_NavEnableKeyboard|ImGuiConfigFlags_DockingEnable|ImGuiConfigFlags_ViewportsEnable|
@@ -164,11 +166,13 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(!app.plot_windows.automatic_save_allowed)app.status=app.plot_windows.message;
         }
         if(plot_demo)app.plot_windows.demo();
+        if(field_smoke){auto& v=app.plot_windows.topology;v.field=true;v.columns=8;v.rows=6;v.scale=app.config.neurons.size()<32?.08:.002;v.edges=app.config.neurons.size()<32;}
         if(viewport_smoke&&app.plot_windows.windows.empty())for(auto kind:{studio::PlotKind::Voltage,studio::PlotKind::Neuron,studio::PlotKind::Raster,studio::PlotKind::Synapse}) {
             auto id=app.plot_windows.create(kind);auto* w=app.plot_windows.find(id);if(kind==studio::PlotKind::Synapse)w->view=1;
             w->size={680,440};w->position={80.f+float(id%2)*700,60.f+float((id-1)/2)*460};
         }
         bool done=false;int frames=0;int minimum_vertices=100000000;
+        double field_frame_ms=0;
         int native_checks=0;double minimized_time=0;std::vector<HWND> native_handles;
         auto verify=[&](bool value,const char* reason){if(!value)throw std::runtime_error(reason);++native_checks;};
         while(!done) {
@@ -176,6 +180,8 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(done)break;
             if(resize_w&&resize_h){target.Reset();check(swapchain->ResizeBuffers(0,resize_w,resize_h,DXGI_FORMAT_UNKNOWN,0),"Window resize failed.");resize_w=resize_h=0;render_target();}
             // A minimized/occluded main swapchain must not suspend other HWNDs or simulation.
+            if(field_smoke&&frames==16)io.FontGlobalScale=1.5f;
+            if(field_smoke&&frames==24&&app.config.neurons.size()>32)app.plot_windows.topology.scale=.08; // Exercise visible saturation markers.
             ImGui_ImplDX11_NewFrame();ImGui_ImplWin32_NewFrame();ImGui::NewFrame();
             if(!smoke.empty()&&!viewport_smoke) {
                 if(smoke_wizard && frames==0)app.request_network_wizard=true;
@@ -184,7 +190,9 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                 if(group==3&&!app.config.synapses.empty())app.selected_kind=2;
                 app.selected_index=0;
             }
+            const auto frame_begin=std::chrono::steady_clock::now();
             app.draw();ImGui::Render();auto* data=ImGui::GetDrawData();minimum_vertices=std::min(minimum_vertices,data->TotalVtxCount);
+            if(field_smoke&&frames>=4)field_frame_ms+=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-frame_begin).count();
             if(!IsIconic(hwnd)) {
                 const float clear[]={.055f,.073f,.1f,1};ID3D11RenderTargetView* rtv=target.Get();context->OMSetRenderTargets(1,&rtv,nullptr);context->ClearRenderTargetView(rtv,clear);
                 ImGui_ImplDX11_RenderDrawData(data);
@@ -270,6 +278,12 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             studio::export_results(*app.simulation,smoke/L"demo");
             std::ofstream log(smoke/L"renderer.txt");log<<"frames="<<frames<<"\nminimum_vertices="<<minimum_vertices<<"\nsamples="<<app.simulation->history.time.size()<<"\nerror="<<app.simulation->error<<"\n";
             log<<"native_viewport_checks="<<native_checks<<"\nmonitors="<<ImGui::GetPlatformIO().Monitors.Size<<"\n";
+            if(field_smoke) {
+                log<<"weight_field=1\nincluded_edges="<<app.weight_field.included_edges<<"\ngeometry_builds="<<app.weight_field.geometry_builds
+                    <<"\nfield_geometry_ms="<<app.weight_field.geometry_ms<<"\nfield_update_ms="<<app.weight_field.update_ms
+                    <<"\nimgui_frame_ms="<<field_frame_ms/std::max(1,frames-4)<<"\nfont_scales=1,1.5\n";
+                if(!app.weight_field.available||app.weight_field.geometry_builds!=1)throw std::runtime_error("Field render did not reuse valid geometry.");
+            }
             if(!viewport_smoke&&minimum_vertices<100)throw std::runtime_error("Renderer emitted too few vertices.");
             std::error_code ec;std::filesystem::remove(smoke/L"error.txt",ec);
         }

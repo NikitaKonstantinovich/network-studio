@@ -29,6 +29,10 @@ std::string PlotWindows::config_binding(const Config& c) {
     // Deliberately conservative: indices alone cannot establish object identity.
     // Ignore only screen layout and the extendable end time, not scientific inputs.
     Config normalized=c;normalized.duration=1;
+    // A short, fully recorded large graph may fit its actual history budget
+    // but not a fictitious one-second run. Keep old bindings when possible;
+    // use the minimum legal duration only for previously unopenable graphs.
+    if(!validate(normalized).empty())normalized.duration=.001;
     for(auto& n:normalized.neurons)n.px=n.py=0;
     for(auto& a:normalized.astrocytes)a.px=a.py=0;
     Writer w;w.str(serialize(normalized));for(double p:c.parameters)w.real(p);
@@ -37,7 +41,8 @@ std::string PlotWindows::config_binding(const Config& c) {
 bool PlotWindows::save(const std::filesystem::path& path) {
     if(path.empty())return false;
     try {
-        Writer w;w.str("Network Studio plot workspace");w.u64(1);w.u64(next_id);w.u64(host_open);w.u64(windows.size());
+        if(!valid_topology_view(topology))throw std::runtime_error("Недопустимые настройки топологии.");
+        Writer w;w.str("Network Studio plot workspace");w.u64(2);w.u64(next_id);w.u64(host_open);w.u64(windows.size());
         for(const auto& p:windows) {
             if(p.title.size()>255||!std::isfinite(p.seconds)||p.seconds<.000001)throw std::runtime_error("Недопустимые настройки окна; рабочее пространство не заменено.");
             for(int k=0;k<6;++k)if(!std::isfinite(p.limits[k])||std::abs(p.limits[k])>1e12)throw std::runtime_error("Диапазон оси слишком велик для рабочего пространства.");
@@ -49,6 +54,9 @@ bool PlotWindows::save(const std::filesystem::path& path) {
         }
         size_t n=0;const char* ini=ImGui::SaveIniSettingsToMemory(&n);
         if(n>1024*1024)throw std::runtime_error("Расположение окон превышает лимит 1 МиБ.");w.str(std::string(ini,n));
+        w.u64(topology.field);w.u64(topology.edges);w.u64(topology.grid);w.u64(topology.all_edges);w.u64(topology.current);w.u64(topology.auto_scale);
+        w.u64(topology.columns);w.u64(topology.rows);w.real(topology.scale);w.real(topology.zoom);w.real(topology.pan_x);w.real(topology.pan_y);
+        w.u64(int(topology.polarity));w.u64(int(topology.model));
         w.u64(hash(w.bytes));if(w.bytes.size()>MaxWorkspaceBytes)throw std::runtime_error("Рабочее пространство превышает 4 МиБ.");
         write_atomic(path,w.bytes);workspace_path=path;automatic_save_allowed=true;message="Рабочее пространство графиков сохранено.";return true;
     }catch(const std::exception& e){message=e.what();return false;}
@@ -60,7 +68,8 @@ bool PlotWindows::load(const std::filesystem::path& path) {
         std::ifstream in(path,std::ios::binary);std::string bytes(size,'\0');if(!in.read(bytes.data(),std::streamsize(size)))throw std::runtime_error("Не удалось прочитать рабочее пространство.");
         Reader checksum{bytes,bytes.size()-8};if(checksum.u64()!=hash(bytes.substr(0,bytes.size()-8)))throw std::runtime_error("Повреждённое рабочее пространство: контрольная сумма.");
         bytes.resize(bytes.size()-8);Reader r{bytes};
-        if(r.str(64)!="Network Studio plot workspace"||r.u64()!=1)throw std::runtime_error("Несовместимый тип или версия рабочего пространства.");
+        if(r.str(64)!="Network Studio plot workspace")throw std::runtime_error("Несовместимый тип рабочего пространства.");
+        const auto version=r.u64();if(version!=1&&version!=2)throw std::runtime_error("Несовместимая версия рабочего пространства.");
         auto next=uint32_t(r.bounded(UINT32_MAX-1));bool host=r.flag();size_t count=r.bounded(MaxWindows);
         std::vector<PlotWindowState> parsed;std::set<uint32_t> ids;bool mismatch=false;
         for(size_t i=0;i<count;++i) {
@@ -74,9 +83,17 @@ bool PlotWindows::load(const std::filesystem::path& path) {
             p.position.x=float(r.real(-1e7,1e7));p.position.y=float(r.real(-1e7,1e7));p.size.x=float(r.real(1,16384));p.size.y=float(r.real(1,16384));
             p.compatible=p.compatible&&p.binding==binding;mismatch|=!p.compatible;p.restore_limits=p.limits_valid;p.fit=false;p.place=true;parsed.push_back(std::move(p));
         }
-        auto ini=r.str(1024*1024);if(r.cursor!=bytes.size()||!next)throw std::runtime_error("Лишние данные рабочего пространства.");
+        auto ini=r.str(1024*1024);TopologyViewState view;
+        if(version>=2) {
+            view.field=r.flag();view.edges=r.flag();view.grid=r.flag();view.all_edges=r.flag();view.current=r.flag();view.auto_scale=r.flag();
+            view.columns=int(r.bounded(64));view.rows=int(r.bounded(64));view.scale=r.real(1e-6,100);view.zoom=r.real(.25,8);
+            view.pan_x=r.real(-8,8);view.pan_y=r.real(-8,8);view.polarity=FieldPolarity(r.bounded(2));view.model=FieldModel(r.bounded(3));
+            if(!valid_topology_view(view))throw std::runtime_error("Недопустимые настройки топологии.");
+        }
+        if(r.cursor!=bytes.size()||!next)throw std::runtime_error("Лишние данные рабочего пространства.");
         // Commit only after validating the complete document, including ini checksum.
         windows=std::move(parsed);next_id=next;host_open=host;pending_ini=std::move(ini);workspace_path=path;
+        topology=view;
         automatic_save_allowed=true;
         message=mismatch?"Рабочее пространство открыто; есть несовместимые привязки. Проверьте окна и перепривяжите их явно.":"Рабочее пространство графиков восстановлено.";
         return true;

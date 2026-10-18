@@ -599,18 +599,37 @@ static void dashed(ImDrawList* d,ImVec2 a,ImVec2 b,ImU32 c) {
 }
 void App::canvas() {
     const bool compact=config.neurons.size()>32;
+    auto& view=plot_windows.topology;
     ImGui::TextColored(Muted,"ТОПОЛОГИЯ");ImGui::SameLine();
     if(compact) {
-        ImGui::Checkbox("Все связи",&show_all_edges);
+        ImGui::Checkbox("Все связи",&view.all_edges);
         ImGui::SameLine();ImGui::TextDisabled("E: зелёный · I: розовый");
         ImGui::TextDisabled("Клик: выбрать · Показаны связи выбранного узла");
     } else ImGui::TextDisabled("Перетащите узел · Shift + клик: связать · ПКМ: добавить");
+    field_controls();
     ImVec2 origin=ImGui::GetCursorScreenPos(),size=ImGui::GetContentRegionAvail();size.x=std::max(size.x,100.f);size.y=std::max(size.y,100.f);
-    ImGui::InvisibleButton("network_canvas",size,ImGuiButtonFlags_MouseButtonLeft|ImGuiButtonFlags_MouseButtonRight);
+    ImGui::InvisibleButton("network_canvas",size,ImGuiButtonFlags_MouseButtonLeft|ImGuiButtonFlags_MouseButtonRight|ImGuiButtonFlags_MouseButtonMiddle);
+    ImGui::SetItemKeyOwner(ImGuiKey_MouseWheelY);
     bool hovered=ImGui::IsItemHovered(),active=ImGui::IsItemActive();auto& io=ImGui::GetIO();auto* d=ImGui::GetWindowDrawList();
     d->PushClipRect(origin,add(origin,size),true); d->AddRectFilled(origin,add(origin,size),IM_COL32(14,22,31,255),8);
-    for(float x=20;x<size.x;x+=24)for(float y=20;y<size.y;y+=24)d->AddCircleFilled(add(origin,{x,y}),1,IM_COL32(36,47,61,255));
-    auto pos=[&](double x,double y) {return add(origin,{45+float(x)*(size.x-90),42+float(y)*(size.y-84)});};
+    const float dpi=ImGui::GetFontSize()/17;const ImVec2 pad{45*dpi,42*dpi},extent{std::max(1.f,size.x-90*dpi),std::max(1.f,size.y-84*dpi)};
+    if(hovered&&io.MouseWheel!=0) {
+        const double qx=(io.MousePos.x-origin.x-pad.x)/extent.x,qy=(io.MousePos.y-origin.y-pad.y)/extent.y;
+        const double x=(qx-.5-view.pan_x)/view.zoom,y=(qy-.5-view.pan_y)/view.zoom;
+        view.zoom=std::clamp(view.zoom*std::pow(1.15,io.MouseWheel),.25,8.);
+        view.pan_x=std::clamp(qx-.5-x*view.zoom,-8.,8.);view.pan_y=std::clamp(qy-.5-y*view.zoom,-8.,8.);
+    }
+    if(active&&ImGui::IsMouseDragging(ImGuiMouseButton_Middle)) {
+        view.pan_x=std::clamp(view.pan_x+io.MouseDelta.x/extent.x,-8.,8.);
+        view.pan_y=std::clamp(view.pan_y+io.MouseDelta.y/extent.y,-8.,8.);
+    }
+    const ImVec2 base=add(origin,{pad.x+extent.x*float(.5-.5*view.zoom+view.pan_x),pad.y+extent.y*float(.5-.5*view.zoom+view.pan_y)});
+    const ImVec2 span=mul(extent,float(view.zoom));
+    auto pos=[&](double x,double y) {return add(base,{float(x)*span.x,float(y)*span.y});};
+    if(view.grid) {
+        for(int x=0;x<=view.columns;++x)d->AddLine(pos(double(x)/view.columns,0),pos(double(x)/view.columns,1),IM_COL32(36,47,61,200));
+        for(int y=0;y<=view.rows;++y)d->AddLine(pos(0,double(y)/view.rows),pos(1,double(y)/view.rows),IM_COL32(36,47,61,200));
+    }
     std::vector<ImVec2> n,a;
     for(const auto& v:config.neurons)n.push_back(pos(v.px,v.py));for(const auto& v:config.astrocytes)a.push_back(pos(v.px,v.py));
     int hit_kind=-1,hit=-1;float nearest=compact?8.f:26.f;
@@ -623,13 +642,13 @@ void App::canvas() {
         ImVec2 delta=sub(io.MousePos,add(p,mul(v,t)));float dist=std::sqrt(delta.x*delta.x+delta.y*delta.y);
         if(dist<8){hit_kind=kind;hit=index;}
     };
-    for(int i=0;i<int(config.gaps.size());++i) {
+    if(view.edges)for(int i=0;i<int(config.gaps.size());++i) {
         const auto& g=config.gaps[i];bool sel=selected_kind==3&&selected_index==i;
         dashed(d,a[g.a],a[g.b],color(sel?Gold:Blue));linehit(a[g.a],a[g.b],3,i);
     }
-    for(int i=0;i<int(config.synapses.size());++i) {
+    if(view.edges)for(int i=0;i<int(config.synapses.size());++i) {
         const auto& s=config.synapses[i];bool sel=selected_kind==2&&selected_index==i;
-        if(compact&&!show_all_edges&&!sel&&!(selected_kind==0&&(s.source==selected_index||s.target==selected_index)))continue;
+        if(compact&&!view.all_edges&&!sel&&!(selected_kind==0&&(s.source==selected_index||s.target==selected_index)))continue;
         ImVec2 p=n[s.source],q=n[s.target];
         bool inhibitory=s.model==SynapseModel::ConductanceSTP?s.reversal<=-40:s.weight<0;
         ImU32 col=color(sel?Gold:(s.enabled?(inhibitory?ImVec4(.88f,.45f,.52f,1):Teal):Muted));
@@ -639,6 +658,7 @@ void App::canvas() {
         if(!compact||sel) {char buf[20];std::snprintf(buf,sizeof(buf),"S%d",i+1);d->AddText(add(center,{4,-19}),col,buf);}
         if(s.astro>=0)dashed(d,center,a[s.astro],IM_COL32(94,144,220,s.enabled?165:60));
     }
+    field_overlay(base,span,hovered&&hit_kind<0);
     for(int i=0;i<int(n.size());++i) {
         bool sel=selected_kind==0&&selected_index==i;double v=-65;
         const auto node_color=config.neurons[i].inhibitory?Rose:Teal;
@@ -677,8 +697,8 @@ void App::canvas() {
         if(drag_kind==0){x=&config.neurons[drag_index].px;y=&config.neurons[drag_index].py;}
         else {x=&config.astrocytes[drag_index].px;y=&config.astrocytes[drag_index].py;}
         // Layout changes preserve the numerical trajectory.
-        *x=std::clamp((double(io.MousePos.x-origin.x)-45)/std::max(1.f,size.x-90),0.,1.);
-        *y=std::clamp((double(io.MousePos.y-origin.y)-42)/std::max(1.f,size.y-84),0.,1.);dirty=true;
+        *x=std::clamp(double(io.MousePos.x-base.x)/span.x,0.,1.);
+        *y=std::clamp(double(io.MousePos.y-base.y)/span.y,0.,1.);dirty=true;
         if(drag_kind==0) {simulation->config.neurons[drag_index].px=*x;simulation->config.neurons[drag_index].py=*y;}
         else {simulation->config.astrocytes[drag_index].px=*x;simulation->config.astrocytes[drag_index].py=*y;}
     }

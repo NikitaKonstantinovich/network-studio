@@ -1,6 +1,7 @@
 #pragma once
 #include "io.h"
 #include "imgui.h"
+#include "weight_field.h"
 #include <array>
 
 namespace studio {
@@ -26,6 +27,7 @@ public:
     static constexpr size_t MaxWindows=32, MaxWorkspaceBytes=4*1024*1024;
     std::vector<PlotWindowState> windows;
     std::array<PlotWindowState,7> embedded;
+    TopologyViewState topology;
     std::string binding, message;
     std::filesystem::path workspace_path;
     bool host_open=false;

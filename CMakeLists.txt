@@ -71,6 +71,11 @@ add_test(NAME checkpoint_process_resume COMMAND ${CMAKE_COMMAND}
     "-DCLI=$<TARGET_FILE:network_studio_cli>" "-DFIXTURES=$<TARGET_FILE:network_studio_checkpoint_tests>"
     "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/checkpoint-process" -P "${CMAKE_CURRENT_SOURCE_DIR}/checkpoint/process_test.cmake")
 add_test(NAME population_equivalence COMMAND network_studio_population --self-test)
+add_library(studio_weight_field weight_field.cpp)
+target_link_libraries(studio_weight_field PUBLIC network_core)
+add_executable(network_studio_field_tests weight_field_tests.cpp)
+target_link_libraries(network_studio_field_tests PRIVATE studio_weight_field)
+add_test(NAME weight_field_geometry_and_weights COMMAND network_studio_field_tests)
 add_executable(network_studio_long_history_tests long_history_tests.cpp)
 target_link_libraries(network_studio_long_history_tests PRIVATE network_core)
 add_test(NAME long_history_limits COMMAND network_studio_long_history_tests)
@@ -96,12 +101,12 @@ if(WIN32)
     write_generated("${CMAKE_CURRENT_BINARY_DIR}/implot_internal.h" "${IMPLOT_INTERNAL}")
     configure_file("${VENDOR}/implot/implot.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_standalone.cpp" COPYONLY)
     configure_file("${VENDOR}/implot/implot_items.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_items_standalone.cpp" COPYONLY)
-    add_library(studio_gui gui.cpp plot_windows.cpp plot_workspace.cpp
+    add_library(studio_gui gui.cpp weight_field_gui.cpp plot_windows.cpp plot_workspace.cpp
         "${CMAKE_CURRENT_BINARY_DIR}/imgui_standalone.cpp" "${VENDOR}/imgui/imgui_draw.cpp"
         "${VENDOR}/imgui/imgui_tables.cpp" "${VENDOR}/imgui/imgui_widgets.cpp"
         "${CMAKE_CURRENT_BINARY_DIR}/implot_standalone.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_items_standalone.cpp")
     target_include_directories(studio_gui PUBLIC "${VENDOR}/imgui" "${VENDOR}/implot" "${VENDOR}")
-    target_link_libraries(studio_gui PUBLIC network_core)
+    target_link_libraries(studio_gui PUBLIC network_core studio_weight_field)
     target_compile_definitions(studio_gui PUBLIC IMGUI_ENABLE_TEST_ENGINE)
     if(MSVC)
         set_source_files_properties("${VENDOR}/imgui/imgui_widgets.cpp" PROPERTIES COMPILE_OPTIONS "/wd4244;/wd4828")
@@ -117,6 +122,13 @@ if(WIN32)
     add_executable(network_studio_plot_tests plot_window_tests.cpp test_hooks_stub.cpp)
     target_link_libraries(network_studio_plot_tests PRIVATE studio_gui)
     add_test(NAME plot_windows_and_workspace COMMAND network_studio_plot_tests)
+    add_executable(network_studio_field_gui_tests weight_field_gui_tests.cpp test_hooks_stub.cpp)
+    target_link_libraries(network_studio_field_gui_tests PRIVATE studio_gui)
+    add_test(NAME weight_field_gui_invariance COMMAND network_studio_field_gui_tests)
+    add_test(NAME weight_field_win32_dx11 COMMAND ${CMAKE_COMMAND}
+        "-DGUI=$<TARGET_FILE:network_studio>" "-DFIXTURES=$<TARGET_FILE:network_studio_field_tests>"
+        "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/weight-field-native" -P "${CMAKE_CURRENT_SOURCE_DIR}/weight_field/native_test.cmake")
+    set_tests_properties(weight_field_win32_dx11 PROPERTIES RUN_SERIAL TRUE)
     add_test(NAME win32_dx11_plot_viewports COMMAND ${CMAKE_COMMAND}
         "-DGUI=$<TARGET_FILE:network_studio>" "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/viewport-smoke"
         -P "${CMAKE_CURRENT_SOURCE_DIR}/plots/native_process_test.cmake")
