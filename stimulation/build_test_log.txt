@@ -1,0 +1,75 @@
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: E:/asp/26_27/configurator/build/native
+[1/22] Building CXX object CMakeFiles\studio_gui.dir\weight_field_gui.cpp.obj
+[2/22] Building CXX object CMakeFiles\network_core.dir\stimulator.cpp.obj
+[3/22] Building CXX object CMakeFiles\network_core.dir\checkpoint.cpp.obj
+[4/22] Building CXX object CMakeFiles\network_studio_stimulator_tests.dir\stimulator_tests.cpp.obj
+[5/22] Building CXX object CMakeFiles\network_core.dir\io.cpp.obj
+[6/22] Linking CXX static library network_core.lib
+[7/22] Linking CXX static library studio_gui.lib
+[8/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_cli.exe
+[9/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_tests.exe
+[10/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_generator_tests.exe
+[11/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_numerics_tests.exe
+[12/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_population.exe
+[13/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_experiment_tests.exe
+[14/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_delay_tests.exe
+[15/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_checkpoint_tests.exe
+[16/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_stimulator_tests.exe
+[17/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_field_tests.exe
+[18/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_long_history_tests.exe
+[19/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio.exe
+[20/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_gui_tests.exe
+[21/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_plot_tests.exe
+[22/22] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_field_gui_tests.exe
+Test project E:/asp/26_27/configurator/build/native
+      Start  3: network_model_and_io
+      Start  1: spatial_analysis_and_stages
+      Start 11: shared_spatial_stimulators_activity
+      Start 15: long_history_process_resume
+ 1/22 Test #11: shared_spatial_stimulators_activity ...   Passed   13.47 sec
+      Start 13: weight_field_geometry_and_weights
+ 2/22 Test #13: weight_field_geometry_and_weights .....   Passed   17.40 sec
+      Start  6: synaptic_delays
+ 3/22 Test  #1: spatial_analysis_and_stages ...........   Passed   44.32 sec
+      Start  8: checkpoint_roundtrip
+ 4/22 Test  #6: synaptic_delays .......................   Passed   22.08 sec
+      Start 14: long_history_limits
+ 5/22 Test #15: long_history_process_resume ...........   Passed   53.98 sec
+      Start 18: gui_interactions_and_plots
+ 6/22 Test #14: long_history_limits ...................   Passed    5.32 sec
+      Start  2: staged_process_resume
+ 7/22 Test  #2: staged_process_resume .................   Passed    2.79 sec
+      Start 19: plot_windows_and_workspace
+ 8/22 Test  #8: checkpoint_roundtrip ..................   Passed   23.65 sec
+      Start 20: weight_field_gui_invariance
+ 9/22 Test #19: plot_windows_and_workspace ............   Passed    8.10 sec
+      Start 10: population_equivalence
+10/22 Test #20: weight_field_gui_invariance ...........   Passed    3.70 sec
+      Start 12: stimulator_process_resume
+11/22 Test #12: stimulator_process_resume .............   Passed    0.38 sec
+      Start  7: delayed_process_resume
+12/22 Test  #7: delayed_process_resume ................   Passed    2.11 sec
+      Start  9: checkpoint_process_resume
+13/22 Test  #9: checkpoint_process_resume .............   Passed    1.59 sec
+      Start  5: numerical_regressions
+14/22 Test #10: population_equivalence ................   Passed    6.97 sec
+      Start  4: network_generation
+15/22 Test  #4: network_generation ....................   Passed    0.26 sec
+16/22 Test  #5: numerical_regressions .................   Passed    1.09 sec
+17/22 Test #18: gui_interactions_and_plots ............   Passed   27.29 sec
+18/22 Test  #3: network_model_and_io ..................   Passed  233.26 sec
+      Start 21: weight_field_win32_dx11
+19/22 Test #21: weight_field_win32_dx11 ...............   Passed   19.36 sec
+      Start 17: stimulator_win32_dx11
+20/22 Test #17: stimulator_win32_dx11 .................   Passed    1.37 sec
+      Start 16: experiment_win32_dx11
+21/22 Test #16: experiment_win32_dx11 .................   Passed    2.64 sec
+      Start 22: win32_dx11_plot_viewports
+22/22 Test #22: win32_dx11_plot_viewports .............   Passed    1.37 sec
+
+100% tests passed, 0 tests failed out of 22
+
+Total Test time (real) = 258.05 sec
+Application: E:\asp\26_27\configurator\build\Release\network_studio.exe

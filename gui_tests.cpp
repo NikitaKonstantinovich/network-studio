@@ -387,6 +387,28 @@ int main() {
         app.plot_windows.windows.clear();app.request_network_wizard=true;app.request_wizard_tab=1;frame(app);frame(app);
         click(app,"Топология");click(app,"Связи в пределах радиуса");enter_scalar(app,"Радиус","0.15");click(app,"Предпросмотр");
         require(app.simulation->time==stage_time&&app.simulation->state==stage_state,"Radius preview changed live model");click(app,"Отмена");
+        app.plot_windows.windows.clear();app.replace(studio::preset(6));app.config.space={100,100,"um"};app.reset();
+        for(int i=0;i<200;++i)require(app.simulation->step(),"Stimulator GUI fixture");
+        auto source_state=app.simulation->state;const auto source_time=app.simulation->time;const auto source_steps=app.simulation->steps;
+        click(app,"Стимуляторы…");click(app,"Добавить стимулятор");click(app,"Выбрать всех получателей");click(app,"Применить без сброса");
+        require(app.config.stimulators.size()==1&&app.config.stimulators[0].recipients.size()==app.config.neurons.size(),"Shared source/recipients GUI");
+        require(app.simulation->state==source_state&&app.simulation->time==source_time&&app.simulation->steps==source_steps,"Source GUI reset simulation");
+        click(app,"Пространственная область");enter_scalar(app,"Радиус области","40");enter_scalar(app,"Центр X","30");click(app,"Применить без сброса");
+        require(app.config.stimulators[0].spatial&&app.config.stimulators[0].radius==40&&app.config.stimulators[0].x==30,"Spatial GUI lost physical units");
+        app.show_stimulators=false;app.plot_windows.topology=studio::TopologyViewState{};frame(app);
+        click(app,"Поле активности");click(app,"Настройки активности…");click(app,"Критерий");click(app,"Доставки с последующим ответом");
+        enter_scalar(app,"Окно активности, с","0.125");enter_scalar(app,"Ответ до, с","0.03");enter_scalar(app,"Масштаб активности","0.07");click(app,"Готово");
+        require(app.plot_windows.topology.activity_mode==1&&app.plot_windows.topology.activity_window==.125&&app.plot_windows.topology.activity_scale==.07,"Activity GUI settings");
+        require(app.simulation->state==source_state&&app.simulation->time==source_time&&app.simulation->steps==source_steps,"Activity GUI altered dynamics");
+        frame(app);const auto source_canvas=items.at("network_canvas");
+        auto source_point=[&](double x,double y){return ImVec2(source_canvas.Min.x+45+float(x)*(source_canvas.GetWidth()-90),source_canvas.Min.y+42+float(y)*(source_canvas.GetHeight()-84));};
+        io.AddMousePosEvent(source_point(.3,.5).x,source_point(.3,.5).y);frame(app);io.AddMouseButtonEvent(0,true);frame(app);
+        // Keep the inspector closed during the canvas drag so it cannot cover the target.
+        app.show_stimulators=false;io.AddMousePosEvent(source_point(.4,.6).x,source_point(.4,.6).y);frame(app);
+        io.AddMouseButtonEvent(0,false);app.show_stimulators=false;frame(app);
+        if(std::abs(app.config.stimulators[0].x-40)>=2)std::cerr<<"Drag x="<<app.config.stimulators[0].x<<" y="<<app.config.stimulators[0].y<<" status="<<app.status<<"\n";
+        require(std::abs(app.config.stimulators[0].x-40)<2&&app.simulation->state==source_state&&app.simulation->time==source_time,"Spatial drag reset state or failed");
+        app.show_stimulators=true;frame(app);click(app,"Удалить стимулятор");require(app.config.stimulators.empty()&&app.simulation->state==source_state,"Source delete reset dynamics");
         ImPlot::DestroyContext();ImGui::DestroyContext();
         std::cout<<"PASS: "<<checks<<" GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.\n";return 0;
     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}

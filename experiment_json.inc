@@ -2,20 +2,20 @@
 static Object analysis_object(const AnalysisSettings& v) {
     Object o;put(o,"population",int(v.population));o.set("neurons",index_array(v.neurons).as_string());
     WRITE(bin);WRITE(burst_window);WRITE(start_rate);WRITE(end_rate);WRITE(min_neurons);WRITE(min_fraction);WRITE(min_gap);WRITE(burst_rate_window);
-    WRITE(reference_neuron);WRITE(response_min);WRITE(response_max);return o;
+    WRITE(reference_neuron);WRITE(response_min);WRITE(response_max);uid(o,"reference_stimulator",v.reference_stimulator);return o;
 }
 static AnalysisSettings read_analysis(const Object& o) {
     AnalysisSettings v;v.population=AnalysisPopulation(integer(o,"population"));v.neurons=read_indices(o,"neurons",MaxNeurons);
     READ(bin);READ(burst_window);READ(start_rate);READ(end_rate);READINT(min_neurons);READ(min_fraction);READ(min_gap);READ(burst_rate_window);
-    READINT(reference_neuron);READ(response_min);READ(response_max);return v;
+    READINT(reference_neuron);READ(response_min);READ(response_max);if(o.has_key("reference_stimulator"))v.reference_stimulator=read_uid(o,"reference_stimulator");return v;
 }
 static Object stage_object(const ExperimentStage& v) {
     Object o;WRITE(name);WRITE(duration);WRITE(learning);WRITE(learning_rate);WRITE(clear_traces);
-    o.set("neurons",index_array(v.neurons).as_string());WRITE(stimulus_enabled);WRITE(amplitude);WRITE(frequency);WRITE(width);WRITE(first_pulse);return o;
+    o.set("neurons",index_array(v.neurons).as_string());WRITE(stimulus_enabled);WRITE(amplitude);WRITE(frequency);WRITE(width);WRITE(first_pulse);o.set("stimulator_ids",uid_array(v.stimulator_ids).as_string());return o;
 }
 static ExperimentStage read_stage(const Object& o) {
     ExperimentStage v;v.name=string(o,"name");READ(duration);v.learning=boolean(o,"learning");READ(learning_rate);v.clear_traces=boolean(o,"clear_traces");
-    v.neurons=read_indices(o,"neurons",MaxNeurons);v.stimulus_enabled=boolean(o,"stimulus_enabled");READ(amplitude);READ(frequency);READ(width);READ(first_pulse);return v;
+    v.neurons=read_indices(o,"neurons",MaxNeurons);v.stimulus_enabled=boolean(o,"stimulus_enabled");READ(amplitude);READ(frequency);READ(width);READ(first_pulse);if(o.has_key("stimulator_ids"))v.stimulator_ids=read_uids(o,"stimulator_ids",64);return v;
 }
 static void write_experiment_config(Object& root,const Config& c) {
     Object space;put(space,"width",c.space.width);put(space,"height",c.space.height);put(space,"unit",c.space.unit);root.set("space",space.as_string());
@@ -55,7 +55,7 @@ std::string serialize_runtime(const Simulator& s) {
             Object o;WRITE(current);WRITE(amplitude);WRITE(frequency);WRITE(start);WRITE(stop);WRITE(width);WRITE(individual_noise);WRITE(noise_sigma);
             Object intervals(true);for(auto pulse:v.pulse_intervals){Object x;put(x,"start",pulse.start);put(x,"stop",pulse.stop);intervals+=json::kvp("",x.as_string());}
             o.set("pulse_intervals",intervals.as_string());neurons+=json::kvp("",o.as_string());
-        }entry.set("neurons",neurons.as_string());protocols+=json::kvp("",entry.as_string());
+        }entry.set("neurons",neurons.as_string());entry.set("stimulators",stimulator_array(p.stimulators).as_string());protocols+=json::kvp("",entry.as_string());
     }o.set("protocols",protocols.as_string());return o.as_string();
 }
 void deserialize_runtime(Simulator& s,const std::string& text) {
@@ -71,7 +71,8 @@ void deserialize_runtime(Simulator& s,const std::string& text) {
         p.neurons=s.config.neurons;
         for(size_t j=0;j<nodes.size();++j){auto o=element(nodes,j);auto& v=p.neurons[j];READ(current);READ(amplitude);READ(frequency);READ(start);READ(stop);READ(width);v.individual_noise=boolean(o,"individual_noise");READ(noise_sigma);
             auto pulses=object(o,"pulse_intervals",true);if(pulses.size()>64)throw std::runtime_error("Too many protocol intervals");v.pulse_intervals.clear();for(size_t k=0;k<pulses.size();++k){auto x=element(pulses,k);v.pulse_intervals.push_back({number(x,"start"),number(x,"stop")});}}
-        Config check=s.config;check.neurons=p.neurons;if(!validate(check).empty())throw std::runtime_error("Invalid historical protocol");v.protocols.push_back(std::move(p));
+        p.stimulators=read_stimulators(o,"stimulators");
+        Config check=s.config;check.neurons=p.neurons;check.stimulators=p.stimulators;check.stages.clear();check.analysis.reference_stimulator=0;if(!validate(check).empty())throw std::runtime_error("Invalid historical protocol");v.protocols.push_back(std::move(p));
     }
     if(v.origin.size()>4096||v.learning_rate<0||v.learning_rate>100||v.stage_end<0||(v.stage_active&&(v.stage_index<0||v.stage_index>=int(s.config.stages.size())||v.stage_end>s.config.duration))||(!v.stage_active&&v.automatic))throw std::runtime_error("Invalid execution state");
     s.experiment=std::move(v);

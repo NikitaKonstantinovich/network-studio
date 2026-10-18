@@ -210,6 +210,7 @@ void remove_neuron(Config& c,int index) {
     std::vector<int> selected_edges;
     for(int j:c.record_synapses)if(j>=0 && size_t(j)<edge_map.size() && edge_map[j]>=0)selected_edges.push_back(edge_map[j]);
     c.record_synapses=std::move(selected_edges);
+    for(auto& stim:c.stimulators){auto& v=stim.recipients;v.erase(std::remove(v.begin(),v.end(),index),v.end());for(auto& i:v)if(i>index)--i;}
     c.synapses.erase(std::remove_if(c.synapses.begin(),c.synapses.end(),[&](const Synapse& s) {
         return s.source==index || s.target==index;
     }),c.synapses.end());
@@ -272,24 +273,23 @@ static uint64_t noise_bin(double time,double interval) {
     if(time>=double(bin+1)*interval)++bin;
     return bin;
 }
+double next_pulse_boundary(const Neuron& n,double time,double limit) {
+    double next=limit;auto consider=[&](double t){if(t>time&&t<next)next=t;};
+    if(n.amplitude==0||n.frequency<=0||(n.pulse_intervals.empty()&&n.width<=0)||time>=n.stop)return next;
+    consider(n.start);consider(n.stop);if(next<=n.start)return next;
+    const double period=1/n.frequency,cycle=std::floor((std::max(time,n.start)-n.start)/period);
+    for(int neighbor=-1;neighbor<=2;++neighbor) {
+        const double k=cycle+neighbor;if(k<0)continue;
+        auto edge=[&](double offset){const double t=interval_edge(n,k,offset);if(t>=n.start&&t<=n.stop)consider(t);};
+        if(n.pulse_intervals.empty()){if(n.width<period){edge(0);edge(n.width);}}
+        else for(const auto& interval:n.pulse_intervals){edge(interval.start);edge(interval.stop);}
+    }return next;
+}
 double next_input_boundary(const Config& c,double time,double limit) {
-    double next=limit;
-    auto consider=[&](double edge) { if(edge>time && edge<next)next=edge; };
-    bool noise=false;
-    for(const auto& n:c.neurons) {
-        noise=noise || (n.individual_noise ? n.noise_sigma>0 : c.noise_sigma>0);
-        if(n.amplitude==0 || n.frequency<=0 || (n.pulse_intervals.empty() && n.width<=0) || time>=n.stop)continue;
-        consider(n.start);consider(n.stop);
-        if(next<=n.start)continue;
-        const double period=1/n.frequency,cycle=std::floor((std::max(time,n.start)-n.start)/period);
-        for(int neighbor=-1;neighbor<=2;++neighbor) {
-            const double k=cycle+neighbor;if(k<0)continue;
-            auto edge=[&](double offset) { const double t=interval_edge(n,k,offset);if(t>=n.start && t<=n.stop)consider(t); };
-            if(n.pulse_intervals.empty()) { if(n.width<period){edge(0);edge(n.width);} }
-            else for(const auto& interval:n.pulse_intervals) {edge(interval.start);edge(interval.stop);}
-        }
-    }
-    if(noise)consider(double(noise_bin(time,c.noise_interval)+1)*c.noise_interval);
+    double next=limit;bool noise=false;
+    for(const auto& n:c.neurons){noise=noise||(n.individual_noise?n.noise_sigma>0:c.noise_sigma>0);next=next_pulse_boundary(n,time,next);}
+    for(const auto& s:c.stimulators)if(s.enabled)next=next_pulse_boundary(stimulator_signal(s),time,next);
+    if(noise){const double t=double(noise_bin(time,c.noise_interval)+1)*c.noise_interval;if(t>time&&t<next)next=t;}
     return next;
 }
 static uint64_t mix64(uint64_t value) {
@@ -298,7 +298,7 @@ static uint64_t mix64(uint64_t value) {
     value=(value^(value>>27))*0x94d049bb133111ebULL;
     return value^(value>>31);
 }
-double external_current(const Config& c,int index,double time) {return external_current_with_protocol(c,c.neurons[index],index,time);}
+double external_current(const Config& c,int index,double time) {double value=external_current_with_protocol(c,c.neurons[index],index,time);return c.stimulators.empty()?value:value+shared_current(c,index,time);}
 double external_current_with_protocol(const Config& c,const Neuron& n,int index,double time) {
     double current=n.current+pulse_current(n,time);
     const double sigma=n.individual_noise ? n.noise_sigma : c.noise_sigma;
@@ -337,13 +337,13 @@ void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,do
 void update_synaptic_stdp(const Synapse& s,StdpState& state,uint64_t emitted,uint64_t arrived,uint64_t post,double dt,double rate) {
     update_stdp(s,state,s.stdp_timing==StdpTiming::Arrival ? arrived : emitted,post,dt,rate);
 }
-void derivative(const Config& c,const State& y,double midpoint,State& dy,const std::vector<StdpState>* plasticity,bool omit_synapse_kinetics) {
+void derivative(const Config& c,const State& y,double midpoint,State& dy,const std::vector<StdpState>* plasticity,bool omit_synapse_kinetics,const std::vector<double>* held_inputs) {
     if(y.size()!=size_t(dimension(c)))throw std::invalid_argument("State dimension does not match the network.");
     dy.assign(y.size(),0); const auto& p=c.parameters;
     std::array<double,MaxNeurons> input{};
     std::array<double,MaxAstrocytes> glutamate{};
     std::array<std::array<bool,MaxNeurons>,MaxAstrocytes> contacts{};
-    for(int i=0;i<int(c.neurons.size());++i) input[i]=external_current(c,i,midpoint);
+    for(int i=0;i<int(c.neurons.size());++i) input[i]=held_inputs?(*held_inputs)[i]:external_current(c,i,midpoint);
     for(int i=0;i<int(c.synapses.size());++i) {
         const auto& s=c.synapses[i]; int b=syn_offset(c,i);
         if(!omit_synapse_kinetics) {
@@ -392,7 +392,7 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
 Simulator::Simulator(const Config& c):config(c) {
     error=validate(c);
     if(!error.empty()) return;
-    state=initial_state(c); history.values.resize(dimension(c));
+    state=initial_state(c); held_inputs.resize(c.neurons.size()); history.values.resize(dimension(c));
     flow=numerical::Flow(state.size());
     if(c.astrocytes.empty())flow.nonlinear_prefix=c.neurons.size()*4;
     history.weights.resize(c.synapses.size());

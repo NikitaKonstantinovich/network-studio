@@ -15,7 +15,7 @@ double Simulator::neuron_threshold_sample(const State& old,double h,int coordina
     for(int k=0;k<4;++k)initial[k]=old[coordinate+k];
     for(size_t k=0;k<edges.size();++k)initial[4+k]=old[syn_offset(c,edges[k])+2];
     numerical::Flow local(initial.size());
-    const double external=external_current(c,index,held_input_time);
+    const double external=held_inputs[index];
     local.rhs=[&](const State& y,State& dy) {
         dy.assign(y.size(),0);double input=external;
         for(size_t k=0;k<edges.size();++k) {
@@ -157,6 +157,7 @@ bool Simulator::step() {
             if(experiment.automatic&&experiment.stage_index+1<int(config.stages.size()))enter_stage(experiment.stage_index+1,true);
             else experiment.automatic=false;
         }
+        if(ok){apply_stimulus_commands();synchronize_stimulators(true);}
         return ok;
     } catch(const std::exception& e) {
         stepping=false;error=std::string("Integration failed: ")+e.what();return false;
@@ -164,7 +165,7 @@ bool Simulator::step() {
 }
 bool Simulator::step_impl() {
     const auto& c=config;const auto& p=c.parameters;
-    flow.rhs=[this](const State& y,State& dy){derivative(config,y,held_input_time,dy,&plasticity,flow.nonlinear_prefix!=0);};
+    flow.rhs=[this](const State& y,State& dy){derivative(config,y,held_input_time,dy,&plasticity,flow.nonlinear_prefix!=0,&held_inputs);};
     flow.exact=[this](const State& y,double h,State& out){exact_flow(y,h,out);};
     flow.threshold_sample={};
     if(c.astrocytes.empty())flow.threshold_sample=[this](const State& y,double h,int coordinate) {
@@ -173,13 +174,16 @@ bool Simulator::step_impl() {
     const double macro_end=std::min({double(steps+1)*c.dt,c.duration,experiment.stage_active?experiment.stage_end:std::numeric_limits<double>::infinity()});
     size_t pieces=0;
     while(time<macro_end) {
+        apply_stimulus_commands();synchronize_stimulators();
         if(++pieces>200000) {error="Too many internal steps; revise extreme kinetic parameters.";return false;}
         const double sample_time=double(next_sample)*c.sample;
         const double delivery_time=pending_deliveries.empty() ? std::numeric_limits<double>::infinity() : pending_deliveries.front().t_arrival;
         if(delivery_time<=time) {error="Delivery queue contains an already due event; reset the experiment.";return false;}
-        const double limit=next_input_boundary(c,time,std::min({macro_end,sample_time,delivery_time}));
+        const double command_time=stimulus_commands.empty()?std::numeric_limits<double>::infinity():stimulus_commands.front().time;
+        const double limit=next_input_boundary(c,time,std::min({macro_end,sample_time,delivery_time,command_time}));
         log_stimuli(time);
         held_input_time=time; // Right-continuous [start, stop) input on this segment.
+        for(int i=0;i<int(c.neurons.size());++i)held_inputs[i]=external_current(c,i,time);
         double h=std::min({limit-time,suggested_step,kinetic_step_limit()});
         std::vector<int> group;
         double norm=0,advance=0;
@@ -268,6 +272,7 @@ bool Simulator::step_impl() {
             pending_deliveries.push_back(e);std::push_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});
         }
         trim_journals(group.size(),deliveries.size());
+        capture_activity(deliveries,fired,event_time);
         history.deliveries.insert(history.deliveries.end(),deliveries.begin(),deliveries.end());
         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]){++spikes[i];history.events.push_back({event_time,i,false});}
         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]){++releases[i];history.events.push_back({event_time,i,true});}

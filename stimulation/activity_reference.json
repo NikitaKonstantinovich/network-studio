@@ -1,0 +1,98 @@
+[
+  {
+    "example": "chain",
+    "window_s": 0.05,
+    "response_s": [
+      0,
+      0.02
+    ],
+    "time_s": 0.12,
+    "edges": [
+      {
+        "id": 1,
+        "deliveries_in_window": 2,
+        "deliveries_with_post": 2,
+        "q_arrivals": 0.6,
+        "q_with_post": 0.6
+      },
+      {
+        "id": 2,
+        "deliveries_in_window": 2,
+        "deliveries_with_post": 2,
+        "q_arrivals": 0.6,
+        "q_with_post": 0.6
+      },
+      {
+        "id": 3,
+        "deliveries_in_window": 2,
+        "deliveries_with_post": 0,
+        "q_arrivals": 0.6,
+        "q_with_post": 0
+      }
+    ]
+  },
+  {
+    "example": "fields_1hz",
+    "window_s": 0.05,
+    "response_s": [
+      0,
+      0.02
+    ],
+    "time_s": 2.03,
+    "edges": [
+      {
+        "id": 1,
+        "deliveries_in_window": 4,
+        "deliveries_with_post": 4,
+        "q_arrivals": 0.6,
+        "q_with_post": 0.6
+      },
+      {
+        "id": 2,
+        "deliveries_in_window": 5,
+        "deliveries_with_post": 5,
+        "q_arrivals": 0.6,
+        "q_with_post": 0.6
+      },
+      {
+        "id": 3,
+        "deliveries_in_window": 5,
+        "deliveries_with_post": 0,
+        "q_arrivals": 0.6,
+        "q_with_post": 0
+      }
+    ]
+  },
+  {
+    "example": "fields_10hz",
+    "window_s": 0.05,
+    "response_s": [
+      0,
+      0.02
+    ],
+    "time_s": 2.03,
+    "edges": [
+      {
+        "id": 1,
+        "deliveries_in_window": 3,
+        "deliveries_with_post": 3,
+        "q_arrivals": 0.6,
+        "q_with_post": 0.6
+      },
+      {
+        "id": 2,
+        "deliveries_in_window": 3,
+        "deliveries_with_post": 3,
+        "q_arrivals": 0.6,
+        "q_with_post": 0.6
+      },
+      {
+        "id": 3,
+        "deliveries_in_window": 3,
+        "deliveries_with_post": 0,
+        "q_arrivals": 0.6,
+        "q_with_post": 0
+      }
+    ]
+  }
+]

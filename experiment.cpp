@@ -7,6 +7,7 @@
 
 namespace studio {
 std::string validate_experiment(const Config& c) {
+    if(auto issue=validate_stimulators(c);!issue.empty())return issue;
     auto range=[](double v,double lo,double hi){return std::isfinite(v)&&v>=lo&&v<=hi;};
     auto indices=[&](const std::vector<int>& list){std::set<int> seen;for(int i:list)if(i<0||i>=int(c.neurons.size())||!seen.insert(i).second)return false;return true;};
     if(!range(c.space.width,1e-9,1e9)||!range(c.space.height,1e-9,1e9)||c.space.unit.empty()||c.space.unit.size()>32||c.space.unit.find_first_of("\r\n\t")!=std::string::npos)return "Invalid model space/units.";
@@ -28,6 +29,7 @@ void Simulator::append_protocol(const std::string& name,bool cleared) {
     if(experiment.protocols.size()>=4096)throw std::runtime_error("Protocol journal limit (4096 transitions) reached.");
     if(!experiment.protocols.empty())experiment.protocols.back().end=time;
     experiment.protocols.push_back({time,time,name,experiment.learning,cleared,experiment.learning_rate,config.neurons});
+    for(auto s:config.stimulators){s.recipients=stimulator_recipients(config,s);s.spatial=false;experiment.protocols.back().stimulators.push_back(std::move(s));}
 }
 void Simulator::set_learning(bool enabled,double rate,bool clear) {
     if(stepping||!checkpoint_boundary||!error.empty())throw std::runtime_error("Learning controls require a safe paused boundary.");
@@ -56,9 +58,17 @@ void Simulator::enter_stage(size_t index,bool automatic) {
         n.amplitude=stage.amplitude;n.width=stage.width;n.start=time+stage.first_pulse;
         n.stop=end;n.pulse_intervals.clear();
     }
+    for(auto id:stage.stimulator_ids)for(auto& s:candidate.stimulators)if(s.id==id) {
+        s.enabled=stage.stimulus_enabled;s.signal.amplitude=stage.amplitude;s.signal.frequency=stage.frequency;
+        s.signal.width=stage.width;s.signal.start=time;s.first_delay=stage.first_pulse;s.signal.stop=end;s.signal.pulse_intervals.clear();
+    }
     const auto problem=validate(candidate);if(!problem.empty())throw std::runtime_error(problem);
     if(end>config.duration)extend_duration(end);
     config.neurons=std::move(candidate.neurons);
+    for(auto id:stage.stimulator_ids)for(auto& l:stimulus_latches)if(l.id==id&&l.active_pulse) {
+        for(auto& p:history.shared_pulses)if(p.stimulator==id&&p.pulse==l.active_pulse){p.end=time;p.complete=true;}l.active_pulse=0;
+    }
+    config.stimulators=std::move(candidate.stimulators);
     experiment.learning=stage.learning;experiment.learning_rate=stage.learning_rate;
     experiment.stage_active=true;experiment.automatic=automatic;experiment.stage_index=int(index);experiment.stage_end=end;
     if(stage.clear_traces)for(auto& p:plasticity)p.pre_trace=p.post_trace=p.post_slow_trace=0;
@@ -68,7 +78,10 @@ double Simulator::historical_input(int neuron,double at) const {
     if(neuron<0||neuron>=int(config.neurons.size()))throw std::out_of_range("Missing input neuron");
     auto it=std::upper_bound(experiment.protocols.begin(),experiment.protocols.end(),at,[](double t,const auto& p){return t<p.time;});
     if(it==experiment.protocols.begin())return external_current(config,neuron,at);
-    return external_current_with_protocol(config,(--it)->neurons[neuron],neuron,at);
+    --it;double value=external_current_with_protocol(config,it->neurons[neuron],neuron,at);
+    if(it->stimulators.empty())return value;
+    double shared=0;for(const auto& s:it->stimulators)if(s.enabled&&std::find(s.recipients.begin(),s.recipients.end(),neuron)!=s.recipients.end())shared+=pulse_current(stimulator_signal(s),at);
+    return value+shared;
 }
 Config Simulator::learned_config() const {
     Config c=config;for(size_t j=0;j<c.synapses.size();++j)c.synapses[j].weight=plasticity[j].weight;return c;

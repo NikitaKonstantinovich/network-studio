@@ -41,6 +41,8 @@ void App::stage_manager() {
                     char name[256];std::snprintf(name,sizeof(name),"%s",s.name.c_str());if(ImGui::InputText("Имя",name,sizeof(name)))s.name=name;
                     number("Длительность этапа, с",s.duration,config.dt,1e9);ImGui::Checkbox("Обучать",&s.learning);ImGui::SameLine();number("Коэффициент",s.learning_rate,0,100);
                     ImGui::Checkbox("Очистить следы при входе",&s.clear_traces);group(s.neurons,config);
+                    ImGui::TextDisabled("Общие источники: выбранные начнут новый поезд при входе в этап.");
+                    for(const auto& stim:config.stimulators){auto at=std::find(s.stimulator_ids.begin(),s.stimulator_ids.end(),stim.id);bool chosen=at!=s.stimulator_ids.end();if(ImGui::Checkbox(("#"+std::to_string(stim.id)+" "+stim.name).c_str(),&chosen)){if(chosen)s.stimulator_ids.push_back(stim.id);else s.stimulator_ids.erase(at);}}
                     ImGui::Checkbox("Импульсы включены",&s.stimulus_enabled);number("Амплитуда",s.amplitude,-30,100);number("Частота, Гц",s.frequency,0,200);
                     double ms=s.width*1000;if(number("Ширина, мс",ms,0,1000))s.width=ms*.001;
                     number("Первый импульс через, с",s.first_pulse,0,s.duration);
@@ -58,7 +60,7 @@ void App::stage_manager() {
         if(ImGui::BeginTabItem("История и сохранение")) {
             bool bounded=config.bounded_journals;
             if(ImGui::Checkbox("Ограниченные журналы (старые события удаляются)",&bounded)) {
-                if(bounded||!(sim.history.events_after||sim.history.deliveries_after||sim.history.stimuli_after))config.bounded_journals=sim.config.bounded_journals=bounded;
+                if(bounded||!(sim.history.events_after||sim.history.deliveries_after||sim.history.stimuli_after||sim.history.shared_after))config.bounded_journals=sim.config.bounded_journals=bounded;
                 else status="Уже удалённую историю нельзя объявить полной. Начните независимый опыт или сохраните доступный интервал.";
             }
             ImGui::TextWrapped("Потенциалы имеют отдельный лимит. Очередь будущих доставок не сокращается. Полные журналы ограничены 2 млн записей; для длинных опытов выберите ограниченный режим заранее. Удалённые события восстановить из checkpoint нельзя.");
@@ -89,6 +91,7 @@ void App::stage_manager() {
                         const auto& n=p.neurons[i];
                         ImGui::Text("N%d · DC %.4g · A %.4g · %.6g Гц · ширина %.6g мс · [%.9g, %.9g) с · таблица %zu",i+1,n.current,n.amplitude,n.frequency,n.width*1000,n.start,n.stop,n.pulse_intervals.size());
                     }
+                    for(const auto& stim:p.stimulators)ImGui::Text("#%llu · %s · %.6g Гц · получателей %zu",stim.id,stim.name.c_str(),stim.signal.frequency,stim.recipients.size());
                     ImGui::EndChild();ImGui::TreePop();
                 }ImGui::PopID();
             }

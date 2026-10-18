@@ -46,10 +46,11 @@ int main() {
         WeightField initial;initial.update(c,&app.simulation->plasticity,v);
         for(size_t i=0;i<initial.cells.size();++i)check(initial.cells[i].x==app.weight_field.cells[i].x,"Reset retained trained field");
         check(app.restore_state(dir/"restore.nscp"),"Checkpoint restore failed");frame(app);equal(*app.simulation,reference,dir);
-        v.polarity=FieldPolarity::Inhibitory;v.model=FieldModel::TsodyksMarkram;
-        check(app.plot_windows.save(dir/"view.nsworkspace"),"Workspace save");const auto saved=bytes(dir/"view.nsworkspace");
+        v.polarity=FieldPolarity::Inhibitory;v.model=FieldModel::TsodyksMarkram;v.activity=true;v.activity_mode=1;v.activity_window=.125;v.response_min=.001;v.response_max=.03;v.activity_scale=.08;v.activity_polarity=FieldPolarity::Excitatory;
+        check(app.plot_windows.save(dir/"view.nsworkspace"),"Workspace save");auto saved=bytes(dir/"view.nsworkspace");check(v.activity,"Activity setting");
+        auto version3=saved;version3.erase(version3.size()-8-64,64);version3[8+std::string("Network Studio plot workspace").size()]=3;resign(version3);write_atomic(dir/"version3.nsworkspace",version3);check(app.plot_windows.load(dir/"version3.nsworkspace"),"Schema 3 compatibility");check(!v.activity,"Legacy activity default");saved=version3;
         v=TopologyViewState{};check(app.plot_windows.load(dir/"view.nsworkspace"),"Workspace load");
-        check(v.field&&v.columns==8&&v.rows==6&&v.polarity==FieldPolarity::Inhibitory&&v.model==FieldModel::TsodyksMarkram&&v.zoom==2.75,"Workspace lost topology settings");
+        check(v.field&&v.columns==8&&v.rows==6&&v.polarity==FieldPolarity::Inhibitory&&v.model==FieldModel::TsodyksMarkram&&v.zoom==2.75,"Workspace lost topology settings");check(v.activity&&v.activity_mode==1&&v.activity_window==.125&&v.response_min==.001&&v.response_max==.03&&v.activity_scale==.08&&v.activity_polarity==FieldPolarity::Excitatory,"Workspace lost activity settings");
         // Schema 1 has the same window/ini prefix and no 112-byte topology block.
         const size_t analysis_bytes=8+analysis_settings_json(app.plot_windows.embedded[7].analysis).size()+8;
         size_t tail_bytes=analysis_bytes;for(const auto& window:app.plot_windows.windows)tail_bytes+=8+analysis_settings_json(window.analysis).size();

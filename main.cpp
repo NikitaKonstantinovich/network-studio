@@ -101,9 +101,10 @@ static std::filesystem::path dialog(HWND hwnd,bool save,bool csv,bool checkpoint
 }
 int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     int argc=0;wchar_t** args=CommandLineToArgvW(GetCommandLineW(),&argc);
-    std::filesystem::path smoke,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false;
+    std::filesystem::path smoke,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
     for(int i=1;i<argc;++i) {
         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
+        else if(std::wstring(args[i])==L"--stimulator-smoke"&&i+1<argc){smoke=args[++i];stimulator_smoke=true;}
         else if(std::wstring(args[i])==L"--experiment-smoke"&&i+1<argc){smoke=args[++i];experiment_smoke=true;}
         else if(std::wstring(args[i])==L"--field-smoke"&&i+1<argc){smoke=args[++i];field_smoke=true;}
         else if(std::wstring(args[i])==L"--viewport-smoke"&&i+1<argc){smoke=args[++i];viewport_smoke=true;}
@@ -120,7 +121,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     RegisterClassExW(&wc);
     try {
         ImGui_ImplWin32_EnableDpiAwareness();
-        hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,(field_smoke||experiment_smoke)?1800:1480,(field_smoke||experiment_smoke)?1300:1000,nullptr,nullptr,instance,nullptr);
+        hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,(field_smoke||experiment_smoke||stimulator_smoke)?1800:1480,(field_smoke||experiment_smoke||stimulator_smoke)?1300:1000,nullptr,nullptr,instance,nullptr);
         if(!hwnd)throw std::runtime_error("Cannot create the application window.");create_device(hwnd);resize_w=resize_h=0;
         IMGUI_CHECKVERSION();ImGui::CreateContext();ImPlot::CreateContext();imgui=true;
         auto& io=ImGui::GetIO();io.ConfigFlags|=ImGuiConfigFlags_NavEnableKeyboard|ImGuiConfigFlags_DockingEnable|ImGuiConfigFlags_ViewportsEnable|
@@ -169,6 +170,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         }
         if(plot_demo)app.plot_windows.demo();
         if(field_smoke){auto& v=app.plot_windows.topology;v.field=true;v.columns=8;v.rows=6;v.scale=app.config.neurons.size()<32?.08:.002;v.edges=app.config.neurons.size()<32;}
+        if(stimulator_smoke){auto& v=app.plot_windows.topology;v.field=v.activity=true;v.columns=8;v.rows=6;v.scale=v.activity_scale=.08;v.activity_window=.1;app.selected_stimulator=app.config.stimulators.empty()?0:app.config.stimulators[0].id;}
         if(viewport_smoke&&app.plot_windows.windows.empty())for(auto kind:{studio::PlotKind::Voltage,studio::PlotKind::Neuron,studio::PlotKind::Raster,studio::PlotKind::Synapse}) {
             auto id=app.plot_windows.create(kind);auto* w=app.plot_windows.find(id);if(kind==studio::PlotKind::Synapse)w->view=1;
             w->size={680,440};w->position={80.f+float(id%2)*700,60.f+float((id-1)/2)*460};
@@ -188,6 +190,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(!smoke.empty()&&!viewport_smoke) {
                 if(smoke_wizard && frames==0)app.request_network_wizard=true;
                 int group=frames/4;app.request_plot_tab=group;
+                if(stimulator_smoke&&frames==16)app.show_stimulators=true;
                 if(experiment_smoke&&frames==32)app.show_stages=true;
                 if(experiment_smoke&&frames==36) {
                     app.show_stages=false;studio::NetworkGeneration g;g.topology=studio::NetworkTopology::WithinRadius;g.space={10,10,"model_unit"};g.radius=2;
@@ -207,12 +210,12 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                 if(!smoke.empty()&&!viewport_smoke&&frames%4==3)capture_png(smoke/(L"tab_"+std::to_wstring(frames/4)+L".png"));
             }
             ImGui::UpdatePlatformWindows();ImGui::RenderPlatformWindowsDefault();
-            if(experiment_smoke&&(frames==35||frames==39)) {
+            if((experiment_smoke&&(frames==35||frames==39))||(stimulator_smoke&&frames==23)) {
                 auto& platform=ImGui::GetPlatformIO();
                 for(int i=1;i<platform.Viewports.Size;++i){auto* v=platform.Viewports[i];if(!v->DrawData||v->DrawData->TotalVtxCount<100)continue;
                     platform.Renderer_RenderWindow(v,nullptr);ComPtr<ID3D11RenderTargetView> view;context->OMGetRenderTargets(1,&view,nullptr);
                     ComPtr<ID3D11Resource> resource;view->GetResource(&resource);ComPtr<ID3D11Texture2D> texture;check(resource.As(&texture),"Experiment viewport capture failed");
-                    capture_png(smoke/((frames==35?L"stages_":L"generator_")+std::to_wstring(i)+L".png"),texture.Get());}
+                    capture_png(smoke/((stimulator_smoke?L"stimulators_":frames==35?L"stages_":L"generator_")+std::to_wstring(i)+L".png"),texture.Get());}
             }
             if(viewport_smoke) {
                 auto& platform=ImGui::GetPlatformIO();
@@ -293,6 +296,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             studio::export_results(*app.simulation,smoke/L"demo");
             std::ofstream log(smoke/L"renderer.txt");log<<"frames="<<frames<<"\nminimum_vertices="<<minimum_vertices<<"\nsamples="<<app.simulation->history.time.size()<<"\nerror="<<app.simulation->error<<"\n";
             log<<"native_viewport_checks="<<native_checks<<"\nmonitors="<<ImGui::GetPlatformIO().Monitors.Size<<"\n";
+            if(stimulator_smoke)log<<"shared_sources="<<app.config.stimulators.size()<<"\nshared_pulses="<<app.simulation->history.shared_pulses.size()<<"\nactivity_maximum="<<app.activity_field.maximum<<"\nactivity_events_processed="<<app.activity_field.processed_events<<"\n";
             if(field_smoke) {
                 log<<"weight_field=1\nincluded_edges="<<app.weight_field.included_edges<<"\ngeometry_builds="<<app.weight_field.geometry_builds
                     <<"\nfield_geometry_ms="<<app.weight_field.geometry_ms<<"\nfield_update_ms="<<app.weight_field.update_ms

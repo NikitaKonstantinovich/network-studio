@@ -1,0 +1,61 @@
+{
+  "built_at_local": "2026-10-18T21:02:14.081221+03:00",
+  "branch": "feature/shared-stimulators-activity",
+  "base_commit": "f47c00cc22c3769d32a24a396ce4085811540665",
+  "tests": {
+    "ctest_passed": 22,
+    "ctest_total": 22,
+    "smoke_passed": true,
+    "shared_core_assertions": 62610,
+    "log": "E:\\asp\\26_27\\configurator\\verification\\stimulators_final_build.log"
+  },
+  "benchmark": {
+    "neurons": 500.0,
+    "edges": 15000.0,
+    "geometry_ms": 5.0634,
+    "cache_bytes": 1541892.0,
+    "both_fields_update_ms": 0.696938,
+    "simulate_20ms_wall_ms": 6859.09,
+    "recent_deliveries": 39516.0
+  },
+  "benchmark_cpu": "Intel Core i9-11900KF 3.50 GHz; Windows x64 Release; single simulator thread",
+  "builds": {
+    "build/Release/network_studio.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "bytes": 1796096,
+      "sha256": "21d5198345c9c87a285ea91aeee7828a137caead0d7bea860271cda9297d7f36"
+    },
+    "build/Release/network_studio_cli.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "bytes": 731648,
+      "sha256": "7c76bd24921d97df57f26f0a161e9e2ca4f41f0d8d6070288601c1531fa663e6"
+    }
+  },
+  "native_screenshots_source": "E:\\asp\\26_27\\configurator\\build\\native\\stimulator-native\\20261018_205952",
+  "checkpoint_process_exact_matches": {
+    ".nscp": "399dfb5577972ceccb0e1882b20d9a7cf86762eda27fed88611a5a6bc506fad3",
+    "_activity.csv": "ec18613c26f39afca7df88f1db05e44b77f485c902a716b15319ce7b855a34e8",
+    "_analysis.txt": "22a2cb4f1246b0af246c2bf45811755dd756378007c0eedd06fa2bd804ff78f5",
+    "_bursts.csv": "4a6490a16e2d1057503e9fa55b3edd8c5e50d47b05fb2dde93e61221538d6b8c",
+    "_deliveries.csv": "7c6bf4e52063e551189a187d82a614ce65592202de1d4eefddd2a7f5e9f27baf",
+    "_events.csv": "ab6bbf61f831c94989f6416c00c6b8f0fa18a14ffb910fbd944919c58b5e9e3d",
+    "_experiment.json": "ee2ec120e9cc7cd64f8e1ba65e6fbe2826ce7ed658a40b713738d58079402d3b",
+    "_pending_deliveries.csv": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+    "_protocols.json": "29ee0483cc4d8b5064a8e4cd1c8f2d9cc36f135b7041accaeb3e53a80729ce1b",
+    "_responses.csv": "9d2fba62a4f55b8d3480f8f3c1b143d8b0ebb580cec62b0e36840941b3478283",
+    "_shared_stimuli.csv": "4228c40f980b25a7a8161024b7211764361ad3f680316a4acda6af2d67759cc5",
+    "_stimulator_commands.json": "bc83084403987de16d722b4e168eb13a4f4488416791ad6a312f9492272a61c1",
+    "_stimuli.csv": "fe6c34b48f4ecdc3510e6cee4a05b6654bfb8146a67187f9571f28a47385981b",
+    "_summary.json": "d48e52a5c0db69633e73a761d0910c1cba9e5a93e1189e0fbcc6c3ee310d6265",
+    "_trace.csv": "ed3b9bdc0578a40f6faaa01f152c097be37b8c5170c007d14316ded2b968dfbd",
+    "_weights.csv": "ea2d2f5c0bfc54de8127491e4c04459d5aaa465330ce4aa5aaef06e68b738b87"
+  },
+  "checkpoint_algorithm": "event-rk4-doubling-exact-linear-localized-stimulators-v4",
+  "checkpoint_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"81b5726aed413cd8eec539813cbdf706bf011d9e2c4a9afec180bd76bf94295d\"",
+  "additional_chain_native": "E:\\asp\\26_27\\configurator\\verification\\stimulators_chain_native",
+  "screenshots": {
+    "combined_fields.png": "048dff6ce0efb8e8457e1b0d52d2ce00cf1207b34c379c9032f8e916f74b7740",
+    "shared_stimulator.png": "4ffc2e21dc6c1509b9e2df1ffd9967fd8350fb3eb1c60636ceb7ad8e91e0fc60",
+    "spatial_area.png": "e9d8ab3d2ed4eaaea3c8eefb9c9ec2e47d2fae0647dd05ce5be7afb661a8b4df"
+  }
+}

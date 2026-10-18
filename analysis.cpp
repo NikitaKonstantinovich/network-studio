@@ -8,8 +8,8 @@
 #include <set>
 namespace studio {
 NetworkAnalysis analyze_network(const Config& c,const History& h,double until,const AnalysisSettings& a) {
-    NetworkAnalysis out;out.from=std::max(h.events_after,h.stimuli_after);out.until=until;
-    Config probe;probe.neurons=c.neurons;probe.analysis=a;auto issue=validate_experiment(probe);
+    NetworkAnalysis out;out.from=std::max(h.events_after,a.reference_stimulator?h.shared_after:h.stimuli_after);out.until=until;
+    Config probe;probe.neurons=c.neurons;probe.analysis=a;probe.stimulators=c.stimulators;probe.next_stimulator_id=c.next_stimulator_id;probe.space=c.space;auto issue=validate_experiment(probe);
     if(!issue.empty()||!std::isfinite(until)||until<out.from){out.error=issue.empty()?"Invalid analysis interval":issue;return out;}
     std::vector<bool> selected(c.neurons.size(),false);
     for(size_t i=0;i<selected.size();++i)selected[i]=a.population==AnalysisPopulation::All||
@@ -59,7 +59,9 @@ NetworkAnalysis analyze_network(const Config& c,const History& h,double until,co
         if(right==until)break;
     }
     std::vector<double> stimuli;
-    for(const auto& e:h.stimuli)if(e.neuron==a.reference_neuron&&e.time>=out.from&&e.time<=until&&(stimuli.empty()||stimuli.back()!=e.time))stimuli.push_back(e.time);
+    if(a.reference_stimulator) {
+        for(const auto& e:h.shared_pulses)if(e.stimulator==a.reference_stimulator&&e.start>=out.from&&e.start<=until)stimuli.push_back(e.start);
+    }else for(const auto& e:h.stimuli)if(e.neuron==a.reference_neuron&&e.time>=out.from&&e.time<=until&&(stimuli.empty()||stimuli.back()!=e.time))stimuli.push_back(e.time);
     std::vector<bool> used(out.bursts.size(),false);size_t candidate=0;
     for(double t:stimuli) {
         if(t+a.response_max>until){++out.incomplete_stimuli;continue;}
@@ -90,7 +92,7 @@ void export_analysis(const NetworkAnalysis& r,const AnalysisSettings& a,const st
     for(int i:a.neurons)settings<<i<<",";
     settings<<"\nN="<<r.population_size<<"\nbin_s="<<a.bin<<"\nburst_window_s="<<a.burst_window<<"\nstart_group_hz="<<a.start_rate<<"\nend_group_hz="<<a.end_rate
         <<"\nmin_neurons="<<a.min_neurons<<"\nmin_fraction="<<a.min_fraction<<"\nmin_gap_s="<<a.min_gap<<"\nburst_rate_window_s="<<a.burst_rate_window
-        <<"\nreference_neuron_0based="<<a.reference_neuron<<"\nresponse_min_s="<<a.response_min<<"\nresponse_max_s="<<a.response_max
+        <<"\nreference_stimulator="<<a.reference_stimulator<<"\nreference_neuron_0based="<<a.reference_neuron<<"\nresponse_min_s="<<a.response_min<<"\nresponse_max_s="<<a.response_max
         <<"\nstimulus_hz="<<r.stimulus_hz<<"\nburst_hz="<<r.response_hz<<"\neligible_stimuli="<<r.responses.size()<<"\nmatched="<<r.responses.size()-r.missed<<"\nresponse_fraction="<<(r.responses.empty()?0.:double(r.responses.size()-r.missed)/r.responses.size())<<"\nmissed="<<r.missed<<"\nextra="<<r.extra<<"\nincomplete_stimuli="<<r.incomplete_stimuli<<"\n";
     save(L"_analysis.txt",settings.str());
 }

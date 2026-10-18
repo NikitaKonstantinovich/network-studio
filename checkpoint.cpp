@@ -4,11 +4,12 @@
 #include <fstream>
 #include <limits>
 #include <stdexcept>
+#include <set>
 
 namespace studio {
 namespace {
 constexpr char Magic[]="NETWORK-STUDIO-CHECKPOINT\n";
-constexpr uint64_t Schema=3;
+constexpr uint64_t Schema=4;
 void require(bool ok,const char* message) {if(!ok)throw std::runtime_error(std::string("Checkpoint: ")+message);}
 // Integrity against accidental corruption; not an authentication signature.
 uint64_t checksum(const char* p,size_t n) {
@@ -180,6 +181,12 @@ struct CheckpointAccess {
         w.real(s.history.events_after);w.real(s.history.deliveries_after);w.real(s.history.stimuli_after);
         w.u64(s.history.stimuli.size());for(const auto& e:s.history.stimuli){w.real(e.time);w.real(e.amplitude);w.u64(e.neuron);w.u64(e.protocol);}
         w.text(serialize_runtime(s));
+        w.text(serialize_stimulus_runtime(s));w.real(s.history.shared_after);
+        w.u64(s.history.shared_pulses.size());
+        for(const auto& p:s.history.shared_pulses){w.u64(p.stimulator);w.u64(p.pulse);w.real(p.start);w.real(p.end);w.real(p.amplitude);w.flag(p.complete);w.u64(p.stage+1);w.u64(p.recipients.size());for(int n:p.recipients)w.u64(n);}
+        w.u64(s.activity.delivery_begin);w.u64(s.activity.spike_begin);w.real(s.activity.available_after);
+        w.u64(s.activity.deliveries.size());for(const auto& d:s.activity.deliveries){w.real(d.t_emit);w.real(d.t_arrival);w.u64(d.synapse);}
+        w.u64(s.activity.spikes.size());for(const auto& e:s.activity.spikes){w.real(e.time);w.u64(e.index);}
         auto sum=checksum(w.bytes.data(),w.bytes.size());w.u64(sum);return std::move(w.bytes);
     }
     static std::unique_ptr<Simulator> decode(const std::string& bytes) {
@@ -227,6 +234,24 @@ struct CheckpointAccess {
             require(e.time>=previous_stimulus&&e.time<s->time&&e.amplitude!=0&&e.amplitude>=-30&&e.amplitude<=100&&neuron<c.neurons.size()&&protocol<4096,"invalid stimulus journal");
             e.neuron=int(neuron);e.protocol=int(protocol);previous_stimulus=e.time;}
         deserialize_runtime(*s,r.text(128*1024*1024));
+        deserialize_stimulus_runtime(*s,r.text(64*1024*1024));s->history.shared_after=r.real();
+        require(s->history.shared_after>=0&&s->history.shared_after<=s->time,"invalid shared history depth");
+        s->history.shared_pulses.resize(r.count(c.journal_capacity,64));double previous_pulse=0;
+        std::set<std::pair<uint64_t,uint64_t>> pulse_ids;
+        for(auto& p:s->history.shared_pulses) {
+            p.stimulator=r.u64();p.pulse=r.u64();p.start=r.real();p.end=r.real();p.amplitude=r.real();p.complete=r.flag();auto stage=r.u64();
+            require(p.stimulator>0&&p.stimulator<c.next_stimulator_id&&p.pulse>0&&pulse_ids.insert({p.stimulator,p.pulse}).second&&p.start>=previous_pulse&&p.start<=s->time&&p.end>=p.start&&p.end<=s->time&&p.amplitude!=0&&p.amplitude>=-30&&p.amplitude<=100&&stage<=256,"invalid shared pulse");
+            previous_pulse=p.start;p.stage=int(stage)-1;p.recipients.resize(r.count(c.neurons.size(),8));std::set<int> seen;
+            for(auto& n:p.recipients){auto index=r.u64();require(index<c.neurons.size()&&seen.insert(int(index)).second,"invalid shared recipient");n=int(index);}
+        }
+        for(const auto& l:s->stimulus_latches)if(l.active_pulse)require(std::any_of(s->history.shared_pulses.begin(),s->history.shared_pulses.end(),[&](auto& p){return p.stimulator==l.id&&p.pulse==l.active_pulse&&!p.complete;}),"missing active shared pulse");
+        for(const auto& p:s->history.shared_pulses){auto latch=std::find_if(s->stimulus_latches.begin(),s->stimulus_latches.end(),[&](auto& l){return l.id==p.stimulator;});require(latch!=s->stimulus_latches.end()&&p.pulse<latch->next_pulse&&(p.complete||p.pulse==latch->active_pulse),"shared pulse/latch mismatch");}
+        s->activity.delivery_begin=r.u64();s->activity.spike_begin=r.u64();s->activity.available_after=r.real();
+        require(s->activity.available_after>=0&&s->activity.available_after<=s->time,"invalid activity depth");
+        size_t count=r.count(250000,24);require(count<=UINT64_MAX-s->activity.delivery_begin,"activity counter overflow");double previous_arrival=0;
+        for(size_t k=0;k<count;++k){Delivery d;d.t_emit=r.real();d.t_arrival=r.real();auto edge=r.u64();require(edge<c.synapses.size()&&d.t_emit>0&&d.t_arrival>=previous_arrival&&d.t_arrival<=s->time&&d.t_arrival==d.t_emit+c.synapses[edge].delay,"invalid activity delivery");d.synapse=int(edge);previous_arrival=d.t_arrival;s->activity.deliveries.push_back(d);}
+        count=r.count(250000,16);require(count<=UINT64_MAX-s->activity.spike_begin,"activity counter overflow");double previous_spike=0;
+        for(size_t k=0;k<count;++k){const double at=r.real();auto index=r.u64();require(index<c.neurons.size()&&at>0&&at>=previous_spike&&at<=s->time,"invalid activity spike");s->activity.spikes.push_back({at,int(index),false});previous_spike=at;}
         for(const auto& e:s->history.stimuli)require(e.protocol<int(s->experiment.protocols.size())&&e.time>=s->experiment.protocols[e.protocol].time&&pulse_current(s->experiment.protocols[e.protocol].neurons[e.neuron],e.time)==e.amplitude,"stimulus/protocol mismatch");
         require(r.pos==r.end,"unexpected trailing data");require(stored_done==s->done(),"completion/diagnostic mismatch");
         validate_snapshot(*s);

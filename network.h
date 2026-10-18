@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <deque>
 #include "numerics/integrator.h"
 
 namespace studio {
@@ -80,6 +81,21 @@ struct Gap {
 };
 struct ModelSpace { double width=1, height=1; std::string unit="model_unit"; };
 struct GenerationMetadata { std::string settings_json; int first=0, count=0; };
+enum class StimulatorFilter { All, Excitatory, Inhibitory };
+struct Stimulator {
+    uint64_t id=0;
+    std::string name="Stimulator";
+    bool enabled=true, spatial=false;
+    double x=.5,y=.5,radius=.1,first_delay=0;
+    StimulatorFilter filter=StimulatorFilter::All;
+    std::vector<int> recipients;
+    // Only pulse fields are used; shares the established half-open protocol.
+    Neuron signal;
+};
+struct StimulatorCommand { uint64_t sequence=0; double time=0; Stimulator value; bool restart=false; };
+struct SharedPulse { uint64_t stimulator=0,pulse=0; double start=0,end=0,amplitude=0; bool complete=false; int stage=-1; std::vector<int> recipients; };
+struct StimulatorLatch { uint64_t id=0,next_pulse=1,active_pulse=0; };
+struct StimulatorChange { uint64_t sequence=0; double time=0; int stage=-1; Stimulator value; std::vector<int> recipients; bool restart=false; };
 enum class AnalysisPopulation { All, Excitatory, Inhibitory, Selected };
 struct AnalysisSettings {
     AnalysisPopulation population=AnalysisPopulation::All;
@@ -88,6 +104,7 @@ struct AnalysisSettings {
     int min_neurons=2;
     double min_fraction=0, min_gap=.05, burst_rate_window=1;
     int reference_neuron=0;
+    uint64_t reference_stimulator=0; // 0 selects the legacy neuron pulse train.
     double response_min=0, response_max=.1;
 };
 struct ExperimentStage {
@@ -100,6 +117,7 @@ struct ExperimentStage {
     std::vector<int> neurons;
     bool stimulus_enabled=false;
     double amplitude=30, frequency=1, width=.001, first_pulse=0;
+    std::vector<uint64_t> stimulator_ids;
 };
 struct ProtocolVersion {
     double time=0, end=0;
@@ -107,6 +125,7 @@ struct ProtocolVersion {
     bool learning=true, cleared=false;
     double learning_rate=1;
     std::vector<Neuron> neurons;
+    std::vector<Stimulator> stimulators; // Spatial recipients captured at this version.
 };
 struct ExperimentRuntime {
     bool learning=true, automatic=false, stage_active=false;
@@ -136,6 +155,9 @@ struct Config {
     // retains full journals; new long runs explicitly opt into this policy.
     bool bounded_journals=false;
     size_t journal_capacity=MaxEvents;
+    std::vector<Stimulator> stimulators;
+    uint64_t next_stimulator_id=1;
+    double activity_horizon=1;
     Config();
 };
 Config preset(int index);
@@ -156,15 +178,26 @@ State initial_state(const Config& c);
 // the global sigma; streams are independent per neuron and repeat after reset.
 double external_current(const Config& c, int neuron, double time);
 double pulse_current(const Neuron& neuron,double time);
+double next_pulse_boundary(const Neuron& neuron,double time,double limit);
+Neuron stimulator_signal(const Stimulator& s);
+std::vector<int> stimulator_recipients(const Config& c,const Stimulator& s);
+double shared_current(const Config& c,int neuron,double time);
+std::string validate_stimulators(const Config& c);
 double external_current_with_protocol(const Config& c,const Neuron& neuron,int index,double time);
 std::string validate_experiment(const Config& c);
 // First strictly later discontinuity of the sample-and-hold input, or limit.
 double next_input_boundary(const Config& c,double time,double limit);
 void derivative(const Config& c, const State& y, double midpoint, State& dy,
                 const std::vector<StdpState>* plasticity = nullptr,
-                bool omit_synapse_kinetics = false);
+                bool omit_synapse_kinetics = false,const std::vector<double>* held_inputs=nullptr);
 struct Event { double time; int index; bool astro; };
 struct Delivery { double t_emit, t_arrival; int synapse; };
+struct RecentActivity {
+    std::deque<Delivery> deliveries;
+    std::deque<Event> spikes;
+    uint64_t delivery_begin=0,spike_begin=0;
+    double available_after=0;
+};
 // Total deterministic order; usable both as a min-heap comparator and for export.
 struct DeliveryLater {
     bool operator()(const Delivery& a,const Delivery& b) const {
@@ -180,6 +213,8 @@ struct History {
     std::vector<Event> events;
     std::vector<Delivery> deliveries;
     std::vector<StimulusEvent> stimuli;
+    std::vector<SharedPulse> shared_pulses;
+    double shared_after=0;
     double events_after=0, deliveries_after=0, stimuli_after=0;
     std::vector<uint64_t> dropped_spikes,dropped_releases,dropped_deliveries;
 };
@@ -195,6 +230,11 @@ public:
     // Protocol/state edits require a reset; do not mutate this during a run.
     std::vector<Delivery> pending_deliveries;
     ExperimentRuntime experiment;
+    RecentActivity activity;
+    std::vector<StimulatorCommand> stimulus_commands;
+    std::vector<StimulatorChange> stimulus_changes;
+    std::vector<StimulatorLatch> stimulus_latches;
+    uint64_t next_stimulus_command=1;
     uint64_t steps = 0;
     double time = 0;
     std::string error;
@@ -210,6 +250,13 @@ public:
     double historical_input(int neuron,double time) const;
     Config learned_config() const;
     void fork_experiment(const std::string& origin);
+    // Safe controller API. Frequency changes preserve the current cycle and
+    // apply at its next boundary unless restart is explicitly requested.
+    double schedule_stimulator(Stimulator value,double requested_time,bool restart=false);
+    void replay_stimulators(std::vector<StimulatorCommand> commands); // recorded absolute times, no phase conversion
+    double move_stimulator(uint64_t id,double x,double y,double requested_time);
+    void remove_stimulator(uint64_t id);
+    void move_neuron(int index,double px,double py);
 private:
     friend struct CheckpointAccess;
     bool stepping=false, checkpoint_boundary=true;
@@ -217,6 +264,7 @@ private:
     numerical::Flow flow;
     std::vector<numerical::Threshold> thresholds;
     double held_input_time=0, suggested_step=0;
+    std::vector<double> held_inputs;
     void exact_flow(const State& old,double dt,State& result) const;
     double neuron_threshold_sample(const State& old,double h,int coordinate) const;
     std::vector<std::vector<int>> incoming;
@@ -228,5 +276,8 @@ private:
     void append_protocol(const std::string& name,bool cleared=false);
     void log_stimuli(double at);
     void trim_journals(size_t events,size_t deliveries);
+    void apply_stimulus_commands();
+    void synchronize_stimulators(bool close_only=false);
+    void capture_activity(const std::vector<Delivery>& deliveries,const std::vector<bool>& fired,double at);
 };
 }

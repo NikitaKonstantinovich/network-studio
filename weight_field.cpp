@@ -26,7 +26,11 @@ bool valid_topology_view(const TopologyViewState& s) {
         std::isfinite(s.scale)&&s.scale>=1e-6&&s.scale<=100&&
         std::isfinite(s.zoom)&&s.zoom>=.25&&s.zoom<=8&&
         std::isfinite(s.pan_x)&&std::abs(s.pan_x)<=8&&std::isfinite(s.pan_y)&&std::abs(s.pan_y)<=8&&
-        int(s.polarity)>=0&&int(s.polarity)<=2&&int(s.model)>=0&&int(s.model)<=3;
+        int(s.polarity)>=0&&int(s.polarity)<=2&&int(s.model)>=0&&int(s.model)<=3&&
+        s.activity_mode>=0&&s.activity_mode<=1&&std::isfinite(s.activity_window)&&s.activity_window>=1e-6&&s.activity_window<=10&&
+        std::isfinite(s.response_min)&&std::isfinite(s.response_max)&&s.response_min>=0&&s.response_max>=s.response_min&&s.response_max<=10&&
+        std::isfinite(s.activity_scale)&&s.activity_scale>=1e-6&&s.activity_scale<=100&&
+        int(s.activity_polarity)>=0&&int(s.activity_polarity)<=2&&int(s.activity_model)>=0&&int(s.activity_model)<=3;
 }
 bool inhibitory_weight_edge(const Synapse& s,double weight) {
     // Model/edge polarity, not the source neuron's display label. A zero
@@ -61,6 +65,19 @@ size_t WeightField::cache_bytes() const {
     return positions.capacity()*sizeof(positions[0])+endpoints.capacity()*sizeof(endpoints[0])+
         geometry.capacity()*sizeof(Geometry)+crossed.capacity()*sizeof(uint32_t)+inputs.capacity()*sizeof(Input)+
         cells.capacity()*sizeof(WeightCell)+corrections.capacity()*sizeof(corrections[0]);
+}
+std::vector<WeightCell> WeightField::activity_cells(const Config& c,const std::vector<StdpState>& current,const TopologyViewState& s,const std::vector<uint64_t>& counts) const {
+    if(geometry.size()!=c.synapses.size()||current.size()!=geometry.size()||counts.size()!=geometry.size()||columns!=s.columns||rows!=s.rows)throw std::runtime_error("Prepare shared field geometry before activity queries");
+    std::vector<WeightCell> out(columns*rows);std::vector<std::pair<double,double>> correction(out.size());
+    for(size_t j=0;j<geometry.size();++j) {
+        const auto& edge=c.synapses[j];const auto& g=geometry[j];const double weight=current[j].weight;
+        const bool inhibitory=inhibitory_weight_edge(edge,weight);
+        if(!counts[j]||!edge.enabled||g.begin==g.end||!std::isfinite(weight)||
+           (s.activity_model!=FieldModel::All&&int(s.activity_model)!=int(edge.model)+1)||
+           (s.activity_polarity!=FieldPolarity::All&&(s.activity_polarity==FieldPolarity::Inhibitory)!=inhibitory))continue;
+        for(size_t k=g.begin;k<g.end;++k){auto index=crossed[k];auto& cell=out[index];++cell.count;cell.events+=counts[j];
+            compensated(std::abs(weight)*g.x,cell.x,correction[index].first);compensated(std::abs(weight)*g.y,cell.y,correction[index].second);}
+    }return out;
 }
 void WeightField::update(const Config& c,const std::vector<StdpState>* current,const TopologyViewState& s) {
     const auto started=Clock::now();

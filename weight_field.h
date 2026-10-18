@@ -12,12 +12,18 @@ struct TopologyViewState {
     double scale=.04, zoom=1, pan_x=0, pan_y=0;
     FieldPolarity polarity=FieldPolarity::All;
     FieldModel model=FieldModel::All;
+    bool activity=false;
+    int activity_mode=0;
+    double activity_window=.05,response_min=0,response_max=.02,activity_scale=.04;
+    FieldPolarity activity_polarity=FieldPolarity::All;
+    FieldModel activity_model=FieldModel::All;
 };
 bool valid_topology_view(const TopologyViewState& s);
 bool inhibitory_weight_edge(const Synapse& s,double weight);
 struct WeightCell {
     double x=0,y=0;
     size_t count=0;
+    uint64_t events=0;
     double magnitude() const;
 };
 // Half-open cells (outer border 1 included). Positive-length intersections only.
@@ -32,6 +38,7 @@ public:
     bool available=true;
     double maximum=0, geometry_ms=0, sum_ms=0, update_ms=0;
     size_t cache_bytes() const;
+    std::vector<WeightCell> activity_cells(const Config& c,const std::vector<StdpState>& current,const TopologyViewState& settings,const std::vector<uint64_t>& counts) const;
 private:
     struct Geometry {double x=0,y=0;size_t begin=0,end=0;};
     struct Input {double weight=0;bool included=false;};

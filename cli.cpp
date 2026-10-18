@@ -14,7 +14,7 @@ static double parse_number(const std::string& text) {
 static int run_cli(int argc,char** argv) {
     try {
         studio::Config c=studio::preset(0);std::filesystem::path output="experiment",save,resume,checkpoint;
-        bool config_options=false,continue_current=false;std::filesystem::path plan,trained;std::string branch_origin;
+        bool config_options=false,continue_current=false;std::filesystem::path plan,trained,stimulus_replay;std::string branch_origin;
         std::optional<int> stage,sequence;std::optional<bool> learning;std::optional<double> learning_rate;
         std::optional<double> until,stop,run_for;
         for(int i=1;i<argc;++i) {
@@ -24,6 +24,7 @@ static int run_cli(int argc,char** argv) {
                     "  [--duration seconds] [--dt seconds] [--sample seconds] [--save file.json]\n"
                     "  [--until absolute_end] [--stop-at absolute_time | --run-for seconds]\n"
                     "  [--checkpoint file.nscp] [--output prefix]\n"
+                    "  [--stimulus-commands file.json] (recorded absolute model times)\n"
                     "  [--plan config_with_stages.json] [--stage zero_based | --sequence zero_based]\n"
                     "  [--learning enabled|frozen] [--learning-rate factor] [--fork provenance]\n"
                     "  [--export-trained new_initial_config.json] [--continue-current yes]\n"
@@ -52,6 +53,7 @@ static int run_cli(int argc,char** argv) {
             else if(arg=="--checkpoint")checkpoint=std::filesystem::u8path(value);
             else if(arg=="--save")save=std::filesystem::u8path(value);
             else if(arg=="--continue-current"){if(value!="yes")throw std::runtime_error("Use --continue-current yes");continue_current=true;}
+            else if(arg=="--stimulus-commands")stimulus_replay=std::filesystem::u8path(value);
             else if(arg=="--plan")plan=std::filesystem::u8path(value);
             else if(arg=="--stage"||arg=="--sequence") {double n=parse_number(value);if(n<0||n>255||n!=std::floor(n))throw std::runtime_error("Stage index must be 0..255");(arg=="--stage"?stage:sequence)=int(n);}
             else if(arg=="--learning"){if(value!="enabled"&&value!="frozen")throw std::runtime_error("Learning: enabled or frozen");learning=value=="enabled";}
@@ -78,6 +80,7 @@ static int run_cli(int argc,char** argv) {
         if(!branch_origin.empty())s.fork_experiment(branch_origin);
         if(stage||sequence)s.enter_stage(stage?*stage:*sequence,bool(sequence));
         if(learning||learning_rate)s.set_learning(learning.value_or(s.experiment.learning),learning_rate.value_or(s.experiment.learning_rate));
+        if(!stimulus_replay.empty())studio::load_stimulator_replay(s,stimulus_replay);
         double target=s.config.duration;
         if(run_for) {
             if(!std::isfinite(*run_for)||*run_for<0)throw std::runtime_error("--run-for must be finite and nonnegative.");

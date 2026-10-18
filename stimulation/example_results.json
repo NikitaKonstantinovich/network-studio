@@ -1,0 +1,83 @@
+[
+  {
+    "example": "shared",
+    "time_s": 0.12,
+    "spikes": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    "deliveries": 8,
+    "shared_pulses": 3,
+    "current_weights": [
+      0.2908073812181061
+    ]
+  },
+  {
+    "example": "spatial",
+    "time_s": 0.12,
+    "spikes": [
+      6,
+      5
+    ],
+    "deliveries": 6,
+    "shared_pulses": 3,
+    "current_weights": [
+      0.6957157227505552
+    ]
+  },
+  {
+    "example": "chain",
+    "time_s": 0.12,
+    "spikes": [
+      8,
+      7,
+      6,
+      0
+    ],
+    "deliveries": 21,
+    "shared_pulses": 3,
+    "current_weights": [
+      0.6,
+      0.6,
+      0.6
+    ]
+  },
+  {
+    "example": "fields_1hz",
+    "time_s": 2.03,
+    "spikes": [
+      12,
+      14,
+      14,
+      0
+    ],
+    "deliveries": 40,
+    "shared_pulses": 3,
+    "current_weights": [
+      0.6,
+      0.6,
+      0.6
+    ]
+  },
+  {
+    "example": "fields_10hz",
+    "time_s": 2.03,
+    "spikes": [
+      74,
+      64,
+      64,
+      0
+    ],
+    "deliveries": 202,
+    "shared_pulses": 21,
+    "current_weights": [
+      0.6,
+      0.6,
+      0.6
+    ]
+  }
+]

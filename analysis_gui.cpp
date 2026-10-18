@@ -23,9 +23,16 @@ void PlotWindows::draw_network(PlotWindowState& w,const Simulator& s) {
         number("Начало, спайков/с группы",a.start_rate,1e-9,1e12);number("Завершение, спайков/с группы",a.end_rate,0,a.start_rate);
         ImGui::SliderInt("Минимум участников",&a.min_neurons,1,int(s.config.neurons.size()));number("Минимальная доля",a.min_fraction,0,1);
         number("Промежуток между пачками, с",a.min_gap,0,1e6);number("Окно частоты пачек, с",a.burst_rate_window,1e-6,1e6);
-        int ref=a.reference_neuron+1;if(ImGui::SliderInt("Опорный поезд нейрона",&ref,1,int(s.config.neurons.size()),"N%d"))a.reference_neuron=ref-1;
+        std::string source=a.reference_stimulator?"Стимулятор #"+std::to_string(a.reference_stimulator):"Индивидуальный вход нейрона";
+        if(ImGui::BeginCombo("Опорный источник",source.c_str())) {
+            if(ImGui::Selectable("Индивидуальный вход нейрона",!a.reference_stimulator))a.reference_stimulator=0;
+            for(const auto& stim:s.config.stimulators)if(ImGui::Selectable(("#"+std::to_string(stim.id)+" "+stim.name).c_str(),a.reference_stimulator==stim.id))a.reference_stimulator=stim.id;
+            ImGui::EndCombo();
+        }
+        if(!a.reference_stimulator){int ref=a.reference_neuron+1;if(ImGui::SliderInt("Опорный поезд нейрона",&ref,1,int(s.config.neurons.size()),"N%d"))a.reference_neuron=ref-1;}
+
         number("Ответ не раньше, с",a.response_min,0,1e6);number("Ответ не позже, с",a.response_max,a.response_min,1e6);
-        ImGui::TextWrapped("Один опорный получатель — один поезд стимулов. Пачка сопоставляется только одному стимулу, по порядку. Незавершённые окна ответа не считаются пропусками. Равенство частот не доказывает синхронизацию.");
+        ImGui::TextWrapped("Один общий источник учитывается один раз независимо от числа получателей. Для прежних входов выбирается один опорный нейрон. Пачка сопоставляется только одному стимулу, по порядку. Незавершённые окна ответа не считаются пропусками. Равенство частот не доказывает синхронизацию.");
         if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();ImGui::EndPopup();
     }
     const auto key=analysis_settings_json(a);
@@ -44,7 +51,10 @@ void PlotWindows::draw_network(PlotWindowState& w,const Simulator& s) {
     if(ImGui::IsItemHovered())ImGui::SetTooltip("Окна [a,b); неполное окно нормируется своей длительностью. Детектор: (t-W,t]. Частоты сами по себе не означают синхронизацию.");
     if(w.view==3||w.view==4) {
         if(ImGui::BeginTable("network_journal",w.view==3?4:6,ImGuiTableFlags_Borders|ImGuiTableFlags_RowBg|ImGuiTableFlags_ScrollY,{0,std::max(70.f,ImGui::GetContentRegionAvail().y-4)})) {
-            if(w.view==3) {
+            if(w.view==3&&a.reference_stimulator) {
+                for(auto label:{"Начало, с","Конец, с","ID импульса","Получателей"})ImGui::TableSetupColumn(label);ImGui::TableHeadersRow();
+                for(const auto& e:s.history.shared_pulses)if(e.stimulator==a.reference_stimulator){ImGui::TableNextRow();ImGui::TableNextColumn();ImGui::Text("%.9g",e.start);ImGui::TableNextColumn();ImGui::Text("%.9g%s",e.complete?e.end:s.time,e.complete?"":" (идёт)");ImGui::TableNextColumn();ImGui::Text("%llu",e.pulse);ImGui::TableNextColumn();ImGui::Text("%zu",e.recipients.size());}
+            }else if(w.view==3) {
                 for(auto label:{"t, с","Нейрон","Протокол","Амплитуда"})ImGui::TableSetupColumn(label);ImGui::TableHeadersRow();
                 ImGuiListClipper clip;clip.Begin(int(s.history.stimuli.size()));while(clip.Step())for(int i=clip.DisplayStart;i<clip.DisplayEnd;++i){const auto& e=s.history.stimuli[i];
                     ImGui::TableNextRow();ImGui::TableNextColumn();ImGui::Text("%.9g",e.time);ImGui::TableNextColumn();ImGui::Text("N%d",e.neuron+1);ImGui::TableNextColumn();ImGui::Text("%d",e.protocol);ImGui::TableNextColumn();ImGui::Text("%.6g",e.amplitude);}
@@ -66,7 +76,8 @@ void PlotWindows::draw_network(PlotWindowState& w,const Simulator& s) {
             if(w.view==0) {ImPlot::PlotLine("Группа",r.time.data(),r.group_hz.data(),int(r.time.size()));ImPlot::SetAxes(ImAxis_X1,ImAxis_Y2);ImPlot::PlotLine("На нейрон",r.time.data(),r.neuron_hz.data(),int(r.time.size()));ImPlot::SetAxes(ImAxis_X1,ImAxis_Y1);}
             else ImPlot::PlotLine("Число начал пачек / доступную длину окна",r.time.data(),r.burst_hz.data(),int(r.time.size()));
             std::vector<double> stimuli,stages,bursts;
-            for(auto e:s.history.stimuli)if(e.neuron==a.reference_neuron&&e.time>=r.from)stimuli.push_back(e.time);
+            if(a.reference_stimulator){for(const auto& e:s.history.shared_pulses)if(e.stimulator==a.reference_stimulator&&e.start>=r.from)stimuli.push_back(e.start);}
+            else for(auto e:s.history.stimuli)if(e.neuron==a.reference_neuron&&e.time>=r.from)stimuli.push_back(e.time);
             for(const auto& p:s.experiment.protocols)if(p.time>0)stages.push_back(p.time);
             for(auto b:r.bursts)bursts.push_back(b.start);
             ImPlot::SetNextLineStyle({1,.7f,.2f,.45f});ImPlot::PlotInfLines("Стимулы",stimuli.data(),int(stimuli.size()));

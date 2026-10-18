@@ -3,6 +3,7 @@
 #include "generator.h"
 #include "imgui.h"
 #include "plot_windows.h"
+#include "activity_field.h"
 #include <memory>
 #include <functional>
 namespace studio {
@@ -18,11 +19,15 @@ public:
     int request_wizard_tab=-1;
     void preview_network(const NetworkGeneration& settings,bool append=false);
     bool show_stages=false;
+    bool show_stimulators=false;
+    uint64_t selected_stimulator=0;
+    Stimulator stimulator_draft;
     std::function<std::filesystem::path(bool,bool)> file_dialog;
     std::function<std::filesystem::path(bool)> checkpoint_dialog;
     std::function<std::filesystem::path(bool)> workspace_dialog;
     PlotWindows plot_windows;
     WeightField weight_field;
+    ActivityField activity_field;
     App();
     void draw();
     void advance();
@@ -53,6 +58,9 @@ private:
     void plots(float height);
     void network_wizard();
     void stage_manager();
+    void stimulator_manager();
+    bool stimulator_overlay(ImVec2 base,ImVec2 span,bool hovered,bool active);
+    uint64_t drag_stimulator=0;
     void edit() { changed = true; dirty = true; }
 };
 void apply_style();

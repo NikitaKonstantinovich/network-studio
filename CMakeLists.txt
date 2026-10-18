@@ -33,14 +33,14 @@ string(SUBSTRING "${JSON_SOURCE}" ${DECODE_END} -1 JSON_AFTER)
 file(READ "${CMAKE_CURRENT_SOURCE_DIR}/json_strings.inc" JSON_DECODER)
 write_generated("${CMAKE_CURRENT_BINARY_DIR}/json_standalone.cpp" "${JSON_BEFORE}\n${JSON_DECODER}\n${JSON_AFTER}")
 set(CHECKPOINT_SIGNATURE "${CMAKE_CXX_COMPILER_ID}|${CMAKE_CXX_COMPILER_VERSION}|${CMAKE_SYSTEM_NAME}|${CMAKE_SYSTEM_PROCESSOR}|${CMAKE_SIZEOF_VOID_P}|${CMAKE_BUILD_TYPE}|${CMAKE_CXX_FLAGS}|${CMAKE_CXX_FLAGS_RELEASE}")
-foreach(source network.h network.cpp experiment.cpp experiment_json.inc analysis.cpp analysis.h integrator.cpp numerics/integrator.h io.h io.cpp checkpoint.cpp json_strings.inc vendor/systems/neuro_astro/model.cuh vendor/systems/neuro_astro/variables.inc vendor/systems/neuro_astro/parameters.inc vendor/json/json.cpp vendor/json/json.h)
+foreach(source network.h network.cpp stimulator.cpp stimulator_json.inc experiment.cpp experiment_json.inc analysis.cpp analysis.h integrator.cpp numerics/integrator.h io.h io.cpp checkpoint.cpp json_strings.inc vendor/systems/neuro_astro/model.cuh vendor/systems/neuro_astro/variables.inc vendor/systems/neuro_astro/parameters.inc vendor/json/json.cpp vendor/json/json.h)
     set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${source}")
     file(SHA256 "${CMAKE_CURRENT_SOURCE_DIR}/${source}" source_hash)
     string(APPEND CHECKPOINT_SIGNATURE "|${source}:${source_hash}")
 endforeach()
 string(SHA256 CHECKPOINT_BUILD_ID "${CHECKPOINT_SIGNATURE}")
 write_generated("${CMAKE_CURRENT_BINARY_DIR}/checkpoint_build.h" "#define STUDIO_CHECKPOINT_BUILD_ID \"${CHECKPOINT_BUILD_ID}\"\n")
-add_library(network_core network.cpp experiment.cpp analysis.cpp integrator.cpp io.cpp checkpoint.cpp generator.cpp "${CMAKE_CURRENT_BINARY_DIR}/json_standalone.cpp")
+add_library(network_core network.cpp stimulator.cpp experiment.cpp analysis.cpp integrator.cpp io.cpp checkpoint.cpp generator.cpp "${CMAKE_CURRENT_BINARY_DIR}/json_standalone.cpp")
 target_include_directories(network_core PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 target_include_directories(network_core PRIVATE "${VENDOR}/json")
 target_include_directories(network_core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
@@ -77,8 +77,14 @@ add_test(NAME checkpoint_process_resume COMMAND ${CMAKE_COMMAND}
     "-DCLI=$<TARGET_FILE:network_studio_cli>" "-DFIXTURES=$<TARGET_FILE:network_studio_checkpoint_tests>"
     "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/checkpoint-process" -P "${CMAKE_CURRENT_SOURCE_DIR}/checkpoint/process_test.cmake")
 add_test(NAME population_equivalence COMMAND network_studio_population --self-test)
-add_library(studio_weight_field weight_field.cpp)
+add_library(studio_weight_field weight_field.cpp activity_field.cpp)
 target_link_libraries(studio_weight_field PUBLIC network_core)
+add_executable(network_studio_stimulator_tests stimulator_tests.cpp)
+target_link_libraries(network_studio_stimulator_tests PRIVATE studio_weight_field)
+add_test(NAME shared_spatial_stimulators_activity COMMAND network_studio_stimulator_tests)
+add_test(NAME stimulator_process_resume COMMAND ${CMAKE_COMMAND}
+    "-DCLI=$<TARGET_FILE:network_studio_cli>" "-DFIXTURES=$<TARGET_FILE:network_studio_stimulator_tests>"
+    "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/stimulator-process" -P "${CMAKE_CURRENT_SOURCE_DIR}/stimulation/process_test.cmake")
 add_executable(network_studio_field_tests weight_field_tests.cpp)
 target_link_libraries(network_studio_field_tests PRIVATE studio_weight_field)
 add_test(NAME weight_field_geometry_and_weights COMMAND network_studio_field_tests)
@@ -107,7 +113,7 @@ if(WIN32)
     write_generated("${CMAKE_CURRENT_BINARY_DIR}/implot_internal.h" "${IMPLOT_INTERNAL}")
     configure_file("${VENDOR}/implot/implot.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_standalone.cpp" COPYONLY)
     configure_file("${VENDOR}/implot/implot_items.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_items_standalone.cpp" COPYONLY)
-    add_library(studio_gui gui.cpp experiment_gui.cpp analysis_gui.cpp weight_field_gui.cpp plot_windows.cpp plot_workspace.cpp
+    add_library(studio_gui gui.cpp stimulator_gui.cpp experiment_gui.cpp analysis_gui.cpp weight_field_gui.cpp plot_windows.cpp plot_workspace.cpp
         "${CMAKE_CURRENT_BINARY_DIR}/imgui_standalone.cpp" "${VENDOR}/imgui/imgui_draw.cpp"
         "${VENDOR}/imgui/imgui_tables.cpp" "${VENDOR}/imgui/imgui_widgets.cpp"
         "${CMAKE_CURRENT_BINARY_DIR}/implot_standalone.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_items_standalone.cpp")
@@ -124,6 +130,10 @@ if(WIN32)
     add_test(NAME experiment_win32_dx11 COMMAND ${CMAKE_COMMAND}
         "-DGUI=$<TARGET_FILE:network_studio>" "-DFIXTURES=$<TARGET_FILE:network_studio_experiment_tests>"
         "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/experiment-native" -P "${CMAKE_CURRENT_SOURCE_DIR}/experiments/native_test.cmake")
+    add_test(NAME stimulator_win32_dx11 COMMAND ${CMAKE_COMMAND}
+        "-DGUI=$<TARGET_FILE:network_studio>" "-DFIXTURES=$<TARGET_FILE:network_studio_stimulator_tests>"
+        "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/stimulator-native" -P "${CMAKE_CURRENT_SOURCE_DIR}/stimulation/native_test.cmake")
+    set_tests_properties(stimulator_win32_dx11 experiment_win32_dx11 PROPERTIES RUN_SERIAL TRUE)
     add_executable(network_studio_gui_tests gui_tests.cpp)
     target_include_directories(network_studio_gui_tests BEFORE PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
     target_link_libraries(network_studio_gui_tests PRIVATE studio_gui)

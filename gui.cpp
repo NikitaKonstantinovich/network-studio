@@ -26,7 +26,7 @@ void apply_style() {
     p.Colors[ImPlotCol_PlotBg]={.055f,.078f,.108f,1}; p.Colors[ImPlotCol_FrameBg]={.078f,.105f,.145f,1};
 }
 App::App() { plot_windows.analysis_export_dialog=[this](){return file_dialog?file_dialog(true,true):std::filesystem::path{};};reset(); }
-void App::reset() { running=false; simulation=std::make_unique<Simulator>(config); if(simulation->error.empty())plot_windows.data_changed(config); else status=simulation->error; }
+void App::reset() { activity_field=ActivityField{};stimulator_draft.id=0;running=false; simulation=std::make_unique<Simulator>(config); if(simulation->error.empty())plot_windows.data_changed(config); else status=simulation->error; }
 void App::replace(Config c) {
     config=std::move(c); selected_kind=selected_index=0; preset_index=-1; filename.clear(); dirty=false;
     syn_plot=syn_view=0;
@@ -60,7 +60,7 @@ bool App::restore_state(const std::filesystem::path& path) {
         std::string message="Состояние восстановлено: t = "+std::to_string(restored->time)+" с. ";
         message+=!restored->error.empty()?"Диагностический снимок: продолжение запрещено. "+restored->error:
             restored->done()?(restored->experiment.stage_active?"Этап завершён. Войдите в следующий этап либо выберите продолжение без этапа и увеличьте конечное время.":"Расчёт завершён; увеличьте конечное время или выполните сброс."):"Пауза. Нажмите «Продолжить».";
-        config=std::move(restored_config);simulation=std::move(restored);running=false;dirty=false;
+        config=std::move(restored_config);simulation=std::move(restored);activity_field=ActivityField{};stimulator_draft.id=0;running=false;dirty=false;
         selected_kind=selected_index=0;preset_index=-1;filename.clear();
         neuron_plot=neuron_view=syn_plot=syn_view=astro_plot=0;drag_kind=drag_index=-1;
         link_source=0;link_target=std::min(1,int(config.neurons.size())-1);generation_preview.reset();status=std::move(message);
@@ -315,6 +315,7 @@ void App::toolbar() {
     if(ImGui::Button("Восстановить состояние…")&&checkpoint_dialog) {auto path=checkpoint_dialog(false);if(!path.empty())restore_state(path);}
     ImGui::EndDisabled();
     ImGui::SameLine();if(ImGui::Button("Этапы эксперимента…"))show_stages=true;
+    ImGui::SameLine();if(ImGui::Button("Стимуляторы…"))show_stimulators=true;
     ImGui::ProgressBar(float(simulation->time/config.duration),{-1,4},"");
 }
 void App::editor() {
@@ -344,7 +345,7 @@ void App::editor() {
     else ImGui::TextDisabled("История: более 1 000 000 отсчётов");
     bool bounded=config.bounded_journals;
     if(ImGui::Checkbox("Ограниченные журналы",&bounded)) {
-        if(bounded||!(simulation->history.events_after||simulation->history.deliveries_after||simulation->history.stimuli_after))config.bounded_journals=simulation->config.bounded_journals=bounded;
+        if(bounded||!(simulation->history.events_after||simulation->history.deliveries_after||simulation->history.stimuli_after||simulation->history.shared_after))config.bounded_journals=simulation->config.bounded_journals=bounded;
     }
     ImGui::TextWrapped(config.bounded_journals?"Старые события удаляются; доступная глубина видна в анализе и журнале этапов.":"Полные журналы: лимит 2 млн записей каждого типа. Для длинных опытов включите ограниченные журналы заранее.");
     if(!config.record_all)ImGui::TextDisabled("Запись: %zu нейронов, %zu связей; события всех узлов",config.record_neurons.size(),config.record_synapses.size());
@@ -507,6 +508,10 @@ void App::inspector() {
         if(n.individual_noise) {if(scalar("σ нейрона",n.noise_sigma,0,100,.1))edit();}
         else ImGui::TextDisabled("σ общий = %.3g",config.noise_sigma);
         ImGui::Spacing(); ImGui::BeginDisabled(config.neurons.size()==1);
+        if(!config.stimulators.empty()) {
+            ImGui::TextWrapped("Общие источники: HH — мкА/см²; Ижикевич — единицы модели. DC, индивидуальный протокол и шум добавляются отдельно.");
+            for(const auto& source:config.stimulators){auto list=stimulator_recipients(config,source);if(std::find(list.begin(),list.end(),selected_index)!=list.end())ImGui::TextWrapped("#%llu %s: %.6g",source.id,source.name.c_str(),pulse_current(stimulator_signal(source),simulation->time));}
+        }
         if(ImGui::Button("Удалить нейрон",{-1,0})) {remove_neuron(config,selected_index);selected_kind=selected_index=0;edit();}
         ImGui::EndDisabled();
     } else if(selected_kind==1 && selected_index<int(config.astrocytes.size())) {
@@ -686,6 +691,7 @@ void App::canvas() {
         if(s.astro>=0)dashed(d,center,a[s.astro],IM_COL32(94,144,220,s.enabled?165:60));
     }
     field_overlay(base,span,hovered&&hit_kind<0);
+    const bool source_hit=stimulator_overlay(base,span,hovered,active);
     for(int i=0;i<int(n.size());++i) {
         bool sel=selected_kind==0&&selected_index==i;double v=-65;
         const auto node_color=config.neurons[i].inhibitory?Rose:Teal;
@@ -714,19 +720,19 @@ void App::canvas() {
         }
     }
     if(ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {drag_kind=-1;drag_index=-1;}
-    if(hovered && !running && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && hit>=0) {
+    if(hovered && !source_hit && !running && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && hit>=0) {
         if(io.KeyShift && selected_kind==0 && hit_kind==0 && config.synapses.size()<MaxSynapses) {
             config.synapses.push_back(new_synapse(config,selected_index,hit));selected_kind=2;selected_index=int(config.synapses.size())-1;edit();
         } else {selected_kind=hit_kind;selected_index=hit;drag_kind=hit_kind;drag_index=hit;}
     }
-    if(active && !running && !io.KeyShift && ImGui::IsMouseDragging(ImGuiMouseButton_Left,3) && drag_kind>=0 && drag_kind<2) {
+    if(active && !source_hit && !running && !io.KeyShift && ImGui::IsMouseDragging(ImGuiMouseButton_Left,3) && drag_kind>=0 && drag_kind<2) {
         double* x=nullptr;double* y=nullptr;
         if(drag_kind==0){x=&config.neurons[drag_index].px;y=&config.neurons[drag_index].py;}
         else {x=&config.astrocytes[drag_index].px;y=&config.astrocytes[drag_index].py;}
         // Layout changes preserve the numerical trajectory.
         *x=std::clamp(double(io.MousePos.x-base.x)/span.x,0.,1.);
         *y=std::clamp(double(io.MousePos.y-base.y)/span.y,0.,1.);dirty=true;
-        if(drag_kind==0) {simulation->config.neurons[drag_index].px=*x;simulation->config.neurons[drag_index].py=*y;}
+        if(drag_kind==0) {try{simulation->move_neuron(drag_index,*x,*y);}catch(const std::exception& e){*x=simulation->config.neurons[drag_index].px;*y=simulation->config.neurons[drag_index].py;status=e.what();}}
         else {simulation->config.astrocytes[drag_index].px=*x;simulation->config.astrocytes[drag_index].py=*y;}
     }
     d->PopClipRect();
@@ -791,6 +797,6 @@ void App::draw() {
     ImGui::End();
     plot_windows.draw(*simulation);
     config.analysis=simulation->config.analysis=plot_windows.embedded[7].analysis;
-    stage_manager();
+    stage_manager();stimulator_manager();
 }
 }

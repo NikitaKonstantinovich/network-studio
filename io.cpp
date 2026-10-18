@@ -8,6 +8,7 @@
 #include <locale>
 #include <chrono>
 #include <system_error>
+#include <set>
 #ifdef _WIN32
 #define NOMINMAX
 #include <windows.h>
@@ -85,15 +86,17 @@ static StdpRule stdp_rule(const Object& o) {
 #define WRITE(field) put(o,#field,v.field)
 #define READ(field) v.field=number(o,#field)
 #define READINT(field) v.field=integer(o,#field)
+#include "stimulator_json.inc"
 #include "experiment_json.inc"
 std::string serialize(const Config& c) {
     const auto err=validate(c); if(!err.empty())throw std::runtime_error(err);
-    Object root; put(root,"schema",6); put(root,"name",c.name); put(root,"dt",c.dt);
+    Object root; put(root,"schema",7); put(root,"name",c.name); put(root,"dt",c.dt);
     put(root,"duration",c.duration); put(root,"sample",c.sample);
     put(root,"noise_sigma",c.noise_sigma);put(root,"noise_interval",c.noise_interval);put(root,"seed",double(c.seed));
     put(root,"record_all",c.record_all);root.set("record_neurons",index_array(c.record_neurons).as_string());
     root.set("record_synapses",index_array(c.record_synapses).as_string());
     write_experiment_config(root,c);
+    root.set("stimulators",stimulator_array(c.stimulators).as_string());uid(root,"next_stimulator_id",c.next_stimulator_id);put(root,"activity_horizon",c.activity_horizon);
     Object parameters;
     for(int i:SharedParameters)put(parameters,na::parameter_names[i],c.parameters[i]);
     root.set("parameters",parameters.as_string());
@@ -164,7 +167,7 @@ Config deserialize(const std::string& text) {
         throw std::runtime_error("Expected one JSON object, without trailing data.");
     Object root=Object::parse(text);
     const int schema=integer(root,"schema");
-    if(schema<1||schema>6)throw std::runtime_error("Unsupported configuration schema.");
+    if(schema<1||schema>7)throw std::runtime_error("Unsupported configuration schema.");
     Config c; c.name=string(root,"name"); c.dt=number(root,"dt"); c.duration=number(root,"duration"); c.sample=number(root,"sample");
     if(schema>=2) { c.noise_sigma=number(root,"noise_sigma");c.noise_interval=number(root,"noise_interval");c.seed=seed_value(root); }
     if(schema>=4) {
@@ -226,6 +229,7 @@ Config deserialize(const std::string& text) {
         const auto o=element(gaps,i); Gap v; READINT(a); READINT(b); READ(ip3); READ(calcium); c.gaps.push_back(v);
     }
     read_experiment_config(root,c);
+    if(schema>=7||root.has_key("stimulators")){c.stimulators=read_stimulators(root,"stimulators");c.next_stimulator_id=read_uid(root,"next_stimulator_id");c.activity_horizon=number(root,"activity_horizon");}
     const auto err=validate(c); if(!err.empty())throw std::runtime_error(err); return c;
 }
 #undef WRITE
@@ -337,12 +341,16 @@ void export_results(const Simulator& s,const std::filesystem::path& prefix) {
     summary.set("neuron_spikes",spikes.as_string()); summary.set("astrocyte_releases",releases.as_string());
     summary.set("final_synapse_weights",final_weights.as_string());
     put(summary,"events_available_after_s",s.history.events_after);put(summary,"deliveries_available_after_s",s.history.deliveries_after);put(summary,"stimuli_available_after_s",s.history.stimuli_after);
-    put(summary,"bounded_journals",s.config.bounded_journals);
+    put(summary,"bounded_journals",s.config.bounded_journals);put(summary,"shared_stimuli_available_after_s",s.history.shared_after);put(summary,"activity_available_after_s",s.activity.available_after);put(summary,"activity_horizon_s",s.config.activity_horizon);
     output(L"_summary.json",summary.pretty());
     output(L"_protocols.json",serialize_runtime(s));
     std::ostringstream stimuli;stimuli.imbue(std::locale::classic());stimuli<<std::setprecision(17)<<"time_s,neuron_1based,protocol_0based,amplitude\n";
     for(const auto& e:s.history.stimuli)stimuli<<e.time<<","<<e.neuron+1<<","<<e.protocol<<","<<e.amplitude<<"\n";
     output(L"_stimuli.csv",stimuli.str());
+    std::ostringstream shared;shared.imbue(std::locale::classic());shared<<std::setprecision(17)<<"stimulator_id,pulse_id,start_s,end_s,amplitude,complete,stage_0based,recipients_1based\n";
+    for(const auto& p:s.history.shared_pulses){shared<<p.stimulator<<","<<p.pulse<<","<<p.start<<","<<(p.complete?p.end:s.time)<<","<<p.amplitude<<","<<p.complete<<","<<p.stage<<",\"";for(size_t j=0;j<p.recipients.size();++j){if(j)shared<<";";shared<<p.recipients[j]+1;}shared<<"\"\n";}
+    output(L"_shared_stimuli.csv",shared.str());output(L"_stimulator_commands.json",serialize_stimulus_runtime(s));
+
     export_analysis(analyze_network(s.config,s.history,s.time,s.config.analysis),s.config.analysis,prefix);
 }
 }
