@@ -29,20 +29,21 @@ std::string PlotWindows::config_binding(const Config& c) {
     // Deliberately conservative: indices alone cannot establish object identity.
     // Ignore only screen layout and the extendable end time, not scientific inputs.
     Config normalized=c;normalized.duration=1;
+    normalized.stages.clear();normalized.analysis=AnalysisSettings{};normalized.generation.clear();
     // A short, fully recorded large graph may fit its actual history budget
     // but not a fictitious one-second run. Keep old bindings when possible;
     // use the minimum legal duration only for previously unopenable graphs.
     if(!validate(normalized).empty())normalized.duration=.001;
     for(auto& n:normalized.neurons)n.px=n.py=0;
     for(auto& a:normalized.astrocytes)a.px=a.py=0;
-    Writer w;w.str(serialize(normalized));for(double p:c.parameters)w.real(p);
+    Writer w;w.str(legacy_binding_config(normalized));for(double p:c.parameters)w.real(p);
     std::ostringstream out;out<<std::hex<<std::setw(16)<<std::setfill('0')<<hash(w.bytes);return out.str();
 }
 bool PlotWindows::save(const std::filesystem::path& path) {
     if(path.empty())return false;
     try {
         if(!valid_topology_view(topology))throw std::runtime_error("Недопустимые настройки топологии.");
-        Writer w;w.str("Network Studio plot workspace");w.u64(2);w.u64(next_id);w.u64(host_open);w.u64(windows.size());
+        Writer w;w.str("Network Studio plot workspace");w.u64(3);w.u64(next_id);w.u64(host_open);w.u64(windows.size());
         for(const auto& p:windows) {
             if(p.title.size()>255||!std::isfinite(p.seconds)||p.seconds<.000001)throw std::runtime_error("Недопустимые настройки окна; рабочее пространство не заменено.");
             for(int k=0;k<6;++k)if(!std::isfinite(p.limits[k])||std::abs(p.limits[k])>1e12)throw std::runtime_error("Диапазон оси слишком велик для рабочего пространства.");
@@ -57,6 +58,8 @@ bool PlotWindows::save(const std::filesystem::path& path) {
         w.u64(topology.field);w.u64(topology.edges);w.u64(topology.grid);w.u64(topology.all_edges);w.u64(topology.current);w.u64(topology.auto_scale);
         w.u64(topology.columns);w.u64(topology.rows);w.real(topology.scale);w.real(topology.zoom);w.real(topology.pan_x);w.real(topology.pan_y);
         w.u64(int(topology.polarity));w.u64(int(topology.model));
+        w.str(analysis_settings_json(embedded[7].analysis));
+        w.u64(windows.size());for(const auto& p:windows)w.str(analysis_settings_json(p.analysis));
         w.u64(hash(w.bytes));if(w.bytes.size()>MaxWorkspaceBytes)throw std::runtime_error("Рабочее пространство превышает 4 МиБ.");
         write_atomic(path,w.bytes);workspace_path=path;automatic_save_allowed=true;message="Рабочее пространство графиков сохранено.";return true;
     }catch(const std::exception& e){message=e.what();return false;}
@@ -69,13 +72,13 @@ bool PlotWindows::load(const std::filesystem::path& path) {
         Reader checksum{bytes,bytes.size()-8};if(checksum.u64()!=hash(bytes.substr(0,bytes.size()-8)))throw std::runtime_error("Повреждённое рабочее пространство: контрольная сумма.");
         bytes.resize(bytes.size()-8);Reader r{bytes};
         if(r.str(64)!="Network Studio plot workspace")throw std::runtime_error("Несовместимый тип рабочего пространства.");
-        const auto version=r.u64();if(version!=1&&version!=2)throw std::runtime_error("Несовместимая версия рабочего пространства.");
+        const auto version=r.u64();if(version!=1&&version!=2&&version!=3)throw std::runtime_error("Несовместимая версия рабочего пространства.");
         auto next=uint32_t(r.bounded(UINT32_MAX-1));bool host=r.flag();size_t count=r.bounded(MaxWindows);
         std::vector<PlotWindowState> parsed;std::set<uint32_t> ids;bool mismatch=false;
         for(size_t i=0;i<count;++i) {
             PlotWindowState p;p.id=uint32_t(r.bounded(UINT32_MAX-2));if(!p.id||p.id>=next||!ids.insert(p.id).second)throw std::runtime_error("Повторный или недопустимый ID окна.");
-            p.title=r.str(255);p.binding=r.str(16);p.compatible=r.flag();p.kind=PlotKind(r.bounded(6));p.follow=r.flag();p.auto_fit=r.flag();
-            p.seconds=r.real(.000001,std::numeric_limits<double>::max());p.object=int(r.bounded(MaxSynapses))-1;p.view=int(r.bounded(2));p.quantities=uint32_t(r.bounded(127));
+            p.title=r.str(255);p.binding=r.str(16);p.compatible=r.flag();p.kind=PlotKind(r.bounded(version>=3?7:6));p.follow=r.flag();p.auto_fit=r.flag();
+            p.seconds=r.real(.000001,std::numeric_limits<double>::max());p.object=int(r.bounded(MaxSynapses))-1;p.view=int(r.bounded(p.kind==PlotKind::Network?4:2));p.quantities=uint32_t(r.bounded(127));
             if(p.kind==PlotKind::Synapse&&p.view>1)throw std::runtime_error("Недопустимое представление синапса.");
             auto objects=r.bounded(32);std::set<int> selected;for(size_t k=0;k<objects;++k){int n=int(r.bounded(MaxNeurons-1));if(!selected.insert(n).second)throw std::runtime_error("Повторный объект графика.");p.objects.push_back(n);}
             p.limits_valid=r.flag();for(auto& v:p.limits)v=r.real();
@@ -90,10 +93,18 @@ bool PlotWindows::load(const std::filesystem::path& path) {
             view.pan_x=r.real(-8,8);view.pan_y=r.real(-8,8);view.polarity=FieldPolarity(r.bounded(2));view.model=FieldModel(r.bounded(3));
             if(!valid_topology_view(view))throw std::runtime_error("Недопустимые настройки топологии.");
         }
+        AnalysisSettings analysis;
+        if(version>=3) {
+            analysis=analysis_settings_from_json(r.str(65536));
+            if(r.bounded(MaxWindows)!=parsed.size())throw std::runtime_error("Analysis window count mismatch");
+            for(auto& p:parsed)p.analysis=analysis_settings_from_json(r.str(65536));
+            Config probe;probe.neurons.resize(MaxNeurons);probe.analysis=analysis;if(!validate_experiment(probe).empty())throw std::runtime_error("Invalid analysis settings");
+            for(auto& p:parsed){probe.analysis=p.analysis;if(!validate_experiment(probe).empty())throw std::runtime_error("Invalid window analysis settings");}
+        }
         if(r.cursor!=bytes.size()||!next)throw std::runtime_error("Лишние данные рабочего пространства.");
         // Commit only after validating the complete document, including ini checksum.
         windows=std::move(parsed);next_id=next;host_open=host;pending_ini=std::move(ini);workspace_path=path;
-        topology=view;
+        topology=view;embedded[7].analysis=analysis;embedded[7].analysis_at=-1;
         automatic_save_allowed=true;
         message=mismatch?"Рабочее пространство открыто; есть несовместимые привязки. Проверьте окна и перепривяжите их явно.":"Рабочее пространство графиков восстановлено.";
         return true;

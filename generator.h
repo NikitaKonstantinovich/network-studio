@@ -17,12 +17,15 @@ struct PopulationGeneration {
     GaussianParameter in_degree{15,2}, weight{.5,.1};
 };
 
-enum class NetworkTopology { UniformRandom, NearestNeighbors, DirectedRing, NoConnections };
+enum class NetworkTopology { UniformRandom, NearestNeighbors, DirectedRing, NoConnections, WithinRadius };
 
 struct NetworkGeneration {
     PopulationGeneration excitatory, inhibitory;
     NetworkTopology topology = NetworkTopology::UniformRandom;
     uint32_t seed = 42;
+    ModelSpace space;
+    double radius=.2;
+    bool allow_self=false;
     // Shared edge parameters. Endpoints, astro, weight, enabled and inhibitory
     // STDP are assigned by the generator. Only exponential current and TM are
     // supported. All time constants use seconds, as in Config.
@@ -42,12 +45,15 @@ struct GenerationSummary {
     int excitatory_count = 0, inhibitory_count = 0;
     // One clamp per target whose rounded Gaussian draw is outside [0,N-1].
     int degree_clamped = 0;
+    int insufficient_neighbors = 0;
     std::size_t parameter_resamples = 0;
     bool recording_reduced = false;
     // Generated neurons only, excitatory first, then inhibitory. Standard
     // deviations are population SDs. Empty distributions have zero statistics.
     std::vector<int> in_degrees;
     DistributionSummary degrees, absolute_weights;
+    DistributionSummary lengths, excitatory_weights, inhibitory_weights;
+    std::vector<double> edge_lengths, signed_weights;
 };
 
 // Pure generation: the input and summary are unchanged on failure. Throws
@@ -60,5 +66,7 @@ struct GenerationSummary {
 // Reproducibility is guaranteed for the same build/standard library and seed.
 Config generate_network(const Config& base, const NetworkGeneration& settings,
                         bool append, GenerationSummary* summary = nullptr);
+std::string generation_json(const NetworkGeneration& settings);
+std::vector<int> radius_candidates(const Config& c,int target,int first,int count,double radius,bool self);
 
 }

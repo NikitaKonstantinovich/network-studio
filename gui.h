@@ -15,6 +15,9 @@ public:
     int selected_kind = 0, selected_index = 0;
     int request_plot_tab = -1; // Used by the renderer smoke test; -1 leaves user selection alone.
     bool request_network_wizard = false;
+    int request_wizard_tab=-1;
+    void preview_network(const NetworkGeneration& settings,bool append=false);
+    bool show_stages=false;
     std::function<std::filesystem::path(bool,bool)> file_dialog;
     std::function<std::filesystem::path(bool)> checkpoint_dialog;
     std::function<std::filesystem::path(bool)> workspace_dialog;
@@ -49,6 +52,7 @@ private:
     void field_overlay(ImVec2 base,ImVec2 span,bool tooltip);
     void plots(float height);
     void network_wizard();
+    void stage_manager();
     void edit() { changed = true; dirty = true; }
 };
 void apply_style();

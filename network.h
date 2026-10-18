@@ -71,13 +71,51 @@ struct Synapse {
 struct StdpState { double weight = 1, pre_trace = 0, post_trace = 0, post_slow_trace = 0; };
 // Decay old traces, apply both updates together, then insert new spikes.
 // Spikes sharing a timestamp have no mutual zero-lag contribution.
-void update_stdp(const Synapse& synapse, StdpState& state, uint64_t pre, uint64_t post, double dt);
+void update_stdp(const Synapse& synapse, StdpState& state, uint64_t pre, uint64_t post, double dt, double rate=1);
 void update_synaptic_stdp(const Synapse& synapse, StdpState& state,
-                         uint64_t emitted, uint64_t arrived, uint64_t post, double dt);
+                         uint64_t emitted, uint64_t arrived, uint64_t post, double dt, double rate=1);
 struct Gap {
     int a = 0, b = 1;
     double ip3 = 0.05, calcium = 0;
 };
+struct ModelSpace { double width=1, height=1; std::string unit="model_unit"; };
+struct GenerationMetadata { std::string settings_json; int first=0, count=0; };
+enum class AnalysisPopulation { All, Excitatory, Inhibitory, Selected };
+struct AnalysisSettings {
+    AnalysisPopulation population=AnalysisPopulation::All;
+    std::vector<int> neurons;
+    double bin=.01, burst_window=.02, start_rate=100, end_rate=25;
+    int min_neurons=2;
+    double min_fraction=0, min_gap=.05, burst_rate_window=1;
+    int reference_neuron=0;
+    double response_min=0, response_max=.1;
+};
+struct ExperimentStage {
+    std::string name="Stage";
+    double duration=1;
+    bool learning=true, clear_traces=false;
+    double learning_rate=1;
+    // Empty group leaves existing protocols unchanged. Modified pulse trains
+    // restart at entry+first_pulse; an old active pulse is truncated at entry.
+    std::vector<int> neurons;
+    bool stimulus_enabled=false;
+    double amplitude=30, frequency=1, width=.001, first_pulse=0;
+};
+struct ProtocolVersion {
+    double time=0, end=0;
+    std::string name="Initial protocol";
+    bool learning=true, cleared=false;
+    double learning_rate=1;
+    std::vector<Neuron> neurons;
+};
+struct ExperimentRuntime {
+    bool learning=true, automatic=false, stage_active=false;
+    double learning_rate=1, stage_end=0;
+    int stage_index=-1;
+    std::string origin;
+    std::vector<ProtocolVersion> protocols;
+};
+struct StimulusEvent { double time=0, amplitude=0; int neuron=0, protocol=0; };
 struct Config {
     std::string name = "Two inputs / one astrocyte";
     std::vector<Neuron> neurons;
@@ -90,6 +128,14 @@ struct Config {
     uint32_t seed = 42;
     bool record_all = true;
     std::vector<int> record_neurons, record_synapses;
+    ModelSpace space;
+    std::vector<GenerationMetadata> generation;
+    std::vector<ExperimentStage> stages;
+    AnalysisSettings analysis;
+    // Rolling journals are separate from the live delivery queue. Legacy JSON
+    // retains full journals; new long runs explicitly opt into this policy.
+    bool bounded_journals=false;
+    size_t journal_capacity=MaxEvents;
     Config();
 };
 Config preset(int index);
@@ -109,6 +155,9 @@ State initial_state(const Config& c);
 // Deterministic sample-and-hold Gaussian current. Individual sigma overrides
 // the global sigma; streams are independent per neuron and repeat after reset.
 double external_current(const Config& c, int neuron, double time);
+double pulse_current(const Neuron& neuron,double time);
+double external_current_with_protocol(const Config& c,const Neuron& neuron,int index,double time);
+std::string validate_experiment(const Config& c);
 // First strictly later discontinuity of the sample-and-hold input, or limit.
 double next_input_boundary(const Config& c,double time,double limit);
 void derivative(const Config& c, const State& y, double midpoint, State& dy,
@@ -130,6 +179,9 @@ struct History {
     std::vector<std::vector<double>> weights;
     std::vector<Event> events;
     std::vector<Delivery> deliveries;
+    std::vector<StimulusEvent> stimuli;
+    double events_after=0, deliveries_after=0, stimuli_after=0;
+    std::vector<uint64_t> dropped_spikes,dropped_releases,dropped_deliveries;
 };
 class Simulator {
 public:
@@ -142,6 +194,7 @@ public:
     // Min-heap with DeliveryLater; includes arrivals beyond config.duration.
     // Protocol/state edits require a reset; do not mutate this during a run.
     std::vector<Delivery> pending_deliveries;
+    ExperimentRuntime experiment;
     uint64_t steps = 0;
     double time = 0;
     std::string error;
@@ -151,6 +204,12 @@ public:
     void record();
     // Absolute final time; extending does not reset learning or history.
     void extend_duration(double end_time);
+    void enter_stage(size_t index,bool automatic=false);
+    void continue_current();
+    void set_learning(bool enabled,double rate,bool clear=false);
+    double historical_input(int neuron,double time) const;
+    Config learned_config() const;
+    void fork_experiment(const std::string& origin);
 private:
     friend struct CheckpointAccess;
     bool stepping=false, checkpoint_boundary=true;
@@ -166,5 +225,8 @@ private:
     std::vector<std::vector<int>> outgoing;
     std::vector<int> recorded_state, recorded_weights;
     uint64_t next_sample = 1;
+    void append_protocol(const std::string& name,bool cleared=false);
+    void log_stimuli(double at);
+    void trim_journals(size_t events,size_t deliveries);
 };
 }

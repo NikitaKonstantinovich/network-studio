@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <optional>
+#include <chrono>
 #ifdef _WIN32
 #define NOMINMAX
 #include <windows.h>
@@ -13,7 +14,8 @@ static double parse_number(const std::string& text) {
 static int run_cli(int argc,char** argv) {
     try {
         studio::Config c=studio::preset(0);std::filesystem::path output="experiment",save,resume,checkpoint;
-        bool config_options=false;
+        bool config_options=false,continue_current=false;std::filesystem::path plan,trained;std::string branch_origin;
+        std::optional<int> stage,sequence;std::optional<bool> learning;std::optional<double> learning_rate;
         std::optional<double> until,stop,run_for;
         for(int i=1;i<argc;++i) {
             std::string arg=argv[i];
@@ -22,6 +24,11 @@ static int run_cli(int argc,char** argv) {
                     "  [--duration seconds] [--dt seconds] [--sample seconds] [--save file.json]\n"
                     "  [--until absolute_end] [--stop-at absolute_time | --run-for seconds]\n"
                     "  [--checkpoint file.nscp] [--output prefix]\n"
+                    "  [--plan config_with_stages.json] [--stage zero_based | --sequence zero_based]\n"
+                    "  [--learning enabled|frozen] [--learning-rate factor] [--fork provenance]\n"
+                    "  [--export-trained new_initial_config.json] [--continue-current yes]\n"
+                    "Stage durations are relative seconds rounded upward to a completed macro step.\n"
+                    "Stage controls preserve state; --plan imports only stages and analysis settings.\n"
                     "All times are seconds. --save writes only the initial configuration.\n"
                     "--resume restores full state; config/dt/sample/duration/--save overrides are forbidden.\n"
                     "--until extends a restored final time (absolute from t=0).\n"
@@ -44,6 +51,13 @@ static int run_cli(int argc,char** argv) {
             else if(arg=="--resume")resume=std::filesystem::u8path(value);
             else if(arg=="--checkpoint")checkpoint=std::filesystem::u8path(value);
             else if(arg=="--save")save=std::filesystem::u8path(value);
+            else if(arg=="--continue-current"){if(value!="yes")throw std::runtime_error("Use --continue-current yes");continue_current=true;}
+            else if(arg=="--plan")plan=std::filesystem::u8path(value);
+            else if(arg=="--stage"||arg=="--sequence") {double n=parse_number(value);if(n<0||n>255||n!=std::floor(n))throw std::runtime_error("Stage index must be 0..255");(arg=="--stage"?stage:sequence)=int(n);}
+            else if(arg=="--learning"){if(value!="enabled"&&value!="frozen")throw std::runtime_error("Learning: enabled or frozen");learning=value=="enabled";}
+            else if(arg=="--learning-rate")learning_rate=parse_number(value);
+            else if(arg=="--fork")branch_origin=value;
+            else if(arg=="--export-trained")trained=std::filesystem::u8path(value);
             else if(arg=="--output")output=std::filesystem::u8path(value);
             else throw std::runtime_error("Unknown option: "+arg);
         }
@@ -58,13 +72,28 @@ static int run_cli(int argc,char** argv) {
         auto& s=*simulator;
         if(!s.error.empty())throw std::runtime_error("Snapshot/configuration is not resumable: "+s.error);
         if(!resume.empty() && until)s.extend_duration(*until);
+        if(continue_current)s.continue_current();
+        if(stage&&sequence)throw std::runtime_error("Choose --stage or --sequence");
+        if(!plan.empty()){auto p=studio::load_config(plan);auto candidate=s.config;candidate.stages=p.stages;candidate.analysis=p.analysis;auto err=studio::validate(candidate);if(!err.empty())throw std::runtime_error(err);s.config.stages=p.stages;s.config.analysis=p.analysis;}
+        if(!branch_origin.empty())s.fork_experiment(branch_origin);
+        if(stage||sequence)s.enter_stage(stage?*stage:*sequence,bool(sequence));
+        if(learning||learning_rate)s.set_learning(learning.value_or(s.experiment.learning),learning_rate.value_or(s.experiment.learning_rate));
         double target=s.config.duration;
         if(run_for) {
             if(!std::isfinite(*run_for)||*run_for<0)throw std::runtime_error("--run-for must be finite and nonnegative.");
             target=s.time+*run_for;
         } else if(stop)target=*stop;
         if(!std::isfinite(target)||target<s.time||target>s.config.duration)throw std::runtime_error("Stop target must lie between current and final absolute time; use --until to extend.");
-        while(!s.done() && s.time<target)if(!s.step())break;
+        const auto begin=std::chrono::steady_clock::now();
+        auto progress=begin;
+        while(!s.done() && (!(stop||run_for)||s.time<target)) {
+            if(!s.step())break;
+            if(s.steps%256==0&&std::chrono::steady_clock::now()-progress>std::chrono::seconds(30)) {
+                progress=std::chrono::steady_clock::now();std::cerr<<"Progress t="<<std::setprecision(10)<<s.time<<" s, steps="<<s.steps<<", events_after="<<s.history.events_after<<", deliveries_after="<<s.history.deliveries_after<<"\n";
+            }
+        }
+        std::cout<<"Wall seconds: "<<std::chrono::duration<double>(std::chrono::steady_clock::now()-begin).count()<<"\n";
+        if(!trained.empty())studio::save_config(s.learned_config(),trained);
         if(!checkpoint.empty())studio::save_checkpoint(s,checkpoint);
         if(!s.error.empty())throw std::runtime_error(s.error);
         studio::export_results(s,output);

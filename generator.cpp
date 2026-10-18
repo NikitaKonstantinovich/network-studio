@@ -89,13 +89,15 @@ void check_settings(const NetworkGeneration& g) {
         g.excitatory.count + g.inhibitory.count < 1 ||
         g.excitatory.count + g.inhibitory.count > MaxNeurons)
         fail("population counts must be nonnegative, with 1.." + std::to_string(MaxNeurons) + " neurons in total.");
+    if(!std::isfinite(g.space.width)||!std::isfinite(g.space.height)||g.space.width<=0||g.space.height<=0||g.space.width>1e9||g.space.height>1e9||!std::isfinite(g.radius)||g.radius<0||g.radius>1e9)fail("invalid space or radius");
     check_population(g.excitatory,"Excitatory");
     check_population(g.inhibitory,"Inhibitory");
     switch (g.topology) {
         case NetworkTopology::UniformRandom:
         case NetworkTopology::NearestNeighbors:
         case NetworkTopology::DirectedRing:
-        case NetworkTopology::NoConnections: break;
+        case NetworkTopology::NoConnections:
+        case NetworkTopology::WithinRadius: break;
         default: fail("unknown topology.");
     }
     if (g.synapse.model != SynapseModel::ExponentialCurrent && g.synapse.model != SynapseModel::TsodyksMarkram)
@@ -123,6 +125,16 @@ void check_settings(const NetworkGeneration& g) {
 
 } // namespace
 
+std::vector<int> radius_candidates(const Config& c,int target,int first,int count,double radius,bool self) {
+    if(target<first||target>=first+count||first<0||count<0||first+count>int(c.neurons.size())||!std::isfinite(radius)||radius<0)
+        throw std::invalid_argument("Invalid radius candidate request");
+    std::vector<int> out;const auto& t=c.neurons[target];
+    for(int source=first;source<first+count;++source) {
+        const auto& n=c.neurons[source];
+        if((self||source!=target)&&std::hypot((n.px-t.px)*c.space.width,(n.py-t.py)*c.space.height)<=radius)out.push_back(source);
+    }return out;
+}
+
 Config generate_network(const Config& base, const NetworkGeneration& g,
                         bool append, GenerationSummary* summary) {
     check_settings(g);
@@ -130,7 +142,9 @@ Config generate_network(const Config& base, const NetworkGeneration& g,
         const auto error = validate(base);
         if (!error.empty()) fail("invalid existing experiment: " + error);
     }
+    if(append && (g.space.width!=base.space.width||g.space.height!=base.space.height||g.space.unit!=base.space.unit))fail("append requires the existing model space and units");
     Config c = append ? base : Config{};
+    c.space=g.space;
     const int offset = static_cast<int>(c.neurons.size());
     const int count = g.excitatory.count + g.inhibitory.count;
     if (offset + count > MaxNeurons)
@@ -181,8 +195,12 @@ Config generate_network(const Config& base, const NetworkGeneration& g,
             const double raw = std::round(random.draw(p.in_degree));
             if (!std::isfinite(raw)) fail("in-degree draw overflowed; reduce its mean or SD.");
             if (raw < 0) { degree = 0; ++report.degree_clamped; }
-            else if (raw > count-1) { degree = count-1; ++report.degree_clamped; }
+            else if (raw > count-int(!g.allow_self)) { degree = count-int(!g.allow_self); ++report.degree_clamped; }
             else degree = static_cast<int>(raw);
+        }
+        if(g.topology==NetworkTopology::WithinRadius) {
+            const auto neighbors=radius_candidates(c,offset+target,offset,count,g.radius,g.allow_self);
+            if(degree>int(neighbors.size())){degree=int(neighbors.size());++report.insufficient_neighbors;}
         }
         report.in_degrees[target] = degree;
         edge_count += static_cast<std::size_t>(degree);
@@ -192,6 +210,7 @@ Config generate_network(const Config& base, const NetworkGeneration& g,
     c.synapses.reserve(c.synapses.size()+edge_count);
     std::vector<double> weights;
     weights.reserve(edge_count);
+    std::vector<double> excitatory_weights,inhibitory_weights;
     std::vector<int> candidates;
     candidates.reserve(count-1);
     for (int target=0; target<count; ++target) {
@@ -202,14 +221,18 @@ Config generate_network(const Config& base, const NetworkGeneration& g,
             candidates.push_back((target+count-1)%count);
         } else {
             for (int source=0; source<count; ++source)
-                if (source != target) candidates.push_back(source);
-            if (g.topology == NetworkTopology::UniformRandom) {
+                if (source != target || g.allow_self) candidates.push_back(source);
+            if(g.topology==NetworkTopology::WithinRadius) {
+                candidates=radius_candidates(c,offset+target,offset,count,g.radius,g.allow_self);
+                for(auto& source:candidates)source-=offset;
+            }
+            if (g.topology == NetworkTopology::UniformRandom || g.topology==NetworkTopology::WithinRadius) {
                 std::shuffle(candidates.begin(),candidates.end(),random.engine);
             } else {
                 const auto& t = c.neurons[offset+target];
                 auto distance = [&](int i) {
                     const auto& n = c.neurons[offset+i];
-                    const double dx = n.px-t.px, dy = n.py-t.py;
+                    const double dx = (n.px-t.px)*c.space.width, dy = (n.py-t.py)*c.space.height;
                     return dx*dx+dy*dy;
                 };
                 std::sort(candidates.begin(),candidates.end(),[&](int a,int b) {
@@ -234,6 +257,10 @@ Config generate_network(const Config& base, const NetworkGeneration& g,
             syn.weight = inhibitory ? -weight : weight;
             syn.reversal = inhibitory ? -80 : 0;
             weights.push_back(weight);
+            (inhibitory?inhibitory_weights:excitatory_weights).push_back(syn.weight);
+            report.signed_weights.push_back(syn.weight);
+            const auto& a=c.neurons[syn.source];const auto& b=c.neurons[syn.target];
+            report.edge_lengths.push_back(std::hypot((a.px-b.px)*c.space.width,(a.py-b.py)*c.space.height));
             c.synapses.push_back(std::move(syn));
         }
     }
@@ -252,8 +279,10 @@ Config generate_network(const Config& base, const NetworkGeneration& g,
             report.recording_reduced = true;
         }
     }
+    c.generation.push_back({generation_json(g),offset,count});
     const auto error = validate(c);
     if (!error.empty()) fail(error);
+    report.lengths=describe(report.edge_lengths);report.excitatory_weights=describe(excitatory_weights);report.inhibitory_weights=describe(inhibitory_weights);
     report.new_synapses = static_cast<int>(edge_count);
     report.parameter_resamples = random.rejected;
     report.degrees = describe(report.in_degrees);

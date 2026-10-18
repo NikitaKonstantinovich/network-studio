@@ -1,4 +1,6 @@
 #include "io.h"
+#include "generator.h"
+#include "analysis.h"
 #include "vendor/json/json.h"
 #include <fstream>
 #include <sstream>
@@ -83,13 +85,15 @@ static StdpRule stdp_rule(const Object& o) {
 #define WRITE(field) put(o,#field,v.field)
 #define READ(field) v.field=number(o,#field)
 #define READINT(field) v.field=integer(o,#field)
+#include "experiment_json.inc"
 std::string serialize(const Config& c) {
     const auto err=validate(c); if(!err.empty())throw std::runtime_error(err);
-    Object root; put(root,"schema",5); put(root,"name",c.name); put(root,"dt",c.dt);
+    Object root; put(root,"schema",6); put(root,"name",c.name); put(root,"dt",c.dt);
     put(root,"duration",c.duration); put(root,"sample",c.sample);
     put(root,"noise_sigma",c.noise_sigma);put(root,"noise_interval",c.noise_interval);put(root,"seed",double(c.seed));
     put(root,"record_all",c.record_all);root.set("record_neurons",index_array(c.record_neurons).as_string());
     root.set("record_synapses",index_array(c.record_synapses).as_string());
+    write_experiment_config(root,c);
     Object parameters;
     for(int i:SharedParameters)put(parameters,na::parameter_names[i],c.parameters[i]);
     root.set("parameters",parameters.as_string());
@@ -133,6 +137,12 @@ std::string serialize(const Config& c) {
     root.set("synapses",synapses.as_string()); root.set("gaps",gaps.as_string());
     return root.pretty();
 }
+std::string legacy_binding_config(const Config& c) {
+    auto root=Object::parse(serialize(c));
+    Object old;
+    for(const auto& key:{"schema","name","dt","duration","sample","noise_sigma","noise_interval","seed","record_all","record_neurons","record_synapses","parameters","neurons","astrocytes","synapses","gaps"})old.set(key,root.get(key));
+    put(old,"schema",5);return old.pretty();
+}
 Config deserialize(const std::string& text) {
     if(text.size()>MaxConfigBytes || text.find('\0')!=std::string::npos)throw std::runtime_error("Configuration exceeds 64 MiB or contains NUL bytes.");
     // Bound recursion before entering the legacy reader, and reject trailing commas.
@@ -154,7 +164,7 @@ Config deserialize(const std::string& text) {
         throw std::runtime_error("Expected one JSON object, without trailing data.");
     Object root=Object::parse(text);
     const int schema=integer(root,"schema");
-    if(schema<1||schema>5)throw std::runtime_error("Unsupported configuration schema.");
+    if(schema<1||schema>6)throw std::runtime_error("Unsupported configuration schema.");
     Config c; c.name=string(root,"name"); c.dt=number(root,"dt"); c.duration=number(root,"duration"); c.sample=number(root,"sample");
     if(schema>=2) { c.noise_sigma=number(root,"noise_sigma");c.noise_interval=number(root,"noise_interval");c.seed=seed_value(root); }
     if(schema>=4) {
@@ -215,6 +225,7 @@ Config deserialize(const std::string& text) {
     for(size_t i=0;i<gaps.size();++i) {
         const auto o=element(gaps,i); Gap v; READINT(a); READINT(b); READ(ip3); READ(calcium); c.gaps.push_back(v);
     }
+    read_experiment_config(root,c);
     const auto err=validate(c); if(!err.empty())throw std::runtime_error(err); return c;
 }
 #undef WRITE
@@ -325,6 +336,13 @@ void export_results(const Simulator& s,const std::filesystem::path& prefix) {
     }
     summary.set("neuron_spikes",spikes.as_string()); summary.set("astrocyte_releases",releases.as_string());
     summary.set("final_synapse_weights",final_weights.as_string());
+    put(summary,"events_available_after_s",s.history.events_after);put(summary,"deliveries_available_after_s",s.history.deliveries_after);put(summary,"stimuli_available_after_s",s.history.stimuli_after);
+    put(summary,"bounded_journals",s.config.bounded_journals);
     output(L"_summary.json",summary.pretty());
+    output(L"_protocols.json",serialize_runtime(s));
+    std::ostringstream stimuli;stimuli.imbue(std::locale::classic());stimuli<<std::setprecision(17)<<"time_s,neuron_1based,protocol_0based,amplitude\n";
+    for(const auto& e:s.history.stimuli)stimuli<<e.time<<","<<e.neuron+1<<","<<e.protocol<<","<<e.amplitude<<"\n";
+    output(L"_stimuli.csv",stimuli.str());
+    export_analysis(analyze_network(s.config,s.history,s.time,s.config.analysis),s.config.analysis,prefix);
 }
 }

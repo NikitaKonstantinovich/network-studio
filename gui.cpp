@@ -25,8 +25,8 @@ void apply_style() {
     ImPlot::StyleColorsDark(); auto& p=ImPlot::GetStyle(); p.PlotPadding={12,10}; p.LineWeight=1.6f;
     p.Colors[ImPlotCol_PlotBg]={.055f,.078f,.108f,1}; p.Colors[ImPlotCol_FrameBg]={.078f,.105f,.145f,1};
 }
-App::App() { reset(); }
-void App::reset() { running=false; simulation=std::make_unique<Simulator>(config); plot_windows.data_changed(config); if(!simulation->error.empty())status=simulation->error; }
+App::App() { plot_windows.analysis_export_dialog=[this](){return file_dialog?file_dialog(true,true):std::filesystem::path{};};reset(); }
+void App::reset() { running=false; simulation=std::make_unique<Simulator>(config); if(simulation->error.empty())plot_windows.data_changed(config); else status=simulation->error; }
 void App::replace(Config c) {
     config=std::move(c); selected_kind=selected_index=0; preset_index=-1; filename.clear(); dirty=false;
     syn_plot=syn_view=0;
@@ -59,22 +59,25 @@ bool App::restore_state(const std::filesystem::path& path) {
         auto restored=load_checkpoint(path);Config restored_config=restored->config;
         std::string message="Состояние восстановлено: t = "+std::to_string(restored->time)+" с. ";
         message+=!restored->error.empty()?"Диагностический снимок: продолжение запрещено. "+restored->error:
-            restored->done()?"Расчёт завершён; увеличьте конечное время или выполните сброс.":"Пауза. Нажмите «Продолжить».";
+            restored->done()?(restored->experiment.stage_active?"Этап завершён. Войдите в следующий этап либо выберите продолжение без этапа и увеличьте конечное время.":"Расчёт завершён; увеличьте конечное время или выполните сброс."):"Пауза. Нажмите «Продолжить».";
         config=std::move(restored_config);simulation=std::move(restored);running=false;dirty=false;
         selected_kind=selected_index=0;preset_index=-1;filename.clear();
         neuron_plot=neuron_view=syn_plot=syn_view=astro_plot=0;drag_kind=drag_index=-1;
         link_source=0;link_target=std::min(1,int(config.neurons.size())-1);generation_preview.reset();status=std::move(message);
-        plot_windows.data_changed(config);
+        auto binding_config=config;if(!simulation->experiment.protocols.empty())binding_config.neurons=simulation->experiment.protocols.front().neurons;
+        plot_windows.data_changed(binding_config);plot_windows.embedded[7].analysis=config.analysis;
         return true;
     }catch(const std::exception& e){status=e.what();return false;}
 }
 void App::advance() {
     if(!running)return;
+    const auto versions=simulation->experiment.protocols.size();
     const auto begin=std::chrono::steady_clock::now();
     for(int i=0;i<20000 && !simulation->done();++i) {
         if(!simulation->step())break;
         if((config.neurons.size()>32||i%32==0) && std::chrono::steady_clock::now()-begin>std::chrono::milliseconds(8))break;
     }
+    if(versions!=simulation->experiment.protocols.size())config=simulation->config;
     if(simulation->done()) {
         running=false; status=simulation->error.empty()?"Расчёт завершён. Результаты можно экспортировать.":simulation->error;
     }
@@ -132,9 +135,13 @@ static bool combo(const char* label,int& value,const Config& c,bool astro=false,
         } ImGui::EndCombo();
     } return change;
 }
+void App::preview_network(const NetworkGeneration& settings,bool append) {
+    auto preview=std::make_unique<Config>(generate_network(config,settings,append,&generation_summary));
+    generation=settings;generation_append=append;generation_preview=std::move(preview);generation_error.clear();
+}
 void App::network_wizard() {
     if(request_network_wizard) {
-        generation_preview.reset();generation_error.clear();
+        generation_error.clear();
         ImGui::OpenPopup("Мастер сети Ижикевича");request_network_wizard=false;
     }
     const auto area=ImGui::GetMainViewport()->WorkSize;
@@ -186,13 +193,19 @@ void App::network_wizard() {
             ImGui::TextWrapped("Нормальное распределение ограничено допустимыми значениями: недопустимый параметр выбирается заново. Число входов округляется и ограничивается размером группы. Самосвязи и дубликаты исключены.");
             ImGui::EndTabItem();
         }
-        if(ImGui::BeginTabItem("Связи и расчёт")) {
+        if(ImGui::BeginTabItem("Связи и расчёт",nullptr,request_wizard_tab==1?ImGuiTabItemFlags_SetSelected:0)) {
             ImGui::PushItemWidth(240);
-            const char* topologies[]={"Случайная сеть","Ближайшие соседи","Однонаправленное кольцо","Без связей"};
+            const char* topologies[]={"Случайная сеть","Ближайшие соседи","Однонаправленное кольцо","Без связей","Связи в пределах радиуса"};
             int topology=int(generation.topology);
-            if(ImGui::Combo("Топология",&topology,topologies,4)){generation.topology=NetworkTopology(topology);modified=true;}
+            if(ImGui::Combo("Топология",&topology,topologies,5)){generation.topology=NetworkTopology(topology);modified=true;}
             if(generation.topology==NetworkTopology::DirectedRing)ImGui::TextWrapped("При двух и более нейронах каждый соединён со следующим, последний — с первым. Один нейрон остаётся без связей. Распределение числа входов не используется.");
             if(generation.topology==NetworkTopology::NearestNeighbors)ImGui::TextWrapped("Источники выбираются по близости на сгенерированной плоскости. Число входов задаётся распределением.");
+            modified|=scalar("Ширина пространства",generation.space.width,1e-9,1e9,.1);
+            modified|=scalar("Высота пространства",generation.space.height,1e-9,1e9,.1);
+            modified|=text("Единицы модели",generation.space.unit,32);
+            if(generation.topology==NetworkTopology::WithinRadius)modified|=scalar("Радиус",generation.radius,0,1e9,.01);
+            modified|=ImGui::Checkbox("Разрешить самосвязи (кроме кольца)",&generation.allow_self);
+            ImGui::TextWrapped("X = px × ширина, Y = py × высота. Границы открытые, без заворачивания. При нехватке соседей используются доступные; дальние связи не добавляются.");
             modified|=ImGui::InputScalar("Seed генератора",ImGuiDataType_U32,&generation.seed);
             int synapse=generation.synapse.model==SynapseModel::TsodyksMarkram?0:1;
             const char* synapses[]={"Цодыкс–Маркрам (TM)","Экспоненциальный ток"};
@@ -256,10 +269,18 @@ void App::network_wizard() {
         const auto& g=generation_summary;
         ImGui::Text("Предпросмотр: %d E + %d I · %d связей · всего %zu нейронов",g.excitatory_count,g.inhibitory_count,g.new_synapses,generation_preview->neurons.size());
         ImGui::Text("Входы: %.2f ± %.2f [%.0f; %.0f] · |вес|: %.3f ± %.3f [%.3f; %.3f]",g.degrees.mean,g.degrees.sd,g.degrees.min,g.degrees.max,g.absolute_weights.mean,g.absolute_weights.sd,g.absolute_weights.min,g.absolute_weights.max);
+        ImGui::Text("Не хватило соседей: %d · длина: %.3g ± %.3g [%.3g; %.3g]",g.insufficient_neighbors,g.lengths.mean,g.lengths.sd,g.lengths.min,g.lengths.max);
+        ImGui::Text("R=%.4g · %.4g × %.4g %s · seed=%u",generation.radius,generation.space.width,generation.space.height,generation.space.unit.c_str(),generation.seed);
+        if(ImGui::Button("Распределения образца…"))ImGui::OpenPopup("generated_distributions");
+        if(ImGui::BeginPopup("generated_distributions")) {
+            if(ImPlot::BeginPlot("Число входов",{600,200})){ImPlot::PlotHistogram("Входы",g.in_degrees.data(),int(g.in_degrees.size()),20);ImPlot::EndPlot();}
+            if(ImPlot::BeginPlot("Длины и веса",{600,220})){ImPlot::PlotHistogram("Длины",g.edge_lengths.data(),int(g.edge_lengths.size()),30);ImPlot::PlotHistogram("Веса (со знаком)",g.signed_weights.data(),int(g.signed_weights.size()),30);ImPlot::EndPlot();}
+            ImGui::Text("E: %.4g ± %.4g; I: %.4g ± %.4g",g.excitatory_weights.mean,g.excitatory_weights.sd,g.inhibitory_weights.mean,g.inhibitory_weights.sd);ImGui::EndPopup();
+        }
         ImGui::TextDisabled("Ограничено степеней: %d · повторных выборок: %zu",g.degree_clamped,g.parameter_resamples);
         if(!generation_preview->record_all)ImGui::TextWrapped("Выборочная запись: %zu нейронов и %zu связей; события всех узлов сохраняются. Состав записи меняется в инспекторе.",generation_preview->record_neurons.size(),generation_preview->record_synapses.size());
     } else if(generation_error.empty())ImGui::TextDisabled("Нажмите «Предпросмотр», чтобы проверить сеть и увидеть фактические распределения.");
-    ImGui::EndPopup();
+    request_wizard_tab=-1;ImGui::EndPopup();
 }
 void App::toolbar() {
     ImGui::TextColored(Teal,"NEURO / ASTRO"); ImGui::SameLine(); ImGui::TextDisabled("Конструктор малых сетей");
@@ -293,6 +314,7 @@ void App::toolbar() {
     ImGui::SameLine();
     if(ImGui::Button("Восстановить состояние…")&&checkpoint_dialog) {auto path=checkpoint_dialog(false);if(!path.empty())restore_state(path);}
     ImGui::EndDisabled();
+    ImGui::SameLine();if(ImGui::Button("Этапы эксперимента…"))show_stages=true;
     ImGui::ProgressBar(float(simulation->time/config.duration),{-1,4},"");
 }
 void App::editor() {
@@ -320,6 +342,11 @@ void App::editor() {
     const auto rows=planned_samples(config.duration,config.sample);
     if(rows<=MaxSamples)ImGui::TextDisabled("История: %zu / 1 000 000 отсчётов",rows);
     else ImGui::TextDisabled("История: более 1 000 000 отсчётов");
+    bool bounded=config.bounded_journals;
+    if(ImGui::Checkbox("Ограниченные журналы",&bounded)) {
+        if(bounded||!(simulation->history.events_after||simulation->history.deliveries_after||simulation->history.stimuli_after))config.bounded_journals=simulation->config.bounded_journals=bounded;
+    }
+    ImGui::TextWrapped(config.bounded_journals?"Старые события удаляются; доступная глубина видна в анализе и журнале этапов.":"Полные журналы: лимит 2 млн записей каждого типа. Для длинных опытов включите ограниченные журналы заранее.");
     if(!config.record_all)ImGui::TextDisabled("Запись: %zu нейронов, %zu связей; события всех узлов",config.record_neurons.size(),config.record_synapses.size());
     ImGui::TextDisabled("%zu нейронов · %zu астроцитов · %zu синапсов",config.neurons.size(),config.astrocytes.size(),config.synapses.size());
     ImGui::Spacing();
@@ -720,10 +747,10 @@ void App::canvas() {
     }
 }
 void App::plots(float height) {
-    const char* names[]={"Потенциалы","Астроциты","Растр событий","Синапсы","Фазовый портрет","Нейрон / вход","Доставки"};
+    const char* names[]={"Потенциалы","Астроциты","Растр событий","Синапсы","Фазовый портрет","Нейрон / вход","Доставки","Сеть / стимуляция"};
     if(ImGui::Button("Новый график"))ImGui::OpenPopup("new_plot");
     if(ImGui::BeginPopup("new_plot")) {
-        for(int i=0;i<7;++i)if(ImGui::MenuItem(names[i]))plot_windows.create(PlotKind(i));
+        for(int i=0;i<8;++i)if(ImGui::MenuItem(names[i]))plot_windows.create(PlotKind(i));
         ImGui::EndPopup();
     }
     ImGui::SameLine();if(ImGui::Button("Рабочее пространство…"))ImGui::OpenPopup("workspace_menu");
@@ -738,7 +765,7 @@ void App::plots(float height) {
     }
     ImGui::SameLine();ImGui::TextDisabled("Колесо: масштаб · ЛКМ: панорама · Двойной клик: вписать");
     if(ImGui::BeginTabBar("plots")) {
-        for(int i=0;i<7;++i)if(ImGui::BeginTabItem(names[i],nullptr,request_plot_tab==i?ImGuiTabItemFlags_SetSelected:0)) {
+        for(int i=0;i<8;++i)if(ImGui::BeginTabItem(names[i],nullptr,request_plot_tab==i?ImGuiTabItemFlags_SetSelected:0)) {
             ImGui::PushID(i);plot_windows.draw_view(plot_windows.embedded[i],*simulation,height-60,false);ImGui::PopID();
             ImGui::EndTabItem();
         }
@@ -753,7 +780,7 @@ void App::draw() {
     ImGui::Begin("Network Studio",nullptr,ImGuiWindowFlags_NoDecoration|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoSavedSettings|ImGuiWindowFlags_NoDocking);
     toolbar();float width=ImGui::GetContentRegionAvail().x,height=ImGui::GetContentRegionAvail().y;
     float left=std::clamp(width*.23f,260.f,320.f),right=std::clamp(width*.25f,300.f,360.f);
-    float bottom=std::clamp(height*.40f,260.f,340.f),top=height-bottom-8;
+    float bottom=std::clamp(height*.40f,260.f,440.f),top=height-bottom-8;
     ImGui::BeginChild("editor",{left,top},ImGuiChildFlags_Borders);editor();ImGui::EndChild();ImGui::SameLine();
     ImGui::BeginChild("canvas",{std::max(220.f,width-left-right-16),top},ImGuiChildFlags_Borders);canvas();ImGui::EndChild();ImGui::SameLine();
     ImGui::BeginChild("inspector",{right,top},ImGuiChildFlags_Borders);inspector();ImGui::EndChild();
@@ -763,5 +790,7 @@ void App::draw() {
     network_wizard();
     ImGui::End();
     plot_windows.draw(*simulation);
+    config.analysis=simulation->config.analysis=plot_windows.embedded[7].analysis;
+    stage_manager();
 }
 }

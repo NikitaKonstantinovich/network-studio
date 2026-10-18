@@ -7,9 +7,14 @@ std::string serialize(const Config& c);
 Config deserialize(const std::string& text);
 Config load_config(const std::filesystem::path& path);
 void save_config(const Config& c,const std::filesystem::path& path);
+std::string analysis_settings_json(const AnalysisSettings& settings);
+AnalysisSettings analysis_settings_from_json(const std::string& text);
+std::string legacy_binding_config(const Config& config);
+std::string serialize_runtime(const Simulator& s);
+void deserialize_runtime(Simulator& s,const std::string& text);
 void export_results(const Simulator& s,const std::filesystem::path& prefix);
 // Separate binary document, safe only outside step(); errors restore read-only.
-inline constexpr char CheckpointAlgorithm[]="event-rk4-doubling-exact-linear-localized-delays-v2";
+inline constexpr char CheckpointAlgorithm[]="event-rk4-doubling-exact-linear-localized-stages-v3";
 inline constexpr size_t MaxCheckpointBytes=512*1024*1024;
 void save_checkpoint(const Simulator& s,const std::filesystem::path& path);
 std::unique_ptr<Simulator> load_checkpoint(const std::filesystem::path& path);

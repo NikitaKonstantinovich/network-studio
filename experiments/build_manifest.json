@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-18",
+  "branch": "feature/spatial-analysis-stages",
+  "cpu": "Intel Core i9-11900KF 3.50GHz",
+  "configuration": "Windows x64 MSVC Release, CPU, no CUDA",
+  "checkpoint_algorithm": "event-rk4-doubling-exact-linear-localized-stages-v3",
+  "checkpoint_build_id": "497143fd796b931db251d71f76f67ae52438392562e022064c8c75bb69c8f794",
+  "files": [
+    {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "bytes": 1672704,
+      "sha256": "e2cd8cc25c2a20fc877b2f1e4c50794e6fb01bacb7ba65cba4699f536a4e7166"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "bytes": 650752,
+      "sha256": "659253e6b3e6d1d9ea645236f7df7ba021066e12102135aca815894930156e94"
+    }
+  ]
+}

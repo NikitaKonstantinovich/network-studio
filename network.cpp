@@ -95,6 +95,7 @@ static bool name_valid(const std::string& s,size_t max) {
     return true;
 }
 std::string validate(const Config& c) {
+    const auto experiment_error=validate_experiment(c);if(!experiment_error.empty())return experiment_error;
     if (c.neurons.empty() || c.neurons.size()>MaxNeurons || c.astrocytes.size()>MaxAstrocytes ||
         c.synapses.size()>MaxSynapses || c.gaps.size()>MaxGaps) return "Network size is outside supported limits.";
     if (!range(c.dt,1e-6,5e-5) || !std::isfinite(c.duration) || c.duration<.001 ||
@@ -198,6 +199,9 @@ std::string validate(const Config& c) {
 void remove_neuron(Config& c,int index) {
     if (index<0 || index>=int(c.neurons.size()) || c.neurons.size()==1) return;
     c.neurons.erase(c.neurons.begin()+index);
+    auto remap=[&](std::vector<int>& list){list.erase(std::remove(list.begin(),list.end(),index),list.end());for(auto& i:list)if(i>index)--i;};
+    remap(c.analysis.neurons);if(c.analysis.reference_neuron==index)c.analysis.reference_neuron=0;else if(c.analysis.reference_neuron>index)--c.analysis.reference_neuron;
+    for(auto& stage:c.stages)remap(stage.neurons);
     c.record_neurons.erase(std::remove(c.record_neurons.begin(),c.record_neurons.end(),index),c.record_neurons.end());
     for(auto& selected:c.record_neurons)if(selected>index)--selected;
     std::vector<int> edge_map(c.synapses.size(),-1);int retained=0;
@@ -243,7 +247,7 @@ static double interval_edge(const Neuron& n,double cycle,double offset) {
     // One canonical expression for a period end and the next period origin.
     return offset==period ? n.start+(cycle+1)*period : n.start+cycle*period+offset;
 }
-static double pulse(const Neuron& n,double t) {
+double pulse_current(const Neuron& n,double t) {
     if(n.frequency<=0 || t<n.start || t>=n.stop)return 0;
     const double period=1/n.frequency;
     if(n.pulse_intervals.empty() && n.width>=period)return n.amplitude;
@@ -294,9 +298,9 @@ static uint64_t mix64(uint64_t value) {
     value=(value^(value>>27))*0x94d049bb133111ebULL;
     return value^(value>>31);
 }
-double external_current(const Config& c,int index,double time) {
-    const auto& n=c.neurons[index];
-    double current=n.current+pulse(n,time);
+double external_current(const Config& c,int index,double time) {return external_current_with_protocol(c,c.neurons[index],index,time);}
+double external_current_with_protocol(const Config& c,const Neuron& n,int index,double time) {
+    double current=n.current+pulse_current(n,time);
     const double sigma=n.individual_noise ? n.noise_sigma : c.noise_sigma;
     if(sigma>0) {
         // Counter-based streams: changing dt, plotting, and paused redraws do not
@@ -309,7 +313,7 @@ double external_current(const Config& c,int index,double time) {
     }
     return current;
 }
-void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,double dt) {
+void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,double dt,double rate) {
     if(!s.enabled || !s.stdp) {
         state.pre_trace=state.post_trace=state.post_slow_trace=0;
         return;
@@ -325,13 +329,13 @@ void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,do
     const double potentiation=s.a_plus*up*state.pre_trace;
     const double delta=(post ? double(post)*(triplet ? potentiation*state.post_slow_trace : potentiation) : 0)-
         (pre ? double(pre)*(s.a_minus*down*state.post_trace) : 0);
-    state.weight=std::clamp(state.weight+delta,s.weight_min,s.weight_max);
+    if(rate!=0)state.weight=std::clamp(state.weight+(rate==1?delta:rate*delta),s.weight_min,s.weight_max);
     if(pre)state.pre_trace+=double(pre);
     if(post)state.post_trace+=double(post);
     if(post && triplet)state.post_slow_trace+=double(post);
 }
-void update_synaptic_stdp(const Synapse& s,StdpState& state,uint64_t emitted,uint64_t arrived,uint64_t post,double dt) {
-    update_stdp(s,state,s.stdp_timing==StdpTiming::Arrival ? arrived : emitted,post,dt);
+void update_synaptic_stdp(const Synapse& s,StdpState& state,uint64_t emitted,uint64_t arrived,uint64_t post,double dt,double rate) {
+    update_stdp(s,state,s.stdp_timing==StdpTiming::Arrival ? arrived : emitted,post,dt,rate);
 }
 void derivative(const Config& c,const State& y,double midpoint,State& dy,const std::vector<StdpState>* plasticity,bool omit_synapse_kinetics) {
     if(y.size()!=size_t(dimension(c)))throw std::invalid_argument("State dimension does not match the network.");
@@ -419,9 +423,11 @@ Simulator::Simulator(const Config& c):config(c) {
     for(int i=0;i<int(c.astrocytes.size());++i)
         for(int k=0;k<7;++k)recorded_state.push_back(astro_offset(c,i)+k);
     for(const auto& s:c.synapses)plasticity.push_back({s.weight,0,0});
-    spikes.resize(c.neurons.size()); releases.resize(c.astrocytes.size()); record();
+    spikes.resize(c.neurons.size()); releases.resize(c.astrocytes.size());
+    history.dropped_spikes.resize(spikes.size());history.dropped_releases.resize(releases.size());history.dropped_deliveries.resize(c.synapses.size());
+    append_protocol("Initial protocol");record();
 }
-bool Simulator::done() const { return !error.empty() || time>=config.duration; }
+bool Simulator::done() const { return !error.empty() || time>=config.duration || (experiment.stage_active&&!experiment.automatic&&time>=experiment.stage_end); }
 void Simulator::extend_duration(double end_time) {
     if(stepping || !checkpoint_boundary || !error.empty())throw std::runtime_error("Cannot extend an unsafe or failed simulation.");
     if(!std::isfinite(end_time) || end_time<config.duration)throw std::runtime_error("Final time may only be extended.");

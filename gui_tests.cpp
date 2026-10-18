@@ -371,6 +371,22 @@ int main() {
         io.AddMousePosEvent(focus.x,focus.y);frame(app);frame(app);io.AddMouseWheelEvent(0,1);frame(app);frame(app);
         require(view.zoom>1,"Topology wheel zoom did not work");click(app,"Вписать схему");require(view.zoom==1,"Topology reset view failed");
         require(studio::serialize(app.config)==config_before_field&&app.simulation->steps==steps_before_field,"Field controls edited the model or advanced simulation");
+        app.replace(studio::preset(6));for(int i=0;i<20;++i)require(app.simulation->step(),"Stage GUI fixture failed");
+        const auto stage_state=app.simulation->state;const auto stage_time=app.simulation->time;const auto stage_weight=app.simulation->plasticity[0].weight;
+        click(app,"Этапы эксперимента…");click(app,"Обучение включено");
+        require(!app.simulation->experiment.learning&&app.simulation->state==stage_state&&app.simulation->time==stage_time&&app.simulation->plasticity[0].weight==stage_weight,"Freeze GUI reset dynamics or weights");
+        click(app,"Очистить следы STDP");click(app,"Добавить этап");click(app,"1. Этап 1");
+        enter_scalar(app,"Длительность этапа, с","0.02");click(app,"Войти в этап (пауза)");
+        require(app.simulation->experiment.stage_active&&app.simulation->time==stage_time&&app.simulation->state==stage_state&&!app.running,"Manual stage GUI did not retain paused state");
+        app.show_stages=false;app.request_plot_tab=7;frame(app);frame(app);
+        click(app,"Параметры анализа…");enter_scalar(app,"Окно частоты, с","0.025");click(app,"Готово");
+        require(app.config.analysis.bin==.025&&app.simulation->time==stage_time&&app.simulation->state==stage_state,"Analysis GUI altered solver");
+        auto metric=app.plot_windows.create(studio::PlotKind::Network);auto metric_copy=app.plot_windows.duplicate(metric);
+        app.plot_windows.find(metric_copy)->analysis.bin=.1;frame(app);
+        require(app.plot_windows.find(metric)->analysis.bin==.025&&app.plot_windows.find(metric_copy)->analysis.bin==.1,"Independent metric settings are shared");
+        app.plot_windows.windows.clear();app.request_network_wizard=true;app.request_wizard_tab=1;frame(app);frame(app);
+        click(app,"Топология");click(app,"Связи в пределах радиуса");enter_scalar(app,"Радиус","0.15");click(app,"Предпросмотр");
+        require(app.simulation->time==stage_time&&app.simulation->state==stage_state,"Radius preview changed live model");click(app,"Отмена");
         ImPlot::DestroyContext();ImGui::DestroyContext();
         std::cout<<"PASS: "<<checks<<" GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.\n";return 0;
     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}

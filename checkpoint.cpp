@@ -8,7 +8,7 @@
 namespace studio {
 namespace {
 constexpr char Magic[]="NETWORK-STUDIO-CHECKPOINT\n";
-constexpr uint64_t Schema=2;
+constexpr uint64_t Schema=3;
 void require(bool ok,const char* message) {if(!ok)throw std::runtime_error(std::string("Checkpoint: ")+message);}
 // Integrity against accidental corruption; not an authentication signature.
 uint64_t checksum(const char* p,size_t n) {
@@ -115,19 +115,25 @@ struct CheckpointAccess {
             }
         }
         require(h.events.size()<=MaxEvents,"too many events");
-        std::vector<uint64_t> spikes(c.neurons.size()),releases(c.astrocytes.size());previous=0;
+        require(h.dropped_spikes.size()==c.neurons.size()&&h.dropped_releases.size()==c.astrocytes.size()&&h.dropped_deliveries.size()==c.synapses.size(),"invalid dropped counter dimensions");
+        for(double t:{h.events_after,h.deliveries_after,h.stimuli_after})require(std::isfinite(t)&&t>=0&&t<=s.time,"invalid journal depth");
+        require(c.bounded_journals||(h.events_after==0&&h.deliveries_after==0&&h.stimuli_after==0),"truncated full journal");
+        for(size_t i=0;i<s.spikes.size();++i)require(h.dropped_spikes[i]<=s.spikes[i],"dropped spike counter overflow");
+        for(size_t i=0;i<s.releases.size();++i)require(h.dropped_releases[i]<=s.releases[i],"dropped release counter overflow");
+        for(size_t j=0;j<c.synapses.size();++j)require(h.dropped_deliveries[j]<=(c.synapses[j].enabled?s.spikes[c.synapses[j].source]:0),"dropped delivery counter overflow");
+        std::vector<uint64_t> spikes=h.dropped_spikes,releases=h.dropped_releases;previous=h.events_after;
         for(const auto& event:h.events) {
-            require(std::isfinite(event.time) && event.time>0 && event.time>=previous && event.time<=s.time,"invalid event time");
+            require(std::isfinite(event.time) && event.time>h.events_after && event.time>=previous && event.time<=s.time,"invalid event time");
             auto& counts=event.astro ? releases : spikes;
             require(event.index>=0 && size_t(event.index)<counts.size(),"invalid event index");
-            ++counts[event.index];previous=event.time;
+            require(counts[event.index]!=UINT64_MAX,"event counter overflow");++counts[event.index];previous=event.time;
         }
         require(spikes==s.spikes && releases==s.releases,"event log/counters mismatch");
         require(h.deliveries.size()<=MaxDeliveries && s.pending_deliveries.size()<=MaxPendingDeliveries,"delivery budget exceeded");
         require(std::is_heap(s.pending_deliveries.begin(),s.pending_deliveries.end(),DeliveryLater{}),"invalid delivery heap");
         std::vector<std::vector<double>> emissions(c.neurons.size());
         for(const auto& e:h.events)if(!e.astro)emissions[e.index].push_back(e.time);
-        std::vector<uint64_t> accounted(c.synapses.size());
+        std::vector<uint64_t> accounted=h.dropped_deliveries;
         std::vector<double> last_emit(c.synapses.size(),-1);
         auto check_deliveries=[&](const std::vector<Delivery>& list,bool pending) {
             const Delivery* prev=nullptr;
@@ -140,8 +146,8 @@ struct CheckpointAccess {
                 require(!prev || !DeliveryLater{}(*prev,e),"unordered delivery journal");prev=&e;
                 require(e.t_emit>last_emit[e.synapse],"duplicate or unordered delivery for edge");last_emit[e.synapse]=e.t_emit;
                 const auto& times=emissions[edge.source];
-                require(std::binary_search(times.begin(),times.end(),e.t_emit),"delivery has no source spike");
-                ++accounted[e.synapse];
+                require(e.t_emit<=h.events_after || std::binary_search(times.begin(),times.end(),e.t_emit),"delivery has no source spike");
+                require(accounted[e.synapse]!=UINT64_MAX,"delivery counter overflow");++accounted[e.synapse];
             }
         };
         check_deliveries(h.deliveries,false);
@@ -170,6 +176,10 @@ struct CheckpointAccess {
         auto pending=s.pending_deliveries;
         std::sort(pending.begin(),pending.end(),[](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);});
         deliveries(pending);
+        w.counts(s.history.dropped_spikes);w.counts(s.history.dropped_releases);w.counts(s.history.dropped_deliveries);
+        w.real(s.history.events_after);w.real(s.history.deliveries_after);w.real(s.history.stimuli_after);
+        w.u64(s.history.stimuli.size());for(const auto& e:s.history.stimuli){w.real(e.time);w.real(e.amplitude);w.u64(e.neuron);w.u64(e.protocol);}
+        w.text(serialize_runtime(s));
         auto sum=checksum(w.bytes.data(),w.bytes.size());w.u64(sum);return std::move(w.bytes);
     }
     static std::unique_ptr<Simulator> decode(const std::string& bytes) {
@@ -209,6 +219,15 @@ struct CheckpointAccess {
         require(std::is_sorted(s->pending_deliveries.begin(),s->pending_deliveries.end(),
             [](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);}),"noncanonical pending queue");
         std::make_heap(s->pending_deliveries.begin(),s->pending_deliveries.end(),DeliveryLater{});
+        s->history.dropped_spikes=r.counts(c.neurons.size());s->history.dropped_releases=r.counts(c.astrocytes.size());s->history.dropped_deliveries=r.counts(c.synapses.size());
+        s->history.events_after=r.real();s->history.deliveries_after=r.real();s->history.stimuli_after=r.real();
+        s->history.stimuli.resize(r.count(c.journal_capacity,32));
+        double previous_stimulus=s->history.stimuli_after;
+        for(auto& e:s->history.stimuli){e.time=r.real();e.amplitude=r.real();auto neuron=r.u64(),protocol=r.u64();
+            require(e.time>=previous_stimulus&&e.time<s->time&&e.amplitude!=0&&e.amplitude>=-30&&e.amplitude<=100&&neuron<c.neurons.size()&&protocol<4096,"invalid stimulus journal");
+            e.neuron=int(neuron);e.protocol=int(protocol);previous_stimulus=e.time;}
+        deserialize_runtime(*s,r.text(128*1024*1024));
+        for(const auto& e:s->history.stimuli)require(e.protocol<int(s->experiment.protocols.size())&&e.time>=s->experiment.protocols[e.protocol].time&&pulse_current(s->experiment.protocols[e.protocol].neurons[e.neuron],e.time)==e.amplitude,"stimulus/protocol mismatch");
         require(r.pos==r.end,"unexpected trailing data");require(stored_done==s->done(),"completion/diagnostic mismatch");
         validate_snapshot(*s);
         // Constructor rebuilds outgoing, selected columns, Flow work vectors and

@@ -2,10 +2,12 @@
 #include "io.h"
 #include "imgui.h"
 #include "weight_field.h"
+#include "analysis.h"
 #include <array>
+#include <functional>
 
 namespace studio {
-enum class PlotKind { Voltage, Astrocytes, Raster, Synapse, AstroPhase, Neuron, Deliveries };
+enum class PlotKind { Voltage, Astrocytes, Raster, Synapse, AstroPhase, Neuron, Deliveries, Network };
 struct PlotWindowState {
     uint32_t id=0;
     std::string title="График", binding;
@@ -19,6 +21,10 @@ struct PlotWindowState {
     bool limits_valid=false, restore_limits=false, place=true, undock=false;
     std::array<double,6> limits{{0,1,-1,1,-1,1}};
     ImVec2 position{120,120}, size{720,480};
+    AnalysisSettings analysis;
+    NetworkAnalysis analyzed;
+    double analysis_at=-1;
+    std::string analysis_key;
     std::string window_name() const;
 };
 // Presentation only. No Simulator ownership and no copies of sampled trajectories.
@@ -26,11 +32,12 @@ class PlotWindows {
 public:
     static constexpr size_t MaxWindows=32, MaxWorkspaceBytes=4*1024*1024;
     std::vector<PlotWindowState> windows;
-    std::array<PlotWindowState,7> embedded;
+    std::array<PlotWindowState,8> embedded;
     TopologyViewState topology;
     std::string binding, message;
     std::filesystem::path workspace_path;
     bool host_open=false;
+    std::function<std::filesystem::path()> analysis_export_dialog;
     bool automatic_save_allowed=true;
     PlotWindows();
     void data_changed(const Config& config,bool replacement=false);
@@ -48,6 +55,7 @@ public:
     bool load(const std::filesystem::path& path);
     static std::string config_binding(const Config& config);
     static void clamp_to_monitors(ImVec2& position,ImVec2& size);
+    void draw_network(PlotWindowState& window,const Simulator& simulation);
 private:
     uint32_t next_id=1;
     bool reset_host=false, demo_layout=false;

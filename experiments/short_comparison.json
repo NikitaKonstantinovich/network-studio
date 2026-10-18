@@ -1,0 +1,61 @@
+{
+  "note": "Short diagnostic only; not the requested 100/200-second experiment. Checkpoints require the archived comparison/bin/cli.exe. Final Release is tested separately.",
+  "neurons": 500,
+  "edges": 15013,
+  "seed": 706,
+  "radius": 2,
+  "space": [
+    10,
+    10,
+    "model_unit"
+  ],
+  "max_edge_length": 1.9998496616254555,
+  "degree_mean": 30.026,
+  "degree_sd": 3.025446082811591,
+  "binary_sha256": "02dba7f8350196b67032a6c8c97b48747d032f3979bd3bc96c85e4760025a642",
+  "common_checkpoint_sha256": "529f6d7e6a3ada3e045f0a16d356a6e02dcb4f5fe14d61fec59d2dc40f134292",
+  "cases": {
+    "1hz": {
+      "absolute_end_s": 0.32,
+      "stage_duration_s": 0.3,
+      "total_spikes": 11697,
+      "changed_weights": 11961,
+      "reference_pulses": 1,
+      "eligible_stimuli": 1,
+      "matched": 0,
+      "bursts": [
+        {
+          "start_s": "0.0032949342570794747",
+          "end_s": "0.25395806983005997",
+          "duration_s": "0.25066313557298048",
+          "spikes": "11671",
+          "participants": "500",
+          "complete": "1"
+        }
+      ],
+      "wall_seconds": 321.492,
+      "dropped_delivery_before_s": 0
+    },
+    "10hz": {
+      "absolute_end_s": 0.32,
+      "stage_duration_s": 0.3,
+      "total_spikes": 11504,
+      "changed_weights": 11961,
+      "reference_pulses": 3,
+      "eligible_stimuli": 3,
+      "matched": 0,
+      "bursts": [
+        {
+          "start_s": "0.0032949342570794747",
+          "end_s": "0.32000000000000001",
+          "duration_s": "0.31670506574292051",
+          "spikes": "11504",
+          "participants": "500",
+          "complete": "0"
+        }
+      ],
+      "wall_seconds": 296.472,
+      "dropped_delivery_before_s": 0
+    }
+  }
+}

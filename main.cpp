@@ -101,9 +101,10 @@ static std::filesystem::path dialog(HWND hwnd,bool save,bool csv,bool checkpoint
 }
 int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     int argc=0;wchar_t** args=CommandLineToArgvW(GetCommandLineW(),&argc);
-    std::filesystem::path smoke,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false;
+    std::filesystem::path smoke,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false;
     for(int i=1;i<argc;++i) {
         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
+        else if(std::wstring(args[i])==L"--experiment-smoke"&&i+1<argc){smoke=args[++i];experiment_smoke=true;}
         else if(std::wstring(args[i])==L"--field-smoke"&&i+1<argc){smoke=args[++i];field_smoke=true;}
         else if(std::wstring(args[i])==L"--viewport-smoke"&&i+1<argc){smoke=args[++i];viewport_smoke=true;}
         else if(std::wstring(args[i])==L"--workspace"&&i+1<argc)workspace_path=args[++i];
@@ -119,7 +120,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     RegisterClassExW(&wc);
     try {
         ImGui_ImplWin32_EnableDpiAwareness();
-        hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,field_smoke?1800:1480,field_smoke?1300:1000,nullptr,nullptr,instance,nullptr);
+        hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,(field_smoke||experiment_smoke)?1800:1480,(field_smoke||experiment_smoke)?1300:1000,nullptr,nullptr,instance,nullptr);
         if(!hwnd)throw std::runtime_error("Cannot create the application window.");create_device(hwnd);resize_w=resize_h=0;
         IMGUI_CHECKVERSION();ImGui::CreateContext();ImPlot::CreateContext();imgui=true;
         auto& io=ImGui::GetIO();io.ConfigFlags|=ImGuiConfigFlags_NavEnableKeyboard|ImGuiConfigFlags_DockingEnable|ImGuiConfigFlags_ViewportsEnable|
@@ -153,6 +154,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(config_path.empty()&&checkpoint_path.empty()) {
                 auto c=studio::preset(viewport_smoke?6:smoke_preset);if(viewport_smoke)c.duration=.3;app.replace(c);
             }
+            if(experiment_smoke&&!app.config.stages.empty())app.simulation->enter_stage(0,true);
             while(!app.simulation->done())if(!app.simulation->step())break;
             if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
             app.status="Проверка прототипа: расчёт завершён, графики построены.";
@@ -186,6 +188,12 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(!smoke.empty()&&!viewport_smoke) {
                 if(smoke_wizard && frames==0)app.request_network_wizard=true;
                 int group=frames/4;app.request_plot_tab=group;
+                if(experiment_smoke&&frames==32)app.show_stages=true;
+                if(experiment_smoke&&frames==36) {
+                    app.show_stages=false;studio::NetworkGeneration g;g.topology=studio::NetworkTopology::WithinRadius;g.space={10,10,"model_unit"};g.radius=2;
+                    g.excitatory.in_degree=g.inhibitory.in_degree={30,3};g.duration=100;g.sample=.002;g.synapse.stdp=true;g.synapse.stdp_rule=studio::StdpRule::Multiplicative;
+                    app.preview_network(g);app.request_network_wizard=true;app.request_wizard_tab=1;
+                }
                 app.selected_kind=(group==0||group==5||app.config.astrocytes.empty())?0:(group==3?2:1);
                 if(group==3&&!app.config.synapses.empty())app.selected_kind=2;
                 app.selected_index=0;
@@ -199,6 +207,13 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                 if(!smoke.empty()&&!viewport_smoke&&frames%4==3)capture_png(smoke/(L"tab_"+std::to_wstring(frames/4)+L".png"));
             }
             ImGui::UpdatePlatformWindows();ImGui::RenderPlatformWindowsDefault();
+            if(experiment_smoke&&(frames==35||frames==39)) {
+                auto& platform=ImGui::GetPlatformIO();
+                for(int i=1;i<platform.Viewports.Size;++i){auto* v=platform.Viewports[i];if(!v->DrawData||v->DrawData->TotalVtxCount<100)continue;
+                    platform.Renderer_RenderWindow(v,nullptr);ComPtr<ID3D11RenderTargetView> view;context->OMGetRenderTargets(1,&view,nullptr);
+                    ComPtr<ID3D11Resource> resource;view->GetResource(&resource);ComPtr<ID3D11Texture2D> texture;check(resource.As(&texture),"Experiment viewport capture failed");
+                    capture_png(smoke/((frames==35?L"stages_":L"generator_")+std::to_wstring(i)+L".png"),texture.Get());}
+            }
             if(viewport_smoke) {
                 auto& platform=ImGui::GetPlatformIO();
                 if(frames==4) {
@@ -267,7 +282,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             }
             if(!IsIconic(hwnd)) {HRESULT hr=swapchain->Present(smoke.empty()?1:0,0);if(FAILED(hr))throw std::runtime_error("Direct3D presentation failed.");if(hr==DXGI_STATUS_OCCLUDED)Sleep(10);}
             else Sleep(10);
-            ++frames;if(!smoke.empty()&&frames>=28)done=true;
+            ++frames;if(!smoke.empty()&&frames>=(experiment_smoke?40:28))done=true;
         }
         if(smoke.empty()&&app.plot_windows.automatic_save_allowed&&!app.plot_windows.workspace_path.empty()) {
             const auto parent=app.plot_windows.workspace_path.parent_path();

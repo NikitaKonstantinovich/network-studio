@@ -51,9 +51,13 @@ int main() {
         v=TopologyViewState{};check(app.plot_windows.load(dir/"view.nsworkspace"),"Workspace load");
         check(v.field&&v.columns==8&&v.rows==6&&v.polarity==FieldPolarity::Inhibitory&&v.model==FieldModel::TsodyksMarkram&&v.zoom==2.75,"Workspace lost topology settings");
         // Schema 1 has the same window/ini prefix and no 112-byte topology block.
-        auto legacy=saved;legacy.erase(legacy.size()-8-112,112);const size_t version=8+std::string("Network Studio plot workspace").size();legacy[version]=1;resign(legacy);
+        const size_t analysis_bytes=8+analysis_settings_json(app.plot_windows.embedded[7].analysis).size()+8;
+        size_t tail_bytes=analysis_bytes;for(const auto& window:app.plot_windows.windows)tail_bytes+=8+analysis_settings_json(window.analysis).size();
+        auto version2=saved;version2.erase(version2.size()-8-tail_bytes,tail_bytes);version2[8+std::string("Network Studio plot workspace").size()]=2;resign(version2);
+        write_atomic(dir/"version2.nsworkspace",version2);check(app.plot_windows.load(dir/"version2.nsworkspace")&&v.field&&v.zoom==2.75,"Schema 2 compatibility");
+        auto legacy=saved;legacy.erase(legacy.size()-8-tail_bytes-112,112+tail_bytes);const size_t version=8+std::string("Network Studio plot workspace").size();legacy[version]=1;resign(legacy);
         write_atomic(dir/"legacy.nsworkspace",legacy);check(app.plot_windows.load(dir/"legacy.nsworkspace")&&!v.field&&v.zoom==1,"Schema 1 compatibility/defaults");
-        auto corrupt=saved;corrupt[corrupt.size()-8-112+6*8]=0;resign(corrupt);write_atomic(dir/"invalid.nsworkspace",corrupt);
+        auto corrupt=saved;corrupt[corrupt.size()-8-tail_bytes-112+6*8]=0;resign(corrupt);write_atomic(dir/"invalid.nsworkspace",corrupt);
         check(!app.plot_windows.load(dir/"invalid.nsworkspace")&&!v.field,"Invalid grid partially replaced workspace");
         auto replacement=preset(2);replacement.duration=.01;replacement.sample=.001;replacement.neurons[0].model=NeuronModel::Izhikevich;
         save_config(replacement,dir/"mixed.json");app.load(dir/"mixed.json");v.field=true;frame(app);

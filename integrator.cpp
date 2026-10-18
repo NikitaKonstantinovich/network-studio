@@ -152,7 +152,12 @@ bool Simulator::step() {
     stepping=true;checkpoint_boundary=false;
     try {
         const bool ok=step_impl();
-        checkpoint_boundary=ok;stepping=false;return ok;
+        checkpoint_boundary=ok;stepping=false;
+        if(ok&&experiment.stage_active&&time>=experiment.stage_end) {
+            if(experiment.automatic&&experiment.stage_index+1<int(config.stages.size()))enter_stage(experiment.stage_index+1,true);
+            else experiment.automatic=false;
+        }
+        return ok;
     } catch(const std::exception& e) {
         stepping=false;error=std::string("Integration failed: ")+e.what();return false;
     } catch(...) {stepping=false;error="Integration failed with an unknown exception.";return false;}
@@ -165,7 +170,7 @@ bool Simulator::step_impl() {
     if(c.astrocytes.empty())flow.threshold_sample=[this](const State& y,double h,int coordinate) {
         return neuron_threshold_sample(y,h,coordinate);
     };
-    const double macro_end=std::min(double(steps+1)*c.dt,c.duration);
+    const double macro_end=std::min({double(steps+1)*c.dt,c.duration,experiment.stage_active?experiment.stage_end:std::numeric_limits<double>::infinity()});
     size_t pieces=0;
     while(time<macro_end) {
         if(++pieces>200000) {error="Too many internal steps; revise extreme kinetic parameters.";return false;}
@@ -173,6 +178,7 @@ bool Simulator::step_impl() {
         const double delivery_time=pending_deliveries.empty() ? std::numeric_limits<double>::infinity() : pending_deliveries.front().t_arrival;
         if(delivery_time<=time) {error="Delivery queue contains an already due event; reset the experiment.";return false;}
         const double limit=next_input_boundary(c,time,std::min({macro_end,sample_time,delivery_time}));
+        log_stimuli(time);
         held_input_time=time; // Right-continuous [start, stop) input on this segment.
         double h=std::min({limit-time,suggested_step,kinetic_step_limit()});
         std::vector<int> group;
@@ -194,7 +200,7 @@ bool Simulator::step_impl() {
             h*=.5;
         }
         if(!accepted) {error="Could not resolve the coupled kinetics within the error/bounds tolerance.";return false;}
-        if(history.events.size()+group.size()>MaxEvents) {error="Event recording limit exceeded; shorten the experiment.";return false;}
+        if(!c.bounded_journals&&history.events.size()+group.size()>c.journal_capacity) {error="Event recording limit exceeded; shorten the experiment.";return false;}
         const double event_time=(advance==limit-time ? limit : time+advance);
         if(!(event_time>time)) {error="Event localization did not advance the clock.";return false;}
         auto& next=flow.next;
@@ -223,7 +229,7 @@ bool Simulator::step_impl() {
         if(pending_deliveries.size()-consumed+created.size()>MaxPendingDeliveries) {
             error="Pending delivery limit (1000000) exceeded; reduce firing, connections or delays.";return false;
         }
-        if(history.deliveries.size()+deliveries.size()>MaxDeliveries) {
+        if(!c.bounded_journals&&history.deliveries.size()+deliveries.size()>c.journal_capacity) {
             error="Delivery journal limit (2000000) exceeded; shorten the experiment.";return false;
         }
         std::sort(deliveries.begin(),deliveries.end(),[](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);});
@@ -253,7 +259,7 @@ bool Simulator::step_impl() {
         // Grouped old traces, one weight update/clamp, then new traces. Weights
         // affect the remaining flow immediately, including existing tails.
         for(size_t j=0;j<c.synapses.size();++j) {
-            const auto& s=c.synapses[j];update_synaptic_stdp(s,plasticity[j],fired[s.source],arrivals[j],fired[s.target],advance);
+            const auto& s=c.synapses[j];update_synaptic_stdp(s,plasticity[j],fired[s.source],arrivals[j],fired[s.target],advance,experiment.learning?experiment.learning_rate:0);
         }
         for(size_t k=0;k<consumed;++k) {
             std::pop_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});pending_deliveries.pop_back();
@@ -261,6 +267,7 @@ bool Simulator::step_impl() {
         for(const auto& e:created) {
             pending_deliveries.push_back(e);std::push_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});
         }
+        trim_journals(group.size(),deliveries.size());
         history.deliveries.insert(history.deliveries.end(),deliveries.begin(),deliveries.end());
         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]){++spikes[i];history.events.push_back({event_time,i,false});}
         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]){++releases[i];history.events.push_back({event_time,i,true});}

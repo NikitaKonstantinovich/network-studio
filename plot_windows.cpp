@@ -8,7 +8,7 @@
 
 namespace studio {
 namespace {
-const char* kinds[]={"Потенциалы","Астроциты","Растр событий","Синапсы","Фазовый портрет","Нейрон / вход","Доставки"};
+const char* kinds[]={"Потенциалы","Астроциты","Растр событий","Синапсы","Фазовый портрет","Нейрон / вход","Доставки","Сеть / стимуляция"};
 const ImVec4 teal(.25f,.84f,.72f,1),blue(.38f,.65f,1,1),gold(1,.74f,.36f,1),rose(.93f,.43f,.53f,1);
 ImVec4 color(int i) { const ImVec4 colors[]={teal,blue,gold,rose,ImVec4(.72f,.56f,.94f,1)};return colors[i%5]; }
 void bit(const char* label,uint32_t& mask,int n) {bool v=(mask&(1u<<n))!=0;if(ImGui::Checkbox(label,&v))mask^=1u<<n;}
@@ -17,7 +17,7 @@ struct Derived { const Simulator* s; int object,kind; };
 ImPlotPoint derived(int row,void* ptr) {
     const auto& d=*static_cast<Derived*>(ptr);const auto& s=*d.s;const auto& h=s.history;
     double v=0;
-    if(d.kind==0)v=external_current(s.config,d.object,h.time[row]); // immutable run protocol, never App::config
+    if(d.kind==0)v=s.historical_input(d.object,h.time[row]); // immutable run protocol, never App::config
     else {
         const auto& syn=s.config.synapses[d.object];const int b=syn_offset(s.config,d.object);
         if(d.kind==1)v=1-h.values[b+1][row]-h.values[b+2][row];
@@ -59,13 +59,14 @@ void select_objects(PlotWindowState& w,const Config& c,bool astro) {
 }
 std::string PlotWindowState::window_name() const {return title+"###studio_plot_"+std::to_string(id);}
 PlotWindows::PlotWindows() {
-    for(int i=0;i<7;++i){embedded[i].kind=PlotKind(i);embedded[i].title=kinds[i];embedded[i].place=false;}
+    for(int i=0;i<8;++i){embedded[i].kind=PlotKind(i);embedded[i].title=kinds[i];embedded[i].place=false;}
     embedded[1].quantities=6;
 }
 void PlotWindows::data_changed(const Config& c,bool replacement) {
     binding=config_binding(c);
-    for(auto& w:windows) {w.compatible=!replacement&&w.binding==binding;w.fit=true;}
-    for(int i=0;i<7;++i) {
+    embedded[7].analysis=c.analysis;embedded[7].analysis_at=-1;
+    for(auto& w:windows) {w.compatible=!replacement&&w.binding==binding;w.fit=true;w.analysis_at=-1;}
+    for(int i=0;i<8;++i) {
         auto& w=embedded[i];w.binding=binding;w.compatible=true;w.fit=true;w.object=0;w.objects.clear();
         if(i==0)for(int n=0;n<int(c.neurons.size())&&w.objects.size()<32;++n)if(records_neuron(c,n))w.objects.push_back(n);
         if(i==1)for(int n=0;n<int(c.astrocytes.size());++n)w.objects.push_back(n);
@@ -81,6 +82,7 @@ uint32_t PlotWindows::detach(const PlotWindowState& source) {
 }
 uint32_t PlotWindows::create(PlotKind kind,int object) {
     PlotWindowState w;w.kind=kind;w.title=kinds[int(kind)];w.binding=binding;w.object=object;w.objects={object};
+    if(kind==PlotKind::Network)w.analysis=embedded[7].analysis;
     if(kind==PlotKind::Astrocytes)w.quantities=6;
     return detach(w);
 }
@@ -191,6 +193,7 @@ void PlotWindows::draw_view(PlotWindowState& w,const Simulator& s,float height,b
     if(detached){ImGui::SameLine();if(ImGui::Button("Вписать"))w.fit=true;}
     if(!detached){ImGui::SameLine();if(ImGui::Button("Открыть в отдельном окне"))detach(w);}
     if(h.time.empty()){ImGui::TextWrapped("Нет записанной истории. Проверьте параметры эксперимента.");return;}
+    if(w.kind==PlotKind::Network){draw_network(w,s);return;}
     const bool astro=w.kind==PlotKind::Astrocytes||w.kind==PlotKind::AstroPhase;
     const bool syn=w.kind==PlotKind::Synapse;
     if(astro&&c.astrocytes.empty()){ImGui::TextWrapped("В этой сети нет астроцитов.");return;}
@@ -234,7 +237,7 @@ void PlotWindows::draw_view(PlotWindowState& w,const Simulator& s,float height,b
     }
     if(ImGui::BeginPopup("quantities")) {
         if(w.kind==PlotKind::Voltage){bit("V, мВ",w.quantities,0);bit("Маркеры спайков",w.quantities,1);}
-        else if(w.kind==PlotKind::Astrocytes) {const char* labels[]={"Рецептор Γ","IP3, мкМ","Ca, мкМ","h","Ресурс xA","GA, мкМ","ΓS"};for(int i=0;i<7;++i)bit(labels[i],w.quantities,i);}
+        else if(w.kind==PlotKind::Astrocytes) {const char* labels[]={"Рецептор Γ","IP3, мкМ","Ca, мкМ","h","Ресурс xA","GA, мкМ","ΓS"};for(int i=0;i<8;++i)bit(labels[i],w.quantities,i);}
         else if(syn&&w.view==0){const char* labels[]={"u","x","s / y","z (TM)","Глутамат Y","Синаптический ток"};for(int i=0;i<6;++i)bit(labels[i],w.quantities,i);}
         else if(w.kind==PlotKind::Raster){bit("Спайки нейронов",w.quantities,0);bit("Выбросы астроцитов",w.quantities,1);}
         else ImGui::TextDisabled("Величина выбрана в представлении графика.");
@@ -297,6 +300,10 @@ void PlotWindows::draw_view(PlotWindowState& w,const Simulator& s,float height,b
         }else if(w.kind==PlotKind::Neuron) {
             if(w.view==0){Derived d{&s,w.object,0};ImPlot::SetNextLineStyle(gold);ImPlot::PlotLineG("DC + импульс + шум",derived,&d,count);}
             else line("Переменная восстановления",w.object*4+1,0);
+        }
+        if(!phase) {
+            ImPlot::SetAxes(ImAxis_X1,ImAxis_Y1);
+            for(const auto& p:s.experiment.protocols)if(p.time>0){const double t=p.time;ImPlot::SetNextLineStyle(ImVec4(.8f,.6f,.2f,.5f));ImPlot::PlotInfLines(("Этап: "+p.name).c_str(),&t,1);}
         }
         auto limits=ImPlot::GetPlotLimits(ImAxis_X1,ImAxis_Y1);w.limits[0]=limits.X.Min;w.limits[1]=limits.X.Max;w.limits[2]=limits.Y.Min;w.limits[3]=limits.Y.Max;
         if(syn&&!w.view){auto secondary=ImPlot::GetPlotLimits(ImAxis_X1,ImAxis_Y2);w.limits[4]=secondary.Y.Min;w.limits[5]=secondary.Y.Max;}

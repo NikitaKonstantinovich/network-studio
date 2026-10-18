@@ -162,6 +162,8 @@ void test_append_and_recording() {
             "append counts use offsets");
     appended.neurons.resize(base.neurons.size());
     appended.synapses.resize(base.synapses.size());
+    require(appended.generation.size()==base.generation.size()+1,"append adds provenance");
+    appended.generation=base.generation;
     require(serialize(appended)==serialize(base),"append preserves every old node, edge and run setting");
 
     base.record_all=false; base.record_neurons={1}; base.record_synapses={0};
