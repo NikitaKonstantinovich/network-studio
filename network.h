@@ -5,7 +5,9 @@
 #include <vector>
 #include <cstdint>
 #include <deque>
+#include <memory>
 #include "numerics/integrator.h"
+#include "numerics/worker_pool.h"
 
 namespace studio {
 namespace na = neuro_astro;
@@ -75,6 +77,16 @@ struct StdpState { double weight = 1, pre_trace = 0, post_trace = 0, post_slow_t
 void update_stdp(const Synapse& synapse, StdpState& state, uint64_t pre, uint64_t post, double dt, double rate=1);
 void update_synaptic_stdp(const Synapse& synapse, StdpState& state,
                          uint64_t emitted, uint64_t arrived, uint64_t post, double dt, double rate=1);
+// Derived coefficients only. Trace arithmetic and update order stay identical.
+class StdpDecayCache {
+    double dt_=0,plus_=0,minus_=0,slow_=0;
+    bool valid_=false,triplet_=false;
+    std::array<double,3> factors_{};
+public:
+    const std::array<double,3>& factors(const Synapse& synapse,double dt);
+};
+void update_stdp_cached(const Synapse& synapse,StdpState& state,uint64_t pre,uint64_t post,
+                        double dt,double rate,StdpDecayCache& cache);
 struct Gap {
     int a = 0, b = 1;
     double ip3 = 0.05, calcium = 0;
@@ -177,6 +189,14 @@ State initial_state(const Config& c);
 // Deterministic sample-and-hold Gaussian current. Individual sigma overrides
 // the global sigma; streams are independent per neuron and repeat after reset.
 double external_current(const Config& c, int neuron, double time);
+// A disposable per-neuron cache keyed by the absolute noise interval and all
+// noise parameters. Pulse/shared input is always evaluated at the requested time.
+class NoiseCache {
+    struct Entry { uint64_t bin=0; uint32_t seed=0; double sigma=0,interval=0,value=0; bool valid=false; };
+    std::vector<Entry> entries;
+public:
+    double current(const Config& c,int neuron,double time);
+};
 double pulse_current(const Neuron& neuron,double time);
 double next_pulse_boundary(const Neuron& neuron,double time,double limit);
 Neuron stimulator_signal(const Stimulator& s);
@@ -239,6 +259,11 @@ public:
     double time = 0;
     std::string error;
     explicit Simulator(const Config& c);
+    // Runtime execution policy, deliberately excluded from checkpoints/Config.
+    // 0=Auto; compute::ThreadModes includes the controlling solver thread.
+    void set_compute_threads(int count);
+    int compute_threads() const {return requested_threads;}
+    int effective_compute_threads() const {return pool?pool->count():1;}
     bool step();
     bool done() const;
     void record();
@@ -265,11 +290,54 @@ private:
     std::vector<numerical::Threshold> thresholds;
     double held_input_time=0, suggested_step=0;
     std::vector<double> held_inputs;
+    NoiseCache noise_cache;
+    StdpDecayCache stdp_decay_cache;
+    struct alignas(64) WorkerStdpCache {StdpDecayCache cache;};
+    std::array<WorkerStdpCache,compute::MaxThreads> worker_stdp_caches;
+    int requested_threads=1;
+    std::unique_ptr<numerical::WorkerPool> pool;
+    bool parallel_eligible() const;
+    void prepare_workers();
+    // Derived, disposable views and scratch: never serialized. Rebuild views
+    // every macro step so same-size parameter edits cannot leave stale data.
+    // Views contain indices/values, not pointers into movable Config vectors.
+    struct CurrentEdge {
+        double scale,reversal;
+        int synapse,target,activity;
+        bool conductance;
+    };
+    struct KineticRange {
+        int begin,end;
+        SynapseModel model;
+        double tau_f,tau_d,tau_syn;
+    };
+    bool compact_network=false,current_edges_only=false,izh_only=false;
+    std::vector<CurrentEdge> current_edges;
+    std::vector<CurrentEdge> target_edges;
+    std::vector<size_t> target_edge_offsets;
+    std::vector<size_t> target_edge_cursor;
+    std::vector<KineticRange> kinetic_ranges;
+    struct KineticFactors {double facilitation,recovery,active,transfer;};
+    mutable std::vector<KineticFactors> kinetic_factors;
+    std::vector<double> rhs_input;
+    void prepare_solver_views();
+    void compact_derivative(const State& value,State& result);
+    numerical::Flow projection_flow;
+    State projection_initial;
+    struct ProjectionScratch {numerical::Flow flow;State initial;};
+    std::array<ProjectionScratch,compute::MaxThreads> worker_projection;
+    double projected_threshold(const State& old,double h,int coordinate,numerical::Flow& local,State& initial);
+    std::vector<int> event_group;
+    std::vector<bool> event_fired,event_released;
+    std::vector<Delivery> event_deliveries,event_created;
+    std::vector<size_t> event_inspect;
+    std::vector<uint64_t> event_arrivals;
     void exact_flow(const State& old,double dt,State& result) const;
-    double neuron_threshold_sample(const State& old,double h,int coordinate) const;
+    double neuron_threshold_sample(const State& old,double h,int coordinate);
     std::vector<std::vector<int>> incoming;
     double kinetic_step_limit() const;
     bool physical(const State& value) const;
+    double parallel_error_norm(const State& old,const State& next,const State& full) const;
     std::vector<std::vector<int>> outgoing;
     std::vector<int> recorded_state, recorded_weights;
     uint64_t next_sample = 1;

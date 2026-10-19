@@ -1,0 +1,92 @@
+{
+  "sampling_seconds": 0.1,
+  "samples": 10,
+  "final_query_after_exit_ok": true,
+  "peak_working_set_bytes_observed": 23232512,
+  "max_sampled_private_usage_bytes": 15179776,
+  "peak_pagefile_usage_bytes_observed": 20758528,
+  "query_errors": [],
+  "timeline": [
+    {
+      "elapsed_process_seconds": 8.100003469735384e-06,
+      "working_set_bytes": 2113536,
+      "peak_working_set_bytes": 2113536,
+      "private_usage_bytes": 397312,
+      "peak_pagefile_usage_bytes": 397312,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.10743800000636838,
+      "working_set_bytes": 10883072,
+      "peak_working_set_bytes": 11542528,
+      "private_usage_bytes": 8691712,
+      "peak_pagefile_usage_bytes": 9998336,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.2141999000159558,
+      "working_set_bytes": 17170432,
+      "peak_working_set_bytes": 17960960,
+      "private_usage_bytes": 15179776,
+      "peak_pagefile_usage_bytes": 16429056,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.3221411000122316,
+      "working_set_bytes": 17260544,
+      "peak_working_set_bytes": 20471808,
+      "private_usage_bytes": 14995456,
+      "peak_pagefile_usage_bytes": 18309120,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.4289229999994859,
+      "working_set_bytes": 9986048,
+      "peak_working_set_bytes": 20471808,
+      "private_usage_bytes": 6172672,
+      "peak_pagefile_usage_bytes": 18309120,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.5377083000203129,
+      "working_set_bytes": 9867264,
+      "peak_working_set_bytes": 20471808,
+      "private_usage_bytes": 6172672,
+      "peak_pagefile_usage_bytes": 18309120,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.6460785000235774,
+      "working_set_bytes": 17276928,
+      "peak_working_set_bytes": 20471808,
+      "private_usage_bytes": 13602816,
+      "peak_pagefile_usage_bytes": 18309120,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.7542448000167497,
+      "working_set_bytes": 11763712,
+      "peak_working_set_bytes": 23027712,
+      "private_usage_bytes": 8175616,
+      "peak_pagefile_usage_bytes": 19886080,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.8629747000231873,
+      "working_set_bytes": 13193216,
+      "peak_working_set_bytes": 23232512,
+      "private_usage_bytes": 10100736,
+      "peak_pagefile_usage_bytes": 20758528,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.8662288000050467,
+      "working_set_bytes": 32768,
+      "peak_working_set_bytes": 23232512,
+      "private_usage_bytes": 77824,
+      "peak_pagefile_usage_bytes": 20758528,
+      "after_exit": true
+    }
+  ],
+  "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+}

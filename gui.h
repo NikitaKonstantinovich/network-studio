@@ -1,5 +1,6 @@
 #pragma once
 #include "io.h"
+#include "simulation_runner.h"
 #include "generator.h"
 #include "imgui.h"
 #include "plot_windows.h"
@@ -10,7 +11,17 @@ namespace studio {
 class App {
 public:
     Config config = preset(0);
-    std::unique_ptr<Simulator> simulation;
+    const SimulationView* simulation = nullptr;
+    ~App();
+    std::shared_future<RunnerResult> command(RunnerCommand value,bool wait=false);
+    RunnerResult wait_command(std::shared_future<RunnerResult> result);
+    void synchronize();
+    void run();
+    void pause();
+    void advance_for(double duration);
+    void export_data(const std::filesystem::path& path);
+    void set_display_hz(double value);
+    void set_compute_threads(int requested,bool wait=false);
     bool running = false, dirty = false;
     std::string status = "Готово. Выберите узел, настройте параметры и запустите расчёт.";
     int selected_kind = 0, selected_index = 0;
@@ -38,6 +49,13 @@ public:
     void save_state(const std::filesystem::path& path);
     bool restore_state(const std::filesystem::path& path);
 private:
+    SimulationView display;
+    std::unique_ptr<SimulationRunner> runner;
+    struct Pending {std::shared_future<RunnerResult> result;RunnerCommand::Kind kind;};
+    std::vector<Pending> pending;
+    std::shared_ptr<const Config> display_config;
+    bool drawing=false,replacing=false;
+    float display_hz=10;
     bool changed = false;
     int preset_index = 0, link_source = 0, link_target = 1, link_astro = 0;
     int syn_plot = 0, syn_view = 0, astro_plot = 0;

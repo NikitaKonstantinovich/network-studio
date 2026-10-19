@@ -1,0 +1,48 @@
+{
+  "recorded_utc": "2026-10-19T01:04:43.470012+00:00",
+  "purpose": "New controlled final minus parallel roots, NOT historic stage4. Isolate the effect of parallel threshold localization while retaining all final pool and other parallel phases.",
+  "build_executed": true,
+  "build_executed_by": "Parent agent; this recorder did not invoke a build or executable.",
+  "command_from_project_root": "& './performance/20261019_stage_review/control_no_parallel_roots/source/performance/build.ps1' -Build 'build/control' -Targets 'network_studio_benchmark'",
+  "executable": {
+    "path": "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\control_no_parallel_roots\\source\\build\\control\\Release\\network_studio_benchmark.exe",
+    "sha256": "f2c0b8d04fc6fc60bc656e3bbe5930406d07086dcf9b979daa492efd00acb9fb",
+    "bytes": 710656
+  },
+  "checkpoint_build_id": "fa96c55f51ec2b48cd745d6c3de3d8b3f85f8d2a5de1b9d40270a228e3c0e508",
+  "checkpoint_build_id_found_in_executable": true,
+  "origin_checkpoint_build_id": "1cbab406363ae325d001d0381028106acf7765178a5e4f5fc425483a523401d7",
+  "build": {
+    "compiler_id": "MSVC",
+    "compiler_version": "19.44.35217.0",
+    "compiler_path": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe",
+    "configuration": "Release",
+    "generator": "Ninja",
+    "profile": false,
+    "flags": "/DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -std:c++17 -MT /utf-8 /W3",
+    "runtime": "MultiThreaded (/MT)"
+  },
+  "source_verification": {
+    "verified_original_entries": 705,
+    "unchanged_original_entries": 704,
+    "changed_original_paths": [
+      "integrator.cpp"
+    ],
+    "exact_single_line_replacement": true,
+    "integrator_before_sha256": "e4696e618e61a9f6f2acd6bb0e6bfd9b0acdddebab2e5427062d377251b93af5",
+    "integrator_after_sha256": "c596396e4473c9f242c729da9bc400fb5fe71cf03ebe02dfc034f0c6433250d2",
+    "origin_archive_sha256": "d73dbf6f46a2d0e6ae4ca4ea38f858860eca45c2c9f91ff48870adca4b1f8c9d",
+    "origin_source_inventory_sha256": "112dc7944eee40350da5a1dcbf95b770374927ba0d538a71dac209576df6198c"
+  },
+  "evidence": {
+    "source_provenance": "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\control_no_parallel_roots\\source\\.ablation_control\\provenance.json",
+    "source_provenance_sha256": "8d76b2cfceb1270ccf979f4b4705c5e1f6154dfe802f5bea210dfc92dab2ab6b",
+    "cmake_cache_sha256": "d87358ae28e40bff956ec2af2db80ba89df5ac487c5b3f6f97a97dcbcc29c416",
+    "cmake_compiler_sha256": "ee0323e64443df571c1e62e6bfb92e805c32af94e6ef1c646d1a36a235dd8dec",
+    "build_ninja_sha256": "a9835dd2a4906138dde4b46b2414ed8023b075386011cfb1c51b7f23dc6be720",
+    "generated_checkpoint_header_sha256": "1b4901ef8d756e301b9ed33cc3d11026766b57fe760aee240658b618976f4221"
+  },
+  "tests_or_benchmarks_executed_by_recorder": false,
+  "numerical_equivalence_status": "Not yet tested for this new control build.",
+  "limitations": "Build completion reported by parent and generated artifacts inspected; no compiler, executable, test, benchmark, Ninja dry-run or checkpoint loading was performed by this recorder."
+}

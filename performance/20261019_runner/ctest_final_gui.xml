@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="(empty)"
+	tests="9"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname=""
+	time="71"
+	timestamp="2026-10-19T02:43:13"
+	>
+	<testcase name="simulation_runner_lifecycle" classname="simulation_runner_lifecycle" time="3.45812" status="run">
+		<properties/>
+		<system-out>PASS: 60375 runner checks; exact full checkpoints, refresh independence, lifecycle, strict restore, incremental bounded snapshots. Artifacts: E:\asp\26_27\configurator\build\runner\runner-tests\232964990711800
+</system-out>
+	</testcase>
+	<testcase name="runner_native_close" classname="runner_native_close" time="0.48674" status="run">
+		<properties/>
+		<system-out>-- Native WM_CLOSE while computing: worker joined and resources released after 44367 steps
+</system-out>
+	</testcase>
+	<testcase name="experiment_win32_dx11" classname="experiment_win32_dx11" time="2.53928" status="run">
+		<properties/>
+		<system-out>-- Win32/DX11 experiment screenshots: E:/asp/26_27/configurator/build/runner/experiment-native/20261019_024317/gui
+</system-out>
+	</testcase>
+	<testcase name="stimulator_win32_dx11" classname="stimulator_win32_dx11" time="1.43153" status="run">
+		<properties/>
+		<system-out>-- Win32/DX11 shared/spatial/combined-field screenshots: E:/asp/26_27/configurator/build/runner/stimulator-native/20261019_024320
+</system-out>
+	</testcase>
+	<testcase name="gui_interactions_and_plots" classname="gui_interactions_and_plots" time="35.2522" status="run">
+		<properties/>
+		<system-out>PASS: 1564 GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.
+</system-out>
+	</testcase>
+	<testcase name="plot_windows_and_workspace" classname="plot_windows_and_workspace" time="7.33203" status="run">
+		<properties/>
+		<system-out>PASS: 5235 plot/workspace checks; exact checkpoints match; 100 neurons / 400 edges / 8 windows / 20 frames: 307.382 ms. Artifacts: E:\asp\26_27\configurator\build\runner\verification\plot-tests-кириллица-233008377636800
+</system-out>
+	</testcase>
+	<testcase name="weight_field_gui_invariance" classname="weight_field_gui_invariance" time="6.13045" status="run">
+		<properties/>
+		<system-out>PASS 8235 GUI checks; exact checkpoints; 500/15000 ImGui frame: enabled_ms=15.4062, disabled_ms=15.4941
+</system-out>
+	</testcase>
+	<testcase name="weight_field_win32_dx11" classname="weight_field_win32_dx11" time="12.7938" status="run">
+		<properties/>
+		<system-out>-- four_sources_0: frames=28
+minimum_vertices=8860
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0054
+field_update_ms=0.0002
+imgui_frame_ms=0.171308
+font_scales=1,1.5
+
+-- four_sources_1: frames=28
+minimum_vertices=8846
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0056
+field_update_ms=0.0003
+imgui_frame_ms=0.179375
+font_scales=1,1.5
+
+-- four_sources_2: frames=28
+minimum_vertices=8846
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0056
+field_update_ms=0.0003
+imgui_frame_ms=0.171937
+font_scales=1,1.5
+
+-- mixed_astro: frames=28
+minimum_vertices=10370
+samples=151
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0053
+field_update_ms=0.0005
+imgui_frame_ms=0.192342
+font_scales=1,1.5
+
+-- large_stdp: frames=28
+minimum_vertices...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="win32_dx11_plot_viewports" classname="win32_dx11_plot_viewports" time="1.34284" status="run">
+		<properties/>
+		<system-out>-- Native HWND/DX11 and workspace restart passed: E:/asp/26_27/configurator/build/runner/viewport-smoke/20261019_024423
+</system-out>
+	</testcase>
+</testsuite>

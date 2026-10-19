@@ -6,6 +6,8 @@
 namespace studio {
 void App::field_controls() {
     auto& v=plot_windows.topology;
+    const SimulationReadView current(*simulation);
+    const auto& field_config=changed?config:current.config;
     ImGui::Checkbox("Векторное поле весов",&v.field);
     ImGui::SameLine();ImGui::Checkbox("Поле активности",&v.activity);
     ImGui::Checkbox("Обычные связи",&v.edges);ImGui::SameLine();ImGui::Checkbox("Сетка",&v.grid);
@@ -34,8 +36,8 @@ void App::field_controls() {
             if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();
             ImGui::EndPopup();
         }
-        weight_field.update(config,changed?nullptr:&simulation->plasticity,v);
-        if(config.neurons.empty())ImGui::TextDisabled("Нет нейронов для построения поля.");
+        weight_field.update(field_config,changed?nullptr:&current.plasticity,v);
+        if(field_config.neurons.empty())ImGui::TextDisabled("Нет нейронов для построения поля.");
         else if(!weight_field.available)ImGui::TextWrapped("Текущие веса недоступны до обновления эксперимента.");
         else if(!weight_field.included_edges)ImGui::TextWrapped("Нет подходящих направленных связей.");
         else {
@@ -44,7 +46,7 @@ void App::field_controls() {
             const double cap=.8/std::max(v.columns,v.rows);
             const double scale=v.auto_scale&&weight_field.maximum>0?cap/weight_field.maximum:v.scale;
             ImGui::PushTextWrapPos(ImGui::GetCursorPosX()+ImGui::GetContentRegionAvail().x);
-            ImGui::TextDisabled("t = %.6g с · k = %.4g (%s) · %.3f мс",v.current?simulation->time:0,scale,v.auto_scale?"авто":"фикс.",weight_field.update_ms);
+            ImGui::TextDisabled("t = %.6g с · k = %.4g (%s) · %.3f мс",v.current?current.time:0,scale,v.auto_scale?"авто":"фикс.",weight_field.update_ms);
             ImGui::PopTextWrapPos();
         }
     }
@@ -59,11 +61,12 @@ void App::field_controls() {
             int model=int(v.activity_model);const char* models[]={"Все модели","STP","Экспоненциальный ток","TM"};if(ImGui::Combo("Модель активных связей",&model,models,4))v.activity_model=FieldModel(model);
             ImGui::TextWrapped("Ответ после доставки — временное совпадение, не доказательство причинности. Все подходящие доставки могут разделять один постспайк. Одновременные доставка и спайк исключаются. Тормозной эффект этот критерий не измеряет.");
             ImGui::TextWrapped("Каждая активная связь даёт |текущий вес| один раз за окно. Исторический просмотр не подменяется конечными весами: доступен только текущий момент/пауза.");
-            ImGui::Text("Глубина данных %.6g с; доступны после %.9g с",config.activity_horizon,simulation->activity.available_after);
+            ImGui::Text("Глубина записи %.6g с; окно после %.9g с",current.config.activity_horizon,current.activity.available_after);
             if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();ImGui::EndPopup();
         }
-        if(!v.field)weight_field.update(config,changed?nullptr:&simulation->plasticity,v);
-        if(!changed&&!simulation->error.size())activity_field.update(*simulation,v,weight_field);
+        if(!v.field)weight_field.update(field_config,changed?nullptr:&current.plasticity,v);
+        if(!changed&&current.error.empty())activity_field.update(current,v,weight_field);
+        else {activity_field.available=false;activity_field.message="Поле активности недоступно до обновления эксперимента.";}
         ImGui::TextColored({1,.6f,.25f,1},"Оранжевое: активность · синее: веса · t=%.6g с · %.3f мс",activity_field.time,activity_field.update_ms);
         if(!activity_field.available)ImGui::TextWrapped("%s",activity_field.message.c_str());
     }

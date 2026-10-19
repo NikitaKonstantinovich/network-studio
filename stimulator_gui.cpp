@@ -20,7 +20,7 @@ void App::stimulator_manager() {
         Stimulator value;value.name="Stimulator "+std::to_string(config.next_stimulator_id);value.x=config.space.width*.5;value.y=config.space.height*.5;value.radius=std::min(config.space.width,config.space.height)*.1;
         value.signal.start=sim.time;value.signal.stop=std::max(sim.time+1,config.duration);value.signal.frequency=10;value.signal.width=.003;value.signal.amplitude=30;
         value.recipients={std::clamp(selected_kind==0?selected_index:0,0,int(config.neurons.size())-1)};
-        selected_stimulator=config.next_stimulator_id;sim.schedule_stimulator(value,sim.time);config=sim.config;stimulator_draft=config.stimulators.back();dirty=true;
+        selected_stimulator=config.next_stimulator_id;RunnerCommand c;c.kind=RunnerCommand::Kind::Stimulator;c.stimulator=value;c.value=-1;c.flag2=true;command(std::move(c));stimulator_draft.id=0;dirty=true;
     }catch(const std::exception& e){status=e.what();}
     ImGui::BeginChild("stimulator_list",{0,90},ImGuiChildFlags_Borders);
     for(const auto& s:config.stimulators)if(ImGui::Selectable(("#"+std::to_string(s.id)+" "+s.name+"###source_"+std::to_string(s.id)).c_str(),selected_stimulator==s.id)){selected_stimulator=s.id;stimulator_draft=s;}
@@ -76,11 +76,11 @@ void App::stimulator_manager() {
         }
         ImGui::Text("Получателей по черновику: %zu · сейчас вход источника %.5g",stimulator_recipients(config,v).size(),pulse_current(stimulator_signal(*selected),sim.time));
         ImGui::TextWrapped("Применение не сбрасывает сеть. Положение/получатели меняются сейчас. Новая частота — со следующей границы текущего периода; перезапуск фазы — отдельное действие.");
-        auto apply=[&](bool restart){try{const double at=sim.schedule_stimulator(v,sim.time,restart);config=sim.config;dirty=true;status="Команда источника применится в t="+std::to_string(at)+" с.";}catch(const std::exception& e){status=e.what();}};
+        auto apply=[&](bool restart){try{RunnerCommand c;c.kind=RunnerCommand::Kind::Stimulator;c.stimulator=v;c.value=-1;c.flag=restart;command(std::move(c));dirty=true;}catch(const std::exception& e){status=e.what();}};
         if(ImGui::Button("Применить без сброса"))apply(false);
         ImGui::SameLine();if(ImGui::Button("Применить с новой фазой"))apply(true);
         ImGui::SameLine();if(ImGui::Button("Перечитать параметры")) {auto it=std::find_if(config.stimulators.begin(),config.stimulators.end(),[&](auto& s){return s.id==selected_stimulator;});if(it!=config.stimulators.end())v=*it;}
-        if(ImGui::Button("Удалить стимулятор"))try{sim.remove_stimulator(selected_stimulator);if(plot_windows.embedded[7].analysis.reference_stimulator==selected_stimulator)plot_windows.embedded[7].analysis.reference_stimulator=0;config=sim.config;selected_stimulator=0;dirty=true;}catch(const std::exception& e){status=e.what();}
+        if(ImGui::Button("Удалить стимулятор"))try{RunnerCommand c;c.kind=RunnerCommand::Kind::RemoveStimulator;c.id=selected_stimulator;command(std::move(c));if(plot_windows.embedded[7].analysis.reference_stimulator==selected_stimulator)plot_windows.embedded[7].analysis.reference_stimulator=0;selected_stimulator=0;dirty=true;}catch(const std::exception& e){status=e.what();}
     }
     ImGui::EndDisabled();ImGui::TextWrapped("%s",status.c_str());ImGui::End();
 }
@@ -101,7 +101,8 @@ bool App::stimulator_overlay(ImVec2 base,ImVec2 span,bool hovered,bool active) {
         const double x=std::clamp(double(io.MousePos.x-base.x)/span.x,0.,1.)*config.space.width,y=std::clamp(double(io.MousePos.y-base.y)/span.y,0.,1.)*config.space.height;
         auto current=std::find_if(config.stimulators.begin(),config.stimulators.end(),[&](auto& s){return s.id==drag_stimulator;});
         if(current!=config.stimulators.end()&&current->x==x&&current->y==y)return true;
-        simulation->move_stimulator(drag_stimulator,x,y,simulation->time);config=simulation->config;
+        RunnerCommand c;c.kind=RunnerCommand::Kind::MoveStimulator;c.id=drag_stimulator;c.value=x;c.second=y;c.third=-1;command(std::move(c));
+        if(current!=config.stimulators.end()){current->x=x;current->y=y;}
         for(auto& s:config.stimulators)if(s.id==drag_stimulator)stimulator_draft=s;dirty=true;
     }catch(const std::exception& e){status=e.what();}
     return hit||drag_stimulator;

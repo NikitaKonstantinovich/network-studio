@@ -1,0 +1,27 @@
+{
+  "executable": "E:\\asp\\26_27\\configurator\\build\\perf_stage1_source\\build\\performance\\Release\\network_studio_benchmark.exe",
+  "exe_sha256": "c57b5a4fb849bae8eeb4de73feb121bdf0a71fa5b324f579f5cdd57da6656c80",
+  "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_single_thread\\fixture.json",
+  "fixture_sha256": "faf56433d1502273ba53ec675881999fa091e50556d2951cdd69253e2888e591",
+  "gui": false,
+  "runs": [
+    {
+      "setup_seconds": 1.186747,
+      "solve_seconds": 229.1511246,
+      "export_seconds": 2.2653342,
+      "model_seconds": 0.5,
+      "steps": 20000,
+      "events": 17331,
+      "deliveries": 518506,
+      "process_seconds": 232.66278069998953,
+      "run": 1
+    }
+  ],
+  "summary": {
+    "metric": "solve_seconds",
+    "median": 229.1511246,
+    "min": 229.1511246,
+    "max": 229.1511246,
+    "stdev": null
+  }
+}

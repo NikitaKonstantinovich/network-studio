@@ -1,0 +1,764 @@
+{
+  "sampling_seconds": 0.1,
+  "samples": 94,
+  "final_query_after_exit_ok": true,
+  "peak_working_set_bytes_observed": 156643328,
+  "max_sampled_private_usage_bytes": 159854592,
+  "peak_pagefile_usage_bytes_observed": 182870016,
+  "query_errors": [],
+  "timeline": [
+    {
+      "elapsed_process_seconds": 8.500006515532732e-06,
+      "working_set_bytes": 2138112,
+      "peak_working_set_bytes": 2138112,
+      "private_usage_bytes": 421888,
+      "peak_pagefile_usage_bytes": 425984,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.10345339999184944,
+      "working_set_bytes": 21598208,
+      "peak_working_set_bytes": 21598208,
+      "private_usage_bytes": 5791744,
+      "peak_pagefile_usage_bytes": 6705152,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.21314419998088852,
+      "working_set_bytes": 43683840,
+      "peak_working_set_bytes": 43683840,
+      "private_usage_bytes": 59838464,
+      "peak_pagefile_usage_bytes": 59838464,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.32216119999065995,
+      "working_set_bytes": 64888832,
+      "peak_working_set_bytes": 64888832,
+      "private_usage_bytes": 88305664,
+      "peak_pagefile_usage_bytes": 88305664,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.42816769998171367,
+      "working_set_bytes": 65609728,
+      "peak_working_set_bytes": 67121152,
+      "private_usage_bytes": 89255936,
+      "peak_pagefile_usage_bytes": 91045888,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.5344851999834646,
+      "working_set_bytes": 67207168,
+      "peak_working_set_bytes": 68882432,
+      "private_usage_bytes": 90587136,
+      "peak_pagefile_usage_bytes": 93310976,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.6409727999998722,
+      "working_set_bytes": 68812800,
+      "peak_working_set_bytes": 71553024,
+      "private_usage_bytes": 92573696,
+      "peak_pagefile_usage_bytes": 96595968,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.747358799999347,
+      "working_set_bytes": 80420864,
+      "peak_working_set_bytes": 81612800,
+      "private_usage_bytes": 103669760,
+      "peak_pagefile_usage_bytes": 105730048,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.8555427999817766,
+      "working_set_bytes": 82739200,
+      "peak_working_set_bytes": 84742144,
+      "private_usage_bytes": 106479616,
+      "peak_pagefile_usage_bytes": 109154304,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.9627348000067286,
+      "working_set_bytes": 84946944,
+      "peak_working_set_bytes": 87425024,
+      "private_usage_bytes": 108470272,
+      "peak_pagefile_usage_bytes": 112492544,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 1.0695486000040546,
+      "working_set_bytes": 85970944,
+      "peak_working_set_bytes": 97304576,
+      "private_usage_bytes": 109158400,
+      "peak_pagefile_usage_bytes": 120463360,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 1.1795032999943942,
+      "working_set_bytes": 84353024,
+      "peak_working_set_bytes": 97304576,
+      "private_usage_bytes": 107798528,
+      "peak_pagefile_usage_bytes": 120463360,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 1.2876104000024498,
+      "working_set_bytes": 85037056,
+      "peak_working_set_bytes": 97304576,
+      "private_usage_bytes": 108544000,
+      "peak_pagefile_usage_bytes": 120463360,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 1.3963302999909502,
+      "working_set_bytes": 85987328,
+      "peak_working_set_bytes": 97304576,
+      "private_usage_bytes": 110333952,
+      "peak_pagefile_usage_bytes": 120463360,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 1.5048891000042204,
+      "working_set_bytes": 74518528,
+      "peak_working_set_bytes": 97304576,
+      "private_usage_bytes": 91488256,
+      "peak_pagefile_usage_bytes": 120463360,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 1.613886499981163,
+      "working_set_bytes": 77262848,
+      "peak_working_set_bytes": 97304576,
+      "private_usage_bytes": 94236672,
+      "peak_pagefile_usage_bytes": 120463360,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 1.7221640000061598,
+      "working_set_bytes": 79958016,
+      "peak_working_set_bytes": 97304576,
+      "private_usage_bytes": 96940032,
+      "peak_pagefile_usage_bytes": 120463360,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 1.8282229999895208,
+      "working_set_bytes": 97103872,
+      "peak_working_set_bytes": 102563840,
+      "private_usage_bytes": 114454528,
+      "peak_pagefile_usage_bytes": 120463360,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 1.935172400000738,
+      "working_set_bytes": 103837696,
+      "peak_working_set_bytes": 103837696,
+      "private_usage_bytes": 121671680,
+      "peak_pagefile_usage_bytes": 121733120,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 2.044008400000166,
+      "working_set_bytes": 104529920,
+      "peak_working_set_bytes": 107782144,
+      "private_usage_bytes": 123138048,
+      "peak_pagefile_usage_bytes": 127463424,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 2.1506022999819834,
+      "working_set_bytes": 83820544,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 105537536,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 2.261678099981509,
+      "working_set_bytes": 86634496,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 108683264,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 2.368672599986894,
+      "working_set_bytes": 89329664,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 110919680,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 2.476993499993114,
+      "working_set_bytes": 98181120,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 115994624,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 2.5834543999808375,
+      "working_set_bytes": 98832384,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 116883456,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 2.6930350000038743,
+      "working_set_bytes": 82903040,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 104996864,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 2.7997546999831684,
+      "working_set_bytes": 74072064,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 92078080,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 2.9075354999804404,
+      "working_set_bytes": 77139968,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 94650368,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.0170457999920473,
+      "working_set_bytes": 95363072,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 112689152,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.1253054999979213,
+      "working_set_bytes": 101298176,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 119078912,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.2320318999991287,
+      "working_set_bytes": 104640512,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 129814528,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.3387861999799497,
+      "working_set_bytes": 81584128,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 103415808,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.4488640000054147,
+      "working_set_bytes": 84287488,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 105897984,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.5546993000025395,
+      "working_set_bytes": 80220160,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 108130304,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.6633271999889985,
+      "working_set_bytes": 96509952,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 114397184,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.7712391999957617,
+      "working_set_bytes": 96755712,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 114270208,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.8785423999943305,
+      "working_set_bytes": 75931648,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 90939392,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 3.9864976999815553,
+      "working_set_bytes": 83333120,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 97902592,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 4.093224899988854,
+      "working_set_bytes": 85016576,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 99577856,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 4.2004977999895345,
+      "working_set_bytes": 85032960,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 99577856,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 4.307552799989935,
+      "working_set_bytes": 85209088,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 99844096,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 4.414717100007692,
+      "working_set_bytes": 85811200,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 100438016,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 4.523114799987525,
+      "working_set_bytes": 87642112,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 102666240,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 4.6313381000072695,
+      "working_set_bytes": 88801280,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 105000960,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 4.740450399986003,
+      "working_set_bytes": 90365952,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 107208704,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 4.84847619998618,
+      "working_set_bytes": 90202112,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 107388928,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 4.9549228999821935,
+      "working_set_bytes": 91635712,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 108929024,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 5.063374799996382,
+      "working_set_bytes": 92573696,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 111218688,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 5.170549999980722,
+      "working_set_bytes": 95039488,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 112582656,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 5.27672339999117,
+      "working_set_bytes": 94629888,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 111902720,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 5.38523559999885,
+      "working_set_bytes": 96526336,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 115376128,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 5.492956900008721,
+      "working_set_bytes": 97124352,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 117604352,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 5.602541000000201,
+      "working_set_bytes": 98328576,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 118366208,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 5.7099163999955636,
+      "working_set_bytes": 99266560,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 119058432,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 5.817773099988699,
+      "working_set_bytes": 100159488,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 121196544,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 5.927092099998845,
+      "working_set_bytes": 101105664,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 123252736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 6.03534679999575,
+      "working_set_bytes": 103821312,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 126603264,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 6.143974300008267,
+      "working_set_bytes": 104402944,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 126988288,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 6.2521469999919645,
+      "working_set_bytes": 104824832,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 127275008,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 6.3596866999869235,
+      "working_set_bytes": 105185280,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 127504384,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 6.468417099997168,
+      "working_set_bytes": 105672704,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 127987712,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 6.576481600000989,
+      "working_set_bytes": 105914368,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130174976,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 6.684943700005533,
+      "working_set_bytes": 106029056,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130867200,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 6.793538900004933,
+      "working_set_bytes": 106082304,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130924544,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 6.898547899996629,
+      "working_set_bytes": 106086400,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130924544,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.006896899983985,
+      "working_set_bytes": 106090496,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130924544,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.1150232999934815,
+      "working_set_bytes": 106090496,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130924544,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.223637999995844,
+      "working_set_bytes": 106094592,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130924544,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.329975300002843,
+      "working_set_bytes": 106098688,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130928640,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.439146699995035,
+      "working_set_bytes": 106110976,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130932736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.547193799982779,
+      "working_set_bytes": 106110976,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130932736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.654232400003821,
+      "working_set_bytes": 106110976,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130932736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.762051099998644,
+      "working_set_bytes": 106110976,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130932736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.871907199994894,
+      "working_set_bytes": 106115072,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130932736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 7.979240299988305,
+      "working_set_bytes": 106115072,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130932736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 8.089182700001402,
+      "working_set_bytes": 106115072,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130932736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 8.197373899980448,
+      "working_set_bytes": 106119168,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130932736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 8.306003400008194,
+      "working_set_bytes": 106119168,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 130932736,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 8.41267419999349,
+      "working_set_bytes": 106770432,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 131612672,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 8.52252519998001,
+      "working_set_bytes": 110219264,
+      "peak_working_set_bytes": 125370368,
+      "private_usage_bytes": 135217152,
+      "peak_pagefile_usage_bytes": 143945728,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 8.631631600001128,
+      "working_set_bytes": 130449408,
+      "peak_working_set_bytes": 130449408,
+      "private_usage_bytes": 159150080,
+      "peak_pagefile_usage_bytes": 159195136,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 8.74202360000345,
+      "working_set_bytes": 133226496,
+      "peak_working_set_bytes": 134098944,
+      "private_usage_bytes": 158584832,
+      "peak_pagefile_usage_bytes": 159195136,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 8.849487500003306,
+      "working_set_bytes": 132857856,
+      "peak_working_set_bytes": 136257536,
+      "private_usage_bytes": 159272960,
+      "peak_pagefile_usage_bytes": 162197504,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 8.955691399984062,
+      "working_set_bytes": 107376640,
+      "peak_working_set_bytes": 155783168,
+      "private_usage_bytes": 133763072,
+      "peak_pagefile_usage_bytes": 182312960,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 9.064237999991747,
+      "working_set_bytes": 110862336,
+      "peak_working_set_bytes": 155783168,
+      "private_usage_bytes": 136916992,
+      "peak_pagefile_usage_bytes": 182312960,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 9.170684099983191,
+      "working_set_bytes": 114176000,
+      "peak_working_set_bytes": 155783168,
+      "private_usage_bytes": 141123584,
+      "peak_pagefile_usage_bytes": 182312960,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 9.280749500001548,
+      "working_set_bytes": 110481408,
+      "peak_working_set_bytes": 155783168,
+      "private_usage_bytes": 136376320,
+      "peak_pagefile_usage_bytes": 182312960,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 9.390100199991139,
+      "working_set_bytes": 107515904,
+      "peak_working_set_bytes": 155783168,
+      "private_usage_bytes": 132177920,
+      "peak_pagefile_usage_bytes": 182312960,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 9.497058199980529,
+      "working_set_bytes": 110129152,
+      "peak_working_set_bytes": 155783168,
+      "private_usage_bytes": 135118848,
+      "peak_pagefile_usage_bytes": 182312960,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 9.604216499981703,
+      "working_set_bytes": 122261504,
+      "peak_working_set_bytes": 155783168,
+      "private_usage_bytes": 147132416,
+      "peak_pagefile_usage_bytes": 182312960,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 9.713829599990277,
+      "working_set_bytes": 133152768,
+      "peak_working_set_bytes": 155783168,
+      "private_usage_bytes": 158515200,
+      "peak_pagefile_usage_bytes": 182312960,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 9.822485699987737,
+      "working_set_bytes": 133623808,
+      "peak_working_set_bytes": 155783168,
+      "private_usage_bytes": 159854592,
+      "peak_pagefile_usage_bytes": 182312960,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 9.930674200004432,
+      "working_set_bytes": 125292544,
+      "peak_working_set_bytes": 156643328,
+      "private_usage_bytes": 152690688,
+      "peak_pagefile_usage_bytes": 182870016,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 10.013265199988382,
+      "working_set_bytes": 32768,
+      "peak_working_set_bytes": 156643328,
+      "private_usage_bytes": 77824,
+      "peak_pagefile_usage_bytes": 182870016,
+      "after_exit": true
+    }
+  ],
+  "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+}

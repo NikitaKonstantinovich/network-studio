@@ -1,0 +1,45 @@
+{
+  "created_utc": "2026-10-19T00:58:04.350312+00:00",
+  "purpose": "New controlled final minus parallel roots, NOT historic stage4. Isolate the effect of parallel threshold localization while retaining all final pool and other parallel phases.",
+  "origin_archive": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\source_snapshot.zip",
+  "origin_archive_sha256": "d73dbf6f46a2d0e6ae4ca4ea38f858860eca45c2c9f91ff48870adca4b1f8c9d",
+  "origin_archive_hash_matches_manifest": true,
+  "origin_build_manifest_sha256": "dbbab47036627d8c4df1b440a39ce8f79f07a6d7b6ba7aafb98b1621db1e8050",
+  "origin_source_files_sha256": "112dc7944eee40350da5a1dcbf95b770374927ba0d538a71dac209576df6198c",
+  "origin_inventory_hash_matches_manifest": true,
+  "origin_source_entries": 705,
+  "verified_archive_source_entries": 705,
+  "all_archive_entries_size_and_sha256_match": true,
+  "source_directory": "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\control_no_parallel_roots\\source",
+  "only_changed_original_source": [
+    "integrator.cpp"
+  ],
+  "unchanged_original_sources": 704,
+  "change": {
+    "file": "integrator.cpp",
+    "before": "flow.event_workers=pool.get();",
+    "after": "flow.event_workers=nullptr;",
+    "before_sha256": "e4696e618e61a9f6f2acd6bb0e6bfd9b0acdddebab2e5427062d377251b93af5",
+    "after_sha256": "c596396e4473c9f242c729da9bc400fb5fe71cf03ebe02dfc034f0c6433250d2",
+    "before_bytes": 24831,
+    "after_bytes": 24828
+  },
+  "patch": "disable_parallel_roots.patch",
+  "patch_sha256": "e922b34b5fd2df19f6d84065a50c86eabcdceeaf826dca256db5fc8278f5fc5a",
+  "original_integrator": "integrator.before.cpp",
+  "origin_checkpoint_build_id": "1cbab406363ae325d001d0381028106acf7765178a5e4f5fc425483a523401d7",
+  "checkpoint_note": "Changing integrator.cpp must produce a new ordinary checkpoint fingerprint. Do not bypass loader compatibility; compare files using the existing verified cross-build comparison.",
+  "expected_configuration": {
+    "configuration": "Release",
+    "profile": false,
+    "compute_threads": 4,
+    "parallel_threshold_dispatch": false,
+    "other_parallel_phases": "unchanged final implementation"
+  },
+  "build_command_from_project_root": "& './performance/20261019_stage_review/control_no_parallel_roots/source/performance/build.ps1' -Build 'build/control' -Targets 'network_studio_benchmark'",
+  "expected_benchmark": "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\control_no_parallel_roots\\source\\build\\control\\Release\\network_studio_benchmark.exe",
+  "build_executed": false,
+  "tests_or_benchmarks_executed": false,
+  "production_sources_modified": false,
+  "status": "Historical source-stage record: source-only when created; subsequent build evidence is in control_no_parallel_roots/build_result.json."
+}

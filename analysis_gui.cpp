@@ -6,7 +6,7 @@ namespace studio {
 namespace {
 bool number(const char* label,double& v,double lo,double hi) {return ImGui::DragScalar(label,ImGuiDataType_Double,&v,.001f,&lo,&hi,"%.6g",ImGuiSliderFlags_AlwaysClamp);}
 }
-void PlotWindows::draw_network(PlotWindowState& w,const Simulator& s) {
+void PlotWindows::draw_network(PlotWindowState& w,const SimulationReadView& s) {
     const char* views[]={"Популяционная активность","Частота пачек","Задержки ответов","Журнал стимулов","Сетевые пачки"};
     ImGui::SetNextItemWidth(235);ImGui::Combo("Представление сети",&w.view,views,5);ImGui::SameLine();
     if(ImGui::Button("Параметры анализа…"))ImGui::OpenPopup("network_analysis_settings");
@@ -36,15 +36,22 @@ void PlotWindows::draw_network(PlotWindowState& w,const Simulator& s) {
         if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();ImGui::EndPopup();
     }
     const auto key=analysis_settings_json(a);
-    if(key!=w.analysis_key||w.analysis_at<0||s.time<w.analysis_at||s.time-w.analysis_at>=.1||s.done()) {
-        if(key!=w.analysis_key||s.time!=w.analysis_at){w.analyzed=analyze_network(s.config,s.history,s.time,a);w.analysis_at=s.time;w.analysis_key=key;}
+    const bool invalid=w.analysis_identity!=s.identity||w.analysis_generation!=s.generation||key!=w.analysis_key||w.analysis_at<0||s.time<w.analysis_at;
+    if(invalid||(s.time!=w.analysis_at&&(s.time-w.analysis_at>=.1||s.done()))) {
+        w.analyzed=analyze_network(s.config,s.history,s.time,a);w.analysis_at=s.time;w.analysis_key=key;
+        w.analysis_identity=s.identity;w.analysis_generation=s.generation;
     }
     if(analysis_export_dialog) {
-        ImGui::SameLine();if(ImGui::Button("Экспорт этого анализа…")) {
-            auto path=analysis_export_dialog();if(!path.empty())try{path.replace_extension();auto fresh=analyze_network(s.config,s.history,s.time,a);export_analysis(fresh,a,path);message="Анализ экспортирован.";}catch(const std::exception& e){message=e.what();}
+        ImGui::SameLine();if(ImGui::Button(analysis_export?"Экспорт анализа расчёта…":"Экспорт этого анализа…")) {
+            auto path=analysis_export_dialog();if(!path.empty())try {
+                path.replace_extension();
+                if(analysis_export){analysis_export(a,path);message="Запрошен экспорт анализа по журналам расчёта.";}
+                else {auto fresh=analyze_network(s.config,s.history,s.time,a);export_analysis(fresh,a,path);message=s.truncated?"Экспортирован анализ ограниченного окна отображения.":"Анализ экспортирован.";}
+            }catch(const std::exception& e){message=e.what();}
         }
     }
     const auto& r=w.analyzed;
+    if(s.truncated||r.from>0)ImGui::TextWrapped("Экранный анализ ограничен доступным окном [%.6g; %.6g] с.",r.from,r.until);
     ImGui::Text("Анализ [%.6g; %.6g] с · N=%zu · пропуски %zu · лишние пачки %zu",r.from,r.until,r.population_size,r.missed,r.extra);
     if(!r.error.empty()){ImGui::TextWrapped("%s",r.error.c_str());return;}
     ImGui::Text("С ответом: %zu / %zu · стимулы %.4g Гц · пачки %.4g Гц · неполные окна %zu",r.responses.size()-r.missed,r.responses.size(),r.stimulus_hz,r.response_hz,r.incomplete_stimuli);

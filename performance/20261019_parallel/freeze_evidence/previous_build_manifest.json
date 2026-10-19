@@ -1,0 +1,138 @@
+{
+  "branch": "perf/simulation-runner-20261019",
+  "git_head": "8838ade22c38eb6512bb8b21a3f4c71c6d3dd9d1",
+  "dirty": true,
+  "prior_changes_preserved": true,
+  "source_archive": "source_snapshot.zip",
+  "source_archive_sha256": "72f8661e6c6b07f77da35e6cf27156e9c40c56a3003d76c88aa390ee0647cbcb",
+  "source_file_count": 685,
+  "source_files": "source_files.json",
+  "working_tree_patch": "working_tree.patch",
+  "patch_sha256": "03ad50f69ac689d23cc7f4a0cb6f03606dc8f22a3b40c81e892f710bbcc0e5e6",
+  "checkpoint_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"ac0f72fc71244732cdddf0340becf837e6c9dc0ba4800885fd7e307af5b563b3\"",
+  "numeric_build_inputs_unchanged_since_previous_phase": {
+    "network.h": true,
+    "network.cpp": true,
+    "stimulator.cpp": true,
+    "stimulator_json.inc": true,
+    "experiment.cpp": true,
+    "experiment_json.inc": true,
+    "analysis.cpp": true,
+    "analysis.h": true,
+    "integrator.cpp": true,
+    "numerics/integrator.h": true,
+    "performance/profile.h": true,
+    "io.h": true,
+    "io.cpp": true,
+    "checkpoint.cpp": true,
+    "json_strings.inc": true,
+    "vendor/systems/neuro_astro/model.cuh": true,
+    "vendor/systems/neuro_astro/variables.inc": true,
+    "vendor/systems/neuro_astro/parameters.inc": true,
+    "vendor/json/json.cpp": true,
+    "vendor/json/json.h": true
+  },
+  "compiler": "MSVC 19.44.35217.0 x64",
+  "configuration": "Release",
+  "release_flags": "/O2 /Ob2 /DNDEBUG",
+  "runtime": "MultiThreaded (/MT)",
+  "profile": false,
+  "parallel_solver": false,
+  "executables": {
+    "network_studio.exe": {
+      "sha256": "427ac75347d570a0075f4c4ff0e647e953da72af875346346d36b1713540f937",
+      "size": 1907200
+    },
+    "network_studio_benchmark.exe": {
+      "sha256": "f4c5f859f5589cf81c2f2b46574a7f7bf30450ed12be11a0d0df44134227b822",
+      "size": 673280
+    },
+    "network_studio_cache_tests.exe": {
+      "sha256": "14e434f25202cbe184eb19264e93edfbe41b16a7532cc745f7bcdf2b1dc5efc4",
+      "size": 317440
+    },
+    "network_studio_checkpoint_tests.exe": {
+      "sha256": "799f540013d106c8615f8b6850e96601c078bb72cdd0f2530d8477f991b3c8ea",
+      "size": 774656
+    },
+    "network_studio_cli.exe": {
+      "sha256": "c761dee16165f00fe8445a1e092cfbd6f288976120ca53a0fb67e449a5ed16a5",
+      "size": 739328
+    },
+    "network_studio_delay_tests.exe": {
+      "sha256": "dc3b4b93b93126febbe6fc5dfad0b5c79f7790a32e0a367006cd354781910ec0",
+      "size": 743424
+    },
+    "network_studio_experiment_tests.exe": {
+      "sha256": "68e7017b3621cce27b0f6ef9c2f5f37156710acc18d8ca06841ea3e4d96b25c8",
+      "size": 782336
+    },
+    "network_studio_field_gui_tests.exe": {
+      "sha256": "6839fb1a48ead0d8c5b0b8890782d9050f5f1590a4b6b7c17ae61a1548ba0fb7",
+      "size": 1851904
+    },
+    "network_studio_field_tests.exe": {
+      "sha256": "8f0f0f786f868bea83eed21cdc0d042c4e91eeea86fae0aacd251f1e3f01fe8c",
+      "size": 763904
+    },
+    "network_studio_generator_tests.exe": {
+      "sha256": "31102b8f5188986295b1a3e0e47108199f98ecf187de5ae9cad76b0d2d634d88",
+      "size": 605696
+    },
+    "network_studio_gui_tests.exe": {
+      "sha256": "a5adda3b0410d3c0846b29163331d730acb75f554798a342f980bd07e28e024e",
+      "size": 1892352
+    },
+    "network_studio_kernel_tests.exe": {
+      "sha256": "d338794626ecd7b353127bdbef364b674b0dbd079c9e85f5f34958a210687071",
+      "size": 473600
+    },
+    "network_studio_long_history_tests.exe": {
+      "sha256": "e5f7a7978cca1c1af4b24ce3ed5aeafc017d13bdc0339a07e27b49ce81ee14e6",
+      "size": 729600
+    },
+    "network_studio_numerics_tests.exe": {
+      "sha256": "432ec88065d88426a260e7c131c055227767fe88be1dac363885a1880f0f10bf",
+      "size": 468992
+    },
+    "network_studio_plot_tests.exe": {
+      "sha256": "e8937e3b8393aca43f9cd04d4b1322b2b9f73b3c35a9d0bb05fd4855e21bbe1a",
+      "size": 1857024
+    },
+    "network_studio_population.exe": {
+      "sha256": "bdf3d77b696980242e313298020d2c120e864bd0964009ce2b597fd14390a974",
+      "size": 666624
+    },
+    "network_studio_runner_benchmark.exe": {
+      "sha256": "be0627832c877925e10bc07e36fd5a3a18a5ebc2e0117975c8726aa4d8fe43df",
+      "size": 824320
+    },
+    "network_studio_runner_tests.exe": {
+      "sha256": "5077282536beac582bbf2eb5fe4d534e5c4afe75b101d2689da6b1f6145eb85a",
+      "size": 873472
+    },
+    "network_studio_stimulator_tests.exe": {
+      "sha256": "cfa9699e6e0451b145323808dd590516447eb154dbab5c48872ef6e507732732",
+      "size": 823808
+    },
+    "network_studio_tests.exe": {
+      "sha256": "15a8152eb4cca423f14aa646c13d81ca0aa9223bf893c0cc8661c666883c4f75",
+      "size": 799232
+    }
+  },
+  "installed_default_binaries": {
+    "network_studio.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "sha256": "427ac75347d570a0075f4c4ff0e647e953da72af875346346d36b1713540f937"
+    },
+    "network_studio_cli.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "sha256": "c761dee16165f00fe8445a1e092cfbd6f288976120ca53a0fb67e449a5ed16a5"
+    }
+  },
+  "previous_frozen_release": "../20261019_single_thread/optimized-release",
+  "previous_manifest": "baseline_manifest.json",
+  "measurement_plan": "measure.py",
+  "validation": "validation.json",
+  "patch_scope": "Tracked diff from HEAD, including preserved previous-phase changes. New files are included in source_snapshot.zip."
+}

@@ -1,0 +1,401 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 877169b..bbb1d93 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,5 +1,7 @@
+ cmake_minimum_required(VERSION 3.20)
+ project(NeuroAstroStudio LANGUAGES CXX)
++option(STUDIO_PROFILE "Enable nested solver diagnostic timers (not for speed comparisons)" OFF)
++option(STUDIO_BUILD_PERFORMANCE_TOOLS "Build reproducible solver benchmark tools" OFF)
+ set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ if(MSVC)
+@@ -32,8 +34,8 @@ string(SUBSTRING "${JSON_SOURCE}" 0 ${DECODE_START} JSON_BEFORE)
+ string(SUBSTRING "${JSON_SOURCE}" ${DECODE_END} -1 JSON_AFTER)
+ file(READ "${CMAKE_CURRENT_SOURCE_DIR}/json_strings.inc" JSON_DECODER)
+ write_generated("${CMAKE_CURRENT_BINARY_DIR}/json_standalone.cpp" "${JSON_BEFORE}\n${JSON_DECODER}\n${JSON_AFTER}")
+-set(CHECKPOINT_SIGNATURE "${CMAKE_CXX_COMPILER_ID}|${CMAKE_CXX_COMPILER_VERSION}|${CMAKE_SYSTEM_NAME}|${CMAKE_SYSTEM_PROCESSOR}|${CMAKE_SIZEOF_VOID_P}|${CMAKE_BUILD_TYPE}|${CMAKE_CXX_FLAGS}|${CMAKE_CXX_FLAGS_RELEASE}")
+-foreach(source network.h network.cpp stimulator.cpp stimulator_json.inc experiment.cpp experiment_json.inc analysis.cpp analysis.h integrator.cpp numerics/integrator.h io.h io.cpp checkpoint.cpp json_strings.inc vendor/systems/neuro_astro/model.cuh vendor/systems/neuro_astro/variables.inc vendor/systems/neuro_astro/parameters.inc vendor/json/json.cpp vendor/json/json.h)
++set(CHECKPOINT_SIGNATURE "${CMAKE_CXX_COMPILER_ID}|${CMAKE_CXX_COMPILER_VERSION}|${CMAKE_SYSTEM_NAME}|${CMAKE_SYSTEM_PROCESSOR}|${CMAKE_SIZEOF_VOID_P}|${CMAKE_BUILD_TYPE}|${CMAKE_CXX_FLAGS}|${CMAKE_CXX_FLAGS_RELEASE}|profile=${STUDIO_PROFILE}")
++foreach(source network.h network.cpp stimulator.cpp stimulator_json.inc experiment.cpp experiment_json.inc analysis.cpp analysis.h integrator.cpp numerics/integrator.h performance/profile.h io.h io.cpp checkpoint.cpp json_strings.inc vendor/systems/neuro_astro/model.cuh vendor/systems/neuro_astro/variables.inc vendor/systems/neuro_astro/parameters.inc vendor/json/json.cpp vendor/json/json.h)
+     set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${source}")
+     file(SHA256 "${CMAKE_CURRENT_SOURCE_DIR}/${source}" source_hash)
+     string(APPEND CHECKPOINT_SIGNATURE "|${source}:${source_hash}")
+@@ -44,6 +46,13 @@ add_library(network_core network.cpp stimulator.cpp experiment.cpp analysis.cpp
+ target_include_directories(network_core PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+ target_include_directories(network_core PRIVATE "${VENDOR}/json")
+ target_include_directories(network_core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
++if(STUDIO_PROFILE)
++    target_compile_definitions(network_core PUBLIC STUDIO_PROFILE)
++endif()
++if(STUDIO_BUILD_PERFORMANCE_TOOLS)
++    add_executable(network_studio_benchmark performance/solver_benchmark.cpp)
++    target_link_libraries(network_studio_benchmark PRIVATE network_core)
++endif()
+ add_executable(network_studio_cli cli.cpp)
+ target_link_libraries(network_studio_cli PRIVATE network_core)
+ add_executable(network_studio_tests tests.cpp)
+diff --git a/experiment.cpp b/experiment.cpp
+index 426d92c..fbaf3e1 100644
+--- a/experiment.cpp
++++ b/experiment.cpp
+@@ -114,6 +114,7 @@ void Simulator::trim_journals(size_t events,size_t deliveries) {
+     }
+ }
+ void Simulator::log_stimuli(double at) {
++    STUDIO_SCOPE(journals);
+     for(int i=0;i<int(config.neurons.size());++i) {
+         const auto& n=config.neurons[i];const double value=pulse_current(n,at);
+         if(value==0)continue;
+diff --git a/integrator.cpp b/integrator.cpp
+index 201232f..f6f1a72 100644
+--- a/integrator.cpp
++++ b/integrator.cpp
+@@ -6,6 +6,7 @@
+ 
+ namespace studio {
+ double Simulator::neuron_threshold_sample(const State& old,double h,int coordinate) const {
++    STUDIO_SCOPE(threshold_sample);
+     // Without astrocytes, each neuron's between-event flow depends only on its
+     // own state and independent incoming activity tails. Preserve the full
+     // solver's arithmetic and edge summation order, including both half steps.
+@@ -47,6 +48,8 @@ void Simulator::exact_flow(const State& old,double h,State& out) const {
+     const double glutamate_decay=std::exp(-h*p[na::Omega_Y]);
+     const Synapse* previous=nullptr;
+     double facilitation_decay=0,recovery=0,active_decay=0,transfer=0;
++    {
++    STUDIO_SCOPE(exact_synapses);
+     for(int i=0;i<int(c.synapses.size());++i) {
+         const auto& s=c.synapses[i];const int b=syn_offset(c,i);
+         if(!previous || s.model!=previous->model || s.tau_f!=previous->tau_f ||
+@@ -72,6 +75,8 @@ void Simulator::exact_flow(const State& old,double h,State& out) const {
+         out[b+2]=old[b+2]*active_decay;
+         out[b+3]=old[b+3]*glutamate_decay;
+     }
++    }
++    STUDIO_SCOPE(exact_astro);
+     for(int i=0;i<int(c.astrocytes.size());++i) {
+         const int b=astro_offset(c,i);
+         out[b+4]=old[b+4]+(1-old[b+4])*(-std::expm1(-h/p[na::tau_A]));
+@@ -89,6 +94,7 @@ void Simulator::exact_flow(const State& old,double h,State& out) const {
+     }
+ }
+ double Simulator::kinetic_step_limit() const {
++    STUDIO_SCOPE(kinetic);
+     const auto& c=config;const auto& p=c.parameters;double rate=0;
+     std::vector<double> conductance(c.neurons.size(),0),glutamate(c.astrocytes.size(),0);
+     for(int i=0;i<int(c.synapses.size());++i) {
+@@ -125,6 +131,7 @@ double Simulator::kinetic_step_limit() const {
+     return rate>0 ? .25/rate : c.dt;
+ }
+ bool Simulator::physical(const State& y) const {
++    STUDIO_SCOPE(bounds);
+     const auto& c=config;const auto& p=c.parameters;
+     for(double value:y)if(!std::isfinite(value))return false;
+     auto fraction=[&](int i){return y[i]>=-1e-10 && y[i]<=1+1e-10;};
+@@ -147,6 +154,7 @@ bool Simulator::physical(const State& y) const {
+     return true;
+ }
+ bool Simulator::step() {
++    STUDIO_SCOPE(step);
+     if(done())return false;
+     if(stepping)throw std::runtime_error("Simulator::step is not reentrant.");
+     stepping=true;checkpoint_boundary=false;
+@@ -183,7 +191,10 @@ bool Simulator::step_impl() {
+         const double limit=next_input_boundary(c,time,std::min({macro_end,sample_time,delivery_time,command_time}));
+         log_stimuli(time);
+         held_input_time=time; // Right-continuous [start, stop) input on this segment.
+-        for(int i=0;i<int(c.neurons.size());++i)held_inputs[i]=external_current(c,i,time);
++        {
++            STUDIO_SCOPE(external);
++            for(int i=0;i<int(c.neurons.size());++i)held_inputs[i]=external_current(c,i,time);
++        }
+         double h=std::min({limit-time,suggested_step,kinetic_step_limit()});
+         std::vector<int> group;
+         double norm=0,advance=0;
+@@ -208,6 +219,7 @@ bool Simulator::step_impl() {
+         const double event_time=(advance==limit-time ? limit : time+advance);
+         if(!(event_time>time)) {error="Event localization did not advance the clock.";return false;}
+         auto& next=flow.next;
++        STUDIO_SCOPE(event_jumps);
+         std::vector<bool> fired(c.neurons.size(),false),released(c.astrocytes.size(),false);
+         for(int index:group) {
+             if(index<int(c.neurons.size()))fired[index]=true;
+@@ -262,20 +274,26 @@ bool Simulator::step_impl() {
+         if(!physical(next)) {error="Event jump left the physical state bounds.";return false;}
+         // Grouped old traces, one weight update/clamp, then new traces. Weights
+         // affect the remaining flow immediately, including existing tails.
++        {
++        STUDIO_SCOPE(stdp);
+         for(size_t j=0;j<c.synapses.size();++j) {
+             const auto& s=c.synapses[j];update_synaptic_stdp(s,plasticity[j],fired[s.source],arrivals[j],fired[s.target],advance,experiment.learning?experiment.learning_rate:0);
+         }
++        }
+         for(size_t k=0;k<consumed;++k) {
+             std::pop_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});pending_deliveries.pop_back();
+         }
+         for(const auto& e:created) {
+             pending_deliveries.push_back(e);std::push_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});
+         }
++        {
++        STUDIO_SCOPE(journals);
+         trim_journals(group.size(),deliveries.size());
+         capture_activity(deliveries,fired,event_time);
+         history.deliveries.insert(history.deliveries.end(),deliveries.begin(),deliveries.end());
+         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]){++spikes[i];history.events.push_back({event_time,i,false});}
+         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]){++releases[i];history.events.push_back({event_time,i,true});}
++        }
+         state.swap(next);time=event_time;
+         for(int index:group)thresholds[index].armed=false;
+         for(auto& threshold:thresholds)
+diff --git a/main.cpp b/main.cpp
+index 690680d..c7536ea 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -11,6 +11,7 @@
+ #include "backends/imgui_impl_win32.h"
+ #include "backends/imgui_impl_dx11.h"
+ #include <fstream>
++#include <iomanip>
+ #include <stdexcept>
+ #include <unordered_map>
+ #include <chrono>
+@@ -21,6 +22,7 @@ static ComPtr<ID3D11DeviceContext> context;
+ static ComPtr<IDXGISwapChain> swapchain;
+ static ComPtr<ID3D11RenderTargetView> target;
+ static UINT resize_w=0,resize_h=0;
++static bool software_renderer=false;
+ static std::unordered_map<HWND,WNDPROC> platform_procedures;
+ static void (*backend_create_window)(ImGuiViewport*)=nullptr;
+ // The bundled 1.91.5 Win32 backend reports monitor DPI but doesn't apply the
+@@ -52,7 +54,7 @@ static void create_device(HWND hwnd) {
+     sd.Windowed=TRUE;sd.SwapEffect=DXGI_SWAP_EFFECT_DISCARD;
+     const D3D_FEATURE_LEVEL levels[]={D3D_FEATURE_LEVEL_11_0,D3D_FEATURE_LEVEL_10_0};
+     auto hr=D3D11CreateDeviceAndSwapChain(nullptr,D3D_DRIVER_TYPE_HARDWARE,nullptr,0,levels,2,D3D11_SDK_VERSION,&sd,&swapchain,&device,nullptr,&context);
+-    if(FAILED(hr))hr=D3D11CreateDeviceAndSwapChain(nullptr,D3D_DRIVER_TYPE_WARP,nullptr,0,levels,2,D3D11_SDK_VERSION,&sd,&swapchain,&device,nullptr,&context);
++    if(FAILED(hr)){software_renderer=true;hr=D3D11CreateDeviceAndSwapChain(nullptr,D3D_DRIVER_TYPE_WARP,nullptr,0,levels,2,D3D11_SDK_VERSION,&sd,&swapchain,&device,nullptr,&context);}
+     check(hr,"Direct3D 11 initialization failed.");render_target();
+ }
+ static LRESULT WINAPI wndproc(HWND hwnd,UINT msg,WPARAM w,LPARAM l) {
+@@ -101,9 +103,10 @@ static std::filesystem::path dialog(HWND hwnd,bool save,bool csv,bool checkpoint
+ }
+ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+     int argc=0;wchar_t** args=CommandLineToArgvW(GetCommandLineW(),&argc);
+-    std::filesystem::path smoke,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
++    std::filesystem::path smoke,benchmark,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
+     for(int i=1;i<argc;++i) {
+         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
++        else if(std::wstring(args[i])==L"--benchmark"&&i+1<argc)benchmark=args[++i];
+         else if(std::wstring(args[i])==L"--stimulator-smoke"&&i+1<argc){smoke=args[++i];stimulator_smoke=true;}
+         else if(std::wstring(args[i])==L"--experiment-smoke"&&i+1<argc){smoke=args[++i];experiment_smoke=true;}
+         else if(std::wstring(args[i])==L"--field-smoke"&&i+1<argc){smoke=args[++i];field_smoke=true;}
+@@ -120,6 +123,13 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+     WNDCLASSEXW wc{sizeof(wc),CS_CLASSDC,wndproc,0,0,instance,nullptr,LoadCursor(nullptr,IDC_ARROW),nullptr,nullptr,L"NeuroAstroStudio",nullptr};
+     RegisterClassExW(&wc);
+     try {
++        if(!benchmark.empty()) {
++            std::filesystem::create_directories(benchmark);
++            if(!smoke.empty()||!workspace_path.empty()||plot_demo||smoke_wizard)
++                throw std::runtime_error("--benchmark cannot be combined with smoke, workspace or plot-demo options.");
++            if(config_path.empty()&&checkpoint_path.empty())
++                throw std::runtime_error("--benchmark requires an explicit configuration or checkpoint.");
++        }
+         ImGui_ImplWin32_EnableDpiAwareness();
+         hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,(field_smoke||experiment_smoke||stimulator_smoke)?1800:1480,(field_smoke||experiment_smoke||stimulator_smoke)?1300:1000,nullptr,nullptr,instance,nullptr);
+         if(!hwnd)throw std::runtime_error("Cannot create the application window.");create_device(hwnd);resize_w=resize_h=0;
+@@ -159,8 +169,14 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+             while(!app.simulation->done())if(!app.simulation->step())break;
+             if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
+             app.status="Проверка прототипа: расчёт завершён, графики построены.";
+-        }else {ShowWindow(hwnd,SW_SHOWDEFAULT);UpdateWindow(hwnd);}
+-        if(workspace_path.empty()&&smoke.empty()) {
++        }else if(benchmark.empty()) {ShowWindow(hwnd,SW_SHOWDEFAULT);UpdateWindow(hwnd);}
++        if(!benchmark.empty()) {
++            // Exercise the ordinary App::draw -> advance (8 ms budget) path.
++            // Keep the native HWND hidden and report occlusion explicitly;
++            // these timings do not describe a visible, VSync-paced session.
++            app.running=true;
++        }
++        if(workspace_path.empty()&&smoke.empty()&&benchmark.empty()) {
+             wchar_t local[32768]{};if(GetEnvironmentVariableW(L"LOCALAPPDATA",local,32768))workspace_path=std::filesystem::path(local)/L"NetworkStudio"/L"plots.nsworkspace";
+         }
+         if(!workspace_path.empty()) {
+@@ -179,6 +195,11 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+         double field_frame_ms=0;
+         int native_checks=0;double minimized_time=0;std::vector<HWND> native_handles;
+         auto verify=[&](bool value,const char* reason){if(!value)throw std::runtime_error(reason);++native_checks;};
++        double benchmark_draw=0,benchmark_render=0,benchmark_present=0,benchmark_idle=0;
++        uint64_t benchmark_occluded=0,benchmark_presented=0,benchmark_other_status=0;
++        const double benchmark_start_time=app.simulation->time;
++        if(!benchmark.empty())studio::profile::reset();
++        const auto benchmark_begin=std::chrono::steady_clock::now();
+         while(!done) {
+             MSG msg;while(PeekMessageW(&msg,nullptr,0,0,PM_REMOVE)){TranslateMessage(&msg);DispatchMessageW(&msg);if(msg.message==WM_QUIT)done=true;}
+             if(done)break;
+@@ -202,7 +223,10 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+                 app.selected_index=0;
+             }
+             const auto frame_begin=std::chrono::steady_clock::now();
+-            app.draw();ImGui::Render();auto* data=ImGui::GetDrawData();minimum_vertices=std::min(minimum_vertices,data->TotalVtxCount);
++            app.draw();
++            const auto benchmark_render_begin=benchmark.empty()?frame_begin:std::chrono::steady_clock::now();
++            if(!benchmark.empty())benchmark_draw+=std::chrono::duration<double>(benchmark_render_begin-frame_begin).count();
++            ImGui::Render();auto* data=ImGui::GetDrawData();minimum_vertices=std::min(minimum_vertices,data->TotalVtxCount);
+             if(field_smoke&&frames>=4)field_frame_ms+=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-frame_begin).count();
+             if(!IsIconic(hwnd)) {
+                 const float clear[]={.055f,.073f,.1f,1};ID3D11RenderTargetView* rtv=target.Get();context->OMSetRenderTargets(1,&rtv,nullptr);context->ClearRenderTargetView(rtv,clear);
+@@ -210,6 +234,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+                 if(!smoke.empty()&&!viewport_smoke&&frames%4==3)capture_png(smoke/(L"tab_"+std::to_wstring(frames/4)+L".png"));
+             }
+             ImGui::UpdatePlatformWindows();ImGui::RenderPlatformWindowsDefault();
++            if(!benchmark.empty())benchmark_render+=std::chrono::duration<double>(std::chrono::steady_clock::now()-benchmark_render_begin).count();
+             if((experiment_smoke&&(frames==35||frames==39))||(stimulator_smoke&&frames==23)) {
+                 auto& platform=ImGui::GetPlatformIO();
+                 for(int i=1;i<platform.Viewports.Size;++i){auto* v=platform.Viewports[i];if(!v->DrawData||v->DrawData->TotalVtxCount<100)continue;
+@@ -283,11 +308,50 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+                 }
+                 if(frames==23)verify(app.plot_windows.windows.size()==3,"Native WM_CLOSE did not remove the graph.");
+             }
+-            if(!IsIconic(hwnd)) {HRESULT hr=swapchain->Present(smoke.empty()?1:0,0);if(FAILED(hr))throw std::runtime_error("Direct3D presentation failed.");if(hr==DXGI_STATUS_OCCLUDED)Sleep(10);}
++            if(!IsIconic(hwnd)) {
++                const auto present_begin=benchmark.empty()?benchmark_begin:std::chrono::steady_clock::now();
++                HRESULT hr=swapchain->Present(smoke.empty()?1:0,0);
++                if(!benchmark.empty()) {
++                    benchmark_present+=std::chrono::duration<double>(std::chrono::steady_clock::now()-present_begin).count();
++                    if(hr==DXGI_STATUS_OCCLUDED)++benchmark_occluded;
++                    else if(hr==S_OK)++benchmark_presented;
++                    else ++benchmark_other_status;
++                }
++                if(FAILED(hr))throw std::runtime_error("Direct3D presentation failed.");
++                if(hr==DXGI_STATUS_OCCLUDED) {
++                    const auto idle_begin=benchmark.empty()?benchmark_begin:std::chrono::steady_clock::now();Sleep(10);
++                    if(!benchmark.empty())benchmark_idle+=std::chrono::duration<double>(std::chrono::steady_clock::now()-idle_begin).count();
++                }
++            }
+             else Sleep(10);
+             ++frames;if(!smoke.empty()&&frames>=(experiment_smoke?40:28))done=true;
++            if(!benchmark.empty()) {
++                if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
++                if(app.simulation->done())done=true;
++                else if(!app.running)throw std::runtime_error("GUI benchmark stopped before completion.");
++            }
++        }
++        const double benchmark_wall=std::chrono::duration<double>(std::chrono::steady_clock::now()-benchmark_begin).count();
++        if(!benchmark.empty())studio::profile::write(benchmark/L"profile.json");
++        if(!benchmark.empty()) {
++            if(!app.simulation->done())throw std::runtime_error("GUI benchmark window closed before completion.");
++            studio::export_results(*app.simulation,benchmark/L"result");
++            studio::save_checkpoint(*app.simulation,benchmark/L"final.nscp");
++            std::ofstream log(benchmark/L"benchmark.json");
++            log<<std::setprecision(17)<<"{\n  \"mode\": \"hidden_win32_dx11_live_advance\",\n  \"hidden\": true,\n"
++                <<"  \"renderer\": \""<<(software_renderer?"WARP":"hardware")<<"\",\n"
++                <<"  \"wall_seconds\": "<<benchmark_wall<<",\n  \"app_draw_including_advance_seconds\": "<<benchmark_draw
++                <<",\n  \"render_cpu_seconds\": "<<benchmark_render<<",\n  \"present_seconds\": "<<benchmark_present
++                <<",\n  \"occlusion_sleep_seconds\": "<<benchmark_idle<<",\n  \"frames\": "<<frames
++                <<",\n  \"present_ok\": "<<benchmark_presented<<",\n  \"present_occluded\": "<<benchmark_occluded
++                <<",\n  \"present_other_status\": "<<benchmark_other_status<<",\n  \"minimum_vertices\": "<<minimum_vertices
++                <<",\n  \"model_start_seconds\": "<<benchmark_start_time<<",\n  \"model_final_seconds\": "<<app.simulation->time
++                <<",\n  \"steps\": "<<app.simulation->steps<<",\n  \"samples\": "<<app.simulation->history.time.size()
++                <<",\n  \"limits\": \"Hidden native window; ordinary 8 ms advance budget and Present(1). Occlusion sleep is preserved and measured. This is not visible GUI or GPU execution timing. Initialization, export and checkpoint are outside wall_seconds. App draw includes both solver and UI construction.\"\n}\n";
++            if(!log)throw std::runtime_error("Cannot write GUI benchmark metrics.");
++            std::error_code ec;std::filesystem::remove(benchmark/L"error.txt",ec);
+         }
+-        if(smoke.empty()&&app.plot_windows.automatic_save_allowed&&!app.plot_windows.workspace_path.empty()) {
++        if(smoke.empty()&&benchmark.empty()&&app.plot_windows.automatic_save_allowed&&!app.plot_windows.workspace_path.empty()) {
+             const auto parent=app.plot_windows.workspace_path.parent_path();
+             if(!parent.empty())std::filesystem::create_directories(parent);
+             if(!app.plot_windows.save(app.plot_windows.workspace_path))MessageBoxA(hwnd,app.plot_windows.message.c_str(),"Workspace",MB_OK|MB_ICONWARNING);
+@@ -308,7 +372,8 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+         }
+     }catch(const std::exception& e) {
+         result=1;
+-        if(smoke.empty())MessageBoxA(hwnd,e.what(),"Network Studio",MB_OK|MB_ICONERROR);
++        if(!benchmark.empty()){std::filesystem::create_directories(benchmark);std::ofstream log(benchmark/L"error.txt");log<<e.what();}
++        else if(smoke.empty())MessageBoxA(hwnd,e.what(),"Network Studio",MB_OK|MB_ICONERROR);
+         else {std::filesystem::create_directories(smoke);std::ofstream log(smoke/L"error.txt");log<<e.what();}
+     }
+     if(backends){ImGui::DestroyPlatformWindows();if(!platform_procedures.empty())result=1;ImGui_ImplDX11_Shutdown();ImGui_ImplWin32_Shutdown();}
+diff --git a/network.cpp b/network.cpp
+index b58570a..1ceb1e0 100644
+--- a/network.cpp
++++ b/network.cpp
+@@ -286,6 +286,7 @@ double next_pulse_boundary(const Neuron& n,double time,double limit) {
+     }return next;
+ }
+ double next_input_boundary(const Config& c,double time,double limit) {
++    STUDIO_SCOPE(input_boundaries);
+     double next=limit;bool noise=false;
+     for(const auto& n:c.neurons){noise=noise||(n.individual_noise?n.noise_sigma>0:c.noise_sigma>0);next=next_pulse_boundary(n,time,next);}
+     for(const auto& s:c.stimulators)if(s.enabled)next=next_pulse_boundary(stimulator_signal(s),time,next);
+@@ -303,6 +304,7 @@ double external_current_with_protocol(const Config& c,const Neuron& n,int index,
+     double current=n.current+pulse_current(n,time);
+     const double sigma=n.individual_noise ? n.noise_sigma : c.noise_sigma;
+     if(sigma>0) {
++        STUDIO_SCOPE(noise);
+         // Counter-based streams: changing dt, plotting, and paused redraws do not
+         // consume random draws. Open-interval uniforms make Box-Muller finite.
+         const uint64_t bin=noise_bin(time,c.noise_interval);
+@@ -344,6 +346,8 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
+     std::array<double,MaxAstrocytes> glutamate{};
+     std::array<std::array<bool,MaxNeurons>,MaxAstrocytes> contacts{};
+     for(int i=0;i<int(c.neurons.size());++i) input[i]=held_inputs?(*held_inputs)[i]:external_current(c,i,midpoint);
++    {
++    STUDIO_SCOPE(rhs_synapses);
+     for(int i=0;i<int(c.synapses.size());++i) {
+         const auto& s=c.synapses[i]; int b=syn_offset(c,i);
+         if(!omit_synapse_kinetics) {
+@@ -360,6 +364,9 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
+         else input[s.target]+=weight*s.gain*y[b+2];
+         if(s.astro>=0) { glutamate[s.astro]+=s.spill*y[b+3]; contacts[s.astro][s.target]=true; }
+     }
++    }
++    {
++    STUDIO_SCOPE(rhs_astro);
+     for(int i=0;i<int(c.astrocytes.size());++i) {
+         int b=astro_offset(c,i); const auto& a=c.astrocytes[i];
+         const double ip3=y[b+1],ca=y[b+2],h=y[b+3],ga=y[b+5];
+@@ -380,6 +387,8 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
+         double di=g.ip3*(y[b+1]-y[a+1]),dc=g.calcium*(y[b+2]-y[a+2]);
+         dy[a+1]+=di; dy[b+1]-=di; dy[a+2]+=dc; dy[b+2]-=dc;
+     }
++    }
++    STUDIO_SCOPE(rhs_neurons);
+     for(int i=0;i<int(c.neurons.size());++i) {
+         const auto& n=c.neurons[i]; int b=i*4;
+         if(n.model==NeuronModel::Izhikevich) {
+@@ -443,6 +452,7 @@ void Simulator::extend_duration(double end_time) {
+     config.duration=end_time;
+ }
+ void Simulator::record() {
++    STUDIO_SCOPE(journals);
+     if(history.time.size()>=MaxSamples) { error="Recording limit exceeded."; return; }
+     history.time.push_back(time);
+     for(int j:recorded_state)history.values[j].push_back(state[j]);
+diff --git a/numerics/integrator.h b/numerics/integrator.h
+index 3e09535..3741b03 100644
+--- a/numerics/integrator.h
++++ b/numerics/integrator.h
+@@ -4,6 +4,7 @@
+ #include <functional>
+ #include <limits>
+ #include <vector>
++#include "performance/profile.h"
+ 
+ namespace studio::numerical {
+ using Vector = std::vector<double>;
+@@ -80,6 +81,7 @@ public:
+         rk4(old,h*.5,scratch);rk4(scratch,h*.5,out);
+     }
+     double trial(const Vector& old,double h) {
++        STUDIO_SCOPE(trial);
+         rk4(old,h,full);rk4(old,h*.5,half);rk4(half,h*.5,next);
+         double error=0;
+         for(size_t i=0;i<old.size();++i) {
+@@ -93,6 +95,7 @@ public:
+     // This makes simultaneous-event membership independent of node iteration.
+     double events(const Vector& old,double h,double clock,const std::vector<Threshold>& thresholds,
+                   std::vector<int>& group) {
++        STUDIO_SCOPE(thresholds);
+         struct Candidate { int index; double low,high; };
+         std::vector<Candidate> candidates;
+         for(int i=0;i<int(thresholds.size());++i) {

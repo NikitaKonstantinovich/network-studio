@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="(empty)"
+	tests="27"
+	failures="2"
+	disabled="0"
+	skipped="0"
+	hostname=""
+	time="291"
+	timestamp="2026-10-19T03:14:36"
+	>
+	<testcase name="simulation_runner_lifecycle" classname="simulation_runner_lifecycle" time="3.52425" status="run">
+		<properties/>
+		<system-out>PASS: 61174 runner checks; exact full checkpoints, refresh independence, lifecycle, strict restore, incremental bounded snapshots. Artifacts: E:\asp\26_27\configurator\build\parallel\runner-tests\234847389889900
+</system-out>
+	</testcase>
+	<testcase name="parallel_solver_invariance" classname="parallel_solver_invariance" time="39.6337" status="fail">
+		<failure message="Failed"/>
+		<properties/>
+		<system-out>FAIL: Checkpoint: lost or extra delivery
+</system-out>
+	</testcase>
+	<testcase name="performance_cache_invariance" classname="performance_cache_invariance" time="0.0189583" status="run">
+		<properties/>
+		<system-out>PASS 47208 bitwise noise/STDP cache checks
+</system-out>
+	</testcase>
+	<testcase name="packed_kernel_reference" classname="packed_kernel_reference" time="0.135793" status="run">
+		<properties/>
+		<system-out>All Izh: 1200 steps, 55 spikes, 58 deliveries; all reference bits equal
+Mixed HH/Izh: 1200 steps, 45 spikes, 50 deliveries; all reference bits equal
+PASS packed kernel and root scratch: 57540 checks
+</system-out>
+	</testcase>
+	<testcase name="spatial_analysis_and_stages" classname="spatial_analysis_and_stages" time="18.3309" status="run">
+		<properties/>
+		<system-out>bounded_deliveries_after=0.474795 retained=46800 pending=18720
+53405 spatial/analysis/stage checks passed
+</system-out>
+	</testcase>
+	<testcase name="staged_process_resume" classname="staged_process_resume" time="1.9492" status="run">
+		<properties/>
+		<system-out>-- Stage resume: checkpoint and all trajectory/event/analysis exports match exactly
+</system-out>
+	</testcase>
+	<testcase name="network_model_and_io" classname="network_model_and_io" time="127.074" status="run">
+		<properties/>
+		<system-out>Reference RHS feedback=1: max relative derivative error 1.2602e-13
+Reference RHS feedback=0: max relative derivative error 1.00954e-13
+RS pulse 2 Hz: 4 spikes
+RS pulse 10 Hz: 20 spikes
+RS pulse 20 Hz: 40 spikes
+PASS: 859720 checks (including every reference integration step).
+</system-out>
+	</testcase>
+	<testcase name="network_generation" classname="network_generation" time="0.141624" status="run">
+		<properties/>
+		<system-out>Generator checks passed: 2546
+</system-out>
+	</testcase>
+	<testcase name="numerical_regressions" classname="numerical_regressions" time="0.611421" status="run">
+		<properties/>
+		<system-out>PASS numerical regressions: 72624 checks
+</system-out>
+	</testcase>
+	<testcase name="synaptic_delays" classname="synaptic_delays" time="13.6493" status="run">
+		<properties/>
+		<system-out>PASS: 86880 delay/timing checks (analytical delivery, pair/triplet oracle, ties, permutation, repeated arrivals, exact restart, invalid queues).
+</system-out>
+	</testcase>
+	<testcase name="delayed_process_resume" classname="delayed_process_resume" time="1.39292" status="run">
+		<properties/>
+		<system-out>-- PASS: 8 delayed scenarios, 32 processes; snapshots and all 56 exports byte-identical
+</system-out>
+	</testcase>
+	<testcase name="checkpoint_roundtrip" classname="checkpoint_roundtrip" time="14.9713" status="run">
+		<properties/>
+		<system-out>PASS: 23687 checks, 686 exact round trips, HH/astro disarmed detectors, failure and atomicity tests. Artifacts: "E:\\asp\\26_27\\configurator\\build\\parallel\\checkpoint-test-235054204042500"
+</system-out>
+	</testcase>
+	<testcase name="checkpoint_process_resume" classname="checkpoint_process_resume" time="1.0359" status="run">
+		<properties/>
+		<system-out>-- PASS: 5 scenarios, 20 independent processes; snapshots and all 25 exports byte-identical
+</system-out>
+	</testcase>
+	<testcase name="population_equivalence" classname="population_equivalence" time="3.28852" status="run">
+		<properties/>
+		<system-out>PASS population equivalence: 24 cases, 171392 steps, 294 spikes; strict bounds checked.
+</system-out>
+	</testcase>
+	<testcase name="shared_spatial_stimulators_activity" classname="shared_spatial_stimulators_activity" time="6.96557" status="run">
+		<properties/>
+		<system-out>BENCH neurons=500 edges=15000 geometry_ms=5.6953 cache_bytes=1541892 both_fields_update_ms=0.638554 simulate_20ms_wall_ms=3036.81 recent_deliveries=39516
+PASS 62610 shared/spatial/activity checks
+</system-out>
+	</testcase>
+	<testcase name="stimulator_process_resume" classname="stimulator_process_resume" time="0.322321" status="run">
+		<properties/>
+		<system-out>-- Shared-source resume: checkpoint and all exports match byte-for-byte
+</system-out>
+	</testcase>
+	<testcase name="weight_field_geometry_and_weights" classname="weight_field_geometry_and_weights" time="7.89511" status="run">
+		<properties/>
+		<system-out>Four sources variant 0, cell [6,3]: Vx=0.911719, Vy=0.37622, magnitude=0.986293
+Four sources variant 1, cell [6,3]: Vx=0.215704, Vy=0.531631, magnitude=0.573725
+Four sources variant 2, cell [6,3]: Vx=0.433005, Vy=0.195803, magnitude=0.475218
+PASS 93645 checks. 500 neurons / 15000 edges: geometry_ms=6.7728, cached_frame_ms=0.130985, changed_weights_frame_ms=0.518019, cache_bytes=1541892, trained_edges=11996. 1000 / 50000 / 64x64: geometry_ms=54.0793, cache_bytes=12621416
+Artifacts: E:\asp\26_27\configurator\build\parallel\weight-field-tests\235081111890300
+</system-out>
+	</testcase>
+	<testcase name="long_history_limits" classname="long_history_limits" time="1.97607" status="run">
+		<properties/>
+		<system-out>PASS: 1507 long-history checks; 1,000,000 actual samples, exact checkpoint roundtrip. Artifacts: E:\asp\26_27\configurator\build\parallel\long-history\235088912580800
+</system-out>
+	</testcase>
+	<testcase name="long_history_process_resume" classname="long_history_process_resume" time="12.7856" status="run">
+		<properties/>
+		<system-out>-- PASS: 200 s, stimulation after 150 s, restart at 130 s; checkpoint and all exports byte-identical. E:/asp/26_27/configurator/build/parallel/long-process/20261019_031839
+</system-out>
+	</testcase>
+	<testcase name="runner_native_close" classname="runner_native_close" time="0.552309" status="run">
+		<properties/>
+		<system-out>-- Native WM_CLOSE while computing: worker joined and resources released after 44332 steps
+</system-out>
+	</testcase>
+	<testcase name="experiment_win32_dx11" classname="experiment_win32_dx11" time="2.70219" status="run">
+		<properties/>
+		<system-out>-- Win32/DX11 experiment screenshots: E:/asp/26_27/configurator/build/parallel/experiment-native/20261019_031853/gui
+</system-out>
+	</testcase>
+	<testcase name="stimulator_win32_dx11" classname="stimulator_win32_dx11" time="1.62993" status="run">
+		<properties/>
+		<system-out>-- Win32/DX11 shared/spatial/combined-field screenshots: E:/asp/26_27/configurator/build/parallel/stimulator-native/20261019_031855
+</system-out>
+	</testcase>
+	<testcase name="gui_interactions_and_plots" classname="gui_interactions_and_plots" time="2.15795" status="fail">
+		<failure message="Failed"/>
+		<properties/>
+		<system-out>FAIL: Izhikevich parameters are missing.
+</system-out>
+	</testcase>
+	<testcase name="plot_windows_and_workspace" classname="plot_windows_and_workspace" time="7.59971" status="run">
+		<properties/>
+		<system-out>PASS: 5235 plot/workspace checks; exact checkpoints match; 100 neurons / 400 edges / 8 windows / 20 frames: 306.615 ms. Artifacts: E:\asp\26_27\configurator\build\parallel\verification\plot-tests-кириллица-235110954925600
+</system-out>
+	</testcase>
+	<testcase name="weight_field_gui_invariance" classname="weight_field_gui_invariance" time="6.2068" status="run">
+		<properties/>
+		<system-out>PASS 7993 GUI checks; exact checkpoints; 500/15000 ImGui frame: enabled_ms=15.4152, disabled_ms=15.4384
+</system-out>
+	</testcase>
+	<testcase name="weight_field_win32_dx11" classname="weight_field_win32_dx11" time="13.0082" status="run">
+		<properties/>
+		<system-out>-- four_sources_0: frames=28
+minimum_vertices=8978
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0055
+field_update_ms=0.0003
+imgui_frame_ms=0.193837
+font_scales=1,1.5
+
+-- four_sources_1: frames=28
+minimum_vertices=8964
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0059
+field_update_ms=0.0002
+imgui_frame_ms=0.193808
+font_scales=1,1.5
+
+-- four_sources_2: frames=28
+minimum_vertices=8964
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0056
+field_update_ms=0.0003
+imgui_frame_ms=0.179979
+font_scales=1,1.5
+
+-- mixed_astro: frames=28
+minimum_vertices=10496
+samples=151
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0047
+field_update_ms=0.0003
+imgui_frame_ms=0.191296
+font_scales=1,1.5
+
+-- large_stdp: frames=28
+minimum_vertices...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="win32_dx11_plot_viewports" classname="win32_dx11_plot_viewports" time="1.4922" status="run">
+		<properties/>
+		<system-out>-- Native HWND/DX11 and workspace restart passed: E:/asp/26_27/configurator/build/parallel/viewport-smoke/20261019_031926
+</system-out>
+	</testcase>
+</testsuite>

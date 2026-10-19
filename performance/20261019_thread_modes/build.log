@@ -1,0 +1,70 @@
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: E:/asp/26_27/configurator/build/native
+[1/66] Building CXX object CMakeFiles\network_core.dir\experiment.cpp.obj
+[2/66] Building CXX object CMakeFiles\network_core.dir\analysis.cpp.obj
+[3/66] Building CXX object CMakeFiles\network_core.dir\stimulator.cpp.obj
+[4/66] Building CXX object CMakeFiles\network_core.dir\network.cpp.obj
+[5/66] Building CXX object CMakeFiles\network_core.dir\numerics\worker_pool.cpp.obj
+[6/66] Building CXX object CMakeFiles\network_core.dir\integrator.cpp.obj
+[7/66] Building CXX object CMakeFiles\network_core.dir\generator.cpp.obj
+[8/66] Building CXX object CMakeFiles\network_core.dir\checkpoint.cpp.obj
+[9/66] Building CXX object CMakeFiles\studio_runner.dir\simulation_runner.cpp.obj
+[10/66] Building CXX object CMakeFiles\studio_runner.dir\simulation_view.cpp.obj
+[11/66] Building CXX object CMakeFiles\studio_weight_field.dir\weight_field.cpp.obj
+[12/66] Building CXX object CMakeFiles\network_core.dir\io.cpp.obj
+[13/66] Linking CXX static library network_core.lib
+[14/66] Linking CXX static library studio_runner.lib
+[15/66] Building CXX object CMakeFiles\studio_weight_field.dir\activity_field.cpp.obj
+[16/66] Linking CXX static library studio_weight_field.lib
+[17/66] Building CXX object CMakeFiles\studio_gui.dir\stimulator_gui.cpp.obj
+[18/66] Building CXX object CMakeFiles\studio_gui.dir\analysis_gui.cpp.obj
+[19/66] Building CXX object CMakeFiles\studio_gui.dir\gui.cpp.obj
+[20/66] Building CXX object CMakeFiles\studio_gui.dir\experiment_gui.cpp.obj
+[21/66] Building CXX object CMakeFiles\studio_gui.dir\weight_field_gui.cpp.obj
+[22/66] Building CXX object CMakeFiles\network_studio_benchmark.dir\performance\solver_benchmark.cpp.obj
+[23/66] Building CXX object CMakeFiles\studio_gui.dir\plot_workspace.cpp.obj
+[24/66] Building CXX object CMakeFiles\studio_gui.dir\plot_windows.cpp.obj
+[25/66] Building CXX object CMakeFiles\network_studio_runner_tests.dir\runner_tests.cpp.obj
+[26/66] Building CXX object CMakeFiles\network_studio_runner_benchmark.dir\performance\runner_benchmark.cpp.obj
+[27/66] Building CXX object CMakeFiles\network_studio_cli.dir\cli.cpp.obj
+[28/66] Building CXX object CMakeFiles\network_studio_generator_tests.dir\generator_tests.cpp.obj
+[29/66] Building CXX object CMakeFiles\network_studio_numerics_tests.dir\numerics_tests.cpp.obj
+[30/66] Building CXX object CMakeFiles\network_studio_tests.dir\tests.cpp.obj
+[31/66] Building CXX object CMakeFiles\network_studio_cache_tests.dir\performance\cache_tests.cpp.obj
+[32/66] Building CXX object CMakeFiles\network_studio_kernel_tests.dir\performance\kernel_tests.cpp.obj
+[33/66] Building CXX object CMakeFiles\network_studio_population.dir\lab2\population.cpp.obj
+[34/66] Building CXX object CMakeFiles\network_studio_parallel_tests.dir\parallel_tests.cpp.obj
+[35/66] Building CXX object CMakeFiles\network_studio_experiment_tests.dir\experiment_tests.cpp.obj
+[36/66] Building CXX object CMakeFiles\network_studio_delay_tests.dir\delay_tests.cpp.obj
+[37/66] Building CXX object CMakeFiles\network_studio_stimulator_tests.dir\stimulator_tests.cpp.obj
+[38/66] Building CXX object CMakeFiles\network_studio_checkpoint_tests.dir\checkpoint_tests.cpp.obj
+[39/66] Linking CXX static library studio_gui.lib
+[40/66] Building CXX object CMakeFiles\network_studio_field_tests.dir\weight_field_tests.cpp.obj
+[41/66] Building CXX object CMakeFiles\network_studio_long_history_tests.dir\long_history_tests.cpp.obj
+[42/66] Building CXX object CMakeFiles\network_studio_plot_tests.dir\plot_window_tests.cpp.obj
+[43/66] Building CXX object CMakeFiles\network_studio_field_gui_tests.dir\weight_field_gui_tests.cpp.obj
+[44/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_benchmark.exe
+[45/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_runner_tests.exe
+[46/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_runner_benchmark.exe
+[47/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_cli.exe
+[48/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_tests.exe
+[49/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_generator_tests.exe
+[50/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_numerics_tests.exe
+[51/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_population.exe
+[52/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_parallel_tests.exe
+[53/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_cache_tests.exe
+[54/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_kernel_tests.exe
+[55/66] Building CXX object CMakeFiles\network_studio.dir\main.cpp.obj
+[56/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_experiment_tests.exe
+[57/66] Building CXX object CMakeFiles\network_studio_gui_tests.dir\gui_tests.cpp.obj
+[58/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_delay_tests.exe
+[59/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_checkpoint_tests.exe
+[60/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_stimulator_tests.exe
+[61/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_field_tests.exe
+[62/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_long_history_tests.exe
+[63/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_plot_tests.exe
+[64/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_gui_tests.exe
+[65/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio.exe
+[66/66] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_field_gui_tests.exe
+Application: E:\asp\26_27\configurator\build\Release\network_studio.exe

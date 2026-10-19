@@ -1,0 +1,103 @@
+{
+  "captured_at": "2026-10-19T02:39:31.3982063+03:00",
+  "source_head": "8838ade22c38eb6512bb8b21a3f4c71c6d3dd9d1",
+  "source_branch": "perf/simulation-runner-20261019",
+  "source_status_note": "Current working tree is actively changing; HEAD is context, not a frozen source identity for the new build.",
+  "previous_build_manifest": "../20261019_single_thread/final_builds.json",
+  "previous_build_manifest_sha256": "1a07627dff87a0c669ddcd901959eb9e8a448625f5a2c40a8d620c84218fcd01",
+  "previous_release_toolchain": {
+    "compiler": "MSVC 19.44.35217.0",
+    "toolset": "14.44.35207",
+    "cmake": "4.0.3",
+    "generator": "Ninja",
+    "architecture": "x64",
+    "configuration": "Release",
+    "flags": "/DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -std:c++17 -MT /utf-8 /W3",
+    "note": "Inherited verified previous-build record, not a fresh compiler execution."
+  },
+  "frozen_executables": [
+    {
+      "role": "comparison baseline before runner",
+      "path": "../20261019_single_thread/optimized-release/network_studio.exe",
+      "bytes": 1808384,
+      "sha256": "3c5ac89c2b225560f7b9a8a8aa1c264fd4feb08147fdaf0d665ba48bb90aa650",
+      "expected_sha256_from_previous_manifest": "3c5ac89c2b225560f7b9a8a8aa1c264fd4feb08147fdaf0d665ba48bb90aa650",
+      "matches_previous_manifest": true,
+      "checkpoint_build_id_from_previous_manifest": "ac0f72fc71244732cdddf0340becf837e6c9dc0ba4800885fd7e307af5b563b3"
+    },
+    {
+      "role": "comparison baseline before runner",
+      "path": "../20261019_single_thread/optimized-release/network_studio_cli.exe",
+      "bytes": 739328,
+      "sha256": "db0c697117d03b51c6c82133dab1c41dc7adb2d32078e5aecb88a208f2ec5b0b",
+      "expected_sha256_from_previous_manifest": "db0c697117d03b51c6c82133dab1c41dc7adb2d32078e5aecb88a208f2ec5b0b",
+      "matches_previous_manifest": true,
+      "checkpoint_build_id_from_previous_manifest": "ac0f72fc71244732cdddf0340becf837e6c9dc0ba4800885fd7e307af5b563b3"
+    },
+    {
+      "role": "comparison baseline before runner",
+      "path": "../20261019_single_thread/optimized-release/network_studio_benchmark.exe",
+      "bytes": 673280,
+      "sha256": "554a925792a80079a427520209c87269230ec5e2bbb292bb34fe9a1ee8a2275c",
+      "expected_sha256_from_previous_manifest": "554a925792a80079a427520209c87269230ec5e2bbb292bb34fe9a1ee8a2275c",
+      "matches_previous_manifest": true,
+      "checkpoint_build_id_from_previous_manifest": "ac0f72fc71244732cdddf0340becf837e6c9dc0ba4800885fd7e307af5b563b3"
+    },
+    {
+      "role": "older original archive; context only",
+      "path": "../20261019_single_thread/original-release/network_studio.exe",
+      "bytes": 1796096,
+      "sha256": "21d5198345c9c87a285ea91aeee7828a137caead0d7bea860271cda9297d7f36",
+      "expected_sha256_from_previous_manifest": "21d5198345c9c87a285ea91aeee7828a137caead0d7bea860271cda9297d7f36",
+      "matches_previous_manifest": true,
+      "checkpoint_build_id_from_previous_manifest": "81b5726aed413cd8eec539813cbdf706bf011d9e2c4a9afec180bd76bf94295d"
+    },
+    {
+      "role": "older original archive; context only",
+      "path": "../20261019_single_thread/original-release/network_studio_cli.exe",
+      "bytes": 731648,
+      "sha256": "7c76bd24921d97df57f26f0a161e9e2ca4f41f0d8d6070288601c1531fa663e6",
+      "expected_sha256_from_previous_manifest": "7c76bd24921d97df57f26f0a161e9e2ca4f41f0d8d6070288601c1531fa663e6",
+      "matches_previous_manifest": true,
+      "checkpoint_build_id_from_previous_manifest": "81b5726aed413cd8eec539813cbdf706bf011d9e2c4a9afec180bd76bf94295d"
+    }
+  ],
+  "fixtures": [
+    {
+      "path": "../20261019_single_thread/fixture.json",
+      "role": "full duration fixture",
+      "model_seconds": 0.5,
+      "bytes": 9808093,
+      "sha256": "faf56433d1502273ba53ec675881999fa091e50556d2951cdd69253e2888e591",
+      "expected_sha256_from_previous_manifest": "faf56433d1502273ba53ec675881999fa091e50556d2951cdd69253e2888e591",
+      "matches_previous_manifest": true
+    },
+    {
+      "path": "../20261019_single_thread/profile_fixture.json",
+      "role": "short GUI fixture",
+      "model_seconds": 0.05,
+      "bytes": 9808094,
+      "sha256": "e6c5888d9081b365618b092aac957bdbb0be1cb6db1f8b066a7c590567c5e3fc",
+      "expected_sha256_from_previous_manifest": "e6c5888d9081b365618b092aac957bdbb0be1cb6db1f8b066a7c590567c5e3fc",
+      "matches_previous_manifest": true
+    }
+  ],
+  "fixture_source": {
+    "path": "../../experiments/examples/benchmark.json",
+    "sha256": "13fbac691ebf6f215b019316acbd60208e22b7373b4d17f870866f0356a11055",
+    "expected_sha256": "13fbac691ebf6f215b019316acbd60208e22b7373b4d17f870866f0356a11055",
+    "matches_previous_provenance": true,
+    "origin_note": "Closest saved matching population/STDP/noise recipe; 15013 edges, not an identification of the user exact 15041-edge experiment. Only name, duration and dt changed. Laboratory files unchanged."
+  },
+  "fixture_properties_from_previous_provenance": {
+    "neurons": 500,
+    "synapses": 15013,
+    "stdp_synapses": 11961,
+    "seed": 706,
+    "noise_sigma": 5,
+    "noise_interval": 0.001,
+    "dt": 2.5E-05
+  },
+  "new_build": "Not frozen here: pending final rebuild and executable hashes must be recorded by the measuring process.",
+  "result_status": "No new performance results in this manifest."
+}

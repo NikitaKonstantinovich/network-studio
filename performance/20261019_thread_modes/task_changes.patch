@@ -1,0 +1,464 @@
+--- before/cli.cpp
++++ after/cli.cpp
+@@ -25,7 +25,7 @@
+                     "  [--duration seconds] [--dt seconds] [--sample seconds] [--save file.json]\n"
+                     "  [--until absolute_end] [--stop-at absolute_time | --run-for seconds]\n"
+                     "  [--checkpoint file.nscp] [--output prefix]\n"
+-                    "  [--threads 1|2|4|8|auto] (runtime setting; default 1)\n"
++                    "  [--threads "<<studio::compute::choices()<<"] (runtime setting; default 1)\n"
+                     "  [--stimulus-commands file.json] (recorded absolute model times)\n"
+                     "  [--plan config_with_stages.json] [--stage zero_based | --sequence zero_based]\n"
+                     "  [--learning enabled|frozen] [--learning-rate factor] [--fork provenance]\n"
+@@ -51,11 +51,7 @@
+             else if(arg=="--until")until=parse_number(value);
+             else if(arg=="--stop-at")stop=parse_number(value);
+             else if(arg=="--run-for")run_for=parse_number(value);
+-            else if(arg=="--threads") {
+-                if(value=="auto")compute_threads=0;
+-                else if(value=="1"||value=="2"||value=="4"||value=="8")compute_threads=std::stoi(value);
+-                else throw std::runtime_error("--threads must be 1, 2, 4, 8 or auto.");
+-            }
++            else if(arg=="--threads")compute_threads=studio::compute::parse(std::string_view(value),"--threads");
+             else if(arg=="--resume")resume=std::filesystem::u8path(value);
+             else if(arg=="--checkpoint")checkpoint=std::filesystem::u8path(value);
+             else if(arg=="--save")save=std::filesystem::u8path(value);
+--- before/CMakeLists.txt
++++ after/CMakeLists.txt
+@@ -35,6 +35,9 @@
+ file(READ "${CMAKE_CURRENT_SOURCE_DIR}/json_strings.inc" JSON_DECODER)
+ write_generated("${CMAKE_CURRENT_BINARY_DIR}/json_standalone.cpp" "${JSON_BEFORE}\n${JSON_DECODER}\n${JSON_AFTER}")
+ set(CHECKPOINT_SIGNATURE "${CMAKE_CXX_COMPILER_ID}|${CMAKE_CXX_COMPILER_VERSION}|${CMAKE_SYSTEM_NAME}|${CMAKE_SYSTEM_PROCESSOR}|${CMAKE_SIZEOF_VOID_P}|${CMAKE_BUILD_TYPE}|${CMAKE_CXX_FLAGS}|${CMAKE_CXX_FLAGS_RELEASE}|profile=${STUDIO_PROFILE}")
++set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/numerics/compute_threads.h")
++file(SHA256 "${CMAKE_CURRENT_SOURCE_DIR}/numerics/compute_threads.h" thread_policy_hash)
++string(APPEND CHECKPOINT_SIGNATURE "|numerics/compute_threads.h:${thread_policy_hash}")
+ foreach(source network.h network.cpp stimulator.cpp stimulator_json.inc experiment.cpp experiment_json.inc analysis.cpp analysis.h integrator.cpp numerics/integrator.h numerics/worker_pool.h numerics/worker_pool.cpp performance/profile.h io.h io.cpp checkpoint.cpp json_strings.inc vendor/systems/neuro_astro/model.cuh vendor/systems/neuro_astro/variables.inc vendor/systems/neuro_astro/parameters.inc vendor/json/json.cpp vendor/json/json.h)
+     set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${source}")
+     file(SHA256 "${CMAKE_CURRENT_SOURCE_DIR}/${source}" source_hash)
+@@ -78,7 +81,11 @@
+ add_executable(network_studio_parallel_tests parallel_tests.cpp)
+ target_link_libraries(network_studio_parallel_tests PRIVATE studio_runner)
+ add_test(NAME parallel_solver_invariance COMMAND network_studio_parallel_tests)
+-set_tests_properties(parallel_solver_invariance PROPERTIES TIMEOUT 240 RUN_SERIAL TRUE)
++set_tests_properties(parallel_solver_invariance PROPERTIES TIMEOUT 600 RUN_SERIAL TRUE)
++add_test(NAME thread_modes_process_resume COMMAND ${CMAKE_COMMAND}
++    "-DCLI=$<TARGET_FILE:network_studio_cli>" "-DFIXTURES=$<TARGET_FILE:network_studio_parallel_tests>"
++    "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/thread-modes-process" -P "${CMAKE_CURRENT_SOURCE_DIR}/performance/20261019_thread_modes/process_test.cmake")
++set_tests_properties(thread_modes_process_resume PROPERTIES RUN_SERIAL TRUE TIMEOUT 120)
+ set_tests_properties(simulation_runner_lifecycle PROPERTIES TIMEOUT 180)
+ add_executable(network_studio_cache_tests performance/cache_tests.cpp)
+ target_link_libraries(network_studio_cache_tests PRIVATE network_core)
+@@ -166,6 +173,12 @@
+         "-DGUI=$<TARGET_FILE:network_studio>" "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/parallel-native-close"
+         -P "${CMAKE_CURRENT_SOURCE_DIR}/performance/parallel_native_test.cmake")
+     set_tests_properties(parallel_native_close PROPERTIES RUN_SERIAL TRUE TIMEOUT 50)
++    foreach(count 6 12 16)
++        add_test(NAME thread_modes_native_${count} COMMAND ${CMAKE_COMMAND}
++            "-DGUI=$<TARGET_FILE:network_studio>" "-DCOUNT=${count}" "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/thread-modes-native-${count}"
++            -P "${CMAKE_CURRENT_SOURCE_DIR}/performance/20261019_thread_modes/native_test.cmake")
++        set_tests_properties(thread_modes_native_${count} PROPERTIES RUN_SERIAL TRUE TIMEOUT 50)
++    endforeach()
+     add_test(NAME experiment_win32_dx11 COMMAND ${CMAKE_COMMAND}
+         "-DGUI=$<TARGET_FILE:network_studio>" "-DFIXTURES=$<TARGET_FILE:network_studio_experiment_tests>"
+         "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/experiment-native" -P "${CMAKE_CURRENT_SOURCE_DIR}/experiments/native_test.cmake")
+--- before/gui.cpp
++++ after/gui.cpp
+@@ -368,12 +368,12 @@
+     ImGui::Text("Скорость %.5g модельных с/с · расчёт %.1f с · осталось ≈ %.1f с",m.model_per_second,m.elapsed_seconds,m.eta_seconds);
+     ImGui::SameLine();ImGui::SetNextItemWidth(115);
+     if(ImGui::SliderFloat("Обновление, Гц",&display_hz,1,20,"%.0f"))set_display_hz(display_hz);
+-    const int thread_values[]={1,2,4,8,0};
+-    const char* thread_names[]={"1","2","4","8","Auto"};
+-    int thread_choice=0;for(int i=0;i<IM_ARRAYSIZE(thread_values);++i)if(thread_values[i]==m.compute_threads)thread_choice=i;
++    const auto& modes=compute::ThreadModes;
++    const char* thread_names[compute::ThreadModes.size()];
++    int thread_choice=0;for(size_t i=0;i<modes.size();++i){thread_names[i]=modes[i].count?modes[i].argument:"Авто";if(modes[i].count==m.compute_threads)thread_choice=int(i);}
+     const bool threads_pending=std::any_of(pending.begin(),pending.end(),[](const Pending& p){return p.kind==RunnerCommand::Kind::ComputeThreads;});
+     ImGui::SetNextItemWidth(95);ImGui::BeginDisabled(threads_pending);
+-    if(ImGui::Combo("Потоки расчёта",&thread_choice,thread_names,IM_ARRAYSIZE(thread_names)))set_compute_threads(thread_values[thread_choice]);
++    if(ImGui::Combo("Потоки расчёта",&thread_choice,thread_names,IM_ARRAYSIZE(thread_names)))set_compute_threads(modes[thread_choice].count);
+     ImGui::EndDisabled();
+     ImGui::SameLine();ImGui::TextDisabled("Фактически: %d%s",m.effective_compute_threads,m.effective_compute_threads==1&&m.compute_threads!=1?" · последовательный режим":"");
+     if(ImGui::IsItemHovered())ImGui::SetTooltip("Число включает поток управления решателем. Малые сети и неподдерживаемые конфигурации используют последовательный режим.");
+--- before/gui_tests.cpp
++++ after/gui_tests.cpp
+@@ -91,11 +91,13 @@
+         click(app,"Запуск");require(app.running,"Run button did not start simulation.");
+         click(app,"Пауза");require(!app.running&&app.simulation->time>0,"Pause did not preserve the trajectory.");
+         double paused=app.simulation->time;const auto paused_state=app.simulation->state;const auto paused_generation=app.simulation->generation;
+-        click(app,"Потоки расчёта");click(app,"4");
+-        require(app.simulation->metrics.compute_threads==4&&app.simulation->metrics.effective_compute_threads==1,
+-            "Compute thread combo did not acknowledge requested count and serial fallback.");
+-        require(app.simulation->time==paused&&app.simulation->generation==paused_generation&&app.simulation->state==paused_state,
+-            "Runtime thread selection reset or advanced the paused experiment.");
++        for(auto mode:studio::compute::ThreadModes) {
++            click(app,"Потоки расчёта");click(app,mode.count?mode.argument:"Авто");
++            require(app.simulation->metrics.compute_threads==mode.count&&app.simulation->metrics.effective_compute_threads==1,
++                "Compute thread combo did not acknowledge requested count and serial fallback.");
++            require(app.simulation->time==paused&&app.simulation->generation==paused_generation&&app.simulation->state==paused_state,
++                "Runtime thread selection reset or advanced the paused experiment.");
++        }
+         click(app,"Потоки расчёта");click(app,"1");
+         require(app.simulation->metrics.compute_threads==1&&!app.running,"Compute thread combo did not return to serial mode on acknowledgement.");
+         click(app,"Шаг 50 мс");require(app.simulation->time>=paused+.05-1e-5,"Step button did not advance time.");
+--- before/integrator.cpp
++++ after/integrator.cpp
+@@ -216,7 +216,7 @@
+             for(size_t k=0;k<4;++k)if(!std::isfinite(y[b+k]))return false;
+             if(y[b]<-200||y[b]>200||std::abs(y[b+1])>1e5)return false;
+         }
+-        std::array<uint8_t,8> valid{}; // Not packed bits; one writer per slot.
++        std::array<uint8_t,compute::MaxThreads> valid{}; // Not packed bits; one writer per slot.
+         pool->run(c.synapses.size(),[&](size_t begin,size_t end,int id) {
+             bool ok=true;
+             for(size_t j=begin;j<end&&ok;++j) {
+@@ -251,7 +251,7 @@
+     return true;
+ }
+ double Simulator::parallel_error_norm(const State& old,const State& next,const State& full) const {
+-    std::array<double,8> errors{};
++    std::array<double,compute::MaxThreads> errors{};
+     pool->run(old.size(),[&](size_t begin,size_t end,int id) {
+         double error=0;
+         for(size_t i=begin;i<end;++i) {
+--- before/main.cpp
++++ after/main.cpp
+@@ -133,10 +133,7 @@
+     WNDCLASSEXW wc{sizeof(wc),CS_CLASSDC,wndproc,0,0,instance,nullptr,LoadCursor(nullptr,IDC_ARROW),nullptr,nullptr,L"NeuroAstroStudio",nullptr};
+     RegisterClassExW(&wc);
+     try {
+-        int compute_threads=1;
+-        if(compute_threads_option==L"auto")compute_threads=0;
+-        else if(compute_threads_option==L"1"||compute_threads_option==L"2"||compute_threads_option==L"4"||compute_threads_option==L"8")compute_threads=_wtoi(compute_threads_option.c_str());
+-        else throw std::runtime_error("--compute-threads must be 1, 2, 4, 8 or auto.");
++        const int compute_threads=studio::compute::parse(std::wstring_view(compute_threads_option),"--compute-threads");
+         if(!runner_close.empty()) {
+             std::filesystem::create_directories(runner_close);
+             if(!smoke.empty()||!benchmark.empty()||!workspace_path.empty()||!config_path.empty()||!checkpoint_path.empty()||plot_demo||smoke_wizard)
+--- before/network.cpp
++++ after/network.cpp
+@@ -483,15 +483,11 @@
+     if(requested_threads!=1&&parallel_eligible()) {
+         desired=requested_threads;
+         if(desired==0) {
+-            // Calibrated on the 500/15013 workload and 64/128/256-neuron
+-            // crossover fixtures (performance/20261019_parallel). For smaller
+-            // supported networks prefer four: the small eight-thread gain is
+-            // close to the run-to-run variation. Never request more than the
+-            // reported hardware concurrency; an unknown count stays serial.
+-            const unsigned available=std::thread::hardware_concurrency();
+-            const int limit=config.synapses.size()<8192?4:8;
+-            desired=1;
+-            for(int count:{2,4,8})if(count<=limit&&unsigned(count)<=available)desired=count;
++            // Size/hardware policy calibrated on the 500/15013 and 128/4096
++            // workloads (performance/20261019_thread_modes). Six improves the
++            // middle range; larger networks keep eight. No oversubscription
++            // in Auto; an unknown hardware concurrency stays serial.
++            desired=compute::automatic(config.synapses.size(),std::thread::hardware_concurrency());
+         }
+     }
+     if(desired==effective_compute_threads())return;
+@@ -499,7 +495,7 @@
+     pool=std::move(candidate);
+ }
+ void Simulator::set_compute_threads(int count) {
+-    if(count!=0&&count!=1&&count!=2&&count!=4&&count!=8)throw std::invalid_argument("Compute threads must be Auto (0), 1, 2, 4 or 8.");
++    if(!compute::supported(count))throw std::invalid_argument("Compute threads must be "+compute::choices()+" (Auto = 0).");
+     if(stepping)throw std::runtime_error("Cannot change compute threads inside a solver step.");
+     const int before=requested_threads;requested_threads=count;
+     try{prepare_workers();}catch(...){requested_threads=before;throw;}
+--- before/network.h
++++ after/network.h
+@@ -260,7 +260,7 @@
+     std::string error;
+     explicit Simulator(const Config& c);
+     // Runtime execution policy, deliberately excluded from checkpoints/Config.
+-    // 0=Auto; counts 1/2/4/8 include the controlling solver thread.
++    // 0=Auto; compute::ThreadModes includes the controlling solver thread.
+     void set_compute_threads(int count);
+     int compute_threads() const {return requested_threads;}
+     int effective_compute_threads() const {return pool?pool->count():1;}
+@@ -293,7 +293,7 @@
+     NoiseCache noise_cache;
+     StdpDecayCache stdp_decay_cache;
+     struct alignas(64) WorkerStdpCache {StdpDecayCache cache;};
+-    std::array<WorkerStdpCache,8> worker_stdp_caches;
++    std::array<WorkerStdpCache,compute::MaxThreads> worker_stdp_caches;
+     int requested_threads=1;
+     std::unique_ptr<numerical::WorkerPool> pool;
+     bool parallel_eligible() const;
+@@ -325,7 +325,7 @@
+     numerical::Flow projection_flow;
+     State projection_initial;
+     struct ProjectionScratch {numerical::Flow flow;State initial;};
+-    std::array<ProjectionScratch,8> worker_projection;
++    std::array<ProjectionScratch,compute::MaxThreads> worker_projection;
+     double projected_threshold(const State& old,double h,int coordinate,numerical::Flow& local,State& initial);
+     std::vector<int> event_group;
+     std::vector<bool> event_fired,event_released;
+--- before/numerics/worker_pool.cpp
++++ after/numerics/worker_pool.cpp
+@@ -18,7 +18,7 @@
+ }
+ }
+ WorkerPool::WorkerPool(int count):count_(count) {
+-    if(count<2||count>8)throw std::invalid_argument("Worker pool count must be 2..8.");
++    if(count<2||count>compute::MaxThreads)throw std::invalid_argument("Worker pool count must be 2.."+std::to_string(compute::MaxThreads)+".");
+     try {for(int id=1;id<count;++id)workers.emplace_back([this,id]{work(id);});}
+     catch(...) {
+         stopping.store(true,std::memory_order_release);
+--- before/numerics/worker_pool.h
++++ after/numerics/worker_pool.h
+@@ -8,6 +8,7 @@
+ #include <mutex>
+ #include <thread>
+ #include <vector>
++#include "compute_threads.h"
+ 
+ namespace studio::numerical {
+ // One synchronous phase at a time, submitted exclusively by the controller.
+@@ -18,7 +19,7 @@
+         std::atomic<uint64_t> finished{0};
+         std::exception_ptr error;
+     };
+-    std::array<Slot,8> slots;
++    std::array<Slot,compute::MaxThreads> slots;
+     std::vector<std::thread> workers;
+     alignas(64) std::atomic<uint64_t> generation{0};
+     std::atomic<bool> stopping{false};
+--- before/parallel_tests.cpp
++++ after/parallel_tests.cpp
+@@ -35,15 +35,16 @@
+ }
+ #endif
+ void pool_phases() {
+-    for(int count:{2,4,8}) {
++    for(int count:{2,4,6,8,12,16}) {
+         numerical::WorkerPool pool(count);check(pool.count()==count,"Pool does not include the controller in its count");
+-        for(int repeat=0;repeat<12;++repeat)for(size_t size:{size_t(0),size_t(1),size_t(17),size_t(2049)}) {
+-            std::vector<int> visits(size,0);
++        for(int repeat=0;repeat<12;++repeat)for(size_t size:{size_t(0),size_t(1),size_t(5),size_t(11),size_t(17),size_t(2049)}) {
++            std::vector<std::atomic<int>> visits(size);
++            for(auto& value:visits)value.store(0);
+             pool.run(size,[&](size_t begin,size_t end,int id){
+                 if(begin>end||end>size||id<0||id>=count)throw std::runtime_error("Pool block outside phase domain");
+                 for(size_t i=begin;i<end;++i)++visits[i];
+             });
+-            for(int value:visits)check(value==1,"Pool lost or repeated a disjoint coordinate");
++            for(auto& value:visits)check(value.load()==1,"Pool lost or repeated a disjoint coordinate");
+         }
+         for(int failing:{0,count-1}) {
+             std::atomic<int> completed{0};bool rejected=false;
+@@ -111,12 +112,29 @@
+     check(validate(c).empty(),"Invalid parallel fixture");return c;
+ }
+ void automatic_policy() {
++    // Hardware caps are tested without relying on this host's CPU count.
++    for(unsigned available:{0u,1u,2u,3u,4u,5u,6u,7u,8u,12u,16u,32u}) {
++        check(compute::automatic(2047,available)==1,"Small Auto fixture used helpers");
++        for(size_t edges:{size_t(2048),size_t(4095),size_t(4096),size_t(8191),size_t(8192)}) {
++            const int expected=available>=8&&edges>=8192?8:available>=6&&edges>=4096?6:available>=4?4:available>=2?2:1;
++            check(compute::automatic(edges,available)==expected,"Auto hardware cap changed");
++        }
++    }
++    for(auto mode:compute::ThreadModes) {
++        check(compute::parse(std::string_view(mode.argument),"--threads")==mode.count,"CLI thread parser diverged from supported modes");
++        std::wstring wide;for(char c:std::string_view(mode.argument))wide+=wchar_t(c);
++        check(compute::parse(std::wstring_view(wide),"--compute-threads")==mode.count,"GUI thread parser diverged from supported modes");
++    }
++    for(auto text:{"", "0", "3", "06", "12x", "16.0", "17", "-1", "AUTO"}) {
++        bool rejected=false;try{compute::parse(std::string_view(text),"--threads");}catch(const std::invalid_argument&){rejected=true;}
++        check(rejected,"Invalid thread argument accepted");
++    }
+     const unsigned available=std::max(1u,std::thread::hardware_concurrency());
+-    for(size_t edges:{size_t(2048),size_t(8192)}) {
++    for(size_t edges:{size_t(2048),size_t(4096),size_t(8192)}) {
+         auto c=fixture();const auto block=c.synapses;
+         while(c.synapses.size()<edges)c.synapses.insert(c.synapses.end(),block.begin(),block.end());
+         Simulator s(c);check(s.error.empty(),"Auto policy fixture is invalid");s.set_compute_threads(0);
+-        int expected=edges>=8192?8:4;while(expected>1&&unsigned(expected)>available)expected/=2;
++        const int expected=available>=8&&edges>=8192?8:available>=6&&edges>=4096?6:available>=4?4:available>=2?2:1;
+         check(s.compute_threads()==0&&s.effective_compute_threads()==expected,"Auto did not apply network-size target and hardware cap");
+     }
+ }
+@@ -126,7 +144,7 @@
+ }
+ void assert_active(const Simulator& s,int requested) {
+     const auto effective=s.effective_compute_threads();
+-    check(effective>=1&&effective<=8,"Effective thread count outside supported range");
++    check(effective>=1&&effective<=compute::MaxThreads,"Effective thread count outside supported range");
+     if(requested==1)check(effective==1,"Serial request used helper threads");
+     else if(requested>1)check(effective==requested,"Eligible fixture silently stayed on serial fallback");
+ }
+@@ -147,7 +165,7 @@
+             check(traced,"Frozen fixture did not maintain STDP traces");
+         }
+         const auto reference=dir/("scenario-"+std::to_string(scenario)+"-serial.nscp");save_checkpoint(serial,reference);const auto expected=bytes(reference);
+-        for(int count:{1,2,4,8})for(int repeat=0;repeat<2;++repeat) {
++        for(int count:{1,2,4,6,8,12,16})for(int repeat=0;repeat<2;++repeat) {
+             Simulator test(c);configured(test,count,frozen);trace.front().equal(test);size_t frame=1;
+             while(!test.done()) {check(test.step(),test.error.c_str());check(frame<trace.size(),"Parallel run created extra macro steps");trace[frame++].equal(test);}
+             check(frame==trace.size(),"Parallel run stopped early");assert_active(test,count);
+@@ -162,12 +180,24 @@
+ void resume_and_reconfigure(const std::filesystem::path& dir) {
+     std::cout<<"parallel: cross-count checkpoint resume"<<std::endl;
+     const auto c=fixture(true);Simulator baseline(c);configured(baseline,1,false);
++#ifdef _WIN32
++    {
++        const auto original=process_threads();Simulator switching(c);
++        std::vector<DWORD> previous;
++        for(int count:{6,12,16,8,4,2,1}) {
++            switching.set_compute_threads(count);const auto current=process_threads();
++            for(DWORD id:previous)check(!std::binary_search(current.begin(),current.end(),id),"Replacement did not release an old helper thread");
++            previous.clear();std::set_difference(current.begin(),current.end(),original.begin(),original.end(),std::back_inserter(previous));
++            check(previous.size()==size_t(count-1),"Pool count does not equal coordinator plus live helper threads");
++        }
++    }
++#endif
+     while(!baseline.done())check(baseline.step(),baseline.error.c_str());save_checkpoint(baseline,dir/"resume-reference.nscp");const auto expected=bytes(dir/"resume-reference.nscp");
+-    for(int before:{1,2,4,8}) {
++    for(int before:{1,2,4,6,8,12,16}) {
+         Simulator prefix(c);configured(prefix,before,false);
+         while(prefix.time<c.duration*.5)check(prefix.step(),prefix.error.c_str());
+         const auto path=dir/("prefix-"+std::to_string(before)+".nscp");save_checkpoint(prefix,path);const auto mid=bytes(path);
+-        for(int after:{1,2,4,8}) {
++        for(int after:{1,2,4,6,8,12,16}) {
+             auto resumed=load_checkpoint(path);resumed->set_compute_threads(after);
+             save_checkpoint(*resumed,dir/"resume-unchanged.nscp");check(bytes(dir/"resume-unchanged.nscp")==mid,"Thread selection altered loaded checkpoint or bypassed compatible loading");
+             while(!resumed->done())check(resumed->step(),resumed->error.c_str());
+@@ -177,7 +207,7 @@
+     std::cout<<"parallel: boundary thread reconfiguration"<<std::endl;
+     Simulator changing(c),reference(c);size_t turn=0;
+     while(!reference.done()) {
+-        const int counts[]={1,8,2,4,0};changing.set_compute_threads(counts[turn++%5]);
++        changing.set_compute_threads(compute::ThreadModes[turn++%compute::ThreadModes.size()].count);
+         check(reference.step()&&changing.step(),"Boundary reconfiguration failed");Frame(reference).equal(changing);
+     }
+     save_checkpoint(changing,dir/"reconfigured.nscp");check(bytes(dir/"reconfigured.nscp")==expected,"Repeated pool reconfiguration changed checkpoint");
+@@ -195,7 +225,7 @@
+         check(edited_reference.step()&&edited.step(),"Boundary parameter refresh failed");Frame(edited_reference).equal(edited);
+     }
+     save_checkpoint(edited,dir/"edited-parallel.nscp");save_checkpoint(edited_reference,dir/"edited-serial.nscp");check(bytes(dir/"edited-parallel.nscp")==bytes(dir/"edited-serial.nscp"),"Derived worker views remained stale after same-size parameter edits");
+-    for(int invalid:{-1,3,9,128}) {
++    for(int invalid:{-1,3,5,7,9,10,11,13,14,15,17,128}) {
+         bool rejected=false;try{changing.set_compute_threads(invalid);}catch(const std::exception&){rejected=true;}
+         check(rejected,"Unsupported thread selection accepted");
+     }
+@@ -205,10 +235,10 @@
+     auto c=fixture();c.name="Mixed model fallback";c.duration=.001;c.synapses[0].model=SynapseModel::ExponentialCurrent;cases.push_back(c);
+     c=preset(2);c.name="HH astro fallback";c.duration=.001;c.sample=.0001;cases.push_back(c);
+     c=preset(4);c.name="Small network fallback";c.duration=.001;c.sample=.0001;cases.push_back(c);
+-    for(size_t index=0;index<cases.size();++index) {
+-        Simulator serial(cases[index]),threaded(cases[index]);serial.set_compute_threads(1);threaded.set_compute_threads(8);
++    for(size_t index=0;index<cases.size();++index)for(int count:{6,8,12,16,0}) {
++        Simulator serial(cases[index]),threaded(cases[index]);serial.set_compute_threads(1);threaded.set_compute_threads(count);
+         while(!serial.done()){check(serial.step()&&threaded.step(),"Serial fallback failed");Frame(serial).equal(threaded);}
+-        check(threaded.compute_threads()==8&&threaded.effective_compute_threads()==1,"Unsupported/small model did not explicitly report serial fallback");
++        check(threaded.compute_threads()==count&&threaded.effective_compute_threads()==1,"Unsupported/small model did not explicitly report serial fallback");
+         save_checkpoint(serial,dir/"fallback-reference.nscp");save_checkpoint(threaded,dir/"fallback-threaded.nscp");check(bytes(dir/"fallback-reference.nscp")==bytes(dir/"fallback-threaded.nscp"),"Fallback changed checkpoint");
+     }
+ }
+@@ -217,8 +247,8 @@
+     // Avoid threshold events in this test: invalid coordinates must be rejected
+     // by the error norm / physical bounds before any trajectory is committed.
+     for(auto& n:c.neurons)n.voltage=-65;
+-    for(int scenario=0;scenario<6;++scenario) {
+-        Simulator serial(c),threaded(c);serial.set_compute_threads(1);threaded.set_compute_threads(4);
++    for(int scenario=0;scenario<6;++scenario)for(int count:{6,12,16}) {
++        Simulator serial(c),threaded(c);serial.set_compute_threads(1);threaded.set_compute_threads(count);
+         auto invalid=serial.state;
+         if(scenario==0)invalid[2]=std::numeric_limits<double>::quiet_NaN();
+         else if(scenario==1)invalid[syn_offset(c,1800)+3]=std::numeric_limits<double>::infinity();
+@@ -231,7 +261,7 @@
+         check(!serial_ok&&!parallel_ok,"Invalid numerical coordinates were accepted");
+         check(!serial.error.empty()&&serial.error==threaded.error,"Parallel failure changed numerical diagnostic");
+         check(serial.time==0&&serial.steps==0&&bits(serial.state,invalid),"Rejected trial committed invalid trajectory state");
+-        check(threaded.effective_compute_threads()==4,"Failure fixture did not use parallel error norm/bounds");
++        check(threaded.effective_compute_threads()==count,"Failure fixture did not use parallel error norm/bounds");
+         Frame(serial).equal(threaded);
+         // Deliberately invalid runtime states are never exported as checkpoints.
+     }
+@@ -287,8 +317,18 @@
+ }
+ void runner_lifecycle(const std::filesystem::path& dir) {
+     auto c=fixture(true);c.duration=.1;c.sample=.001;RunnerHarness h(c);Simulator reference(c);reference.set_compute_threads(1);
+-    for(int count:{2,4,8,1,0}) {
+-        h.threads(count);h.call(command(Kind::Advance,.00025));
++    for(int count:{2,4,6,8,12,16,1,0}) {
++#ifdef _WIN32
++        const auto before_change=process_threads();
++#endif
++        // Also change modes while running: acknowledgement is between steps.
++        h.call(command(Kind::Run));h.threads(count);h.call(command(Kind::Pause));
++#ifdef _WIN32
++        const auto after_change=process_threads();
++        const int effective=h.view.metrics.effective_compute_threads;
++        check(after_change.size()<=before_change.size()+size_t(effective-1),"Pool replacement retained old helper threads");
++#endif
++        h.call(command(Kind::Advance,.00025));
+         while(reference.steps<h.view.steps)check(reference.step(),"Reference could not reach runner boundary");
+         check(bits(h.view.state,reference.state),"Runner thread change changed state");
+         h.call(command(Kind::Run));auto stopped=h.call(command(Kind::Pause));
+@@ -297,13 +337,13 @@
+         const auto steps=h.view.steps;std::this_thread::sleep_for(std::chrono::milliseconds(2));h.call(command(Kind::Barrier));check(h.view.steps==steps,"Helper threads advanced after confirmed pause");
+         h.save(dir/"runner-live.nscp");save_checkpoint(reference,dir/"runner-direct.nscp");check(bytes(dir/"runner-live.nscp")==bytes(dir/"runner-direct.nscp"),"Runner pause/thread change differs from serial checkpoint");
+     }
+-    h.threads(8);h.save(dir/"runner-restore.nscp");const auto prefix=bytes(dir/"runner-restore.nscp");
+-    h.threads(2);h.call(command(Kind::Advance,.00025));auto restore=command(Kind::Restore);restore.path=dir/"runner-restore.nscp";h.call(restore);
+-    check(h.view.metrics.compute_threads==2,"Restore replaced runtime thread preference");h.save(dir/"runner-restored.nscp");check(bytes(dir/"runner-restored.nscp")==prefix,"Cross-count runner restore changed mathematical state");
+-    auto reset=command(Kind::Reset);reset.config=c;h.call(reset);check(h.view.metrics.compute_threads==2&&h.view.time==0,"Reset lost thread preference or retained old trajectory");
+-    auto invalid=command(Kind::ComputeThreads);invalid.index=3;h.call(invalid,false);check(h.view.metrics.compute_threads==2,"Rejected thread selection mutated preference");
++    h.threads(16);h.save(dir/"runner-restore.nscp");const auto prefix=bytes(dir/"runner-restore.nscp");
++    h.threads(12);h.call(command(Kind::Advance,.00025));auto restore=command(Kind::Restore);restore.path=dir/"runner-restore.nscp";h.call(restore);
++    check(h.view.metrics.compute_threads==12,"Restore replaced runtime thread preference");h.save(dir/"runner-restored.nscp");check(bytes(dir/"runner-restored.nscp")==prefix,"Cross-count runner restore changed mathematical state");
++    auto reset=command(Kind::Reset);reset.config=c;h.call(reset);check(h.view.metrics.compute_threads==12&&h.view.time==0,"Reset lost thread preference or retained old trajectory");
++    auto invalid=command(Kind::ComputeThreads);invalid.index=3;h.call(invalid,false);check(h.view.metrics.compute_threads==12,"Rejected thread selection mutated preference");
+     c.duration=100;c.sample=.1;
+-    for(int count:{2,4,8}) {
++    for(int count:{2,4,6,8,12,16}) {
+ #ifdef _WIN32
+         const auto before=process_threads();
+ #endif
+@@ -324,8 +364,9 @@
+     }
+ }
+ }
+-int main() {
++int main(int argc,char** argv) {
+     try {
++        if(argc==3&&std::string(argv[1])=="--write-fixture") {save_config(fixture(true),std::filesystem::u8path(argv[2]));return 0;}
+         const auto dir=std::filesystem::current_path()/"parallel-tests"/std::to_string(Clock::now().time_since_epoch().count());std::filesystem::create_directories(dir);
+         std::cout<<"parallel: pool phases and exception barriers"<<std::endl;pool_phases();
+         automatic_policy();
+@@ -335,6 +376,6 @@
+         std::cout<<"parallel: nonfinite and physical-bound rejection"<<std::endl;failure_equivalence();
+         std::cout<<"parallel: automatic stages and shared stimuli"<<std::endl;scheduled_protocols(dir);
+         std::cout<<"parallel: runner lifecycle and native thread cleanup"<<std::endl;runner_lifecycle(dir);
+-        std::cout<<"PASS: "<<checks<<" parallel checks; "<<compared_steps<<" exact macro states; threads 1/2/4/8/Auto, repeats, full checkpoint bytes, cross-count resume, fallback and controller lifecycle. Artifacts: "<<dir.u8string()<<"\n";return 0;
++        std::cout<<"PASS: "<<checks<<" parallel checks; "<<compared_steps<<" exact macro states; threads "<<compute::choices()<<", repeats, full checkpoint bytes, cross-count resume, fallback and controller lifecycle. Artifacts: "<<dir.u8string()<<"\n";return 0;
+     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}
+ }
+--- before/README.md
++++ after/README.md
+@@ -1,6 +1,8 @@
+ # Neuro / Astro — рабочий прототип конструктора сетей
+ 
+-Актуальная ветка **`perf/simulation-runner-20261019`**: расчётом управляет отдельный `SimulationRunner`, решатель остаётся однопоточным. GUI читает неизменяемые снимки, обновляемые по умолчанию 10 раз/с. На сохранённом опыте с 500 нейронами за 0,05 модельной секунды медиана времени GUI снизилась **с 50,60 до 18,64 с (2,71 раза)**; CSV и полные checkpoint совпали побайтно. Проверены 26 тестов. [Отчёт и ограничения](performance/20261019_runner/REPORT_RU.md), [архитектура](performance/20261019_runner/ARCHITECTURE_RU.md). Готовая сборка: `build/Release/network_studio.exe`, запуск через `launch.cmd`.
++Актуальная ветка **`perf/thread-modes-6-12-16-20261019`** поддерживает 1/2/4/6/8/12/16/Авто вычислительных потоков. Расчётом управляет отдельный `SimulationRunner`, GUI читает неизменяемые снимки, обновляемые по умолчанию 10 раз/с. [Проверки новых режимов, измерения и ограничения](performance/20261019_thread_modes/REPORT_RU.md). Готовая сборка: `build/Release/network_studio.exe`, запуск через `launch.cmd`.
++
++На предыдущем этапе `perf/simulation-runner-20261019` решатель оставался однопоточным: на сохранённом опыте с 500 нейронами за 0,05 модельной секунды медиана времени GUI снизилась **с 50,60 до 18,64 с (2,71 раза)**; CSV и полные checkpoint совпали побайтно. Тогда были проверены 26 тестов. [Исторический отчёт](performance/20261019_runner/REPORT_RU.md), [архитектура](performance/20261019_runner/ARCHITECTURE_RU.md).
+ 
+ Предыдущий этап **`perf/single-thread-20261019`** ускорил однопоточный решатель: в воспроизводимом опыте с 500 нейронами и 15 013 синапсами время расчёта 0,5 с сократилось с 237,77 до 109,94 с (медианы, 2,16 раза). Численные данные и содержимое checkpoint вне метаданных сборки совпали побайтно; прошли 24/24 теста. [Измерения и ограничения](performance/20261019_single_thread/REPORT_RU.md), [команды повторения](performance/README_RU.md). Готовая локальная сборка: `build/Release/network_studio.exe`; исходные EXE сохранены отдельно в `performance/20261019_single_thread/original-release/`.
+ 
+@@ -8,9 +10,9 @@
+ 
+ ## Число вычислительных потоков
+ 
+-Параллельный режим выбирается в GUI через **«Потоки расчёта»**: `1`, `2`, `4`, `8` или `Auto`; рядом показано фактически используемое число. Для CLI задайте `--threads 1|2|4|8|auto`, для запуска GUI из командной строки — `--compute-threads 1|2|4|8|auto` (укажите одно значение). По умолчанию используется `1`. Число включает поток управления решателем; поток интерфейса в него не входит. Изменение применяется на границе расчётного шага.
+-
+-Параллельные вычисления доступны для сетей только из нейронов Ижикевича и синапсов Цодыкса—Маркрама, без астроцитов, с **не менее 2048 синапсов**. Остальные конфигурации выполняются последовательно, даже если запрошено больше потоков. `Auto` выбирает до `4` потоков при числе синапсов меньше 8192 и до `8` начиная с 8192: наибольшее из `1/2/4/8`, не превышающее целевой предел и число аппаратных потоков, сообщённое системой; если оно неизвестно, используется `1`.
++Параллельный режим выбирается в GUI через **«Потоки расчёта»**: `1`, `2`, `4`, `6`, `8`, `12`, `16` или `Авто`; выбранное значение показывает запрос, рядом указано фактически используемое число. Для CLI задайте `--threads 1|2|4|6|8|12|16|auto`, для запуска GUI из командной строки — `--compute-threads 1|2|4|6|8|12|16|auto` (укажите одно значение). По умолчанию используется `1`. Число включает поток управления решателем: например, `16` означает координатор и 15 помощников; поток интерфейса в него не входит. Изменение применяется на границе завершённого расчётного шага, без сброса состояния. Новое значение подтверждается снимком вычислителя; старые помощники освобождаются до подтверждения команды. Список режимов и разбор аргументов находятся в `numerics/compute_threads.h`.
++
++Параллельные вычисления доступны для сетей только из нейронов Ижикевича и синапсов Цодыкса—Маркрама, без астроцитов, с **не менее 2048 синапсов**. Остальные конфигурации выполняются последовательно, даже если запрошено больше потоков. По измерениям `Авто` выбирает целевой предел `4` для 2048–4095 синапсов, `6` для 4096–8191 и `8` начиная с 8192: наибольшее поддерживаемое число, не превышающее этот предел и аппаратную параллельность; если она неизвестна, используется `1`. Ручные 6/12/16 доступны независимо от эвристики. На сети 128/4096 шесть потоков сократили время относительно прежних четырёх в обеих сериях. На сети 500/15013 двенадцать потоков быстрее восьми в финальной серии, но преимущество на всплесках не повторилось в предварительной калибровке; шестнадцать заметно медленнее. Поэтому большой сети оставлен консервативный предел 8. Это аппаратно зависимая эвристика, не универсальный оптимум. [Повторяемые измерения на i9-11900KF](performance/20261019_thread_modes/REPORT_RU.md).
+ 
+ Это настройка выполнения, она не входит в `Config`, JSON сети или checkpoint; в пределах совместимой сборки состояние можно продолжить с другим числом потоков. Строгая проверка совместимости checkpoint сохраняется: старые `.nscp` открывайте исходной сборкой, совпадение численных результатов не отменяет проверку идентификатора сборки. [Измерения и ограничения параллельного режима](performance/20261019_parallel/REPORT_RU.md), [архитектура](performance/20261019_parallel/ARCHITECTURE_RU.md). Отчёты предыдущих этапов выше описывают соответствующие прежние сборки.
+ 

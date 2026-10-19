@@ -1,0 +1,217 @@
+Start testing: Oct 19 02:43 RTZ 2 (зима)
+----------------------------------------------------------
+1/26 Testing: simulation_runner_lifecycle
+1/26 Test: simulation_runner_lifecycle
+Command: "E:/asp/26_27/configurator/build/runner/Release/network_studio_runner_tests.exe"
+Directory: E:/asp/26_27/configurator/build/runner
+"simulation_runner_lifecycle" start time: Oct 19 02:43 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS: 60375 runner checks; exact full checkpoints, refresh independence, lifecycle, strict restore, incremental bounded snapshots. Artifacts: E:\asp\26_27\configurator\build\runner\runner-tests\232964990711800
+<end of output>
+Test time =   3.46 sec
+----------------------------------------------------------
+Test Passed.
+"simulation_runner_lifecycle" end time: Oct 19 02:43 RTZ 2 (зима)
+"simulation_runner_lifecycle" time elapsed: 00:00:03
+----------------------------------------------------------
+
+19/26 Testing: runner_native_close
+19/26 Test: runner_native_close
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DGUI=E:/asp/26_27/configurator/build/runner/Release/network_studio.exe" "-DWORK=E:/asp/26_27/configurator/build/runner/runner-native-close" "-P" "E:/asp/26_27/configurator/performance/runner_native_test.cmake"
+Directory: E:/asp/26_27/configurator/build/runner
+"runner_native_close" start time: Oct 19 02:43 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- Native WM_CLOSE while computing: worker joined and resources released after 44367 steps
+<end of output>
+Test time =   0.49 sec
+----------------------------------------------------------
+Test Passed.
+"runner_native_close" end time: Oct 19 02:43 RTZ 2 (зима)
+"runner_native_close" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/26 Testing: experiment_win32_dx11
+20/26 Test: experiment_win32_dx11
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DGUI=E:/asp/26_27/configurator/build/runner/Release/network_studio.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/runner/Release/network_studio_experiment_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/runner/experiment-native" "-P" "E:/asp/26_27/configurator/experiments/native_test.cmake"
+Directory: E:/asp/26_27/configurator/build/runner
+"experiment_win32_dx11" start time: Oct 19 02:43 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- Win32/DX11 experiment screenshots: E:/asp/26_27/configurator/build/runner/experiment-native/20261019_024317/gui
+<end of output>
+Test time =   2.54 sec
+----------------------------------------------------------
+Test Passed.
+"experiment_win32_dx11" end time: Oct 19 02:43 RTZ 2 (зима)
+"experiment_win32_dx11" time elapsed: 00:00:02
+----------------------------------------------------------
+
+21/26 Testing: stimulator_win32_dx11
+21/26 Test: stimulator_win32_dx11
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DGUI=E:/asp/26_27/configurator/build/runner/Release/network_studio.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/runner/Release/network_studio_stimulator_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/runner/stimulator-native" "-P" "E:/asp/26_27/configurator/stimulation/native_test.cmake"
+Directory: E:/asp/26_27/configurator/build/runner
+"stimulator_win32_dx11" start time: Oct 19 02:43 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- Win32/DX11 shared/spatial/combined-field screenshots: E:/asp/26_27/configurator/build/runner/stimulator-native/20261019_024320
+<end of output>
+Test time =   1.43 sec
+----------------------------------------------------------
+Test Passed.
+"stimulator_win32_dx11" end time: Oct 19 02:43 RTZ 2 (зима)
+"stimulator_win32_dx11" time elapsed: 00:00:01
+----------------------------------------------------------
+
+22/26 Testing: gui_interactions_and_plots
+22/26 Test: gui_interactions_and_plots
+Command: "E:/asp/26_27/configurator/build/runner/Release/network_studio_gui_tests.exe"
+Directory: E:/asp/26_27/configurator/build/runner
+"gui_interactions_and_plots" start time: Oct 19 02:43 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS: 1564 GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.
+<end of output>
+Test time =  35.25 sec
+----------------------------------------------------------
+Test Passed.
+"gui_interactions_and_plots" end time: Oct 19 02:43 RTZ 2 (зима)
+"gui_interactions_and_plots" time elapsed: 00:00:35
+----------------------------------------------------------
+
+23/26 Testing: plot_windows_and_workspace
+23/26 Test: plot_windows_and_workspace
+Command: "E:/asp/26_27/configurator/build/runner/Release/network_studio_plot_tests.exe"
+Directory: E:/asp/26_27/configurator/build/runner
+"plot_windows_and_workspace" start time: Oct 19 02:43 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS: 5235 plot/workspace checks; exact checkpoints match; 100 neurons / 400 edges / 8 windows / 20 frames: 307.382 ms. Artifacts: E:\asp\26_27\configurator\build\runner\verification\plot-tests-РєРёСЂРёР»Р»РёС†Р°-233008377636800
+<end of output>
+Test time =   7.33 sec
+----------------------------------------------------------
+Test Passed.
+"plot_windows_and_workspace" end time: Oct 19 02:44 RTZ 2 (зима)
+"plot_windows_and_workspace" time elapsed: 00:00:07
+----------------------------------------------------------
+
+24/26 Testing: weight_field_gui_invariance
+24/26 Test: weight_field_gui_invariance
+Command: "E:/asp/26_27/configurator/build/runner/Release/network_studio_field_gui_tests.exe"
+Directory: E:/asp/26_27/configurator/build/runner
+"weight_field_gui_invariance" start time: Oct 19 02:44 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS 8235 GUI checks; exact checkpoints; 500/15000 ImGui frame: enabled_ms=15.4062, disabled_ms=15.4941
+<end of output>
+Test time =   6.13 sec
+----------------------------------------------------------
+Test Passed.
+"weight_field_gui_invariance" end time: Oct 19 02:44 RTZ 2 (зима)
+"weight_field_gui_invariance" time elapsed: 00:00:06
+----------------------------------------------------------
+
+25/26 Testing: weight_field_win32_dx11
+25/26 Test: weight_field_win32_dx11
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DGUI=E:/asp/26_27/configurator/build/runner/Release/network_studio.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/runner/Release/network_studio_field_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/runner/weight-field-native" "-P" "E:/asp/26_27/configurator/weight_field/native_test.cmake"
+Directory: E:/asp/26_27/configurator/build/runner
+"weight_field_win32_dx11" start time: Oct 19 02:44 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- four_sources_0: frames=28
+minimum_vertices=8860
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0054
+field_update_ms=0.0002
+imgui_frame_ms=0.171308
+font_scales=1,1.5
+
+-- four_sources_1: frames=28
+minimum_vertices=8846
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0056
+field_update_ms=0.0003
+imgui_frame_ms=0.179375
+font_scales=1,1.5
+
+-- four_sources_2: frames=28
+minimum_vertices=8846
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0056
+field_update_ms=0.0003
+imgui_frame_ms=0.171937
+font_scales=1,1.5
+
+-- mixed_astro: frames=28
+minimum_vertices=10370
+samples=151
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0053
+field_update_ms=0.0005
+imgui_frame_ms=0.192342
+font_scales=1,1.5
+
+-- large_stdp: frames=28
+minimum_vertices=41978
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=15000
+geometry_builds=1
+field_geometry_ms=3.9834
+field_update_ms=0.1509
+imgui_frame_ms=0.706296
+font_scales=1,1.5
+
+-- PASS: 5 real Win32/DX11 field renders; small fixed scale 0.08, large 0.002 then 0.08 saturation check; font scales 1/1.5: E:/asp/26_27/configurator/build/runner/weight-field-native/20261019_024410
+<end of output>
+Test time =  12.79 sec
+----------------------------------------------------------
+Test Passed.
+"weight_field_win32_dx11" end time: Oct 19 02:44 RTZ 2 (зима)
+"weight_field_win32_dx11" time elapsed: 00:00:12
+----------------------------------------------------------
+
+26/26 Testing: win32_dx11_plot_viewports
+26/26 Test: win32_dx11_plot_viewports
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DGUI=E:/asp/26_27/configurator/build/runner/Release/network_studio.exe" "-DWORK=E:/asp/26_27/configurator/build/runner/viewport-smoke" "-P" "E:/asp/26_27/configurator/plots/native_process_test.cmake"
+Directory: E:/asp/26_27/configurator/build/runner
+"win32_dx11_plot_viewports" start time: Oct 19 02:44 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- Native HWND/DX11 and workspace restart passed: E:/asp/26_27/configurator/build/runner/viewport-smoke/20261019_024423
+<end of output>
+Test time =   1.34 sec
+----------------------------------------------------------
+Test Passed.
+"win32_dx11_plot_viewports" end time: Oct 19 02:44 RTZ 2 (зима)
+"win32_dx11_plot_viewports" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Oct 19 02:44 RTZ 2 (зима)

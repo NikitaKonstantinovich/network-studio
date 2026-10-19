@@ -1,0 +1,116 @@
+{
+  "equal": true,
+  "reference": "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\measured\\s0_baseline\\run_1",
+  "actual": "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\measured\\profile_stage4_4\\run_2",
+  "csv": {
+    "result_activity.csv": {
+      "byte_equal": true,
+      "reference_sha256": "fbe7cf4706901c25e26a558f87dab92de51d7c92a2e716ddb7b81d8528f9e500",
+      "actual_sha256": "fbe7cf4706901c25e26a558f87dab92de51d7c92a2e716ddb7b81d8528f9e500"
+    },
+    "result_bursts.csv": {
+      "byte_equal": true,
+      "reference_sha256": "91e0d89da90a7c9050bf12ff5fcd6406d4c3b7969500b33f5d1c4e970523b0ab",
+      "actual_sha256": "91e0d89da90a7c9050bf12ff5fcd6406d4c3b7969500b33f5d1c4e970523b0ab"
+    },
+    "result_deliveries.csv": {
+      "byte_equal": true,
+      "reference_sha256": "98f5e5978d53ef9c1daaddb7a8a443bf99bc783d13485cd212d6bcc14f9c7d19",
+      "actual_sha256": "98f5e5978d53ef9c1daaddb7a8a443bf99bc783d13485cd212d6bcc14f9c7d19"
+    },
+    "result_events.csv": {
+      "byte_equal": true,
+      "reference_sha256": "7bed1e92d66432e562d92f686e20dbec9dfb140732d7a4d4cab1c84bf00f77ba",
+      "actual_sha256": "7bed1e92d66432e562d92f686e20dbec9dfb140732d7a4d4cab1c84bf00f77ba"
+    },
+    "result_pending_deliveries.csv": {
+      "byte_equal": true,
+      "reference_sha256": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+      "actual_sha256": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+    },
+    "result_responses.csv": {
+      "byte_equal": true,
+      "reference_sha256": "bd663ed7e3a9db9f4703ea52409bc715359113c8df5a9ea25c341122334abe81",
+      "actual_sha256": "bd663ed7e3a9db9f4703ea52409bc715359113c8df5a9ea25c341122334abe81"
+    },
+    "result_shared_stimuli.csv": {
+      "byte_equal": true,
+      "reference_sha256": "e9dfb84704e553e84fca3becefa859a0284fb4bb1d49b9de63091c704418c41c",
+      "actual_sha256": "e9dfb84704e553e84fca3becefa859a0284fb4bb1d49b9de63091c704418c41c"
+    },
+    "result_stimuli.csv": {
+      "byte_equal": true,
+      "reference_sha256": "fe6c34b48f4ecdc3510e6cee4a05b6654bfb8146a67187f9571f28a47385981b",
+      "actual_sha256": "fe6c34b48f4ecdc3510e6cee4a05b6654bfb8146a67187f9571f28a47385981b"
+    },
+    "result_trace.csv": {
+      "byte_equal": true,
+      "reference_sha256": "98d7b5cf6cfc9ace580300ed0b5621424f9da3c5e6a4ce453ce32dfec91ec1eb",
+      "actual_sha256": "98d7b5cf6cfc9ace580300ed0b5621424f9da3c5e6a4ce453ce32dfec91ec1eb"
+    },
+    "result_weights.csv": {
+      "byte_equal": true,
+      "reference_sha256": "6086615bb2f2cfc7745c116912ce0ada748aacff400f5962dcbdc14c8ce83394",
+      "actual_sha256": "6086615bb2f2cfc7745c116912ce0ada748aacff400f5962dcbdc14c8ce83394"
+    }
+  },
+  "checkpoint_mode": "build-metadata",
+  "checkpoint": {
+    "equal_except_build_metadata": true,
+    "checkpoint_files_byte_equal": false,
+    "same_schema": true,
+    "same_algorithm": true,
+    "same_serialized_config_bytes": true,
+    "same_non_build_header_bytes": true,
+    "same_complete_payload_bytes": true,
+    "reference": {
+      "path": "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\measured\\s0_baseline\\run_1\\final.nscp",
+      "bytes": 19215957,
+      "schema": 4,
+      "algorithm": "event-rk4-doubling-exact-linear-localized-stimulators-v4",
+      "build_id": "4a6c77668949ab70f6f781f898b4eaf85c11c69ebfe7ac1756bad6d51a396280",
+      "config_sha256": "61970e5d610e0ff1aca47a827a5ef1607a33690ff094a852dfa141504ded8213",
+      "file_sha256": "c7a8d5211454acf4fc4fbc969f9b8bbb9f6f709a197677d85db85d42fd264970",
+      "payload_sha256": "54dc971a96ca2c4fae81c1b905cd429c2684992c19ca43261641ce489c2579e7",
+      "stored_checksum_u64_hex": "3c8dcb99f68e16e3",
+      "original_checksum_valid": true,
+      "build_field_byte_range": [
+        98,
+        170
+      ],
+      "checksum_byte_range": [
+        19215949,
+        19215957
+      ]
+    },
+    "actual": {
+      "path": "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\measured\\profile_stage4_4\\run_2\\final.nscp",
+      "bytes": 19215957,
+      "schema": 4,
+      "algorithm": "event-rk4-doubling-exact-linear-localized-stimulators-v4",
+      "build_id": "d74e1ccc6436b13dd5a4c342fc82ede24f53a2bf745215142dabcc847b32657b",
+      "config_sha256": "61970e5d610e0ff1aca47a827a5ef1607a33690ff094a852dfa141504ded8213",
+      "file_sha256": "a6189ea2f6b41b79ab24a5bc44043ab98621e90323cf80a7b16471ec40611204",
+      "payload_sha256": "54dc971a96ca2c4fae81c1b905cd429c2684992c19ca43261641ce489c2579e7",
+      "stored_checksum_u64_hex": "d43e8cebbb6083b9",
+      "original_checksum_valid": true,
+      "build_field_byte_range": [
+        98,
+        170
+      ],
+      "checksum_byte_range": [
+        19215949,
+        19215957
+      ]
+    },
+    "build_id_differs": true,
+    "checksum_differs": true,
+    "first_payload_difference": null,
+    "excluded_fields": [
+      "length-prefixed build ID",
+      "dependent final integrity checksum"
+    ],
+    "guarantee": "Every other serialized byte is identical, including full parameters, adaptive step, next sample, armed thresholds, states, traces, histories, delivery queues and runtime protocols. Both original integrity checksums were verified.",
+    "limits": "Byte comparison only: no Simulator was constructed, no checkpoint was rewritten, and no loader compatibility check was bypassed. This does not grant cross-build resumability or replace native semantic snapshot validation. A positive guarantee applies only when equal_except_build_metadata is true."
+  }
+}

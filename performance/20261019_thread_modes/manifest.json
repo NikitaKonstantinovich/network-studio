@@ -1,0 +1,49 @@
+{
+  "branch": "perf/thread-modes-6-12-16-20261019",
+  "executables": {
+    "network_studio.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "sha256": "7ebefec83116cbbd92aaef07260116e55150fd581f2f04e6b9ef0f677a3b4cff",
+      "bytes": 1935872
+    },
+    "network_studio_cli.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "sha256": "a7eea70e66aac6db90304b7b23815e03456594f4566d6a6a465ece8e8d297395",
+      "bytes": 776192
+    },
+    "network_studio_benchmark.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_benchmark.exe",
+      "sha256": "8059334cdfc5b87d2593c892683546ba4ae60c6e5b3ade58728b07c56bafd0e1",
+      "bytes": 711680
+    }
+  },
+  "checkpoint_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"ada49d8430bdd92cd4eba3034d0c7dada329ad9f1b316ef1c88777be311cd04f\"",
+  "ctest_count": 32,
+  "ctest_seconds": 308.69,
+  "final_build_test_smoke_seconds": 345.2531423,
+  "targeted_seconds": 150.4330463,
+  "measurement_seconds": 494.10723550000694,
+  "compatibility_seconds": 0.2211710000410676,
+  "calibration_measurement_seconds": 445.56365299999015,
+  "calibration_build_test_smoke_seconds": 296.8997192,
+  "parallel_checks": 23604473,
+  "exact_macro_states": 6063,
+  "source_hashes": {
+    "cli.cpp": "94663ceef3623b534a817a2dd62fe7876c2f899708653f7559af4e002045ed5e",
+    "CMakeLists.txt": "60f162a7edb22da4d8fe02c609a8c5fa0c7e18df5ff3250cea2438c33974a639",
+    "gui.cpp": "ffa2ac5953cd9a730cfad42dffe712a5fecc35c0df136f1777bdc4b0655e7481",
+    "gui_tests.cpp": "e6f6a4d97ea6da724c224c95bc1701e24bf16a52449a2c3caa1a0bd00f52a5d8",
+    "integrator.cpp": "18bb15d0b25047e7864b0badab9b1e7a8f58ba5cd9705137b2d877406a5128e2",
+    "main.cpp": "6d47fdb76e05f2f285d6ea406a2cf4c5c1734264d6be0760125876c7d615d0ef",
+    "network.cpp": "c083ba1320baf15a3ee64dcfe5ef9f7ddd0c318740509e5060f54fe11cfafa37",
+    "network.h": "1da9256be7bf40a0c45cb1d7a5068206c5aab5785cefb73f4b77ccb937aa0e7e",
+    "numerics/worker_pool.cpp": "c8abd9c652474200480036887a36823803b868945915fadaf4e4120462f39967",
+    "numerics/worker_pool.h": "3151a17ab759726fbe75c4d93e7c8130ddcc6e15026f62db946eda42c2c564f6",
+    "parallel_tests.cpp": "d0ece17fd03f5684668982a5c681213d679e504acdacdd2789761d6022634b03",
+    "README.md": "5baa1f8c8ebb06c346b86f42813f0ac75fe3140d5eb968bd0c75c8d9a5725c67",
+    "simulation_runner.cpp": "9e9f99638f1081b3ef7dfc4d72ab4c489780e7f59643d8ec3fe3a86038ca610b",
+    "simulation_runner.h": "a228b80806d65ccf4d46ba42794167b2c651e9b94d041cf48a0200821641fa7e",
+    "numerics/compute_threads.h": "0e8b2f62d57fd996e85d02e10ef05d878343811880d2d88d632805d5952ef3e6"
+  },
+  "numerical_changes": "No arithmetic changes: mode validation, per-worker capacities and Auto target 6 for 4096..8191 synapses; existing arithmetic and event ordering retained."
+}

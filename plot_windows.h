@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include "weight_field.h"
 #include "analysis.h"
+#include "simulation_view.h"
 #include <array>
 #include <functional>
 
@@ -25,9 +26,11 @@ struct PlotWindowState {
     NetworkAnalysis analyzed;
     double analysis_at=-1;
     std::string analysis_key;
+    const void* analysis_identity=nullptr;
+    uint64_t analysis_generation=0;
     std::string window_name() const;
 };
-// Presentation only. No Simulator ownership and no copies of sampled trajectories.
+// Presentation only. Reads the frame's stable display view without owning a solver.
 class PlotWindows {
 public:
     static constexpr size_t MaxWindows=32, MaxWorkspaceBytes=4*1024*1024;
@@ -38,6 +41,7 @@ public:
     std::filesystem::path workspace_path;
     bool host_open=false;
     std::function<std::filesystem::path()> analysis_export_dialog;
+    std::function<void(const AnalysisSettings&,const std::filesystem::path&)> analysis_export;
     bool automatic_save_allowed=true;
     PlotWindows();
     void data_changed(const Config& config,bool replacement=false);
@@ -47,15 +51,15 @@ public:
     bool close(uint32_t id);
     PlotWindowState* find(uint32_t id);
     void rebind(PlotWindowState& window);
-    void draw(const Simulator& simulation);
-    void draw_view(PlotWindowState& window,const Simulator& simulation,float height,bool detached);
+    void draw(const SimulationReadView& simulation);
+    void draw_view(PlotWindowState& window,const SimulationReadView& simulation,float height,bool detached);
     void reset_layout();
     void demo();
     bool save(const std::filesystem::path& path);
     bool load(const std::filesystem::path& path);
     static std::string config_binding(const Config& config);
     static void clamp_to_monitors(ImVec2& position,ImVec2& size);
-    void draw_network(PlotWindowState& window,const Simulator& simulation);
+    void draw_network(PlotWindowState& window,const SimulationReadView& simulation);
 private:
     uint32_t next_id=1;
     bool reset_host=false, demo_layout=false;

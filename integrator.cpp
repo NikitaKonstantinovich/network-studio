@@ -5,19 +5,25 @@
 #include <stdexcept>
 
 namespace studio {
-double Simulator::neuron_threshold_sample(const State& old,double h,int coordinate) const {
+double Simulator::neuron_threshold_sample(const State& old,double h,int coordinate) {
+    STUDIO_SCOPE(threshold_sample);
+    return projected_threshold(old,h,coordinate,projection_flow,projection_initial);
+}
+double Simulator::projected_threshold(const State& old,double h,int coordinate,numerical::Flow& local,State& initial) {
     // Without astrocytes, each neuron's between-event flow depends only on its
     // own state and independent incoming activity tails. Preserve the full
     // solver's arithmetic and edge summation order, including both half steps.
-    const auto& c=config;const auto& p=c.parameters;
-    const int index=coordinate/4;const auto& n=c.neurons[index];const auto& edges=incoming[index];
-    State initial(4+edges.size());
+    const auto& c=config;
+    const int index=coordinate/4;const auto& edges=incoming[index];
+    initial.resize(4+edges.size());
     for(int k=0;k<4;++k)initial[k]=old[coordinate+k];
     for(size_t k=0;k<edges.size();++k)initial[4+k]=old[syn_offset(c,edges[k])+2];
-    numerical::Flow local(initial.size());
-    const double external=held_inputs[index];
-    local.rhs=[&](const State& y,State& dy) {
-        dy.assign(y.size(),0);double input=external;
+    local.resize(initial.size());
+    // Rebind before every use: Simulator may have moved since the previous
+    // search. Callbacks retain no references to this function's local variables.
+    local.rhs=[this,index](const State& y,State& dy) {
+        const auto& c=config;const auto& n=c.neurons[index];const auto& edges=incoming[index];
+        dy.assign(y.size(),0);double input=held_inputs[index];
         for(size_t k=0;k<edges.size();++k) {
             const int j=edges[k];const auto& s=c.synapses[j];if(!s.enabled)continue;
             const double weight=plasticity[j].weight;
@@ -28,12 +34,13 @@ double Simulator::neuron_threshold_sample(const State& old,double h,int coordina
         if(n.model==NeuronModel::Izhikevich) {
             dy[0]=1000*(.04*y[0]*y[0]+5*y[0]+140-y[1]+input);
             dy[1]=1000*n.izh_a*(n.izh_b*y[0]-y[1]);
-        } else na::hh_rhs(y.data(),dy.data(),0,input,p.data());
+        } else na::hh_rhs(y.data(),dy.data(),0,input,c.parameters.data());
     };
-    local.exact=[&](const State& y,double dt,State& out) {
+    local.exact=[this,index](const State& y,double dt,State& out) {
+        const auto& edges=incoming[index];
         double previous_tau=0,decay=0;
         for(size_t k=0;k<edges.size();++k) {
-            const double tau=c.synapses[edges[k]].tau_syn;
+            const double tau=config.synapses[edges[k]].tau_syn;
             if(tau!=previous_tau){decay=std::exp(-dt/tau);previous_tau=tau;}
             out[4+k]=y[4+k]*decay;
         }
@@ -47,7 +54,69 @@ void Simulator::exact_flow(const State& old,double h,State& out) const {
     const double glutamate_decay=std::exp(-h*p[na::Omega_Y]);
     const Synapse* previous=nullptr;
     double facilitation_decay=0,recovery=0,active_decay=0,transfer=0;
-    for(int i=0;i<int(c.synapses.size());++i) {
+    {
+    STUDIO_SCOPE(exact_synapses);
+    if(pool) {
+        // Coefficients are prepared once by the controller and immutable for
+        // the phase. Each block writes disjoint four-coordinate resources.
+        kinetic_factors.resize(kinetic_ranges.size());
+        for(size_t k=0;k<kinetic_ranges.size();++k) {
+            const auto& r=kinetic_ranges[k];auto& f=kinetic_factors[k];
+            f.active=std::exp(-h/r.tau_syn);f.facilitation=std::exp(-h/r.tau_f);
+            const double a=1/r.tau_d,rate=1/r.tau_syn;
+            f.recovery=-std::expm1(-a*h);f.transfer=numerical::recovered(a,rate,h);
+        }
+        pool->run(c.synapses.size(),[&](size_t begin,size_t end,int) {
+            const int offset=int(c.neurons.size()*4);
+            int b=offset+int(begin*4),stop=offset+int(end*4);
+            size_t k=0;while(k<kinetic_ranges.size()&&kinetic_ranges[k].end<=b)++k;
+            while(b<stop) {
+                const auto& r=kinetic_ranges[k];const auto& f=kinetic_factors[k];
+                const int limit=std::min(stop,r.end);
+                for(;b<limit;b+=4) {
+                    out[b]=old[b]*f.facilitation;
+                    const double z=1-old[b+1]-old[b+2];
+                    out[b+1]=old[b+1]+z*f.recovery+old[b+2]*f.transfer;
+                    out[b+2]=old[b+2]*f.active;
+                    out[b+3]=old[b+3]*glutamate_decay;
+                }
+                ++k;
+            }
+        });
+    } else if(compact_network) {
+        // Contiguous runs have exactly the parameter equality used by the
+        // reference loop below. State updates retain their original edge order.
+        for(const auto& range:kinetic_ranges) {
+            active_decay=std::exp(-h/range.tau_syn);
+            if(range.model!=SynapseModel::ExponentialCurrent) {
+                facilitation_decay=std::exp(-h/range.tau_f);
+                if(range.model==SynapseModel::TsodyksMarkram) {
+                    const double a=1/range.tau_d,r=1/range.tau_syn;
+                    recovery=-std::expm1(-a*h);
+                    transfer=numerical::recovered(a,r,h);
+                    for(int b=range.begin;b<range.end;b+=4) {
+                        out[b]=old[b]*facilitation_decay;
+                        const double z=1-old[b+1]-old[b+2];
+                        out[b+1]=old[b+1]+z*recovery+old[b+2]*transfer;
+                        out[b+2]=old[b+2]*active_decay;
+                        out[b+3]=old[b+3]*glutamate_decay;
+                    }
+                } else {
+                    recovery=-std::expm1(-h/range.tau_d);
+                    for(int b=range.begin;b<range.end;b+=4) {
+                        out[b]=old[b]*facilitation_decay;
+                        out[b+1]=old[b+1]+(1-old[b+1])*recovery;
+                        out[b+2]=old[b+2]*active_decay;
+                        out[b+3]=old[b+3]*glutamate_decay;
+                    }
+                }
+            } else for(int b=range.begin;b<range.end;b+=4) {
+                out[b]=old[b];out[b+1]=old[b+1];
+                out[b+2]=old[b+2]*active_decay;
+                out[b+3]=old[b+3]*glutamate_decay;
+            }
+        }
+    } else for(int i=0;i<int(c.synapses.size());++i) {
         const auto& s=c.synapses[i];const int b=syn_offset(c,i);
         if(!previous || s.model!=previous->model || s.tau_f!=previous->tau_f ||
            s.tau_d!=previous->tau_d || s.tau_syn!=previous->tau_syn) {
@@ -72,6 +141,8 @@ void Simulator::exact_flow(const State& old,double h,State& out) const {
         out[b+2]=old[b+2]*active_decay;
         out[b+3]=old[b+3]*glutamate_decay;
     }
+    }
+    STUDIO_SCOPE(exact_astro);
     for(int i=0;i<int(c.astrocytes.size());++i) {
         const int b=astro_offset(c,i);
         out[b+4]=old[b+4]+(1-old[b+4])*(-std::expm1(-h/p[na::tau_A]));
@@ -89,7 +160,17 @@ void Simulator::exact_flow(const State& old,double h,State& out) const {
     }
 }
 double Simulator::kinetic_step_limit() const {
+    STUDIO_SCOPE(kinetic);
     const auto& c=config;const auto& p=c.parameters;double rate=0;
+    if(izh_only) {
+        // With no astrocytes and only Izhikevich neurons the original bound
+        // never reads the edge sums. Retain precisely the same max order.
+        for(int i=0;i<int(c.neurons.size());++i) {
+            const auto& n=c.neurons[i];const double v=state[i*4];
+            rate=std::max(rate,1000*(std::abs(.08*v+5)+n.izh_a));
+        }
+        return rate>0 ? .25/rate : c.dt;
+    }
     std::vector<double> conductance(c.neurons.size(),0),glutamate(c.astrocytes.size(),0);
     for(int i=0;i<int(c.synapses.size());++i) {
         const auto& s=c.synapses[i];const int b=syn_offset(c,i);if(!s.enabled)continue;
@@ -125,7 +206,30 @@ double Simulator::kinetic_step_limit() const {
     return rate>0 ? .25/rate : c.dt;
 }
 bool Simulator::physical(const State& y) const {
+    STUDIO_SCOPE(bounds);
     const auto& c=config;const auto& p=c.parameters;
+    if(pool) {
+        // Only Izh/TM/no-astro enters this branch. Logical reduction cannot
+        // reorder any floating-point accumulation or alter an event decision.
+        for(size_t i=0;i<c.neurons.size();++i) {
+            const size_t b=4*i;
+            for(size_t k=0;k<4;++k)if(!std::isfinite(y[b+k]))return false;
+            if(y[b]<-200||y[b]>200||std::abs(y[b+1])>1e5)return false;
+        }
+        std::array<uint8_t,compute::MaxThreads> valid{}; // Not packed bits; one writer per slot.
+        pool->run(c.synapses.size(),[&](size_t begin,size_t end,int id) {
+            bool ok=true;
+            for(size_t j=begin;j<end&&ok;++j) {
+                const size_t b=c.neurons.size()*4+j*4;
+                for(size_t k=0;k<4;++k)if(!std::isfinite(y[b+k]))ok=false;
+                if(y[b]<-1e-10||y[b]>1+1e-10||y[b+1]<-1e-10||y[b+1]>1+1e-10||
+                    y[b+2]<-1e-10||y[b+3]<-1e-10||y[b+1]+y[b+2]>1+1e-10)ok=false;
+            }
+            valid[id]=uint8_t(ok);
+        });
+        for(int id=0;id<pool->count();++id)if(!valid[id])return false;
+        return true;
+    }
     for(double value:y)if(!std::isfinite(value))return false;
     auto fraction=[&](int i){return y[i]>=-1e-10 && y[i]<=1+1e-10;};
     for(int i=0;i<int(c.neurons.size());++i) {
@@ -146,7 +250,23 @@ bool Simulator::physical(const State& y) const {
     }
     return true;
 }
+double Simulator::parallel_error_norm(const State& old,const State& next,const State& full) const {
+    std::array<double,compute::MaxThreads> errors{};
+    pool->run(old.size(),[&](size_t begin,size_t end,int id) {
+        double error=0;
+        for(size_t i=begin;i<end;++i) {
+            if(!std::isfinite(next[i])||!std::isfinite(full[i])){error=std::numeric_limits<double>::infinity();break;}
+            const double scale=1e-11+1e-8*std::max(std::abs(old[i]),std::abs(next[i]));
+            error=std::max(error,std::abs(next[i]-full[i])/(15*scale));
+        }
+        errors[id]=error;
+    });
+    // Values are nonnegative finite maxima or +infinity, so this max (not sum)
+    // yields the exact original value, including zero and the invalid-state case.
+    double error=0;for(int id=0;id<pool->count();++id)error=std::max(error,errors[id]);return error;
+}
 bool Simulator::step() {
+    STUDIO_SCOPE(step);
     if(done())return false;
     if(stepping)throw std::runtime_error("Simulator::step is not reentrant.");
     stepping=true;checkpoint_boundary=false;
@@ -165,9 +285,23 @@ bool Simulator::step() {
 }
 bool Simulator::step_impl() {
     const auto& c=config;const auto& p=c.parameters;
-    flow.rhs=[this](const State& y,State& dy){derivative(config,y,held_input_time,dy,&plasticity,flow.nonlinear_prefix!=0,&held_inputs);};
+    prepare_workers();
+    prepare_solver_views();
+    // Both callbacks and disposable views are refreshed at this safe boundary;
+    // checkpoint restore and Simulator moves require no serialized cache state.
+    flow.rhs=[this](const State& y,State& dy){
+        if(compact_network)compact_derivative(y,dy);
+        else derivative(config,y,held_input_time,dy,&plasticity,flow.nonlinear_prefix!=0,&held_inputs);
+    };
     flow.exact=[this](const State& y,double h,State& out){exact_flow(y,h,out);};
+    flow.error_norm={};
+    if(pool)flow.error_norm=[this](const State& old,const State& next,const State& full){return parallel_error_norm(old,next,full);};
     flow.threshold_sample={};
+    flow.event_workers=pool.get();flow.worker_threshold_sample={};
+    if(pool)flow.worker_threshold_sample=[this](const State& y,double h,int coordinate,int id) {
+        auto& scratch=worker_projection[id];
+        return projected_threshold(y,h,coordinate,scratch.flow,scratch.initial);
+    };
     if(c.astrocytes.empty())flow.threshold_sample=[this](const State& y,double h,int coordinate) {
         return neuron_threshold_sample(y,h,coordinate);
     };
@@ -183,9 +317,12 @@ bool Simulator::step_impl() {
         const double limit=next_input_boundary(c,time,std::min({macro_end,sample_time,delivery_time,command_time}));
         log_stimuli(time);
         held_input_time=time; // Right-continuous [start, stop) input on this segment.
-        for(int i=0;i<int(c.neurons.size());++i)held_inputs[i]=external_current(c,i,time);
+        {
+            STUDIO_SCOPE(external);
+            for(int i=0;i<int(c.neurons.size());++i)held_inputs[i]=noise_cache.current(c,i,time);
+        }
         double h=std::min({limit-time,suggested_step,kinetic_step_limit()});
-        std::vector<int> group;
+        auto& group=event_group;group.clear();
         double norm=0,advance=0;
         bool accepted=false;
         for(int retry=0;retry<64;++retry) {
@@ -208,15 +345,18 @@ bool Simulator::step_impl() {
         const double event_time=(advance==limit-time ? limit : time+advance);
         if(!(event_time>time)) {error="Event localization did not advance the clock.";return false;}
         auto& next=flow.next;
-        std::vector<bool> fired(c.neurons.size(),false),released(c.astrocytes.size(),false);
+        STUDIO_SCOPE(event_jumps);
+        auto& fired=event_fired;auto& released=event_released;
+        fired.assign(c.neurons.size(),false);released.assign(c.astrocytes.size(),false);
         for(int index:group) {
             if(index<int(c.neurons.size()))fired[index]=true;
             else released[index-int(c.neurons.size())]=true;
         }
-        std::vector<Delivery> deliveries,created;
+        auto& deliveries=event_deliveries;auto& created=event_created;
+        deliveries.clear();created.clear();
         // Inspect just the due heap subtree, without consuming events until
         // the whole event group is validated and committed.
-        std::vector<size_t> inspect;
+        auto& inspect=event_inspect;inspect.clear();
         if(delivery_time==event_time)inspect.push_back(0);
         while(!inspect.empty()) {
             const size_t index=inspect.back();inspect.pop_back();
@@ -237,7 +377,7 @@ bool Simulator::step_impl() {
             error="Delivery journal limit (2000000) exceeded; shorten the experiment.";return false;
         }
         std::sort(deliveries.begin(),deliveries.end(),[](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);});
-        std::vector<uint64_t> arrivals(c.synapses.size(),0);
+        auto& arrivals=event_arrivals;arrivals.assign(c.synapses.size(),0);
         // All event decisions use the same pre-jump trajectory. HH is recorded
         // without reset; Izhikevich resets before integrating the remainder.
         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]) {
@@ -259,11 +399,22 @@ bool Simulator::step_impl() {
         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]) {
             const int b=astro_offset(c,i);const double r=p[na::U_A]*next[b+4];next[b+4]-=r;next[b+5]+=p[na::G_release]*r;
         }
-        if(!physical(next)) {error="Event jump left the physical state bounds.";return false;}
+        // Without a threshold event or delivery, next is unchanged since the
+        // successful pre-jump bounds check above.
+        if((!group.empty()||!deliveries.empty())&&!physical(next)) {error="Event jump left the physical state bounds.";return false;}
         // Grouped old traces, one weight update/clamp, then new traces. Weights
         // affect the remaining flow immediately, including existing tails.
-        for(size_t j=0;j<c.synapses.size();++j) {
-            const auto& s=c.synapses[j];update_synaptic_stdp(s,plasticity[j],fired[s.source],arrivals[j],fired[s.target],advance,experiment.learning?experiment.learning_rate:0);
+        {
+        STUDIO_SCOPE(stdp);
+        auto update=[&](size_t begin,size_t end,StdpDecayCache& cache) {
+            for(size_t j=begin;j<end;++j) {
+                const auto& s=c.synapses[j];
+                update_stdp_cached(s,plasticity[j],s.stdp_timing==StdpTiming::Arrival?arrivals[j]:fired[s.source],
+                    fired[s.target],advance,experiment.learning?experiment.learning_rate:0,cache);
+            }
+        };
+        if(pool)pool->run(c.synapses.size(),[&](size_t begin,size_t end,int id){update(begin,end,worker_stdp_caches[id].cache);});
+        else update(0,c.synapses.size(),stdp_decay_cache);
         }
         for(size_t k=0;k<consumed;++k) {
             std::pop_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});pending_deliveries.pop_back();
@@ -271,11 +422,14 @@ bool Simulator::step_impl() {
         for(const auto& e:created) {
             pending_deliveries.push_back(e);std::push_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});
         }
+        {
+        STUDIO_SCOPE(journals);
         trim_journals(group.size(),deliveries.size());
         capture_activity(deliveries,fired,event_time);
         history.deliveries.insert(history.deliveries.end(),deliveries.begin(),deliveries.end());
         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]){++spikes[i];history.events.push_back({event_time,i,false});}
         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]){++releases[i];history.events.push_back({event_time,i,true});}
+        }
         state.swap(next);time=event_time;
         for(int index:group)thresholds[index].armed=false;
         for(auto& threshold:thresholds)

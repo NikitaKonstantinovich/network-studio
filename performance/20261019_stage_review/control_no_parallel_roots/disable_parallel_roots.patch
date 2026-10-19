@@ -1,0 +1,11 @@
+--- a/integrator.cpp
++++ b/integrator.cpp
+@@ -297,7 +297,7 @@
+     flow.error_norm={};
+     if(pool)flow.error_norm=[this](const State& old,const State& next,const State& full){return parallel_error_norm(old,next,full);};
+     flow.threshold_sample={};
+-    flow.event_workers=pool.get();flow.worker_threshold_sample={};
++    flow.event_workers=nullptr;flow.worker_threshold_sample={};
+     if(pool)flow.worker_threshold_sample=[this](const State& y,double h,int coordinate,int id) {
+         auto& scratch=worker_projection[id];
+         return projected_threshold(y,h,coordinate,scratch.flow,scratch.initial);

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_cli.exe",
+    "--resume",
+    "E:\\asp\\26_27\\configurator\\performance\\20261019_runner\\runner_full\\run_1\\final.nscp",
+    "--threads",
+    "8"
+  ],
+  "returncode": 1,
+  "output": "Checkpoint: incompatible solver build; use the original build\n",
+  "rejected_as_expected": true,
+  "integrated_seconds": 0,
+  "exe_sha256": "a0d17dd538bc419284ccf21f8186baa16e3b5d0ba21d6b540901a75ba8121b0e",
+  "checkpoint_sha256": "a3de28caee79cf77018a56ba1e762b8133d41de287775bd812d798a81b6868e5"
+}

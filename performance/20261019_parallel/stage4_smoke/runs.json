@@ -1,0 +1,541 @@
+{
+  "started_utc": "2026-10-19T00:13:08.196998+00:00",
+  "phase": "smoke",
+  "mode": "cli",
+  "model_seconds_each": 0.005,
+  "runs": [
+    {
+      "setup_seconds": 1.1390743,
+      "solve_seconds": 1.3146762,
+      "export_seconds": 1.2856282,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 0,
+      "deliveries": 0,
+      "workload": "quiet",
+      "label": "frozen",
+      "threads_requested": null,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\frozen\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_runner\\runner-release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\frozen\\run_1"
+      ],
+      "process_seconds": 3.7924479999928735,
+      "fixture_sha256": "6385ff9ceb2e95243dc63ae8d6e53867cc75e449717773d6fe5fec4c7fe63aed",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 36,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 70905856,
+        "max_sampled_private_usage_bytes": 51634176,
+        "peak_pagefile_usage_bytes_observed": 69238784,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      }
+    },
+    {
+      "setup_seconds": 1.1748921,
+      "solve_seconds": 1.3372203,
+      "export_seconds": 1.2259187,
+      "requested_threads": 1,
+      "effective_threads": 1,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 0,
+      "deliveries": 0,
+      "workload": "quiet",
+      "label": "threads_1",
+      "threads_requested": 1,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_1\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_1\\run_1",
+        "1"
+      ],
+      "process_seconds": 3.7943730000115465,
+      "fixture_sha256": "6385ff9ceb2e95243dc63ae8d6e53867cc75e449717773d6fe5fec4c7fe63aed",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 36,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 71626752,
+        "max_sampled_private_usage_bytes": 51412992,
+        "peak_pagefile_usage_bytes_observed": 70094848,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    },
+    {
+      "setup_seconds": 1.1436987,
+      "solve_seconds": 0.6882279,
+      "export_seconds": 1.2637735,
+      "requested_threads": 2,
+      "effective_threads": 2,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 0,
+      "deliveries": 0,
+      "workload": "quiet",
+      "label": "threads_2",
+      "threads_requested": 2,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_2\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_2\\run_1",
+        "2"
+      ],
+      "process_seconds": 3.122314500011271,
+      "fixture_sha256": "6385ff9ceb2e95243dc63ae8d6e53867cc75e449717773d6fe5fec4c7fe63aed",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 30,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 72376320,
+        "max_sampled_private_usage_bytes": 53534720,
+        "peak_pagefile_usage_bytes_observed": 70803456,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    },
+    {
+      "setup_seconds": 1.1643263,
+      "solve_seconds": 0.3839996,
+      "export_seconds": 1.3161619,
+      "requested_threads": 4,
+      "effective_threads": 4,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 0,
+      "deliveries": 0,
+      "workload": "quiet",
+      "label": "threads_4",
+      "threads_requested": 4,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_4\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_4\\run_1",
+        "4"
+      ],
+      "process_seconds": 2.8889329999801703,
+      "fixture_sha256": "6385ff9ceb2e95243dc63ae8d6e53867cc75e449717773d6fe5fec4c7fe63aed",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 28,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 72503296,
+        "max_sampled_private_usage_bytes": 53137408,
+        "peak_pagefile_usage_bytes_observed": 70881280,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    },
+    {
+      "setup_seconds": 1.1706789,
+      "solve_seconds": 0.3677164,
+      "export_seconds": 1.246259,
+      "requested_threads": 8,
+      "effective_threads": 8,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 0,
+      "deliveries": 0,
+      "workload": "quiet",
+      "label": "threads_8",
+      "threads_requested": 8,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_8\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_8\\run_1",
+        "8"
+      ],
+      "process_seconds": 2.8090372000006028,
+      "fixture_sha256": "6385ff9ceb2e95243dc63ae8d6e53867cc75e449717773d6fe5fec4c7fe63aed",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 28,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 72380416,
+        "max_sampled_private_usage_bytes": 51953664,
+        "peak_pagefile_usage_bytes_observed": 70610944,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    },
+    {
+      "setup_seconds": 1.2023576,
+      "solve_seconds": 1.4420883,
+      "export_seconds": 1.2775002,
+      "requested_threads": 0,
+      "effective_threads": 1,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 0,
+      "deliveries": 0,
+      "workload": "quiet",
+      "label": "threads_0",
+      "threads_requested": 0,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_0\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\quiet_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\quiet\\threads_0\\run_1",
+        "0"
+      ],
+      "process_seconds": 3.949241299997084,
+      "fixture_sha256": "6385ff9ceb2e95243dc63ae8d6e53867cc75e449717773d6fe5fec4c7fe63aed",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 38,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 71618560,
+        "max_sampled_private_usage_bytes": 52441088,
+        "peak_pagefile_usage_bytes_observed": 70066176,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    },
+    {
+      "setup_seconds": 1.2508285,
+      "solve_seconds": 1.1139581,
+      "export_seconds": 1.330679,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 6,
+      "deliveries": 161,
+      "workload": "burst",
+      "label": "frozen",
+      "threads_requested": null,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\frozen\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_runner\\runner-release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\frozen\\run_1"
+      ],
+      "process_seconds": 3.7216329999791924,
+      "fixture_sha256": "e12e2898aa6d235f85d8ef0f0e34db872cb215699dffcccb246cb1d54138ead8",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 36,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 71077888,
+        "max_sampled_private_usage_bytes": 51720192,
+        "peak_pagefile_usage_bytes_observed": 69373952,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      }
+    },
+    {
+      "setup_seconds": 1.2009942,
+      "solve_seconds": 1.1383766,
+      "export_seconds": 1.3018477,
+      "requested_threads": 1,
+      "effective_threads": 1,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 6,
+      "deliveries": 161,
+      "workload": "burst",
+      "label": "threads_1",
+      "threads_requested": 1,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_1\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_1\\run_1",
+        "1"
+      ],
+      "process_seconds": 3.668470000004163,
+      "fixture_sha256": "e12e2898aa6d235f85d8ef0f0e34db872cb215699dffcccb246cb1d54138ead8",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 35,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 71491584,
+        "max_sampled_private_usage_bytes": 52289536,
+        "peak_pagefile_usage_bytes_observed": 69894144,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    },
+    {
+      "setup_seconds": 1.1499613,
+      "solve_seconds": 0.5905774,
+      "export_seconds": 1.2403946,
+      "requested_threads": 2,
+      "effective_threads": 2,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 6,
+      "deliveries": 161,
+      "workload": "burst",
+      "label": "threads_2",
+      "threads_requested": 2,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_2\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_2\\run_1",
+        "2"
+      ],
+      "process_seconds": 3.0073912999941967,
+      "fixture_sha256": "e12e2898aa6d235f85d8ef0f0e34db872cb215699dffcccb246cb1d54138ead8",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 29,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 72286208,
+        "max_sampled_private_usage_bytes": 50458624,
+        "peak_pagefile_usage_bytes_observed": 70586368,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    },
+    {
+      "setup_seconds": 1.1781117,
+      "solve_seconds": 0.3572505,
+      "export_seconds": 1.3450921,
+      "requested_threads": 4,
+      "effective_threads": 4,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 6,
+      "deliveries": 161,
+      "workload": "burst",
+      "label": "threads_4",
+      "threads_requested": 4,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_4\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_4\\run_1",
+        "4"
+      ],
+      "process_seconds": 2.9048950000142213,
+      "fixture_sha256": "e12e2898aa6d235f85d8ef0f0e34db872cb215699dffcccb246cb1d54138ead8",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 28,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 71397376,
+        "max_sampled_private_usage_bytes": 51908608,
+        "peak_pagefile_usage_bytes_observed": 69562368,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    },
+    {
+      "setup_seconds": 1.1818419,
+      "solve_seconds": 0.3152001,
+      "export_seconds": 1.3353421,
+      "requested_threads": 8,
+      "effective_threads": 8,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 6,
+      "deliveries": 161,
+      "workload": "burst",
+      "label": "threads_8",
+      "threads_requested": 8,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_8\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_8\\run_1",
+        "8"
+      ],
+      "process_seconds": 2.8570101000077557,
+      "fixture_sha256": "e12e2898aa6d235f85d8ef0f0e34db872cb215699dffcccb246cb1d54138ead8",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 28,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 71790592,
+        "max_sampled_private_usage_bytes": 53129216,
+        "peak_pagefile_usage_bytes_observed": 70164480,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    },
+    {
+      "setup_seconds": 1.1970437,
+      "solve_seconds": 1.1601269,
+      "export_seconds": 1.1942312,
+      "requested_threads": 0,
+      "effective_threads": 1,
+      "model_seconds": 0.005,
+      "steps": 200,
+      "events": 6,
+      "deliveries": 161,
+      "workload": "burst",
+      "label": "threads_0",
+      "threads_requested": 0,
+      "repeat": 1,
+      "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+      "output": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_0\\run_1",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\burst_5ms.json",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\stage4_smoke\\burst\\threads_0\\run_1",
+        "0"
+      ],
+      "process_seconds": 3.577653000014834,
+      "fixture_sha256": "e12e2898aa6d235f85d8ef0f0e34db872cb215699dffcccb246cb1d54138ead8",
+      "memory": {
+        "sampling_seconds": 0.1,
+        "samples": 35,
+        "final_query_after_exit_ok": true,
+        "peak_working_set_bytes_observed": 71426048,
+        "max_sampled_private_usage_bytes": 56430592,
+        "peak_pagefile_usage_bytes_observed": 69918720,
+        "query_errors": [],
+        "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+      },
+      "comparison_equal": true
+    }
+  ],
+  "summary": {
+    "quiet/frozen": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 1.3146762,
+      "min": 1.3146762,
+      "max": 1.3146762,
+      "stdev": null
+    },
+    "quiet/threads_1": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 1.3372203,
+      "min": 1.3372203,
+      "max": 1.3372203,
+      "stdev": null
+    },
+    "quiet/threads_2": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 0.6882279,
+      "min": 0.6882279,
+      "max": 0.6882279,
+      "stdev": null
+    },
+    "quiet/threads_4": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 0.3839996,
+      "min": 0.3839996,
+      "max": 0.3839996,
+      "stdev": null
+    },
+    "quiet/threads_8": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 0.3677164,
+      "min": 0.3677164,
+      "max": 0.3677164,
+      "stdev": null
+    },
+    "quiet/threads_0": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 1.4420883,
+      "min": 1.4420883,
+      "max": 1.4420883,
+      "stdev": null
+    },
+    "burst/frozen": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 1.1139581,
+      "min": 1.1139581,
+      "max": 1.1139581,
+      "stdev": null
+    },
+    "burst/threads_1": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 1.1383766,
+      "min": 1.1383766,
+      "max": 1.1383766,
+      "stdev": null
+    },
+    "burst/threads_2": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 0.5905774,
+      "min": 0.5905774,
+      "max": 0.5905774,
+      "stdev": null
+    },
+    "burst/threads_4": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 0.3572505,
+      "min": 0.3572505,
+      "max": 0.3572505,
+      "stdev": null
+    },
+    "burst/threads_8": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 0.3152001,
+      "min": 0.3152001,
+      "max": 0.3152001,
+      "stdev": null
+    },
+    "burst/threads_0": {
+      "metric": "solve_seconds",
+      "n": 1,
+      "median": 1.1601269,
+      "min": 1.1601269,
+      "max": 1.1601269,
+      "stdev": null
+    }
+  },
+  "binaries": {
+    "frozen": {
+      "path": "E:\\asp\\26_27\\configurator\\performance\\20261019_runner\\runner-release\\network_studio_benchmark.exe",
+      "sha256": "f4c5f859f5589cf81c2f2b46574a7f7bf30450ed12be11a0d0df44134227b822"
+    },
+    "new": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_benchmark.exe",
+      "sha256": "6b26715b6866bf8978ecaa9ea33a479277900f9cfb6f9e9589006f6297d6b850"
+    }
+  },
+  "limits": "Single sequential series, fixed thread order. No thermal/background-load control. Memory covers entire process, including exports. Auto's effective thread count must be read from child metrics, not inferred."
+}

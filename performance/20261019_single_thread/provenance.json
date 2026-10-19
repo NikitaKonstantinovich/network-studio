@@ -1,0 +1,46 @@
+{
+  "source": "experiments\\examples\\benchmark.json",
+  "source_sha256": "13fbac691ebf6f215b019316acbd60208e22b7373b4d17f870866f0356a11055",
+  "source_parameters": {
+    "name": "Generated Izhikevich network",
+    "duration": 0.1,
+    "dt": 5e-05,
+    "sample": 0.002,
+    "seed": 706,
+    "noise_sigma": 5,
+    "noise_interval": 0.001
+  },
+  "derived_changes": {
+    "name": "Performance / derived from experiments benchmark / 500 Izh / 0.5s",
+    "duration": 0.5,
+    "dt": 2.5e-05
+  },
+  "fixture_sha256": "faf56433d1502273ba53ec675881999fa091e50556d2951cdd69253e2888e591",
+  "neurons": 500,
+  "synapses": 15013,
+  "stdp_synapses": 11961,
+  "origin_note": "Closest saved matching population/STDP/noise recipe; 15013 edges, not an identification of the user exact 15041-edge experiment. Only name, duration and dt changed. Laboratory files unchanged.",
+  "git_head": "8838ade22c38eb6512bb8b21a3f4c71c6d3dd9d1",
+  "cpu": "11th Gen Intel(R) Core(TM) i9-11900KF @ 3.50GHz",
+  "logical_processors": 16,
+  "os": "Windows-11-10.0.26100-SP0",
+  "original_binaries": {
+    "network_studio.exe": "21d5198345c9c87a285ea91aeee7828a137caead0d7bea860271cda9297d7f36",
+    "network_studio_before_windows_20261014.exe": "48f0f10a394b6ff09063f4ed471ca98dd5c9a3bcc3f4279ce3fc5853091aece3",
+    "network_studio_checkpoint_tests.exe": "90180061b09c691c22648375366d9befa087986d4fdb20540ce867d1f4ec7326",
+    "network_studio_cli.exe": "7c76bd24921d97df57f26f0a161e9e2ca4f41f0d8d6070288601c1531fa663e6",
+    "network_studio_delay_tests.exe": "089269369de6b5780e34940d45a1af52ff8d5b0057d866861b384285e6b06f6b",
+    "network_studio_experiment_tests.exe": "b27d16d807fb2a2dfc216b62d99572c3cdc869987160ef2b60af7784c7547b7c",
+    "network_studio_field_gui_tests.exe": "6bd8c140cd7699c90b76e6e44e0ebdb9ef29f1e26fe48da82f6dfc0f979125ed",
+    "network_studio_field_tests.exe": "8ef924864d27347c3ecf8b4564ba5c2152ee318e4d9c0189410dabd5ba62af04",
+    "network_studio_generator_tests.exe": "1db09c5f3eab3e3baf4e421ebbdb10ef4c8989fb2b6acaaccdaca1a5fe0ed05e",
+    "network_studio_gui_tests.exe": "e92c1be40bb0d4fd3272d26743c5dd83cf8a347006acfcb28c00738f5bf64afa",
+    "network_studio_long_history_tests.exe": "d94c7c16359c75f44058c4468d7029ec05939d1d9a79fe66e2cf801c557b05b0",
+    "network_studio_numerics_tests.exe": "1d7a7b19d444a45ea889a10be4ec395c892bfc89ef19745343e319539dbbf3ea",
+    "network_studio_plot_tests.exe": "dde958d0a1a3a2666e18bec707b4c1dc9d417fdd2a517ed1a51da71aa2ae9bd3",
+    "network_studio_population.exe": "2faf3883003e26226515796816b3fdba546780bcb32b6aacf884e5126e11eb2f",
+    "network_studio_stimulator_tests.exe": "c602ef8346fc27711843dc238e2a9566dab26c478b4db6e0d45b08f5d8dcbe4e",
+    "network_studio_tests.exe": "da552170f5e45cef7229d9bc121b76266c088b2babaa72a4b0a111d17e0f4039"
+  },
+  "physical_memory_bytes": 42822889472
+}

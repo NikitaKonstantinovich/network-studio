@@ -1,0 +1,49 @@
+{
+  "executable": "E:\\asp\\26_27\\configurator\\build\\performance\\Release\\network_studio_benchmark.exe",
+  "exe_sha256": "554a925792a80079a427520209c87269230ec5e2bbb292bb34fe9a1ee8a2275c",
+  "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_single_thread\\fixture.json",
+  "fixture_sha256": "faf56433d1502273ba53ec675881999fa091e50556d2951cdd69253e2888e591",
+  "gui": false,
+  "runs": [
+    {
+      "setup_seconds": 1.1717598,
+      "solve_seconds": 110.137211,
+      "export_seconds": 2.2702944,
+      "model_seconds": 0.5,
+      "steps": 20000,
+      "events": 17331,
+      "deliveries": 518506,
+      "process_seconds": 113.64186849998077,
+      "run": 1
+    },
+    {
+      "setup_seconds": 1.1453487,
+      "solve_seconds": 109.3994442,
+      "export_seconds": 2.2666256,
+      "model_seconds": 0.5,
+      "steps": 20000,
+      "events": 17331,
+      "deliveries": 518506,
+      "process_seconds": 112.84277489999658,
+      "run": 2
+    },
+    {
+      "setup_seconds": 1.1401542,
+      "solve_seconds": 109.939493,
+      "export_seconds": 2.2641829,
+      "model_seconds": 0.5,
+      "steps": 20000,
+      "events": 17331,
+      "deliveries": 518506,
+      "process_seconds": 113.37528290000046,
+      "run": 3
+    }
+  ],
+  "summary": {
+    "metric": "solve_seconds",
+    "median": 109.939493,
+    "min": 109.3994442,
+    "max": 110.137211,
+    "stdev": 0.38189111997349334
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "recorded_utc": "2026-10-19T01:25:58.668706+00:00",
+  "passed": true,
+  "production_sources_verified": 705,
+  "changed_production_source_paths": [],
+  "production_executables": [
+    {
+      "name": "network_studio.exe",
+      "sha256": "e175e0da1fa73b93bdcf3b040d3390b9510293b1fd9377bf11dc62d4ff298a86",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_benchmark.exe",
+      "sha256": "98805739f6a5967dfae2a6276595340d2c41a5b6f6d312fdfedbfa17f47f11e5",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_cache_tests.exe",
+      "sha256": "c1498a29935d7243bc154aa2bf2f131849f28f1733b838302be3d8678d513c03",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_checkpoint_tests.exe",
+      "sha256": "1b0c8532d63b99d5d6e507e626dbd5c77252d9742f34605b321a2d0ef440056f",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_cli.exe",
+      "sha256": "a0d17dd538bc419284ccf21f8186baa16e3b5d0ba21d6b540901a75ba8121b0e",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_delay_tests.exe",
+      "sha256": "f6707516051331c980503a4866bf29181fdacc27a4279a1d7d7d0d3337f05fe6",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_experiment_tests.exe",
+      "sha256": "3296979641c968663c94d0a11f902954ce2dac3fa280be3e41284c0c81330e32",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_field_gui_tests.exe",
+      "sha256": "1efd756a2a784aa4f4409e918b0df226c9850ea9004cd8e81f05ff3afe40ec13",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_field_tests.exe",
+      "sha256": "59fb5371cef6e156cfbad07ecfc2cf6435ad427d5218a2e5bf41783898d0ecd0",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_generator_tests.exe",
+      "sha256": "f671f6beeb85a1a4d9c10959a0a9f22c04cf845fdc302230c7b0bd6ba4a702ba",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_gui_tests.exe",
+      "sha256": "32b4152f2e7fc036fcb660bd42feace7059c9594b87132d3b57e43e9ec285abe",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_kernel_tests.exe",
+      "sha256": "de2c5eb73d0a6b432930163f0d9f0cfabd73b1c1ecd0b6248129d39521c71ab9",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_long_history_tests.exe",
+      "sha256": "e11bfee1cd48936c668cd873c7502c9bc97bceb61da033d5e6488673980f96ff",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_numerics_tests.exe",
+      "sha256": "01a32f91de4712acdd436c59ade7abd229a33afb69b01c48e7dfc0909c3a5cae",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_parallel_tests.exe",
+      "sha256": "a4ab08bf87f860a1c37c6ad31a7bb5a7f922361025533f072f854605b73d02a6",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_plot_tests.exe",
+      "sha256": "d98e5d1b566df9b3f72ea1239c9338575a89cf75b940fc842494511b4a29b7bc",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_population.exe",
+      "sha256": "78d2fb5ccad9a93ff071d97f889c8174ea77ef9c2f5653505160f011c02b41c8",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_runner_benchmark.exe",
+      "sha256": "a76609dc82184bad0338a63e42de1b3c026f8eb09127b94c3a9ab8258ff8c900",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_runner_tests.exe",
+      "sha256": "6ee49f8a04633270f094373c59aa3149338b5327ef33731bdd14db9b3bf63691",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_stimulator_tests.exe",
+      "sha256": "bbf632ff8e882061ef23eae0f429686efdfd1f29cdac1b5aa72073691ecf000b",
+      "unchanged": true
+    },
+    {
+      "name": "network_studio_tests.exe",
+      "sha256": "3ade1d82c3ab93fad80753d79a86a69c9dab3328985326e53f74390a946e685f",
+      "unchanged": true
+    }
+  ],
+  "all_measured_binaries_unchanged_after_series": true,
+  "fixture_unchanged": true,
+  "driver_unchanged": true,
+  "completed_processes": 46,
+  "series_complete_without_failures": true,
+  "control_build_exe_matches_measured_exe_and_three_numerical_comparisons": true,
+  "control_executable_sha256": "f2c0b8d04fc6fc60bc656e3bbe5930406d07086dcf9b979daa492efd00acb9fb",
+  "control_checkpoint_build_id": "fa96c55f51ec2b48cd745d6c3de3d8b3f85f8d2a5de1b9d40270a228e3c0e508",
+  "control_numerical_evidence": [
+    "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\measured\\control_no_roots4\\run_1",
+    "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\measured\\control_no_roots4\\run_2",
+    "E:\\asp\\26_27\\configurator\\performance\\20261019_stage_review\\measured\\control_no_roots4\\run_3"
+  ],
+  "limits": "Checks original source inventory and saved production/benchmark executables. Does not claim every file on disk was inventoried. Numerical comparison evidence is from the completed benchmark; this verification does not rerun the solver or bypass checkpoint compatibility."
+}

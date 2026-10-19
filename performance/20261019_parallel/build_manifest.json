@@ -1,0 +1,393 @@
+{
+  "frozen_utc": "2026-10-19T00:52:57.013578+00:00",
+  "git_head": "8838ade22c38eb6512bb8b21a3f4c71c6d3dd9d1",
+  "branch": "perf/parallel-solver-20261019",
+  "dirty": true,
+  "configuration": "Release",
+  "parallel_solver": true,
+  "source_archive": "source_snapshot.zip",
+  "source_archive_sha256": "d73dbf6f46a2d0e6ae4ca4ea38f858860eca45c2c9f91ff48870adca4b1f8c9d",
+  "source_file_count": 705,
+  "source_files": "source_files.json",
+  "source_files_sha256": "112dc7944eee40350da5a1dcbf95b770374927ba0d538a71dac209576df6198c",
+  "working_tree_patch": "working_tree.patch",
+  "patch_sha256": "53b90adc26eb77fe4188492aaacbe637c3ada73db9f260fbaa784fd338472156",
+  "build": {
+    "compiler": "MSVC 19.44.35217.0",
+    "compiler_path": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe",
+    "architecture": "x64",
+    "system_name": "Windows",
+    "system_processor": "AMD64",
+    "pointer_bytes": 8,
+    "generator": "Ninja",
+    "cmake_version": "4.0.3",
+    "configuration": "Release",
+    "profile": false,
+    "flags": "/DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -std:c++17 -MT /utf-8 /W3",
+    "runtime": "MultiThreaded (/MT)",
+    "checkpoint_build_id": "1cbab406363ae325d001d0381028106acf7765178a5e4f5fc425483a523401d7",
+    "checkpoint_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"1cbab406363ae325d001d0381028106acf7765178a5e4f5fc425483a523401d7\"",
+    "numeric_build_input_count": 22,
+    "numeric_build_inputs": {
+      "network.h": "6d03d400f763608deb71eff53aa01c7ed0a7e3cb78d108280e7169d54dee0261",
+      "network.cpp": "d26e3bf5a252e014cb116374a705b4f6899e5029ae3171290fbe40f61d51b306",
+      "stimulator.cpp": "63a6c0c8af9fc6d418e52f3927a7f300e753499647f394fbef59bff019e02534",
+      "stimulator_json.inc": "0e8a06070bb2d126e2f780d18914f0f6917da294de3cc6fb872ed9f1f68649ad",
+      "experiment.cpp": "b99938921b084ef8e80b61b2b51a6d8a25bbdc1784f887cba0ecac693220e332",
+      "experiment_json.inc": "c923fc40f86d38312ffabfcd562140196afa9fadf9b32670725a0af957b7cdb0",
+      "analysis.cpp": "8524c59983cb5f2b461a28e2c70c2dbb4a3c82ac87a6e83ea46b01ee7ca9c33f",
+      "analysis.h": "675dfa6485c258a9de734aa75b5bef2e95debf590c8da135c2c89f2cd69e693c",
+      "integrator.cpp": "e4696e618e61a9f6f2acd6bb0e6bfd9b0acdddebab2e5427062d377251b93af5",
+      "numerics/integrator.h": "a043e20f548a77f252811d57989cfce7d156b7ddc69fa360db12968df0f6e5b5",
+      "numerics/worker_pool.h": "df644a06ac59c623440ecc307cc73629077841f2538c8e007d25fb3d2d16b69a",
+      "numerics/worker_pool.cpp": "09305315e9d609fb3776c7930620244f01d99b72ec242025aafb35cd3cdb8a8f",
+      "performance/profile.h": "ee7271294bb7766e217e393e65e695aff2e3c0588f400751ab5a5091e1cff006",
+      "io.h": "d671dbff32d23dab200b2a0a6d958494cb9db9b44b656c56a259be8b82722f4a",
+      "io.cpp": "4bbdb4225211f10a4ff8c2add8cb820efbd2832ca0848ab47daa0250ca9bf57b",
+      "checkpoint.cpp": "d35e80166ab9c38833e9990bf98767631a7ca0a31647556d7ce00ff9072033df",
+      "json_strings.inc": "9f60a834d05b377746cac3164b82ba2e59568635948e9f6cc1001f49be09bffa",
+      "vendor/systems/neuro_astro/model.cuh": "04a9249a42f30c83deeb337a30a043ed2df494bebefab85e839da6120f44f7db",
+      "vendor/systems/neuro_astro/variables.inc": "6b8bcf24a95d03ac846f30b58302399bee2fab1e45204b3fb88d50656686b8c0",
+      "vendor/systems/neuro_astro/parameters.inc": "1b1631d0502e2344ad8d2642eea385f62ffe558f56a586a0786a8efbb6f50baa",
+      "vendor/json/json.cpp": "bd94f86207bb70b86b4465dc6465bc9c1af0f5633f4eaf86fcb1e1d1a634da28",
+      "vendor/json/json.h": "9364bb6013f964c9690ae7b7f76d173d520ff302d2208fedf4c1b9d447450efe"
+    },
+    "freshness_check": {
+      "command": [
+        "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe",
+        "-C",
+        "E:\\asp\\26_27\\configurator\\build\\parallel",
+        "-n"
+      ],
+      "output": "ninja: Entering directory `E:\\asp\\26_27\\configurator\\build\\parallel'\r\nninja: no work to do."
+    },
+    "source_binding_limit": "Fingerprint verifies core sources and flags; Ninja dry run verifies local build dependencies. No executable, compiler, build or test is run by freezing."
+  },
+  "checkpoint_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"1cbab406363ae325d001d0381028106acf7765178a5e4f5fc425483a523401d7\"",
+  "executables": {
+    "network_studio.exe": {
+      "path": "parallel-release/network_studio.exe",
+      "sha256": "e175e0da1fa73b93bdcf3b040d3390b9510293b1fd9377bf11dc62d4ff298a86",
+      "size": 1935360
+    },
+    "network_studio_benchmark.exe": {
+      "path": "parallel-release/network_studio_benchmark.exe",
+      "sha256": "98805739f6a5967dfae2a6276595340d2c41a5b6f6d312fdfedbfa17f47f11e5",
+      "size": 710656
+    },
+    "network_studio_cache_tests.exe": {
+      "path": "parallel-release/network_studio_cache_tests.exe",
+      "sha256": "c1498a29935d7243bc154aa2bf2f131849f28f1733b838302be3d8678d513c03",
+      "size": 325120
+    },
+    "network_studio_checkpoint_tests.exe": {
+      "path": "parallel-release/network_studio_checkpoint_tests.exe",
+      "sha256": "1b0c8532d63b99d5d6e507e626dbd5c77252d9742f34605b321a2d0ef440056f",
+      "size": 812544
+    },
+    "network_studio_cli.exe": {
+      "path": "parallel-release/network_studio_cli.exe",
+      "sha256": "a0d17dd538bc419284ccf21f8186baa16e3b5d0ba21d6b540901a75ba8121b0e",
+      "size": 776192
+    },
+    "network_studio_delay_tests.exe": {
+      "path": "parallel-release/network_studio_delay_tests.exe",
+      "sha256": "f6707516051331c980503a4866bf29181fdacc27a4279a1d7d7d0d3337f05fe6",
+      "size": 781312
+    },
+    "network_studio_experiment_tests.exe": {
+      "path": "parallel-release/network_studio_experiment_tests.exe",
+      "sha256": "3296979641c968663c94d0a11f902954ce2dac3fa280be3e41284c0c81330e32",
+      "size": 817664
+    },
+    "network_studio_field_gui_tests.exe": {
+      "path": "parallel-release/network_studio_field_gui_tests.exe",
+      "sha256": "1efd756a2a784aa4f4409e918b0df226c9850ea9004cd8e81f05ff3afe40ec13",
+      "size": 1878016
+    },
+    "network_studio_field_tests.exe": {
+      "path": "parallel-release/network_studio_field_tests.exe",
+      "sha256": "59fb5371cef6e156cfbad07ecfc2cf6435ad427d5218a2e5bf41783898d0ecd0",
+      "size": 799744
+    },
+    "network_studio_generator_tests.exe": {
+      "path": "parallel-release/network_studio_generator_tests.exe",
+      "sha256": "f671f6beeb85a1a4d9c10959a0a9f22c04cf845fdc302230c7b0bd6ba4a702ba",
+      "size": 640000
+    },
+    "network_studio_gui_tests.exe": {
+      "path": "parallel-release/network_studio_gui_tests.exe",
+      "sha256": "32b4152f2e7fc036fcb660bd42feace7059c9594b87132d3b57e43e9ec285abe",
+      "size": 1919488
+    },
+    "network_studio_kernel_tests.exe": {
+      "path": "parallel-release/network_studio_kernel_tests.exe",
+      "sha256": "de2c5eb73d0a6b432930163f0d9f0cfabd73b1c1ecd0b6248129d39521c71ab9",
+      "size": 509440
+    },
+    "network_studio_long_history_tests.exe": {
+      "path": "parallel-release/network_studio_long_history_tests.exe",
+      "sha256": "e11bfee1cd48936c668cd873c7502c9bc97bceb61da033d5e6488673980f96ff",
+      "size": 764928
+    },
+    "network_studio_numerics_tests.exe": {
+      "path": "parallel-release/network_studio_numerics_tests.exe",
+      "sha256": "01a32f91de4712acdd436c59ade7abd229a33afb69b01c48e7dfc0909c3a5cae",
+      "size": 504832
+    },
+    "network_studio_parallel_tests.exe": {
+      "path": "parallel-release/network_studio_parallel_tests.exe",
+      "sha256": "a4ab08bf87f860a1c37c6ad31a7bb5a7f922361025533f072f854605b73d02a6",
+      "size": 928256
+    },
+    "network_studio_plot_tests.exe": {
+      "path": "parallel-release/network_studio_plot_tests.exe",
+      "sha256": "d98e5d1b566df9b3f72ea1239c9338575a89cf75b940fc842494511b4a29b7bc",
+      "size": 1884160
+    },
+    "network_studio_population.exe": {
+      "path": "parallel-release/network_studio_population.exe",
+      "sha256": "78d2fb5ccad9a93ff071d97f889c8174ea77ef9c2f5653505160f011c02b41c8",
+      "size": 701952
+    },
+    "network_studio_runner_benchmark.exe": {
+      "path": "parallel-release/network_studio_runner_benchmark.exe",
+      "sha256": "a76609dc82184bad0338a63e42de1b3c026f8eb09127b94c3a9ab8258ff8c900",
+      "size": 850944
+    },
+    "network_studio_runner_tests.exe": {
+      "path": "parallel-release/network_studio_runner_tests.exe",
+      "sha256": "6ee49f8a04633270f094373c59aa3149338b5327ef33731bdd14db9b3bf63691",
+      "size": 901632
+    },
+    "network_studio_stimulator_tests.exe": {
+      "path": "parallel-release/network_studio_stimulator_tests.exe",
+      "sha256": "bbf632ff8e882061ef23eae0f429686efdfd1f29cdac1b5aa72073691ecf000b",
+      "size": 864768
+    },
+    "network_studio_tests.exe": {
+      "path": "parallel-release/network_studio_tests.exe",
+      "sha256": "3ade1d82c3ab93fad80753d79a86a69c9dab3328985326e53f74390a946e685f",
+      "size": 841728
+    }
+  },
+  "previous_state": {
+    "manifest": "freeze_evidence/previous_build_manifest.json",
+    "manifest_sha256": "82dd55e62a8050815b9507cb3fac0c4f5cf7a5061e56851db1913ba49476c024",
+    "git_head": "8838ade22c38eb6512bb8b21a3f4c71c6d3dd9d1",
+    "branch": "perf/simulation-runner-20261019",
+    "dirty": true,
+    "source_archive": "E:\\asp\\26_27\\configurator\\performance\\20261019_runner\\source_snapshot.zip",
+    "source_archive_sha256": "72f8661e6c6b07f77da35e6cf27156e9c40c56a3003d76c88aa390ee0647cbcb",
+    "working_tree_patch": "freeze_evidence/previous_working_tree.patch",
+    "patch_sha256": "03ad50f69ac689d23cc7f4a0cb6f03606dc8f22a3b40c81e892f710bbcc0e5e6"
+  },
+  "preservation_checks": {
+    "previous_archive_and_patch_unchanged": true,
+    "previous_source_files_all_present": true,
+    "protected_files_unchanged": 461,
+    "protected_roots": [
+      "lab1",
+      "lab2",
+      "lab3",
+      "model_audit",
+      "reproducibility"
+    ],
+    "changed_source_paths_since_previous_freeze": [
+      "CMakeLists.txt",
+      "README.md",
+      "cli.cpp",
+      "gui.cpp",
+      "gui.h",
+      "gui_tests.cpp",
+      "integrator.cpp",
+      "main.cpp",
+      "network.cpp",
+      "network.h",
+      "numerics/integrator.h",
+      "performance/profile.h",
+      "performance/runner_benchmark.cpp",
+      "performance/solver_benchmark.cpp",
+      "simulation_runner.cpp",
+      "simulation_runner.h",
+      "simulation_view.h"
+    ],
+    "new_source_paths": [
+      ".gitignore",
+      "numerics/worker_pool.cpp",
+      "numerics/worker_pool.h",
+      "parallel_tests.cpp",
+      "performance/.gitignore",
+      "performance/20261019_parallel/.gitignore",
+      "performance/20261019_parallel/ARCHITECTURE_RU.md",
+      "performance/20261019_parallel/MEASUREMENTS_RU.md",
+      "performance/20261019_parallel/README_RU.md",
+      "performance/20261019_parallel/REPORT_RU.md",
+      "performance/20261019_parallel/capture_environment.py",
+      "performance/20261019_parallel/check_compatibility.py",
+      "performance/20261019_parallel/crossover.py",
+      "performance/20261019_parallel/freeze.py",
+      "performance/20261019_parallel/integration.py",
+      "performance/20261019_parallel/make_report.py",
+      "performance/20261019_parallel/measure.py",
+      "performance/20261019_parallel/prepare.py",
+      "performance/20261019_parallel/summarize.py",
+      "performance/parallel_native_test.cmake"
+    ],
+    "limits": "Checks cover the previous manifest, not unlisted large laboratory CSV/PDF/PNG. Existing changes are preserved in the verified previous archive and patch; intentional source edits are listed, not called byte-identical."
+  },
+  "tests": {
+    "reports": [
+      {
+        "source": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\ctest_final.xml",
+        "copy": "freeze_evidence/test_report_1_ctest_final.xml",
+        "sha256": "44e37999b6afcdd49a5bafc6468f1150cb1a32f15a9a0373dd0d239b801c0b6d",
+        "tests": [
+          "simulation_runner_lifecycle",
+          "parallel_solver_invariance",
+          "performance_cache_invariance",
+          "packed_kernel_reference",
+          "spatial_analysis_and_stages",
+          "staged_process_resume",
+          "network_model_and_io",
+          "network_generation",
+          "numerical_regressions",
+          "synaptic_delays",
+          "delayed_process_resume",
+          "checkpoint_roundtrip",
+          "checkpoint_process_resume",
+          "population_equivalence",
+          "shared_spatial_stimulators_activity",
+          "stimulator_process_resume",
+          "weight_field_geometry_and_weights",
+          "long_history_limits",
+          "long_history_process_resume",
+          "runner_native_close",
+          "parallel_native_close",
+          "experiment_win32_dx11",
+          "stimulator_win32_dx11",
+          "gui_interactions_and_plots",
+          "plot_windows_and_workspace",
+          "weight_field_gui_invariance",
+          "weight_field_win32_dx11",
+          "win32_dx11_plot_viewports"
+        ],
+        "recorded_timestamp": "2026-10-19T03:34:30"
+      }
+    ],
+    "unique_test_count": 28,
+    "unique_tests": [
+      "checkpoint_process_resume",
+      "checkpoint_roundtrip",
+      "delayed_process_resume",
+      "experiment_win32_dx11",
+      "gui_interactions_and_plots",
+      "long_history_limits",
+      "long_history_process_resume",
+      "network_generation",
+      "network_model_and_io",
+      "numerical_regressions",
+      "packed_kernel_reference",
+      "parallel_native_close",
+      "parallel_solver_invariance",
+      "performance_cache_invariance",
+      "plot_windows_and_workspace",
+      "population_equivalence",
+      "runner_native_close",
+      "shared_spatial_stimulators_activity",
+      "simulation_runner_lifecycle",
+      "spatial_analysis_and_stages",
+      "staged_process_resume",
+      "stimulator_process_resume",
+      "stimulator_win32_dx11",
+      "synaptic_delays",
+      "weight_field_geometry_and_weights",
+      "weight_field_gui_invariance",
+      "weight_field_win32_dx11",
+      "win32_dx11_plot_viewports"
+    ],
+    "limits": "Reports are preserved evidence supplied by the caller, not rerun or a claim that every copied executable was itself a test target."
+  },
+  "evidence": {
+    "CMakeCache.txt": {
+      "sha256": "c16f9e72c676d34733fa8b3d15c2b12c5eb3e9875eaf7f6e4cd845d0b03c8a53",
+      "size": 14261
+    },
+    "CMakeCXXCompiler.cmake": {
+      "sha256": "ee0323e64443df571c1e62e6bfb92e805c32af94e6ef1c646d1a36a235dd8dec",
+      "size": 6732
+    },
+    "CMakeSystem.cmake": {
+      "sha256": "5bfde5e3c20aeedb180dd5fed3e3d2929cc47cdedc6eb9bce2398809322ce5fe",
+      "size": 395
+    },
+    "checkpoint_build.h": {
+      "sha256": "7a0ea92d21a218273006915fe6b4890d5adf874a9ae30b45d17df3be4847543d",
+      "size": 103
+    },
+    "build.ninja": {
+      "sha256": "baa309836e73faa224576516f5f98d764f42a093cf7e08ca491d58cbad6242a5",
+      "size": 91141
+    },
+    "checkpoint_signature.txt": {
+      "sha256": "1cbab406363ae325d001d0381028106acf7765178a5e4f5fc425483a523401d7",
+      "size": 1954
+    },
+    "test_report_1_ctest_final.xml": {
+      "sha256": "44e37999b6afcdd49a5bafc6468f1150cb1a32f15a9a0373dd0d239b801c0b6d",
+      "size": 10614
+    },
+    "previous_build_manifest.json": {
+      "sha256": "82dd55e62a8050815b9507cb3fac0c4f5cf7a5061e56851db1913ba49476c024",
+      "size": 5519
+    },
+    "previous_source_files.json": {
+      "sha256": "42f9632a3aed9f9bc28fd3d9c14087102c46196669e33c2873ee3e6a04053f07",
+      "size": 107545
+    },
+    "previous_working_tree.patch": {
+      "sha256": "03ad50f69ac689d23cc7f4a0cb6f03606dc8f22a3b40c81e892f710bbcc0e5e6",
+      "size": 149087
+    },
+    "environment.json": {
+      "sha256": "6e7a68a9570efc7ffba16dffad3e874b2399e5887d02768acf8da7d25d93633e",
+      "size": 925
+    },
+    "provenance.json": {
+      "sha256": "fa7e0aef5edfe46865a1254305d977723bb0a52ab2b112053626736734afdaba",
+      "size": 7220
+    },
+    "crossover_provenance.json": {
+      "sha256": "ea23566205e468e03cb22f6af53c7691ffa27a86b0d11e62eaf8fdeb9b60ce16",
+      "size": 16914
+    },
+    "crossover_provenance_v2.json": {
+      "sha256": "70a92327cf54077d769caff679f5ee8bf2cd68a077929965aa6b63193aba27e4",
+      "size": 17295
+    },
+    "old_checkpoint_rejection.json": {
+      "sha256": "76697f1ab4f0592c7664bb8e22de9f20ec0393300a73635ccc91ba546256e181",
+      "size": 595
+    },
+    "native_close_parallel.json": {
+      "sha256": "7d4420f0e03571c42e99c51098f4bfe0bd2d4d72c8943f06e998b24935d1e1a1",
+      "size": 340
+    },
+    "native_close_serial.json": {
+      "sha256": "e601136ae997991bf75b6522462da01477bda89c04d83d6882faefc610328bd7",
+      "size": 334
+    },
+    "git_status_before_freeze.txt": {
+      "sha256": "9cd9d6ee67c507631bf1df7d4e9da21f2e036537fe0dc5617b3845116ccdc614",
+      "size": 145519
+    }
+  },
+  "archive_scope": "All 685 previous source/dependency/fixture entries plus current root/numerics/performance/parallel-stage source tools and docs. No recursive collection of benchmark outputs, EXE, archives, checkpoints, or build trees.",
+  "restore": {
+    "source_layout": "Extract source_snapshot.zip into a NEW directory; paths are project-relative, no overlay is required.",
+    "configure_and_build": "From the extracted directory: ./performance/build.ps1 -Build build/parallel -Targets all",
+    "tests": "ctest --test-dir build/parallel --output-on-failure --parallel 1",
+    "limits": "Matching numerical checkpoint identity requires the recorded toolchain/platform/flags; a clean rebuild does not promise byte-identical PE timestamps. Never bypass checkpoint compatibility."
+  },
+  "completion_marker": "This manifest is written last. If absent, the freeze is incomplete; partial artifacts are never overwritten."
+}

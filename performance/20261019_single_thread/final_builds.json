@@ -1,0 +1,105 @@
+{
+  "source_head": "8838ade22c38eb6512bb8b21a3f4c71c6d3dd9d1",
+  "branch": "perf/single-thread-20261019",
+  "compiler": "MSVC 19.44.35217.0",
+  "toolset": "14.44.35207",
+  "cmake": "4.0.3",
+  "generator": "Ninja",
+  "architecture": "x64",
+  "configuration": "Release",
+  "flags": "/DWIN32 /D_WINDOWS /EHsc /O2 /Ob2 /DNDEBUG -std:c++17 -MT /utf-8 /W3",
+  "multithreading_added": false,
+  "fast_math_added": false,
+  "builds": {
+    "baseline": {
+      "path": "build/perf_baseline/Release",
+      "archived_path": "baseline-release",
+      "profile": false,
+      "checkpoint_build_id": "4a6c77668949ab70f6f781f898b4eaf85c11c69ebfe7ac1756bad6d51a396280",
+      "executables": {
+        "network_studio.exe": "6b6710d80c12013be8d50e98d8ba92450acd8a40ee3c3400f00551008b30d0dd",
+        "network_studio_benchmark.exe": "70142648dde82e1d47c5856c76c4d6d9e7acd8b147db27d7d8ac7291edea8a37",
+        "network_studio_cli.exe": "ce4da2f64b0be75c151b1fb6aa0afa353596e197e4430600b40c2465b4b0dc07"
+      }
+    },
+    "baseline_profile": {
+      "path": "build/perf_baseline_profile/Release",
+      "archived_path": "baseline-profile-release",
+      "profile": true,
+      "checkpoint_build_id": "ccf6c1ac379c1c96609c48a0b12f9f69e7068aa17f85aecad452c210961588b6",
+      "executables": {
+        "network_studio_benchmark.exe": "6ce929b597f862c8ffcf2fa723bd4cb4c3ba726838f68754a2576a29b9d40275"
+      }
+    },
+    "stage1": {
+      "path": "build/perf_stage1_source/build/performance/Release",
+      "archived_path": "stage1-release",
+      "profile": false,
+      "checkpoint_build_id": "5c4a3696446878d4c3a454c7e00b15be6e1d6793140dc82240c0a341d00b641c",
+      "executables": {
+        "network_studio_benchmark.exe": "c57b5a4fb849bae8eeb4de73feb121bdf0a71fa5b324f579f5cdd57da6656c80",
+        "network_studio_cache_tests.exe": "d7da9c2bed6c4f0d33892a26f49e80696e0ea06f7b3149c613e3a7883d31b91b",
+        "network_studio_numerics_tests.exe": "adf6b6e8b20e374eca3499b774cc1643ba6bf53a20fccc6abccdcf3ab232997d"
+      }
+    },
+    "optimized": {
+      "path": "build/performance/Release",
+      "archived_path": "optimized-release",
+      "profile": false,
+      "checkpoint_build_id": "ac0f72fc71244732cdddf0340becf837e6c9dc0ba4800885fd7e307af5b563b3",
+      "executables": {
+        "network_studio.exe": "3c5ac89c2b225560f7b9a8a8aa1c264fd4feb08147fdaf0d665ba48bb90aa650",
+        "network_studio_benchmark.exe": "554a925792a80079a427520209c87269230ec5e2bbb292bb34fe9a1ee8a2275c",
+        "network_studio_cache_tests.exe": "efa6a6013a6c3e634a7d8b66f3d5004c29186f7a855e30389a13616c914b71d3",
+        "network_studio_checkpoint_tests.exe": "54b589aa36a9f58639d0d29ecdb65367a60a8b049a7597d8823d1cce0ca307da",
+        "network_studio_cli.exe": "db0c697117d03b51c6c82133dab1c41dc7adb2d32078e5aecb88a208f2ec5b0b",
+        "network_studio_delay_tests.exe": "82204d34eed1c8e41d44e38e1d56783534a88ea9cf09ac629de5f38e31df0c65",
+        "network_studio_experiment_tests.exe": "8c8450ea494e299f8ce7cf7f7f4b6076a65d82773899e7b98242960a8e139a78",
+        "network_studio_field_gui_tests.exe": "958a070d49484ce5746a8910d81fafebc4202077e34318880f710e640babf314",
+        "network_studio_field_tests.exe": "6350a8a01da9154956dda5c044f59153f8b8894ca32ff14ceaac35c2544c8270",
+        "network_studio_generator_tests.exe": "88fa5ff5a9bfe2e92ae45abd2b9a4d500dc0334cc09c47ac8f7d62d00842c40e",
+        "network_studio_gui_tests.exe": "7a1d227975ab506f3059e6f894fcec3774ad62e793b88259ea86c7d133f3618a",
+        "network_studio_kernel_tests.exe": "d6a54ca1524374b2cde0b04321851863237b37d6e1faaf623881aade1be02a72",
+        "network_studio_long_history_tests.exe": "114c8ea811892dffdcdfbf41f65a4120b1dda835dc8479c04f72516a88d9e8bd",
+        "network_studio_numerics_tests.exe": "299009ccaa00addfd46510dfc531f122f93249e6aa1a73ccf247394cb289e141",
+        "network_studio_plot_tests.exe": "6bfecf954a684fb99c669bdd78a4577d22f0fc43db45da59139bf9a6f723fa30",
+        "network_studio_population.exe": "983c32683022c38af2103e348abd156ecf151cae4acab2514cd0a4aff79b2d56",
+        "network_studio_stimulator_tests.exe": "b50aa634ac8322bf037c0643cc94f1083abd4b4bdacde918ca8b47345cc1a8cb",
+        "network_studio_tests.exe": "cf9c0099576ea892ef230b507975f4e8af67d1e3c3e88ee0c93ecd16a385a002"
+      }
+    },
+    "optimized_profile": {
+      "path": "build/performance_profile/Release",
+      "archived_path": "optimized-profile-release",
+      "profile": true,
+      "checkpoint_build_id": "515c6b3c0f9465167df19a5e38b74906e369cc954db88e4c9602182f2b5f0a64",
+      "executables": {
+        "network_studio_benchmark.exe": "ef220369cce378ee8aea006c31b4b77beb275b486fba0f465ab6f6cc17da876b"
+      }
+    },
+    "original": {
+      "archived_path": "original-release",
+      "checkpoint_build_id": "81b5726aed413cd8eec539813cbdf706bf011d9e2c4a9afec180bd76bf94295d",
+      "executables": {
+        "network_studio.exe": "21d5198345c9c87a285ea91aeee7828a137caead0d7bea860271cda9297d7f36",
+        "network_studio_before_windows_20261014.exe": "48f0f10a394b6ff09063f4ed471ca98dd5c9a3bcc3f4279ce3fc5853091aece3",
+        "network_studio_checkpoint_tests.exe": "90180061b09c691c22648375366d9befa087986d4fdb20540ce867d1f4ec7326",
+        "network_studio_cli.exe": "7c76bd24921d97df57f26f0a161e9e2ca4f41f0d8d6070288601c1531fa663e6",
+        "network_studio_delay_tests.exe": "089269369de6b5780e34940d45a1af52ff8d5b0057d866861b384285e6b06f6b",
+        "network_studio_experiment_tests.exe": "b27d16d807fb2a2dfc216b62d99572c3cdc869987160ef2b60af7784c7547b7c",
+        "network_studio_field_gui_tests.exe": "6bd8c140cd7699c90b76e6e44e0ebdb9ef29f1e26fe48da82f6dfc0f979125ed",
+        "network_studio_field_tests.exe": "8ef924864d27347c3ecf8b4564ba5c2152ee318e4d9c0189410dabd5ba62af04",
+        "network_studio_generator_tests.exe": "1db09c5f3eab3e3baf4e421ebbdb10ef4c8989fb2b6acaaccdaca1a5fe0ed05e",
+        "network_studio_gui_tests.exe": "e92c1be40bb0d4fd3272d26743c5dd83cf8a347006acfcb28c00738f5bf64afa",
+        "network_studio_long_history_tests.exe": "d94c7c16359c75f44058c4468d7029ec05939d1d9a79fe66e2cf801c557b05b0",
+        "network_studio_numerics_tests.exe": "1d7a7b19d444a45ea889a10be4ec395c892bfc89ef19745343e319539dbbf3ea",
+        "network_studio_plot_tests.exe": "dde958d0a1a3a2666e18bec707b4c1dc9d417fdd2a517ed1a51da71aa2ae9bd3",
+        "network_studio_population.exe": "2faf3883003e26226515796816b3fdba546780bcb32b6aacf884e5126e11eb2f",
+        "network_studio_stimulator_tests.exe": "c602ef8346fc27711843dc238e2a9566dab26c478b4db6e0d45b08f5d8dcbe4e",
+        "network_studio_tests.exe": "da552170f5e45cef7229d9bc121b76266c088b2babaa72a4b0a111d17e0f4039"
+      }
+    }
+  },
+  "installed_release": "build/Release",
+  "installed_sha256_matches_optimized_archive": true
+}

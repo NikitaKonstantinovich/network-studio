@@ -1,6 +1,7 @@
 #include "gui.h"
 #include <algorithm>
 #include <cstdio>
+#include <tuple>
 namespace studio {
 namespace {
 bool number(const char* label,double& v,double lo,double hi) {ImGui::SetNextItemWidth(180);return ImGui::DragScalar(label,ImGuiDataType_Double,&v,.01f,&lo,&hi,"%.6g",ImGuiSliderFlags_AlwaysClamp);}
@@ -23,15 +24,16 @@ void App::stage_manager() {
     auto& sim=*simulation;auto& runtime=sim.experiment;
     ImGui::Text("Время %.9g с · этап %d · до %.9g с · %s",sim.time,runtime.stage_index+1,runtime.stage_end,runtime.automatic?"последовательность":"ручное управление");
     ImGui::TextWrapped("Переход сохраняет динамику, веса, очередь и историю. Длительность округляется вверх к ближайшей границе шага. Старый импульс выбранной группы обрывается; новый поезд начинается через заданную задержку от перехода. DC и шум сохраняются.");
-    if(running){if(ImGui::Button("Приостановить для перехода"))running=false;}
+    if(running){if(ImGui::Button("Приостановить для перехода"))pause();}
     ImGui::BeginDisabled(running||!sim.error.empty());
-    if(ImGui::Button("Продолжить текущее состояние без этапа"))try {sim.continue_current();status="Ограничение этапа снято. При необходимости увеличьте конечное время и нажмите Продолжить; протоколы и веса сохранены.";}catch(const std::exception& e){status=e.what();}
+    if(ImGui::Button("Продолжить текущее состояние без этапа"))try {RunnerCommand c;c.kind=RunnerCommand::Kind::ContinueCurrent;command(std::move(c));status="Ограничение этапа снято. При необходимости увеличьте конечное время и нажмите Продолжить; протоколы и веса сохранены.";}catch(const std::exception& e){status=e.what();}
     bool learning=runtime.learning;double rate=runtime.learning_rate;
     bool change=ImGui::Checkbox("Обучение включено",&learning);ImGui::SameLine();change|=number("Общая скорость обучения",rate,0,100);
-    try {if(change)sim.set_learning(learning,rate);if(ImGui::Button("Очистить следы STDP"))sim.set_learning(learning,rate,true);}catch(const std::exception& e){status=e.what();}
+    bool clear=ImGui::Button("Очистить следы STDP");if(change||clear){RunnerCommand c;c.kind=RunnerCommand::Kind::Learning;c.flag=learning;c.value=rate;c.flag2=clear;command(std::move(c));}
     ImGui::SameLine();ImGui::TextDisabled("При заморозке следы продолжают обновляться.");
     if(ImGui::BeginTabBar("stage_tabs")) {
         if(ImGui::BeginTabItem("План и переходы")) {
+            const auto previous=config.stages;
             if(ImGui::Button("Добавить этап")&&config.stages.size()<256){ExperimentStage s;s.name="Этап "+std::to_string(config.stages.size()+1);config.stages.push_back(s);dirty=true;}
             int remove=-1;
             ImGui::BeginChild("stage_plan",{0,360},ImGuiChildFlags_Borders);
@@ -47,35 +49,38 @@ void App::stage_manager() {
                     double ms=s.width*1000;if(number("Ширина, мс",ms,0,1000))s.width=ms*.001;
                     number("Первый импульс через, с",s.first_pulse,0,s.duration);
                     ImGui::TextDisabled("Пустая группа: протоколы не меняются. Группа использует одинаковый новый поезд.");
-                    if(ImGui::Button("Войти в этап (пауза)"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);sim.config.stages=config.stages;sim.enter_stage(i,false);config=sim.config;status="Этап применён; продолжите расчёт.";}catch(const std::exception& e){status=e.what();}
-                    ImGui::SameLine();if(ImGui::Button("Выполнить отсюда до конца"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);sim.config.stages=config.stages;sim.enter_stage(i,true);config=sim.config;running=true;}catch(const std::exception& e){status=e.what();}
+                    if(ImGui::Button("Войти в этап (пауза)"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);RunnerCommand c;c.kind=RunnerCommand::Kind::EnterStage;c.stages=config.stages;c.index=i;command(std::move(c));status="Этап применён; продолжите расчёт.";}catch(const std::exception& e){status=e.what();}
+                    ImGui::SameLine();if(ImGui::Button("Выполнить отсюда до конца"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);RunnerCommand c;c.kind=RunnerCommand::Kind::EnterStage;c.stages=config.stages;c.index=i;c.flag=c.flag2=true;command(std::move(c));}catch(const std::exception& e){status=e.what();}
                     if(!runtime.stage_active&&ImGui::Button("Удалить этап"))remove=i;
                 }ImGui::PopID();
             }ImGui::EndChild();
             if(remove>=0)config.stages.erase(config.stages.begin()+remove);
-            if(validate_experiment(config).empty())sim.config.stages=config.stages;
+            auto same=[](const ExperimentStage& a,const ExperimentStage& b){
+                return std::tie(a.name,a.duration,a.learning,a.clear_traces,a.learning_rate,a.neurons,a.stimulus_enabled,a.amplitude,a.frequency,a.width,a.first_pulse,a.stimulator_ids)==std::tie(b.name,b.duration,b.learning,b.clear_traces,b.learning_rate,b.neurons,b.stimulus_enabled,b.amplitude,b.frequency,b.width,b.first_pulse,b.stimulator_ids);
+            };
+            if((previous.size()!=config.stages.size()||!std::equal(previous.begin(),previous.end(),config.stages.begin(),same))&&validate_experiment(config).empty()) {
+                RunnerCommand c;c.kind=RunnerCommand::Kind::Plan;c.stages=config.stages;command(std::move(c));dirty=true;
+            }
             ImGui::TextWrapped("Войти в этап — применить действия без запуска. «Продолжить» запускает текущий этап. По завершении последнего этапа расчёт остановится. Обычный «Сброс» начинает сеть с исходных весов и состояний.");
             ImGui::EndTabItem();
         }
         if(ImGui::BeginTabItem("История и сохранение")) {
             bool bounded=config.bounded_journals;
             if(ImGui::Checkbox("Ограниченные журналы (старые события удаляются)",&bounded)) {
-                if(bounded||!(sim.history.events_after||sim.history.deliveries_after||sim.history.stimuli_after||sim.history.shared_after))config.bounded_journals=sim.config.bounded_journals=bounded;
-                else status="Уже удалённую историю нельзя объявить полной. Начните независимый опыт или сохраните доступный интервал.";
+                RunnerCommand c;c.kind=RunnerCommand::Kind::BoundedJournals;c.flag=bounded;command(std::move(c));
             }
             ImGui::TextWrapped("Потенциалы имеют отдельный лимит. Очередь будущих доставок не сокращается. Полные журналы ограничены 2 млн записей; для длинных опытов выберите ограниченный режим заранее. Удалённые события восстановить из checkpoint нельзя.");
-            ImGui::Text("Доступно: спайки после %.6g с; доставки после %.6g с; стимулы после %.6g с",sim.history.events_after,sim.history.deliveries_after,sim.history.stimuli_after);
-            ImGui::Text("Записей: %zu / %zu / %zu; лимит каждого %zu",sim.history.events.size(),sim.history.deliveries.size(),sim.history.stimuli.size(),config.journal_capacity);
+            ImGui::Text("В окне отображения: спайки после %.6g с; доставки после %.6g с; стимулы после %.6g с",sim.history.events_after,sim.history.deliveries_after,sim.history.stimuli_after);
+            ImGui::Text("На экране: %zu / %zu / %zu; лимит научных журналов %zu",sim.history.events.size(),sim.history.deliveries.size(),sim.history.stimuli.size(),config.journal_capacity);
             if(ImGui::Button("Сохранить полное состояние…")&&checkpoint_dialog)save_state(checkpoint_dialog(true));
             if(ImGui::Button("Независимое продолжение из состояния…")&&checkpoint_dialog) {
                 auto path=checkpoint_dialog(false);if(!path.empty())try {
-                    auto restored=load_checkpoint(path);restored->fork_experiment(path.u8string());
-                    config=restored->config;simulation=std::move(restored);running=false;plot_windows.data_changed(config);status="Независимая ветвь на паузе; абсолютное время и происхождение сохранены.";
+                    RunnerCommand c;c.kind=RunnerCommand::Kind::Restore;c.path=path;c.text=path.u8string();command(std::move(c));
                     ImGui::EndTabItem();ImGui::EndTabBar();ImGui::EndDisabled();ImGui::End();return;
                 }catch(const std::exception& e){status=e.what();}
             }
             if(ImGui::Button("Экспорт весов как начальной конфигурации…")&&file_dialog) {
-                auto path=file_dialog(true,false);if(!path.empty())try{save_config(sim.learned_config(),path);status="Новая конфигурация с обученными начальными весами сохранена. Текущий опыт сохранён.";}catch(const std::exception& e){status=e.what();}
+                auto path=file_dialog(true,false);if(!path.empty())try{RunnerCommand c;c.kind=RunnerCommand::Kind::ExportTrained;c.path=path;command(std::move(c));}catch(const std::exception& e){status=e.what();}
             }
             ImGui::EndTabItem();
         }

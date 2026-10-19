@@ -1,0 +1,51 @@
+{
+  "byte_equal": true,
+  "mismatches": [],
+  "files": {
+    "result_activity.csv": {
+      "reference": "c1ec237d64f3d6b5f89226bddd3f9f3bb899bd22d4564a00c19aeb7041fbc79b",
+      "actual": "c1ec237d64f3d6b5f89226bddd3f9f3bb899bd22d4564a00c19aeb7041fbc79b"
+    },
+    "result_bursts.csv": {
+      "reference": "c36c8260f194defc0929dfb26361a281e1eaa2a0f0912feb11862690a0161f3a",
+      "actual": "c36c8260f194defc0929dfb26361a281e1eaa2a0f0912feb11862690a0161f3a"
+    },
+    "result_deliveries.csv": {
+      "reference": "bb5a1d16af54895679598bb7d4e82817544d2ffdccbc130fe9b88f7557ec2d69",
+      "actual": "bb5a1d16af54895679598bb7d4e82817544d2ffdccbc130fe9b88f7557ec2d69"
+    },
+    "result_events.csv": {
+      "reference": "546f82308b6424e5b7fd5118772ef761da2b286db16ea592c22e0c2a46e90861",
+      "actual": "546f82308b6424e5b7fd5118772ef761da2b286db16ea592c22e0c2a46e90861"
+    },
+    "result_pending_deliveries.csv": {
+      "reference": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9",
+      "actual": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+    },
+    "result_responses.csv": {
+      "reference": "bd663ed7e3a9db9f4703ea52409bc715359113c8df5a9ea25c341122334abe81",
+      "actual": "bd663ed7e3a9db9f4703ea52409bc715359113c8df5a9ea25c341122334abe81"
+    },
+    "result_shared_stimuli.csv": {
+      "reference": "e9dfb84704e553e84fca3becefa859a0284fb4bb1d49b9de63091c704418c41c",
+      "actual": "e9dfb84704e553e84fca3becefa859a0284fb4bb1d49b9de63091c704418c41c"
+    },
+    "result_stimuli.csv": {
+      "reference": "fe6c34b48f4ecdc3510e6cee4a05b6654bfb8146a67187f9571f28a47385981b",
+      "actual": "fe6c34b48f4ecdc3510e6cee4a05b6654bfb8146a67187f9571f28a47385981b"
+    },
+    "result_trace.csv": {
+      "reference": "814e3cb769c53845c0b40afde5dc93d179114e886b0c92926add0837c812ff83",
+      "actual": "814e3cb769c53845c0b40afde5dc93d179114e886b0c92926add0837c812ff83"
+    },
+    "result_weights.csv": {
+      "reference": "44b8d9aead5b934e0c7f0c9a1850632cf1c23974970d84574efc475b7a6ccd59",
+      "actual": "44b8d9aead5b934e0c7f0c9a1850632cf1c23974970d84574efc475b7a6ccd59"
+    },
+    "numbers.bin": {
+      "reference": "ae29132281d37d2e0a484dae2a4219182eabe7a2043c93cc5ec009c2c5f12cfc",
+      "actual": "ae29132281d37d2e0a484dae2a4219182eabe7a2043c93cc5ec009c2c5f12cfc"
+    }
+  },
+  "checkpoint_comparison": "Excluded envelope; compatibility checks are unchanged. numbers.bin includes complete final state and all STDP traces/weights."
+}

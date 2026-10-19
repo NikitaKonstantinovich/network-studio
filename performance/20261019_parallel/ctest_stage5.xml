@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="(empty)"
+	tests="8"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname=""
+	time="86"
+	timestamp="2026-10-19T03:22:28"
+	>
+	<testcase name="simulation_runner_lifecycle" classname="simulation_runner_lifecycle" time="3.63299" status="run">
+		<properties/>
+		<system-out>PASS: 59497 runner checks; exact full checkpoints, refresh independence, lifecycle, strict restore, incremental bounded snapshots. Artifacts: E:\asp\26_27\configurator\build\parallel\runner-tests\235319500247600
+</system-out>
+	</testcase>
+	<testcase name="parallel_solver_invariance" classname="parallel_solver_invariance" time="44.6068" status="run">
+		<properties/>
+		<system-out>parallel: pool phases and exception barriers
+parallel: exact numerical matrix
+parallel: cross-count checkpoint resume
+parallel: boundary thread reconfiguration
+parallel: same-size kinetic/noise edits
+parallel: unsupported/small model fallback
+parallel: runner lifecycle and native thread cleanup
+PASS: 13246030 parallel checks; 3267 exact macro states; threads 1/2/4/8/Auto, repeats, full checkpoint bytes, cross-count resume, fallback and controller lifecycle. Artifacts: E:\asp\26_27\configurator\build\parallel\parallel-tests\235323175434300
+</system-out>
+	</testcase>
+	<testcase name="performance_cache_invariance" classname="performance_cache_invariance" time="0.0549625" status="run">
+		<properties/>
+		<system-out>PASS 47208 bitwise noise/STDP cache checks
+</system-out>
+	</testcase>
+	<testcase name="packed_kernel_reference" classname="packed_kernel_reference" time="0.170807" status="run">
+		<properties/>
+		<system-out>All Izh: 1200 steps, 55 spikes, 58 deliveries; all reference bits equal
+Mixed HH/Izh: 1200 steps, 45 spikes, 50 deliveries; all reference bits equal
+PASS packed kernel and root scratch: 57540 checks
+</system-out>
+	</testcase>
+	<testcase name="numerical_regressions" classname="numerical_regressions" time="0.569834" status="run">
+		<properties/>
+		<system-out>PASS numerical regressions: 72624 checks
+</system-out>
+	</testcase>
+	<testcase name="runner_native_close" classname="runner_native_close" time="0.554688" status="run">
+		<properties/>
+		<system-out>-- Native WM_CLOSE while computing: worker joined and resources released after 44076 steps
+</system-out>
+	</testcase>
+	<testcase name="parallel_native_close" classname="parallel_native_close" time="1.03606" status="run">
+		<properties/>
+		<system-out>-- Native WM_CLOSE while computing: controller and 3 helpers joined after 229 steps; resources released
+</system-out>
+	</testcase>
+	<testcase name="gui_interactions_and_plots" classname="gui_interactions_and_plots" time="35.9864" status="run">
+		<properties/>
+		<system-out>PASS: 1601 GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.
+</system-out>
+	</testcase>
+</testsuite>

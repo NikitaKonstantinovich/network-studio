@@ -11,6 +11,7 @@
 #include "backends/imgui_impl_win32.h"
 #include "backends/imgui_impl_dx11.h"
 #include <fstream>
+#include <iomanip>
 #include <stdexcept>
 #include <unordered_map>
 #include <chrono>
@@ -21,6 +22,7 @@ static ComPtr<ID3D11DeviceContext> context;
 static ComPtr<IDXGISwapChain> swapchain;
 static ComPtr<ID3D11RenderTargetView> target;
 static UINT resize_w=0,resize_h=0;
+static bool software_renderer=false;
 static std::unordered_map<HWND,WNDPROC> platform_procedures;
 static void (*backend_create_window)(ImGuiViewport*)=nullptr;
 // The bundled 1.91.5 Win32 backend reports monitor DPI but doesn't apply the
@@ -52,7 +54,7 @@ static void create_device(HWND hwnd) {
     sd.Windowed=TRUE;sd.SwapEffect=DXGI_SWAP_EFFECT_DISCARD;
     const D3D_FEATURE_LEVEL levels[]={D3D_FEATURE_LEVEL_11_0,D3D_FEATURE_LEVEL_10_0};
     auto hr=D3D11CreateDeviceAndSwapChain(nullptr,D3D_DRIVER_TYPE_HARDWARE,nullptr,0,levels,2,D3D11_SDK_VERSION,&sd,&swapchain,&device,nullptr,&context);
-    if(FAILED(hr))hr=D3D11CreateDeviceAndSwapChain(nullptr,D3D_DRIVER_TYPE_WARP,nullptr,0,levels,2,D3D11_SDK_VERSION,&sd,&swapchain,&device,nullptr,&context);
+    if(FAILED(hr)){software_renderer=true;hr=D3D11CreateDeviceAndSwapChain(nullptr,D3D_DRIVER_TYPE_WARP,nullptr,0,levels,2,D3D11_SDK_VERSION,&sd,&swapchain,&device,nullptr,&context);}
     check(hr,"Direct3D 11 initialization failed.");render_target();
 }
 static LRESULT WINAPI wndproc(HWND hwnd,UINT msg,WPARAM w,LPARAM l) {
@@ -101,9 +103,15 @@ static std::filesystem::path dialog(HWND hwnd,bool save,bool csv,bool checkpoint
 }
 int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     int argc=0;wchar_t** args=CommandLineToArgvW(GetCommandLineW(),&argc);
-    std::filesystem::path smoke,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
+    double display_hz=10;
+    std::wstring compute_threads_option=L"1";
+    std::filesystem::path smoke,benchmark,runner_close,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
     for(int i=1;i<argc;++i) {
         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
+        else if(std::wstring(args[i])==L"--benchmark"&&i+1<argc)benchmark=args[++i];
+        else if(std::wstring(args[i])==L"--runner-close-smoke"&&i+1<argc)runner_close=args[++i];
+        else if(std::wstring(args[i])==L"--display-hz"&&i+1<argc)display_hz=_wtof(args[++i]);
+        else if(std::wstring(args[i])==L"--compute-threads")compute_threads_option=i+1<argc?args[++i]:L"";
         else if(std::wstring(args[i])==L"--stimulator-smoke"&&i+1<argc){smoke=args[++i];stimulator_smoke=true;}
         else if(std::wstring(args[i])==L"--experiment-smoke"&&i+1<argc){smoke=args[++i];experiment_smoke=true;}
         else if(std::wstring(args[i])==L"--field-smoke"&&i+1<argc){smoke=args[++i];field_smoke=true;}
@@ -116,10 +124,28 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         else config_path=args[i];
     }LocalFree(args);
     HWND hwnd=nullptr;bool imgui=false,backends=false;int result=0;
+    bool close_requested=false,active_before_close=false;
+    uint64_t close_steps=0;double close_model_time=0;
+    int close_compute_threads=1,close_effective_threads=1;
+    size_t close_neurons=0,close_synapses=0;
+    std::chrono::steady_clock::time_point close_begin;
     CoInitializeEx(nullptr,COINIT_APARTMENTTHREADED);
     WNDCLASSEXW wc{sizeof(wc),CS_CLASSDC,wndproc,0,0,instance,nullptr,LoadCursor(nullptr,IDC_ARROW),nullptr,nullptr,L"NeuroAstroStudio",nullptr};
     RegisterClassExW(&wc);
     try {
+        const int compute_threads=studio::compute::parse(std::wstring_view(compute_threads_option),"--compute-threads");
+        if(!runner_close.empty()) {
+            std::filesystem::create_directories(runner_close);
+            if(!smoke.empty()||!benchmark.empty()||!workspace_path.empty()||!config_path.empty()||!checkpoint_path.empty()||plot_demo||smoke_wizard)
+                throw std::runtime_error("--runner-close-smoke requires its own fixed fixture and no other run mode.");
+        }
+        if(!benchmark.empty()) {
+            std::filesystem::create_directories(benchmark);
+            if(!smoke.empty()||!workspace_path.empty()||plot_demo||smoke_wizard)
+                throw std::runtime_error("--benchmark cannot be combined with smoke, workspace or plot-demo options.");
+            if(config_path.empty()&&checkpoint_path.empty())
+                throw std::runtime_error("--benchmark requires an explicit configuration or checkpoint.");
+        }
         ImGui_ImplWin32_EnableDpiAwareness();
         hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,(field_smoke||experiment_smoke||stimulator_smoke)?1800:1480,(field_smoke||experiment_smoke||stimulator_smoke)?1300:1000,nullptr,nullptr,instance,nullptr);
         if(!hwnd)throw std::runtime_error("Cannot create the application window.");create_device(hwnd);resize_w=resize_h=0;
@@ -140,9 +166,26 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         studio::apply_style();
         if(!ImGui_ImplWin32_Init(hwnd)||!ImGui_ImplDX11_Init(device.Get(),context.Get()))throw std::runtime_error("ImGui backend initialization failed.");backends=true;
         backend_create_window=ImGui::GetPlatformIO().Platform_CreateWindow;ImGui::GetPlatformIO().Platform_CreateWindow=create_platform_window;
-        studio::App app;app.file_dialog=[&](bool save,bool csv){return dialog(hwnd,save,csv);};
+        studio::App app;app.set_display_hz(display_hz);app.set_compute_threads(compute_threads,true);app.file_dialog=[&](bool save,bool csv){return dialog(hwnd,save,csv);};
         app.checkpoint_dialog=[&](bool save){return dialog(hwnd,save,false,true);};
         app.workspace_dialog=[&](bool save){return dialog(hwnd,save,false,false,true);};
+        if(!runner_close.empty()) {
+            auto c=studio::preset(6);c.name="Native close while computing";c.duration=1000;c.sample=.01;
+            if(compute_threads>1) {
+                // The small default fixture deliberately exercises serial
+                // fallback. Explicit parallel close tests need real helpers.
+                studio::NetworkGeneration g;g.name="Native close with parallel helpers";
+                g.seed=706;g.excitatory.count=102;g.inhibitory.count=26;
+                g.excitatory.in_degree=g.inhibitory.in_degree={32,0};
+                g.excitatory.weight=g.inhibitory.weight={.1,0};
+                g.synapse.stdp=true;g.synapse.stdp_rule=studio::StdpRule::Multiplicative;
+                g.duration=1000;g.sample=.01;
+                c=studio::generate_network(studio::Config{},g,false);
+                c.noise_sigma=2;c.noise_interval=.001;
+                for(auto& n:c.neurons)n.current=8;
+            }
+            app.replace(std::move(c));
+        }
         // A command-line configuration must fail explicitly rather than silently
         // running the default experiment when reading the requested file fails.
         if(!config_path.empty())app.replace(studio::load_config(config_path));
@@ -155,12 +198,16 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(config_path.empty()&&checkpoint_path.empty()) {
                 auto c=studio::preset(viewport_smoke?6:smoke_preset);if(viewport_smoke)c.duration=.3;app.replace(c);
             }
-            if(experiment_smoke&&!app.config.stages.empty())app.simulation->enter_stage(0,true);
-            while(!app.simulation->done())if(!app.simulation->step())break;
+            if(experiment_smoke&&!app.config.stages.empty()){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::EnterStage;c.stages=app.config.stages;c.index=0;c.flag=true;app.command(std::move(c),true);}
+            app.advance_for(app.config.duration);
             if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
             app.status="Проверка прототипа: расчёт завершён, графики построены.";
-        }else {ShowWindow(hwnd,SW_SHOWDEFAULT);UpdateWindow(hwnd);}
-        if(workspace_path.empty()&&smoke.empty()) {
+        }else if(benchmark.empty()&&runner_close.empty()) {ShowWindow(hwnd,SW_SHOWDEFAULT);UpdateWindow(hwnd);}
+        if(!benchmark.empty()) {
+            // Native GUI consumes snapshots while the controller runs independently.
+            // The hidden HWND and Present(1) match the previous-stage benchmark.
+        }
+        if(workspace_path.empty()&&smoke.empty()&&benchmark.empty()&&runner_close.empty()) {
             wchar_t local[32768]{};if(GetEnvironmentVariableW(L"LOCALAPPDATA",local,32768))workspace_path=std::filesystem::path(local)/L"NetworkStudio"/L"plots.nsworkspace";
         }
         if(!workspace_path.empty()) {
@@ -179,6 +226,12 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         double field_frame_ms=0;
         int native_checks=0;double minimized_time=0;std::vector<HWND> native_handles;
         auto verify=[&](bool value,const char* reason){if(!value)throw std::runtime_error(reason);++native_checks;};
+        double benchmark_draw=0,benchmark_render=0,benchmark_present=0,benchmark_idle=0;
+        uint64_t benchmark_occluded=0,benchmark_presented=0,benchmark_other_status=0;
+        const double benchmark_start_time=app.simulation->time;
+
+        const auto benchmark_begin=std::chrono::steady_clock::now();
+        if(!benchmark.empty()||!runner_close.empty())app.run();
         while(!done) {
             MSG msg;while(PeekMessageW(&msg,nullptr,0,0,PM_REMOVE)){TranslateMessage(&msg);DispatchMessageW(&msg);if(msg.message==WM_QUIT)done=true;}
             if(done)break;
@@ -202,7 +255,10 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                 app.selected_index=0;
             }
             const auto frame_begin=std::chrono::steady_clock::now();
-            app.draw();ImGui::Render();auto* data=ImGui::GetDrawData();minimum_vertices=std::min(minimum_vertices,data->TotalVtxCount);
+            app.draw();
+            const auto benchmark_render_begin=benchmark.empty()?frame_begin:std::chrono::steady_clock::now();
+            if(!benchmark.empty())benchmark_draw+=std::chrono::duration<double>(benchmark_render_begin-frame_begin).count();
+            ImGui::Render();auto* data=ImGui::GetDrawData();minimum_vertices=std::min(minimum_vertices,data->TotalVtxCount);
             if(field_smoke&&frames>=4)field_frame_ms+=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-frame_begin).count();
             if(!IsIconic(hwnd)) {
                 const float clear[]={.055f,.073f,.1f,1};ID3D11RenderTargetView* rtv=target.Get();context->OMSetRenderTargets(1,&rtv,nullptr);context->ClearRenderTargetView(rtv,clear);
@@ -210,6 +266,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                 if(!smoke.empty()&&!viewport_smoke&&frames%4==3)capture_png(smoke/(L"tab_"+std::to_wstring(frames/4)+L".png"));
             }
             ImGui::UpdatePlatformWindows();ImGui::RenderPlatformWindowsDefault();
+            if(!benchmark.empty())benchmark_render+=std::chrono::duration<double>(std::chrono::steady_clock::now()-benchmark_render_begin).count();
             if((experiment_smoke&&(frames==35||frames==39))||(stimulator_smoke&&frames==23)) {
                 auto& platform=ImGui::GetPlatformIO();
                 for(int i=1;i<platform.Viewports.Size;++i){auto* v=platform.Viewports[i];if(!v->DrawData||v->DrawData->TotalVtxCount<100)continue;
@@ -230,13 +287,17 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                         ComPtr<ID3D11RenderTargetView> view;context->OMGetRenderTargets(1,&view,nullptr);ComPtr<ID3D11Resource> resource;view->GetResource(&resource);
                         ComPtr<ID3D11Texture2D> texture;check(resource.As(&texture),"Viewport capture texture failed.");capture_png(smoke/(L"window_"+std::to_wstring(i)+L".png"),texture.Get());
                     }
-                    app.simulation->extend_duration(.5);app.config.duration=.5;minimized_time=app.simulation->time;app.running=true;
+                    studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::Extend;c.value=.5;app.command(std::move(c),true);app.synchronize();minimized_time=app.simulation->time;app.run();
                     ShowWindow(hwnd,SW_MINIMIZE);
                 }
                 if(frames==7) {
                     verify(IsIconic(hwnd)!=FALSE,"Main window did not minimize.");
                     for(auto handle:native_handles)verify(IsWindowVisible(handle)&&!IsIconic(handle),"Detached plot stopped being visible with minimized main window.");
-                    verify(app.simulation->time>minimized_time,"Simulation stopped while main window was minimized.");app.running=false;
+                    // Check acknowledged progress instead of assuming publication at a frame count.
+                    const auto deadline=std::chrono::steady_clock::now()+std::chrono::seconds(10);
+                    while(app.simulation->time<=minimized_time&&std::chrono::steady_clock::now()<deadline){app.advance();Sleep(1);}
+                    app.pause();app.synchronize();
+                    verify(app.simulation->time>minimized_time,"Simulation stopped while main window was minimized.");
                     SetWindowPos(native_handles[0],nullptr,100,100,620,410,SWP_NOZORDER);
                     platform.Platform_SetWindowFocus(ImGui::FindViewportByPlatformHandle(native_handles[0]));
                 }
@@ -283,17 +344,79 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                 }
                 if(frames==23)verify(app.plot_windows.windows.size()==3,"Native WM_CLOSE did not remove the graph.");
             }
-            if(!IsIconic(hwnd)) {HRESULT hr=swapchain->Present(smoke.empty()?1:0,0);if(FAILED(hr))throw std::runtime_error("Direct3D presentation failed.");if(hr==DXGI_STATUS_OCCLUDED)Sleep(10);}
+            if(!IsIconic(hwnd)) {
+                const auto present_begin=benchmark.empty()?benchmark_begin:std::chrono::steady_clock::now();
+                HRESULT hr=swapchain->Present(smoke.empty()?1:0,0);
+                if(!benchmark.empty()) {
+                    benchmark_present+=std::chrono::duration<double>(std::chrono::steady_clock::now()-present_begin).count();
+                    if(hr==DXGI_STATUS_OCCLUDED)++benchmark_occluded;
+                    else if(hr==S_OK)++benchmark_presented;
+                    else ++benchmark_other_status;
+                }
+                if(FAILED(hr))throw std::runtime_error("Direct3D presentation failed.");
+                if(hr==DXGI_STATUS_OCCLUDED) {
+                    const auto idle_begin=benchmark.empty()?benchmark_begin:std::chrono::steady_clock::now();Sleep(10);
+                    if(!benchmark.empty())benchmark_idle+=std::chrono::duration<double>(std::chrono::steady_clock::now()-idle_begin).count();
+                }
+            }
             else Sleep(10);
             ++frames;if(!smoke.empty()&&frames>=(experiment_smoke?40:28))done=true;
+            if(!runner_close.empty()&&!close_requested) {
+                if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
+                if(app.simulation->metrics.running&&app.simulation->steps>0&&!app.simulation->done()) {
+                    close_compute_threads=app.simulation->metrics.compute_threads;
+                    close_effective_threads=app.simulation->metrics.effective_compute_threads;
+                    close_neurons=app.simulation->config.neurons.size();close_synapses=app.simulation->config.synapses.size();
+                    if(close_compute_threads!=compute_threads||(compute_threads>1&&close_effective_threads!=compute_threads))
+                        throw std::runtime_error("Native parallel close fixture did not activate the requested helper threads.");
+                    active_before_close=true;close_steps=app.simulation->steps;close_model_time=app.simulation->time;
+                    close_begin=std::chrono::steady_clock::now();
+                    if(!PostMessageW(hwnd,WM_CLOSE,0,0))throw std::runtime_error("Could not post native close request.");
+                    close_requested=true;
+                } else if(std::chrono::steady_clock::now()-benchmark_begin>std::chrono::seconds(10))
+                    throw std::runtime_error("Native close fixture did not publish active computation within 10 seconds.");
+            }
+            if(!benchmark.empty()) {
+                if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
+                if(app.simulation->done())done=true;
+                else if(!app.running)throw std::runtime_error("GUI benchmark stopped before completion.");
+            }
         }
-        if(smoke.empty()&&app.plot_windows.automatic_save_allowed&&!app.plot_windows.workspace_path.empty()) {
+        const double benchmark_wall=std::chrono::duration<double>(std::chrono::steady_clock::now()-benchmark_begin).count();
+        const auto benchmark_metrics=app.simulation->metrics;
+        if(!benchmark.empty()){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::WriteProfile;c.path=benchmark/L"profile.json";app.command(std::move(c),true);app.synchronize();}
+        if(!benchmark.empty()) {
+            if(!app.simulation->done())throw std::runtime_error("GUI benchmark window closed before completion.");
+            app.export_data(benchmark/L"result");
+            app.save_state(benchmark/L"final.nscp");
+            std::ofstream log(benchmark/L"benchmark.json");
+            log<<std::setprecision(17)<<"{\n  \"mode\": \"hidden_win32_dx11_runner\",\n  \"hidden\": true,\n"
+                <<"  \"renderer\": \""<<(software_renderer?"WARP":"hardware")<<"\",\n"
+                <<"  \"wall_seconds\": "<<benchmark_wall<<",\n  \"app_draw_snapshot_seconds\": "<<benchmark_draw
+                <<",\n  \"render_cpu_seconds\": "<<benchmark_render<<",\n  \"present_seconds\": "<<benchmark_present
+                <<",\n  \"occlusion_sleep_seconds\": "<<benchmark_idle<<",\n  \"frames\": "<<frames
+                <<",\n  \"present_ok\": "<<benchmark_presented<<",\n  \"present_occluded\": "<<benchmark_occluded
+                <<",\n  \"present_other_status\": "<<benchmark_other_status<<",\n  \"minimum_vertices\": "<<minimum_vertices
+                <<",\n  \"model_start_seconds\": "<<benchmark_start_time<<",\n  \"model_final_seconds\": "<<app.simulation->time
+                <<",\n  \"steps\": "<<app.simulation->steps<<",\n  \"samples\": "<<app.simulation->history.time.size()
+                <<",\n  \"worker_elapsed_seconds\": "<<benchmark_metrics.elapsed_seconds
+                <<",\n  \"worker_compute_seconds\": "<<benchmark_metrics.compute_seconds
+                <<",\n  \"worker_publish_seconds\": "<<benchmark_metrics.publish_seconds
+                <<",\n  \"worker_publications\": "<<benchmark_metrics.publish_count
+                <<",\n  \"display_hz\": "<<display_hz
+                <<",\n  \"compute_threads\": "<<benchmark_metrics.compute_threads
+                <<",\n  \"effective_compute_threads\": "<<benchmark_metrics.effective_compute_threads
+                <<",\n  \"limits\": \"Hidden native window; independent solver controller with configured helper threads, Present(1). Snapshot construction and GUI run concurrently. Not visible GUI or GPU execution timing. Initialization, export and checkpoint are outside wall_seconds. App draw excludes solver work.\"\n}\n";
+            if(!log)throw std::runtime_error("Cannot write GUI benchmark metrics.");
+            std::error_code ec;std::filesystem::remove(benchmark/L"error.txt",ec);
+        }
+        if(smoke.empty()&&benchmark.empty()&&runner_close.empty()&&app.plot_windows.automatic_save_allowed&&!app.plot_windows.workspace_path.empty()) {
             const auto parent=app.plot_windows.workspace_path.parent_path();
             if(!parent.empty())std::filesystem::create_directories(parent);
             if(!app.plot_windows.save(app.plot_windows.workspace_path))MessageBoxA(hwnd,app.plot_windows.message.c_str(),"Workspace",MB_OK|MB_ICONWARNING);
         }
         if(!smoke.empty()) {
-            studio::export_results(*app.simulation,smoke/L"demo");
+            app.pause();app.synchronize();app.export_data(smoke/L"demo");
             std::ofstream log(smoke/L"renderer.txt");log<<"frames="<<frames<<"\nminimum_vertices="<<minimum_vertices<<"\nsamples="<<app.simulation->history.time.size()<<"\nerror="<<app.simulation->error<<"\n";
             log<<"native_viewport_checks="<<native_checks<<"\nmonitors="<<ImGui::GetPlatformIO().Monitors.Size<<"\n";
             if(stimulator_smoke)log<<"shared_sources="<<app.config.stimulators.size()<<"\nshared_pulses="<<app.simulation->history.shared_pulses.size()<<"\nactivity_maximum="<<app.activity_field.maximum<<"\nactivity_events_processed="<<app.activity_field.processed_events<<"\n";
@@ -306,13 +429,30 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(!viewport_smoke&&minimum_vertices<100)throw std::runtime_error("Renderer emitted too few vertices.");
             std::error_code ec;std::filesystem::remove(smoke/L"error.txt",ec);
         }
+        if(!runner_close.empty()&&(!close_requested||!active_before_close||IsWindow(hwnd)))
+            throw std::runtime_error("Native close did not destroy the active main window.");
+        // On this path App is destroyed while the controller is still active.
+        // Do not pause, synchronize, or export before its shutdown/join.
     }catch(const std::exception& e) {
         result=1;
-        if(smoke.empty())MessageBoxA(hwnd,e.what(),"Network Studio",MB_OK|MB_ICONERROR);
+        if(!runner_close.empty()){std::filesystem::create_directories(runner_close);std::ofstream log(runner_close/L"error.txt");log<<e.what();}
+        else if(!benchmark.empty()){std::filesystem::create_directories(benchmark);std::ofstream log(benchmark/L"error.txt");log<<e.what();}
+        else if(smoke.empty())MessageBoxA(hwnd,e.what(),"Network Studio",MB_OK|MB_ICONERROR);
         else {std::filesystem::create_directories(smoke);std::ofstream log(smoke/L"error.txt");log<<e.what();}
     }
     if(backends){ImGui::DestroyPlatformWindows();if(!platform_procedures.empty())result=1;ImGui_ImplDX11_Shutdown();ImGui_ImplWin32_Shutdown();}
     if(imgui){ImPlot::DestroyContext();ImGui::DestroyContext();}
     target.Reset();swapchain.Reset();context.Reset();device.Reset();
+    if(!runner_close.empty()&&result==0) {
+        // Reached only after App::~App() returned from SimulationRunner::shutdown
+        // and GUI/Direct3D resources were released; a stuck join produces no file.
+        std::ofstream log(runner_close/L"close_result.json");
+        log<<std::setprecision(17)<<"{\n  \"active_before_close\": true,\n  \"wm_close_posted\": true,\n  \"joined\": true,\n"
+            <<"  \"resources_released\": true,\n  \"steps_before_close\": "<<close_steps<<",\n  \"model_time_before_close\": "<<close_model_time
+            <<",\n  \"compute_threads\": "<<close_compute_threads<<",\n  \"effective_compute_threads\": "<<close_effective_threads
+            <<",\n  \"neurons\": "<<close_neurons<<",\n  \"synapses\": "<<close_synapses
+            <<",\n  \"close_seconds\": "<<std::chrono::duration<double>(std::chrono::steady_clock::now()-close_begin).count()<<"\n}\n";
+        if(!log)result=1;
+    }
     if(hwnd)DestroyWindow(hwnd);UnregisterClassW(wc.lpszClassName,instance);CoUninitialize();return result;
 }

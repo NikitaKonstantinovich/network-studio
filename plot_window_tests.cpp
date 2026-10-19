@@ -9,9 +9,9 @@ namespace {
 int checks=0;
 void require(bool ok,const char* message){++checks;if(!ok)throw std::runtime_error(message);}
 std::string bytes(const std::filesystem::path& p){std::ifstream in(p,std::ios::binary);return {std::istreambuf_iterator<char>(in),{}};}
-void frame(studio::App& app){ImGui::NewFrame();app.draw();ImGui::Render();}
-void equal(const studio::Simulator& a,const studio::Simulator& b,const std::filesystem::path& dir) {
-    studio::save_checkpoint(a,dir/L"a.nscp");studio::save_checkpoint(b,dir/L"b.nscp");
+void frame(studio::App& app){ImGui::NewFrame();app.draw();ImGui::Render();app.synchronize();}
+void equal(studio::App& a,const studio::Simulator& b,const std::filesystem::path& dir) {
+    a.save_state(dir/L"a.nscp");studio::save_checkpoint(b,dir/L"b.nscp");
     require(bytes(dir/L"a.nscp")==bytes(dir/L"b.nscp"),"Plot operations changed full checkpoint bytes (including queue, learning, integrator and history).");
 }
 }
@@ -25,7 +25,7 @@ int main() {
         std::filesystem::create_directories(dir);
         studio::App app;auto c=studio::preset(6);c.duration=.22;c.sample=.00025;c.noise_sigma=.1;c.synapses[0].delay=.12;c.record_all=false;c.record_neurons={0};c.record_synapses={0};
         app.replace(c);studio::Simulator reference(c);
-        while(app.simulation->time<.12){require(app.simulation->step(),"Fixture failed");reference.step();}
+        while(reference.time<.12)require(reference.step(),"Fixture failed");app.advance_for(reference.time);
         require(!app.simulation->pending_deliveries.empty(),"The invariance fixture needs a pending delivery.");
         auto& plots=app.plot_windows;auto first=plots.create(studio::PlotKind::Voltage,0);
         auto* original=plots.find(first);original->title="Потенциал α";original->follow=false;original->auto_fit=false;
@@ -41,7 +41,7 @@ int main() {
         for(int i=0;i<5;++i){app.selected_kind=i%3;app.selected_index=i%2;frame(app);}
         require(plots.find(first)->objects==std::vector<int>{0},"Inspector selection changed an independent graph.");
         require(values==app.simulation->history.values[0].data()&&times==app.simulation->history.time.data(),"Drawing replaced shared history storage.");
-        equal(*app.simulation,reference,dir);
+        equal(app,reference,dir);
         auto id=ImGui::FindWindowByName(plots.find(first)->window_name().c_str())->ID;
         plots.find(first)->title="Переименован###вложенный ID";frame(app);
         require(ImGui::FindWindowByName(plots.find(first)->window_name().c_str())->ID==id,"Editable title changed stable ImGui ID.");
@@ -69,31 +69,33 @@ int main() {
         require(!plots.save(dir/L"missing"/L"file.nsworkspace")&&bytes(dir/L"вид.nsworkspace")==saved,"Failed save destroyed previous workspace.");
         plots.find(first)->position={50000,-50000};plots.find(first)->place=true;frame(app);
         auto pos=plots.find(first)->position;require(pos.x>=0&&pos.x<1600&&pos.y>=0&&pos.y<1000,"Off-screen window was not clamped.");
-        plots.reset_layout();frame(app);equal(*app.simulation,reference,dir);
+        plots.reset_layout();frame(app);equal(app,reference,dir);
         for(int i=0;i<200;++i) {
-            require(app.simulation->step()&&reference.step(),"Continuation failed.");
+            require(reference.step(),"Continuation failed.");studio::RunnerCommand next;next.kind=studio::RunnerCommand::Kind::RunTo;next.value=reference.time;require(app.wait_command(app.command(next)).ok,"Runner continuation failed.");
             if(i%20==0){auto copy=plots.duplicate(first);frame(app);plots.close(copy);}
         }
-        equal(*app.simulation,reference,dir);
-        studio::save_checkpoint(*app.simulation,dir/L"resume.nscp");app.reset();frame(app);
+        equal(app,reference,dir);
+        app.save_state(dir/L"resume.nscp");app.reset();frame(app);
         require(plots.find(first)->compatible&&app.simulation->time==0,"Reset invalidated compatible views.");
         require(app.restore_state(dir/L"resume.nscp"),"Restore checkpoint failed.");frame(app);
-        require(plots.find(first)->compatible,"Same-protocol checkpoint lost binding.");equal(*app.simulation,reference,dir);
+        require(plots.find(first)->compatible,"Same-protocol checkpoint lost binding.");equal(app,reference,dir);
         // Even an identical JSON replacement is a new graph, and requires explicit consent to rebind.
         app.replace(c);frame(app);require(!plots.find(first)->compatible,"Replacement silently retargeted old indices.");
         plots.rebind(*plots.find(first));require(plots.find(first)->compatible,"Explicit rebind failed.");
         studio::remove_neuron(app.config,0);app.reset();frame(app);require(!plots.find(first)->compatible,"Deletion silently retargeted another neuron at index 0.");
         require(plots.load(dir/L"вид.nsworkspace")&&!plots.find(first)->compatible,"Incompatible saved binding was silently accepted.");
-        // Larger recorded network, 8 simultaneous views: history is still held only by Simulator.
+        // Larger recorded network, 8 simultaneous views share one retained display history.
         studio::NetworkGeneration generation;generation.excitatory.count=80;generation.inhibitory.count=20;
         generation.excitatory.in_degree=generation.inhibitory.in_degree={4,0};generation.duration=.5;generation.sample=.00025;
         auto large=studio::generate_network(studio::preset(3),generation,false);large.record_all=true;
-        for(auto& n:large.neurons)n.current=8;app.replace(large);while(!app.simulation->done())require(app.simulation->step(),"Large fixture failed.");
+        for(auto& n:large.neurons)n.current=8;app.replace(large);app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Large fixture failed.");
         plots.windows.clear();for(int i=0;i<8;++i)plots.create(i%2?studio::PlotKind::Synapse:studio::PlotKind::Voltage,i);
-        const auto* storage=app.simulation->history.values[0].data();auto before=std::chrono::steady_clock::now();
+        const auto* storage=app.simulation->history.values[0].data();const auto display_samples=app.simulation->history.time.size();auto before=std::chrono::steady_clock::now();
         for(int i=0;i<20;++i)frame(app);
         auto elapsed=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-before).count();
-        require(storage==app.simulation->history.values[0].data()&&app.simulation->history.time.size()==2001,"Multiple views changed large history.");
+        require(storage==app.simulation->history.values[0].data()&&app.simulation->history.time.size()==display_samples,"Multiple views changed retained display history.");
+        require(app.simulation->truncated&&display_samples<2001&&app.simulation->history.time.back()==large.duration,"Large display history was not explicitly bounded at the latest sample.");
+        app.save_state(dir/L"large-full.nscp");require(studio::load_checkpoint(dir/L"large-full.nscp")->history.time.size()==2001,"Display retention truncated scientific history.");
         std::cout<<"PASS: "<<checks<<" plot/workspace checks; exact checkpoints match; 100 neurons / 400 edges / 8 windows / 20 frames: "<<elapsed<<" ms. Artifacts: "<<dir.u8string()<<"\n";
         ImPlot::DestroyContext();ImGui::DestroyContext();return 0;
     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}

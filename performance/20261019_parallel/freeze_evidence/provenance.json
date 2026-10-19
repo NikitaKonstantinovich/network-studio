@@ -1,0 +1,204 @@
+{
+  "prepared_utc": "2026-10-19T00:08:42.822289+00:00",
+  "source": "../20261019_single_thread/fixture.json",
+  "source_sha256": "faf56433d1502273ba53ec675881999fa091e50556d2951cdd69253e2888e591",
+  "origin": "Closest saved matching population/STDP/noise recipe; 15013 edges, not an identification of the user exact 15041-edge experiment. Only name, duration and dt changed. Laboratory files unchanged.",
+  "unchanged": {
+    "neurons": 500,
+    "synapses": 15013,
+    "seed": 706,
+    "dt": 2.5e-05,
+    "sample": 0.002,
+    "noise_interval": 0.001,
+    "recording": "Same selected neurons/synapses",
+    "stages": "Preserved but no stage is activated by the benchmark"
+  },
+  "fixtures": [
+    {
+      "path": "fixtures\\burst_5ms.json",
+      "workload": "burst",
+      "model_seconds": 0.005,
+      "expected_macro_steps": 200,
+      "sha256": "e12e2898aa6d235f85d8ef0f0e34db872cb215699dffcccb246cb1d54138ead8",
+      "bytes": 9390535,
+      "changes_from_source": {
+        "duration": {
+          "old": 0.5,
+          "new": 0.005
+        },
+        "name": {
+          "old": "Performance / derived from experiments benchmark / 500 Izh / 0.5s",
+          "new": "Performance / parallel / burst / 0.005s"
+        }
+      },
+      "quiet_label": null
+    },
+    {
+      "path": "fixtures\\quiet_5ms.json",
+      "workload": "quiet",
+      "model_seconds": 0.005,
+      "expected_macro_steps": 200,
+      "sha256": "6385ff9ceb2e95243dc63ae8d6e53867cc75e449717773d6fe5fec4c7fe63aed",
+      "bytes": 9390535,
+      "changes_from_source": {
+        "duration": {
+          "old": 0.5,
+          "new": 0.005
+        },
+        "noise_sigma": {
+          "old": 5,
+          "new": 0
+        },
+        "name": {
+          "old": "Performance / derived from experiments benchmark / 500 Izh / 0.5s",
+          "new": "Performance / parallel / quiet / 0.005s"
+        }
+      },
+      "quiet_label": "Synthetic no-noise control; actual event count must be checked after running"
+    },
+    {
+      "path": "fixtures\\burst_50ms.json",
+      "workload": "burst",
+      "model_seconds": 0.05,
+      "expected_macro_steps": 2000,
+      "sha256": "72608016585c256bfa34b5735b0732759e0cc0c6a2cd3327b13add4f36d2b2ab",
+      "bytes": 9390533,
+      "changes_from_source": {
+        "duration": {
+          "old": 0.5,
+          "new": 0.05
+        },
+        "name": {
+          "old": "Performance / derived from experiments benchmark / 500 Izh / 0.5s",
+          "new": "Performance / parallel / burst / 0.05s"
+        }
+      },
+      "quiet_label": null
+    },
+    {
+      "path": "fixtures\\quiet_50ms.json",
+      "workload": "quiet",
+      "model_seconds": 0.05,
+      "expected_macro_steps": 2000,
+      "sha256": "751aafdbe270cabd648bc954236a801435f9b0c3854a3a8842d43fc059c6d7b3",
+      "bytes": 9390533,
+      "changes_from_source": {
+        "duration": {
+          "old": 0.5,
+          "new": 0.05
+        },
+        "noise_sigma": {
+          "old": 5,
+          "new": 0
+        },
+        "name": {
+          "old": "Performance / derived from experiments benchmark / 500 Izh / 0.5s",
+          "new": "Performance / parallel / quiet / 0.05s"
+        }
+      },
+      "quiet_label": "Synthetic no-noise control; actual event count must be checked after running"
+    },
+    {
+      "path": "fixtures\\burst_100ms.json",
+      "workload": "burst",
+      "model_seconds": 0.1,
+      "expected_macro_steps": 4000,
+      "sha256": "e90484af15133b074d20e6218affa950ec15f7467a8107f278d89dd77510733c",
+      "bytes": 9390531,
+      "changes_from_source": {
+        "duration": {
+          "old": 0.5,
+          "new": 0.1
+        },
+        "name": {
+          "old": "Performance / derived from experiments benchmark / 500 Izh / 0.5s",
+          "new": "Performance / parallel / burst / 0.1s"
+        }
+      },
+      "quiet_label": null
+    },
+    {
+      "path": "fixtures\\quiet_100ms.json",
+      "workload": "quiet",
+      "model_seconds": 0.1,
+      "expected_macro_steps": 4000,
+      "sha256": "b8ae8fea29b31689e051b91bf7771494aa349e1d40501bb7055ef97b9c8973b2",
+      "bytes": 9390531,
+      "changes_from_source": {
+        "duration": {
+          "old": 0.5,
+          "new": 0.1
+        },
+        "noise_sigma": {
+          "old": 5,
+          "new": 0
+        },
+        "name": {
+          "old": "Performance / derived from experiments benchmark / 500 Izh / 0.5s",
+          "new": "Performance / parallel / quiet / 0.1s"
+        }
+      },
+      "quiet_label": "Synthetic no-noise control; actual event count must be checked after running"
+    },
+    {
+      "path": "fixtures\\burst_500ms.json",
+      "workload": "burst",
+      "model_seconds": 0.5,
+      "expected_macro_steps": 20000,
+      "sha256": "faf56433d1502273ba53ec675881999fa091e50556d2951cdd69253e2888e591",
+      "bytes": 9808093,
+      "changes_from_source": {},
+      "quiet_label": null
+    },
+    {
+      "path": "fixtures\\quiet_500ms.json",
+      "workload": "quiet",
+      "model_seconds": 0.5,
+      "expected_macro_steps": 20000,
+      "sha256": "b484cf1016560a32d8bf4dd937f35ee1dc8f3547d64482fd633e53b25bf4cb57",
+      "bytes": 9390531,
+      "changes_from_source": {
+        "noise_sigma": {
+          "old": 5,
+          "new": 0
+        },
+        "name": {
+          "old": "Performance / derived from experiments benchmark / 500 Izh / 0.5s",
+          "new": "Performance / parallel / quiet / 0.5s"
+        }
+      },
+      "quiet_label": "Synthetic no-noise control; actual event count must be checked after running"
+    }
+  ],
+  "frozen_release": [
+    {
+      "path": "../20261019_runner/runner-release/network_studio.exe",
+      "sha256": "427ac75347d570a0075f4c4ff0e647e953da72af875346346d36b1713540f937",
+      "bytes": 1907200,
+      "matches_previous_manifest": true
+    },
+    {
+      "path": "../20261019_runner/runner-release/network_studio_cli.exe",
+      "sha256": "c761dee16165f00fe8445a1e092cfbd6f288976120ca53a0fb67e449a5ed16a5",
+      "bytes": 739328,
+      "matches_previous_manifest": true
+    },
+    {
+      "path": "../20261019_runner/runner-release/network_studio_benchmark.exe",
+      "sha256": "f4c5f859f5589cf81c2f2b46574a7f7bf30450ed12be11a0d0df44134227b822",
+      "bytes": 673280,
+      "matches_previous_manifest": true
+    },
+    {
+      "path": "../20261019_runner/runner-release/network_studio_runner_benchmark.exe",
+      "sha256": "be0627832c877925e10bc07e36fd5a3a18a5ebc2e0117975c8726aa4d8fe43df",
+      "bytes": 824320,
+      "matches_previous_manifest": true
+    }
+  ],
+  "frozen_build_manifest": "../20261019_runner/build_manifest.json",
+  "frozen_build_manifest_sha256": "82dd55e62a8050815b9507cb3fac0c4f5cf7a5061e56851db1913ba49476c024",
+  "frozen_checkpoint_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"ac0f72fc71244732cdddf0340becf837e6c9dc0ba4800885fd7e307af5b563b3\"",
+  "frozen_copy_policy": "Reuse existing immutable runner-release in place; never rebuild or overwrite it",
+  "status": "Prepared configurations only; no solver, benchmark, test, or build was run"
+}

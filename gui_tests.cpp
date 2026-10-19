@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include <chrono>
+#include <fstream>
 
 static std::map<ImGuiID,ImRect> bounds;
 static std::map<ImGuiID,ImGuiWindow*> owners;
@@ -21,15 +22,16 @@ void ImGuiTestEngineHook_Log(ImGuiContext*,const char*,...) {}
 const char* ImGuiTestEngine_FindItemDebugLabel(ImGuiContext*,ImGuiID id) {return labels[id].c_str();}
 static int checks=0;
 static void require(bool ok,const char* msg) {++checks;if(!ok)throw std::runtime_error(msg);}
+static std::string bytes(const std::filesystem::path& p) { std::ifstream f(p,std::ios::binary);return {std::istreambuf_iterator<char>(f),{}}; }
 static void frame(studio::App& app) {
-    bounds.clear();owners.clear();items.clear();scopes.clear();ImGui::NewFrame();app.draw();ImGui::Render();
+    bounds.clear();owners.clear();items.clear();scopes.clear();ImGui::NewFrame();app.draw();ImGui::Render();app.synchronize();
     require(ImGui::GetDrawData()->TotalVtxCount>100,"GUI emitted no geometry.");
 }
 static void click_point(studio::App& app,ImVec2 p) {
     auto& io=ImGui::GetIO();io.AddMousePosEvent(p.x,p.y);frame(app);
     io.AddMouseButtonEvent(0,true);frame(app);io.AddMouseButtonEvent(0,false);frame(app);
 }
-static void click(studio::App& app,const char* label) {
+static void click(studio::App& app,const char* label,bool activate=true) {
     for(int attempt=0;attempt<6;++attempt) {
         frame(app);
         // This fork omits ItemInfo for combo boxes and tabs. Resolve their real
@@ -47,7 +49,7 @@ static void click(studio::App& app,const char* label) {
             auto b=bounds.find(id);
             if(b!=bounds.end()) {
                 auto* window=owners[id];const auto center=b->second.GetCenter();found=true;
-                if(window->InnerRect.Contains(center)) {click_point(app,center);return;}
+                if(window->InnerRect.Contains(center)) {if(activate)click_point(app,center);return;}
                 // Center the target instead of jumping a full long inspector.
                 float wheel=(window->InnerRect.GetCenter().y-center.y)/(5.f*ImGui::GetFontSize());
                 auto p=window->InnerRect.GetCenter();auto& io=ImGui::GetIO();io.AddMousePosEvent(p.x,p.y);frame(app);
@@ -59,6 +61,7 @@ static void click(studio::App& app,const char* label) {
     }
     throw std::runtime_error(std::string("Interaction target is missing: ")+label);
 }
+static void reveal(studio::App& app,const char* label) {click(app,label,false);}
 static void enter_scalar(studio::App& app,const char* label,const char* value) {
     auto& io=ImGui::GetIO();
     // Bring the field into view before holding Ctrl: ImGui intentionally
@@ -87,7 +90,17 @@ int main() {
         click(app,"Включён");require(!app.config.synapses.back().enabled,"Synapse toggle did not work.");
         click(app,"Запуск");require(app.running,"Run button did not start simulation.");
         click(app,"Пауза");require(!app.running&&app.simulation->time>0,"Pause did not preserve the trajectory.");
-        double paused=app.simulation->time;click(app,"Шаг 50 мс");require(app.simulation->time>=paused+.05-1e-5,"Step button did not advance time.");
+        double paused=app.simulation->time;const auto paused_state=app.simulation->state;const auto paused_generation=app.simulation->generation;
+        for(auto mode:studio::compute::ThreadModes) {
+            click(app,"Потоки расчёта");click(app,mode.count?mode.argument:"Авто");
+            require(app.simulation->metrics.compute_threads==mode.count&&app.simulation->metrics.effective_compute_threads==1,
+                "Compute thread combo did not acknowledge requested count and serial fallback.");
+            require(app.simulation->time==paused&&app.simulation->generation==paused_generation&&app.simulation->state==paused_state,
+                "Runtime thread selection reset or advanced the paused experiment.");
+        }
+        click(app,"Потоки расчёта");click(app,"1");
+        require(app.simulation->metrics.compute_threads==1&&!app.running,"Compute thread combo did not return to serial mode on acknowledgement.");
+        click(app,"Шаг 50 мс");require(app.simulation->time>=paused+.05-1e-5,"Step button did not advance time.");
         click(app,"Удалить синапс");require(app.config.synapses.size()==2&&app.simulation->time==0,"Delete did not reset simulation.");
         click(app,"+ Диффузионная связь");require(app.config.gaps.size()==1,"Add astrocyte diffusion link did not work.");
         click(app,"Удалить связь");require(app.config.gaps.empty(),"Delete diffusion link did not work.");
@@ -113,6 +126,9 @@ int main() {
         app.replace(studio::preset(3));
         click(app,"Модель нейрона");click(app,"Ижикевич");
         require(app.config.neurons[0].model==studio::NeuronModel::Izhikevich,"Neuron model combo did not select Izhikevich.");
+        // The inspector is scrollable; toolbar controls reduce its viewport.
+        // Reveal the whole four-field group before checking rendered widgets.
+        reveal(app,"d");
         require(items.count("a")&&items.count("b")&&items.count("c, мВ")&&items.count("d"),"Izhikevich parameters are missing.");
         click(app,"u(0) = b · V(0)");
         require(!app.config.neurons[0].equilibrium_u&&items.count("u(0)"),"Explicit recovery initial state is unavailable.");
@@ -124,6 +140,7 @@ int main() {
         app.replace(studio::preset(5));app.selected_kind=2;app.selected_index=0;
         click(app,"Модель синапса");click(app,"Экспоненциальный ток");
         require(app.config.synapses[0].model==studio::SynapseModel::ExponentialCurrent,"Synapse model combo did not select exponential current.");
+        reveal(app,"Масштаб A");
         require(items.count("Начальный вес w")&&items.count("Масштаб A")&&!items.count("tau f, мс"),"Exponential current inspector shows the wrong parameters.");
         click(app,"Модель синапса");click(app,"Цодыкс–Маркрам");
         require(app.config.synapses[0].model==studio::SynapseModel::TsodyksMarkram,"Synapse model combo did not select Tsodyks-Markram.");
@@ -141,9 +158,9 @@ int main() {
         const auto delayed_state=app.simulation->state;const auto delayed_pending=app.simulation->pending_deliveries;
         const auto delayed_file=std::filesystem::current_path()/("gui-delayed-"+std::to_string(std::chrono::steady_clock::now().time_since_epoch().count())+".nscp");
         app.checkpoint_dialog=[&](bool){return delayed_file;};
-        click(app,"Сохранить состояние…");click(app,"Сброс");click(app,"Восстановить состояние…");
+        click(app,"Сохранить состояние…");const auto delayed_bytes=bytes(delayed_file);click(app,"Сброс");click(app,"Восстановить состояние…");
         require(!app.running&&app.simulation->state==delayed_state&&app.simulation->pending_deliveries.size()==delayed_pending.size(),"GUI restore lost pending deliveries.");
-        require(app.simulation->pending_deliveries[0].t_arrival==delayed_pending[0].t_arrival,"GUI restore changed delivery clock.");
+        app.save_state(delayed_file);require(bytes(delayed_file)==delayed_bytes,"GUI restore changed full checkpoint, including delivery clock.");
         std::filesystem::remove(delayed_file);app.selected_kind=2;app.selected_index=0;
         click(app,"Время пре-STDP");click(app,"arrival — при приходе");
         require(app.simulation->time==0&&app.simulation->pending_deliveries.empty(),"Timing edit failed to reset experiment.");
@@ -152,13 +169,13 @@ int main() {
         saved=studio::serialize(app.config);app.replace(studio::deserialize(saved));
         require(app.config.synapses[0].model==studio::SynapseModel::TsodyksMarkram,"Synapse model configuration did not round trip.");
         auto c=studio::preset(2);c.duration=3;c.sample=.001;app.replace(c);
-        while(!app.simulation->done())require(app.simulation->step(),"Plot test simulation failed.");
+        app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Plot test simulation failed.");
         for(int tab=0;tab<6;++tab) {
             app.request_plot_tab=tab;frame(app);app.request_plot_tab=tab;frame(app);frame(app);
         }
         require(GImPlot->Plots.GetAliveCount()==6,"Not all plot tabs were built.");
         c=studio::preset(5);c.duration=.3;c.sample=.0001;app.replace(c);
-        while(!app.simulation->done())require(app.simulation->step(),"Izhikevich plot test simulation failed.");
+        app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Izhikevich plot test simulation failed.");
         app.request_plot_tab=0;frame(app);app.request_plot_tab=3;frame(app);
         app.request_plot_tab=5;frame(app);frame(app);
         click(app,"Представление");click(app,"Восстановление u(t)");
@@ -200,14 +217,14 @@ int main() {
         click(app,"Сброс");click(app,"Восстановить состояние…");
         require(!app.running&&app.simulation->time==checkpoint_time&&app.simulation->state==checkpoint_state&&
             app.simulation->plasticity[0].weight==checkpoint_weight&&app.simulation->history.values==checkpoint_values,"GUI restore lost trajectory/training/history.");
-        auto* checkpoint_instance=app.simulation.get();
+        const auto checkpoint_instance=app.simulation->generation;
         app.checkpoint_dialog=[](bool){return std::filesystem::path{};};
         click(app,"Восстановить состояние…");
-        require(app.simulation.get()==checkpoint_instance&&app.simulation->time==checkpoint_time,"Cancelled load replaced experiment.");
+        require(app.simulation->generation==checkpoint_instance&&app.simulation->time==checkpoint_time,"Cancelled load replaced experiment.");
         app.checkpoint_dialog=[&](bool){return checkpoint_path.parent_path()/"missing-checkpoint.nscp";};
         click(app,"Восстановить состояние…");
-        require(app.simulation.get()==checkpoint_instance&&app.simulation->history.values==checkpoint_values,"Failed load replaced experiment.");
-        click(app,"Продолжить");require(app.running&&app.simulation.get()==checkpoint_instance,"Continue constructed a new simulator.");
+        require(app.simulation->generation==checkpoint_instance&&app.simulation->history.values==checkpoint_values,"Failed load replaced experiment.");
+        click(app,"Продолжить");require(app.running&&app.simulation->generation==checkpoint_instance,"Continue constructed a new simulator.");
         click(app,"Пауза");require(app.simulation->time>checkpoint_time,"Restored experiment did not advance.");
         app.restore_state(checkpoint_path);
         std::filesystem::remove(checkpoint_path);
@@ -294,7 +311,7 @@ int main() {
         // Selectively recorded conductance without its target voltage must not
         // dereference the empty target column while drawing synaptic currents.
         c=studio::preset(0);c.record_all=false;c.record_neurons={0};c.record_synapses={0};c.duration=.001;c.sample=.0001;
-        app.replace(c);while(!app.simulation->done())require(app.simulation->step(),"Selective GUI fixture failed.");
+        app.replace(c);app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Selective GUI fixture failed.");
         require(app.simulation->history.values[c.synapses[0].target*4].empty(),"Fixture target neuron was unexpectedly recorded.");
         app.selected_kind=2;app.selected_index=0;app.request_plot_tab=3;frame(app);frame(app);
         click(app,"Записывать синапс");require(!studio::records_synapse(app.config,0)&&app.simulation->time==0,"Synapse recording checkbox did not reset for a rerun.");
@@ -311,7 +328,7 @@ int main() {
             syn.weight=c.neurons[syn.source].inhibitory?-.5:.5;c.synapses.push_back(syn);
         }
         app.replace(c);require(app.simulation->error.empty(),("Large graph GUI fixture is invalid: "+app.simulation->error).c_str());
-        while(!app.simulation->done())require(app.simulation->step(),"Large graph simulation failed.");
+        app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Large graph simulation failed.");
         for(int tab=0;tab<6;++tab){app.request_plot_tab=tab;frame(app);frame(app);}
         require(app.simulation->history.values[0].size()==3&&app.simulation->history.values[4].empty(),"Large graph recording selection was ignored.");
         require(ImGui::GetDrawData()->TotalVtxCount<250000,"Large graph drew all edge labels instead of a compact selection.");
@@ -371,7 +388,7 @@ int main() {
         io.AddMousePosEvent(focus.x,focus.y);frame(app);frame(app);io.AddMouseWheelEvent(0,1);frame(app);frame(app);
         require(view.zoom>1,"Topology wheel zoom did not work");click(app,"Вписать схему");require(view.zoom==1,"Topology reset view failed");
         require(studio::serialize(app.config)==config_before_field&&app.simulation->steps==steps_before_field,"Field controls edited the model or advanced simulation");
-        app.replace(studio::preset(6));for(int i=0;i<20;++i)require(app.simulation->step(),"Stage GUI fixture failed");
+        app.replace(studio::preset(6));app.advance_for(20*app.config.dt);require(app.simulation->error.empty(),"Stage GUI fixture failed");
         const auto stage_state=app.simulation->state;const auto stage_time=app.simulation->time;const auto stage_weight=app.simulation->plasticity[0].weight;
         click(app,"Этапы эксперимента…");click(app,"Обучение включено");
         require(!app.simulation->experiment.learning&&app.simulation->state==stage_state&&app.simulation->time==stage_time&&app.simulation->plasticity[0].weight==stage_weight,"Freeze GUI reset dynamics or weights");
@@ -388,7 +405,7 @@ int main() {
         click(app,"Топология");click(app,"Связи в пределах радиуса");enter_scalar(app,"Радиус","0.15");click(app,"Предпросмотр");
         require(app.simulation->time==stage_time&&app.simulation->state==stage_state,"Radius preview changed live model");click(app,"Отмена");
         app.plot_windows.windows.clear();app.replace(studio::preset(6));app.config.space={100,100,"um"};app.reset();
-        for(int i=0;i<200;++i)require(app.simulation->step(),"Stimulator GUI fixture");
+        app.advance_for(200*app.config.dt);require(app.simulation->error.empty(),"Stimulator GUI fixture");
         auto source_state=app.simulation->state;const auto source_time=app.simulation->time;const auto source_steps=app.simulation->steps;
         click(app,"Стимуляторы…");click(app,"Добавить стимулятор");click(app,"Выбрать всех получателей");click(app,"Применить без сброса");
         require(app.config.stimulators.size()==1&&app.config.stimulators[0].recipients.size()==app.config.neurons.size(),"Shared source/recipients GUI");

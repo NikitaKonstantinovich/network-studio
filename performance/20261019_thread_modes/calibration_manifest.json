@@ -1,0 +1,50 @@
+{
+  "branch": "perf/thread-modes-6-12-16-20261019",
+  "executables": {
+    "network_studio.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "sha256": "980d7930b6ed44719bd0daf756f50e7bc4cf22e516f01242f9653d41c89e306c",
+      "bytes": 1935872,
+      "archived_path": "E:\\asp\\26_27\\configurator\\build\\thread-modes-calibration\\Release\\network_studio.exe"
+    },
+    "network_studio_cli.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "sha256": "77d34d69e4c1d442818f9fa0b0f74bfd03cfaa94518e320dd57174faf6091288",
+      "bytes": 776192,
+      "archived_path": "E:\\asp\\26_27\\configurator\\build\\thread-modes-calibration\\Release\\network_studio_cli.exe"
+    },
+    "network_studio_benchmark.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_benchmark.exe",
+      "sha256": "b5fa287d3fcce44c1528dcc21c1dcdb05a011862b6340b675697a667f874c1c2",
+      "bytes": 711680,
+      "archived_path": "E:\\asp\\26_27\\configurator\\build\\thread-modes-calibration\\Release\\network_studio_benchmark.exe"
+    }
+  },
+  "checkpoint_build_header": "#define STUDIO_CHECKPOINT_BUILD_ID \"c77324df4b815c0f5e6de5da4c29cf93c02672fc482188a003b511803f4435dd\"",
+  "ctest_count": 32,
+  "ctest_seconds": 261.2,
+  "final_build_test_smoke_seconds": 296.8997192,
+  "targeted_seconds": 150.4330463,
+  "measurement_seconds": 445.56365299999015,
+  "compatibility_seconds": 0.24216309998882934,
+  "parallel_checks": 23604385,
+  "exact_macro_states": 6063,
+  "source_hashes": {
+    "cli.cpp": "94663ceef3623b534a817a2dd62fe7876c2f899708653f7559af4e002045ed5e",
+    "CMakeLists.txt": "60f162a7edb22da4d8fe02c609a8c5fa0c7e18df5ff3250cea2438c33974a639",
+    "gui.cpp": "ffa2ac5953cd9a730cfad42dffe712a5fecc35c0df136f1777bdc4b0655e7481",
+    "gui_tests.cpp": "e6f6a4d97ea6da724c224c95bc1701e24bf16a52449a2c3caa1a0bd00f52a5d8",
+    "integrator.cpp": "18bb15d0b25047e7864b0badab9b1e7a8f58ba5cd9705137b2d877406a5128e2",
+    "main.cpp": "6d47fdb76e05f2f285d6ea406a2cf4c5c1734264d6be0760125876c7d615d0ef",
+    "network.cpp": "80d07250070f872b6f3c6ad8c539253e4101220a10970761431c99ef40facf0c",
+    "network.h": "1da9256be7bf40a0c45cb1d7a5068206c5aab5785cefb73f4b77ccb937aa0e7e",
+    "numerics/worker_pool.cpp": "c8abd9c652474200480036887a36823803b868945915fadaf4e4120462f39967",
+    "numerics/worker_pool.h": "3151a17ab759726fbe75c4d93e7c8130ddcc6e15026f62db946eda42c2c564f6",
+    "parallel_tests.cpp": "71cc90e715bd2d205ca88fe21a4c8d8102c4fe9c9c0ae0d4a6ead069d728d8e6",
+    "README.md": "aeb9f6579ee2cb9b68be45a172de3919de6cca1be191ff30a570c561bb6605a6",
+    "simulation_runner.cpp": "9e9f99638f1081b3ef7dfc4d72ab4c489780e7f59643d8ec3fe3a86038ca610b",
+    "simulation_runner.h": "a228b80806d65ccf4d46ba42794167b2c651e9b94d041cf48a0200821641fa7e",
+    "numerics/compute_threads.h": "62475cfacf8f5851c05727b18392950d13b0534075dcd954e3b571053c5ead84"
+  },
+  "numerical_changes": "None: mode validation and per-worker capacities only; existing arithmetic and event ordering retained."
+}

@@ -17,6 +17,7 @@ static int run_cli(int argc,char** argv) {
         bool config_options=false,continue_current=false;std::filesystem::path plan,trained,stimulus_replay;std::string branch_origin;
         std::optional<int> stage,sequence;std::optional<bool> learning;std::optional<double> learning_rate;
         std::optional<double> until,stop,run_for;
+        int compute_threads=1;
         for(int i=1;i<argc;++i) {
             std::string arg=argv[i];
             if(arg=="--help") {
@@ -24,6 +25,7 @@ static int run_cli(int argc,char** argv) {
                     "  [--duration seconds] [--dt seconds] [--sample seconds] [--save file.json]\n"
                     "  [--until absolute_end] [--stop-at absolute_time | --run-for seconds]\n"
                     "  [--checkpoint file.nscp] [--output prefix]\n"
+                    "  [--threads "<<studio::compute::choices()<<"] (runtime setting; default 1)\n"
                     "  [--stimulus-commands file.json] (recorded absolute model times)\n"
                     "  [--plan config_with_stages.json] [--stage zero_based | --sequence zero_based]\n"
                     "  [--learning enabled|frozen] [--learning-rate factor] [--fork provenance]\n"
@@ -49,6 +51,7 @@ static int run_cli(int argc,char** argv) {
             else if(arg=="--until")until=parse_number(value);
             else if(arg=="--stop-at")stop=parse_number(value);
             else if(arg=="--run-for")run_for=parse_number(value);
+            else if(arg=="--threads")compute_threads=studio::compute::parse(std::string_view(value),"--threads");
             else if(arg=="--resume")resume=std::filesystem::u8path(value);
             else if(arg=="--checkpoint")checkpoint=std::filesystem::u8path(value);
             else if(arg=="--save")save=std::filesystem::u8path(value);
@@ -72,6 +75,7 @@ static int run_cli(int argc,char** argv) {
         if(resume.empty() && until)c.duration=*until;
         auto simulator=resume.empty()?std::make_unique<studio::Simulator>(c):studio::load_checkpoint(resume);
         auto& s=*simulator;
+        s.set_compute_threads(compute_threads);
         if(!s.error.empty())throw std::runtime_error("Snapshot/configuration is not resumable: "+s.error);
         if(!resume.empty() && until)s.extend_duration(*until);
         if(continue_current)s.continue_current();
@@ -96,6 +100,7 @@ static int run_cli(int argc,char** argv) {
             }
         }
         std::cout<<"Wall seconds: "<<std::chrono::duration<double>(std::chrono::steady_clock::now()-begin).count()<<"\n";
+        std::cout<<"Compute threads: "<<(compute_threads==0?"auto":std::to_string(compute_threads))<<" / effective "<<s.effective_compute_threads()<<"\n";
         if(!trained.empty())studio::save_config(s.learned_config(),trained);
         if(!checkpoint.empty())studio::save_checkpoint(s,checkpoint);
         if(!s.error.empty())throw std::runtime_error(s.error);

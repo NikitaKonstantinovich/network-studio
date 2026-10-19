@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="(empty)"
+	tests="6"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname=""
+	time="150"
+	timestamp="2026-10-19T23:53:30"
+	>
+	<testcase name="parallel_solver_invariance" classname="parallel_solver_invariance" time="105.689" status="run">
+		<properties/>
+		<system-out>parallel: pool phases and exception barriers
+parallel: exact numerical matrix
+parallel: cross-count checkpoint resume
+parallel: boundary thread reconfiguration
+parallel: same-size kinetic/noise edits
+parallel: unsupported/small model fallback
+parallel: nonfinite and physical-bound rejection
+parallel: automatic stages and shared stimuli
+parallel: runner lifecycle and native thread cleanup
+PASS: 23604403 parallel checks; 6063 exact macro states; threads 1|2|4|6|8|12|16|auto, repeats, full checkpoint bytes, cross-count resume, fallback and controller lifecycle. Artifacts: E:\asp\26_27\configurator\build\native\parallel-tests\309183182833700
+</system-out>
+	</testcase>
+	<testcase name="thread_modes_process_resume" classname="thread_modes_process_resume" time="3.76057" status="run">
+		<properties/>
+		<system-out>-- Separate CLI processes 6 -&gt; 12 -&gt; 16: 11 complete files exactly match continuous serial; E:/asp/26_27/configurator/build/native/thread-modes-process/20261019_235516
+</system-out>
+	</testcase>
+	<testcase name="thread_modes_native_6" classname="thread_modes_native_6" time="1.09674" status="run">
+		<properties/>
+		<system-out>-- Native Win32/DX11: 6 compute threads; close while running after 258 steps; all threads joined
+</system-out>
+	</testcase>
+	<testcase name="thread_modes_native_12" classname="thread_modes_native_12" time="1.0905" status="run">
+		<properties/>
+		<system-out>-- Native Win32/DX11: 12 compute threads; close while running after 256 steps; all threads joined
+</system-out>
+	</testcase>
+	<testcase name="thread_modes_native_16" classname="thread_modes_native_16" time="1.05744" status="run">
+		<properties/>
+		<system-out>-- Native Win32/DX11: 16 compute threads; close while running after 169 steps; all threads joined
+</system-out>
+	</testcase>
+	<testcase name="gui_interactions_and_plots" classname="gui_interactions_and_plots" time="37.2614" status="run">
+		<properties/>
+		<system-out>PASS: 1671 GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.
+</system-out>
+	</testcase>
+</testsuite>

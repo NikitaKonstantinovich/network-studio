@@ -1,0 +1,60 @@
+{
+  "sampling_seconds": 0.1,
+  "samples": 6,
+  "final_query_after_exit_ok": true,
+  "peak_working_set_bytes_observed": 14364672,
+  "max_sampled_private_usage_bytes": 7897088,
+  "peak_pagefile_usage_bytes_observed": 10719232,
+  "query_errors": [],
+  "timeline": [
+    {
+      "elapsed_process_seconds": 7.800001185387373e-06,
+      "working_set_bytes": 2125824,
+      "peak_working_set_bytes": 2125824,
+      "private_usage_bytes": 401408,
+      "peak_pagefile_usage_bytes": 409600,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.10239030001685023,
+      "working_set_bytes": 9781248,
+      "peak_working_set_bytes": 10297344,
+      "private_usage_bytes": 6733824,
+      "peak_pagefile_usage_bytes": 7897088,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.2127751000225544,
+      "working_set_bytes": 7376896,
+      "peak_working_set_bytes": 11681792,
+      "private_usage_bytes": 3362816,
+      "peak_pagefile_usage_bytes": 8654848,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.32067230000393465,
+      "working_set_bytes": 11132928,
+      "peak_working_set_bytes": 12148736,
+      "private_usage_bytes": 6930432,
+      "peak_pagefile_usage_bytes": 8654848,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.42869460000656545,
+      "working_set_bytes": 11993088,
+      "peak_working_set_bytes": 14278656,
+      "private_usage_bytes": 7897088,
+      "peak_pagefile_usage_bytes": 10661888,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.4540430000051856,
+      "working_set_bytes": 32768,
+      "peak_working_set_bytes": 14364672,
+      "private_usage_bytes": 77824,
+      "peak_pagefile_usage_bytes": 10719232,
+      "after_exit": true
+    }
+  ],
+  "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+}

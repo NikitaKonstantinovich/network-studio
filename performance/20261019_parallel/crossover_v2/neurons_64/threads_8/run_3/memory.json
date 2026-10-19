@@ -1,0 +1,52 @@
+{
+  "sampling_seconds": 0.1,
+  "samples": 5,
+  "final_query_after_exit_ok": true,
+  "peak_working_set_bytes_observed": 14483456,
+  "max_sampled_private_usage_bytes": 7000064,
+  "peak_pagefile_usage_bytes_observed": 10911744,
+  "query_errors": [],
+  "timeline": [
+    {
+      "elapsed_process_seconds": 7.800001185387373e-06,
+      "working_set_bytes": 2097152,
+      "peak_working_set_bytes": 2097152,
+      "private_usage_bytes": 409600,
+      "peak_pagefile_usage_bytes": 417792,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.11408040000242181,
+      "working_set_bytes": 10088448,
+      "peak_working_set_bytes": 10416128,
+      "private_usage_bytes": 7000064,
+      "peak_pagefile_usage_bytes": 7901184,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.22410790002322756,
+      "working_set_bytes": 7475200,
+      "peak_working_set_bytes": 11726848,
+      "private_usage_bytes": 3551232,
+      "peak_pagefile_usage_bytes": 8658944,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.3327624000085052,
+      "working_set_bytes": 8085504,
+      "peak_working_set_bytes": 14376960,
+      "private_usage_bytes": 4444160,
+      "peak_pagefile_usage_bytes": 10846208,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.428969300002791,
+      "working_set_bytes": 32768,
+      "peak_working_set_bytes": 14483456,
+      "private_usage_bytes": 77824,
+      "peak_pagefile_usage_bytes": 10911744,
+      "after_exit": true
+    }
+  ],
+  "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+}

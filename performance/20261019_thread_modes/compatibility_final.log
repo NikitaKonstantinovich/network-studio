@@ -1,0 +1,103 @@
+{
+  "runs": [
+    {
+      "name": "old",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\thread-modes-before\\network_studio_cli.exe",
+        "--preset",
+        "4",
+        "--duration",
+        ".003",
+        "--checkpoint",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_thread_modes\\compatibility_final\\old.nscp",
+        "--output",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_thread_modes\\compatibility_final\\old"
+      ],
+      "exit_code": 0,
+      "seconds": 0.144006900023669,
+      "exe_sha256": "a0d17dd538bc419284ccf21f8186baa16e3b5d0ba21d6b540901a75ba8121b0e",
+      "output": "Wall seconds: 0.0003061\r\nCompute threads: 1 / effective 1\r\nCompleted 0.0030000000000000001 s / 120 steps / 61 samples\r\nN1: 0 spikes\r\n"
+    },
+    {
+      "name": "rejected",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+        "--resume",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_thread_modes\\compatibility_final\\old.nscp",
+        "--threads",
+        "16",
+        "--output",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_thread_modes\\compatibility_final\\rejected"
+      ],
+      "exit_code": 1,
+      "seconds": 0.02676969999447465,
+      "exe_sha256": "a7eea70e66aac6db90304b7b23815e03456594f4566d6a6a465ece8e8d297395",
+      "output": "Checkpoint: incompatible solver build; use the original build\r\n"
+    },
+    {
+      "name": "new",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+        "--preset",
+        "4",
+        "--duration",
+        ".003",
+        "--threads",
+        "16",
+        "--checkpoint",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_thread_modes\\compatibility_final\\new.nscp",
+        "--output",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_thread_modes\\compatibility_final\\new"
+      ],
+      "exit_code": 0,
+      "seconds": 0.04253500001505017,
+      "exe_sha256": "a7eea70e66aac6db90304b7b23815e03456594f4566d6a6a465ece8e8d297395",
+      "output": "Wall seconds: 0.0003117\r\nCompute threads: 16 / effective 1\r\nCompleted 0.0030000000000000001 s / 120 steps / 61 samples\r\nN1: 0 spikes\r\n"
+    }
+  ],
+  "csv": {
+    "old_activity.csv": {
+      "identical": true,
+      "sha256": "028e1a096dd6b2a06370e5dc49fec253b41e2e909a1581d22fed16c1ae7464ae"
+    },
+    "old_bursts.csv": {
+      "identical": true,
+      "sha256": "3a89d3fe181d9f13c500fa982817bf915a9ac8b29439a6a1edcc87b7b488f8c1"
+    },
+    "old_deliveries.csv": {
+      "identical": true,
+      "sha256": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+    },
+    "old_events.csv": {
+      "identical": true,
+      "sha256": "d29fade4f1737a9d2525e064fccf9a329b857a9d229784613299b92a3a718407"
+    },
+    "old_pending_deliveries.csv": {
+      "identical": true,
+      "sha256": "c64f970be633be1f254a14cb31804aebcb61fd954c3eb49657caf01a0fedb6b9"
+    },
+    "old_responses.csv": {
+      "identical": true,
+      "sha256": "bd663ed7e3a9db9f4703ea52409bc715359113c8df5a9ea25c341122334abe81"
+    },
+    "old_shared_stimuli.csv": {
+      "identical": true,
+      "sha256": "e9dfb84704e553e84fca3becefa859a0284fb4bb1d49b9de63091c704418c41c"
+    },
+    "old_stimuli.csv": {
+      "identical": true,
+      "sha256": "fe6c34b48f4ecdc3510e6cee4a05b6654bfb8146a67187f9571f28a47385981b"
+    },
+    "old_trace.csv": {
+      "identical": true,
+      "sha256": "64049af40a0f6eab403bdfcedc10796db959bb12c6b55afcb5abb3b2125e417f"
+    },
+    "old_weights.csv": {
+      "identical": true,
+      "sha256": "eda916ba30190ecc6c76c470f9d2330a43c64fff661726884a3379924049a757"
+    }
+  },
+  "old_checkpoint_sha256": "2c6cdfae237e97a8f712d4f9e23762da90e8600ad255781bf7592171d7169361",
+  "elapsed_seconds": 0.2211710000410676,
+  "note": "Old checkpoint rejected by normal loader. No build metadata or checksum edits. 3 ms preset 4 serial fallback CSV regression only; not a large-network performance measurement."
+}

@@ -1,0 +1,210 @@
+{
+  "unique_tests": 26,
+  "all_passed": true,
+  "test_runs": [
+    "ctest_initial.xml",
+    "ctest_final_gui.xml"
+  ],
+  "tests": {
+    "simulation_runner_lifecycle": {
+      "suite": "ctest_final_gui.xml",
+      "seconds": 3.45812
+    },
+    "performance_cache_invariance": {
+      "suite": "ctest_initial.xml",
+      "seconds": 0.0482378
+    },
+    "packed_kernel_reference": {
+      "suite": "ctest_initial.xml",
+      "seconds": 0.156309
+    },
+    "spatial_analysis_and_stages": {
+      "suite": "ctest_initial.xml",
+      "seconds": 17.2862
+    },
+    "staged_process_resume": {
+      "suite": "ctest_initial.xml",
+      "seconds": 2.0345
+    },
+    "network_model_and_io": {
+      "suite": "ctest_initial.xml",
+      "seconds": 124.085
+    },
+    "network_generation": {
+      "suite": "ctest_initial.xml",
+      "seconds": 0.153736
+    },
+    "numerical_regressions": {
+      "suite": "ctest_initial.xml",
+      "seconds": 0.56878
+    },
+    "synaptic_delays": {
+      "suite": "ctest_initial.xml",
+      "seconds": 14.6663
+    },
+    "delayed_process_resume": {
+      "suite": "ctest_initial.xml",
+      "seconds": 1.99946
+    },
+    "checkpoint_roundtrip": {
+      "suite": "ctest_initial.xml",
+      "seconds": 15.162
+    },
+    "checkpoint_process_resume": {
+      "suite": "ctest_initial.xml",
+      "seconds": 1.41435
+    },
+    "population_equivalence": {
+      "suite": "ctest_initial.xml",
+      "seconds": 3.35071
+    },
+    "shared_spatial_stimulators_activity": {
+      "suite": "ctest_initial.xml",
+      "seconds": 7.59292
+    },
+    "stimulator_process_resume": {
+      "suite": "ctest_initial.xml",
+      "seconds": 0.313983
+    },
+    "weight_field_geometry_and_weights": {
+      "suite": "ctest_initial.xml",
+      "seconds": 7.99229
+    },
+    "long_history_limits": {
+      "suite": "ctest_initial.xml",
+      "seconds": 1.82305
+    },
+    "long_history_process_resume": {
+      "suite": "ctest_initial.xml",
+      "seconds": 12.3562
+    },
+    "experiment_win32_dx11": {
+      "suite": "ctest_final_gui.xml",
+      "seconds": 2.53928
+    },
+    "stimulator_win32_dx11": {
+      "suite": "ctest_final_gui.xml",
+      "seconds": 1.43153
+    },
+    "gui_interactions_and_plots": {
+      "suite": "ctest_final_gui.xml",
+      "seconds": 35.2522
+    },
+    "plot_windows_and_workspace": {
+      "suite": "ctest_final_gui.xml",
+      "seconds": 7.33203
+    },
+    "weight_field_gui_invariance": {
+      "suite": "ctest_final_gui.xml",
+      "seconds": 6.13045
+    },
+    "weight_field_win32_dx11": {
+      "suite": "ctest_final_gui.xml",
+      "seconds": 12.7938
+    },
+    "win32_dx11_plot_viewports": {
+      "suite": "ctest_final_gui.xml",
+      "seconds": 1.34284
+    },
+    "runner_native_close": {
+      "suite": "ctest_final_gui.xml",
+      "seconds": 0.48674
+    }
+  },
+  "benchmark_runs": [
+    {
+      "series": "gui_before",
+      "run": 1,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "gui_before",
+      "run": 2,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "gui_before",
+      "run": 3,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "gui_after",
+      "run": 1,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "gui_after",
+      "run": 2,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "gui_after",
+      "run": 3,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "direct_short",
+      "run": 1,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "direct_short",
+      "run": 2,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "direct_short",
+      "run": 3,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "runner_full",
+      "run": 1,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "runner_full",
+      "run": 2,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "runner_full",
+      "run": 3,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "runner_hz1",
+      "run": 1,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "runner_hz60",
+      "run": 1,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    },
+    {
+      "series": "runner_slow_consumer",
+      "run": 1,
+      "csv_count": 10,
+      "whole_checkpoint_byte_equal": true
+    }
+  ],
+  "benchmark_exact_runs": 15,
+  "comparison_mode": "All CSV files and complete same-build checkpoint including original checksum and build identifier; no excluded fields",
+  "manual_visible_gui_session": false,
+  "thread_sanitizer": false
+}

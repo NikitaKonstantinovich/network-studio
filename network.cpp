@@ -4,6 +4,7 @@
 #include <limits>
 #include <set>
 #include <stdexcept>
+#include <thread>
 
 namespace studio {
 Config::Config() {
@@ -286,6 +287,7 @@ double next_pulse_boundary(const Neuron& n,double time,double limit) {
     }return next;
 }
 double next_input_boundary(const Config& c,double time,double limit) {
+    STUDIO_SCOPE(input_boundaries);
     double next=limit;bool noise=false;
     for(const auto& n:c.neurons){noise=noise||(n.individual_noise?n.noise_sigma>0:c.noise_sigma>0);next=next_pulse_boundary(n,time,next);}
     for(const auto& s:c.stimulators)if(s.enabled)next=next_pulse_boundary(stimulator_signal(s),time,next);
@@ -303,6 +305,7 @@ double external_current_with_protocol(const Config& c,const Neuron& n,int index,
     double current=n.current+pulse_current(n,time);
     const double sigma=n.individual_noise ? n.noise_sigma : c.noise_sigma;
     if(sigma>0) {
+        STUDIO_SCOPE(noise);
         // Counter-based streams: changing dt, plotting, and paused redraws do not
         // consume random draws. Open-interval uniforms make Box-Muller finite.
         const uint64_t bin=noise_bin(time,c.noise_interval);
@@ -313,15 +316,45 @@ double external_current_with_protocol(const Config& c,const Neuron& n,int index,
     }
     return current;
 }
-void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,double dt,double rate) {
+double NoiseCache::current(const Config& c,int index,double time) {
+    const auto& n=c.neurons[index];
+    double current=n.current+pulse_current(n,time);
+    const double sigma=n.individual_noise?n.noise_sigma:c.noise_sigma;
+    if(sigma>0) {
+        if(entries.size()!=c.neurons.size())entries.resize(c.neurons.size());
+        auto& e=entries[index];const uint64_t bin=noise_bin(time,c.noise_interval);
+        if(!e.valid||e.bin!=bin||e.seed!=c.seed||e.sigma!=sigma||e.interval!=c.noise_interval) {
+            STUDIO_SCOPE(noise);
+            const uint64_t key=mix64(uint64_t(c.seed)^(uint64_t(index+1)*0xd1b54a32d192ed03ULL))^mix64(bin);
+            const double u1=(double(mix64(key)>>11)+.5)/9007199254740992.;
+            const double u2=(double(mix64(key^0x94d049bb133111ebULL)>>11)+.5)/9007199254740992.;
+            // Cache this complete left-associated expression: moving sigma to
+            // the end would change rounding relative to external_current().
+            e.value=sigma*std::sqrt(-2*std::log(u1))*std::cos(6.2831853071795864769*u2);
+            e.bin=bin;e.seed=c.seed;e.sigma=sigma;e.interval=c.noise_interval;e.valid=true;
+        }
+        current+=e.value;
+    }
+    return c.stimulators.empty()?current:current+shared_current(c,index,time);
+}
+const std::array<double,3>& StdpDecayCache::factors(const Synapse& s,double dt) {
+    const bool triplet=s.stdp_rule==StdpRule::Triplet;
+    if(!valid_||dt_!=dt||plus_!=s.tau_plus||minus_!=s.tau_minus||slow_!=s.tau_slow||triplet_!=triplet) {
+        factors_={std::exp(-dt/s.tau_plus),std::exp(-dt/s.tau_minus),triplet?std::exp(-dt/s.tau_slow):0};
+        dt_=dt;plus_=s.tau_plus;minus_=s.tau_minus;slow_=s.tau_slow;triplet_=triplet;valid_=true;
+    }
+    return factors_;
+}
+static void apply_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,
+                       double rate,const std::array<double,3>& decay) {
     if(!s.enabled || !s.stdp) {
         state.pre_trace=state.post_trace=state.post_slow_trace=0;
         return;
     }
-    state.pre_trace*=std::exp(-dt/s.tau_plus);
-    state.post_trace*=std::exp(-dt/s.tau_minus);
+    state.pre_trace*=decay[0];
+    state.post_trace*=decay[1];
     const bool triplet=s.stdp_rule==StdpRule::Triplet;
-    if(triplet)state.post_slow_trace*=std::exp(-dt/s.tau_slow);
+    if(triplet)state.post_slow_trace*=decay[2];
     else state.post_slow_trace=0;
     const bool multiplicative=s.stdp_rule!=StdpRule::Additive;
     const double up=multiplicative ? s.weight_max-state.weight : 1;
@@ -334,6 +367,15 @@ void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,do
     if(post)state.post_trace+=double(post);
     if(post && triplet)state.post_slow_trace+=double(post);
 }
+void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,double dt,double rate) {
+    if(!s.enabled||!s.stdp){state.pre_trace=state.post_trace=state.post_slow_trace=0;return;}
+    apply_stdp(s,state,pre,post,rate,{std::exp(-dt/s.tau_plus),std::exp(-dt/s.tau_minus),
+        s.stdp_rule==StdpRule::Triplet?std::exp(-dt/s.tau_slow):0});
+}
+void update_stdp_cached(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,double dt,double rate,StdpDecayCache& cache) {
+    if(!s.enabled||!s.stdp){state.pre_trace=state.post_trace=state.post_slow_trace=0;return;}
+    apply_stdp(s,state,pre,post,rate,cache.factors(s,dt));
+}
 void update_synaptic_stdp(const Synapse& s,StdpState& state,uint64_t emitted,uint64_t arrived,uint64_t post,double dt,double rate) {
     update_stdp(s,state,s.stdp_timing==StdpTiming::Arrival ? arrived : emitted,post,dt,rate);
 }
@@ -344,6 +386,8 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
     std::array<double,MaxAstrocytes> glutamate{};
     std::array<std::array<bool,MaxNeurons>,MaxAstrocytes> contacts{};
     for(int i=0;i<int(c.neurons.size());++i) input[i]=held_inputs?(*held_inputs)[i]:external_current(c,i,midpoint);
+    {
+    STUDIO_SCOPE(rhs_synapses);
     for(int i=0;i<int(c.synapses.size());++i) {
         const auto& s=c.synapses[i]; int b=syn_offset(c,i);
         if(!omit_synapse_kinetics) {
@@ -360,6 +404,9 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
         else input[s.target]+=weight*s.gain*y[b+2];
         if(s.astro>=0) { glutamate[s.astro]+=s.spill*y[b+3]; contacts[s.astro][s.target]=true; }
     }
+    }
+    {
+    STUDIO_SCOPE(rhs_astro);
     for(int i=0;i<int(c.astrocytes.size());++i) {
         int b=astro_offset(c,i); const auto& a=c.astrocytes[i];
         const double ip3=y[b+1],ca=y[b+2],h=y[b+3],ga=y[b+5];
@@ -380,6 +427,8 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
         double di=g.ip3*(y[b+1]-y[a+1]),dc=g.calcium*(y[b+2]-y[a+2]);
         dy[a+1]+=di; dy[b+1]-=di; dy[a+2]+=dc; dy[b+2]-=dc;
     }
+    }
+    STUDIO_SCOPE(rhs_neurons);
     for(int i=0;i<int(c.neurons.size());++i) {
         const auto& n=c.neurons[i]; int b=i*4;
         if(n.model==NeuronModel::Izhikevich) {
@@ -387,6 +436,116 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
             dy[b]=1000*(.04*y[b]*y[b]+5*y[b]+140-y[b+1]+input[i]);
             dy[b+1]=1000*n.izh_a*(n.izh_b*y[b]-y[b+1]);
         } else na::hh_rhs(y.data(),dy.data(),b,input[i],p.data());
+    }
+}
+void Simulator::prepare_solver_views() {
+    compact_network=config.astrocytes.empty();
+    current_edges.clear();kinetic_ranges.clear();
+    current_edges_only=true;izh_only=compact_network;
+    if(!compact_network)return;
+    rhs_input.resize(config.neurons.size());
+    for(const auto& n:config.neurons)izh_only=izh_only&&n.model==NeuronModel::Izhikevich;
+    // Scan the original synapse sequence once per macro step. Never group or
+    // reorder current contributions; live weights are read on every RHS.
+    for(int i=0;i<int(config.synapses.size());++i) {
+        const auto& s=config.synapses[i];const int b=syn_offset(config,i);
+        if(s.enabled) {
+            const bool conductance=s.model==SynapseModel::ConductanceSTP;
+            current_edges.push_back({conductance?s.conductance:s.gain,s.reversal,i,s.target,b+2,conductance});
+            current_edges_only=current_edges_only&&!conductance;
+        }
+        // Disabled synapses still have continuous resource/decay dynamics.
+        if(kinetic_ranges.empty() || kinetic_ranges.back().model!=s.model ||
+           kinetic_ranges.back().tau_f!=s.tau_f || kinetic_ranges.back().tau_d!=s.tau_d ||
+           kinetic_ranges.back().tau_syn!=s.tau_syn)
+            kinetic_ranges.push_back({b,b+4,s.model,s.tau_f,s.tau_d,s.tau_syn});
+        else kinetic_ranges.back().end=b+4;
+    }
+    if(pool) {
+        // A compact incoming CSR, refreshed from the same current view as the
+        // reference loop. Stable scatter preserves j-order within every target,
+        // including after same-size parameter edits at a safe boundary.
+        target_edge_offsets.assign(config.neurons.size()+1,0);
+        for(const auto& edge:current_edges)++target_edge_offsets[edge.target+1];
+        for(size_t i=1;i<target_edge_offsets.size();++i)target_edge_offsets[i]+=target_edge_offsets[i-1];
+        target_edge_cursor=target_edge_offsets;target_edges.resize(current_edges.size());
+        for(const auto& edge:current_edges)target_edges[target_edge_cursor[edge.target]++]=edge;
+    }
+}
+bool Simulator::parallel_eligible() const {
+    if(!config.astrocytes.empty()||config.synapses.size()<2048)return false;
+    for(const auto& n:config.neurons)if(n.model!=NeuronModel::Izhikevich)return false;
+    for(const auto& s:config.synapses)if(s.model!=SynapseModel::TsodyksMarkram)return false;
+    return true;
+}
+void Simulator::prepare_workers() {
+    int desired=1;
+    if(requested_threads!=1&&parallel_eligible()) {
+        desired=requested_threads;
+        if(desired==0) {
+            // Size/hardware policy calibrated on the 500/15013 and 128/4096
+            // workloads (performance/20261019_thread_modes). Six improves the
+            // middle range; larger networks keep eight. No oversubscription
+            // in Auto; an unknown hardware concurrency stays serial.
+            desired=compute::automatic(config.synapses.size(),std::thread::hardware_concurrency());
+        }
+    }
+    if(desired==effective_compute_threads())return;
+    auto candidate=desired>1?std::make_unique<numerical::WorkerPool>(desired):nullptr;
+    pool=std::move(candidate);
+}
+void Simulator::set_compute_threads(int count) {
+    if(!compute::supported(count))throw std::invalid_argument("Compute threads must be "+compute::choices()+" (Auto = 0).");
+    if(stepping)throw std::runtime_error("Cannot change compute threads inside a solver step.");
+    const int before=requested_threads;requested_threads=count;
+    try{prepare_workers();}catch(...){requested_threads=before;throw;}
+}
+void Simulator::compact_derivative(const State& y,State& dy) {
+    // Internal no-astro path only. Flow reads derivative coordinates solely in
+    // its nonlinear prefix; the public derivative() keeps its full zero suffix.
+    if(y.size()!=size_t(dimension(config)))throw std::invalid_argument("State dimension does not match the network.");
+    dy.resize(y.size());
+    if(pool) {
+        STUDIO_SCOPE(rhs_synapses);
+        pool->run(config.neurons.size(),[&](size_t begin,size_t end,int) {
+            for(size_t i=begin;i<end;++i) {
+                double input=held_inputs[i];
+                for(size_t k=target_edge_offsets[i];k<target_edge_offsets[i+1];++k) {
+                    const auto& edge=target_edges[k];
+                    input+=plasticity[edge.synapse].weight*edge.scale*y[edge.activity];
+                }
+                const auto& n=config.neurons[i];const size_t b=i*4;
+                dy[b]=1000*(.04*y[b]*y[b]+5*y[b]+140-y[b+1]+input);
+                dy[b+1]=1000*n.izh_a*(n.izh_b*y[b]-y[b+1]);
+                dy[b+2]=dy[b+3]=0.;
+            }
+        });
+        return;
+    }
+    std::fill_n(dy.begin(),config.neurons.size()*4,0.);
+    std::copy(held_inputs.begin(),held_inputs.end(),rhs_input.begin());
+    {
+        STUDIO_SCOPE(rhs_synapses);
+        if(current_edges_only) {
+            for(const auto& edge:current_edges)
+                rhs_input[edge.target]+=plasticity[edge.synapse].weight*edge.scale*y[edge.activity];
+        } else {
+            for(const auto& edge:current_edges) {
+                const double weight=plasticity[edge.synapse].weight;
+                if(edge.conductance)
+                    rhs_input[edge.target]+=edge.scale*weight*y[edge.activity]*(edge.reversal-y[edge.target*4]);
+                else rhs_input[edge.target]+=weight*edge.scale*y[edge.activity];
+            }
+        }
+    }
+    STUDIO_SCOPE(rhs_neurons);
+    for(int i=0;i<int(config.neurons.size());++i) {
+        const auto& n=config.neurons[i];const int b=i*4;
+        if(n.model==NeuronModel::Izhikevich) {
+            // Keep the same expression and evaluation order as derivative().
+            dy[b]=1000*(.04*y[b]*y[b]+5*y[b]+140-y[b+1]+rhs_input[i]);
+            dy[b+1]=1000*n.izh_a*(n.izh_b*y[b]-y[b+1]);
+        } else na::hh_rhs(y.data(),dy.data(),b,rhs_input[i],config.parameters.data());
     }
 }
 Simulator::Simulator(const Config& c):config(c) {
@@ -443,6 +602,7 @@ void Simulator::extend_duration(double end_time) {
     config.duration=end_time;
 }
 void Simulator::record() {
+    STUDIO_SCOPE(journals);
     if(history.time.size()>=MaxSamples) { error="Recording limit exceeded."; return; }
     history.time.push_back(time);
     for(int j:recorded_state)history.values[j].push_back(state[j]);

@@ -1,0 +1,58 @@
+{
+  "equal_except_build_metadata": true,
+  "checkpoint_files_byte_equal": false,
+  "same_schema": true,
+  "same_algorithm": true,
+  "same_serialized_config_bytes": true,
+  "same_non_build_header_bytes": true,
+  "same_complete_payload_bytes": true,
+  "reference": {
+    "path": "E:\\asp\\26_27\\configurator\\performance\\20261019_single_thread\\before\\run_1\\final.nscp",
+    "bytes": 29918108,
+    "schema": 4,
+    "algorithm": "event-rk4-doubling-exact-linear-localized-stimulators-v4",
+    "build_id": "4a6c77668949ab70f6f781f898b4eaf85c11c69ebfe7ac1756bad6d51a396280",
+    "config_sha256": "77175d7028f520121e7ebe503faf4494c058c472e7cc518535c8289fefbd5d94",
+    "file_sha256": "a4c77bd8a585de96202877efafd1666badf1dfed96bca80ecad931a570149070",
+    "payload_sha256": "aebd8beee4c97653cd528f7fef365d829c4eb4ddfc59eb905e996267d23fe631",
+    "stored_checksum_u64_hex": "daf0fcca35150227",
+    "original_checksum_valid": true,
+    "build_field_byte_range": [
+      98,
+      170
+    ],
+    "checksum_byte_range": [
+      29918100,
+      29918108
+    ]
+  },
+  "actual": {
+    "path": "E:\\asp\\26_27\\configurator\\performance\\20261019_single_thread\\after\\run_3\\final.nscp",
+    "bytes": 29918108,
+    "schema": 4,
+    "algorithm": "event-rk4-doubling-exact-linear-localized-stimulators-v4",
+    "build_id": "ac0f72fc71244732cdddf0340becf837e6c9dc0ba4800885fd7e307af5b563b3",
+    "config_sha256": "77175d7028f520121e7ebe503faf4494c058c472e7cc518535c8289fefbd5d94",
+    "file_sha256": "a3de28caee79cf77018a56ba1e762b8133d41de287775bd812d798a81b6868e5",
+    "payload_sha256": "aebd8beee4c97653cd528f7fef365d829c4eb4ddfc59eb905e996267d23fe631",
+    "stored_checksum_u64_hex": "3e8ca46bc73f9935",
+    "original_checksum_valid": true,
+    "build_field_byte_range": [
+      98,
+      170
+    ],
+    "checksum_byte_range": [
+      29918100,
+      29918108
+    ]
+  },
+  "build_id_differs": true,
+  "checksum_differs": true,
+  "first_payload_difference": null,
+  "excluded_fields": [
+    "length-prefixed build ID",
+    "dependent final integrity checksum"
+  ],
+  "guarantee": "Every other serialized byte is identical, including full parameters, adaptive step, next sample, armed thresholds, states, traces, histories, delivery queues and runtime protocols. Both original integrity checksums were verified.",
+  "limits": "Byte comparison only: no Simulator was constructed, no checkpoint was rewritten, and no loader compatibility check was bypassed. This does not grant cross-build resumability or replace native semantic snapshot validation. A positive guarantee applies only when equal_except_build_metadata is true."
+}

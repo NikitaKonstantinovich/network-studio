@@ -1,0 +1,126 @@
+{
+  "mode": "Config parse/validation/save only; no Simulator constructed and no time integration",
+  "exe_sha256": "ce9f378b1206904c20c0f19cc16a2ad5a11003e10b5eb7b416d1650426641337",
+  "runs": [
+    {
+      "fixture": "fixtures/crossover_v2_64n_2048s_5ms.json",
+      "fixture_sha256": "ffdc4a5b45569d59c07f29062ec711949b8b307ffa2d9a63d0e4f026bbc396f3",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\crossover_v2_64n_2048s_5ms.json",
+        "--save",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\crossover_validation_v2\\crossover_v2_64n_2048s_5ms_saved.json"
+      ],
+      "returncode": 0,
+      "stdout": "Configuration saved.\n",
+      "stderr": "",
+      "saved_configuration": "crossover_validation_v2\\crossover_v2_64n_2048s_5ms_saved.json",
+      "v1_unchanged": true,
+      "only_added_fields": [
+        "next_stimulator_id",
+        "activity_horizon"
+      ]
+    },
+    {
+      "fixture": "fixtures/crossover_v2_64n_2048s_20ms.json",
+      "fixture_sha256": "e40fe5bb99d297026c628a5eace3a36bdb0aa4942e4980686eb10d909beab6bb",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\crossover_v2_64n_2048s_20ms.json",
+        "--save",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\crossover_validation_v2\\crossover_v2_64n_2048s_20ms_saved.json"
+      ],
+      "returncode": 0,
+      "stdout": "Configuration saved.\n",
+      "stderr": "",
+      "saved_configuration": "crossover_validation_v2\\crossover_v2_64n_2048s_20ms_saved.json",
+      "v1_unchanged": true,
+      "only_added_fields": [
+        "next_stimulator_id",
+        "activity_horizon"
+      ]
+    },
+    {
+      "fixture": "fixtures/crossover_v2_128n_4096s_5ms.json",
+      "fixture_sha256": "a4fd99cadb580b649daaed1ea3826881aba0dfd2a3a2ea4e20c33a4a7744be8b",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\crossover_v2_128n_4096s_5ms.json",
+        "--save",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\crossover_validation_v2\\crossover_v2_128n_4096s_5ms_saved.json"
+      ],
+      "returncode": 0,
+      "stdout": "Configuration saved.\n",
+      "stderr": "",
+      "saved_configuration": "crossover_validation_v2\\crossover_v2_128n_4096s_5ms_saved.json",
+      "v1_unchanged": true,
+      "only_added_fields": [
+        "next_stimulator_id",
+        "activity_horizon"
+      ]
+    },
+    {
+      "fixture": "fixtures/crossover_v2_128n_4096s_20ms.json",
+      "fixture_sha256": "8a194604a34b2a9a69525168a41627791ed83bc89d9b361e36c145460ae0d7f5",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\crossover_v2_128n_4096s_20ms.json",
+        "--save",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\crossover_validation_v2\\crossover_v2_128n_4096s_20ms_saved.json"
+      ],
+      "returncode": 0,
+      "stdout": "Configuration saved.\n",
+      "stderr": "",
+      "saved_configuration": "crossover_validation_v2\\crossover_v2_128n_4096s_20ms_saved.json",
+      "v1_unchanged": true,
+      "only_added_fields": [
+        "next_stimulator_id",
+        "activity_horizon"
+      ]
+    },
+    {
+      "fixture": "fixtures/crossover_v2_256n_8192s_5ms.json",
+      "fixture_sha256": "f2d7f8f1e486566bafe2587867e798abace878ff4246ad451f6189ddbbf99a6c",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\crossover_v2_256n_8192s_5ms.json",
+        "--save",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\crossover_validation_v2\\crossover_v2_256n_8192s_5ms_saved.json"
+      ],
+      "returncode": 0,
+      "stdout": "Configuration saved.\n",
+      "stderr": "",
+      "saved_configuration": "crossover_validation_v2\\crossover_v2_256n_8192s_5ms_saved.json",
+      "v1_unchanged": true,
+      "only_added_fields": [
+        "next_stimulator_id",
+        "activity_horizon"
+      ]
+    },
+    {
+      "fixture": "fixtures/crossover_v2_256n_8192s_20ms.json",
+      "fixture_sha256": "c48164940a5027683eec49932652364381bb206aa7cb1edcf4905da9de470259",
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\parallel\\Release\\network_studio_cli.exe",
+        "--config",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\fixtures\\crossover_v2_256n_8192s_20ms.json",
+        "--save",
+        "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\crossover_validation_v2\\crossover_v2_256n_8192s_20ms_saved.json"
+      ],
+      "returncode": 0,
+      "stdout": "Configuration saved.\n",
+      "stderr": "",
+      "saved_configuration": "crossover_validation_v2\\crossover_v2_256n_8192s_20ms_saved.json",
+      "v1_unchanged": true,
+      "only_added_fields": [
+        "next_stimulator_id",
+        "activity_horizon"
+      ]
+    }
+  ]
+}

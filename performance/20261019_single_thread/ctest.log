@@ -1,0 +1,53 @@
+Test project E:/asp/26_27/configurator/build/performance
+      Start  1: performance_cache_invariance
+ 1/24 Test  #1: performance_cache_invariance ..........   Passed    0.05 sec
+      Start  2: packed_kernel_reference
+ 2/24 Test  #2: packed_kernel_reference ...............   Passed    0.17 sec
+      Start  3: spatial_analysis_and_stages
+ 3/24 Test  #3: spatial_analysis_and_stages ...........   Passed   16.19 sec
+      Start  4: staged_process_resume
+ 4/24 Test  #4: staged_process_resume .................   Passed    1.99 sec
+      Start  5: network_model_and_io
+ 5/24 Test  #5: network_model_and_io ..................   Passed  118.64 sec
+      Start  6: network_generation
+ 6/24 Test  #6: network_generation ....................   Passed    0.14 sec
+      Start  7: numerical_regressions
+ 7/24 Test  #7: numerical_regressions .................   Passed    0.56 sec
+      Start  8: synaptic_delays
+ 8/24 Test  #8: synaptic_delays .......................   Passed   13.02 sec
+      Start  9: delayed_process_resume
+ 9/24 Test  #9: delayed_process_resume ................   Passed    1.32 sec
+      Start 10: checkpoint_roundtrip
+10/24 Test #10: checkpoint_roundtrip ..................   Passed   14.15 sec
+      Start 11: checkpoint_process_resume
+11/24 Test #11: checkpoint_process_resume .............   Passed    0.98 sec
+      Start 12: population_equivalence
+12/24 Test #12: population_equivalence ................   Passed    3.27 sec
+      Start 13: shared_spatial_stimulators_activity
+13/24 Test #13: shared_spatial_stimulators_activity ...   Passed    6.61 sec
+      Start 14: stimulator_process_resume
+14/24 Test #14: stimulator_process_resume .............   Passed    0.20 sec
+      Start 15: weight_field_geometry_and_weights
+15/24 Test #15: weight_field_geometry_and_weights .....   Passed    7.96 sec
+      Start 16: long_history_limits
+16/24 Test #16: long_history_limits ...................   Passed    1.82 sec
+      Start 17: long_history_process_resume
+17/24 Test #17: long_history_process_resume ...........   Passed   12.23 sec
+      Start 18: experiment_win32_dx11
+18/24 Test #18: experiment_win32_dx11 .................   Passed    2.48 sec
+      Start 19: stimulator_win32_dx11
+19/24 Test #19: stimulator_win32_dx11 .................   Passed    1.16 sec
+      Start 20: gui_interactions_and_plots
+20/24 Test #20: gui_interactions_and_plots ............   Passed   13.15 sec
+      Start 21: plot_windows_and_workspace
+21/24 Test #21: plot_windows_and_workspace ............   Passed    3.03 sec
+      Start 22: weight_field_gui_invariance
+22/24 Test #22: weight_field_gui_invariance ...........   Passed    2.45 sec
+      Start 23: weight_field_win32_dx11
+23/24 Test #23: weight_field_win32_dx11 ...............   Passed   12.12 sec
+      Start 24: win32_dx11_plot_viewports
+24/24 Test #24: win32_dx11_plot_viewports .............   Passed    1.12 sec
+
+100% tests passed, 0 tests failed out of 24
+
+Total Test time (real) = 235.63 sec

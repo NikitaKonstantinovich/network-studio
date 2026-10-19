@@ -8,10 +8,10 @@ using namespace studio;
 namespace {
 int checks=0;
 void check(bool ok,const char* message){++checks;if(!ok)throw std::runtime_error(message);}
-void frame(App& app){ImGui::NewFrame();app.draw();ImGui::Render();check(ImGui::GetDrawData()->TotalVtxCount>100,"Empty render");}
+void frame(App& app){ImGui::NewFrame();app.draw();ImGui::Render();app.synchronize();check(ImGui::GetDrawData()->TotalVtxCount>100,"Empty render");}
 std::string bytes(const std::filesystem::path& p){std::ifstream f(p,std::ios::binary);return {std::istreambuf_iterator<char>(f),{}};}
-void equal(const Simulator& a,const Simulator& b,const std::filesystem::path& dir) {
-    save_checkpoint(a,dir/"a.nscp");save_checkpoint(b,dir/"b.nscp");
+void equal(App& a,const Simulator& b,const std::filesystem::path& dir) {
+    a.save_state(dir/"a.nscp");save_checkpoint(b,dir/"b.nscp");
     check(bytes(dir/"a.nscp")==bytes(dir/"b.nscp"),"Field controls changed simulation/checkpoint/queue/history");
 }
 void resign(std::string& s) {
@@ -28,7 +28,7 @@ int main() {
         unsigned char* pixels;int width,height;io.Fonts->GetTexDataAsRGBA32(&pixels,&width,&height);io.Fonts->SetTexID(ImTextureID(1));apply_style();
         auto dir=std::filesystem::current_path()/"field-gui"/std::to_string(std::chrono::steady_clock::now().time_since_epoch().count());std::filesystem::create_directories(dir);
         App app;auto c=preset(6);c.duration=.3;c.synapses[0].delay=.12;app.replace(c);Simulator reference(c);
-        while(app.simulation->time<.12){check(app.simulation->step()&&reference.step(),"Fixture failed");}
+        while(reference.time<.12)check(reference.step(),"Fixture failed");app.advance_for(reference.time);
         check(!app.simulation->pending_deliveries.empty(),"Queue not covered");
         auto& v=app.plot_windows.topology;v.field=true;v.columns=8;v.rows=6;v.scale=.04;
         frame(app);const auto builds=app.weight_field.geometry_builds;const auto sums=app.weight_field.sum_updates;
@@ -38,14 +38,14 @@ int main() {
             v.grid=i%2;v.edges=i%2;v.zoom=1+i*.25;v.pan_x=.03*i;v.pan_y=-.02*i;v.scale=.01*(i+1);v.auto_scale=i%2;frame(app);
             for(size_t j=0;j<old.size();++j)check(old[j].x==app.weight_field.cells[j].x&&old[j].y==app.weight_field.cells[j].y,"Viewport size/DPI/camera changed numerical field");
         }
-        check(app.weight_field.geometry_builds==builds&&app.weight_field.sum_updates==sums,"Display settings rebuilt numerical cache");equal(*app.simulation,reference,dir);
-        v.current=false;frame(app);v.current=true;frame(app);equal(*app.simulation,reference,dir);
-        app.running=true;frame(app);app.running=false;while(reference.steps<app.simulation->steps)check(reference.step(),"Reference advance");equal(*app.simulation,reference,dir);
+        check(app.weight_field.geometry_builds==builds&&app.weight_field.sum_updates==sums,"Display settings rebuilt numerical cache");equal(app,reference,dir);
+        v.current=false;frame(app);v.current=true;frame(app);equal(app,reference,dir);
+        app.run();frame(app);app.pause();app.synchronize();frame(app);while(reference.steps<app.simulation->steps)check(reference.step(),"Reference advance");equal(app,reference,dir);
         check(app.weight_field.geometry_builds==builds,"Running STDP rebuilt geometry");
-        save_checkpoint(*app.simulation,dir/"restore.nscp");app.reset();frame(app);
+        app.save_state(dir/"restore.nscp");app.reset();frame(app);
         WeightField initial;initial.update(c,&app.simulation->plasticity,v);
         for(size_t i=0;i<initial.cells.size();++i)check(initial.cells[i].x==app.weight_field.cells[i].x,"Reset retained trained field");
-        check(app.restore_state(dir/"restore.nscp"),"Checkpoint restore failed");frame(app);equal(*app.simulation,reference,dir);
+        check(app.restore_state(dir/"restore.nscp"),"Checkpoint restore failed");frame(app);equal(app,reference,dir);
         v.polarity=FieldPolarity::Inhibitory;v.model=FieldModel::TsodyksMarkram;v.activity=true;v.activity_mode=1;v.activity_window=.125;v.response_min=.001;v.response_max=.03;v.activity_scale=.08;v.activity_polarity=FieldPolarity::Excitatory;
         check(app.plot_windows.save(dir/"view.nsworkspace"),"Workspace save");auto saved=bytes(dir/"view.nsworkspace");check(v.activity,"Activity setting");
         auto version3=saved;version3.erase(version3.size()-8-64,64);version3[8+std::string("Network Studio plot workspace").size()]=3;resign(version3);write_atomic(dir/"version3.nsworkspace",version3);check(app.plot_windows.load(dir/"version3.nsworkspace"),"Schema 3 compatibility");check(!v.activity,"Legacy activity default");saved=version3;

@@ -1,0 +1,138 @@
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: E:/asp/26_27/configurator/build/native
+[1/65] Building CXX object CMakeFiles\network_core.dir\experiment.cpp.obj
+[2/65] Building CXX object CMakeFiles\network_core.dir\stimulator.cpp.obj
+[3/65] Building CXX object CMakeFiles\network_core.dir\analysis.cpp.obj
+[4/65] Building CXX object CMakeFiles\network_core.dir\network.cpp.obj
+[5/65] Building CXX object CMakeFiles\network_core.dir\integrator.cpp.obj
+[6/65] Building CXX object CMakeFiles\network_core.dir\generator.cpp.obj
+[7/65] Building CXX object CMakeFiles\network_core.dir\checkpoint.cpp.obj
+[8/65] Building CXX object CMakeFiles\network_core.dir\io.cpp.obj
+[9/65] Linking CXX static library network_core.lib
+[10/65] Building CXX object CMakeFiles\studio_runner.dir\simulation_runner.cpp.obj
+[11/65] Building CXX object CMakeFiles\studio_weight_field.dir\weight_field.cpp.obj
+[12/65] Building CXX object CMakeFiles\studio_runner.dir\simulation_view.cpp.obj
+[13/65] Linking CXX static library studio_runner.lib
+[14/65] Building CXX object CMakeFiles\studio_weight_field.dir\activity_field.cpp.obj
+[15/65] Linking CXX static library studio_weight_field.lib
+[16/65] Building CXX object CMakeFiles\studio_gui.dir\stimulator_gui.cpp.obj
+[17/65] Building CXX object CMakeFiles\studio_gui.dir\experiment_gui.cpp.obj
+[18/65] Building CXX object CMakeFiles\studio_gui.dir\analysis_gui.cpp.obj
+[19/65] Building CXX object CMakeFiles\studio_gui.dir\gui.cpp.obj
+[20/65] Building CXX object CMakeFiles\studio_gui.dir\weight_field_gui.cpp.obj
+[21/65] Building CXX object CMakeFiles\studio_gui.dir\plot_windows.cpp.obj
+[22/65] Building CXX object CMakeFiles\network_studio_benchmark.dir\performance\solver_benchmark.cpp.obj
+[23/65] Building CXX object CMakeFiles\studio_gui.dir\plot_workspace.cpp.obj
+[24/65] Building CXX object CMakeFiles\network_studio_runner_tests.dir\runner_tests.cpp.obj
+[25/65] Building CXX object CMakeFiles\network_studio_runner_benchmark.dir\performance\runner_benchmark.cpp.obj
+[26/65] Building CXX object CMakeFiles\network_studio_cli.dir\cli.cpp.obj
+[27/65] Building CXX object CMakeFiles\network_studio_numerics_tests.dir\numerics_tests.cpp.obj
+[28/65] Building CXX object CMakeFiles\network_studio_generator_tests.dir\generator_tests.cpp.obj
+[29/65] Building CXX object CMakeFiles\network_studio_tests.dir\tests.cpp.obj
+[30/65] Building CXX object CMakeFiles\network_studio_cache_tests.dir\performance\cache_tests.cpp.obj
+[31/65] Building CXX object CMakeFiles\network_studio_parallel_tests.dir\parallel_tests.cpp.obj
+[32/65] Building CXX object CMakeFiles\network_studio_kernel_tests.dir\performance\kernel_tests.cpp.obj
+[33/65] Building CXX object CMakeFiles\network_studio_population.dir\lab2\population.cpp.obj
+[34/65] Building CXX object CMakeFiles\network_studio_experiment_tests.dir\experiment_tests.cpp.obj
+[35/65] Building CXX object CMakeFiles\network_studio_delay_tests.dir\delay_tests.cpp.obj
+[36/65] Building CXX object CMakeFiles\network_studio_stimulator_tests.dir\stimulator_tests.cpp.obj
+[37/65] Linking CXX static library studio_gui.lib
+[38/65] Building CXX object CMakeFiles\network_studio_checkpoint_tests.dir\checkpoint_tests.cpp.obj
+[39/65] Building CXX object CMakeFiles\network_studio_field_tests.dir\weight_field_tests.cpp.obj
+[40/65] Building CXX object CMakeFiles\network_studio_long_history_tests.dir\long_history_tests.cpp.obj
+[41/65] Building CXX object CMakeFiles\network_studio_plot_tests.dir\plot_window_tests.cpp.obj
+[42/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_benchmark.exe
+[43/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_runner_tests.exe
+[44/65] Building CXX object CMakeFiles\network_studio_field_gui_tests.dir\weight_field_gui_tests.cpp.obj
+[45/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_runner_benchmark.exe
+[46/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_cli.exe
+[47/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_tests.exe
+[48/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_generator_tests.exe
+[49/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_numerics_tests.exe
+[50/65] Building CXX object CMakeFiles\network_studio_gui_tests.dir\gui_tests.cpp.obj
+[51/65] Building CXX object CMakeFiles\network_studio.dir\main.cpp.obj
+[52/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_population.exe
+[53/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_parallel_tests.exe
+[54/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_cache_tests.exe
+[55/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_kernel_tests.exe
+[56/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_experiment_tests.exe
+[57/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_delay_tests.exe
+[58/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_checkpoint_tests.exe
+[59/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_stimulator_tests.exe
+[60/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_field_tests.exe
+[61/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_long_history_tests.exe
+[62/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio.exe
+[63/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_gui_tests.exe
+[64/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_field_gui_tests.exe
+[65/65] Linking CXX executable E:\asp\26_27\configurator\build\Release\network_studio_plot_tests.exe
+Test project E:/asp/26_27/configurator/build/native
+      Start  2: parallel_solver_invariance
+ 1/32 Test  #2: parallel_solver_invariance ............   Passed   99.54 sec
+      Start  8: network_model_and_io
+      Start  6: spatial_analysis_and_stages
+      Start 20: long_history_process_resume
+      Start 16: shared_spatial_stimulators_activity
+ 2/32 Test #16: shared_spatial_stimulators_activity ...   Passed    7.34 sec
+      Start 18: weight_field_geometry_and_weights
+ 3/32 Test #20: long_history_process_resume ...........   Passed   14.49 sec
+      Start 11: synaptic_delays
+ 4/32 Test #18: weight_field_geometry_and_weights .....   Passed    8.89 sec
+      Start 13: checkpoint_roundtrip
+ 5/32 Test  #6: spatial_analysis_and_stages ...........   Passed   18.56 sec
+      Start 19: long_history_limits
+ 6/32 Test #19: long_history_limits ...................   Passed    2.20 sec
+      Start 28: gui_interactions_and_plots
+ 7/32 Test #11: synaptic_delays .......................   Passed   17.16 sec
+      Start 29: plot_windows_and_workspace
+ 8/32 Test #13: checkpoint_roundtrip ..................   Passed   18.45 sec
+      Start  7: staged_process_resume
+ 9/32 Test  #7: staged_process_resume .................   Passed    2.14 sec
+      Start 15: population_equivalence
+10/32 Test #29: plot_windows_and_workspace ............   Passed    8.08 sec
+      Start 30: weight_field_gui_invariance
+11/32 Test #15: population_equivalence ................   Passed    3.85 sec
+      Start 12: delayed_process_resume
+12/32 Test #12: delayed_process_resume ................   Passed    1.67 sec
+      Start 17: stimulator_process_resume
+13/32 Test #17: stimulator_process_resume .............   Passed    0.24 sec
+      Start 14: checkpoint_process_resume
+14/32 Test #14: checkpoint_process_resume .............   Passed    1.28 sec
+      Start 10: numerical_regressions
+15/32 Test #10: numerical_regressions .................   Passed    0.65 sec
+      Start  9: network_generation
+16/32 Test  #9: network_generation ....................   Passed    0.19 sec
+      Start  1: simulation_runner_lifecycle
+17/32 Test #30: weight_field_gui_invariance ...........   Passed    6.65 sec
+      Start  4: performance_cache_invariance
+18/32 Test  #4: performance_cache_invariance ..........   Passed    0.06 sec
+      Start  5: packed_kernel_reference
+19/32 Test  #5: packed_kernel_reference ...............   Passed    0.19 sec
+20/32 Test  #1: simulation_runner_lifecycle ...........   Passed    3.74 sec
+21/32 Test #28: gui_interactions_and_plots ............   Passed   39.97 sec
+22/32 Test  #8: network_model_and_io ..................   Passed  134.83 sec
+      Start 31: weight_field_win32_dx11
+23/32 Test #31: weight_field_win32_dx11 ...............   Passed   12.81 sec
+      Start  3: thread_modes_process_resume
+24/32 Test  #3: thread_modes_process_resume ...........   Passed    3.51 sec
+      Start 23: thread_modes_native_6
+25/32 Test #23: thread_modes_native_6 .................   Passed    1.08 sec
+      Start 24: thread_modes_native_12
+26/32 Test #24: thread_modes_native_12 ................   Passed    1.02 sec
+      Start 25: thread_modes_native_16
+27/32 Test #25: thread_modes_native_16 ................   Passed    1.07 sec
+      Start 27: stimulator_win32_dx11
+28/32 Test #27: stimulator_win32_dx11 .................   Passed    1.54 sec
+      Start 26: experiment_win32_dx11
+29/32 Test #26: experiment_win32_dx11 .................   Passed    2.78 sec
+      Start 32: win32_dx11_plot_viewports
+30/32 Test #32: win32_dx11_plot_viewports .............   Passed    1.43 sec
+      Start 21: runner_native_close
+31/32 Test #21: runner_native_close ...................   Passed    0.45 sec
+      Start 22: parallel_native_close
+32/32 Test #22: parallel_native_close .................   Passed    1.04 sec
+
+100% tests passed, 0 tests failed out of 32
+
+Total Test time (real) = 261.20 sec
+Application: E:\asp\26_27\configurator\build\Release\network_studio.exe

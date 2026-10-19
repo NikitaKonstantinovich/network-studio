@@ -1,0 +1,470 @@
+Start testing: Oct 19 02:05 RTZ 2 (зима)
+----------------------------------------------------------
+1/24 Testing: performance_cache_invariance
+1/24 Test: performance_cache_invariance
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_cache_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"performance_cache_invariance" start time: Oct 19 02:05 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS 47208 bitwise noise/STDP cache checks
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"performance_cache_invariance" end time: Oct 19 02:05 RTZ 2 (зима)
+"performance_cache_invariance" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/24 Testing: packed_kernel_reference
+2/24 Test: packed_kernel_reference
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_kernel_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"packed_kernel_reference" start time: Oct 19 02:05 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+All Izh: 1200 steps, 55 spikes, 58 deliveries; all reference bits equal
+Mixed HH/Izh: 1200 steps, 45 spikes, 50 deliveries; all reference bits equal
+PASS packed kernel and root scratch: 57540 checks
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Passed.
+"packed_kernel_reference" end time: Oct 19 02:05 RTZ 2 (зима)
+"packed_kernel_reference" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/24 Testing: spatial_analysis_and_stages
+3/24 Test: spatial_analysis_and_stages
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_experiment_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"spatial_analysis_and_stages" start time: Oct 19 02:05 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+bounded_deliveries_after=0.474795 retained=46800 pending=18720
+53405 spatial/analysis/stage checks passed
+<end of output>
+Test time =  16.19 sec
+----------------------------------------------------------
+Test Passed.
+"spatial_analysis_and_stages" end time: Oct 19 02:05 RTZ 2 (зима)
+"spatial_analysis_and_stages" time elapsed: 00:00:16
+----------------------------------------------------------
+
+4/24 Testing: staged_process_resume
+4/24 Test: staged_process_resume
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DCLI=E:/asp/26_27/configurator/build/performance/Release/network_studio_cli.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/performance/Release/network_studio_experiment_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/performance/staged-process" "-P" "E:/asp/26_27/configurator/experiments/process_test.cmake"
+Directory: E:/asp/26_27/configurator/build/performance
+"staged_process_resume" start time: Oct 19 02:05 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- Stage resume: checkpoint and all trajectory/event/analysis exports match exactly
+<end of output>
+Test time =   1.99 sec
+----------------------------------------------------------
+Test Passed.
+"staged_process_resume" end time: Oct 19 02:05 RTZ 2 (зима)
+"staged_process_resume" time elapsed: 00:00:01
+----------------------------------------------------------
+
+5/24 Testing: network_model_and_io
+5/24 Test: network_model_and_io
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"network_model_and_io" start time: Oct 19 02:05 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Reference RHS feedback=1: max relative derivative error 1.2602e-13
+Reference RHS feedback=0: max relative derivative error 1.00954e-13
+RS pulse 2 Hz: 4 spikes
+RS pulse 10 Hz: 20 spikes
+RS pulse 20 Hz: 40 spikes
+PASS: 859720 checks (including every reference integration step).
+<end of output>
+Test time = 118.64 sec
+----------------------------------------------------------
+Test Passed.
+"network_model_and_io" end time: Oct 19 02:07 RTZ 2 (зима)
+"network_model_and_io" time elapsed: 00:01:58
+----------------------------------------------------------
+
+6/24 Testing: network_generation
+6/24 Test: network_generation
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_generator_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"network_generation" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Generator checks passed: 2546
+<end of output>
+Test time =   0.14 sec
+----------------------------------------------------------
+Test Passed.
+"network_generation" end time: Oct 19 02:07 RTZ 2 (зима)
+"network_generation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/24 Testing: numerical_regressions
+7/24 Test: numerical_regressions
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_numerics_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"numerical_regressions" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS numerical regressions: 72624 checks
+<end of output>
+Test time =   0.56 sec
+----------------------------------------------------------
+Test Passed.
+"numerical_regressions" end time: Oct 19 02:07 RTZ 2 (зима)
+"numerical_regressions" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/24 Testing: synaptic_delays
+8/24 Test: synaptic_delays
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_delay_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"synaptic_delays" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS: 86880 delay/timing checks (analytical delivery, pair/triplet oracle, ties, permutation, repeated arrivals, exact restart, invalid queues).
+<end of output>
+Test time =  13.02 sec
+----------------------------------------------------------
+Test Passed.
+"synaptic_delays" end time: Oct 19 02:07 RTZ 2 (зима)
+"synaptic_delays" time elapsed: 00:00:13
+----------------------------------------------------------
+
+9/24 Testing: delayed_process_resume
+9/24 Test: delayed_process_resume
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DCLI=E:/asp/26_27/configurator/build/performance/Release/network_studio_cli.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/performance/Release/network_studio_delay_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/performance/delayed-process" "-P" "E:/asp/26_27/configurator/delays/process_test.cmake"
+Directory: E:/asp/26_27/configurator/build/performance
+"delayed_process_resume" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- PASS: 8 delayed scenarios, 32 processes; snapshots and all 56 exports byte-identical
+<end of output>
+Test time =   1.32 sec
+----------------------------------------------------------
+Test Passed.
+"delayed_process_resume" end time: Oct 19 02:07 RTZ 2 (зима)
+"delayed_process_resume" time elapsed: 00:00:01
+----------------------------------------------------------
+
+10/24 Testing: checkpoint_roundtrip
+10/24 Test: checkpoint_roundtrip
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_checkpoint_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"checkpoint_roundtrip" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS: 23687 checks, 686 exact round trips, HH/astro disarmed detectors, failure and atomicity tests. Artifacts: "E:\\asp\\26_27\\configurator\\build\\performance\\checkpoint-test-230824287529200"
+<end of output>
+Test time =  14.15 sec
+----------------------------------------------------------
+Test Passed.
+"checkpoint_roundtrip" end time: Oct 19 02:07 RTZ 2 (зима)
+"checkpoint_roundtrip" time elapsed: 00:00:14
+----------------------------------------------------------
+
+11/24 Testing: checkpoint_process_resume
+11/24 Test: checkpoint_process_resume
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DCLI=E:/asp/26_27/configurator/build/performance/Release/network_studio_cli.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/performance/Release/network_studio_checkpoint_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/performance/checkpoint-process" "-P" "E:/asp/26_27/configurator/checkpoint/process_test.cmake"
+Directory: E:/asp/26_27/configurator/build/performance
+"checkpoint_process_resume" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- PASS: 5 scenarios, 20 independent processes; snapshots and all 25 exports byte-identical
+<end of output>
+Test time =   0.98 sec
+----------------------------------------------------------
+Test Passed.
+"checkpoint_process_resume" end time: Oct 19 02:07 RTZ 2 (зима)
+"checkpoint_process_resume" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/24 Testing: population_equivalence
+12/24 Test: population_equivalence
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_population.exe" "--self-test"
+Directory: E:/asp/26_27/configurator/build/performance
+"population_equivalence" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS population equivalence: 24 cases, 171392 steps, 294 spikes; strict bounds checked.
+<end of output>
+Test time =   3.27 sec
+----------------------------------------------------------
+Test Passed.
+"population_equivalence" end time: Oct 19 02:07 RTZ 2 (зима)
+"population_equivalence" time elapsed: 00:00:03
+----------------------------------------------------------
+
+13/24 Testing: shared_spatial_stimulators_activity
+13/24 Test: shared_spatial_stimulators_activity
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_stimulator_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"shared_spatial_stimulators_activity" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+BENCH neurons=500 edges=15000 geometry_ms=5.551 cache_bytes=1541892 both_fields_update_ms=0.55557 simulate_20ms_wall_ms=2900.59 recent_deliveries=39516
+PASS 62610 shared/spatial/activity checks
+<end of output>
+Test time =   6.61 sec
+----------------------------------------------------------
+Test Passed.
+"shared_spatial_stimulators_activity" end time: Oct 19 02:07 RTZ 2 (зима)
+"shared_spatial_stimulators_activity" time elapsed: 00:00:06
+----------------------------------------------------------
+
+14/24 Testing: stimulator_process_resume
+14/24 Test: stimulator_process_resume
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DCLI=E:/asp/26_27/configurator/build/performance/Release/network_studio_cli.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/performance/Release/network_studio_stimulator_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/performance/stimulator-process" "-P" "E:/asp/26_27/configurator/stimulation/process_test.cmake"
+Directory: E:/asp/26_27/configurator/build/performance
+"stimulator_process_resume" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- Shared-source resume: checkpoint and all exports match byte-for-byte
+<end of output>
+Test time =   0.20 sec
+----------------------------------------------------------
+Test Passed.
+"stimulator_process_resume" end time: Oct 19 02:07 RTZ 2 (зима)
+"stimulator_process_resume" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/24 Testing: weight_field_geometry_and_weights
+15/24 Test: weight_field_geometry_and_weights
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_field_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"weight_field_geometry_and_weights" start time: Oct 19 02:07 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Four sources variant 0, cell [6,3]: Vx=0.911719, Vy=0.37622, magnitude=0.986293
+Four sources variant 1, cell [6,3]: Vx=0.215704, Vy=0.531631, magnitude=0.573725
+Four sources variant 2, cell [6,3]: Vx=0.433005, Vy=0.195803, magnitude=0.475218
+PASS 93645 checks. 500 neurons / 15000 edges: geometry_ms=5.6239, cached_frame_ms=0.121797, changed_weights_frame_ms=0.447452, cache_bytes=1541892, trained_edges=11996. 1000 / 50000 / 64x64: geometry_ms=53.1549, cache_bytes=12621416
+Artifacts: E:\asp\26_27\configurator\build\performance\weight-field-tests\230849808601400
+<end of output>
+Test time =   7.96 sec
+----------------------------------------------------------
+Test Passed.
+"weight_field_geometry_and_weights" end time: Oct 19 02:08 RTZ 2 (зима)
+"weight_field_geometry_and_weights" time elapsed: 00:00:07
+----------------------------------------------------------
+
+16/24 Testing: long_history_limits
+16/24 Test: long_history_limits
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_long_history_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"long_history_limits" start time: Oct 19 02:08 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS: 1507 long-history checks; 1,000,000 actual samples, exact checkpoint roundtrip. Artifacts: E:\asp\26_27\configurator\build\performance\long-history\230857692867400
+<end of output>
+Test time =   1.82 sec
+----------------------------------------------------------
+Test Passed.
+"long_history_limits" end time: Oct 19 02:08 RTZ 2 (зима)
+"long_history_limits" time elapsed: 00:00:01
+----------------------------------------------------------
+
+17/24 Testing: long_history_process_resume
+17/24 Test: long_history_process_resume
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DCLI=E:/asp/26_27/configurator/build/performance/Release/network_studio_cli.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/performance/Release/network_studio_long_history_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/performance/long-process" "-P" "E:/asp/26_27/configurator/long_runs/process_test.cmake"
+Directory: E:/asp/26_27/configurator/build/performance
+"long_history_process_resume" start time: Oct 19 02:08 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- PASS: 200 s, stimulation after 150 s, restart at 130 s; checkpoint and all exports byte-identical. E:/asp/26_27/configurator/build/performance/long-process/20261019_020808
+<end of output>
+Test time =  12.23 sec
+----------------------------------------------------------
+Test Passed.
+"long_history_process_resume" end time: Oct 19 02:08 RTZ 2 (зима)
+"long_history_process_resume" time elapsed: 00:00:12
+----------------------------------------------------------
+
+18/24 Testing: experiment_win32_dx11
+18/24 Test: experiment_win32_dx11
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DGUI=E:/asp/26_27/configurator/build/performance/Release/network_studio.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/performance/Release/network_studio_experiment_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/performance/experiment-native" "-P" "E:/asp/26_27/configurator/experiments/native_test.cmake"
+Directory: E:/asp/26_27/configurator/build/performance
+"experiment_win32_dx11" start time: Oct 19 02:08 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- Win32/DX11 experiment screenshots: E:/asp/26_27/configurator/build/performance/experiment-native/20261019_020820/gui
+<end of output>
+Test time =   2.48 sec
+----------------------------------------------------------
+Test Passed.
+"experiment_win32_dx11" end time: Oct 19 02:08 RTZ 2 (зима)
+"experiment_win32_dx11" time elapsed: 00:00:02
+----------------------------------------------------------
+
+19/24 Testing: stimulator_win32_dx11
+19/24 Test: stimulator_win32_dx11
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DGUI=E:/asp/26_27/configurator/build/performance/Release/network_studio.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/performance/Release/network_studio_stimulator_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/performance/stimulator-native" "-P" "E:/asp/26_27/configurator/stimulation/native_test.cmake"
+Directory: E:/asp/26_27/configurator/build/performance
+"stimulator_win32_dx11" start time: Oct 19 02:08 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- Win32/DX11 shared/spatial/combined-field screenshots: E:/asp/26_27/configurator/build/performance/stimulator-native/20261019_020823
+<end of output>
+Test time =   1.16 sec
+----------------------------------------------------------
+Test Passed.
+"stimulator_win32_dx11" end time: Oct 19 02:08 RTZ 2 (зима)
+"stimulator_win32_dx11" time elapsed: 00:00:01
+----------------------------------------------------------
+
+20/24 Testing: gui_interactions_and_plots
+20/24 Test: gui_interactions_and_plots
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_gui_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"gui_interactions_and_plots" start time: Oct 19 02:08 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS: 133854 GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.
+<end of output>
+Test time =  13.15 sec
+----------------------------------------------------------
+Test Passed.
+"gui_interactions_and_plots" end time: Oct 19 02:08 RTZ 2 (зима)
+"gui_interactions_and_plots" time elapsed: 00:00:13
+----------------------------------------------------------
+
+21/24 Testing: plot_windows_and_workspace
+21/24 Test: plot_windows_and_workspace
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_plot_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"plot_windows_and_workspace" start time: Oct 19 02:08 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS: 25032 plot/workspace checks; exact checkpoints match; 100 neurons / 400 edges / 8 windows / 20 frames: 58.7457 ms. Artifacts: E:\asp\26_27\configurator\build\performance\verification\plot-tests-РєРёСЂРёР»Р»РёС†Р°-230888722288800
+<end of output>
+Test time =   3.03 sec
+----------------------------------------------------------
+Test Passed.
+"plot_windows_and_workspace" end time: Oct 19 02:08 RTZ 2 (зима)
+"plot_windows_and_workspace" time elapsed: 00:00:03
+----------------------------------------------------------
+
+22/24 Testing: weight_field_gui_invariance
+22/24 Test: weight_field_gui_invariance
+Command: "E:/asp/26_27/configurator/build/performance/Release/network_studio_field_gui_tests.exe"
+Directory: E:/asp/26_27/configurator/build/performance
+"weight_field_gui_invariance" start time: Oct 19 02:08 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+PASS 7839 GUI checks; exact checkpoints; 500/15000 ImGui frame: enabled_ms=0.544521, disabled_ms=0.351056
+<end of output>
+Test time =   2.45 sec
+----------------------------------------------------------
+Test Passed.
+"weight_field_gui_invariance" end time: Oct 19 02:08 RTZ 2 (зима)
+"weight_field_gui_invariance" time elapsed: 00:00:02
+----------------------------------------------------------
+
+23/24 Testing: weight_field_win32_dx11
+23/24 Test: weight_field_win32_dx11
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DGUI=E:/asp/26_27/configurator/build/performance/Release/network_studio.exe" "-DFIXTURES=E:/asp/26_27/configurator/build/performance/Release/network_studio_field_tests.exe" "-DWORK=E:/asp/26_27/configurator/build/performance/weight-field-native" "-P" "E:/asp/26_27/configurator/weight_field/native_test.cmake"
+Directory: E:/asp/26_27/configurator/build/performance
+"weight_field_win32_dx11" start time: Oct 19 02:08 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- four_sources_0: frames=28
+minimum_vertices=8736
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0057
+field_update_ms=0.0003
+imgui_frame_ms=0.134929
+font_scales=1,1.5
+
+-- four_sources_1: frames=28
+minimum_vertices=8722
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0058
+field_update_ms=0.0003
+imgui_frame_ms=0.134738
+font_scales=1,1.5
+
+-- four_sources_2: frames=28
+minimum_vertices=8722
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0056
+field_update_ms=0.0003
+imgui_frame_ms=0.131171
+font_scales=1,1.5
+
+-- mixed_astro: frames=28
+minimum_vertices=10238
+samples=151
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=4
+geometry_builds=1
+field_geometry_ms=0.0061
+field_update_ms=0.0002
+imgui_frame_ms=0.150667
+font_scales=1,1.5
+
+-- large_stdp: frames=28
+minimum_vertices=41874
+samples=31
+error=
+native_viewport_checks=0
+monitors=2
+weight_field=1
+included_edges=15000
+geometry_builds=1
+field_geometry_ms=3.8154
+field_update_ms=0.3423
+imgui_frame_ms=0.638946
+font_scales=1,1.5
+
+-- PASS: 5 real Win32/DX11 field renders; small fixed scale 0.08, large 0.002 then 0.08 saturation check; font scales 1/1.5: E:/asp/26_27/configurator/build/performance/weight-field-native/20261019_020843
+<end of output>
+Test time =  12.12 sec
+----------------------------------------------------------
+Test Passed.
+"weight_field_win32_dx11" end time: Oct 19 02:08 RTZ 2 (зима)
+"weight_field_win32_dx11" time elapsed: 00:00:12
+----------------------------------------------------------
+
+24/24 Testing: win32_dx11_plot_viewports
+24/24 Test: win32_dx11_plot_viewports
+Command: "C:/Program Files/CMake/bin/cmake.exe" "-DGUI=E:/asp/26_27/configurator/build/performance/Release/network_studio.exe" "-DWORK=E:/asp/26_27/configurator/build/performance/viewport-smoke" "-P" "E:/asp/26_27/configurator/plots/native_process_test.cmake"
+Directory: E:/asp/26_27/configurator/build/performance
+"win32_dx11_plot_viewports" start time: Oct 19 02:08 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+-- Native HWND/DX11 and workspace restart passed: E:/asp/26_27/configurator/build/performance/viewport-smoke/20261019_020855
+<end of output>
+Test time =   1.12 sec
+----------------------------------------------------------
+Test Passed.
+"win32_dx11_plot_viewports" end time: Oct 19 02:08 RTZ 2 (зима)
+"win32_dx11_plot_viewports" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Oct 19 02:08 RTZ 2 (зима)

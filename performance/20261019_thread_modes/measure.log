@@ -1,0 +1,557 @@
+Warmup quiet500
+Run quiet500 threads=1 repeat=1
+  solve=9.9570s effective=1 exact=true
+Run quiet500 threads=2 repeat=1
+  solve=5.2452s effective=2 exact=true
+Run quiet500 threads=4 repeat=1
+  solve=3.0178s effective=4 exact=true
+Run quiet500 threads=6 repeat=1
+  solve=2.4348s effective=6 exact=true
+Run quiet500 threads=8 repeat=1
+  solve=2.3574s effective=8 exact=true
+Run quiet500 threads=12 repeat=1
+  solve=2.3647s effective=12 exact=true
+Run quiet500 threads=16 repeat=1
+  solve=2.9039s effective=16 exact=true
+Run quiet500 threads=0 repeat=1
+  solve=2.3501s effective=8 exact=true
+Run quiet500 threads=2 repeat=2
+  solve=5.2058s effective=2 exact=true
+Run quiet500 threads=4 repeat=2
+  solve=2.9912s effective=4 exact=true
+Run quiet500 threads=6 repeat=2
+  solve=2.4841s effective=6 exact=true
+Run quiet500 threads=8 repeat=2
+  solve=2.3050s effective=8 exact=true
+Run quiet500 threads=12 repeat=2
+  solve=2.3239s effective=12 exact=true
+Run quiet500 threads=16 repeat=2
+  solve=2.7823s effective=16 exact=true
+Run quiet500 threads=0 repeat=2
+  solve=2.3155s effective=8 exact=true
+Run quiet500 threads=1 repeat=2
+  solve=10.0546s effective=1 exact=true
+Run quiet500 threads=4 repeat=3
+  solve=3.0101s effective=4 exact=true
+Run quiet500 threads=6 repeat=3
+  solve=2.4125s effective=6 exact=true
+Run quiet500 threads=8 repeat=3
+  solve=2.3522s effective=8 exact=true
+Run quiet500 threads=12 repeat=3
+  solve=2.3223s effective=12 exact=true
+Run quiet500 threads=16 repeat=3
+  solve=2.7396s effective=16 exact=true
+Run quiet500 threads=0 repeat=3
+  solve=2.3346s effective=8 exact=true
+Run quiet500 threads=1 repeat=3
+  solve=9.9248s effective=1 exact=true
+Run quiet500 threads=2 repeat=3
+  solve=5.2365s effective=2 exact=true
+Warmup burst500
+Run burst500 threads=1 repeat=1
+  solve=19.1354s effective=1 exact=true
+Run burst500 threads=2 repeat=1
+  solve=9.6801s effective=2 exact=true
+Run burst500 threads=4 repeat=1
+  solve=5.5899s effective=4 exact=true
+Run burst500 threads=6 repeat=1
+  solve=4.3755s effective=6 exact=true
+Run burst500 threads=8 repeat=1
+  solve=4.0862s effective=8 exact=true
+Run burst500 threads=12 repeat=1
+  solve=4.2516s effective=12 exact=true
+Run burst500 threads=16 repeat=1
+  solve=5.1384s effective=16 exact=true
+Run burst500 threads=0 repeat=1
+  solve=4.0564s effective=8 exact=true
+Run burst500 threads=2 repeat=2
+  solve=9.6976s effective=2 exact=true
+Run burst500 threads=4 repeat=2
+  solve=5.6353s effective=4 exact=true
+Run burst500 threads=6 repeat=2
+  solve=4.3709s effective=6 exact=true
+Run burst500 threads=8 repeat=2
+  solve=4.1402s effective=8 exact=true
+Run burst500 threads=12 repeat=2
+  solve=4.1836s effective=12 exact=true
+Run burst500 threads=16 repeat=2
+  solve=5.2640s effective=16 exact=true
+Run burst500 threads=0 repeat=2
+  solve=4.0886s effective=8 exact=true
+Run burst500 threads=1 repeat=2
+  solve=18.9350s effective=1 exact=true
+Run burst500 threads=4 repeat=3
+  solve=5.5517s effective=4 exact=true
+Run burst500 threads=6 repeat=3
+  solve=4.3647s effective=6 exact=true
+Run burst500 threads=8 repeat=3
+  solve=4.0689s effective=8 exact=true
+Run burst500 threads=12 repeat=3
+  solve=4.2077s effective=12 exact=true
+Run burst500 threads=16 repeat=3
+  solve=5.7452s effective=16 exact=true
+Run burst500 threads=0 repeat=3
+  solve=5.2633s effective=8 exact=true
+Run burst500 threads=1 repeat=3
+  solve=20.5815s effective=1 exact=true
+Run burst500 threads=2 repeat=3
+  solve=10.7122s effective=2 exact=true
+Warmup medium128
+Run medium128 threads=1 repeat=1
+  solve=1.4384s effective=1 exact=true
+Run medium128 threads=2 repeat=1
+  solve=0.7724s effective=2 exact=true
+Run medium128 threads=4 repeat=1
+  solve=0.5419s effective=4 exact=true
+Run medium128 threads=6 repeat=1
+  solve=0.4697s effective=6 exact=true
+Run medium128 threads=8 repeat=1
+  solve=0.5043s effective=8 exact=true
+Run medium128 threads=12 repeat=1
+  solve=0.4751s effective=12 exact=true
+Run medium128 threads=16 repeat=1
+  solve=0.7231s effective=16 exact=true
+Run medium128 threads=0 repeat=1
+  solve=0.5565s effective=4 exact=true
+Run medium128 threads=2 repeat=2
+  solve=0.7800s effective=2 exact=true
+Run medium128 threads=4 repeat=2
+  solve=0.5281s effective=4 exact=true
+Run medium128 threads=6 repeat=2
+  solve=0.4531s effective=6 exact=true
+Run medium128 threads=8 repeat=2
+  solve=0.4408s effective=8 exact=true
+Run medium128 threads=12 repeat=2
+  solve=0.4569s effective=12 exact=true
+Run medium128 threads=16 repeat=2
+  solve=0.8983s effective=16 exact=true
+Run medium128 threads=0 repeat=2
+  solve=0.5571s effective=4 exact=true
+Run medium128 threads=1 repeat=2
+  solve=1.4731s effective=1 exact=true
+Run medium128 threads=4 repeat=3
+  solve=0.5043s effective=4 exact=true
+Run medium128 threads=6 repeat=3
+  solve=0.4554s effective=6 exact=true
+Run medium128 threads=8 repeat=3
+  solve=0.4882s effective=8 exact=true
+Run medium128 threads=12 repeat=3
+  solve=0.4594s effective=12 exact=true
+Run medium128 threads=16 repeat=3
+  solve=0.9734s effective=16 exact=true
+Run medium128 threads=0 repeat=3
+  solve=0.5411s effective=4 exact=true
+Run medium128 threads=1 repeat=3
+  solve=1.4726s effective=1 exact=true
+Run medium128 threads=2 repeat=3
+  solve=0.7648s effective=2 exact=true
+[
+  {
+    "workload": "quiet500",
+    "requested": 1,
+    "effective": [
+      1
+    ],
+    "n": 3,
+    "median": 9.9570147,
+    "min": 9.9247962,
+    "max": 10.0546318,
+    "sd": 0.06760721482950842,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 0,
+    "deliveries": 0,
+    "speedup_over_8": 0.23623341642751616
+  },
+  {
+    "workload": "quiet500",
+    "requested": 2,
+    "effective": [
+      2
+    ],
+    "n": 3,
+    "median": 5.2365338,
+    "min": 5.2058481,
+    "max": 5.2451795,
+    "sd": 0.020669298242159444,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 0,
+    "deliveries": 0,
+    "speedup_over_8": 0.44918636828048353
+  },
+  {
+    "workload": "quiet500",
+    "requested": 4,
+    "effective": [
+      4
+    ],
+    "n": 3,
+    "median": 3.0100622,
+    "min": 2.9911504,
+    "max": 3.0177574,
+    "sd": 0.013691875518471962,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 0,
+    "deliveries": 0,
+    "speedup_over_8": 0.7814388686054394
+  },
+  {
+    "workload": "quiet500",
+    "requested": 6,
+    "effective": [
+      6
+    ],
+    "n": 3,
+    "median": 2.4347579,
+    "min": 2.4124895,
+    "max": 2.4840815,
+    "sd": 0.03663812590621951,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 0,
+    "deliveries": 0,
+    "speedup_over_8": 0.9660835683087833
+  },
+  {
+    "workload": "quiet500",
+    "requested": 8,
+    "effective": [
+      8
+    ],
+    "n": 3,
+    "median": 2.3521796,
+    "min": 2.3049901,
+    "max": 2.357388,
+    "sd": 0.02886611700367747,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 0,
+    "deliveries": 0,
+    "speedup_over_8": 1.0
+  },
+  {
+    "workload": "quiet500",
+    "requested": 12,
+    "effective": [
+      12
+    ],
+    "n": 3,
+    "median": 2.3238619,
+    "min": 2.3222778,
+    "max": 2.3646579,
+    "sd": 0.024023932042930355,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 0,
+    "deliveries": 0,
+    "speedup_over_8": 1.0121856208408944
+  },
+  {
+    "workload": "quiet500",
+    "requested": 16,
+    "effective": [
+      16
+    ],
+    "n": 3,
+    "median": 2.7823198,
+    "min": 2.7395769,
+    "max": 2.9038793,
+    "sd": 0.08524371549310834,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 0,
+    "deliveries": 0,
+    "speedup_over_8": 0.8454023150034731
+  },
+  {
+    "workload": "quiet500",
+    "requested": 0,
+    "effective": [
+      8
+    ],
+    "n": 3,
+    "median": 2.3346019,
+    "min": 2.3155149,
+    "max": 2.350108,
+    "sd": 0.01732741216406339,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 0,
+    "deliveries": 0,
+    "speedup_over_8": 1.0075292065854997
+  },
+  {
+    "workload": "burst500",
+    "requested": 1,
+    "effective": [
+      1
+    ],
+    "n": 3,
+    "median": 19.1353684,
+    "min": 18.9349886,
+    "max": 20.5815496,
+    "sd": 0.898401845334487,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 5771,
+    "deliveries": 172612,
+    "speedup_over_8": 0.2135420084203866
+  },
+  {
+    "workload": "burst500",
+    "requested": 2,
+    "effective": [
+      2
+    ],
+    "n": 3,
+    "median": 9.6975674,
+    "min": 9.6800533,
+    "max": 10.7121548,
+    "sd": 0.5908930870921602,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 5771,
+    "deliveries": 172612,
+    "speedup_over_8": 0.4213639185431183
+  },
+  {
+    "workload": "burst500",
+    "requested": 4,
+    "effective": [
+      4
+    ],
+    "n": 3,
+    "median": 5.5898762,
+    "min": 5.5517263,
+    "max": 5.6353456,
+    "sd": 0.041863007812904675,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 5771,
+    "deliveries": 172612,
+    "speedup_over_8": 0.731000983528043
+  },
+  {
+    "workload": "burst500",
+    "requested": 6,
+    "effective": [
+      6
+    ],
+    "n": 3,
+    "median": 4.3709439,
+    "min": 4.3647347,
+    "max": 4.3754834,
+    "sd": 0.005395920937461633,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 5771,
+    "deliveries": 172612,
+    "speedup_over_8": 0.9348564276928834
+  },
+  {
+    "workload": "burst500",
+    "requested": 8,
+    "effective": [
+      8
+    ],
+    "n": 3,
+    "median": 4.086205,
+    "min": 4.0689083,
+    "max": 4.1401897,
+    "sd": 0.03718100243166276,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 5771,
+    "deliveries": 172612,
+    "speedup_over_8": 1.0
+  },
+  {
+    "workload": "burst500",
+    "requested": 12,
+    "effective": [
+      12
+    ],
+    "n": 3,
+    "median": 4.2076636,
+    "min": 4.1835535,
+    "max": 4.251593,
+    "sd": 0.034497494272820915,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 5771,
+    "deliveries": 172612,
+    "speedup_over_8": 0.9711339566214371
+  },
+  {
+    "workload": "burst500",
+    "requested": 16,
+    "effective": [
+      16
+    ],
+    "n": 3,
+    "median": 5.2640388,
+    "min": 5.1383526,
+    "max": 5.7451727,
+    "sd": 0.3202908793486687,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 5771,
+    "deliveries": 172612,
+    "speedup_over_8": 0.7762490276477445
+  },
+  {
+    "workload": "burst500",
+    "requested": 0,
+    "effective": [
+      8
+    ],
+    "n": 3,
+    "median": 4.0885955,
+    "min": 4.0564379,
+    "max": 5.2632735,
+    "sd": 0.687671757981127,
+    "model_seconds_per_run": 0.05,
+    "steps": 2000,
+    "events": 5771,
+    "deliveries": 172612,
+    "speedup_over_8": 0.9994153248957984
+  },
+  {
+    "workload": "medium128",
+    "requested": 1,
+    "effective": [
+      1
+    ],
+    "n": 3,
+    "median": 1.4726332,
+    "min": 1.4383604,
+    "max": 1.4731292,
+    "sd": 0.019932136067499922,
+    "model_seconds_per_run": 0.02,
+    "steps": 800,
+    "events": 1465,
+    "deliveries": 46737,
+    "speedup_over_8": 0.3315406035936172
+  },
+  {
+    "workload": "medium128",
+    "requested": 2,
+    "effective": [
+      2
+    ],
+    "n": 3,
+    "median": 0.7724262,
+    "min": 0.7648466,
+    "max": 0.780009,
+    "sd": 0.007581200056279523,
+    "model_seconds_per_run": 0.02,
+    "steps": 800,
+    "events": 1465,
+    "deliveries": 46737,
+    "speedup_over_8": 0.6320832980548822
+  },
+  {
+    "workload": "medium128",
+    "requested": 4,
+    "effective": [
+      4
+    ],
+    "n": 3,
+    "median": 0.5280822,
+    "min": 0.5042856,
+    "max": 0.5418863,
+    "sd": 0.019020357466234275,
+    "model_seconds_per_run": 0.02,
+    "steps": 800,
+    "events": 1465,
+    "deliveries": 46737,
+    "speedup_over_8": 0.9245486782171413
+  },
+  {
+    "workload": "medium128",
+    "requested": 6,
+    "effective": [
+      6
+    ],
+    "n": 3,
+    "median": 0.4553551,
+    "min": 0.4531313,
+    "max": 0.4696581,
+    "sd": 0.00896898557697581,
+    "model_seconds_per_run": 0.02,
+    "steps": 800,
+    "events": 1465,
+    "deliveries": 46737,
+    "speedup_over_8": 1.0722130925952076
+  },
+  {
+    "workload": "medium128",
+    "requested": 8,
+    "effective": [
+      8
+    ],
+    "n": 3,
+    "median": 0.4882377,
+    "min": 0.4407623,
+    "max": 0.5042706,
+    "sd": 0.033025928340371206,
+    "model_seconds_per_run": 0.02,
+    "steps": 800,
+    "events": 1465,
+    "deliveries": 46737,
+    "speedup_over_8": 1.0
+  },
+  {
+    "workload": "medium128",
+    "requested": 12,
+    "effective": [
+      12
+    ],
+    "n": 3,
+    "median": 0.4593627,
+    "min": 0.4569027,
+    "max": 0.4750995,
+    "sd": 0.00987270652252968,
+    "model_seconds_per_run": 0.02,
+    "steps": 800,
+    "events": 1465,
+    "deliveries": 46737,
+    "speedup_over_8": 1.062858825934278
+  },
+  {
+    "workload": "medium128",
+    "requested": 16,
+    "effective": [
+      16
+    ],
+    "n": 3,
+    "median": 0.8982893,
+    "min": 0.7231286,
+    "max": 0.9733869,
+    "sd": 0.1284199731798887,
+    "model_seconds_per_run": 0.02,
+    "steps": 800,
+    "events": 1465,
+    "deliveries": 46737,
+    "speedup_over_8": 0.5435194430124015
+  },
+  {
+    "workload": "medium128",
+    "requested": 0,
+    "effective": [
+      4
+    ],
+    "n": 3,
+    "median": 0.5565182,
+    "min": 0.5411371,
+    "max": 0.5570864,
+    "sd": 0.009048768414725435,
+    "model_seconds_per_run": 0.02,
+    "steps": 800,
+    "events": 1465,
+    "deliveries": 46737,
+    "speedup_over_8": 0.8773076963161313
+  }
+]

@@ -114,6 +114,7 @@ void Simulator::trim_journals(size_t events,size_t deliveries) {
     }
 }
 void Simulator::log_stimuli(double at) {
+    STUDIO_SCOPE(journals);
     for(int i=0;i<int(config.neurons.size());++i) {
         const auto& n=config.neurons[i];const double value=pulse_current(n,at);
         if(value==0)continue;

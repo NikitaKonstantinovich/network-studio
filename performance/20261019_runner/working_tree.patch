@@ -1,0 +1,1876 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 877169b..6a54a2e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,5 +1,7 @@
+ cmake_minimum_required(VERSION 3.20)
+ project(NeuroAstroStudio LANGUAGES CXX)
++option(STUDIO_PROFILE "Enable nested solver diagnostic timers (not for speed comparisons)" OFF)
++option(STUDIO_BUILD_PERFORMANCE_TOOLS "Build reproducible solver benchmark tools" OFF)
+ set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ if(MSVC)
+@@ -32,8 +34,8 @@ string(SUBSTRING "${JSON_SOURCE}" 0 ${DECODE_START} JSON_BEFORE)
+ string(SUBSTRING "${JSON_SOURCE}" ${DECODE_END} -1 JSON_AFTER)
+ file(READ "${CMAKE_CURRENT_SOURCE_DIR}/json_strings.inc" JSON_DECODER)
+ write_generated("${CMAKE_CURRENT_BINARY_DIR}/json_standalone.cpp" "${JSON_BEFORE}\n${JSON_DECODER}\n${JSON_AFTER}")
+-set(CHECKPOINT_SIGNATURE "${CMAKE_CXX_COMPILER_ID}|${CMAKE_CXX_COMPILER_VERSION}|${CMAKE_SYSTEM_NAME}|${CMAKE_SYSTEM_PROCESSOR}|${CMAKE_SIZEOF_VOID_P}|${CMAKE_BUILD_TYPE}|${CMAKE_CXX_FLAGS}|${CMAKE_CXX_FLAGS_RELEASE}")
+-foreach(source network.h network.cpp stimulator.cpp stimulator_json.inc experiment.cpp experiment_json.inc analysis.cpp analysis.h integrator.cpp numerics/integrator.h io.h io.cpp checkpoint.cpp json_strings.inc vendor/systems/neuro_astro/model.cuh vendor/systems/neuro_astro/variables.inc vendor/systems/neuro_astro/parameters.inc vendor/json/json.cpp vendor/json/json.h)
++set(CHECKPOINT_SIGNATURE "${CMAKE_CXX_COMPILER_ID}|${CMAKE_CXX_COMPILER_VERSION}|${CMAKE_SYSTEM_NAME}|${CMAKE_SYSTEM_PROCESSOR}|${CMAKE_SIZEOF_VOID_P}|${CMAKE_BUILD_TYPE}|${CMAKE_CXX_FLAGS}|${CMAKE_CXX_FLAGS_RELEASE}|profile=${STUDIO_PROFILE}")
++foreach(source network.h network.cpp stimulator.cpp stimulator_json.inc experiment.cpp experiment_json.inc analysis.cpp analysis.h integrator.cpp numerics/integrator.h performance/profile.h io.h io.cpp checkpoint.cpp json_strings.inc vendor/systems/neuro_astro/model.cuh vendor/systems/neuro_astro/variables.inc vendor/systems/neuro_astro/parameters.inc vendor/json/json.cpp vendor/json/json.h)
+     set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${source}")
+     file(SHA256 "${CMAKE_CURRENT_SOURCE_DIR}/${source}" source_hash)
+     string(APPEND CHECKPOINT_SIGNATURE "|${source}:${source_hash}")
+@@ -44,6 +46,22 @@ add_library(network_core network.cpp stimulator.cpp experiment.cpp analysis.cpp
+ target_include_directories(network_core PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+ target_include_directories(network_core PRIVATE "${VENDOR}/json")
+ target_include_directories(network_core PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
++if(STUDIO_PROFILE)
++    target_compile_definitions(network_core PUBLIC STUDIO_PROFILE)
++endif()
++if(STUDIO_BUILD_PERFORMANCE_TOOLS)
++    add_executable(network_studio_benchmark performance/solver_benchmark.cpp)
++    target_link_libraries(network_studio_benchmark PRIVATE network_core)
++endif()
++find_package(Threads REQUIRED)
++add_library(studio_runner simulation_runner.cpp simulation_view.cpp)
++target_link_libraries(studio_runner PUBLIC network_core Threads::Threads)
++add_executable(network_studio_runner_tests runner_tests.cpp)
++target_link_libraries(network_studio_runner_tests PRIVATE studio_runner)
++if(STUDIO_BUILD_PERFORMANCE_TOOLS)
++    add_executable(network_studio_runner_benchmark performance/runner_benchmark.cpp)
++    target_link_libraries(network_studio_runner_benchmark PRIVATE studio_runner)
++endif()
+ add_executable(network_studio_cli cli.cpp)
+ target_link_libraries(network_studio_cli PRIVATE network_core)
+ add_executable(network_studio_tests tests.cpp)
+@@ -55,6 +73,14 @@ target_link_libraries(network_studio_numerics_tests PRIVATE network_core)
+ add_executable(network_studio_population lab2/population.cpp)
+ target_link_libraries(network_studio_population PRIVATE network_core)
+ enable_testing()
++add_test(NAME simulation_runner_lifecycle COMMAND network_studio_runner_tests)
++set_tests_properties(simulation_runner_lifecycle PROPERTIES TIMEOUT 180)
++add_executable(network_studio_cache_tests performance/cache_tests.cpp)
++target_link_libraries(network_studio_cache_tests PRIVATE network_core)
++add_test(NAME performance_cache_invariance COMMAND network_studio_cache_tests)
++add_executable(network_studio_kernel_tests performance/kernel_tests.cpp)
++target_link_libraries(network_studio_kernel_tests PRIVATE network_core)
++add_test(NAME packed_kernel_reference COMMAND network_studio_kernel_tests)
+ add_executable(network_studio_experiment_tests experiment_tests.cpp)
+ target_link_libraries(network_studio_experiment_tests PRIVATE network_core)
+ add_test(NAME spatial_analysis_and_stages COMMAND network_studio_experiment_tests)
+@@ -78,7 +104,7 @@ add_test(NAME checkpoint_process_resume COMMAND ${CMAKE_COMMAND}
+     "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/checkpoint-process" -P "${CMAKE_CURRENT_SOURCE_DIR}/checkpoint/process_test.cmake")
+ add_test(NAME population_equivalence COMMAND network_studio_population --self-test)
+ add_library(studio_weight_field weight_field.cpp activity_field.cpp)
+-target_link_libraries(studio_weight_field PUBLIC network_core)
++target_link_libraries(studio_weight_field PUBLIC studio_runner)
+ add_executable(network_studio_stimulator_tests stimulator_tests.cpp)
+ target_link_libraries(network_studio_stimulator_tests PRIVATE studio_weight_field)
+ add_test(NAME shared_spatial_stimulators_activity COMMAND network_studio_stimulator_tests)
+@@ -127,6 +153,10 @@ if(WIN32)
+         "${VENDOR}/imgui/backends/imgui_impl_win32.cpp"
+         "${VENDOR}/imgui/backends/imgui_impl_dx11.cpp")
+     target_link_libraries(network_studio PRIVATE studio_gui d3d11 dxgi d3dcompiler windowscodecs ole32 comdlg32 shell32 dwmapi)
++    add_test(NAME runner_native_close COMMAND ${CMAKE_COMMAND}
++        "-DGUI=$<TARGET_FILE:network_studio>" "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/runner-native-close"
++        -P "${CMAKE_CURRENT_SOURCE_DIR}/performance/runner_native_test.cmake")
++    set_tests_properties(runner_native_close PROPERTIES RUN_SERIAL TRUE TIMEOUT 40)
+     add_test(NAME experiment_win32_dx11 COMMAND ${CMAKE_COMMAND}
+         "-DGUI=$<TARGET_FILE:network_studio>" "-DFIXTURES=$<TARGET_FILE:network_studio_experiment_tests>"
+         "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/experiment-native" -P "${CMAKE_CURRENT_SOURCE_DIR}/experiments/native_test.cmake")
+diff --git a/README.md b/README.md
+index fe142e3..1a4b9d8 100644
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,10 @@
+ # Neuro / Astro — рабочий прототип конструктора сетей
+ 
+-Актуальная рабочая ветка **`feature/shared-stimulators-activity`** добавляет общие и пространственные стимуляторы, команды по модельному времени и векторное поле активности. Они работают вместе с полем весов, сетевыми показателями, этапами, задержками и checkpoint. [Управление, определения и API контроллера](stimulation/README_RU.md), [проверки и ограничения](stimulation/REPORT_RU.md). Готовая локальная сборка: `build/Release/network_studio.exe`. Старые опубликованные релизы и отчёты ниже относятся к прежним версиям.
++Актуальная ветка **`perf/simulation-runner-20261019`**: расчётом управляет отдельный `SimulationRunner`, решатель остаётся однопоточным. GUI читает неизменяемые снимки, обновляемые по умолчанию 10 раз/с. На сохранённом опыте с 500 нейронами за 0,05 модельной секунды медиана времени GUI снизилась **с 50,60 до 18,64 с (2,71 раза)**; CSV и полные checkpoint совпали побайтно. Проверены 26 тестов. [Отчёт и ограничения](performance/20261019_runner/REPORT_RU.md), [архитектура](performance/20261019_runner/ARCHITECTURE_RU.md). Готовая сборка: `build/Release/network_studio.exe`, запуск через `launch.cmd`.
++
++Предыдущий этап **`perf/single-thread-20261019`** ускорил однопоточный решатель: в воспроизводимом опыте с 500 нейронами и 15 013 синапсами время расчёта 0,5 с сократилось с 237,77 до 109,94 с (медианы, 2,16 раза). Численные данные и содержимое checkpoint вне метаданных сборки совпали побайтно; прошли 24/24 теста. [Измерения и ограничения](performance/20261019_single_thread/REPORT_RU.md), [команды повторения](performance/README_RU.md). Готовая локальная сборка: `build/Release/network_studio.exe`; исходные EXE сохранены отдельно в `performance/20261019_single_thread/original-release/`.
++
++Общие и пространственные стимуляторы, команды по модельному времени и векторное поле активности работают вместе с полем весов, сетевыми показателями, этапами, задержками и checkpoint. [Управление, определения и API контроллера](stimulation/README_RU.md), [проверки и ограничения](stimulation/REPORT_RU.md). Старые опубликованные релизы и отчёты ниже относятся к прежним версиям.
+ 
+ ## Быстрый старт из этого репозитория
+ 
+@@ -78,7 +82,7 @@ powershell -ExecutionPolicy Bypass -File .\build.ps1 -Test -Smoke
+ 
+ Кнопка **«Настройки поля…»** открывает:
+ 
+-- **Начальные / текущие веса**: исходные `Config.synapses[].weight` или полные `Simulator.plasticity[].weight`, включая связи, не выбранные для записи истории. Текущие веса обновляются после завершённых шагов, в том же потоке GUI. При недоступном состоянии исходные веса не подставляются молча.
++- **Начальные / текущие веса**: исходные `Config.synapses[].weight` или полные `Simulator.plasticity[].weight`, включая связи, не выбранные для записи истории. Текущие веса передаются согласованным снимком после завершённых шагов; GUI не обращается к рабочему Simulator. При недоступном состоянии исходные веса не подставляются молча.
+ - Прямоугольную сетку **1–64 столбца и 1–64 строки**, фильтр **Все / Возбуждающие / Тормозные** и фильтр модели синапса.
+ - **Масштаб стрелок** — общий коэффициент длины в нормированных координатах модели на единицу веса. По умолчанию он фиксирован. **Автомасштаб поля** включается явно и подбирает один общий коэффициент по максимальному модулю; он сохраняет различия длин, но меняет масштаб между состояниями. Для сравнения оставляйте его выключенным.
+ 
+@@ -353,4 +357,13 @@ python .\configurator\stdp_check.py --cli $cli
+ - **Этапы эксперимента…**: именованный план, ручные/автоматические переходы, заморозка и масштабирование обучения, явная очистка следов, стимуляция группы и журнал протоколов. Переходы сохраняют состояния и очередь. После завершённого этапа можно войти в следующий либо снять ограничение кнопкой **«Продолжить текущее состояние без этапа»**, при необходимости увеличив конечное время.
+ - Для длительных опытов заранее включите **«Ограниченные журналы»**. Это ограниченная история с явной доступной глубиной, не архив на диске: старые записи удаляются, очередь будущих доставок и суммарные счётчики сохраняются. Полные старые журналы по-прежнему имеют предел 2 млн записей и предупреждение до запуска.
+ 
+-Форматы: JSON 6 (чтение 1–5), workspace 3 (чтение 1–2), checkpoint 3 со строгим идентификатором сборки. Подробные определения окон, пачек, фазы стимулов, поведения сброса/заморозки, CLI и порядок ручного сценария ЛР6 — в [инструкции](experiments/README_RU.md). [Примеры](experiments/examples/) содержат 400 E + 100 I, 30±3 входов и веса 0,5±0,1. Размеры пространства заданы в `model_unit`; их соответствие радиусу NeuroNet не установлено.
++Форматы: JSON 6 (чтение 1–5), workspace 3 (чтение 1–2), checkpoint 4 со строгим идентификатором сборки. Подробные определения окон, пачек, фазы стимулов, поведения сброса/заморозки, CLI и порядок ручного сценария ЛР6 — в [инструкции](experiments/README_RU.md). [Примеры](experiments/examples/) содержат 400 E + 100 I, 30±3 входов и веса 0,5±0,1. Размеры пространства заданы в `model_unit`; их соответствие радиусу NeuroNet не установлено.
++
++
++## Управление вычислителем и отображением
++
++Кнопки запуска, подтверждённой паузы, шага 50 мс, сброса, переходов этапов, стимуляторов и сохранения передают команды `SimulationRunner`. Редактирование модели открывается после подтверждения остановки. Шаг 50 мс выполняется асинхронно; его можно прервать паузой на границе завершённого основного шага. Обычные изменения параметров по-прежнему сбрасывают опыт; изменения обучения, стимуляторов и продление сохраняют состояние согласно прежним правилам.
++
++Панель показывает модельные секунды за реальную секунду активного расчёта, затраченное время и приблизительный остаток. «Обновление, Гц» (1–20) управляет отображением, не шагом решателя. Паузы исключены из времени выполнения; после reset/restore счётчики производительности начинаются заново.
++
++Экран удерживает до 20 000 отсчётов / 2 млн чисел и до 100 000 записей каждого канала журнала; доступное окно обозначается явно. Экспорт CSV, анализа, обученных весов и checkpoint берёт полные доступные данные непосредственно у вычислителя. Научные журналы имеют собственные настроенные ограничения. Закрытие приложения завершает текущий шаг/команду и присоединяет поток перед освобождением GUI.
+diff --git a/activity_field.cpp b/activity_field.cpp
+index a517761..57abf45 100644
+--- a/activity_field.cpp
++++ b/activity_field.cpp
+@@ -5,15 +5,15 @@
+ #include <stdexcept>
+ 
+ namespace studio {
+-void ActivityField::update(const Simulator& s,const TopologyViewState& v,WeightField& geometry) {
++void ActivityField::update(const SimulationReadView& s,const TopologyViewState& v,WeightField& geometry) {
+     const auto begin=std::chrono::steady_clock::now();const auto& h=s.activity;const auto& c=s.config;
+     if(!valid_topology_view(v))throw std::runtime_error("Invalid activity field settings");
+-    const bool reset=owner!=&s||s.time<time||counts.size()!=c.synapses.size()||arrivals.size()!=c.neurons.size()||mode!=v.activity_mode||
++    const bool reset=owner!=s.identity||generation!=s.generation||s.time<time||counts.size()!=c.synapses.size()||arrivals.size()!=c.neurons.size()||mode!=v.activity_mode||
+         window!=v.activity_window||response_min!=v.response_min||response_max!=v.response_max||delivery_cursor<h.delivery_begin||spike_cursor<h.spike_begin||
+         delivery_cursor>h.delivery_begin+h.deliveries.size()||spike_cursor>h.spike_begin+h.spikes.size();
+     if(reset) {
+         arrivals.assign(c.neurons.size(),{});counts.assign(c.synapses.size(),0);delivery_cursor=h.delivery_begin;spike_cursor=h.spike_begin;
+-        owner=&s;mode=v.activity_mode;window=v.activity_window;response_min=v.response_min;response_max=v.response_max;
++        owner=s.identity;generation=s.generation;mode=v.activity_mode;window=v.activity_window;response_min=v.response_min;response_max=v.response_max;
+     }
+     const double left=std::max(0.,s.time-window);
+     for(auto& queue:arrivals)while(!queue.empty()&&queue.front().time<=left){if(queue.front().counted)--counts[queue.front().edge];queue.pop_front();}
+@@ -35,7 +35,7 @@ void ActivityField::update(const Simulator& s,const TopologyViewState& v,WeightF
+     }
+     columns=v.columns;rows=v.rows;time=s.time;
+     available=window<=c.activity_horizon&&left>=h.available_after;
+-    message=available?"":"Недостаточно сохранённых событий для этого окна. Уменьшите окно; глубина задана до запуска.";
++    message=available?"":"Недостаточно доступных событий для этого окна. Уменьшите окно; учитывается глубина записи и окна отображения.";
+     // Shared geometry is prepared by the caller once for both fields.
+     cells=geometry.activity_cells(c,s.plasticity,v,available?counts:std::vector<uint64_t>(counts.size(),0));
+     maximum=0;for(auto cell:cells)maximum=std::max(maximum,cell.magnitude());
+diff --git a/activity_field.h b/activity_field.h
+index 27b6424..be96993 100644
+--- a/activity_field.h
++++ b/activity_field.h
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include "weight_field.h"
++#include "simulation_view.h"
+ 
+ namespace studio {
+ // A visualization/controller cache. Reads only RecentActivity, never full History.
+@@ -11,14 +12,15 @@ public:
+     bool available=true;
+     std::string message;
+     size_t processed_events=0;
+-    void update(const Simulator& s,const TopologyViewState& settings,WeightField& geometry);
++    void update(const SimulationReadView& s,const TopologyViewState& settings,WeightField& geometry);
+     WeightCell vector_at(const Config& c,double x,double y) const;
+ private:
+     struct Arrival {double time;int edge;bool counted;};
+     std::vector<std::deque<Arrival>> arrivals;
+     std::vector<uint64_t> counts;
+     uint64_t delivery_cursor=0,spike_cursor=0;
+-    const Simulator* owner=nullptr;
++    const void* owner=nullptr;
++    uint64_t generation=0;
+     int mode=-1,columns=0,rows=0;
+     double window=0,response_min=0,response_max=0;
+ };
+diff --git a/analysis_gui.cpp b/analysis_gui.cpp
+index 7eb205f..bb92b4b 100644
+--- a/analysis_gui.cpp
++++ b/analysis_gui.cpp
+@@ -6,7 +6,7 @@ namespace studio {
+ namespace {
+ bool number(const char* label,double& v,double lo,double hi) {return ImGui::DragScalar(label,ImGuiDataType_Double,&v,.001f,&lo,&hi,"%.6g",ImGuiSliderFlags_AlwaysClamp);}
+ }
+-void PlotWindows::draw_network(PlotWindowState& w,const Simulator& s) {
++void PlotWindows::draw_network(PlotWindowState& w,const SimulationReadView& s) {
+     const char* views[]={"Популяционная активность","Частота пачек","Задержки ответов","Журнал стимулов","Сетевые пачки"};
+     ImGui::SetNextItemWidth(235);ImGui::Combo("Представление сети",&w.view,views,5);ImGui::SameLine();
+     if(ImGui::Button("Параметры анализа…"))ImGui::OpenPopup("network_analysis_settings");
+@@ -36,15 +36,22 @@ void PlotWindows::draw_network(PlotWindowState& w,const Simulator& s) {
+         if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();ImGui::EndPopup();
+     }
+     const auto key=analysis_settings_json(a);
+-    if(key!=w.analysis_key||w.analysis_at<0||s.time<w.analysis_at||s.time-w.analysis_at>=.1||s.done()) {
+-        if(key!=w.analysis_key||s.time!=w.analysis_at){w.analyzed=analyze_network(s.config,s.history,s.time,a);w.analysis_at=s.time;w.analysis_key=key;}
++    const bool invalid=w.analysis_identity!=s.identity||w.analysis_generation!=s.generation||key!=w.analysis_key||w.analysis_at<0||s.time<w.analysis_at;
++    if(invalid||(s.time!=w.analysis_at&&(s.time-w.analysis_at>=.1||s.done()))) {
++        w.analyzed=analyze_network(s.config,s.history,s.time,a);w.analysis_at=s.time;w.analysis_key=key;
++        w.analysis_identity=s.identity;w.analysis_generation=s.generation;
+     }
+     if(analysis_export_dialog) {
+-        ImGui::SameLine();if(ImGui::Button("Экспорт этого анализа…")) {
+-            auto path=analysis_export_dialog();if(!path.empty())try{path.replace_extension();auto fresh=analyze_network(s.config,s.history,s.time,a);export_analysis(fresh,a,path);message="Анализ экспортирован.";}catch(const std::exception& e){message=e.what();}
++        ImGui::SameLine();if(ImGui::Button(analysis_export?"Экспорт анализа расчёта…":"Экспорт этого анализа…")) {
++            auto path=analysis_export_dialog();if(!path.empty())try {
++                path.replace_extension();
++                if(analysis_export){analysis_export(a,path);message="Запрошен экспорт анализа по журналам расчёта.";}
++                else {auto fresh=analyze_network(s.config,s.history,s.time,a);export_analysis(fresh,a,path);message=s.truncated?"Экспортирован анализ ограниченного окна отображения.":"Анализ экспортирован.";}
++            }catch(const std::exception& e){message=e.what();}
+         }
+     }
+     const auto& r=w.analyzed;
++    if(s.truncated||r.from>0)ImGui::TextWrapped("Экранный анализ ограничен доступным окном [%.6g; %.6g] с.",r.from,r.until);
+     ImGui::Text("Анализ [%.6g; %.6g] с · N=%zu · пропуски %zu · лишние пачки %zu",r.from,r.until,r.population_size,r.missed,r.extra);
+     if(!r.error.empty()){ImGui::TextWrapped("%s",r.error.c_str());return;}
+     ImGui::Text("С ответом: %zu / %zu · стимулы %.4g Гц · пачки %.4g Гц · неполные окна %zu",r.responses.size()-r.missed,r.responses.size(),r.stimulus_hz,r.response_hz,r.incomplete_stimuli);
+diff --git a/experiment.cpp b/experiment.cpp
+index 426d92c..fbaf3e1 100644
+--- a/experiment.cpp
++++ b/experiment.cpp
+@@ -114,6 +114,7 @@ void Simulator::trim_journals(size_t events,size_t deliveries) {
+     }
+ }
+ void Simulator::log_stimuli(double at) {
++    STUDIO_SCOPE(journals);
+     for(int i=0;i<int(config.neurons.size());++i) {
+         const auto& n=config.neurons[i];const double value=pulse_current(n,at);
+         if(value==0)continue;
+diff --git a/experiment_gui.cpp b/experiment_gui.cpp
+index e3c715d..e5d29a6 100644
+--- a/experiment_gui.cpp
++++ b/experiment_gui.cpp
+@@ -1,6 +1,7 @@
+ #include "gui.h"
+ #include <algorithm>
+ #include <cstdio>
++#include <tuple>
+ namespace studio {
+ namespace {
+ bool number(const char* label,double& v,double lo,double hi) {ImGui::SetNextItemWidth(180);return ImGui::DragScalar(label,ImGuiDataType_Double,&v,.01f,&lo,&hi,"%.6g",ImGuiSliderFlags_AlwaysClamp);}
+@@ -23,15 +24,16 @@ void App::stage_manager() {
+     auto& sim=*simulation;auto& runtime=sim.experiment;
+     ImGui::Text("Время %.9g с · этап %d · до %.9g с · %s",sim.time,runtime.stage_index+1,runtime.stage_end,runtime.automatic?"последовательность":"ручное управление");
+     ImGui::TextWrapped("Переход сохраняет динамику, веса, очередь и историю. Длительность округляется вверх к ближайшей границе шага. Старый импульс выбранной группы обрывается; новый поезд начинается через заданную задержку от перехода. DC и шум сохраняются.");
+-    if(running){if(ImGui::Button("Приостановить для перехода"))running=false;}
++    if(running){if(ImGui::Button("Приостановить для перехода"))pause();}
+     ImGui::BeginDisabled(running||!sim.error.empty());
+-    if(ImGui::Button("Продолжить текущее состояние без этапа"))try {sim.continue_current();status="Ограничение этапа снято. При необходимости увеличьте конечное время и нажмите Продолжить; протоколы и веса сохранены.";}catch(const std::exception& e){status=e.what();}
++    if(ImGui::Button("Продолжить текущее состояние без этапа"))try {RunnerCommand c;c.kind=RunnerCommand::Kind::ContinueCurrent;command(std::move(c));status="Ограничение этапа снято. При необходимости увеличьте конечное время и нажмите Продолжить; протоколы и веса сохранены.";}catch(const std::exception& e){status=e.what();}
+     bool learning=runtime.learning;double rate=runtime.learning_rate;
+     bool change=ImGui::Checkbox("Обучение включено",&learning);ImGui::SameLine();change|=number("Общая скорость обучения",rate,0,100);
+-    try {if(change)sim.set_learning(learning,rate);if(ImGui::Button("Очистить следы STDP"))sim.set_learning(learning,rate,true);}catch(const std::exception& e){status=e.what();}
++    bool clear=ImGui::Button("Очистить следы STDP");if(change||clear){RunnerCommand c;c.kind=RunnerCommand::Kind::Learning;c.flag=learning;c.value=rate;c.flag2=clear;command(std::move(c));}
+     ImGui::SameLine();ImGui::TextDisabled("При заморозке следы продолжают обновляться.");
+     if(ImGui::BeginTabBar("stage_tabs")) {
+         if(ImGui::BeginTabItem("План и переходы")) {
++            const auto previous=config.stages;
+             if(ImGui::Button("Добавить этап")&&config.stages.size()<256){ExperimentStage s;s.name="Этап "+std::to_string(config.stages.size()+1);config.stages.push_back(s);dirty=true;}
+             int remove=-1;
+             ImGui::BeginChild("stage_plan",{0,360},ImGuiChildFlags_Borders);
+@@ -47,35 +49,38 @@ void App::stage_manager() {
+                     double ms=s.width*1000;if(number("Ширина, мс",ms,0,1000))s.width=ms*.001;
+                     number("Первый импульс через, с",s.first_pulse,0,s.duration);
+                     ImGui::TextDisabled("Пустая группа: протоколы не меняются. Группа использует одинаковый новый поезд.");
+-                    if(ImGui::Button("Войти в этап (пауза)"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);sim.config.stages=config.stages;sim.enter_stage(i,false);config=sim.config;status="Этап применён; продолжите расчёт.";}catch(const std::exception& e){status=e.what();}
+-                    ImGui::SameLine();if(ImGui::Button("Выполнить отсюда до конца"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);sim.config.stages=config.stages;sim.enter_stage(i,true);config=sim.config;running=true;}catch(const std::exception& e){status=e.what();}
++                    if(ImGui::Button("Войти в этап (пауза)"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);RunnerCommand c;c.kind=RunnerCommand::Kind::EnterStage;c.stages=config.stages;c.index=i;command(std::move(c));status="Этап применён; продолжите расчёт.";}catch(const std::exception& e){status=e.what();}
++                    ImGui::SameLine();if(ImGui::Button("Выполнить отсюда до конца"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);RunnerCommand c;c.kind=RunnerCommand::Kind::EnterStage;c.stages=config.stages;c.index=i;c.flag=c.flag2=true;command(std::move(c));}catch(const std::exception& e){status=e.what();}
+                     if(!runtime.stage_active&&ImGui::Button("Удалить этап"))remove=i;
+                 }ImGui::PopID();
+             }ImGui::EndChild();
+             if(remove>=0)config.stages.erase(config.stages.begin()+remove);
+-            if(validate_experiment(config).empty())sim.config.stages=config.stages;
++            auto same=[](const ExperimentStage& a,const ExperimentStage& b){
++                return std::tie(a.name,a.duration,a.learning,a.clear_traces,a.learning_rate,a.neurons,a.stimulus_enabled,a.amplitude,a.frequency,a.width,a.first_pulse,a.stimulator_ids)==std::tie(b.name,b.duration,b.learning,b.clear_traces,b.learning_rate,b.neurons,b.stimulus_enabled,b.amplitude,b.frequency,b.width,b.first_pulse,b.stimulator_ids);
++            };
++            if((previous.size()!=config.stages.size()||!std::equal(previous.begin(),previous.end(),config.stages.begin(),same))&&validate_experiment(config).empty()) {
++                RunnerCommand c;c.kind=RunnerCommand::Kind::Plan;c.stages=config.stages;command(std::move(c));dirty=true;
++            }
+             ImGui::TextWrapped("Войти в этап — применить действия без запуска. «Продолжить» запускает текущий этап. По завершении последнего этапа расчёт остановится. Обычный «Сброс» начинает сеть с исходных весов и состояний.");
+             ImGui::EndTabItem();
+         }
+         if(ImGui::BeginTabItem("История и сохранение")) {
+             bool bounded=config.bounded_journals;
+             if(ImGui::Checkbox("Ограниченные журналы (старые события удаляются)",&bounded)) {
+-                if(bounded||!(sim.history.events_after||sim.history.deliveries_after||sim.history.stimuli_after||sim.history.shared_after))config.bounded_journals=sim.config.bounded_journals=bounded;
+-                else status="Уже удалённую историю нельзя объявить полной. Начните независимый опыт или сохраните доступный интервал.";
++                RunnerCommand c;c.kind=RunnerCommand::Kind::BoundedJournals;c.flag=bounded;command(std::move(c));
+             }
+             ImGui::TextWrapped("Потенциалы имеют отдельный лимит. Очередь будущих доставок не сокращается. Полные журналы ограничены 2 млн записей; для длинных опытов выберите ограниченный режим заранее. Удалённые события восстановить из checkpoint нельзя.");
+-            ImGui::Text("Доступно: спайки после %.6g с; доставки после %.6g с; стимулы после %.6g с",sim.history.events_after,sim.history.deliveries_after,sim.history.stimuli_after);
+-            ImGui::Text("Записей: %zu / %zu / %zu; лимит каждого %zu",sim.history.events.size(),sim.history.deliveries.size(),sim.history.stimuli.size(),config.journal_capacity);
++            ImGui::Text("В окне отображения: спайки после %.6g с; доставки после %.6g с; стимулы после %.6g с",sim.history.events_after,sim.history.deliveries_after,sim.history.stimuli_after);
++            ImGui::Text("На экране: %zu / %zu / %zu; лимит научных журналов %zu",sim.history.events.size(),sim.history.deliveries.size(),sim.history.stimuli.size(),config.journal_capacity);
+             if(ImGui::Button("Сохранить полное состояние…")&&checkpoint_dialog)save_state(checkpoint_dialog(true));
+             if(ImGui::Button("Независимое продолжение из состояния…")&&checkpoint_dialog) {
+                 auto path=checkpoint_dialog(false);if(!path.empty())try {
+-                    auto restored=load_checkpoint(path);restored->fork_experiment(path.u8string());
+-                    config=restored->config;simulation=std::move(restored);running=false;plot_windows.data_changed(config);status="Независимая ветвь на паузе; абсолютное время и происхождение сохранены.";
++                    RunnerCommand c;c.kind=RunnerCommand::Kind::Restore;c.path=path;c.text=path.u8string();command(std::move(c));
+                     ImGui::EndTabItem();ImGui::EndTabBar();ImGui::EndDisabled();ImGui::End();return;
+                 }catch(const std::exception& e){status=e.what();}
+             }
+             if(ImGui::Button("Экспорт весов как начальной конфигурации…")&&file_dialog) {
+-                auto path=file_dialog(true,false);if(!path.empty())try{save_config(sim.learned_config(),path);status="Новая конфигурация с обученными начальными весами сохранена. Текущий опыт сохранён.";}catch(const std::exception& e){status=e.what();}
++                auto path=file_dialog(true,false);if(!path.empty())try{RunnerCommand c;c.kind=RunnerCommand::Kind::ExportTrained;c.path=path;command(std::move(c));}catch(const std::exception& e){status=e.what();}
+             }
+             ImGui::EndTabItem();
+         }
+diff --git a/gui.cpp b/gui.cpp
+index c986209..fa01461 100644
+--- a/gui.cpp
++++ b/gui.cpp
+@@ -5,6 +5,7 @@
+ #include <cmath>
+ #include <cstdio>
+ #include <limits>
++#include <thread>
+ 
+ namespace studio {
+ static const ImVec4 Teal(.25f,.84f,.72f,1),Blue(.38f,.65f,1,1),Gold(1,.74f,.36f,1),Muted(.58f,.65f,.74f,1),Rose(.93f,.43f,.53f,1);
+@@ -25,62 +26,105 @@ void apply_style() {
+     ImPlot::StyleColorsDark(); auto& p=ImPlot::GetStyle(); p.PlotPadding={12,10}; p.LineWeight=1.6f;
+     p.Colors[ImPlotCol_PlotBg]={.055f,.078f,.108f,1}; p.Colors[ImPlotCol_FrameBg]={.078f,.105f,.145f,1};
+ }
+-App::App() { plot_windows.analysis_export_dialog=[this](){return file_dialog?file_dialog(true,true):std::filesystem::path{};};reset(); }
+-void App::reset() { activity_field=ActivityField{};stimulator_draft.id=0;running=false; simulation=std::make_unique<Simulator>(config); if(simulation->error.empty())plot_windows.data_changed(config); else status=simulation->error; }
++App::App() {
++    simulation=&display;
++    plot_windows.analysis_export_dialog=[this](){return file_dialog?file_dialog(true,true):std::filesystem::path{};};
++    plot_windows.analysis_export=[this](const AnalysisSettings& settings,const std::filesystem::path& path){RunnerCommand c;c.kind=RunnerCommand::Kind::ExportAnalysis;c.analysis=settings;c.path=path;command(std::move(c));};
++    runner=std::make_unique<SimulationRunner>(config);synchronize();
++}
++App::~App() {if(runner)runner->shutdown();}
++void App::set_display_hz(double value) {display_hz=float(value);runner->set_display_hz(value);}
++std::shared_future<RunnerResult> App::command(RunnerCommand value,bool wait) {
++    const auto kind=value.kind;auto result=runner->submit(std::move(value));
++    pending.push_back({result,kind});
++    if(kind==RunnerCommand::Kind::Reset||kind==RunnerCommand::Kind::LoadConfig||kind==RunnerCommand::Kind::Restore)replacing=true;
++    // Editing is enabled only after the controller acknowledges the boundary.
++    running=true;
++    if(wait&&!drawing)wait_command(result);
++    return result;
++}
++RunnerResult App::wait_command(std::shared_future<RunnerResult> result) {
++    const auto deadline=std::chrono::steady_clock::now()+std::chrono::minutes(10);
++    while(result.wait_for(std::chrono::milliseconds(0))!=std::future_status::ready) {
++        advance();if(std::chrono::steady_clock::now()>deadline)throw std::runtime_error("Controller acknowledgement timed out");
++        std::this_thread::sleep_for(std::chrono::milliseconds(1));
++    }
++    auto out=result.get();advance();
++    while(out.snapshot_sequence && (display.generation<out.generation || (display.generation==out.generation&&display.sequence<out.snapshot_sequence))){
++        advance();if(std::chrono::steady_clock::now()>deadline)throw std::runtime_error("Display acknowledgement timed out");
++        std::this_thread::sleep_for(std::chrono::milliseconds(1));
++    }
++    return out;
++}
++void App::synchronize() {
++    while(!pending.empty()){auto f=pending.front().result;wait_command(f);}
++    RunnerCommand c;c.kind=RunnerCommand::Kind::Barrier;
++    auto r=wait_command(command(std::move(c)));
++    if(!r.ok)throw std::runtime_error(r.error);
++}
++void App::run(){RunnerCommand c;c.kind=RunnerCommand::Kind::Run;command(std::move(c));status="Выполняется расчёт…";}
++void App::pause(){RunnerCommand c;c.kind=RunnerCommand::Kind::Pause;command(std::move(c));status="Ожидание завершения текущего шага…";}
++void App::advance_for(double duration){RunnerCommand c;c.kind=RunnerCommand::Kind::Advance;c.value=duration;auto r=wait_command(command(std::move(c)));synchronize();if(!r.ok)throw std::runtime_error(r.error);}
++void App::reset() {
++    RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.config=config;command(std::move(c));
++    if(!drawing)synchronize();
++}
+ void App::replace(Config c) {
+     config=std::move(c); selected_kind=selected_index=0; preset_index=-1; filename.clear(); dirty=false;
+     syn_plot=syn_view=0;
+-    for(int i=0;i<int(config.synapses.size());++i)if(config.synapses[i].stdp) {
+-        selected_kind=2;selected_index=syn_plot=i;syn_view=1;break;
+-    }
++    for(int i=0;i<int(config.synapses.size());++i)if(config.synapses[i].stdp) {selected_kind=2;selected_index=syn_plot=i;syn_view=1;break;}
+     link_source=0; link_target=std::min(1,int(config.neurons.size())-1); reset();
+     plot_windows.data_changed(config,true);plot_windows.embedded[3].object=syn_plot;plot_windows.embedded[3].view=syn_view;
+     status="Конфигурация загружена.";
+ }
+ void App::save(const std::filesystem::path& path) {
+-    try { save_config(config,path); filename=path; dirty=false; status="Конфигурация сохранена."; }
+-    catch(const std::exception& e){status=e.what();}
++    try {save_config(config,path);filename=path;dirty=false;status="Конфигурация сохранена.";}catch(const std::exception& e){status=e.what();}
+ }
+ void App::load(const std::filesystem::path& path) {
+-    try { auto c=load_config(path); replace(std::move(c)); filename=path; }
+-    catch(const std::exception& e){status=e.what();}
++    RunnerCommand c;c.kind=RunnerCommand::Kind::LoadConfig;c.path=path;command(std::move(c));filename=path;
++    if(!drawing)synchronize();
+ }
+ void App::save_state(const std::filesystem::path& path) {
+-    if(path.empty())return;
+-    if(running){status="Приостановите расчёт перед сохранением состояния.";return;}
+-    try {
+-        save_checkpoint(*simulation,path);
+-        status=simulation->error.empty()?"Полное состояние сохранено.":"Сохранён диагностический снимок ошибки; продолжение запрещено.";
+-    }catch(const std::exception& e){status=e.what();}
++    if(path.empty())return;RunnerCommand c;c.kind=RunnerCommand::Kind::SaveCheckpoint;c.path=path;command(std::move(c));if(!drawing)synchronize();
+ }
+ bool App::restore_state(const std::filesystem::path& path) {
+-    if(path.empty())return false;
+-    try {
+-        auto restored=load_checkpoint(path);Config restored_config=restored->config;
+-        std::string message="Состояние восстановлено: t = "+std::to_string(restored->time)+" с. ";
+-        message+=!restored->error.empty()?"Диагностический снимок: продолжение запрещено. "+restored->error:
+-            restored->done()?(restored->experiment.stage_active?"Этап завершён. Войдите в следующий этап либо выберите продолжение без этапа и увеличьте конечное время.":"Расчёт завершён; увеличьте конечное время или выполните сброс."):"Пауза. Нажмите «Продолжить».";
+-        config=std::move(restored_config);simulation=std::move(restored);activity_field=ActivityField{};stimulator_draft.id=0;running=false;dirty=false;
+-        selected_kind=selected_index=0;preset_index=-1;filename.clear();
+-        neuron_plot=neuron_view=syn_plot=syn_view=astro_plot=0;drag_kind=drag_index=-1;
+-        link_source=0;link_target=std::min(1,int(config.neurons.size())-1);generation_preview.reset();status=std::move(message);
+-        auto binding_config=config;if(!simulation->experiment.protocols.empty())binding_config.neurons=simulation->experiment.protocols.front().neurons;
+-        plot_windows.data_changed(binding_config);plot_windows.embedded[7].analysis=config.analysis;
+-        return true;
+-    }catch(const std::exception& e){status=e.what();return false;}
++    if(path.empty())return false;RunnerCommand c;c.kind=RunnerCommand::Kind::Restore;c.path=path;auto f=command(std::move(c));
++    if(drawing)return true;
++    const auto result=wait_command(f);synchronize();return result.ok;
++}
++void App::export_data(const std::filesystem::path& path) {
++    RunnerCommand c;c.kind=RunnerCommand::Kind::Export;c.path=path;command(std::move(c));if(!drawing)synchronize();
+ }
+ void App::advance() {
+-    if(!running)return;
+-    const auto versions=simulation->experiment.protocols.size();
+-    const auto begin=std::chrono::steady_clock::now();
+-    for(int i=0;i<20000 && !simulation->done();++i) {
+-        if(!simulation->step())break;
+-        if((config.neurons.size()>32||i%32==0) && std::chrono::steady_clock::now()-begin>std::chrono::milliseconds(8))break;
++    const bool was_running=display.metrics.running;
++    while(auto packet=runner->take_snapshot()) {
++        const auto previous=display.generation;
++        if(!display.apply(packet))throw std::runtime_error("Display snapshot sequence mismatch");
++        if(display_config!=packet->config) {display_config=packet->config;config=display.config;}
++        if(previous!=display.generation) {
++            activity_field=ActivityField{};stimulator_draft.id=0;drag_kind=drag_index=-1;generation_preview.reset();
++            auto binding=config;if(!display.experiment.protocols.empty())binding.neurons=display.experiment.protocols.front().neurons;
++            plot_windows.data_changed(binding);plot_windows.embedded[7].analysis=config.analysis;
++        }
+     }
+-    if(versions!=simulation->experiment.protocols.size())config=simulation->config;
+-    if(simulation->done()) {
+-        running=false; status=simulation->error.empty()?"Расчёт завершён. Результаты можно экспортировать.":simulation->error;
++    for(auto it=pending.begin();it!=pending.end();) {
++        if(it->result.wait_for(std::chrono::milliseconds(0))!=std::future_status::ready){++it;continue;}
++        const auto result=it->result.get();const auto kind=it->kind;
++        if(result.snapshot_sequence&&(display.generation<result.generation||(display.generation==result.generation&&display.sequence<result.snapshot_sequence))){++it;continue;}
++        if(!result.ok){status=result.error;config=display.config;}
++        else if(kind==RunnerCommand::Kind::Pause)status="Расчёт приостановлен; текущий шаг завершён.";
++        else if(kind==RunnerCommand::Kind::Advance)status="Шаг расчёта завершён.";
++        else if(kind==RunnerCommand::Kind::SaveCheckpoint)status="Полное состояние сохранено.";
++        else if(kind==RunnerCommand::Kind::Export||kind==RunnerCommand::Kind::ExportAnalysis||kind==RunnerCommand::Kind::ExportTrained)status="Экспорт завершён.";
++        else if(kind==RunnerCommand::Kind::Restore||kind==RunnerCommand::Kind::LoadConfig) {
++            if(result.ok){selected_kind=selected_index=0;preset_index=-1;dirty=false;filename.clear();neuron_plot=neuron_view=syn_plot=syn_view=astro_plot=0;link_source=0;link_target=std::min(1,int(config.neurons.size())-1);status="Состояние загружено. Пауза.";}
++        } else if(kind==RunnerCommand::Kind::Stimulator||kind==RunnerCommand::Kind::MoveStimulator)status="Команда источника: t="+std::to_string(result.applied_time)+" с.";
++        it=pending.erase(it);
+     }
++    replacing=std::any_of(pending.begin(),pending.end(),[](const Pending& p){return p.kind==RunnerCommand::Kind::Reset||p.kind==RunnerCommand::Kind::LoadConfig||p.kind==RunnerCommand::Kind::Restore;});
++    running=display.metrics.running||!pending.empty();
++    if(!display.error.empty())status=display.error;
++    else if(was_running&&!running&&display.done())status="Расчёт завершён. Результаты можно экспортировать.";
+ }
+ static bool scalar(const char* label,double& v,double lo,double hi,double speed=.01,const char* fmt="%.4g") {
+     return ImGui::DragScalar(label,ImGuiDataType_Double,&v,float(speed),&lo,&hi,fmt,ImGuiSliderFlags_AlwaysClamp);
+@@ -289,23 +333,21 @@ void App::toolbar() {
+     ImGui::BeginDisabled(!simulation->error.empty() || (!running && simulation->done()));
+     ImGui::PushStyleColor(ImGuiCol_Button,{.10f,.38f,.33f,1});
+     if(ImGui::Button(running?"Пауза":simulation->time>0?"Продолжить":"Запуск",{110,30})) {
+-        running=!running; status=running?"Выполняется расчёт…":"Расчёт приостановлен.";
++        if(running)pause();else run();
+     } ImGui::PopStyleColor(); ImGui::EndDisabled();
+-    ImGui::SameLine(); if(ImGui::Button("Сброс",{80,30})) {reset();status="Начальные состояния восстановлены.";}
++    ImGui::SameLine(); if(ImGui::Button("Сброс",{80,30})) {RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.flag=true;command(std::move(c));status="Восстанавливаются начальные состояния…";}
+     ImGui::SameLine(); ImGui::BeginDisabled(running||!simulation->error.empty()||simulation->done());
+     if(ImGui::Button("Шаг 50 мс",{110,30})) {
+-        double target=std::min(simulation->time+.05,config.duration);
+-        while(simulation->time<target&&!simulation->done())if(!simulation->step())break;
+-        status=simulation->error.empty()?"Выполнен шаг расчёта.":simulation->error;
++        RunnerCommand c;c.kind=RunnerCommand::Kind::Advance;c.value=.05;command(std::move(c));status="Выполняется шаг 50 мс…";
+     } ImGui::EndDisabled();
+     ImGui::SameLine(); ImGui::BeginDisabled(running);
+     if(ImGui::Button("Открыть…",{95,30})&&file_dialog) {auto path=file_dialog(false,false);if(!path.empty())load(path);}
+     ImGui::SameLine(); if(ImGui::Button("Сохранить…",{110,30})&&file_dialog) {auto path=file_dialog(true,false);if(!path.empty())save(path);}
+     ImGui::EndDisabled(); ImGui::SameLine();
+-    ImGui::BeginDisabled(running||simulation->history.time.size()<2);
++    ImGui::BeginDisabled(running||simulation->sample_begin+simulation->history.time.size()<2);
+     if(ImGui::Button("Экспорт CSV…",{125,30})&&file_dialog) {
+         auto path=file_dialog(true,true);
+-        if(!path.empty()) try { path.replace_extension(); export_results(*simulation,path);status="Экспортированы CSV, события, параметры и сводка JSON."; }
++        if(!path.empty()) try { path.replace_extension(); export_data(path); }
+         catch(const std::exception& e){status=e.what();}
+     } ImGui::EndDisabled();
+     ImGui::SameLine(); ImGui::TextColored(running?Teal:Muted,"  %.3f / %.3f с",simulation->time,config.duration);
+@@ -316,6 +358,11 @@ void App::toolbar() {
+     ImGui::EndDisabled();
+     ImGui::SameLine();if(ImGui::Button("Этапы эксперимента…"))show_stages=true;
+     ImGui::SameLine();if(ImGui::Button("Стимуляторы…"))show_stimulators=true;
++    const auto& m=simulation->metrics;
++    ImGui::Text("Скорость %.5g модельных с/с · расчёт %.1f с · осталось ≈ %.1f с",m.model_per_second,m.elapsed_seconds,m.eta_seconds);
++    ImGui::SameLine();ImGui::SetNextItemWidth(115);
++    if(ImGui::SliderFloat("Обновление, Гц",&display_hz,1,20,"%.0f"))set_display_hz(display_hz);
++    if(running&&!m.running)ImGui::TextDisabled("Ожидание подтверждения вычислителя…");
+     ImGui::ProgressBar(float(simulation->time/config.duration),{-1,4},"");
+ }
+ void App::editor() {
+@@ -330,7 +377,7 @@ void App::editor() {
+     double end_time=config.duration;
+     if(scalar_min("Длительность, с",end_time,.001,.1)) {
+         if(simulation->time==0){config.duration=end_time;edit();}
+-        else try {simulation->extend_duration(end_time);config.duration=end_time;dirty=true;status="Конечное время продлено; состояния и обучение сохранены.";}
++        else try {RunnerCommand c;c.kind=RunnerCommand::Kind::Extend;c.value=end_time;command(std::move(c));dirty=true;}
+         catch(const std::exception& e){status=e.what();}
+     }
+     if(simulation->time>0)ImGui::TextDisabled("Конечное время от t=0; можно увеличить.");
+@@ -345,7 +392,7 @@ void App::editor() {
+     else ImGui::TextDisabled("История: более 1 000 000 отсчётов");
+     bool bounded=config.bounded_journals;
+     if(ImGui::Checkbox("Ограниченные журналы",&bounded)) {
+-        if(bounded||!(simulation->history.events_after||simulation->history.deliveries_after||simulation->history.stimuli_after||simulation->history.shared_after))config.bounded_journals=simulation->config.bounded_journals=bounded;
++        RunnerCommand c;c.kind=RunnerCommand::Kind::BoundedJournals;c.flag=bounded;command(std::move(c));
+     }
+     ImGui::TextWrapped(config.bounded_journals?"Старые события удаляются; доступная глубина видна в анализе и журнале этапов.":"Полные журналы: лимит 2 млн записей каждого типа. Для длинных опытов включите ограниченные журналы заранее.");
+     if(!config.record_all)ImGui::TextDisabled("Запись: %zu нейронов, %zu связей; события всех узлов",config.record_neurons.size(),config.record_synapses.size());
+@@ -732,8 +779,7 @@ void App::canvas() {
+         // Layout changes preserve the numerical trajectory.
+         *x=std::clamp(double(io.MousePos.x-base.x)/span.x,0.,1.);
+         *y=std::clamp(double(io.MousePos.y-base.y)/span.y,0.,1.);dirty=true;
+-        if(drag_kind==0) {try{simulation->move_neuron(drag_index,*x,*y);}catch(const std::exception& e){*x=simulation->config.neurons[drag_index].px;*y=simulation->config.neurons[drag_index].py;status=e.what();}}
+-        else {simulation->config.astrocytes[drag_index].px=*x;simulation->config.astrocytes[drag_index].py=*y;}
++        RunnerCommand c;c.kind=drag_kind==0?RunnerCommand::Kind::MoveNeuron:RunnerCommand::Kind::MoveAstro;c.index=drag_index;c.value=*x;c.second=*y;command(std::move(c));
+     }
+     d->PopClipRect();
+     if(hovered&&hit_kind==0&&hit>=0&&!ImGui::IsMouseDragging(ImGuiMouseButton_Left)) {
+@@ -780,23 +826,32 @@ void App::plots(float height) {
+     request_plot_tab=-1;
+ }
+ void App::draw() {
+-    changed=false;advance();const auto* viewport=ImGui::GetMainViewport();
++    changed=false;advance();drawing=true;const auto* viewport=ImGui::GetMainViewport();
+     ImGui::SetNextWindowViewport(viewport->ID);
+     ImGui::SetNextWindowPos(viewport->WorkPos);ImGui::SetNextWindowSize(viewport->WorkSize);
+     ImGui::Begin("Network Studio",nullptr,ImGuiWindowFlags_NoDecoration|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoSavedSettings|ImGuiWindowFlags_NoDocking);
+-    toolbar();float width=ImGui::GetContentRegionAvail().x,height=ImGui::GetContentRegionAvail().y;
++    toolbar();
++    if(replacing){ImGui::TextUnformatted("Применяется конфигурация…");ImGui::End();drawing=false;return;}
++    float width=ImGui::GetContentRegionAvail().x,height=ImGui::GetContentRegionAvail().y;
+     float left=std::clamp(width*.23f,260.f,320.f),right=std::clamp(width*.25f,300.f,360.f);
+     float bottom=std::clamp(height*.40f,260.f,440.f),top=height-bottom-8;
+-    ImGui::BeginChild("editor",{left,top},ImGuiChildFlags_Borders);editor();ImGui::EndChild();ImGui::SameLine();
++    ImGui::BeginChild("editor",{left,top},ImGuiChildFlags_Borders);editor();ImGui::EndChild();
++    if(replacing){ImGui::End();drawing=false;return;}
++    ImGui::SameLine();
+     ImGui::BeginChild("canvas",{std::max(220.f,width-left-right-16),top},ImGuiChildFlags_Borders);canvas();ImGui::EndChild();ImGui::SameLine();
+     ImGui::BeginChild("inspector",{right,top},ImGuiChildFlags_Borders);inspector();ImGui::EndChild();
+     if(changed) {reset();status=simulation->error.empty()?"Параметры изменены. Расчёт сброшен.":simulation->error;}
+-    ImGui::BeginChild("plots",{-1,bottom-30},ImGuiChildFlags_Borders);plots(bottom-30);ImGui::EndChild();
++    ImGui::BeginChild("plots",{-1,bottom-30},ImGuiChildFlags_Borders);if(!replacing)plots(bottom-30);ImGui::EndChild();
+     ImGui::TextColored(simulation->error.empty()?Muted:ImVec4(1,.45f,.42f,1),"%s%s",dirty?"● ":"",status.c_str());
+     network_wizard();
+     ImGui::End();
++    if(replacing){drawing=false;return;}
+     plot_windows.draw(*simulation);
+-    config.analysis=simulation->config.analysis=plot_windows.embedded[7].analysis;
+-    stage_manager();stimulator_manager();
++    const auto& analysis=plot_windows.embedded[7].analysis;
++    // Send presentation settings only when edited; never copy into the live solver.
++    if(analysis_settings_json(config.analysis)!=analysis_settings_json(analysis)) {
++        config.analysis=analysis;RunnerCommand c;c.kind=RunnerCommand::Kind::Analysis;c.analysis=analysis;command(std::move(c));
++    }
++    stage_manager();stimulator_manager();drawing=false;
+ }
+ }
+diff --git a/gui.h b/gui.h
+index 163739c..b5e185d 100644
+--- a/gui.h
++++ b/gui.h
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include "io.h"
++#include "simulation_runner.h"
+ #include "generator.h"
+ #include "imgui.h"
+ #include "plot_windows.h"
+@@ -10,7 +11,16 @@ namespace studio {
+ class App {
+ public:
+     Config config = preset(0);
+-    std::unique_ptr<Simulator> simulation;
++    const SimulationView* simulation = nullptr;
++    ~App();
++    std::shared_future<RunnerResult> command(RunnerCommand value,bool wait=false);
++    RunnerResult wait_command(std::shared_future<RunnerResult> result);
++    void synchronize();
++    void run();
++    void pause();
++    void advance_for(double duration);
++    void export_data(const std::filesystem::path& path);
++    void set_display_hz(double value);
+     bool running = false, dirty = false;
+     std::string status = "Готово. Выберите узел, настройте параметры и запустите расчёт.";
+     int selected_kind = 0, selected_index = 0;
+@@ -38,6 +48,13 @@ public:
+     void save_state(const std::filesystem::path& path);
+     bool restore_state(const std::filesystem::path& path);
+ private:
++    SimulationView display;
++    std::unique_ptr<SimulationRunner> runner;
++    struct Pending {std::shared_future<RunnerResult> result;RunnerCommand::Kind kind;};
++    std::vector<Pending> pending;
++    std::shared_ptr<const Config> display_config;
++    bool drawing=false,replacing=false;
++    float display_hz=10;
+     bool changed = false;
+     int preset_index = 0, link_source = 0, link_target = 1, link_astro = 0;
+     int syn_plot = 0, syn_view = 0, astro_plot = 0;
+diff --git a/gui_tests.cpp b/gui_tests.cpp
+index faded8c..ca61122 100644
+--- a/gui_tests.cpp
++++ b/gui_tests.cpp
+@@ -6,6 +6,7 @@
+ #include <iostream>
+ #include <cmath>
+ #include <chrono>
++#include <fstream>
+ 
+ static std::map<ImGuiID,ImRect> bounds;
+ static std::map<ImGuiID,ImGuiWindow*> owners;
+@@ -21,8 +22,9 @@ void ImGuiTestEngineHook_Log(ImGuiContext*,const char*,...) {}
+ const char* ImGuiTestEngine_FindItemDebugLabel(ImGuiContext*,ImGuiID id) {return labels[id].c_str();}
+ static int checks=0;
+ static void require(bool ok,const char* msg) {++checks;if(!ok)throw std::runtime_error(msg);}
++static std::string bytes(const std::filesystem::path& p) { std::ifstream f(p,std::ios::binary);return {std::istreambuf_iterator<char>(f),{}}; }
+ static void frame(studio::App& app) {
+-    bounds.clear();owners.clear();items.clear();scopes.clear();ImGui::NewFrame();app.draw();ImGui::Render();
++    bounds.clear();owners.clear();items.clear();scopes.clear();ImGui::NewFrame();app.draw();ImGui::Render();app.synchronize();
+     require(ImGui::GetDrawData()->TotalVtxCount>100,"GUI emitted no geometry.");
+ }
+ static void click_point(studio::App& app,ImVec2 p) {
+@@ -141,9 +143,9 @@ int main() {
+         const auto delayed_state=app.simulation->state;const auto delayed_pending=app.simulation->pending_deliveries;
+         const auto delayed_file=std::filesystem::current_path()/("gui-delayed-"+std::to_string(std::chrono::steady_clock::now().time_since_epoch().count())+".nscp");
+         app.checkpoint_dialog=[&](bool){return delayed_file;};
+-        click(app,"Сохранить состояние…");click(app,"Сброс");click(app,"Восстановить состояние…");
++        click(app,"Сохранить состояние…");const auto delayed_bytes=bytes(delayed_file);click(app,"Сброс");click(app,"Восстановить состояние…");
+         require(!app.running&&app.simulation->state==delayed_state&&app.simulation->pending_deliveries.size()==delayed_pending.size(),"GUI restore lost pending deliveries.");
+-        require(app.simulation->pending_deliveries[0].t_arrival==delayed_pending[0].t_arrival,"GUI restore changed delivery clock.");
++        app.save_state(delayed_file);require(bytes(delayed_file)==delayed_bytes,"GUI restore changed full checkpoint, including delivery clock.");
+         std::filesystem::remove(delayed_file);app.selected_kind=2;app.selected_index=0;
+         click(app,"Время пре-STDP");click(app,"arrival — при приходе");
+         require(app.simulation->time==0&&app.simulation->pending_deliveries.empty(),"Timing edit failed to reset experiment.");
+@@ -152,13 +154,13 @@ int main() {
+         saved=studio::serialize(app.config);app.replace(studio::deserialize(saved));
+         require(app.config.synapses[0].model==studio::SynapseModel::TsodyksMarkram,"Synapse model configuration did not round trip.");
+         auto c=studio::preset(2);c.duration=3;c.sample=.001;app.replace(c);
+-        while(!app.simulation->done())require(app.simulation->step(),"Plot test simulation failed.");
++        app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Plot test simulation failed.");
+         for(int tab=0;tab<6;++tab) {
+             app.request_plot_tab=tab;frame(app);app.request_plot_tab=tab;frame(app);frame(app);
+         }
+         require(GImPlot->Plots.GetAliveCount()==6,"Not all plot tabs were built.");
+         c=studio::preset(5);c.duration=.3;c.sample=.0001;app.replace(c);
+-        while(!app.simulation->done())require(app.simulation->step(),"Izhikevich plot test simulation failed.");
++        app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Izhikevich plot test simulation failed.");
+         app.request_plot_tab=0;frame(app);app.request_plot_tab=3;frame(app);
+         app.request_plot_tab=5;frame(app);frame(app);
+         click(app,"Представление");click(app,"Восстановление u(t)");
+@@ -200,14 +202,14 @@ int main() {
+         click(app,"Сброс");click(app,"Восстановить состояние…");
+         require(!app.running&&app.simulation->time==checkpoint_time&&app.simulation->state==checkpoint_state&&
+             app.simulation->plasticity[0].weight==checkpoint_weight&&app.simulation->history.values==checkpoint_values,"GUI restore lost trajectory/training/history.");
+-        auto* checkpoint_instance=app.simulation.get();
++        const auto checkpoint_instance=app.simulation->generation;
+         app.checkpoint_dialog=[](bool){return std::filesystem::path{};};
+         click(app,"Восстановить состояние…");
+-        require(app.simulation.get()==checkpoint_instance&&app.simulation->time==checkpoint_time,"Cancelled load replaced experiment.");
++        require(app.simulation->generation==checkpoint_instance&&app.simulation->time==checkpoint_time,"Cancelled load replaced experiment.");
+         app.checkpoint_dialog=[&](bool){return checkpoint_path.parent_path()/"missing-checkpoint.nscp";};
+         click(app,"Восстановить состояние…");
+-        require(app.simulation.get()==checkpoint_instance&&app.simulation->history.values==checkpoint_values,"Failed load replaced experiment.");
+-        click(app,"Продолжить");require(app.running&&app.simulation.get()==checkpoint_instance,"Continue constructed a new simulator.");
++        require(app.simulation->generation==checkpoint_instance&&app.simulation->history.values==checkpoint_values,"Failed load replaced experiment.");
++        click(app,"Продолжить");require(app.running&&app.simulation->generation==checkpoint_instance,"Continue constructed a new simulator.");
+         click(app,"Пауза");require(app.simulation->time>checkpoint_time,"Restored experiment did not advance.");
+         app.restore_state(checkpoint_path);
+         std::filesystem::remove(checkpoint_path);
+@@ -294,7 +296,7 @@ int main() {
+         // Selectively recorded conductance without its target voltage must not
+         // dereference the empty target column while drawing synaptic currents.
+         c=studio::preset(0);c.record_all=false;c.record_neurons={0};c.record_synapses={0};c.duration=.001;c.sample=.0001;
+-        app.replace(c);while(!app.simulation->done())require(app.simulation->step(),"Selective GUI fixture failed.");
++        app.replace(c);app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Selective GUI fixture failed.");
+         require(app.simulation->history.values[c.synapses[0].target*4].empty(),"Fixture target neuron was unexpectedly recorded.");
+         app.selected_kind=2;app.selected_index=0;app.request_plot_tab=3;frame(app);frame(app);
+         click(app,"Записывать синапс");require(!studio::records_synapse(app.config,0)&&app.simulation->time==0,"Synapse recording checkbox did not reset for a rerun.");
+@@ -311,7 +313,7 @@ int main() {
+             syn.weight=c.neurons[syn.source].inhibitory?-.5:.5;c.synapses.push_back(syn);
+         }
+         app.replace(c);require(app.simulation->error.empty(),("Large graph GUI fixture is invalid: "+app.simulation->error).c_str());
+-        while(!app.simulation->done())require(app.simulation->step(),"Large graph simulation failed.");
++        app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Large graph simulation failed.");
+         for(int tab=0;tab<6;++tab){app.request_plot_tab=tab;frame(app);frame(app);}
+         require(app.simulation->history.values[0].size()==3&&app.simulation->history.values[4].empty(),"Large graph recording selection was ignored.");
+         require(ImGui::GetDrawData()->TotalVtxCount<250000,"Large graph drew all edge labels instead of a compact selection.");
+@@ -371,7 +373,7 @@ int main() {
+         io.AddMousePosEvent(focus.x,focus.y);frame(app);frame(app);io.AddMouseWheelEvent(0,1);frame(app);frame(app);
+         require(view.zoom>1,"Topology wheel zoom did not work");click(app,"Вписать схему");require(view.zoom==1,"Topology reset view failed");
+         require(studio::serialize(app.config)==config_before_field&&app.simulation->steps==steps_before_field,"Field controls edited the model or advanced simulation");
+-        app.replace(studio::preset(6));for(int i=0;i<20;++i)require(app.simulation->step(),"Stage GUI fixture failed");
++        app.replace(studio::preset(6));app.advance_for(20*app.config.dt);require(app.simulation->error.empty(),"Stage GUI fixture failed");
+         const auto stage_state=app.simulation->state;const auto stage_time=app.simulation->time;const auto stage_weight=app.simulation->plasticity[0].weight;
+         click(app,"Этапы эксперимента…");click(app,"Обучение включено");
+         require(!app.simulation->experiment.learning&&app.simulation->state==stage_state&&app.simulation->time==stage_time&&app.simulation->plasticity[0].weight==stage_weight,"Freeze GUI reset dynamics or weights");
+@@ -388,7 +390,7 @@ int main() {
+         click(app,"Топология");click(app,"Связи в пределах радиуса");enter_scalar(app,"Радиус","0.15");click(app,"Предпросмотр");
+         require(app.simulation->time==stage_time&&app.simulation->state==stage_state,"Radius preview changed live model");click(app,"Отмена");
+         app.plot_windows.windows.clear();app.replace(studio::preset(6));app.config.space={100,100,"um"};app.reset();
+-        for(int i=0;i<200;++i)require(app.simulation->step(),"Stimulator GUI fixture");
++        app.advance_for(200*app.config.dt);require(app.simulation->error.empty(),"Stimulator GUI fixture");
+         auto source_state=app.simulation->state;const auto source_time=app.simulation->time;const auto source_steps=app.simulation->steps;
+         click(app,"Стимуляторы…");click(app,"Добавить стимулятор");click(app,"Выбрать всех получателей");click(app,"Применить без сброса");
+         require(app.config.stimulators.size()==1&&app.config.stimulators[0].recipients.size()==app.config.neurons.size(),"Shared source/recipients GUI");
+diff --git a/integrator.cpp b/integrator.cpp
+index 201232f..cae8a39 100644
+--- a/integrator.cpp
++++ b/integrator.cpp
+@@ -5,19 +5,22 @@
+ #include <stdexcept>
+ 
+ namespace studio {
+-double Simulator::neuron_threshold_sample(const State& old,double h,int coordinate) const {
++double Simulator::neuron_threshold_sample(const State& old,double h,int coordinate) {
++    STUDIO_SCOPE(threshold_sample);
+     // Without astrocytes, each neuron's between-event flow depends only on its
+     // own state and independent incoming activity tails. Preserve the full
+     // solver's arithmetic and edge summation order, including both half steps.
+-    const auto& c=config;const auto& p=c.parameters;
+-    const int index=coordinate/4;const auto& n=c.neurons[index];const auto& edges=incoming[index];
+-    State initial(4+edges.size());
++    const auto& c=config;
++    const int index=coordinate/4;const auto& edges=incoming[index];
++    auto& initial=projection_initial;initial.resize(4+edges.size());
+     for(int k=0;k<4;++k)initial[k]=old[coordinate+k];
+     for(size_t k=0;k<edges.size();++k)initial[4+k]=old[syn_offset(c,edges[k])+2];
+-    numerical::Flow local(initial.size());
+-    const double external=held_inputs[index];
+-    local.rhs=[&](const State& y,State& dy) {
+-        dy.assign(y.size(),0);double input=external;
++    auto& local=projection_flow;local.resize(initial.size());
++    // Rebind before every use: Simulator may have moved since the previous
++    // search. Callbacks retain no references to this function's local variables.
++    local.rhs=[this,index](const State& y,State& dy) {
++        const auto& c=config;const auto& n=c.neurons[index];const auto& edges=incoming[index];
++        dy.assign(y.size(),0);double input=held_inputs[index];
+         for(size_t k=0;k<edges.size();++k) {
+             const int j=edges[k];const auto& s=c.synapses[j];if(!s.enabled)continue;
+             const double weight=plasticity[j].weight;
+@@ -28,12 +31,13 @@ double Simulator::neuron_threshold_sample(const State& old,double h,int coordina
+         if(n.model==NeuronModel::Izhikevich) {
+             dy[0]=1000*(.04*y[0]*y[0]+5*y[0]+140-y[1]+input);
+             dy[1]=1000*n.izh_a*(n.izh_b*y[0]-y[1]);
+-        } else na::hh_rhs(y.data(),dy.data(),0,input,p.data());
++        } else na::hh_rhs(y.data(),dy.data(),0,input,c.parameters.data());
+     };
+-    local.exact=[&](const State& y,double dt,State& out) {
++    local.exact=[this,index](const State& y,double dt,State& out) {
++        const auto& edges=incoming[index];
+         double previous_tau=0,decay=0;
+         for(size_t k=0;k<edges.size();++k) {
+-            const double tau=c.synapses[edges[k]].tau_syn;
++            const double tau=config.synapses[edges[k]].tau_syn;
+             if(tau!=previous_tau){decay=std::exp(-dt/tau);previous_tau=tau;}
+             out[4+k]=y[4+k]*decay;
+         }
+@@ -47,7 +51,42 @@ void Simulator::exact_flow(const State& old,double h,State& out) const {
+     const double glutamate_decay=std::exp(-h*p[na::Omega_Y]);
+     const Synapse* previous=nullptr;
+     double facilitation_decay=0,recovery=0,active_decay=0,transfer=0;
+-    for(int i=0;i<int(c.synapses.size());++i) {
++    {
++    STUDIO_SCOPE(exact_synapses);
++    if(compact_network) {
++        // Contiguous runs have exactly the parameter equality used by the
++        // reference loop below. State updates retain their original edge order.
++        for(const auto& range:kinetic_ranges) {
++            active_decay=std::exp(-h/range.tau_syn);
++            if(range.model!=SynapseModel::ExponentialCurrent) {
++                facilitation_decay=std::exp(-h/range.tau_f);
++                if(range.model==SynapseModel::TsodyksMarkram) {
++                    const double a=1/range.tau_d,r=1/range.tau_syn;
++                    recovery=-std::expm1(-a*h);
++                    transfer=numerical::recovered(a,r,h);
++                    for(int b=range.begin;b<range.end;b+=4) {
++                        out[b]=old[b]*facilitation_decay;
++                        const double z=1-old[b+1]-old[b+2];
++                        out[b+1]=old[b+1]+z*recovery+old[b+2]*transfer;
++                        out[b+2]=old[b+2]*active_decay;
++                        out[b+3]=old[b+3]*glutamate_decay;
++                    }
++                } else {
++                    recovery=-std::expm1(-h/range.tau_d);
++                    for(int b=range.begin;b<range.end;b+=4) {
++                        out[b]=old[b]*facilitation_decay;
++                        out[b+1]=old[b+1]+(1-old[b+1])*recovery;
++                        out[b+2]=old[b+2]*active_decay;
++                        out[b+3]=old[b+3]*glutamate_decay;
++                    }
++                }
++            } else for(int b=range.begin;b<range.end;b+=4) {
++                out[b]=old[b];out[b+1]=old[b+1];
++                out[b+2]=old[b+2]*active_decay;
++                out[b+3]=old[b+3]*glutamate_decay;
++            }
++        }
++    } else for(int i=0;i<int(c.synapses.size());++i) {
+         const auto& s=c.synapses[i];const int b=syn_offset(c,i);
+         if(!previous || s.model!=previous->model || s.tau_f!=previous->tau_f ||
+            s.tau_d!=previous->tau_d || s.tau_syn!=previous->tau_syn) {
+@@ -72,6 +111,8 @@ void Simulator::exact_flow(const State& old,double h,State& out) const {
+         out[b+2]=old[b+2]*active_decay;
+         out[b+3]=old[b+3]*glutamate_decay;
+     }
++    }
++    STUDIO_SCOPE(exact_astro);
+     for(int i=0;i<int(c.astrocytes.size());++i) {
+         const int b=astro_offset(c,i);
+         out[b+4]=old[b+4]+(1-old[b+4])*(-std::expm1(-h/p[na::tau_A]));
+@@ -89,7 +130,17 @@ void Simulator::exact_flow(const State& old,double h,State& out) const {
+     }
+ }
+ double Simulator::kinetic_step_limit() const {
++    STUDIO_SCOPE(kinetic);
+     const auto& c=config;const auto& p=c.parameters;double rate=0;
++    if(izh_only) {
++        // With no astrocytes and only Izhikevich neurons the original bound
++        // never reads the edge sums. Retain precisely the same max order.
++        for(int i=0;i<int(c.neurons.size());++i) {
++            const auto& n=c.neurons[i];const double v=state[i*4];
++            rate=std::max(rate,1000*(std::abs(.08*v+5)+n.izh_a));
++        }
++        return rate>0 ? .25/rate : c.dt;
++    }
+     std::vector<double> conductance(c.neurons.size(),0),glutamate(c.astrocytes.size(),0);
+     for(int i=0;i<int(c.synapses.size());++i) {
+         const auto& s=c.synapses[i];const int b=syn_offset(c,i);if(!s.enabled)continue;
+@@ -125,6 +176,7 @@ double Simulator::kinetic_step_limit() const {
+     return rate>0 ? .25/rate : c.dt;
+ }
+ bool Simulator::physical(const State& y) const {
++    STUDIO_SCOPE(bounds);
+     const auto& c=config;const auto& p=c.parameters;
+     for(double value:y)if(!std::isfinite(value))return false;
+     auto fraction=[&](int i){return y[i]>=-1e-10 && y[i]<=1+1e-10;};
+@@ -147,6 +199,7 @@ bool Simulator::physical(const State& y) const {
+     return true;
+ }
+ bool Simulator::step() {
++    STUDIO_SCOPE(step);
+     if(done())return false;
+     if(stepping)throw std::runtime_error("Simulator::step is not reentrant.");
+     stepping=true;checkpoint_boundary=false;
+@@ -165,7 +218,13 @@ bool Simulator::step() {
+ }
+ bool Simulator::step_impl() {
+     const auto& c=config;const auto& p=c.parameters;
+-    flow.rhs=[this](const State& y,State& dy){derivative(config,y,held_input_time,dy,&plasticity,flow.nonlinear_prefix!=0,&held_inputs);};
++    prepare_solver_views();
++    // Both callbacks and disposable views are refreshed at this safe boundary;
++    // checkpoint restore and Simulator moves require no serialized cache state.
++    flow.rhs=[this](const State& y,State& dy){
++        if(compact_network)compact_derivative(y,dy);
++        else derivative(config,y,held_input_time,dy,&plasticity,flow.nonlinear_prefix!=0,&held_inputs);
++    };
+     flow.exact=[this](const State& y,double h,State& out){exact_flow(y,h,out);};
+     flow.threshold_sample={};
+     if(c.astrocytes.empty())flow.threshold_sample=[this](const State& y,double h,int coordinate) {
+@@ -183,9 +242,12 @@ bool Simulator::step_impl() {
+         const double limit=next_input_boundary(c,time,std::min({macro_end,sample_time,delivery_time,command_time}));
+         log_stimuli(time);
+         held_input_time=time; // Right-continuous [start, stop) input on this segment.
+-        for(int i=0;i<int(c.neurons.size());++i)held_inputs[i]=external_current(c,i,time);
++        {
++            STUDIO_SCOPE(external);
++            for(int i=0;i<int(c.neurons.size());++i)held_inputs[i]=noise_cache.current(c,i,time);
++        }
+         double h=std::min({limit-time,suggested_step,kinetic_step_limit()});
+-        std::vector<int> group;
++        auto& group=event_group;group.clear();
+         double norm=0,advance=0;
+         bool accepted=false;
+         for(int retry=0;retry<64;++retry) {
+@@ -208,15 +270,18 @@ bool Simulator::step_impl() {
+         const double event_time=(advance==limit-time ? limit : time+advance);
+         if(!(event_time>time)) {error="Event localization did not advance the clock.";return false;}
+         auto& next=flow.next;
+-        std::vector<bool> fired(c.neurons.size(),false),released(c.astrocytes.size(),false);
++        STUDIO_SCOPE(event_jumps);
++        auto& fired=event_fired;auto& released=event_released;
++        fired.assign(c.neurons.size(),false);released.assign(c.astrocytes.size(),false);
+         for(int index:group) {
+             if(index<int(c.neurons.size()))fired[index]=true;
+             else released[index-int(c.neurons.size())]=true;
+         }
+-        std::vector<Delivery> deliveries,created;
++        auto& deliveries=event_deliveries;auto& created=event_created;
++        deliveries.clear();created.clear();
+         // Inspect just the due heap subtree, without consuming events until
+         // the whole event group is validated and committed.
+-        std::vector<size_t> inspect;
++        auto& inspect=event_inspect;inspect.clear();
+         if(delivery_time==event_time)inspect.push_back(0);
+         while(!inspect.empty()) {
+             const size_t index=inspect.back();inspect.pop_back();
+@@ -237,7 +302,7 @@ bool Simulator::step_impl() {
+             error="Delivery journal limit (2000000) exceeded; shorten the experiment.";return false;
+         }
+         std::sort(deliveries.begin(),deliveries.end(),[](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);});
+-        std::vector<uint64_t> arrivals(c.synapses.size(),0);
++        auto& arrivals=event_arrivals;arrivals.assign(c.synapses.size(),0);
+         // All event decisions use the same pre-jump trajectory. HH is recorded
+         // without reset; Izhikevich resets before integrating the remainder.
+         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]) {
+@@ -259,11 +324,18 @@ bool Simulator::step_impl() {
+         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]) {
+             const int b=astro_offset(c,i);const double r=p[na::U_A]*next[b+4];next[b+4]-=r;next[b+5]+=p[na::G_release]*r;
+         }
+-        if(!physical(next)) {error="Event jump left the physical state bounds.";return false;}
++        // Without a threshold event or delivery, next is unchanged since the
++        // successful pre-jump bounds check above.
++        if((!group.empty()||!deliveries.empty())&&!physical(next)) {error="Event jump left the physical state bounds.";return false;}
+         // Grouped old traces, one weight update/clamp, then new traces. Weights
+         // affect the remaining flow immediately, including existing tails.
++        {
++        STUDIO_SCOPE(stdp);
+         for(size_t j=0;j<c.synapses.size();++j) {
+-            const auto& s=c.synapses[j];update_synaptic_stdp(s,plasticity[j],fired[s.source],arrivals[j],fired[s.target],advance,experiment.learning?experiment.learning_rate:0);
++            const auto& s=c.synapses[j];
++            update_stdp_cached(s,plasticity[j],s.stdp_timing==StdpTiming::Arrival?arrivals[j]:fired[s.source],
++                fired[s.target],advance,experiment.learning?experiment.learning_rate:0,stdp_decay_cache);
++        }
+         }
+         for(size_t k=0;k<consumed;++k) {
+             std::pop_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});pending_deliveries.pop_back();
+@@ -271,11 +343,14 @@ bool Simulator::step_impl() {
+         for(const auto& e:created) {
+             pending_deliveries.push_back(e);std::push_heap(pending_deliveries.begin(),pending_deliveries.end(),DeliveryLater{});
+         }
++        {
++        STUDIO_SCOPE(journals);
+         trim_journals(group.size(),deliveries.size());
+         capture_activity(deliveries,fired,event_time);
+         history.deliveries.insert(history.deliveries.end(),deliveries.begin(),deliveries.end());
+         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]){++spikes[i];history.events.push_back({event_time,i,false});}
+         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]){++releases[i];history.events.push_back({event_time,i,true});}
++        }
+         state.swap(next);time=event_time;
+         for(int index:group)thresholds[index].armed=false;
+         for(auto& threshold:thresholds)
+diff --git a/main.cpp b/main.cpp
+index 690680d..e4c0ad7 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -11,6 +11,7 @@
+ #include "backends/imgui_impl_win32.h"
+ #include "backends/imgui_impl_dx11.h"
+ #include <fstream>
++#include <iomanip>
+ #include <stdexcept>
+ #include <unordered_map>
+ #include <chrono>
+@@ -21,6 +22,7 @@ static ComPtr<ID3D11DeviceContext> context;
+ static ComPtr<IDXGISwapChain> swapchain;
+ static ComPtr<ID3D11RenderTargetView> target;
+ static UINT resize_w=0,resize_h=0;
++static bool software_renderer=false;
+ static std::unordered_map<HWND,WNDPROC> platform_procedures;
+ static void (*backend_create_window)(ImGuiViewport*)=nullptr;
+ // The bundled 1.91.5 Win32 backend reports monitor DPI but doesn't apply the
+@@ -52,7 +54,7 @@ static void create_device(HWND hwnd) {
+     sd.Windowed=TRUE;sd.SwapEffect=DXGI_SWAP_EFFECT_DISCARD;
+     const D3D_FEATURE_LEVEL levels[]={D3D_FEATURE_LEVEL_11_0,D3D_FEATURE_LEVEL_10_0};
+     auto hr=D3D11CreateDeviceAndSwapChain(nullptr,D3D_DRIVER_TYPE_HARDWARE,nullptr,0,levels,2,D3D11_SDK_VERSION,&sd,&swapchain,&device,nullptr,&context);
+-    if(FAILED(hr))hr=D3D11CreateDeviceAndSwapChain(nullptr,D3D_DRIVER_TYPE_WARP,nullptr,0,levels,2,D3D11_SDK_VERSION,&sd,&swapchain,&device,nullptr,&context);
++    if(FAILED(hr)){software_renderer=true;hr=D3D11CreateDeviceAndSwapChain(nullptr,D3D_DRIVER_TYPE_WARP,nullptr,0,levels,2,D3D11_SDK_VERSION,&sd,&swapchain,&device,nullptr,&context);}
+     check(hr,"Direct3D 11 initialization failed.");render_target();
+ }
+ static LRESULT WINAPI wndproc(HWND hwnd,UINT msg,WPARAM w,LPARAM l) {
+@@ -101,9 +103,13 @@ static std::filesystem::path dialog(HWND hwnd,bool save,bool csv,bool checkpoint
+ }
+ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+     int argc=0;wchar_t** args=CommandLineToArgvW(GetCommandLineW(),&argc);
+-    std::filesystem::path smoke,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
++    double display_hz=10;
++    std::filesystem::path smoke,benchmark,runner_close,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
+     for(int i=1;i<argc;++i) {
+         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
++        else if(std::wstring(args[i])==L"--benchmark"&&i+1<argc)benchmark=args[++i];
++        else if(std::wstring(args[i])==L"--runner-close-smoke"&&i+1<argc)runner_close=args[++i];
++        else if(std::wstring(args[i])==L"--display-hz"&&i+1<argc)display_hz=_wtof(args[++i]);
+         else if(std::wstring(args[i])==L"--stimulator-smoke"&&i+1<argc){smoke=args[++i];stimulator_smoke=true;}
+         else if(std::wstring(args[i])==L"--experiment-smoke"&&i+1<argc){smoke=args[++i];experiment_smoke=true;}
+         else if(std::wstring(args[i])==L"--field-smoke"&&i+1<argc){smoke=args[++i];field_smoke=true;}
+@@ -116,10 +122,25 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+         else config_path=args[i];
+     }LocalFree(args);
+     HWND hwnd=nullptr;bool imgui=false,backends=false;int result=0;
++    bool close_requested=false,active_before_close=false;
++    uint64_t close_steps=0;double close_model_time=0;
++    std::chrono::steady_clock::time_point close_begin;
+     CoInitializeEx(nullptr,COINIT_APARTMENTTHREADED);
+     WNDCLASSEXW wc{sizeof(wc),CS_CLASSDC,wndproc,0,0,instance,nullptr,LoadCursor(nullptr,IDC_ARROW),nullptr,nullptr,L"NeuroAstroStudio",nullptr};
+     RegisterClassExW(&wc);
+     try {
++        if(!runner_close.empty()) {
++            std::filesystem::create_directories(runner_close);
++            if(!smoke.empty()||!benchmark.empty()||!workspace_path.empty()||!config_path.empty()||!checkpoint_path.empty()||plot_demo||smoke_wizard)
++                throw std::runtime_error("--runner-close-smoke requires its own fixed fixture and no other run mode.");
++        }
++        if(!benchmark.empty()) {
++            std::filesystem::create_directories(benchmark);
++            if(!smoke.empty()||!workspace_path.empty()||plot_demo||smoke_wizard)
++                throw std::runtime_error("--benchmark cannot be combined with smoke, workspace or plot-demo options.");
++            if(config_path.empty()&&checkpoint_path.empty())
++                throw std::runtime_error("--benchmark requires an explicit configuration or checkpoint.");
++        }
+         ImGui_ImplWin32_EnableDpiAwareness();
+         hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,(field_smoke||experiment_smoke||stimulator_smoke)?1800:1480,(field_smoke||experiment_smoke||stimulator_smoke)?1300:1000,nullptr,nullptr,instance,nullptr);
+         if(!hwnd)throw std::runtime_error("Cannot create the application window.");create_device(hwnd);resize_w=resize_h=0;
+@@ -140,9 +161,13 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+         studio::apply_style();
+         if(!ImGui_ImplWin32_Init(hwnd)||!ImGui_ImplDX11_Init(device.Get(),context.Get()))throw std::runtime_error("ImGui backend initialization failed.");backends=true;
+         backend_create_window=ImGui::GetPlatformIO().Platform_CreateWindow;ImGui::GetPlatformIO().Platform_CreateWindow=create_platform_window;
+-        studio::App app;app.file_dialog=[&](bool save,bool csv){return dialog(hwnd,save,csv);};
++        studio::App app;app.set_display_hz(display_hz);app.file_dialog=[&](bool save,bool csv){return dialog(hwnd,save,csv);};
+         app.checkpoint_dialog=[&](bool save){return dialog(hwnd,save,false,true);};
+         app.workspace_dialog=[&](bool save){return dialog(hwnd,save,false,false,true);};
++        if(!runner_close.empty()) {
++            auto c=studio::preset(6);c.name="Native close while computing";c.duration=1000;c.sample=.01;
++            app.replace(std::move(c));
++        }
+         // A command-line configuration must fail explicitly rather than silently
+         // running the default experiment when reading the requested file fails.
+         if(!config_path.empty())app.replace(studio::load_config(config_path));
+@@ -155,12 +180,16 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+             if(config_path.empty()&&checkpoint_path.empty()) {
+                 auto c=studio::preset(viewport_smoke?6:smoke_preset);if(viewport_smoke)c.duration=.3;app.replace(c);
+             }
+-            if(experiment_smoke&&!app.config.stages.empty())app.simulation->enter_stage(0,true);
+-            while(!app.simulation->done())if(!app.simulation->step())break;
++            if(experiment_smoke&&!app.config.stages.empty()){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::EnterStage;c.stages=app.config.stages;c.index=0;c.flag=true;app.command(std::move(c),true);}
++            app.advance_for(app.config.duration);
+             if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
+             app.status="Проверка прототипа: расчёт завершён, графики построены.";
+-        }else {ShowWindow(hwnd,SW_SHOWDEFAULT);UpdateWindow(hwnd);}
+-        if(workspace_path.empty()&&smoke.empty()) {
++        }else if(benchmark.empty()&&runner_close.empty()) {ShowWindow(hwnd,SW_SHOWDEFAULT);UpdateWindow(hwnd);}
++        if(!benchmark.empty()) {
++            // Native GUI consumes snapshots while the controller runs independently.
++            // The hidden HWND and Present(1) match the previous-stage benchmark.
++        }
++        if(workspace_path.empty()&&smoke.empty()&&benchmark.empty()&&runner_close.empty()) {
+             wchar_t local[32768]{};if(GetEnvironmentVariableW(L"LOCALAPPDATA",local,32768))workspace_path=std::filesystem::path(local)/L"NetworkStudio"/L"plots.nsworkspace";
+         }
+         if(!workspace_path.empty()) {
+@@ -179,6 +208,12 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+         double field_frame_ms=0;
+         int native_checks=0;double minimized_time=0;std::vector<HWND> native_handles;
+         auto verify=[&](bool value,const char* reason){if(!value)throw std::runtime_error(reason);++native_checks;};
++        double benchmark_draw=0,benchmark_render=0,benchmark_present=0,benchmark_idle=0;
++        uint64_t benchmark_occluded=0,benchmark_presented=0,benchmark_other_status=0;
++        const double benchmark_start_time=app.simulation->time;
++
++        const auto benchmark_begin=std::chrono::steady_clock::now();
++        if(!benchmark.empty()||!runner_close.empty())app.run();
+         while(!done) {
+             MSG msg;while(PeekMessageW(&msg,nullptr,0,0,PM_REMOVE)){TranslateMessage(&msg);DispatchMessageW(&msg);if(msg.message==WM_QUIT)done=true;}
+             if(done)break;
+@@ -202,7 +237,10 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+                 app.selected_index=0;
+             }
+             const auto frame_begin=std::chrono::steady_clock::now();
+-            app.draw();ImGui::Render();auto* data=ImGui::GetDrawData();minimum_vertices=std::min(minimum_vertices,data->TotalVtxCount);
++            app.draw();
++            const auto benchmark_render_begin=benchmark.empty()?frame_begin:std::chrono::steady_clock::now();
++            if(!benchmark.empty())benchmark_draw+=std::chrono::duration<double>(benchmark_render_begin-frame_begin).count();
++            ImGui::Render();auto* data=ImGui::GetDrawData();minimum_vertices=std::min(minimum_vertices,data->TotalVtxCount);
+             if(field_smoke&&frames>=4)field_frame_ms+=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-frame_begin).count();
+             if(!IsIconic(hwnd)) {
+                 const float clear[]={.055f,.073f,.1f,1};ID3D11RenderTargetView* rtv=target.Get();context->OMSetRenderTargets(1,&rtv,nullptr);context->ClearRenderTargetView(rtv,clear);
+@@ -210,6 +248,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+                 if(!smoke.empty()&&!viewport_smoke&&frames%4==3)capture_png(smoke/(L"tab_"+std::to_wstring(frames/4)+L".png"));
+             }
+             ImGui::UpdatePlatformWindows();ImGui::RenderPlatformWindowsDefault();
++            if(!benchmark.empty())benchmark_render+=std::chrono::duration<double>(std::chrono::steady_clock::now()-benchmark_render_begin).count();
+             if((experiment_smoke&&(frames==35||frames==39))||(stimulator_smoke&&frames==23)) {
+                 auto& platform=ImGui::GetPlatformIO();
+                 for(int i=1;i<platform.Viewports.Size;++i){auto* v=platform.Viewports[i];if(!v->DrawData||v->DrawData->TotalVtxCount<100)continue;
+@@ -230,13 +269,17 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+                         ComPtr<ID3D11RenderTargetView> view;context->OMGetRenderTargets(1,&view,nullptr);ComPtr<ID3D11Resource> resource;view->GetResource(&resource);
+                         ComPtr<ID3D11Texture2D> texture;check(resource.As(&texture),"Viewport capture texture failed.");capture_png(smoke/(L"window_"+std::to_wstring(i)+L".png"),texture.Get());
+                     }
+-                    app.simulation->extend_duration(.5);app.config.duration=.5;minimized_time=app.simulation->time;app.running=true;
++                    studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::Extend;c.value=.5;app.command(std::move(c),true);app.synchronize();minimized_time=app.simulation->time;app.run();
+                     ShowWindow(hwnd,SW_MINIMIZE);
+                 }
+                 if(frames==7) {
+                     verify(IsIconic(hwnd)!=FALSE,"Main window did not minimize.");
+                     for(auto handle:native_handles)verify(IsWindowVisible(handle)&&!IsIconic(handle),"Detached plot stopped being visible with minimized main window.");
+-                    verify(app.simulation->time>minimized_time,"Simulation stopped while main window was minimized.");app.running=false;
++                    // Check acknowledged progress instead of assuming publication at a frame count.
++                    const auto deadline=std::chrono::steady_clock::now()+std::chrono::seconds(10);
++                    while(app.simulation->time<=minimized_time&&std::chrono::steady_clock::now()<deadline){app.advance();Sleep(1);}
++                    app.pause();app.synchronize();
++                    verify(app.simulation->time>minimized_time,"Simulation stopped while main window was minimized.");
+                     SetWindowPos(native_handles[0],nullptr,100,100,620,410,SWP_NOZORDER);
+                     platform.Platform_SetWindowFocus(ImGui::FindViewportByPlatformHandle(native_handles[0]));
+                 }
+@@ -283,17 +326,72 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+                 }
+                 if(frames==23)verify(app.plot_windows.windows.size()==3,"Native WM_CLOSE did not remove the graph.");
+             }
+-            if(!IsIconic(hwnd)) {HRESULT hr=swapchain->Present(smoke.empty()?1:0,0);if(FAILED(hr))throw std::runtime_error("Direct3D presentation failed.");if(hr==DXGI_STATUS_OCCLUDED)Sleep(10);}
++            if(!IsIconic(hwnd)) {
++                const auto present_begin=benchmark.empty()?benchmark_begin:std::chrono::steady_clock::now();
++                HRESULT hr=swapchain->Present(smoke.empty()?1:0,0);
++                if(!benchmark.empty()) {
++                    benchmark_present+=std::chrono::duration<double>(std::chrono::steady_clock::now()-present_begin).count();
++                    if(hr==DXGI_STATUS_OCCLUDED)++benchmark_occluded;
++                    else if(hr==S_OK)++benchmark_presented;
++                    else ++benchmark_other_status;
++                }
++                if(FAILED(hr))throw std::runtime_error("Direct3D presentation failed.");
++                if(hr==DXGI_STATUS_OCCLUDED) {
++                    const auto idle_begin=benchmark.empty()?benchmark_begin:std::chrono::steady_clock::now();Sleep(10);
++                    if(!benchmark.empty())benchmark_idle+=std::chrono::duration<double>(std::chrono::steady_clock::now()-idle_begin).count();
++                }
++            }
+             else Sleep(10);
+             ++frames;if(!smoke.empty()&&frames>=(experiment_smoke?40:28))done=true;
++            if(!runner_close.empty()&&!close_requested) {
++                if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
++                if(app.simulation->metrics.running&&app.simulation->steps>0&&!app.simulation->done()) {
++                    active_before_close=true;close_steps=app.simulation->steps;close_model_time=app.simulation->time;
++                    close_begin=std::chrono::steady_clock::now();
++                    if(!PostMessageW(hwnd,WM_CLOSE,0,0))throw std::runtime_error("Could not post native close request.");
++                    close_requested=true;
++                } else if(std::chrono::steady_clock::now()-benchmark_begin>std::chrono::seconds(10))
++                    throw std::runtime_error("Native close fixture did not publish active computation within 10 seconds.");
++            }
++            if(!benchmark.empty()) {
++                if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
++                if(app.simulation->done())done=true;
++                else if(!app.running)throw std::runtime_error("GUI benchmark stopped before completion.");
++            }
++        }
++        const double benchmark_wall=std::chrono::duration<double>(std::chrono::steady_clock::now()-benchmark_begin).count();
++        const auto benchmark_metrics=app.simulation->metrics;
++        if(!benchmark.empty()){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::WriteProfile;c.path=benchmark/L"profile.json";app.command(std::move(c),true);app.synchronize();}
++        if(!benchmark.empty()) {
++            if(!app.simulation->done())throw std::runtime_error("GUI benchmark window closed before completion.");
++            app.export_data(benchmark/L"result");
++            app.save_state(benchmark/L"final.nscp");
++            std::ofstream log(benchmark/L"benchmark.json");
++            log<<std::setprecision(17)<<"{\n  \"mode\": \"hidden_win32_dx11_runner\",\n  \"hidden\": true,\n"
++                <<"  \"renderer\": \""<<(software_renderer?"WARP":"hardware")<<"\",\n"
++                <<"  \"wall_seconds\": "<<benchmark_wall<<",\n  \"app_draw_snapshot_seconds\": "<<benchmark_draw
++                <<",\n  \"render_cpu_seconds\": "<<benchmark_render<<",\n  \"present_seconds\": "<<benchmark_present
++                <<",\n  \"occlusion_sleep_seconds\": "<<benchmark_idle<<",\n  \"frames\": "<<frames
++                <<",\n  \"present_ok\": "<<benchmark_presented<<",\n  \"present_occluded\": "<<benchmark_occluded
++                <<",\n  \"present_other_status\": "<<benchmark_other_status<<",\n  \"minimum_vertices\": "<<minimum_vertices
++                <<",\n  \"model_start_seconds\": "<<benchmark_start_time<<",\n  \"model_final_seconds\": "<<app.simulation->time
++                <<",\n  \"steps\": "<<app.simulation->steps<<",\n  \"samples\": "<<app.simulation->history.time.size()
++                <<",\n  \"worker_elapsed_seconds\": "<<benchmark_metrics.elapsed_seconds
++                <<",\n  \"worker_compute_seconds\": "<<benchmark_metrics.compute_seconds
++                <<",\n  \"worker_publish_seconds\": "<<benchmark_metrics.publish_seconds
++                <<",\n  \"worker_publications\": "<<benchmark_metrics.publish_count
++                <<",\n  \"display_hz\": "<<display_hz
++                <<",\n  \"limits\": \"Hidden native window; independent single-solver worker, Present(1). Snapshot construction and GUI run concurrently. Not visible GUI or GPU execution timing. Initialization, export and checkpoint are outside wall_seconds. App draw excludes solver work.\"\n}\n";
++            if(!log)throw std::runtime_error("Cannot write GUI benchmark metrics.");
++            std::error_code ec;std::filesystem::remove(benchmark/L"error.txt",ec);
+         }
+-        if(smoke.empty()&&app.plot_windows.automatic_save_allowed&&!app.plot_windows.workspace_path.empty()) {
++        if(smoke.empty()&&benchmark.empty()&&runner_close.empty()&&app.plot_windows.automatic_save_allowed&&!app.plot_windows.workspace_path.empty()) {
+             const auto parent=app.plot_windows.workspace_path.parent_path();
+             if(!parent.empty())std::filesystem::create_directories(parent);
+             if(!app.plot_windows.save(app.plot_windows.workspace_path))MessageBoxA(hwnd,app.plot_windows.message.c_str(),"Workspace",MB_OK|MB_ICONWARNING);
+         }
+         if(!smoke.empty()) {
+-            studio::export_results(*app.simulation,smoke/L"demo");
++            app.pause();app.synchronize();app.export_data(smoke/L"demo");
+             std::ofstream log(smoke/L"renderer.txt");log<<"frames="<<frames<<"\nminimum_vertices="<<minimum_vertices<<"\nsamples="<<app.simulation->history.time.size()<<"\nerror="<<app.simulation->error<<"\n";
+             log<<"native_viewport_checks="<<native_checks<<"\nmonitors="<<ImGui::GetPlatformIO().Monitors.Size<<"\n";
+             if(stimulator_smoke)log<<"shared_sources="<<app.config.stimulators.size()<<"\nshared_pulses="<<app.simulation->history.shared_pulses.size()<<"\nactivity_maximum="<<app.activity_field.maximum<<"\nactivity_events_processed="<<app.activity_field.processed_events<<"\n";
+@@ -306,13 +404,28 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
+             if(!viewport_smoke&&minimum_vertices<100)throw std::runtime_error("Renderer emitted too few vertices.");
+             std::error_code ec;std::filesystem::remove(smoke/L"error.txt",ec);
+         }
++        if(!runner_close.empty()&&(!close_requested||!active_before_close||IsWindow(hwnd)))
++            throw std::runtime_error("Native close did not destroy the active main window.");
++        // On this path App is destroyed while the controller is still active.
++        // Do not pause, synchronize, or export before its shutdown/join.
+     }catch(const std::exception& e) {
+         result=1;
+-        if(smoke.empty())MessageBoxA(hwnd,e.what(),"Network Studio",MB_OK|MB_ICONERROR);
++        if(!runner_close.empty()){std::filesystem::create_directories(runner_close);std::ofstream log(runner_close/L"error.txt");log<<e.what();}
++        else if(!benchmark.empty()){std::filesystem::create_directories(benchmark);std::ofstream log(benchmark/L"error.txt");log<<e.what();}
++        else if(smoke.empty())MessageBoxA(hwnd,e.what(),"Network Studio",MB_OK|MB_ICONERROR);
+         else {std::filesystem::create_directories(smoke);std::ofstream log(smoke/L"error.txt");log<<e.what();}
+     }
+     if(backends){ImGui::DestroyPlatformWindows();if(!platform_procedures.empty())result=1;ImGui_ImplDX11_Shutdown();ImGui_ImplWin32_Shutdown();}
+     if(imgui){ImPlot::DestroyContext();ImGui::DestroyContext();}
+     target.Reset();swapchain.Reset();context.Reset();device.Reset();
++    if(!runner_close.empty()&&result==0) {
++        // Reached only after App::~App() returned from SimulationRunner::shutdown
++        // and GUI/Direct3D resources were released; a stuck join produces no file.
++        std::ofstream log(runner_close/L"close_result.json");
++        log<<std::setprecision(17)<<"{\n  \"active_before_close\": true,\n  \"wm_close_posted\": true,\n  \"joined\": true,\n"
++            <<"  \"resources_released\": true,\n  \"steps_before_close\": "<<close_steps<<",\n  \"model_time_before_close\": "<<close_model_time
++            <<",\n  \"close_seconds\": "<<std::chrono::duration<double>(std::chrono::steady_clock::now()-close_begin).count()<<"\n}\n";
++        if(!log)result=1;
++    }
+     if(hwnd)DestroyWindow(hwnd);UnregisterClassW(wc.lpszClassName,instance);CoUninitialize();return result;
+ }
+diff --git a/network.cpp b/network.cpp
+index b58570a..101bfc5 100644
+--- a/network.cpp
++++ b/network.cpp
+@@ -286,6 +286,7 @@ double next_pulse_boundary(const Neuron& n,double time,double limit) {
+     }return next;
+ }
+ double next_input_boundary(const Config& c,double time,double limit) {
++    STUDIO_SCOPE(input_boundaries);
+     double next=limit;bool noise=false;
+     for(const auto& n:c.neurons){noise=noise||(n.individual_noise?n.noise_sigma>0:c.noise_sigma>0);next=next_pulse_boundary(n,time,next);}
+     for(const auto& s:c.stimulators)if(s.enabled)next=next_pulse_boundary(stimulator_signal(s),time,next);
+@@ -303,6 +304,7 @@ double external_current_with_protocol(const Config& c,const Neuron& n,int index,
+     double current=n.current+pulse_current(n,time);
+     const double sigma=n.individual_noise ? n.noise_sigma : c.noise_sigma;
+     if(sigma>0) {
++        STUDIO_SCOPE(noise);
+         // Counter-based streams: changing dt, plotting, and paused redraws do not
+         // consume random draws. Open-interval uniforms make Box-Muller finite.
+         const uint64_t bin=noise_bin(time,c.noise_interval);
+@@ -313,15 +315,45 @@ double external_current_with_protocol(const Config& c,const Neuron& n,int index,
+     }
+     return current;
+ }
+-void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,double dt,double rate) {
++double NoiseCache::current(const Config& c,int index,double time) {
++    const auto& n=c.neurons[index];
++    double current=n.current+pulse_current(n,time);
++    const double sigma=n.individual_noise?n.noise_sigma:c.noise_sigma;
++    if(sigma>0) {
++        if(entries.size()!=c.neurons.size())entries.resize(c.neurons.size());
++        auto& e=entries[index];const uint64_t bin=noise_bin(time,c.noise_interval);
++        if(!e.valid||e.bin!=bin||e.seed!=c.seed||e.sigma!=sigma||e.interval!=c.noise_interval) {
++            STUDIO_SCOPE(noise);
++            const uint64_t key=mix64(uint64_t(c.seed)^(uint64_t(index+1)*0xd1b54a32d192ed03ULL))^mix64(bin);
++            const double u1=(double(mix64(key)>>11)+.5)/9007199254740992.;
++            const double u2=(double(mix64(key^0x94d049bb133111ebULL)>>11)+.5)/9007199254740992.;
++            // Cache this complete left-associated expression: moving sigma to
++            // the end would change rounding relative to external_current().
++            e.value=sigma*std::sqrt(-2*std::log(u1))*std::cos(6.2831853071795864769*u2);
++            e.bin=bin;e.seed=c.seed;e.sigma=sigma;e.interval=c.noise_interval;e.valid=true;
++        }
++        current+=e.value;
++    }
++    return c.stimulators.empty()?current:current+shared_current(c,index,time);
++}
++const std::array<double,3>& StdpDecayCache::factors(const Synapse& s,double dt) {
++    const bool triplet=s.stdp_rule==StdpRule::Triplet;
++    if(!valid_||dt_!=dt||plus_!=s.tau_plus||minus_!=s.tau_minus||slow_!=s.tau_slow||triplet_!=triplet) {
++        factors_={std::exp(-dt/s.tau_plus),std::exp(-dt/s.tau_minus),triplet?std::exp(-dt/s.tau_slow):0};
++        dt_=dt;plus_=s.tau_plus;minus_=s.tau_minus;slow_=s.tau_slow;triplet_=triplet;valid_=true;
++    }
++    return factors_;
++}
++static void apply_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,
++                       double rate,const std::array<double,3>& decay) {
+     if(!s.enabled || !s.stdp) {
+         state.pre_trace=state.post_trace=state.post_slow_trace=0;
+         return;
+     }
+-    state.pre_trace*=std::exp(-dt/s.tau_plus);
+-    state.post_trace*=std::exp(-dt/s.tau_minus);
++    state.pre_trace*=decay[0];
++    state.post_trace*=decay[1];
+     const bool triplet=s.stdp_rule==StdpRule::Triplet;
+-    if(triplet)state.post_slow_trace*=std::exp(-dt/s.tau_slow);
++    if(triplet)state.post_slow_trace*=decay[2];
+     else state.post_slow_trace=0;
+     const bool multiplicative=s.stdp_rule!=StdpRule::Additive;
+     const double up=multiplicative ? s.weight_max-state.weight : 1;
+@@ -334,6 +366,15 @@ void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,do
+     if(post)state.post_trace+=double(post);
+     if(post && triplet)state.post_slow_trace+=double(post);
+ }
++void update_stdp(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,double dt,double rate) {
++    if(!s.enabled||!s.stdp){state.pre_trace=state.post_trace=state.post_slow_trace=0;return;}
++    apply_stdp(s,state,pre,post,rate,{std::exp(-dt/s.tau_plus),std::exp(-dt/s.tau_minus),
++        s.stdp_rule==StdpRule::Triplet?std::exp(-dt/s.tau_slow):0});
++}
++void update_stdp_cached(const Synapse& s,StdpState& state,uint64_t pre,uint64_t post,double dt,double rate,StdpDecayCache& cache) {
++    if(!s.enabled||!s.stdp){state.pre_trace=state.post_trace=state.post_slow_trace=0;return;}
++    apply_stdp(s,state,pre,post,rate,cache.factors(s,dt));
++}
+ void update_synaptic_stdp(const Synapse& s,StdpState& state,uint64_t emitted,uint64_t arrived,uint64_t post,double dt,double rate) {
+     update_stdp(s,state,s.stdp_timing==StdpTiming::Arrival ? arrived : emitted,post,dt,rate);
+ }
+@@ -344,6 +385,8 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
+     std::array<double,MaxAstrocytes> glutamate{};
+     std::array<std::array<bool,MaxNeurons>,MaxAstrocytes> contacts{};
+     for(int i=0;i<int(c.neurons.size());++i) input[i]=held_inputs?(*held_inputs)[i]:external_current(c,i,midpoint);
++    {
++    STUDIO_SCOPE(rhs_synapses);
+     for(int i=0;i<int(c.synapses.size());++i) {
+         const auto& s=c.synapses[i]; int b=syn_offset(c,i);
+         if(!omit_synapse_kinetics) {
+@@ -360,6 +403,9 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
+         else input[s.target]+=weight*s.gain*y[b+2];
+         if(s.astro>=0) { glutamate[s.astro]+=s.spill*y[b+3]; contacts[s.astro][s.target]=true; }
+     }
++    }
++    {
++    STUDIO_SCOPE(rhs_astro);
+     for(int i=0;i<int(c.astrocytes.size());++i) {
+         int b=astro_offset(c,i); const auto& a=c.astrocytes[i];
+         const double ip3=y[b+1],ca=y[b+2],h=y[b+3],ga=y[b+5];
+@@ -380,6 +426,8 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
+         double di=g.ip3*(y[b+1]-y[a+1]),dc=g.calcium*(y[b+2]-y[a+2]);
+         dy[a+1]+=di; dy[b+1]-=di; dy[a+2]+=dc; dy[b+2]-=dc;
+     }
++    }
++    STUDIO_SCOPE(rhs_neurons);
+     for(int i=0;i<int(c.neurons.size());++i) {
+         const auto& n=c.neurons[i]; int b=i*4;
+         if(n.model==NeuronModel::Izhikevich) {
+@@ -389,6 +437,61 @@ void derivative(const Config& c,const State& y,double midpoint,State& dy,const s
+         } else na::hh_rhs(y.data(),dy.data(),b,input[i],p.data());
+     }
+ }
++void Simulator::prepare_solver_views() {
++    compact_network=config.astrocytes.empty();
++    current_edges.clear();kinetic_ranges.clear();
++    current_edges_only=true;izh_only=compact_network;
++    if(!compact_network)return;
++    rhs_input.resize(config.neurons.size());
++    for(const auto& n:config.neurons)izh_only=izh_only&&n.model==NeuronModel::Izhikevich;
++    // Scan the original synapse sequence once per macro step. Never group or
++    // reorder current contributions; live weights are read on every RHS.
++    for(int i=0;i<int(config.synapses.size());++i) {
++        const auto& s=config.synapses[i];const int b=syn_offset(config,i);
++        if(s.enabled) {
++            const bool conductance=s.model==SynapseModel::ConductanceSTP;
++            current_edges.push_back({conductance?s.conductance:s.gain,s.reversal,i,s.target,b+2,conductance});
++            current_edges_only=current_edges_only&&!conductance;
++        }
++        // Disabled synapses still have continuous resource/decay dynamics.
++        if(kinetic_ranges.empty() || kinetic_ranges.back().model!=s.model ||
++           kinetic_ranges.back().tau_f!=s.tau_f || kinetic_ranges.back().tau_d!=s.tau_d ||
++           kinetic_ranges.back().tau_syn!=s.tau_syn)
++            kinetic_ranges.push_back({b,b+4,s.model,s.tau_f,s.tau_d,s.tau_syn});
++        else kinetic_ranges.back().end=b+4;
++    }
++}
++void Simulator::compact_derivative(const State& y,State& dy) {
++    // Internal no-astro path only. Flow reads derivative coordinates solely in
++    // its nonlinear prefix; the public derivative() keeps its full zero suffix.
++    if(y.size()!=size_t(dimension(config)))throw std::invalid_argument("State dimension does not match the network.");
++    dy.resize(y.size());
++    std::fill_n(dy.begin(),config.neurons.size()*4,0.);
++    std::copy(held_inputs.begin(),held_inputs.end(),rhs_input.begin());
++    {
++        STUDIO_SCOPE(rhs_synapses);
++        if(current_edges_only) {
++            for(const auto& edge:current_edges)
++                rhs_input[edge.target]+=plasticity[edge.synapse].weight*edge.scale*y[edge.activity];
++        } else {
++            for(const auto& edge:current_edges) {
++                const double weight=plasticity[edge.synapse].weight;
++                if(edge.conductance)
++                    rhs_input[edge.target]+=edge.scale*weight*y[edge.activity]*(edge.reversal-y[edge.target*4]);
++                else rhs_input[edge.target]+=weight*edge.scale*y[edge.activity];
++            }
++        }
++    }
++    STUDIO_SCOPE(rhs_neurons);
++    for(int i=0;i<int(config.neurons.size());++i) {
++        const auto& n=config.neurons[i];const int b=i*4;
++        if(n.model==NeuronModel::Izhikevich) {
++            // Keep the same expression and evaluation order as derivative().
++            dy[b]=1000*(.04*y[b]*y[b]+5*y[b]+140-y[b+1]+rhs_input[i]);
++            dy[b+1]=1000*n.izh_a*(n.izh_b*y[b]-y[b+1]);
++        } else na::hh_rhs(y.data(),dy.data(),b,rhs_input[i],config.parameters.data());
++    }
++}
+ Simulator::Simulator(const Config& c):config(c) {
+     error=validate(c);
+     if(!error.empty()) return;
+@@ -443,6 +546,7 @@ void Simulator::extend_duration(double end_time) {
+     config.duration=end_time;
+ }
+ void Simulator::record() {
++    STUDIO_SCOPE(journals);
+     if(history.time.size()>=MaxSamples) { error="Recording limit exceeded."; return; }
+     history.time.push_back(time);
+     for(int j:recorded_state)history.values[j].push_back(state[j]);
+diff --git a/network.h b/network.h
+index cb56591..7bc77e3 100644
+--- a/network.h
++++ b/network.h
+@@ -75,6 +75,16 @@ struct StdpState { double weight = 1, pre_trace = 0, post_trace = 0, post_slow_t
+ void update_stdp(const Synapse& synapse, StdpState& state, uint64_t pre, uint64_t post, double dt, double rate=1);
+ void update_synaptic_stdp(const Synapse& synapse, StdpState& state,
+                          uint64_t emitted, uint64_t arrived, uint64_t post, double dt, double rate=1);
++// Derived coefficients only. Trace arithmetic and update order stay identical.
++class StdpDecayCache {
++    double dt_=0,plus_=0,minus_=0,slow_=0;
++    bool valid_=false,triplet_=false;
++    std::array<double,3> factors_{};
++public:
++    const std::array<double,3>& factors(const Synapse& synapse,double dt);
++};
++void update_stdp_cached(const Synapse& synapse,StdpState& state,uint64_t pre,uint64_t post,
++                        double dt,double rate,StdpDecayCache& cache);
+ struct Gap {
+     int a = 0, b = 1;
+     double ip3 = 0.05, calcium = 0;
+@@ -177,6 +187,14 @@ State initial_state(const Config& c);
+ // Deterministic sample-and-hold Gaussian current. Individual sigma overrides
+ // the global sigma; streams are independent per neuron and repeat after reset.
+ double external_current(const Config& c, int neuron, double time);
++// A disposable per-neuron cache keyed by the absolute noise interval and all
++// noise parameters. Pulse/shared input is always evaluated at the requested time.
++class NoiseCache {
++    struct Entry { uint64_t bin=0; uint32_t seed=0; double sigma=0,interval=0,value=0; bool valid=false; };
++    std::vector<Entry> entries;
++public:
++    double current(const Config& c,int neuron,double time);
++};
+ double pulse_current(const Neuron& neuron,double time);
+ double next_pulse_boundary(const Neuron& neuron,double time,double limit);
+ Neuron stimulator_signal(const Stimulator& s);
+@@ -265,8 +283,36 @@ private:
+     std::vector<numerical::Threshold> thresholds;
+     double held_input_time=0, suggested_step=0;
+     std::vector<double> held_inputs;
++    NoiseCache noise_cache;
++    StdpDecayCache stdp_decay_cache;
++    // Derived, disposable views and scratch: never serialized. Rebuild views
++    // every macro step so same-size parameter edits cannot leave stale data.
++    // Views contain indices/values, not pointers into movable Config vectors.
++    struct CurrentEdge {
++        double scale,reversal;
++        int synapse,target,activity;
++        bool conductance;
++    };
++    struct KineticRange {
++        int begin,end;
++        SynapseModel model;
++        double tau_f,tau_d,tau_syn;
++    };
++    bool compact_network=false,current_edges_only=false,izh_only=false;
++    std::vector<CurrentEdge> current_edges;
++    std::vector<KineticRange> kinetic_ranges;
++    std::vector<double> rhs_input;
++    void prepare_solver_views();
++    void compact_derivative(const State& value,State& result);
++    numerical::Flow projection_flow;
++    State projection_initial;
++    std::vector<int> event_group;
++    std::vector<bool> event_fired,event_released;
++    std::vector<Delivery> event_deliveries,event_created;
++    std::vector<size_t> event_inspect;
++    std::vector<uint64_t> event_arrivals;
+     void exact_flow(const State& old,double dt,State& result) const;
+-    double neuron_threshold_sample(const State& old,double h,int coordinate) const;
++    double neuron_threshold_sample(const State& old,double h,int coordinate);
+     std::vector<std::vector<int>> incoming;
+     double kinetic_step_limit() const;
+     bool physical(const State& value) const;
+diff --git a/numerics/integrator.h b/numerics/integrator.h
+index 3e09535..2e655f1 100644
+--- a/numerics/integrator.h
++++ b/numerics/integrator.h
+@@ -4,6 +4,7 @@
+ #include <functional>
+ #include <limits>
+ #include <vector>
++#include "performance/profile.h"
+ 
+ namespace studio::numerical {
+ using Vector = std::vector<double>;
+@@ -40,6 +41,8 @@ inline double recovered(double a,double b,double h) {
+ // the coupled quadrature as well as the nonlinear equations (no extrapolation).
+ class Flow {
+     Vector k1,k2,k3,k4,stage,full,scratch;
++    struct Candidate { int index; double low,high; };
++    std::vector<Candidate> candidates;
+     void rk4(const Vector& old,double h,Vector& out) {
+         if(nonlinear_prefix) {
+             // exact() replaces every suffix coordinate independently of stage.
+@@ -52,7 +55,12 @@ class Flow {
+             rhs(stage,k3);
+             for(size_t i=0;i<nonlinear_prefix;++i)stage[i]=old[i]+h*k3[i];
+             exact(old,h,stage);rhs(stage,k4);
+-            out=stage;
++            // stage is private scratch and distinct from old/out in every
++            // rk4 caller. Its entire prefix and exact suffix are overwritten
++            // before the next RHS; exchanging storage avoids a full-state copy.
++            // Public sample() also accepts an initially empty external output.
++            if(out.size()!=stage.size())out.resize(stage.size());
++            out.swap(stage);
+             for(size_t i=0;i<nonlinear_prefix;++i)out[i]=old[i]+h/6*(k1[i]+2*k2[i]+2*k3[i]+k4[i]);
+             return;
+         }
+@@ -76,10 +84,18 @@ public:
+     std::function<double(const Vector&,double,int)> threshold_sample;
+     Vector half,next;
+     explicit Flow(size_t size=0):k1(size),k2(size),k3(size),k4(size),stage(size),full(size),scratch(size),half(size),next(size) {}
++    // Reuse storage when projected root searches visit different indegrees.
++    // No vector contents or callbacks are interpreted until sample()/trial().
++    void resize(size_t size) {
++        k1.resize(size);k2.resize(size);k3.resize(size);k4.resize(size);
++        stage.resize(size);full.resize(size);scratch.resize(size);
++        half.resize(size);next.resize(size);
++    }
+     void sample(const Vector& old,double h,Vector& out) {
+         rk4(old,h*.5,scratch);rk4(scratch,h*.5,out);
+     }
+     double trial(const Vector& old,double h) {
++        STUDIO_SCOPE(trial);
+         rk4(old,h,full);rk4(old,h*.5,half);rk4(half,h*.5,next);
+         double error=0;
+         for(size_t i=0;i<old.size();++i) {
+@@ -93,8 +109,8 @@ public:
+     // This makes simultaneous-event membership independent of node iteration.
+     double events(const Vector& old,double h,double clock,const std::vector<Threshold>& thresholds,
+                   std::vector<int>& group) {
+-        struct Candidate { int index; double low,high; };
+-        std::vector<Candidate> candidates;
++        STUDIO_SCOPE(thresholds);
++        candidates.clear();
+         for(int i=0;i<int(thresholds.size());++i) {
+             const auto& e=thresholds[i];
+             const double tol=threshold_tolerance(e.value);
+diff --git a/plot_window_tests.cpp b/plot_window_tests.cpp
+index 726005c..ed5b83e 100644
+--- a/plot_window_tests.cpp
++++ b/plot_window_tests.cpp
+@@ -9,9 +9,9 @@ namespace {
+ int checks=0;
+ void require(bool ok,const char* message){++checks;if(!ok)throw std::runtime_error(message);}
+ std::string bytes(const std::filesystem::path& p){std::ifstream in(p,std::ios::binary);return {std::istreambuf_iterator<char>(in),{}};}
+-void frame(studio::App& app){ImGui::NewFrame();app.draw();ImGui::Render();}
+-void equal(const studio::Simulator& a,const studio::Simulator& b,const std::filesystem::path& dir) {
+-    studio::save_checkpoint(a,dir/L"a.nscp");studio::save_checkpoint(b,dir/L"b.nscp");
++void frame(studio::App& app){ImGui::NewFrame();app.draw();ImGui::Render();app.synchronize();}
++void equal(studio::App& a,const studio::Simulator& b,const std::filesystem::path& dir) {
++    a.save_state(dir/L"a.nscp");studio::save_checkpoint(b,dir/L"b.nscp");
+     require(bytes(dir/L"a.nscp")==bytes(dir/L"b.nscp"),"Plot operations changed full checkpoint bytes (including queue, learning, integrator and history).");
+ }
+ }
+@@ -25,7 +25,7 @@ int main() {
+         std::filesystem::create_directories(dir);
+         studio::App app;auto c=studio::preset(6);c.duration=.22;c.sample=.00025;c.noise_sigma=.1;c.synapses[0].delay=.12;c.record_all=false;c.record_neurons={0};c.record_synapses={0};
+         app.replace(c);studio::Simulator reference(c);
+-        while(app.simulation->time<.12){require(app.simulation->step(),"Fixture failed");reference.step();}
++        while(reference.time<.12)require(reference.step(),"Fixture failed");app.advance_for(reference.time);
+         require(!app.simulation->pending_deliveries.empty(),"The invariance fixture needs a pending delivery.");
+         auto& plots=app.plot_windows;auto first=plots.create(studio::PlotKind::Voltage,0);
+         auto* original=plots.find(first);original->title="Потенциал α";original->follow=false;original->auto_fit=false;
+@@ -41,7 +41,7 @@ int main() {
+         for(int i=0;i<5;++i){app.selected_kind=i%3;app.selected_index=i%2;frame(app);}
+         require(plots.find(first)->objects==std::vector<int>{0},"Inspector selection changed an independent graph.");
+         require(values==app.simulation->history.values[0].data()&&times==app.simulation->history.time.data(),"Drawing replaced shared history storage.");
+-        equal(*app.simulation,reference,dir);
++        equal(app,reference,dir);
+         auto id=ImGui::FindWindowByName(plots.find(first)->window_name().c_str())->ID;
+         plots.find(first)->title="Переименован###вложенный ID";frame(app);
+         require(ImGui::FindWindowByName(plots.find(first)->window_name().c_str())->ID==id,"Editable title changed stable ImGui ID.");
+@@ -69,31 +69,33 @@ int main() {
+         require(!plots.save(dir/L"missing"/L"file.nsworkspace")&&bytes(dir/L"вид.nsworkspace")==saved,"Failed save destroyed previous workspace.");
+         plots.find(first)->position={50000,-50000};plots.find(first)->place=true;frame(app);
+         auto pos=plots.find(first)->position;require(pos.x>=0&&pos.x<1600&&pos.y>=0&&pos.y<1000,"Off-screen window was not clamped.");
+-        plots.reset_layout();frame(app);equal(*app.simulation,reference,dir);
++        plots.reset_layout();frame(app);equal(app,reference,dir);
+         for(int i=0;i<200;++i) {
+-            require(app.simulation->step()&&reference.step(),"Continuation failed.");
++            require(reference.step(),"Continuation failed.");studio::RunnerCommand next;next.kind=studio::RunnerCommand::Kind::RunTo;next.value=reference.time;require(app.wait_command(app.command(next)).ok,"Runner continuation failed.");
+             if(i%20==0){auto copy=plots.duplicate(first);frame(app);plots.close(copy);}
+         }
+-        equal(*app.simulation,reference,dir);
+-        studio::save_checkpoint(*app.simulation,dir/L"resume.nscp");app.reset();frame(app);
++        equal(app,reference,dir);
++        app.save_state(dir/L"resume.nscp");app.reset();frame(app);
+         require(plots.find(first)->compatible&&app.simulation->time==0,"Reset invalidated compatible views.");
+         require(app.restore_state(dir/L"resume.nscp"),"Restore checkpoint failed.");frame(app);
+-        require(plots.find(first)->compatible,"Same-protocol checkpoint lost binding.");equal(*app.simulation,reference,dir);
++        require(plots.find(first)->compatible,"Same-protocol checkpoint lost binding.");equal(app,reference,dir);
+         // Even an identical JSON replacement is a new graph, and requires explicit consent to rebind.
+         app.replace(c);frame(app);require(!plots.find(first)->compatible,"Replacement silently retargeted old indices.");
+         plots.rebind(*plots.find(first));require(plots.find(first)->compatible,"Explicit rebind failed.");
+         studio::remove_neuron(app.config,0);app.reset();frame(app);require(!plots.find(first)->compatible,"Deletion silently retargeted another neuron at index 0.");
+         require(plots.load(dir/L"вид.nsworkspace")&&!plots.find(first)->compatible,"Incompatible saved binding was silently accepted.");
+-        // Larger recorded network, 8 simultaneous views: history is still held only by Simulator.
++        // Larger recorded network, 8 simultaneous views share one retained display history.
+         studio::NetworkGeneration generation;generation.excitatory.count=80;generation.inhibitory.count=20;
+         generation.excitatory.in_degree=generation.inhibitory.in_degree={4,0};generation.duration=.5;generation.sample=.00025;
+         auto large=studio::generate_network(studio::preset(3),generation,false);large.record_all=true;
+-        for(auto& n:large.neurons)n.current=8;app.replace(large);while(!app.simulation->done())require(app.simulation->step(),"Large fixture failed.");
++        for(auto& n:large.neurons)n.current=8;app.replace(large);app.advance_for(app.config.duration);require(app.simulation->done()&&app.simulation->error.empty(),"Large fixture failed.");
+         plots.windows.clear();for(int i=0;i<8;++i)plots.create(i%2?studio::PlotKind::Synapse:studio::PlotKind::Voltage,i);
+-        const auto* storage=app.simulation->history.values[0].data();auto before=std::chrono::steady_clock::now();
++        const auto* storage=app.simulation->history.values[0].data();const auto display_samples=app.simulation->history.time.size();auto before=std::chrono::steady_clock::now();
+         for(int i=0;i<20;++i)frame(app);
+         auto elapsed=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-before).count();
+-        require(storage==app.simulation->history.values[0].data()&&app.simulation->history.time.size()==2001,"Multiple views changed large history.");
++        require(storage==app.simulation->history.values[0].data()&&app.simulation->history.time.size()==display_samples,"Multiple views changed retained display history.");
++        require(app.simulation->truncated&&display_samples<2001&&app.simulation->history.time.back()==large.duration,"Large display history was not explicitly bounded at the latest sample.");
++        app.save_state(dir/L"large-full.nscp");require(studio::load_checkpoint(dir/L"large-full.nscp")->history.time.size()==2001,"Display retention truncated scientific history.");
+         std::cout<<"PASS: "<<checks<<" plot/workspace checks; exact checkpoints match; 100 neurons / 400 edges / 8 windows / 20 frames: "<<elapsed<<" ms. Artifacts: "<<dir.u8string()<<"\n";
+         ImPlot::DestroyContext();ImGui::DestroyContext();return 0;
+     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}
+diff --git a/plot_windows.cpp b/plot_windows.cpp
+index a1f2f47..e1535e4 100644
+--- a/plot_windows.cpp
++++ b/plot_windows.cpp
+@@ -13,7 +13,7 @@ const ImVec4 teal(.25f,.84f,.72f,1),blue(.38f,.65f,1,1),gold(1,.74f,.36f,1),rose
+ ImVec4 color(int i) { const ImVec4 colors[]={teal,blue,gold,rose,ImVec4(.72f,.56f,.94f,1)};return colors[i%5]; }
+ void bit(const char* label,uint32_t& mask,int n) {bool v=(mask&(1u<<n))!=0;if(ImGui::Checkbox(label,&v))mask^=1u<<n;}
+ bool recorded(const History& h,int column) {return column>=0&&column<int(h.values.size())&&!h.time.empty()&&h.values[column].size()==h.time.size();}
+-struct Derived { const Simulator* s; int object,kind; };
++struct Derived { const SimulationReadView* s; int object,kind; };
+ ImPlotPoint derived(int row,void* ptr) {
+     const auto& d=*static_cast<Derived*>(ptr);const auto& s=*d.s;const auto& h=s.history;
+     double v=0;
+@@ -28,7 +28,7 @@ ImPlotPoint derived(int row,void* ptr) {
+     }
+     return {h.time[row],v};
+ }
+-struct Events {const Simulator* s;int first,object;bool astro,peak;};
++struct Events {const SimulationReadView* s;int first,object;bool astro,peak;};
+ ImPlotPoint event_point(int row,void* ptr) {
+     const auto& d=*static_cast<Events*>(ptr);const auto& e=d.s->history.events[d.first+row];
+     if(e.astro!=d.astro||(d.object>=0&&e.index!=d.object))return {e.time,std::numeric_limits<double>::quiet_NaN()};
+@@ -117,7 +117,7 @@ void PlotWindows::demo() {
+     }
+     host_open=true;demo_layout=true;
+ }
+-void PlotWindows::draw(const Simulator& s) {
++void PlotWindows::draw(const SimulationReadView& s) {
+     if(!pending_ini.empty()){ImGui::LoadIniSettingsFromMemory(pending_ini.data(),pending_ini.size());pending_ini.clear();}
+     const ImGuiID dock=ImHashStr("studio_plot_dock");
+     const bool move_host=reset_host;
+@@ -176,7 +176,7 @@ void PlotWindows::draw(const Simulator& s) {
+     for(auto id:duplicates)duplicate(id);
+     windows.erase(std::remove_if(windows.begin(),windows.end(),[](const auto& w){return !w.open;}),windows.end());
+ }
+-void PlotWindows::draw_view(PlotWindowState& w,const Simulator& s,float height,bool detached) {
++void PlotWindows::draw_view(PlotWindowState& w,const SimulationReadView& s,float height,bool detached) {
+     const auto& c=s.config;const auto& h=s.history;
+     const float content_width=ImGui::GetContentRegionAvail().x;
+     if(!w.compatible||w.binding!=binding) {
+@@ -194,6 +194,11 @@ void PlotWindows::draw_view(PlotWindowState& w,const Simulator& s,float height,b
+     if(!detached){ImGui::SameLine();if(ImGui::Button("Открыть в отдельном окне"))detach(w);}
+     if(h.time.empty()){ImGui::TextWrapped("Нет записанной истории. Проверьте параметры эксперимента.");return;}
+     if(w.kind==PlotKind::Network){draw_network(w,s);return;}
++    const double available_from=w.kind==PlotKind::Raster?h.events_after:w.kind==PlotKind::Deliveries?h.deliveries_after:h.time.front();
++    if(s.truncated||available_from>0) {
++        const double until=w.kind==PlotKind::Raster||w.kind==PlotKind::Deliveries?s.time:h.time.back();
++        ImGui::TextWrapped("Ограниченное окно отображения: [%.6g; %.6g] с.",available_from,until);
++    }
+     const bool astro=w.kind==PlotKind::Astrocytes||w.kind==PlotKind::AstroPhase;
+     const bool syn=w.kind==PlotKind::Synapse;
+     if(astro&&c.astrocytes.empty()){ImGui::TextWrapped("В этой сети нет астроцитов.");return;}
+@@ -216,7 +221,7 @@ void PlotWindows::draw_view(PlotWindowState& w,const Simulator& s,float height,b
+         if(w.view&&c.neurons[w.object].model!=NeuronModel::Izhikevich){ImGui::TextWrapped("У HH нет переменной восстановления u. Выберите вход или потенциал.");return;}
+     }
+     if(w.kind==PlotKind::Deliveries) {
+-        ImGui::Text("Доставлено: %zu · В очереди: %zu",h.deliveries.size(),s.pending_deliveries.size());
++        ImGui::Text("Доставок в окне: %zu · В очереди: %zu",h.deliveries.size(),s.pending_deliveries.size());
+         ImGui::TextWrapped("t emit — спайк источника; t arrival — приход по связи. Приход не является новым спайком.");
+         if(ImGui::BeginTable("delivery_journal",5,ImGuiTableFlags_Borders|ImGuiTableFlags_RowBg|ImGuiTableFlags_ScrollY,{0,std::max(50.f,ImGui::GetContentRegionAvail().y-4)})) {
+             for(const char* label:{"Связь","Источник","Приёмник","t emit, с","t arrival, с"})ImGui::TableSetupColumn(label);
+diff --git a/plot_windows.h b/plot_windows.h
+index 536748d..092a965 100644
+--- a/plot_windows.h
++++ b/plot_windows.h
+@@ -3,6 +3,7 @@
+ #include "imgui.h"
+ #include "weight_field.h"
+ #include "analysis.h"
++#include "simulation_view.h"
+ #include <array>
+ #include <functional>
+ 
+@@ -25,9 +26,11 @@ struct PlotWindowState {
+     NetworkAnalysis analyzed;
+     double analysis_at=-1;
+     std::string analysis_key;
++    const void* analysis_identity=nullptr;
++    uint64_t analysis_generation=0;
+     std::string window_name() const;
+ };
+-// Presentation only. No Simulator ownership and no copies of sampled trajectories.
++// Presentation only. Reads the frame's stable display view without owning a solver.
+ class PlotWindows {
+ public:
+     static constexpr size_t MaxWindows=32, MaxWorkspaceBytes=4*1024*1024;
+@@ -38,6 +41,7 @@ public:
+     std::filesystem::path workspace_path;
+     bool host_open=false;
+     std::function<std::filesystem::path()> analysis_export_dialog;
++    std::function<void(const AnalysisSettings&,const std::filesystem::path&)> analysis_export;
+     bool automatic_save_allowed=true;
+     PlotWindows();
+     void data_changed(const Config& config,bool replacement=false);
+@@ -47,15 +51,15 @@ public:
+     bool close(uint32_t id);
+     PlotWindowState* find(uint32_t id);
+     void rebind(PlotWindowState& window);
+-    void draw(const Simulator& simulation);
+-    void draw_view(PlotWindowState& window,const Simulator& simulation,float height,bool detached);
++    void draw(const SimulationReadView& simulation);
++    void draw_view(PlotWindowState& window,const SimulationReadView& simulation,float height,bool detached);
+     void reset_layout();
+     void demo();
+     bool save(const std::filesystem::path& path);
+     bool load(const std::filesystem::path& path);
+     static std::string config_binding(const Config& config);
+     static void clamp_to_monitors(ImVec2& position,ImVec2& size);
+-    void draw_network(PlotWindowState& window,const Simulator& simulation);
++    void draw_network(PlotWindowState& window,const SimulationReadView& simulation);
+ private:
+     uint32_t next_id=1;
+     bool reset_host=false, demo_layout=false;
+diff --git a/stimulator_gui.cpp b/stimulator_gui.cpp
+index 47df941..18f6307 100644
+--- a/stimulator_gui.cpp
++++ b/stimulator_gui.cpp
+@@ -20,7 +20,7 @@ void App::stimulator_manager() {
+         Stimulator value;value.name="Stimulator "+std::to_string(config.next_stimulator_id);value.x=config.space.width*.5;value.y=config.space.height*.5;value.radius=std::min(config.space.width,config.space.height)*.1;
+         value.signal.start=sim.time;value.signal.stop=std::max(sim.time+1,config.duration);value.signal.frequency=10;value.signal.width=.003;value.signal.amplitude=30;
+         value.recipients={std::clamp(selected_kind==0?selected_index:0,0,int(config.neurons.size())-1)};
+-        selected_stimulator=config.next_stimulator_id;sim.schedule_stimulator(value,sim.time);config=sim.config;stimulator_draft=config.stimulators.back();dirty=true;
++        selected_stimulator=config.next_stimulator_id;RunnerCommand c;c.kind=RunnerCommand::Kind::Stimulator;c.stimulator=value;c.value=-1;c.flag2=true;command(std::move(c));stimulator_draft.id=0;dirty=true;
+     }catch(const std::exception& e){status=e.what();}
+     ImGui::BeginChild("stimulator_list",{0,90},ImGuiChildFlags_Borders);
+     for(const auto& s:config.stimulators)if(ImGui::Selectable(("#"+std::to_string(s.id)+" "+s.name+"###source_"+std::to_string(s.id)).c_str(),selected_stimulator==s.id)){selected_stimulator=s.id;stimulator_draft=s;}
+@@ -76,11 +76,11 @@ void App::stimulator_manager() {
+         }
+         ImGui::Text("Получателей по черновику: %zu · сейчас вход источника %.5g",stimulator_recipients(config,v).size(),pulse_current(stimulator_signal(*selected),sim.time));
+         ImGui::TextWrapped("Применение не сбрасывает сеть. Положение/получатели меняются сейчас. Новая частота — со следующей границы текущего периода; перезапуск фазы — отдельное действие.");
+-        auto apply=[&](bool restart){try{const double at=sim.schedule_stimulator(v,sim.time,restart);config=sim.config;dirty=true;status="Команда источника применится в t="+std::to_string(at)+" с.";}catch(const std::exception& e){status=e.what();}};
++        auto apply=[&](bool restart){try{RunnerCommand c;c.kind=RunnerCommand::Kind::Stimulator;c.stimulator=v;c.value=-1;c.flag=restart;command(std::move(c));dirty=true;}catch(const std::exception& e){status=e.what();}};
+         if(ImGui::Button("Применить без сброса"))apply(false);
+         ImGui::SameLine();if(ImGui::Button("Применить с новой фазой"))apply(true);
+         ImGui::SameLine();if(ImGui::Button("Перечитать параметры")) {auto it=std::find_if(config.stimulators.begin(),config.stimulators.end(),[&](auto& s){return s.id==selected_stimulator;});if(it!=config.stimulators.end())v=*it;}
+-        if(ImGui::Button("Удалить стимулятор"))try{sim.remove_stimulator(selected_stimulator);if(plot_windows.embedded[7].analysis.reference_stimulator==selected_stimulator)plot_windows.embedded[7].analysis.reference_stimulator=0;config=sim.config;selected_stimulator=0;dirty=true;}catch(const std::exception& e){status=e.what();}
++        if(ImGui::Button("Удалить стимулятор"))try{RunnerCommand c;c.kind=RunnerCommand::Kind::RemoveStimulator;c.id=selected_stimulator;command(std::move(c));if(plot_windows.embedded[7].analysis.reference_stimulator==selected_stimulator)plot_windows.embedded[7].analysis.reference_stimulator=0;selected_stimulator=0;dirty=true;}catch(const std::exception& e){status=e.what();}
+     }
+     ImGui::EndDisabled();ImGui::TextWrapped("%s",status.c_str());ImGui::End();
+ }
+@@ -101,7 +101,8 @@ bool App::stimulator_overlay(ImVec2 base,ImVec2 span,bool hovered,bool active) {
+         const double x=std::clamp(double(io.MousePos.x-base.x)/span.x,0.,1.)*config.space.width,y=std::clamp(double(io.MousePos.y-base.y)/span.y,0.,1.)*config.space.height;
+         auto current=std::find_if(config.stimulators.begin(),config.stimulators.end(),[&](auto& s){return s.id==drag_stimulator;});
+         if(current!=config.stimulators.end()&&current->x==x&&current->y==y)return true;
+-        simulation->move_stimulator(drag_stimulator,x,y,simulation->time);config=simulation->config;
++        RunnerCommand c;c.kind=RunnerCommand::Kind::MoveStimulator;c.id=drag_stimulator;c.value=x;c.second=y;c.third=-1;command(std::move(c));
++        if(current!=config.stimulators.end()){current->x=x;current->y=y;}
+         for(auto& s:config.stimulators)if(s.id==drag_stimulator)stimulator_draft=s;dirty=true;
+     }catch(const std::exception& e){status=e.what();}
+     return hit||drag_stimulator;
+diff --git a/weight_field_gui.cpp b/weight_field_gui.cpp
+index c9663f1..f264f9a 100644
+--- a/weight_field_gui.cpp
++++ b/weight_field_gui.cpp
+@@ -6,6 +6,8 @@
+ namespace studio {
+ void App::field_controls() {
+     auto& v=plot_windows.topology;
++    const SimulationReadView current(*simulation);
++    const auto& field_config=changed?config:current.config;
+     ImGui::Checkbox("Векторное поле весов",&v.field);
+     ImGui::SameLine();ImGui::Checkbox("Поле активности",&v.activity);
+     ImGui::Checkbox("Обычные связи",&v.edges);ImGui::SameLine();ImGui::Checkbox("Сетка",&v.grid);
+@@ -34,8 +36,8 @@ void App::field_controls() {
+             if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();
+             ImGui::EndPopup();
+         }
+-        weight_field.update(config,changed?nullptr:&simulation->plasticity,v);
+-        if(config.neurons.empty())ImGui::TextDisabled("Нет нейронов для построения поля.");
++        weight_field.update(field_config,changed?nullptr:&current.plasticity,v);
++        if(field_config.neurons.empty())ImGui::TextDisabled("Нет нейронов для построения поля.");
+         else if(!weight_field.available)ImGui::TextWrapped("Текущие веса недоступны до обновления эксперимента.");
+         else if(!weight_field.included_edges)ImGui::TextWrapped("Нет подходящих направленных связей.");
+         else {
+@@ -44,7 +46,7 @@ void App::field_controls() {
+             const double cap=.8/std::max(v.columns,v.rows);
+             const double scale=v.auto_scale&&weight_field.maximum>0?cap/weight_field.maximum:v.scale;
+             ImGui::PushTextWrapPos(ImGui::GetCursorPosX()+ImGui::GetContentRegionAvail().x);
+-            ImGui::TextDisabled("t = %.6g с · k = %.4g (%s) · %.3f мс",v.current?simulation->time:0,scale,v.auto_scale?"авто":"фикс.",weight_field.update_ms);
++            ImGui::TextDisabled("t = %.6g с · k = %.4g (%s) · %.3f мс",v.current?current.time:0,scale,v.auto_scale?"авто":"фикс.",weight_field.update_ms);
+             ImGui::PopTextWrapPos();
+         }
+     }
+@@ -59,11 +61,12 @@ void App::field_controls() {
+             int model=int(v.activity_model);const char* models[]={"Все модели","STP","Экспоненциальный ток","TM"};if(ImGui::Combo("Модель активных связей",&model,models,4))v.activity_model=FieldModel(model);
+             ImGui::TextWrapped("Ответ после доставки — временное совпадение, не доказательство причинности. Все подходящие доставки могут разделять один постспайк. Одновременные доставка и спайк исключаются. Тормозной эффект этот критерий не измеряет.");
+             ImGui::TextWrapped("Каждая активная связь даёт |текущий вес| один раз за окно. Исторический просмотр не подменяется конечными весами: доступен только текущий момент/пауза.");
+-            ImGui::Text("Глубина данных %.6g с; доступны после %.9g с",config.activity_horizon,simulation->activity.available_after);
++            ImGui::Text("Глубина записи %.6g с; окно после %.9g с",current.config.activity_horizon,current.activity.available_after);
+             if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();ImGui::EndPopup();
+         }
+-        if(!v.field)weight_field.update(config,changed?nullptr:&simulation->plasticity,v);
+-        if(!changed&&!simulation->error.size())activity_field.update(*simulation,v,weight_field);
++        if(!v.field)weight_field.update(field_config,changed?nullptr:&current.plasticity,v);
++        if(!changed&&current.error.empty())activity_field.update(current,v,weight_field);
++        else {activity_field.available=false;activity_field.message="Поле активности недоступно до обновления эксперимента.";}
+         ImGui::TextColored({1,.6f,.25f,1},"Оранжевое: активность · синее: веса · t=%.6g с · %.3f мс",activity_field.time,activity_field.update_ms);
+         if(!activity_field.available)ImGui::TextWrapped("%s",activity_field.message.c_str());
+     }
+diff --git a/weight_field_gui_tests.cpp b/weight_field_gui_tests.cpp
+index 227b664..0a339ce 100644
+--- a/weight_field_gui_tests.cpp
++++ b/weight_field_gui_tests.cpp
+@@ -8,10 +8,10 @@ using namespace studio;
+ namespace {
+ int checks=0;
+ void check(bool ok,const char* message){++checks;if(!ok)throw std::runtime_error(message);}
+-void frame(App& app){ImGui::NewFrame();app.draw();ImGui::Render();check(ImGui::GetDrawData()->TotalVtxCount>100,"Empty render");}
++void frame(App& app){ImGui::NewFrame();app.draw();ImGui::Render();app.synchronize();check(ImGui::GetDrawData()->TotalVtxCount>100,"Empty render");}
+ std::string bytes(const std::filesystem::path& p){std::ifstream f(p,std::ios::binary);return {std::istreambuf_iterator<char>(f),{}};}
+-void equal(const Simulator& a,const Simulator& b,const std::filesystem::path& dir) {
+-    save_checkpoint(a,dir/"a.nscp");save_checkpoint(b,dir/"b.nscp");
++void equal(App& a,const Simulator& b,const std::filesystem::path& dir) {
++    a.save_state(dir/"a.nscp");save_checkpoint(b,dir/"b.nscp");
+     check(bytes(dir/"a.nscp")==bytes(dir/"b.nscp"),"Field controls changed simulation/checkpoint/queue/history");
+ }
+ void resign(std::string& s) {
+@@ -28,7 +28,7 @@ int main() {
+         unsigned char* pixels;int width,height;io.Fonts->GetTexDataAsRGBA32(&pixels,&width,&height);io.Fonts->SetTexID(ImTextureID(1));apply_style();
+         auto dir=std::filesystem::current_path()/"field-gui"/std::to_string(std::chrono::steady_clock::now().time_since_epoch().count());std::filesystem::create_directories(dir);
+         App app;auto c=preset(6);c.duration=.3;c.synapses[0].delay=.12;app.replace(c);Simulator reference(c);
+-        while(app.simulation->time<.12){check(app.simulation->step()&&reference.step(),"Fixture failed");}
++        while(reference.time<.12)check(reference.step(),"Fixture failed");app.advance_for(reference.time);
+         check(!app.simulation->pending_deliveries.empty(),"Queue not covered");
+         auto& v=app.plot_windows.topology;v.field=true;v.columns=8;v.rows=6;v.scale=.04;
+         frame(app);const auto builds=app.weight_field.geometry_builds;const auto sums=app.weight_field.sum_updates;
+@@ -38,14 +38,14 @@ int main() {
+             v.grid=i%2;v.edges=i%2;v.zoom=1+i*.25;v.pan_x=.03*i;v.pan_y=-.02*i;v.scale=.01*(i+1);v.auto_scale=i%2;frame(app);
+             for(size_t j=0;j<old.size();++j)check(old[j].x==app.weight_field.cells[j].x&&old[j].y==app.weight_field.cells[j].y,"Viewport size/DPI/camera changed numerical field");
+         }
+-        check(app.weight_field.geometry_builds==builds&&app.weight_field.sum_updates==sums,"Display settings rebuilt numerical cache");equal(*app.simulation,reference,dir);
+-        v.current=false;frame(app);v.current=true;frame(app);equal(*app.simulation,reference,dir);
+-        app.running=true;frame(app);app.running=false;while(reference.steps<app.simulation->steps)check(reference.step(),"Reference advance");equal(*app.simulation,reference,dir);
++        check(app.weight_field.geometry_builds==builds&&app.weight_field.sum_updates==sums,"Display settings rebuilt numerical cache");equal(app,reference,dir);
++        v.current=false;frame(app);v.current=true;frame(app);equal(app,reference,dir);
++        app.run();frame(app);app.pause();app.synchronize();frame(app);while(reference.steps<app.simulation->steps)check(reference.step(),"Reference advance");equal(app,reference,dir);
+         check(app.weight_field.geometry_builds==builds,"Running STDP rebuilt geometry");
+-        save_checkpoint(*app.simulation,dir/"restore.nscp");app.reset();frame(app);
++        app.save_state(dir/"restore.nscp");app.reset();frame(app);
+         WeightField initial;initial.update(c,&app.simulation->plasticity,v);
+         for(size_t i=0;i<initial.cells.size();++i)check(initial.cells[i].x==app.weight_field.cells[i].x,"Reset retained trained field");
+-        check(app.restore_state(dir/"restore.nscp"),"Checkpoint restore failed");frame(app);equal(*app.simulation,reference,dir);
++        check(app.restore_state(dir/"restore.nscp"),"Checkpoint restore failed");frame(app);equal(app,reference,dir);
+         v.polarity=FieldPolarity::Inhibitory;v.model=FieldModel::TsodyksMarkram;v.activity=true;v.activity_mode=1;v.activity_window=.125;v.response_min=.001;v.response_max=.03;v.activity_scale=.08;v.activity_polarity=FieldPolarity::Excitatory;
+         check(app.plot_windows.save(dir/"view.nsworkspace"),"Workspace save");auto saved=bytes(dir/"view.nsworkspace");check(v.activity,"Activity setting");
+         auto version3=saved;version3.erase(version3.size()-8-64,64);version3[8+std::string("Network Studio plot workspace").size()]=3;resign(version3);write_atomic(dir/"version3.nsworkspace",version3);check(app.plot_windows.load(dir/"version3.nsworkspace"),"Schema 3 compatibility");check(!v.activity,"Legacy activity default");saved=version3;

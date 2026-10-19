@@ -13,7 +13,7 @@ const ImVec4 teal(.25f,.84f,.72f,1),blue(.38f,.65f,1,1),gold(1,.74f,.36f,1),rose
 ImVec4 color(int i) { const ImVec4 colors[]={teal,blue,gold,rose,ImVec4(.72f,.56f,.94f,1)};return colors[i%5]; }
 void bit(const char* label,uint32_t& mask,int n) {bool v=(mask&(1u<<n))!=0;if(ImGui::Checkbox(label,&v))mask^=1u<<n;}
 bool recorded(const History& h,int column) {return column>=0&&column<int(h.values.size())&&!h.time.empty()&&h.values[column].size()==h.time.size();}
-struct Derived { const Simulator* s; int object,kind; };
+struct Derived { const SimulationReadView* s; int object,kind; };
 ImPlotPoint derived(int row,void* ptr) {
     const auto& d=*static_cast<Derived*>(ptr);const auto& s=*d.s;const auto& h=s.history;
     double v=0;
@@ -28,7 +28,7 @@ ImPlotPoint derived(int row,void* ptr) {
     }
     return {h.time[row],v};
 }
-struct Events {const Simulator* s;int first,object;bool astro,peak;};
+struct Events {const SimulationReadView* s;int first,object;bool astro,peak;};
 ImPlotPoint event_point(int row,void* ptr) {
     const auto& d=*static_cast<Events*>(ptr);const auto& e=d.s->history.events[d.first+row];
     if(e.astro!=d.astro||(d.object>=0&&e.index!=d.object))return {e.time,std::numeric_limits<double>::quiet_NaN()};
@@ -117,7 +117,7 @@ void PlotWindows::demo() {
     }
     host_open=true;demo_layout=true;
 }
-void PlotWindows::draw(const Simulator& s) {
+void PlotWindows::draw(const SimulationReadView& s) {
     if(!pending_ini.empty()){ImGui::LoadIniSettingsFromMemory(pending_ini.data(),pending_ini.size());pending_ini.clear();}
     const ImGuiID dock=ImHashStr("studio_plot_dock");
     const bool move_host=reset_host;
@@ -176,7 +176,7 @@ void PlotWindows::draw(const Simulator& s) {
     for(auto id:duplicates)duplicate(id);
     windows.erase(std::remove_if(windows.begin(),windows.end(),[](const auto& w){return !w.open;}),windows.end());
 }
-void PlotWindows::draw_view(PlotWindowState& w,const Simulator& s,float height,bool detached) {
+void PlotWindows::draw_view(PlotWindowState& w,const SimulationReadView& s,float height,bool detached) {
     const auto& c=s.config;const auto& h=s.history;
     const float content_width=ImGui::GetContentRegionAvail().x;
     if(!w.compatible||w.binding!=binding) {
@@ -194,6 +194,11 @@ void PlotWindows::draw_view(PlotWindowState& w,const Simulator& s,float height,b
     if(!detached){ImGui::SameLine();if(ImGui::Button("Открыть в отдельном окне"))detach(w);}
     if(h.time.empty()){ImGui::TextWrapped("Нет записанной истории. Проверьте параметры эксперимента.");return;}
     if(w.kind==PlotKind::Network){draw_network(w,s);return;}
+    const double available_from=w.kind==PlotKind::Raster?h.events_after:w.kind==PlotKind::Deliveries?h.deliveries_after:h.time.front();
+    if(s.truncated||available_from>0) {
+        const double until=w.kind==PlotKind::Raster||w.kind==PlotKind::Deliveries?s.time:h.time.back();
+        ImGui::TextWrapped("Ограниченное окно отображения: [%.6g; %.6g] с.",available_from,until);
+    }
     const bool astro=w.kind==PlotKind::Astrocytes||w.kind==PlotKind::AstroPhase;
     const bool syn=w.kind==PlotKind::Synapse;
     if(astro&&c.astrocytes.empty()){ImGui::TextWrapped("В этой сети нет астроцитов.");return;}
@@ -216,7 +221,7 @@ void PlotWindows::draw_view(PlotWindowState& w,const Simulator& s,float height,b
         if(w.view&&c.neurons[w.object].model!=NeuronModel::Izhikevich){ImGui::TextWrapped("У HH нет переменной восстановления u. Выберите вход или потенциал.");return;}
     }
     if(w.kind==PlotKind::Deliveries) {
-        ImGui::Text("Доставлено: %zu · В очереди: %zu",h.deliveries.size(),s.pending_deliveries.size());
+        ImGui::Text("Доставок в окне: %zu · В очереди: %zu",h.deliveries.size(),s.pending_deliveries.size());
         ImGui::TextWrapped("t emit — спайк источника; t arrival — приход по связи. Приход не является новым спайком.");
         if(ImGui::BeginTable("delivery_journal",5,ImGuiTableFlags_Borders|ImGuiTableFlags_RowBg|ImGuiTableFlags_ScrollY,{0,std::max(50.f,ImGui::GetContentRegionAvail().y-4)})) {
             for(const char* label:{"Связь","Источник","Приёмник","t emit, с","t arrival, с"})ImGui::TableSetupColumn(label);

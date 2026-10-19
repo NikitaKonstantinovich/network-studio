@@ -1,0 +1,56 @@
+{
+  "captured_at": "2026-10-19T02:40:14.908824+03:00",
+  "phase": "SimulationRunner preparation; no benchmark results in this inventory",
+  "previous_provenance": {
+    "path": "../20261019_single_thread/provenance.json",
+    "sha256": "30de158ae8f37f7e1b79f5d1e4c48356ebe463f89af6da3508edda5465869d8c"
+  },
+  "previous_hardware": {
+    "cpu": "11th Gen Intel(R) Core(TM) i9-11900KF @ 3.50GHz",
+    "logical_processors": 16,
+    "os": "Windows-11-10.0.26100-SP0",
+    "physical_memory_bytes": 42822889472
+  },
+  "current_hardware": {
+    "cpu_registry": {
+      "ProcessorNameString": "11th Gen Intel(R) Core(TM) i9-11900KF @ 3.50GHz",
+      "VendorIdentifier": "GenuineIntel",
+      "Identifier": "Intel64 Family 6 Model 167 Stepping 1"
+    },
+    "logical_processors": 16,
+    "platform": "Windows-11-10.0.26100-SP0",
+    "os_registry": {
+      "ProductName": "Windows 10 Pro",
+      "EditionID": "Professional",
+      "DisplayVersion": "24H2",
+      "CurrentBuildNumber": "26100",
+      "UBR": 9711
+    },
+    "memory": {
+      "total_physical_bytes": 42822889472
+    },
+    "power_scheme": {
+      "query_exit_code": 0,
+      "active_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e"
+    }
+  },
+  "matches_previous": {
+    "cpu_name": true,
+    "logical_processors": true,
+    "physical_memory_bytes": true,
+    "os_build": true
+  },
+  "query_methods": [
+    "winreg explicit CPU/OS values",
+    "os.cpu_count() and platform.platform()",
+    "kernel32 GlobalMemoryStatusEx (total physical memory only)",
+    "powercfg /getactivescheme (read only)"
+  ],
+  "unavailable_query": "Get-CimInstance for Win32_Processor, Win32_OperatingSystem, Win32_ComputerSystem and Win32_VideoController was denied by this session. Registry and Win32 read-only fallbacks were used; current GPU identity was not captured.",
+  "observation_limits": [
+    "Captured during the main task test phase, not during benchmark timing.",
+    "No current CPU load, temperatures, measured operating clock or background-app control is claimed.",
+    "Windows registry ProductName can remain Windows 10 on Windows 11; platform/build are also retained.",
+    "No performance result, throughput claim or test outcome is recorded here."
+  ]
+}

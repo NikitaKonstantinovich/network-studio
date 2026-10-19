@@ -5,15 +5,15 @@
 #include <stdexcept>
 
 namespace studio {
-void ActivityField::update(const Simulator& s,const TopologyViewState& v,WeightField& geometry) {
+void ActivityField::update(const SimulationReadView& s,const TopologyViewState& v,WeightField& geometry) {
     const auto begin=std::chrono::steady_clock::now();const auto& h=s.activity;const auto& c=s.config;
     if(!valid_topology_view(v))throw std::runtime_error("Invalid activity field settings");
-    const bool reset=owner!=&s||s.time<time||counts.size()!=c.synapses.size()||arrivals.size()!=c.neurons.size()||mode!=v.activity_mode||
+    const bool reset=owner!=s.identity||generation!=s.generation||s.time<time||counts.size()!=c.synapses.size()||arrivals.size()!=c.neurons.size()||mode!=v.activity_mode||
         window!=v.activity_window||response_min!=v.response_min||response_max!=v.response_max||delivery_cursor<h.delivery_begin||spike_cursor<h.spike_begin||
         delivery_cursor>h.delivery_begin+h.deliveries.size()||spike_cursor>h.spike_begin+h.spikes.size();
     if(reset) {
         arrivals.assign(c.neurons.size(),{});counts.assign(c.synapses.size(),0);delivery_cursor=h.delivery_begin;spike_cursor=h.spike_begin;
-        owner=&s;mode=v.activity_mode;window=v.activity_window;response_min=v.response_min;response_max=v.response_max;
+        owner=s.identity;generation=s.generation;mode=v.activity_mode;window=v.activity_window;response_min=v.response_min;response_max=v.response_max;
     }
     const double left=std::max(0.,s.time-window);
     for(auto& queue:arrivals)while(!queue.empty()&&queue.front().time<=left){if(queue.front().counted)--counts[queue.front().edge];queue.pop_front();}
@@ -35,7 +35,7 @@ void ActivityField::update(const Simulator& s,const TopologyViewState& v,WeightF
     }
     columns=v.columns;rows=v.rows;time=s.time;
     available=window<=c.activity_horizon&&left>=h.available_after;
-    message=available?"":"Недостаточно сохранённых событий для этого окна. Уменьшите окно; глубина задана до запуска.";
+    message=available?"":"Недостаточно доступных событий для этого окна. Уменьшите окно; учитывается глубина записи и окна отображения.";
     // Shared geometry is prepared by the caller once for both fields.
     cells=geometry.activity_cells(c,s.plasticity,v,available?counts:std::vector<uint64_t>(counts.size(),0));
     maximum=0;for(auto cell:cells)maximum=std::max(maximum,cell.magnitude());

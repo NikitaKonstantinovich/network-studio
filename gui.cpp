@@ -5,6 +5,7 @@
 #include <cmath>
 #include <cstdio>
 #include <limits>
+#include <thread>
 
 namespace studio {
 static const ImVec4 Teal(.25f,.84f,.72f,1),Blue(.38f,.65f,1,1),Gold(1,.74f,.36f,1),Muted(.58f,.65f,.74f,1),Rose(.93f,.43f,.53f,1);
@@ -25,62 +26,111 @@ void apply_style() {
     ImPlot::StyleColorsDark(); auto& p=ImPlot::GetStyle(); p.PlotPadding={12,10}; p.LineWeight=1.6f;
     p.Colors[ImPlotCol_PlotBg]={.055f,.078f,.108f,1}; p.Colors[ImPlotCol_FrameBg]={.078f,.105f,.145f,1};
 }
-App::App() { plot_windows.analysis_export_dialog=[this](){return file_dialog?file_dialog(true,true):std::filesystem::path{};};reset(); }
-void App::reset() { activity_field=ActivityField{};stimulator_draft.id=0;running=false; simulation=std::make_unique<Simulator>(config); if(simulation->error.empty())plot_windows.data_changed(config); else status=simulation->error; }
+App::App() {
+    simulation=&display;
+    plot_windows.analysis_export_dialog=[this](){return file_dialog?file_dialog(true,true):std::filesystem::path{};};
+    plot_windows.analysis_export=[this](const AnalysisSettings& settings,const std::filesystem::path& path){RunnerCommand c;c.kind=RunnerCommand::Kind::ExportAnalysis;c.analysis=settings;c.path=path;command(std::move(c));};
+    runner=std::make_unique<SimulationRunner>(config);synchronize();
+}
+App::~App() {if(runner)runner->shutdown();}
+void App::set_display_hz(double value) {display_hz=float(value);runner->set_display_hz(value);}
+void App::set_compute_threads(int requested,bool wait) {
+    RunnerCommand c;c.kind=RunnerCommand::Kind::ComputeThreads;c.index=requested;
+    auto result=command(std::move(c));
+    if(wait&&!drawing){const auto out=wait_command(result);if(!out.ok)throw std::runtime_error(out.error);}
+}
+std::shared_future<RunnerResult> App::command(RunnerCommand value,bool wait) {
+    const auto kind=value.kind;auto result=runner->submit(std::move(value));
+    pending.push_back({result,kind});
+    if(kind==RunnerCommand::Kind::Reset||kind==RunnerCommand::Kind::LoadConfig||kind==RunnerCommand::Kind::Restore)replacing=true;
+    // Editing is enabled only after the controller acknowledges the boundary.
+    running=true;
+    if(wait&&!drawing)wait_command(result);
+    return result;
+}
+RunnerResult App::wait_command(std::shared_future<RunnerResult> result) {
+    const auto deadline=std::chrono::steady_clock::now()+std::chrono::minutes(10);
+    while(result.wait_for(std::chrono::milliseconds(0))!=std::future_status::ready) {
+        advance();if(std::chrono::steady_clock::now()>deadline)throw std::runtime_error("Controller acknowledgement timed out");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    }
+    auto out=result.get();advance();
+    while(out.snapshot_sequence && (display.generation<out.generation || (display.generation==out.generation&&display.sequence<out.snapshot_sequence))){
+        advance();if(std::chrono::steady_clock::now()>deadline)throw std::runtime_error("Display acknowledgement timed out");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    }
+    return out;
+}
+void App::synchronize() {
+    while(!pending.empty()){auto f=pending.front().result;wait_command(f);}
+    RunnerCommand c;c.kind=RunnerCommand::Kind::Barrier;
+    auto r=wait_command(command(std::move(c)));
+    if(!r.ok)throw std::runtime_error(r.error);
+}
+void App::run(){RunnerCommand c;c.kind=RunnerCommand::Kind::Run;command(std::move(c));status="Выполняется расчёт…";}
+void App::pause(){RunnerCommand c;c.kind=RunnerCommand::Kind::Pause;command(std::move(c));status="Ожидание завершения текущего шага…";}
+void App::advance_for(double duration){RunnerCommand c;c.kind=RunnerCommand::Kind::Advance;c.value=duration;auto r=wait_command(command(std::move(c)));synchronize();if(!r.ok)throw std::runtime_error(r.error);}
+void App::reset() {
+    RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.config=config;command(std::move(c));
+    if(!drawing)synchronize();
+}
 void App::replace(Config c) {
     config=std::move(c); selected_kind=selected_index=0; preset_index=-1; filename.clear(); dirty=false;
     syn_plot=syn_view=0;
-    for(int i=0;i<int(config.synapses.size());++i)if(config.synapses[i].stdp) {
-        selected_kind=2;selected_index=syn_plot=i;syn_view=1;break;
-    }
+    for(int i=0;i<int(config.synapses.size());++i)if(config.synapses[i].stdp) {selected_kind=2;selected_index=syn_plot=i;syn_view=1;break;}
     link_source=0; link_target=std::min(1,int(config.neurons.size())-1); reset();
     plot_windows.data_changed(config,true);plot_windows.embedded[3].object=syn_plot;plot_windows.embedded[3].view=syn_view;
     status="Конфигурация загружена.";
 }
 void App::save(const std::filesystem::path& path) {
-    try { save_config(config,path); filename=path; dirty=false; status="Конфигурация сохранена."; }
-    catch(const std::exception& e){status=e.what();}
+    try {save_config(config,path);filename=path;dirty=false;status="Конфигурация сохранена.";}catch(const std::exception& e){status=e.what();}
 }
 void App::load(const std::filesystem::path& path) {
-    try { auto c=load_config(path); replace(std::move(c)); filename=path; }
-    catch(const std::exception& e){status=e.what();}
+    RunnerCommand c;c.kind=RunnerCommand::Kind::LoadConfig;c.path=path;command(std::move(c));filename=path;
+    if(!drawing)synchronize();
 }
 void App::save_state(const std::filesystem::path& path) {
-    if(path.empty())return;
-    if(running){status="Приостановите расчёт перед сохранением состояния.";return;}
-    try {
-        save_checkpoint(*simulation,path);
-        status=simulation->error.empty()?"Полное состояние сохранено.":"Сохранён диагностический снимок ошибки; продолжение запрещено.";
-    }catch(const std::exception& e){status=e.what();}
+    if(path.empty())return;RunnerCommand c;c.kind=RunnerCommand::Kind::SaveCheckpoint;c.path=path;command(std::move(c));if(!drawing)synchronize();
 }
 bool App::restore_state(const std::filesystem::path& path) {
-    if(path.empty())return false;
-    try {
-        auto restored=load_checkpoint(path);Config restored_config=restored->config;
-        std::string message="Состояние восстановлено: t = "+std::to_string(restored->time)+" с. ";
-        message+=!restored->error.empty()?"Диагностический снимок: продолжение запрещено. "+restored->error:
-            restored->done()?(restored->experiment.stage_active?"Этап завершён. Войдите в следующий этап либо выберите продолжение без этапа и увеличьте конечное время.":"Расчёт завершён; увеличьте конечное время или выполните сброс."):"Пауза. Нажмите «Продолжить».";
-        config=std::move(restored_config);simulation=std::move(restored);activity_field=ActivityField{};stimulator_draft.id=0;running=false;dirty=false;
-        selected_kind=selected_index=0;preset_index=-1;filename.clear();
-        neuron_plot=neuron_view=syn_plot=syn_view=astro_plot=0;drag_kind=drag_index=-1;
-        link_source=0;link_target=std::min(1,int(config.neurons.size())-1);generation_preview.reset();status=std::move(message);
-        auto binding_config=config;if(!simulation->experiment.protocols.empty())binding_config.neurons=simulation->experiment.protocols.front().neurons;
-        plot_windows.data_changed(binding_config);plot_windows.embedded[7].analysis=config.analysis;
-        return true;
-    }catch(const std::exception& e){status=e.what();return false;}
+    if(path.empty())return false;RunnerCommand c;c.kind=RunnerCommand::Kind::Restore;c.path=path;auto f=command(std::move(c));
+    if(drawing)return true;
+    const auto result=wait_command(f);synchronize();return result.ok;
+}
+void App::export_data(const std::filesystem::path& path) {
+    RunnerCommand c;c.kind=RunnerCommand::Kind::Export;c.path=path;command(std::move(c));if(!drawing)synchronize();
 }
 void App::advance() {
-    if(!running)return;
-    const auto versions=simulation->experiment.protocols.size();
-    const auto begin=std::chrono::steady_clock::now();
-    for(int i=0;i<20000 && !simulation->done();++i) {
-        if(!simulation->step())break;
-        if((config.neurons.size()>32||i%32==0) && std::chrono::steady_clock::now()-begin>std::chrono::milliseconds(8))break;
+    const bool was_running=display.metrics.running;
+    while(auto packet=runner->take_snapshot()) {
+        const auto previous=display.generation;
+        if(!display.apply(packet))throw std::runtime_error("Display snapshot sequence mismatch");
+        if(display_config!=packet->config) {display_config=packet->config;config=display.config;}
+        if(previous!=display.generation) {
+            activity_field=ActivityField{};stimulator_draft.id=0;drag_kind=drag_index=-1;generation_preview.reset();
+            auto binding=config;if(!display.experiment.protocols.empty())binding.neurons=display.experiment.protocols.front().neurons;
+            plot_windows.data_changed(binding);plot_windows.embedded[7].analysis=config.analysis;
+        }
     }
-    if(versions!=simulation->experiment.protocols.size())config=simulation->config;
-    if(simulation->done()) {
-        running=false; status=simulation->error.empty()?"Расчёт завершён. Результаты можно экспортировать.":simulation->error;
+    for(auto it=pending.begin();it!=pending.end();) {
+        if(it->result.wait_for(std::chrono::milliseconds(0))!=std::future_status::ready){++it;continue;}
+        const auto result=it->result.get();const auto kind=it->kind;
+        if(result.snapshot_sequence&&(display.generation<result.generation||(display.generation==result.generation&&display.sequence<result.snapshot_sequence))){++it;continue;}
+        if(!result.ok){status=result.error;config=display.config;}
+        else if(kind==RunnerCommand::Kind::Pause)status="Расчёт приостановлен; текущий шаг завершён.";
+        else if(kind==RunnerCommand::Kind::Advance)status="Шаг расчёта завершён.";
+        else if(kind==RunnerCommand::Kind::SaveCheckpoint)status="Полное состояние сохранено.";
+        else if(kind==RunnerCommand::Kind::ComputeThreads)status="Число вычислительных потоков применено на границе шага.";
+        else if(kind==RunnerCommand::Kind::Export||kind==RunnerCommand::Kind::ExportAnalysis||kind==RunnerCommand::Kind::ExportTrained)status="Экспорт завершён.";
+        else if(kind==RunnerCommand::Kind::Restore||kind==RunnerCommand::Kind::LoadConfig) {
+            if(result.ok){selected_kind=selected_index=0;preset_index=-1;dirty=false;filename.clear();neuron_plot=neuron_view=syn_plot=syn_view=astro_plot=0;link_source=0;link_target=std::min(1,int(config.neurons.size())-1);status="Состояние загружено. Пауза.";}
+        } else if(kind==RunnerCommand::Kind::Stimulator||kind==RunnerCommand::Kind::MoveStimulator)status="Команда источника: t="+std::to_string(result.applied_time)+" с.";
+        it=pending.erase(it);
     }
+    replacing=std::any_of(pending.begin(),pending.end(),[](const Pending& p){return p.kind==RunnerCommand::Kind::Reset||p.kind==RunnerCommand::Kind::LoadConfig||p.kind==RunnerCommand::Kind::Restore;});
+    running=display.metrics.running||!pending.empty();
+    if(!display.error.empty())status=display.error;
+    else if(was_running&&!running&&display.done())status="Расчёт завершён. Результаты можно экспортировать.";
 }
 static bool scalar(const char* label,double& v,double lo,double hi,double speed=.01,const char* fmt="%.4g") {
     return ImGui::DragScalar(label,ImGuiDataType_Double,&v,float(speed),&lo,&hi,fmt,ImGuiSliderFlags_AlwaysClamp);
@@ -289,23 +339,21 @@ void App::toolbar() {
     ImGui::BeginDisabled(!simulation->error.empty() || (!running && simulation->done()));
     ImGui::PushStyleColor(ImGuiCol_Button,{.10f,.38f,.33f,1});
     if(ImGui::Button(running?"Пауза":simulation->time>0?"Продолжить":"Запуск",{110,30})) {
-        running=!running; status=running?"Выполняется расчёт…":"Расчёт приостановлен.";
+        if(running)pause();else run();
     } ImGui::PopStyleColor(); ImGui::EndDisabled();
-    ImGui::SameLine(); if(ImGui::Button("Сброс",{80,30})) {reset();status="Начальные состояния восстановлены.";}
+    ImGui::SameLine(); if(ImGui::Button("Сброс",{80,30})) {RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.flag=true;command(std::move(c));status="Восстанавливаются начальные состояния…";}
     ImGui::SameLine(); ImGui::BeginDisabled(running||!simulation->error.empty()||simulation->done());
     if(ImGui::Button("Шаг 50 мс",{110,30})) {
-        double target=std::min(simulation->time+.05,config.duration);
-        while(simulation->time<target&&!simulation->done())if(!simulation->step())break;
-        status=simulation->error.empty()?"Выполнен шаг расчёта.":simulation->error;
+        RunnerCommand c;c.kind=RunnerCommand::Kind::Advance;c.value=.05;command(std::move(c));status="Выполняется шаг 50 мс…";
     } ImGui::EndDisabled();
     ImGui::SameLine(); ImGui::BeginDisabled(running);
     if(ImGui::Button("Открыть…",{95,30})&&file_dialog) {auto path=file_dialog(false,false);if(!path.empty())load(path);}
     ImGui::SameLine(); if(ImGui::Button("Сохранить…",{110,30})&&file_dialog) {auto path=file_dialog(true,false);if(!path.empty())save(path);}
     ImGui::EndDisabled(); ImGui::SameLine();
-    ImGui::BeginDisabled(running||simulation->history.time.size()<2);
+    ImGui::BeginDisabled(running||simulation->sample_begin+simulation->history.time.size()<2);
     if(ImGui::Button("Экспорт CSV…",{125,30})&&file_dialog) {
         auto path=file_dialog(true,true);
-        if(!path.empty()) try { path.replace_extension(); export_results(*simulation,path);status="Экспортированы CSV, события, параметры и сводка JSON."; }
+        if(!path.empty()) try { path.replace_extension(); export_data(path); }
         catch(const std::exception& e){status=e.what();}
     } ImGui::EndDisabled();
     ImGui::SameLine(); ImGui::TextColored(running?Teal:Muted,"  %.3f / %.3f с",simulation->time,config.duration);
@@ -316,6 +364,20 @@ void App::toolbar() {
     ImGui::EndDisabled();
     ImGui::SameLine();if(ImGui::Button("Этапы эксперимента…"))show_stages=true;
     ImGui::SameLine();if(ImGui::Button("Стимуляторы…"))show_stimulators=true;
+    const auto& m=simulation->metrics;
+    ImGui::Text("Скорость %.5g модельных с/с · расчёт %.1f с · осталось ≈ %.1f с",m.model_per_second,m.elapsed_seconds,m.eta_seconds);
+    ImGui::SameLine();ImGui::SetNextItemWidth(115);
+    if(ImGui::SliderFloat("Обновление, Гц",&display_hz,1,20,"%.0f"))set_display_hz(display_hz);
+    const auto& modes=compute::ThreadModes;
+    const char* thread_names[compute::ThreadModes.size()];
+    int thread_choice=0;for(size_t i=0;i<modes.size();++i){thread_names[i]=modes[i].count?modes[i].argument:"Авто";if(modes[i].count==m.compute_threads)thread_choice=int(i);}
+    const bool threads_pending=std::any_of(pending.begin(),pending.end(),[](const Pending& p){return p.kind==RunnerCommand::Kind::ComputeThreads;});
+    ImGui::SetNextItemWidth(95);ImGui::BeginDisabled(threads_pending);
+    if(ImGui::Combo("Потоки расчёта",&thread_choice,thread_names,IM_ARRAYSIZE(thread_names)))set_compute_threads(modes[thread_choice].count);
+    ImGui::EndDisabled();
+    ImGui::SameLine();ImGui::TextDisabled("Фактически: %d%s",m.effective_compute_threads,m.effective_compute_threads==1&&m.compute_threads!=1?" · последовательный режим":"");
+    if(ImGui::IsItemHovered())ImGui::SetTooltip("Число включает поток управления решателем. Малые сети и неподдерживаемые конфигурации используют последовательный режим.");
+    if(running&&!m.running)ImGui::TextDisabled("Ожидание подтверждения вычислителя…");
     ImGui::ProgressBar(float(simulation->time/config.duration),{-1,4},"");
 }
 void App::editor() {
@@ -330,7 +392,7 @@ void App::editor() {
     double end_time=config.duration;
     if(scalar_min("Длительность, с",end_time,.001,.1)) {
         if(simulation->time==0){config.duration=end_time;edit();}
-        else try {simulation->extend_duration(end_time);config.duration=end_time;dirty=true;status="Конечное время продлено; состояния и обучение сохранены.";}
+        else try {RunnerCommand c;c.kind=RunnerCommand::Kind::Extend;c.value=end_time;command(std::move(c));dirty=true;}
         catch(const std::exception& e){status=e.what();}
     }
     if(simulation->time>0)ImGui::TextDisabled("Конечное время от t=0; можно увеличить.");
@@ -345,7 +407,7 @@ void App::editor() {
     else ImGui::TextDisabled("История: более 1 000 000 отсчётов");
     bool bounded=config.bounded_journals;
     if(ImGui::Checkbox("Ограниченные журналы",&bounded)) {
-        if(bounded||!(simulation->history.events_after||simulation->history.deliveries_after||simulation->history.stimuli_after||simulation->history.shared_after))config.bounded_journals=simulation->config.bounded_journals=bounded;
+        RunnerCommand c;c.kind=RunnerCommand::Kind::BoundedJournals;c.flag=bounded;command(std::move(c));
     }
     ImGui::TextWrapped(config.bounded_journals?"Старые события удаляются; доступная глубина видна в анализе и журнале этапов.":"Полные журналы: лимит 2 млн записей каждого типа. Для длинных опытов включите ограниченные журналы заранее.");
     if(!config.record_all)ImGui::TextDisabled("Запись: %zu нейронов, %zu связей; события всех узлов",config.record_neurons.size(),config.record_synapses.size());
@@ -732,8 +794,7 @@ void App::canvas() {
         // Layout changes preserve the numerical trajectory.
         *x=std::clamp(double(io.MousePos.x-base.x)/span.x,0.,1.);
         *y=std::clamp(double(io.MousePos.y-base.y)/span.y,0.,1.);dirty=true;
-        if(drag_kind==0) {try{simulation->move_neuron(drag_index,*x,*y);}catch(const std::exception& e){*x=simulation->config.neurons[drag_index].px;*y=simulation->config.neurons[drag_index].py;status=e.what();}}
-        else {simulation->config.astrocytes[drag_index].px=*x;simulation->config.astrocytes[drag_index].py=*y;}
+        RunnerCommand c;c.kind=drag_kind==0?RunnerCommand::Kind::MoveNeuron:RunnerCommand::Kind::MoveAstro;c.index=drag_index;c.value=*x;c.second=*y;command(std::move(c));
     }
     d->PopClipRect();
     if(hovered&&hit_kind==0&&hit>=0&&!ImGui::IsMouseDragging(ImGuiMouseButton_Left)) {
@@ -780,23 +841,32 @@ void App::plots(float height) {
     request_plot_tab=-1;
 }
 void App::draw() {
-    changed=false;advance();const auto* viewport=ImGui::GetMainViewport();
+    changed=false;advance();drawing=true;const auto* viewport=ImGui::GetMainViewport();
     ImGui::SetNextWindowViewport(viewport->ID);
     ImGui::SetNextWindowPos(viewport->WorkPos);ImGui::SetNextWindowSize(viewport->WorkSize);
     ImGui::Begin("Network Studio",nullptr,ImGuiWindowFlags_NoDecoration|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoSavedSettings|ImGuiWindowFlags_NoDocking);
-    toolbar();float width=ImGui::GetContentRegionAvail().x,height=ImGui::GetContentRegionAvail().y;
+    toolbar();
+    if(replacing){ImGui::TextUnformatted("Применяется конфигурация…");ImGui::End();drawing=false;return;}
+    float width=ImGui::GetContentRegionAvail().x,height=ImGui::GetContentRegionAvail().y;
     float left=std::clamp(width*.23f,260.f,320.f),right=std::clamp(width*.25f,300.f,360.f);
     float bottom=std::clamp(height*.40f,260.f,440.f),top=height-bottom-8;
-    ImGui::BeginChild("editor",{left,top},ImGuiChildFlags_Borders);editor();ImGui::EndChild();ImGui::SameLine();
+    ImGui::BeginChild("editor",{left,top},ImGuiChildFlags_Borders);editor();ImGui::EndChild();
+    if(replacing){ImGui::End();drawing=false;return;}
+    ImGui::SameLine();
     ImGui::BeginChild("canvas",{std::max(220.f,width-left-right-16),top},ImGuiChildFlags_Borders);canvas();ImGui::EndChild();ImGui::SameLine();
     ImGui::BeginChild("inspector",{right,top},ImGuiChildFlags_Borders);inspector();ImGui::EndChild();
     if(changed) {reset();status=simulation->error.empty()?"Параметры изменены. Расчёт сброшен.":simulation->error;}
-    ImGui::BeginChild("plots",{-1,bottom-30},ImGuiChildFlags_Borders);plots(bottom-30);ImGui::EndChild();
+    ImGui::BeginChild("plots",{-1,bottom-30},ImGuiChildFlags_Borders);if(!replacing)plots(bottom-30);ImGui::EndChild();
     ImGui::TextColored(simulation->error.empty()?Muted:ImVec4(1,.45f,.42f,1),"%s%s",dirty?"● ":"",status.c_str());
     network_wizard();
     ImGui::End();
+    if(replacing){drawing=false;return;}
     plot_windows.draw(*simulation);
-    config.analysis=simulation->config.analysis=plot_windows.embedded[7].analysis;
-    stage_manager();stimulator_manager();
+    const auto& analysis=plot_windows.embedded[7].analysis;
+    // Send presentation settings only when edited; never copy into the live solver.
+    if(analysis_settings_json(config.analysis)!=analysis_settings_json(analysis)) {
+        config.analysis=analysis;RunnerCommand c;c.kind=RunnerCommand::Kind::Analysis;c.analysis=analysis;command(std::move(c));
+    }
+    stage_manager();stimulator_manager();drawing=false;
 }
 }

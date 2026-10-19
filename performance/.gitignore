@@ -1,0 +1,23 @@
+.benchmark.lock
+__pycache__/
+*.exe
+*.pdb
+*.zip
+*.nscp
+*.bin
+*_trace.csv
+*_weights.csv
+*_deliveries.csv
+*_events.csv
+*_pending_deliveries.csv
+*_stimuli.csv
+*_shared_pulses.csv
+
+# Repeated exports are kept locally; commit measurement metadata and summaries.
+*_experiment.json
+*_protocols.json
+*_stimulator_commands.json
+*_activity.csv
+*_bursts.csv
+*_responses.csv
+*_analysis.txt

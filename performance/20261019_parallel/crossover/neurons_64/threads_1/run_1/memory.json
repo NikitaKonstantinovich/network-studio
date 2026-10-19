@@ -1,0 +1,36 @@
+{
+  "sampling_seconds": 0.1,
+  "samples": 3,
+  "final_query_after_exit_ok": true,
+  "peak_working_set_bytes_observed": 11689984,
+  "max_sampled_private_usage_bytes": 6545408,
+  "peak_pagefile_usage_bytes_observed": 9416704,
+  "query_errors": [],
+  "timeline": [
+    {
+      "elapsed_process_seconds": 3.530000685714185e-05,
+      "working_set_bytes": 2052096,
+      "peak_working_set_bytes": 2052096,
+      "private_usage_bytes": 393216,
+      "peak_pagefile_usage_bytes": 393216,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.10609950000070967,
+      "working_set_bytes": 9568256,
+      "peak_working_set_bytes": 10428416,
+      "private_usage_bytes": 6545408,
+      "peak_pagefile_usage_bytes": 8175616,
+      "after_exit": false
+    },
+    {
+      "elapsed_process_seconds": 0.19484519999241456,
+      "working_set_bytes": 28672,
+      "peak_working_set_bytes": 11689984,
+      "private_usage_bytes": 73728,
+      "peak_pagefile_usage_bytes": 9416704,
+      "after_exit": true
+    }
+  ],
+  "limits": "Whole child process, including startup/export/checkpoint; not solve-only memory. PeakWorkingSetSize is an OS-maintained maximum through the last successful query. Sampled PrivateUsage can miss intermediate peaks. PeakPagefileUsage is reported by name, not equated to RSS/private peak. No child processes are included."
+}

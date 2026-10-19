@@ -1,0 +1,23 @@
+{
+  "verified": true,
+  "files": [
+    {
+      "name": "network_studio.exe",
+      "source": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\parallel-release\\network_studio.exe",
+      "destination": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "before_sha256": "427ac75347d570a0075f4c4ff0e647e953da72af875346346d36b1713540f937",
+      "expected_sha256": "e175e0da1fa73b93bdcf3b040d3390b9510293b1fd9377bf11dc62d4ff298a86",
+      "backup": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\replaced-launch-release\\network_studio.exe",
+      "after_sha256": "e175e0da1fa73b93bdcf3b040d3390b9510293b1fd9377bf11dc62d4ff298a86"
+    },
+    {
+      "name": "network_studio_cli.exe",
+      "source": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\parallel-release\\network_studio_cli.exe",
+      "destination": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "before_sha256": "c761dee16165f00fe8445a1e092cfbd6f288976120ca53a0fb67e449a5ed16a5",
+      "expected_sha256": "a0d17dd538bc419284ccf21f8186baa16e3b5d0ba21d6b540901a75ba8121b0e",
+      "backup": "E:\\asp\\26_27\\configurator\\performance\\20261019_parallel\\replaced-launch-release\\network_studio_cli.exe",
+      "after_sha256": "a0d17dd538bc419284ccf21f8186baa16e3b5d0ba21d6b540901a75ba8121b0e"
+    }
+  ]
+}

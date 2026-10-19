@@ -1,0 +1,38 @@
+{
+  "executable": "E:\\asp\\26_27\\configurator\\performance\\20261019_single_thread\\baseline-release\\network_studio.exe",
+  "exe_sha256": "6b6710d80c12013be8d50e98d8ba92450acd8a40ee3c3400f00551008b30d0dd",
+  "fixture": "E:\\asp\\26_27\\configurator\\performance\\20261019_single_thread\\profile_fixture.json",
+  "fixture_sha256": "e6c5888d9081b365618b092aac957bdbb0be1cb6db1f8b066a7c590567c5e3fc",
+  "gui": true,
+  "runs": [
+    {
+      "mode": "hidden_win32_dx11_live_advance",
+      "hidden": true,
+      "renderer": "hardware",
+      "wall_seconds": 84.0247871,
+      "app_draw_including_advance_seconds": 38.94478349999995,
+      "render_cpu_seconds": 0.14060110000000003,
+      "present_seconds": 44.733503899999995,
+      "occlusion_sleep_seconds": 0,
+      "frames": 1201,
+      "present_ok": 1201,
+      "present_occluded": 0,
+      "present_other_status": 0,
+      "minimum_vertices": 41934,
+      "model_start_seconds": 0,
+      "model_final_seconds": 0.05,
+      "steps": 2000,
+      "samples": 26,
+      "limits": "Hidden native window; ordinary 8 ms advance budget and Present(1). Occlusion sleep is preserved and measured. This is not visible GUI or GPU execution timing. Initialization, export and checkpoint are outside wall_seconds. App draw includes both solver and UI construction.",
+      "process_seconds": 89.08894320001127,
+      "run": 1
+    }
+  ],
+  "summary": {
+    "metric": "wall_seconds",
+    "median": 84.0247871,
+    "min": 84.0247871,
+    "max": 84.0247871,
+    "stdev": null
+  }
+}

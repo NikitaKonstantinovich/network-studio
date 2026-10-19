@@ -1,0 +1,20 @@
+{
+  "mode": "hidden_win32_dx11_live_advance",
+  "hidden": true,
+  "renderer": "hardware",
+  "wall_seconds": 50.275021899999999,
+  "app_draw_including_advance_seconds": 18.863129899999979,
+  "render_cpu_seconds": 0.10560180000000002,
+  "present_seconds": 31.164234699999962,
+  "occlusion_sleep_seconds": 0,
+  "frames": 837,
+  "present_ok": 837,
+  "present_occluded": 0,
+  "present_other_status": 0,
+  "minimum_vertices": 41934,
+  "model_start_seconds": 0,
+  "model_final_seconds": 0.050000000000000003,
+  "steps": 2000,
+  "samples": 26,
+  "limits": "Hidden native window; ordinary 8 ms advance budget and Present(1). Occlusion sleep is preserved and measured. This is not visible GUI or GPU execution timing. Initialization, export and checkpoint are outside wall_seconds. App draw includes both solver and UI construction."
+}
