@@ -497,6 +497,26 @@ int main() {
         app.weight_reference=0;app.weight_target=1;app.weights_dirty=true;frame(app);require(app.weight_result.difference.error.empty(),"Matching GUI snapshots rejected");
         auto incompatible=weights_config;incompatible.neurons[0].name="Different identity";app.replace(incompatible);frame(app);require(!app.weight_result.difference.error.empty(),"Weights GUI silently rebound old snapshot to new graph");
         app.show_weights=false;
+        app.replace(studio::animat_example(false));app.advance_for(.08);app.show_animat=true;frame(app);frame(app);
+        frame(app);frame(app);require(std::abs(app.animat_render_scale_x-app.animat_render_scale_y)<1,"arena physical x/y scale differs");
+        const auto robot_dir=std::filesystem::current_path()/("gui-animat-"+std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));std::filesystem::create_directories(robot_dir);
+        app.save_state(robot_dir/"before.nscp");const auto robot_state=app.simulation->state;const auto robot_time=app.simulation->time;
+        click(app,"Очистить только рисунок");require(app.animat_display_after==robot_time,"clear trajectory did not change display filter");
+        click(app,"Показать доступную траекторию");click(app,"Статистика и экспорт");click(app,"До текущего времени");click(app,"Рассчитать по полной траектории");frame(app);
+        require(app.animat_result.complete&&app.animat_result.to==robot_time,"full animat analysis failed");
+        app.save_state(robot_dir/"after.nscp");require(bytes(robot_dir/"before.nscp")==bytes(robot_dir/"after.nscp"),"view/analysis changed animat experiment");
+        click(app,"Арена и траектория");click(app,"Вернуть в начальную точку");
+        require(app.simulation->state==robot_state&&app.simulation->time==robot_time&&app.simulation->animat.x==app.config.animat.initial_x,"home changed network/time or failed to move robot");
+        require(app.restore_state(robot_dir/"before.nscp"),"animat GUI restore");app.synchronize();frame(app);
+        require(app.simulation->time==robot_time&&app.simulation->animat.actions.empty(),"restore retained later home command");
+        app.reset();app.synchronize();frame(app);require(app.simulation->time==0&&app.simulation->animat.rows.size()==1,"animat reset");
+        app.advance_for(.08);studio::RunnerCommand environment;environment.kind=studio::RunnerCommand::Kind::AnimatAction;
+        environment.animat_action.kind=studio::AnimatActionKind::Environment;environment.animat_action.time=app.simulation->time;environment.animat_action.environment=app.config.animat.environment;
+        for(auto& z:environment.animat_action.environment.zones)z.frequency=1;app.command(environment,true);app.advance_for(.1);
+        require(app.config.stimulators.front().signal.start>0,"reset phase fixture lacks a phase change");
+        click(app,"Настройки контроллера");click(app,"Применить настройки и сбросить опыт");
+        require(app.simulation->time==0&&app.config.stimulators.front().signal.start==0,"controller settings reset retained runtime stimulus phase");
+        app.show_animat=false;
         ImPlot::DestroyContext();ImGui::DestroyContext();
         std::cout<<"PASS: "<<checks<<" GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.\n";return 0;
     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}

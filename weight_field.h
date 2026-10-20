@@ -1,23 +1,9 @@
 #pragma once
 #include "network.h"
+#include "field_settings.h"
 #include <utility>
 
 namespace studio {
-enum class FieldPolarity { All, Excitatory, Inhibitory };
-enum class FieldModel { All, ConductanceSTP, ExponentialCurrent, TsodyksMarkram };
-// Presentation only; coordinates and arrow scale use the normalized model plane.
-struct TopologyViewState {
-    bool field=false, edges=true, grid=true, all_edges=false, current=true, auto_scale=false;
-    int columns=16, rows=12;
-    double scale=.04, zoom=1, pan_x=0, pan_y=0;
-    FieldPolarity polarity=FieldPolarity::All;
-    FieldModel model=FieldModel::All;
-    bool activity=false;
-    int activity_mode=0;
-    double activity_window=.05,response_min=0,response_max=.02,activity_scale=.04;
-    FieldPolarity activity_polarity=FieldPolarity::All;
-    FieldModel activity_model=FieldModel::All;
-};
 bool valid_topology_view(const TopologyViewState& s);
 bool inhibitory_weight_edge(const Synapse& s,double weight);
 struct WeightCell {

@@ -31,12 +31,13 @@ static std::vector<Stimulator> read_stimulators(const Object& o,const char* key)
 }
 std::string serialize_stimulus_runtime(const Simulator& s) {
     Object o;put(o,"document_type",std::string("network-studio-stimulator-commands"));put(o,"schema",1);uid(o,"next_command",s.next_stimulus_command);Object commands(true),changes(true),latches(true);
-    for(const auto& c:s.stimulus_commands){Object x;uid(x,"sequence",c.sequence);put(x,"time",c.time);put(x,"restart",c.restart);x.set("value",stimulator_object(c.value).as_string());commands+=json::kvp("",x.as_string());}
+    for(const auto& c:s.stimulus_commands){Object x;uid(x,"sequence",c.sequence);put(x,"time",c.time);put(x,"restart",c.restart);put(x,"controller",c.controller);x.set("value",stimulator_object(c.value).as_string());commands+=json::kvp("",x.as_string());}
     for(const auto& c:s.stimulus_changes){Object x;uid(x,"sequence",c.sequence);put(x,"time",c.time);put(x,"stage",c.stage);put(x,"restart",c.restart);x.set("value",stimulator_object(c.value).as_string());x.set("recipients",index_array(c.recipients).as_string());changes+=json::kvp("",x.as_string());}
     for(const auto& l:s.stimulus_latches){Object x;uid(x,"id",l.id);uid(x,"next_pulse",l.next_pulse);uid(x,"active_pulse",l.active_pulse);latches+=json::kvp("",x.as_string());}
     o.set("commands",commands.as_string());o.set("changes",changes.as_string());o.set("latches",latches.as_string());return o.as_string();
 }
 void deserialize_stimulus_runtime(Simulator& s,const std::string& text) {
+    s.stimulus_commands.clear();s.stimulus_changes.clear();s.stimulus_latches.clear();
     auto o=Object::parse(text);s.next_stimulus_command=read_uid(o,"next_command");if(!s.next_stimulus_command)throw std::runtime_error("Invalid command counter");
     auto commands=object(o,"commands",true),changes=object(o,"changes",true),latches=object(o,"latches",true);
     if(commands.size()+changes.size()>4096||latches.size()>4096)throw std::runtime_error("Stimulator runtime budget exceeded");
@@ -45,6 +46,8 @@ void deserialize_stimulus_runtime(Simulator& s,const std::string& text) {
     auto check_sequence=[&](uint64_t sequence){if(!sequence||sequence>=s.next_stimulus_command||!sequences.insert(sequence).second)throw std::runtime_error("Invalid/duplicate command sequence");};
     double previous=s.time;uint64_t previous_sequence=0;
     for(size_t i=0;i<commands.size();++i){auto x=element(commands,i);StimulatorCommand c{read_uid(x,"sequence"),number(x,"time"),read_stimulator(object(x,"value",false)),boolean(x,"restart")};
+        c.controller=x.has_key("controller")&&boolean(x,"controller");
+        if(c.controller&&(!s.config.animat.enabled||c.value.id!=s.config.animat.stimulator))throw std::runtime_error("Invalid controller command owner");
         check_sequence(c.sequence);check_value(c.value);if((s.error.empty()?c.time<=s.time:c.time<s.time)||c.time<previous||(c.time==previous&&c.sequence<=previous_sequence))throw std::runtime_error("Unordered command queue");previous=c.time;previous_sequence=c.sequence;s.stimulus_commands.push_back(c);}
     previous=0;
     for(size_t i=0;i<changes.size();++i){auto x=element(changes,i);StimulatorChange c{read_uid(x,"sequence"),number(x,"time"),integer(x,"stage"),read_stimulator(object(x,"value",false)),read_indices(x,"recipients",MaxNeurons),boolean(x,"restart")};

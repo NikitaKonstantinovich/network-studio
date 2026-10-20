@@ -3,7 +3,7 @@
 #include <functional>
 namespace studio {
 // Archive I/O is synchronous, owned by the solver controller. It never runs model steps.
-enum class ArchiveRecord : uint64_t { Sample=1,Event=2,Delivery=3,Stimulus=4,Pulse=5,Protocol=6 };
+enum class ArchiveRecord : uint64_t { Sample=1,Event=2,Delivery=3,Stimulus=4,Pulse=5,Protocol=6,Animat=7,AnimatEnvironment=8 };
 struct ArchiveInfo {
     std::string id,parent,parent_anchor,status="open",diagnostic;
     uint64_t blocks=0,records=0,steps=0,signature=0,config_hash=0;
@@ -17,6 +17,8 @@ public:
     HistoryArchive(const std::filesystem::path& directory,const Simulator& s,bool deliveries,bool append);
     ~HistoryArchive();
     void sample(const Simulator& s);
+    void animat(const AnimatRow& row);
+    void animat_environment(double time,const std::string& json,uint64_t version,bool context=false);
     void event(const Event& e);
     void delivery(const Delivery& e);
     void stimulus(const StimulusEvent& e);

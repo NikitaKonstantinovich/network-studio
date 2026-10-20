@@ -1,6 +1,6 @@
 #pragma once
 #include "weight_field.h"
-#include "simulation_view.h"
+
 
 namespace studio {
 // A visualization/controller cache. Reads only RecentActivity, never full History.
@@ -12,7 +12,12 @@ public:
     bool available=true;
     std::string message;
     size_t processed_events=0;
-    void update(const SimulationReadView& s,const TopologyViewState& settings,WeightField& geometry);
+    void update(const Simulator& s,const TopologyViewState& settings,WeightField& geometry) {update(s.config,s.plasticity,s.activity,s.time,&s,0,settings,geometry);}
+    template<class View> void update(const View& s,const TopologyViewState& settings,WeightField& geometry) {
+        update(s.config,s.plasticity,s.activity,s.time,s.identity,s.generation,settings,geometry);
+    }
+    void update(const Config& c,const std::vector<StdpState>& weights,const RecentActivity& h,
+                double at,const void* identity,uint64_t revision,const TopologyViewState& settings,WeightField& geometry);
     WeightCell vector_at(const Config& c,double x,double y) const;
 private:
     struct Arrival {double time;int edge;bool counted;};

@@ -1,4 +1,5 @@
 #include "network.h"
+#include "animat.h"
 #include "history_archive.h"
 #include <algorithm>
 #include <cmath>
@@ -599,6 +600,7 @@ Simulator::Simulator(const Config& c):config(c) {
     spikes.resize(c.neurons.size()); releases.resize(c.astrocytes.size());
     history.dropped_spikes.resize(spikes.size());history.dropped_releases.resize(releases.size());history.dropped_deliveries.resize(c.synapses.size());
     append_protocol("Initial protocol");record();
+    initialize_animat();
 }
 bool Simulator::done() const { return !error.empty() || time>=config.duration || (experiment.stage_active&&!experiment.automatic&&time>=experiment.stage_end); }
 void Simulator::extend_duration(double end_time) {

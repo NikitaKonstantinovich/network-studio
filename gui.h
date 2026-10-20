@@ -30,6 +30,19 @@ public:
     int request_wizard_tab=-1;
     void preview_network(const NetworkGeneration& settings,bool append=false);
     bool show_stages=false;
+    bool show_animat=false;
+    int request_animat_tab=-1;
+    ImVec2 animat_plot_padding{80,100};
+    double animat_render_scale_x=0,animat_render_scale_y=0;
+    AnimatConfig animat_draft;
+    ModelSpace animat_space;
+    AnimatEnvironment animat_environment_draft;
+    uint64_t animat_generation=UINT64_MAX;
+    double animat_display_after=-1,animat_from=0,animat_to=1;
+    AnimatAnalysis animat_result;
+    std::shared_future<RunnerResult> animat_analysis_job;
+    std::vector<std::pair<std::string,std::vector<AnimatRow>>> animat_comparisons;
+    std::string animat_message;
     bool show_weights=false,weights_include_live=true,weights_dirty=true;
     WeightSettings weight_settings;
     std::vector<std::shared_ptr<const WeightSnapshot>> weight_snapshots;
@@ -63,7 +76,7 @@ public:
     App();
     void draw();
     void advance();
-    void reset();
+    void reset(bool fresh=false);
     void replace(Config c);
     void save(const std::filesystem::path& path);
     void load(const std::filesystem::path& path);
@@ -99,10 +112,12 @@ private:
     void archive_manager();
     void weights_manager();
     void stage_manager();
+    void animat_manager();
     void stimulator_manager();
     bool stimulator_overlay(ImVec2 base,ImVec2 span,bool hovered,bool active);
     uint64_t drag_stimulator=0;
     void edit() { changed = true; dirty = true; }
 };
+bool edit_animat_environment(AnimatEnvironment&,const ModelSpace&);
 void apply_style();
 }

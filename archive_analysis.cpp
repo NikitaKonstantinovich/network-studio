@@ -1,6 +1,7 @@
 #include "history_archive.h"
 #include "archive_codec.h"
 #include "io.h"
+#include "animat.h"
 #include <algorithm>
 #include <array>
 #include <chrono>
@@ -20,6 +21,8 @@ struct Decoded {
 };
 Decoded decode(const Config& c,const ArchiveInfo& info,ArchiveRecord type,const std::string& b){Reader r{b};Decoded d;d.at=r.d();check(d.at>=info.from&&d.at<=info.until,"record outside committed range");
     switch(type){
+    case ArchiveRecord::Animat:decode_animat_row(b);r.pos=b.size();break;
+    case ArchiveRecord::AnimatEnvironment:{check(r.u()<MaxAnimatActions&&r.u()<=1,"invalid environment version/context");animat_environment_from_json(r.text());break;}
     case ArchiveRecord::Event:{auto index=r.u(),astro=r.u();check(astro<=1&&index<(astro?c.astrocytes.size():c.neurons.size()),"invalid event index");d.event={d.at,int(index),astro!=0};break;}
     case ArchiveRecord::Delivery:{double emit=r.d();auto edge=r.u();check(info.deliveries&&edge<c.synapses.size()&&emit>=0&&emit<=d.at&&emit+c.synapses[edge].delay==d.at,"invalid delivery");d.delivery={emit,d.at,int(edge)};break;}
     case ArchiveRecord::Stimulus:{double amplitude=r.d();auto neuron=r.u(),protocol=r.u();check(neuron<c.neurons.size()&&protocol<4096&&amplitude!=0,"invalid stimulus");d.stimulus={d.at,amplitude,int(neuron),int(protocol)};break;}
@@ -80,14 +83,17 @@ void export_archive(const std::filesystem::path& directory,double from,double to
         return text;};
     auto target=canonical(destination);for(const auto& part:parts){auto base=canonical(part.path);check(target!=base&&target.compare(0,base.size()+1,base+L"/")!=0,"export must be outside source archives");}
     auto metadata_path=prefix;metadata_path+="_archive.txt";check(!std::filesystem::exists(metadata_path),"export metadata exists; choose a new prefix");
-    const std::array<const char*,6> suffix={"_states.csv","_events.csv","_deliveries.csv","_stimuli.csv","_shared_updates.csv","_protocols.jsonl"};
-    std::array<std::filesystem::path,6> paths,temp;std::array<std::ofstream,6> files;
+    const std::array<const char*,8> suffix={"_states.csv","_events.csv","_deliveries.csv","_stimuli.csv","_shared_updates.csv","_protocols.jsonl","_animat.csv","_animat_environments.jsonl"};
+    std::array<std::filesystem::path,8> paths,temp;std::array<std::ofstream,8> files;
     for(size_t i=0;i<files.size();++i){paths[i]=prefix;paths[i]+=suffix[i];temp[i]=paths[i];temp[i]+=".tmp";check(!std::filesystem::exists(paths[i])&&!std::filesystem::exists(temp[i]),"output exists; choose a new export prefix");files[i].open(temp[i],std::ios::binary);check(bool(files[i]),"cannot open export");files[i].imbue(std::locale::classic());files[i]<<std::setprecision(17);}
     files[0]<<"time_s,sample_index";for(int i:columns(c,false))files[0]<<",state_"<<i;for(int i:columns(c,true))files[0]<<",weight_"<<i;files[0]<<"\n";
     files[1]<<"time_s,index,astro\n";files[2]<<"arrival_s,emission_s,synapse,source,target\n";files[3]<<"time_s,amplitude,neuron,protocol\n";files[4]<<"update_s,stimulator,pulse,start_s,end_s,amplitude,complete,stage,recipients\n";
+    files[6]<<animat_csv_header();
     try{for(const auto& part:parts)scan_archive(part.path,[&](ArchiveRecord type,const std::string& bytes){auto d=decode(c,part.info,type,bytes);if(d.at<from||d.at>=to)return;
         if(part.info.from>parts.front().info.from&&((type==ArchiveRecord::Sample&&d.at==part.info.from)||(type==ArchiveRecord::Pulse&&d.pulse_context)))return;auto& f=files[size_t(type)-1];
         switch(type){
+        case ArchiveRecord::Animat:f<<animat_csv_row(decode_animat_row(bytes));break;
+        case ArchiveRecord::AnimatEnvironment:{Reader r{bytes};auto at=r.d();auto version=r.u(),context=r.u();f<<"{\"time\":"<<at<<",\"version\":"<<version<<",\"context\":"<<context<<",\"value\":"<<r.text()<<"}\n";break;}
         case ArchiveRecord::Sample:f<<d.at<<","<<d.sample;for(double v:d.values)f<<","<<v;f<<"\n";break;
         case ArchiveRecord::Event:f<<d.at<<","<<d.event.index<<","<<d.event.astro<<"\n";break;
         case ArchiveRecord::Delivery:{auto& e=c.synapses[d.delivery.synapse];f<<d.at<<","<<d.delivery.t_emit<<","<<d.delivery.synapse<<","<<e.source<<","<<e.target<<"\n";break;}

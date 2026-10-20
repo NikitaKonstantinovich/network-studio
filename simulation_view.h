@@ -50,6 +50,7 @@ struct SimulationSnapshot {
     RunnerMetrics metrics;
     std::shared_ptr<const Config> config;
     std::shared_ptr<const ExperimentRuntime> experiment;
+    AnimatRuntime animat;
     State state;
     std::vector<StdpState> plasticity;
     std::vector<uint64_t> spikes,releases;
@@ -71,6 +72,7 @@ struct SimulationSnapshot {
 class SimulationView {
 public:
     Config config;
+    AnimatRuntime animat;
     State state;
     History history;
     std::vector<StdpState> plasticity;
@@ -102,6 +104,7 @@ private:
 struct SimulationReadView {
     const Config& config;
     const State& state;
+    const AnimatRuntime& animat;
     const History& history;
     const std::vector<StdpState>& plasticity;
     const std::vector<uint64_t>& spikes;

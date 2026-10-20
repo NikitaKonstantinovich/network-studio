@@ -2,6 +2,8 @@
 #include "analysis.h"
 #include "history_archive.h"
 #include "weight_analysis.h"
+#include "animat.h"
+#include "archive_codec.h"
 #include <iostream>
 #include <iomanip>
 #include <optional>
@@ -21,13 +23,14 @@ static int run_cli(int argc,char** argv) {
         int weights_exit=0;if(studio::weights_cli(argc,argv,weights_exit))return weights_exit;
         int analysis_exit=0;if(studio::analysis_cli(argc,argv,analysis_exit))return analysis_exit;
         studio::Config c=studio::preset(0);std::filesystem::path output="experiment",save,resume,checkpoint;
-        bool config_options=false,continue_current=false;std::filesystem::path plan,trained,stimulus_replay;std::string branch_origin;
+        bool config_options=false,continue_current=false;std::filesystem::path plan,trained,stimulus_replay,animat_replay;std::string branch_origin;
         std::optional<int> stage,sequence;std::optional<bool> learning;std::optional<double> learning_rate;
-        std::optional<double> until,stop,run_for;
+        std::optional<double> until,stop,run_for;double animat_from=0,animat_to=-1;
         int compute_threads=1;std::filesystem::path archive;bool archive_append=false,archive_deliveries=false;size_t archive_rows=10000;
         for(int i=1;i<argc;++i) {
             std::string arg=argv[i];
             if(arg=="--help") {
+                std::cout<<"Animat: --animat-commands file.json; --animat-from seconds --animat-to seconds (statistics; full trajectory always exported)\n";
                 std::cout<<"Experiment packages: python experiment_package/package.py --help\n"
                     "  --package-build-info; --package-probe --config file|--resume file [--commands file --profile file --until end --threads mode --output NEW.json]\n"
                     "  --package-records --archive directory --output NEW.jsonl (this segment only; no simulation)\n";
@@ -77,6 +80,9 @@ static int run_cli(int argc,char** argv) {
             else if(arg=="--checkpoint")checkpoint=std::filesystem::u8path(value);
             else if(arg=="--save")save=std::filesystem::u8path(value);
             else if(arg=="--continue-current"){if(value!="yes")throw std::runtime_error("Use --continue-current yes");continue_current=true;}
+            else if(arg=="--animat-commands")animat_replay=std::filesystem::u8path(value);
+            else if(arg=="--animat-from")animat_from=parse_number(value);
+            else if(arg=="--animat-to")animat_to=parse_number(value);
             else if(arg=="--stimulus-commands")stimulus_replay=std::filesystem::u8path(value);
             else if(arg=="--plan")plan=std::filesystem::u8path(value);
             else if(arg=="--stage"||arg=="--sequence") {double n=parse_number(value);if(n<0||n>255||n!=std::floor(n))throw std::runtime_error("Stage index must be 0..255");(arg=="--stage"?stage:sequence)=int(n);}
@@ -101,13 +107,14 @@ static int run_cli(int argc,char** argv) {
         if(!s.error.empty())throw std::runtime_error("Snapshot/configuration is not resumable: "+s.error);
         if(!archive.empty())studio::start_archive(s,archive,archive_deliveries,archive_append);
         if(!resume.empty() && until)s.extend_duration(*until);
-        if(continue_current)s.continue_current();
+        if(continue_current){if(s.config.animat.enabled){studio::AnimatAction a;a.time=s.time;a.kind=studio::AnimatActionKind::Continue;s.schedule_animat(a);}else s.continue_current();}
         if(stage&&sequence)throw std::runtime_error("Choose --stage or --sequence");
-        if(!plan.empty()){auto p=studio::load_config(plan);auto candidate=s.config;candidate.stages=p.stages;candidate.analysis=p.analysis;auto err=studio::validate(candidate);if(!err.empty())throw std::runtime_error(err);s.config.stages=p.stages;s.config.analysis=p.analysis;}
+        if(!plan.empty()){auto p=studio::load_config(plan);auto candidate=s.config;candidate.stages=p.stages;candidate.analysis=p.analysis;if(s.config.animat.enabled&&s.steps&&studio::serialize(candidate)!=studio::serialize(s.config))throw std::runtime_error("Animat stage plan is fixed after the first step");auto err=studio::validate(candidate);if(!err.empty())throw std::runtime_error(err);s.config.stages=p.stages;s.config.analysis=p.analysis;if(s.config.animat.enabled&&!s.steps)s.animat.initial_config=studio::serialize(s.config);}
         if(!branch_origin.empty())s.fork_experiment(branch_origin);
-        if(stage||sequence)s.enter_stage(stage?*stage:*sequence,bool(sequence));
-        if(learning||learning_rate)s.set_learning(learning.value_or(s.experiment.learning),learning_rate.value_or(s.experiment.learning_rate));
+        if(stage||sequence){if(s.config.animat.enabled){studio::AnimatAction a;a.time=s.time;a.kind=studio::AnimatActionKind::Stage;a.stage=stage?*stage:*sequence;a.automatic=bool(sequence);s.schedule_animat(a);}else s.enter_stage(stage?*stage:*sequence,bool(sequence));}
+        if(learning||learning_rate){if(s.config.animat.enabled){studio::AnimatAction a;a.time=s.time;a.kind=studio::AnimatActionKind::Learning;a.learning=learning.value_or(s.experiment.learning);a.learning_rate=learning_rate.value_or(s.experiment.learning_rate);s.schedule_animat(a);}else s.set_learning(learning.value_or(s.experiment.learning),learning_rate.value_or(s.experiment.learning_rate));}
         if(!stimulus_replay.empty())studio::load_stimulator_replay(s,stimulus_replay);
+        if(!animat_replay.empty())s.replay_animat(studio::read_animat_commands(studio::archive_codec::read(animat_replay,16*1024*1024)));
         double target=s.config.duration;
         if(run_for) {
             if(!std::isfinite(*run_for)||*run_for<0)throw std::runtime_error("--run-for must be finite and nonnegative.");
@@ -129,6 +136,7 @@ static int run_cli(int argc,char** argv) {
         if(!checkpoint.empty())studio::save_checkpoint(s,checkpoint);
         if(!s.error.empty())throw std::runtime_error(s.error);
         studio::export_results(s,output);
+        if(s.config.animat.enabled&&(animat_from!=0||animat_to>=0))studio::export_animat(s,output,animat_from,animat_to);
         std::cout<<std::setprecision(17)<<(s.done()?"Completed ":"Paused ")<<s.time<<" s / "<<s.steps<<" steps / "<<s.history.time.size()<<" samples\n";
         for(size_t i=0;i<s.spikes.size();++i)std::cout<<"N"<<i+1<<": "<<s.spikes[i]<<" spikes\n";
         for(size_t i=0;i<s.releases.size();++i)std::cout<<"A"<<i+1<<": "<<s.releases[i]<<" releases\n";

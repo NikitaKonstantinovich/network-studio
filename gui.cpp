@@ -70,15 +70,15 @@ void App::synchronize() {
 void App::run(){RunnerCommand c;c.kind=RunnerCommand::Kind::Run;command(std::move(c));status="Выполняется расчёт…";}
 void App::pause(){RunnerCommand c;c.kind=RunnerCommand::Kind::Pause;command(std::move(c));status="Ожидание завершения текущего шага…";}
 void App::advance_for(double duration){RunnerCommand c;c.kind=RunnerCommand::Kind::Advance;c.value=duration;auto r=wait_command(command(std::move(c)));synchronize();if(!r.ok)throw std::runtime_error(r.error);}
-void App::reset() {
-    RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.config=config;command(std::move(c));
+void App::reset(bool fresh) {
+    RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.config=config;c.flag2=!fresh;command(std::move(c));
     if(!drawing)synchronize();
 }
 void App::replace(Config c) {
     config=std::move(c); selected_kind=selected_index=0; preset_index=-1; filename.clear(); dirty=false;
     syn_plot=syn_view=0;
     for(int i=0;i<int(config.synapses.size());++i)if(config.synapses[i].stdp) {selected_kind=2;selected_index=syn_plot=i;syn_view=1;break;}
-    link_source=0; link_target=std::min(1,int(config.neurons.size())-1); reset();
+    link_source=0; link_target=std::min(1,int(config.neurons.size())-1); reset(true);
     plot_windows.data_changed(config,true);plot_windows.embedded[3].object=syn_plot;plot_windows.embedded[3].view=syn_view;
     status="Конфигурация загружена.";
 }
@@ -372,6 +372,7 @@ void App::toolbar() {
     ImGui::EndDisabled();
     ImGui::SameLine();if(ImGui::Button("Этапы эксперимента…"))show_stages=true;
     ImGui::SameLine();if(ImGui::Button("Стимуляторы…"))show_stimulators=true;
+    ImGui::SameLine();if(ImGui::Button("Нейроанимат…"))show_animat=true;
     ImGui::SameLine();if(ImGui::Button("История на диске…"))show_archive=true;
     ImGui::SameLine();if(ImGui::Button("Веса всей сети…"))show_weights=true;
     const auto& m=simulation->metrics;
@@ -880,6 +881,6 @@ void App::draw() {
     if(analysis_settings_json(config.analysis)!=analysis_settings_json(analysis)) {
         config.analysis=analysis;RunnerCommand c;c.kind=RunnerCommand::Kind::Analysis;c.analysis=analysis;command(std::move(c));
     }
-    stage_manager();stimulator_manager();archive_manager();weights_manager();drawing=false;
+    stage_manager();stimulator_manager();archive_manager();weights_manager();animat_manager();drawing=false;
 }
 }

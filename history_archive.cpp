@@ -1,6 +1,7 @@
 #include "history_archive.h"
 #include "archive_codec.h"
 #include "io.h"
+#include "animat.h"
 #include "checkpoint_build.h"
 #include <algorithm>
 #include <chrono>
@@ -15,11 +16,11 @@ namespace studio {
 using namespace archive_codec;
 namespace {
 std::filesystem::path block_path(const std::filesystem::path& dir,uint64_t n){std::ostringstream s;s<<std::setw(16)<<std::setfill('0')<<n<<".nshb";return dir/s.str();}
-std::string manifest(const ArchiveInfo& i){Writer w;w.text("NETWORK-STUDIO-HISTORY");w.u(1);w.text(STUDIO_CHECKPOINT_BUILD_ID);w.text(i.id);w.text(i.parent);w.text(i.parent_anchor);w.text(i.status);w.text(i.diagnostic);w.u(i.blocks);w.u(i.records);w.u(i.steps);w.u(i.signature);w.u(i.config_hash);w.d(i.from);w.d(i.until);w.u(i.deliveries);return w.sealed();}
-ArchiveInfo parse_manifest(const std::filesystem::path& dir){auto b=verified(dir/"manifest.nsh",32768);Reader r{b};check(r.text(64)=="NETWORK-STUDIO-HISTORY"&&r.u()==1,"unsupported document or schema");r.text(256);ArchiveInfo i;i.id=r.text(128);i.parent=r.text(16384);i.parent_anchor=r.text(16384);i.status=r.text(32);i.diagnostic=r.text(4096);i.blocks=r.u();i.records=r.u();i.steps=r.u();i.signature=r.u();i.config_hash=r.u();i.from=r.d();i.until=r.d();auto deliveries=r.u();check(deliveries<=1&&i.from>=0&&i.until>=i.from&&i.blocks<=1000000000,"invalid manifest");i.deliveries=deliveries!=0;r.end();return i;}
+std::string manifest(const ArchiveInfo& i){Writer w;w.text("NETWORK-STUDIO-HISTORY");w.u(2);w.text(STUDIO_CHECKPOINT_BUILD_ID);w.text(i.id);w.text(i.parent);w.text(i.parent_anchor);w.text(i.status);w.text(i.diagnostic);w.u(i.blocks);w.u(i.records);w.u(i.steps);w.u(i.signature);w.u(i.config_hash);w.d(i.from);w.d(i.until);w.u(i.deliveries);return w.sealed();}
+ArchiveInfo parse_manifest(const std::filesystem::path& dir){auto b=verified(dir/"manifest.nsh",32768);Reader r{b};check(r.text(64)=="NETWORK-STUDIO-HISTORY","unsupported document");auto schema=r.u();check(schema==1||schema==2,"unsupported history schema");r.text(256);ArchiveInfo i;i.id=r.text(128);i.parent=r.text(16384);i.parent_anchor=r.text(16384);i.status=r.text(32);i.diagnostic=r.text(4096);i.blocks=r.u();i.records=r.u();i.steps=r.u();i.signature=r.u();i.config_hash=r.u();i.from=r.d();i.until=r.d();auto deliveries=r.u();check(deliveries<=1&&i.from>=0&&i.until>=i.from&&i.blocks<=1000000000,"invalid manifest");i.deliveries=deliveries!=0;r.end();return i;}
 std::string anchor_for(const std::filesystem::path& dir,const ArchiveInfo& i){Writer w;w.text(std::filesystem::absolute(dir).u8string());w.text(i.id);w.u(i.blocks);w.u(i.records);w.u(i.steps);w.d(i.until);w.u(i.signature);return w.bytes;}
 uint64_t signature(const Simulator& s){Writer w;auto c=s.config; // duration extension is intentionally allowed AFTER attachment
-    w.text(serialize(c));w.text(serialize_runtime(s));w.text(serialize_stimulus_runtime(s));w.d(s.time);w.u(s.steps);
+    w.text(serialize(c));w.text(serialize_runtime(s));w.text(serialize_stimulus_runtime(s));w.text(serialize_animat(s));w.d(s.time);w.u(s.steps);
     for(double v:s.state)w.d(v);for(auto p:s.plasticity){w.d(p.weight);w.d(p.pre_trace);w.d(p.post_trace);w.d(p.post_slow_trace);}
     for(auto n:s.spikes)w.u(n);for(auto n:s.releases)w.u(n);auto pending=s.pending_deliveries;std::sort(pending.begin(),pending.end(),[](const auto& a,const auto& b){return DeliveryLater{}(b,a);});for(auto d:pending){w.d(d.t_emit);w.d(d.t_arrival);w.u(d.synapse);}return hash(w.bytes);
 }
@@ -65,7 +66,8 @@ HistoryArchive::HistoryArchive(const std::filesystem::path& dir,const Simulator&
             const auto parent_path=r.text(8192);const auto parent_id=r.text(128);
             i.parent=parent_path+" @ "+parent_id+"; checkpoint t="+std::to_string(s.time);}
         auto config=serialize(s.config);i.config_hash=hash(config);write_atomic(dir/"config.json",config);
-        protocol(s);if(s.history.time.back()==s.time)sample(s);
+        protocol(s);if(s.config.animat.enabled){animat_environment(s.time,animat_environment_json(s.animat.environments.back().value),s.animat.environments.size()-1,true);if(s.steps==0)animat(s.animat.rows.back());}
+        if(s.history.time.back()==s.time)sample(s);
         // A branch begins at the checkpoint boundary. Existing open pulses are
         // context, not new onsets: consumers filter their start against from.
         for(const auto& p:s.history.shared_pulses)if(!p.complete)pulse(p,s.time);
@@ -73,6 +75,8 @@ HistoryArchive::HistoryArchive(const std::filesystem::path& dir,const Simulator&
     }
 }
 HistoryArchive::~HistoryArchive()=default;
+void HistoryArchive::animat(const AnimatRow& row){impl->put(ArchiveRecord::Animat,encode_animat_row(row));}
+void HistoryArchive::animat_environment(double at,const std::string& json,uint64_t version,bool context){Writer w;w.d(at);w.u(version);w.u(context);w.text(json);impl->put(ArchiveRecord::AnimatEnvironment,w.bytes);}
 void HistoryArchive::sample(const Simulator& s){Writer w;w.d(s.time);w.u(s.history.sample_begin+s.history.time.size()-1);for(const auto& col:s.history.values)if(!col.empty())w.d(col.back());for(const auto& col:s.history.weights)if(!col.empty())w.d(col.back());impl->put(ArchiveRecord::Sample,w.bytes);}
 void HistoryArchive::event(const Event& e){Writer w;w.d(e.time);w.u(e.index);w.u(e.astro);impl->put(ArchiveRecord::Event,w.bytes);}
 void HistoryArchive::delivery(const Delivery& e){if(!impl->current.deliveries)return;Writer w;w.d(e.t_arrival);w.d(e.t_emit);w.u(e.synapse);impl->put(ArchiveRecord::Delivery,w.bytes);}
@@ -104,7 +108,7 @@ ArchiveInfo inspect_archive(const std::filesystem::path& dir){auto i=parse_manif
 void scan_archive(const std::filesystem::path& dir,const std::function<void(ArchiveRecord,const std::string&)>& visitor,const ArchiveInfo* snapshot){
     const auto info=snapshot?*snapshot:parse_manifest(dir);check(hash(read(dir/"config.json"))==info.config_hash,"configuration checksum mismatch");uint64_t total=0;
     for(uint64_t n=1;n<=info.blocks;++n){auto b=verified(block_path(dir,n));Reader r{b};check(r.text(64)=="NSH-BLOCK"&&r.u()==1&&r.text(128)==info.id&&r.u()==n,"invalid block identity/order");auto count=r.u();auto body=r.text(HistoryArchive::MaxRecordBytes+16);r.end();Reader records{body};check(count<=body.size()/16,"invalid record count");
-        for(uint64_t k=0;k<count;++k){auto type=records.u();check(type>=1&&type<=6,"unknown record type");auto data=records.text();visitor(ArchiveRecord(type),data);}records.end();total+=count;
+        for(uint64_t k=0;k<count;++k){auto type=records.u();check(type>=1&&type<=8,"unknown record type");auto data=records.text();visitor(ArchiveRecord(type),data);}records.end();total+=count;
     }check(total==info.records,"manifest record count mismatch");
 }
 }

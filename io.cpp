@@ -1,6 +1,7 @@
 #include "io.h"
 #include "generator.h"
 #include "analysis.h"
+#include "animat.h"
 #include "vendor/json/json.h"
 #include <fstream>
 #include <sstream>
@@ -87,16 +88,17 @@ static StdpRule stdp_rule(const Object& o) {
 #define READ(field) v.field=number(o,#field)
 #define READINT(field) v.field=integer(o,#field)
 #include "stimulator_json.inc"
+#include "animat_json.inc"
 #include "experiment_json.inc"
 #include "analysis_json.inc"
 std::string serialize(const Config& c) {
     const auto err=validate(c); if(!err.empty())throw std::runtime_error(err);
-    Object root; put(root,"schema",8);put(root,"history_capacity",double(c.history_capacity)); put(root,"name",c.name); put(root,"dt",c.dt);
+    Object root; put(root,"schema",9);put(root,"history_capacity",double(c.history_capacity)); put(root,"name",c.name); put(root,"dt",c.dt);
     put(root,"duration",c.duration); put(root,"sample",c.sample);
     put(root,"noise_sigma",c.noise_sigma);put(root,"noise_interval",c.noise_interval);put(root,"seed",double(c.seed));
     put(root,"record_all",c.record_all);root.set("record_neurons",index_array(c.record_neurons).as_string());
     root.set("record_synapses",index_array(c.record_synapses).as_string());
-    write_experiment_config(root,c);
+    write_experiment_config(root,c);root.set("animat",animat_config_object(c.animat).as_string());
     root.set("stimulators",stimulator_array(c.stimulators).as_string());uid(root,"next_stimulator_id",c.next_stimulator_id);put(root,"activity_horizon",c.activity_horizon);
     Object parameters;
     for(int i:SharedParameters)put(parameters,na::parameter_names[i],c.parameters[i]);
@@ -168,8 +170,9 @@ Config deserialize(const std::string& text) {
         throw std::runtime_error("Expected one JSON object, without trailing data.");
     Object root=Object::parse(text);
     const int schema=integer(root,"schema");
-    if(schema<1||schema>8)throw std::runtime_error("Unsupported configuration schema.");
+    if(schema<1||schema>9)throw std::runtime_error("Unsupported configuration schema.");
     Config c; c.name=string(root,"name"); c.dt=number(root,"dt"); c.duration=number(root,"duration"); c.sample=number(root,"sample");
+    if(root.has_key("animat"))c.animat=read_animat_config(object(root,"animat",false));
     if(schema>=8){const int cap=integer(root,"history_capacity");if(cap<0||cap>int(MaxSamples))throw std::runtime_error("Invalid history capacity");c.history_capacity=size_t(cap);}
     if(schema>=2) { c.noise_sigma=number(root,"noise_sigma");c.noise_interval=number(root,"noise_interval");c.seed=seed_value(root); }
     if(schema>=4) {
@@ -261,6 +264,7 @@ static void write_file(const std::filesystem::path& path,const std::string& cont
 void save_config(const Config& c,const std::filesystem::path& path) { write_file(path,serialize(c)+"\n"); }
 void write_atomic(const std::filesystem::path& path,const std::string& bytes) {write_file(path,bytes);}
 void export_results(const Simulator& s,const std::filesystem::path& prefix) {
+    if(s.config.animat.enabled)export_animat(s,prefix);
     if(s.history.time.empty())throw std::runtime_error("No data to export.");
     if(s.history.weights.size()!=s.config.synapses.size()||s.plasticity.size()!=s.config.synapses.size())
         throw std::runtime_error("Weight history does not match the simulated synapses.");

@@ -106,7 +106,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     int argc=0;wchar_t** args=CommandLineToArgvW(GetCommandLineW(),&argc);
     double display_hz=10;
     std::wstring compute_threads_option=L"1",benchmark_until_option;
-    std::filesystem::path smoke,benchmark,runner_close,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool weights_smoke=false,analysis_smoke=false,archive_smoke=false;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
+    std::filesystem::path smoke,benchmark,runner_close,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool animat_smoke=false,weights_smoke=false,analysis_smoke=false,archive_smoke=false;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
     std::vector<std::filesystem::path> weight_smoke_inputs;
     for(int i=1;i<argc;++i) {
         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
@@ -115,6 +115,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         else if(std::wstring(args[i])==L"--runner-close-smoke"&&i+1<argc)runner_close=args[++i];
         else if(std::wstring(args[i])==L"--display-hz"&&i+1<argc)display_hz=_wtof(args[++i]);
         else if(std::wstring(args[i])==L"--compute-threads")compute_threads_option=i+1<argc?args[++i]:L"";
+        else if(std::wstring(args[i])==L"--animat-smoke"&&i+1<argc){smoke=args[++i];animat_smoke=true;}
         else if(std::wstring(args[i])==L"--weights-smoke"&&i+1<argc){smoke=args[++i];weights_smoke=true;}
         else if(std::wstring(args[i])==L"--weights-smoke-input"&&i+1<argc)weight_smoke_inputs.emplace_back(args[++i]);
         else if(std::wstring(args[i])==L"--archive-smoke"&&i+1<argc){smoke=args[++i];archive_smoke=true;}
@@ -236,6 +237,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(!app.plot_windows.automatic_save_allowed)app.status=app.plot_windows.message;
         }
         if(plot_demo)app.plot_windows.demo();
+        if(animat_smoke)app.show_animat=true;
         if(analysis_smoke){auto& w=app.plot_windows.embedded[7];w.analysis_interval={.05,.25,false};app.plot_windows.create_analysis_profile(w,"Native analysis profile");app.plot_windows.create(studio::PlotKind::Network);app.plot_windows.apply_analysis_to_all(w);}
         if(field_smoke){auto& v=app.plot_windows.topology;v.field=true;v.columns=8;v.rows=6;v.scale=app.config.neurons.size()<32?.08:.002;v.edges=app.config.neurons.size()<32;}
         if(stimulator_smoke){auto& v=app.plot_windows.topology;v.field=v.activity=true;v.columns=8;v.rows=6;v.scale=v.activity_scale=.08;v.activity_window=.1;app.selected_stimulator=app.config.stimulators.empty()?0:app.config.stimulators[0].id;}
@@ -283,6 +285,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                 app.selected_index=0;
             }
             const auto frame_begin=std::chrono::steady_clock::now();
+            if(animat_smoke){app.request_animat_tab=std::min(3,frames/7);if(frames==20){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::AnalyzeAnimat;c.value=0;c.second=app.simulation->time;auto result=app.wait_command(app.command(c));if(!result.ok)throw std::runtime_error(result.error);app.animat_result=*result.animat_analysis;app.animat_to=app.simulation->time;}}
             if(weights_smoke&&frames==25)if(auto* w=ImGui::FindWindowByName("Веса всей сети###weight_analysis"))ImGui::SetScrollY(w,w->ScrollMax.y);
             app.draw();
             const auto benchmark_render_begin=benchmark.empty()?frame_begin:std::chrono::steady_clock::now();
@@ -296,12 +299,13 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             }
             ImGui::UpdatePlatformWindows();ImGui::RenderPlatformWindowsDefault();
             if(!benchmark.empty())benchmark_render+=std::chrono::duration<double>(std::chrono::steady_clock::now()-benchmark_render_begin).count();
-            if((experiment_smoke&&(frames==35||frames==39))||(stimulator_smoke&&frames==23)||(analysis_smoke&&frames==23)||(archive_smoke&&frames==23)||(weights_smoke&&(frames==23||frames==27))) {
+            if((animat_smoke&&(frames==3||frames==11||frames==19||frames==27))||(experiment_smoke&&(frames==35||frames==39))||(stimulator_smoke&&frames==23)||(analysis_smoke&&frames==23)||(archive_smoke&&frames==23)||(weights_smoke&&(frames==23||frames==27))) {
                 auto& platform=ImGui::GetPlatformIO();
+                if(animat_smoke){auto* w=ImGui::FindWindowByName("Нейроанимат###neuroanimat");verify(w&&w->Viewport&&w->Viewport->PlatformHandleRaw&&IsWindow(static_cast<HWND>(w->Viewport->PlatformHandleRaw)),"Animat native window missing");verify(w->Viewport->DrawData&&w->Viewport->DrawData->TotalVtxCount>100,"Animat native draw data missing");}
                 for(int i=1;i<platform.Viewports.Size;++i){auto* v=platform.Viewports[i];if(!v->DrawData||v->DrawData->TotalVtxCount<100)continue;
                     platform.Renderer_RenderWindow(v,nullptr);ComPtr<ID3D11RenderTargetView> view;context->OMGetRenderTargets(1,&view,nullptr);
                     ComPtr<ID3D11Resource> resource;view->GetResource(&resource);ComPtr<ID3D11Texture2D> texture;check(resource.As(&texture),"Experiment viewport capture failed");
-                    capture_png(smoke/((weights_smoke?(frames==27?L"weights_details_":L"weights_"):archive_smoke?L"archive_":analysis_smoke?L"analysis_":stimulator_smoke?L"stimulators_":frames==35?L"stages_":L"generator_")+std::to_wstring(i)+L".png"),texture.Get());}
+                    capture_png(smoke/((animat_smoke?(L"animat_"+std::to_wstring(frames)+L"_"):weights_smoke?(frames==27?L"weights_details_":L"weights_"):archive_smoke?L"archive_":analysis_smoke?L"analysis_":stimulator_smoke?L"stimulators_":frames==35?L"stages_":L"generator_")+std::to_wstring(i)+L".png"),texture.Get());}
             }
             if(viewport_smoke) {
                 auto& platform=ImGui::GetPlatformIO();
@@ -449,6 +453,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             app.pause();app.synchronize();app.export_data(smoke/L"demo");
             std::ofstream log(smoke/L"renderer.txt");log<<"frames="<<frames<<"\nminimum_vertices="<<minimum_vertices<<"\nsamples="<<app.simulation->history.time.size()<<"\nerror="<<app.simulation->error<<"\n";
             log<<"native_viewport_checks="<<native_checks<<"\nmonitors="<<ImGui::GetPlatformIO().Monitors.Size<<"\n";
+            if(animat_smoke)log<<"animat_win32_dx11=1\nanimat_rows="<<app.simulation->animat.rows.size()<<"\n";
             if(weights_smoke)log<<"weights_win32_dx11=1\nweight_snapshots="<<app.weight_snapshots.size()<<"\n";
             if(archive_smoke)log<<"archive_win32_dx11=1\ncommitted_until="<<app.simulation->metrics.disk_until<<"\nram_from="<<app.simulation->metrics.memory_samples_from<<"\n";
             if(stimulator_smoke)log<<"shared_sources="<<app.config.stimulators.size()<<"\nshared_pulses="<<app.simulation->history.shared_pulses.size()<<"\nactivity_maximum="<<app.activity_field.maximum<<"\nactivity_events_processed="<<app.activity_field.processed_events<<"\n";

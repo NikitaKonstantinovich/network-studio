@@ -1,6 +1,7 @@
 #pragma once
 #include "simulation_view.h"
 #include "analysis.h"
+#include "animat.h"
 #include "weight_analysis.h"
 #include <filesystem>
 #include <future>
@@ -11,7 +12,7 @@ namespace studio {
 struct RunnerCommand {
     enum class Kind {Run,Pause,Advance,RunTo,Reset,LoadConfig,Restore,SaveCheckpoint,Export,Extend,
         EnterStage,ContinueCurrent,Learning,Plan,Analysis,BoundedJournals,Stimulator,MoveStimulator,
-        RemoveStimulator,MoveNeuron,MoveAstro,ExportTrained,ExportAnalysis,WriteProfile,ComputeThreads,StartArchive,FlushArchive,CaptureWeights,Barrier};
+        RemoveStimulator,MoveNeuron,MoveAstro,ExportTrained,ExportAnalysis,WriteProfile,ComputeThreads,StartArchive,FlushArchive,CaptureWeights,AnimatAction,AnalyzeAnimat,ExportAnimat,Barrier};
     Kind kind=Kind::Barrier;
     Config config;
     std::filesystem::path path;
@@ -19,6 +20,7 @@ struct RunnerCommand {
     AnalysisSettings analysis;
     AnalysisInterval analysis_interval;
     studio::Stimulator stimulator;
+    studio::AnimatAction animat_action;
     double value=0,second=0,third=0;
     // ComputeThreads: requested worker count including controller; 0 = Auto.
     int index=0;
@@ -34,6 +36,7 @@ struct RunnerResult {
     // Normalized parameters actually accepted by the solver (possibly queued).
     std::optional<Stimulator> accepted_stimulator;
     std::shared_ptr<const WeightSnapshot> weights;
+    std::shared_ptr<const AnimatAnalysis> animat_analysis;
 };
 class SimulationRunner {
 public:

@@ -1,4 +1,5 @@
 #include "network.h"
+#include "animat.h"
 #include "history_archive.h"
 #include <algorithm>
 #include <cmath>
@@ -9,6 +10,7 @@
 namespace studio {
 std::string validate_experiment(const Config& c) {
     if(auto issue=validate_stimulators(c);!issue.empty())return issue;
+    if(auto issue=validate_animat(c);!issue.empty())return issue;
     auto range=[](double v,double lo,double hi){return std::isfinite(v)&&v>=lo&&v<=hi;};
     auto indices=[&](const std::vector<int>& list){std::set<int> seen;for(int i:list)if(i<0||i>=int(c.neurons.size())||!seen.insert(i).second)return false;return true;};
     if(!range(c.space.width,1e-9,1e9)||!range(c.space.height,1e-9,1e9)||c.space.unit.empty()||c.space.unit.size()>32||c.space.unit.find_first_of("\r\n\t")!=std::string::npos)return "Invalid model space/units.";
@@ -65,6 +67,7 @@ void Simulator::enter_stage(size_t index,bool automatic) {
         s.signal.width=stage.width;s.signal.start=time;s.first_delay=stage.first_pulse;s.signal.stop=end;s.signal.pulse_intervals.clear();
     }
     const auto problem=validate(candidate);if(!problem.empty())throw std::runtime_error(problem);
+    if(config.animat.enabled&&experiment.stage_active&&time<experiment.stage_end&&config.stages[experiment.stage_index].animat.marker)save_animat_stage_result(*this,true);
     if(end>config.duration)extend_duration(end);
     config.neurons=std::move(candidate.neurons);
     for(auto id:stage.stimulator_ids)for(auto& l:stimulus_latches)if(l.id==id&&l.active_pulse) {
@@ -75,6 +78,7 @@ void Simulator::enter_stage(size_t index,bool automatic) {
     experiment.stage_active=true;experiment.automatic=automatic;experiment.stage_index=int(index);experiment.stage_end=end;
     if(stage.clear_traces)for(auto& p:plasticity)p.pre_trace=p.post_trace=p.post_slow_trace=0;
     append_protocol(stage.name,stage.clear_traces);
+    if(config.animat.enabled)animat_stage(stage.animat);
 }
 double Simulator::historical_input(int neuron,double at) const {
     if(neuron<0||neuron>=int(config.neurons.size()))throw std::out_of_range("Missing input neuron");
@@ -82,8 +86,8 @@ double Simulator::historical_input(int neuron,double at) const {
     if(it==experiment.protocols.begin())return external_current(config,neuron,at);
     --it;double value=external_current_with_protocol(config,it->neurons[neuron],neuron,at);
     if(it->stimulators.empty())return value;
-    double shared=0;for(const auto& s:it->stimulators)if(s.enabled&&std::find(s.recipients.begin(),s.recipients.end(),neuron)!=s.recipients.end())shared+=pulse_current(stimulator_signal(s),at);
-    return value+shared;
+    double shared=0;for(const auto& s:it->stimulators)if(!(config.animat.enabled&&s.id==config.animat.stimulator)&&s.enabled&&std::find(s.recipients.begin(),s.recipients.end(),neuron)!=s.recipients.end())shared+=pulse_current(stimulator_signal(s),at);
+    return value+shared+(config.animat.enabled?animat_input(config,animat,neuron,at):0);
 }
 Config Simulator::learned_config() const {
     Config c=config;for(size_t j=0;j<c.synapses.size();++j)c.synapses[j].weight=plasticity[j].weight;return c;

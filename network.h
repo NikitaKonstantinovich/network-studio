@@ -8,6 +8,7 @@
 #include <memory>
 #include "numerics/integrator.h"
 #include "numerics/worker_pool.h"
+#include "animat_types.h"
 
 namespace studio {
 namespace na = neuro_astro;
@@ -104,7 +105,7 @@ struct Stimulator {
     // Only pulse fields are used; shares the established half-open protocol.
     Neuron signal;
 };
-struct StimulatorCommand { uint64_t sequence=0; double time=0; Stimulator value; bool restart=false; };
+struct StimulatorCommand { uint64_t sequence=0; double time=0; Stimulator value; bool restart=false,controller=false; };
 struct SharedPulse { uint64_t stimulator=0,pulse=0; double start=0,end=0,amplitude=0; bool complete=false; int stage=-1; std::vector<int> recipients; };
 struct StimulatorLatch { uint64_t id=0,next_pulse=1,active_pulse=0; };
 struct StimulatorChange { uint64_t sequence=0; double time=0; int stage=-1; Stimulator value; std::vector<int> recipients; bool restart=false; };
@@ -130,6 +131,7 @@ struct ExperimentStage {
     bool stimulus_enabled=false;
     double amplitude=30, frequency=1, width=.001, first_pulse=0;
     std::vector<uint64_t> stimulator_ids;
+    AnimatStage animat;
 };
 struct ProtocolVersion {
     double time=0, end=0;
@@ -148,6 +150,7 @@ struct ExperimentRuntime {
 };
 struct StimulusEvent { double time=0, amplitude=0; int neuron=0, protocol=0; };
 struct Config {
+    AnimatConfig animat;
     std::string name = "Two inputs / one astrocyte";
     std::vector<Neuron> neurons;
     std::vector<Astrocyte> astrocytes;
@@ -259,6 +262,7 @@ public:
     std::vector<Delivery> pending_deliveries;
     ExperimentRuntime experiment;
     RecentActivity activity;
+    AnimatRuntime animat;
     std::vector<StimulatorCommand> stimulus_commands;
     std::vector<StimulatorChange> stimulus_changes;
     std::vector<StimulatorLatch> stimulus_latches;
@@ -285,15 +289,17 @@ public:
     void fork_experiment(const std::string& origin);
     // Safe controller API. Keep the first onset before it starts; subsequently
     // finish the old period. Mixed frequency/phase edits require restart.
-    double schedule_stimulator(Stimulator value,double requested_time,bool restart=false);
+    double schedule_stimulator(Stimulator value,double requested_time,bool restart=false,bool controller=false);
     void replay_stimulators(std::vector<StimulatorCommand> commands); // recorded absolute times, no phase conversion
     double move_stimulator(uint64_t id,double x,double y,double requested_time);
     void remove_stimulator(uint64_t id);
+    void schedule_animat(AnimatAction action);
+    void replay_animat(std::vector<AnimatAction> actions);
     void move_neuron(int index,double px,double py);
 private:
     friend struct CheckpointAccess;
     friend class HistoryArchive;
-    bool stepping=false, checkpoint_boundary=true;
+    bool stepping=false, checkpoint_boundary=true,animat_updating=false;
     bool step_impl();
     numerical::Flow flow;
     std::vector<numerical::Threshold> thresholds;
@@ -356,6 +362,12 @@ private:
     std::vector<int> recorded_state, recorded_weights;
     uint64_t next_sample = 1;
     void append_protocol(const std::string& name,bool cleared=false);
+    void initialize_animat();
+    void animat_boundary();
+    void animat_stage(const AnimatStage& stage);
+    void animat_source();
+    void animat_row(AnimatRow row);
+    void apply_animat_action(const AnimatAction& action);
     void log_stimuli(double at);
     void trim_journals(size_t events,size_t deliveries);
     void apply_stimulus_commands();

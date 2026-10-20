@@ -1,18 +1,19 @@
 #include "simulation_view.h"
+#include "animat.h"
 #include <algorithm>
 #include <stdexcept>
 
 namespace studio {
 namespace {
-double input(const Config& config,const ExperimentRuntime& experiment,int neuron,double at) {
+double input(const Config& config,const ExperimentRuntime& experiment,const AnimatRuntime& animat,int neuron,double at) {
     // Same display reconstruction and arithmetic order as Simulator::historical_input.
     if(neuron<0||neuron>=int(config.neurons.size()))throw std::out_of_range("Missing input neuron");
     auto it=std::upper_bound(experiment.protocols.begin(),experiment.protocols.end(),at,[](double t,const auto& p){return t<p.time;});
     if(it==experiment.protocols.begin())return external_current(config,neuron,at);
     --it;double value=external_current_with_protocol(config,it->neurons[neuron],neuron,at);
     if(it->stimulators.empty())return value;
-    double shared=0;for(const auto& s:it->stimulators)if(s.enabled&&std::find(s.recipients.begin(),s.recipients.end(),neuron)!=s.recipients.end())shared+=pulse_current(stimulator_signal(s),at);
-    return value+shared;
+    double shared=0;for(const auto& s:it->stimulators)if(!(config.animat.enabled&&s.id==config.animat.stimulator)&&s.enabled&&std::find(s.recipients.begin(),s.recipients.end(),neuron)!=s.recipients.end())shared+=pulse_current(stimulator_signal(s),at);
+    return value+shared+(config.animat.enabled?animat_input(config,animat,neuron,at):0);
 }
 template<class T,class Time> void apply_journal(std::vector<T>& out,const JournalDelta<T>& delta,Time at) {
     auto keep=std::lower_bound(out.begin(),out.end(),delta.keep_from,[&](const T& v,double t){return at(v)<t;});
@@ -41,7 +42,7 @@ bool SimulationView::apply(const SimulationSnapshot& s) {
     }
     if(config_version_!=s.config){config=*s.config;config_version_=s.config;}
     if(experiment_version_!=s.experiment){experiment=*s.experiment;experiment_version_=s.experiment;}
-    state=s.state;plasticity=s.plasticity;spikes=s.spikes;releases=s.releases;
+    animat=s.animat;state=s.state;plasticity=s.plasticity;spikes=s.spikes;releases=s.releases;
     pending_deliveries=s.pending_deliveries;steps=s.steps;time=s.time;error=s.error;done_=s.done;
     generation=s.generation;sequence=s.sequence;last_command_id=s.last_command_id;truncated=s.truncated;metrics=s.metrics;
     history.values.resize(s.samples.value_columns);history.weights.resize(s.samples.weight_columns);
@@ -66,8 +67,8 @@ bool SimulationView::apply(const SimulationSnapshot& s) {
     if(changes_version_!=s.stimulus_changes){stimulus_changes=*s.stimulus_changes;changes_version_=s.stimulus_changes;}
     return true;
 }
-double SimulationView::historical_input(int neuron,double at) const{return input(config,experiment,neuron,at);}
-SimulationReadView::SimulationReadView(const Simulator& s):config(s.config),state(s.state),history(s.history),plasticity(s.plasticity),spikes(s.spikes),releases(s.releases),experiment(s.experiment),activity(s.activity),stimulus_commands(s.stimulus_commands),stimulus_changes(s.stimulus_changes),error(s.error),pending_deliveries{s.pending_deliveries.size()},steps(s.steps),time(s.time),identity(&s),done_(s.done()){}
-SimulationReadView::SimulationReadView(const SimulationView& s):config(s.config),state(s.state),history(s.history),plasticity(s.plasticity),spikes(s.spikes),releases(s.releases),experiment(s.experiment),activity(s.activity),stimulus_commands(s.stimulus_commands),stimulus_changes(s.stimulus_changes),error(s.error),pending_deliveries(s.pending_deliveries),steps(s.steps),generation(s.generation),time(s.time),identity(&s),truncated(s.truncated),done_(s.done()){}
-double SimulationReadView::historical_input(int neuron,double at) const{return input(config,experiment,neuron,at);}
+double SimulationView::historical_input(int neuron,double at) const{return input(config,experiment,animat,neuron,at);}
+SimulationReadView::SimulationReadView(const Simulator& s):config(s.config),state(s.state),animat(s.animat),history(s.history),plasticity(s.plasticity),spikes(s.spikes),releases(s.releases),experiment(s.experiment),activity(s.activity),stimulus_commands(s.stimulus_commands),stimulus_changes(s.stimulus_changes),error(s.error),pending_deliveries{s.pending_deliveries.size()},steps(s.steps),time(s.time),identity(&s),done_(s.done()){}
+SimulationReadView::SimulationReadView(const SimulationView& s):config(s.config),state(s.state),animat(s.animat),history(s.history),plasticity(s.plasticity),spikes(s.spikes),releases(s.releases),experiment(s.experiment),activity(s.activity),stimulus_commands(s.stimulus_commands),stimulus_changes(s.stimulus_changes),error(s.error),pending_deliveries(s.pending_deliveries),steps(s.steps),generation(s.generation),time(s.time),identity(&s),truncated(s.truncated),done_(s.done()){}
+double SimulationReadView::historical_input(int neuron,double at) const{return input(config,experiment,animat,neuron,at);}
 }

@@ -19,16 +19,17 @@ using Clock=std::chrono::steady_clock;
 double seconds(Clock::duration d){return std::chrono::duration<double>(d).count();}
 size_t neuron_bytes(const Neuron& n){return sizeof(n)+n.name.size()+n.pulse_intervals.size()*sizeof(PulseInterval);}
 size_t stimulator_bytes(const Stimulator& s){return sizeof(s)+s.name.size()+s.recipients.size()*sizeof(int)+neuron_bytes(s.signal);}
-size_t stages_bytes(const std::vector<ExperimentStage>& stages){size_t n=stages.size()*sizeof(ExperimentStage);for(const auto& s:stages)n+=s.name.size()+s.neurons.size()*sizeof(int)+s.stimulator_ids.size()*sizeof(uint64_t);return n;}
+size_t stages_bytes(const std::vector<ExperimentStage>& stages){size_t n=stages.size()*sizeof(ExperimentStage);for(const auto& s:stages){n+=s.name.size()+s.neurons.size()*sizeof(int)+s.stimulator_ids.size()*sizeof(uint64_t)+s.animat.value.zones.size()*sizeof(ArenaZone);for(const auto& z:s.animat.value.zones)n+=z.name.size();}return n;}
 size_t config_bytes(const Config& c) {
     size_t n=sizeof(c)+c.name.size()+c.synapses.size()*sizeof(Synapse)+c.gaps.size()*sizeof(Gap)+c.space.unit.size();
     for(const auto& v:c.neurons)n+=neuron_bytes(v);
     for(const auto& v:c.astrocytes)n+=sizeof(v)+v.name.size();
     for(const auto& v:c.stimulators)n+=stimulator_bytes(v);
     for(const auto& v:c.generation)n+=sizeof(v)+v.settings_json.size();
+    n+=c.animat.environment.zones.size()*sizeof(ArenaZone);for(const auto& z:c.animat.environment.zones)n+=z.name.size();
     return n+stages_bytes(c.stages)+(c.record_neurons.size()+c.record_synapses.size()+c.analysis.neurons.size())*sizeof(int);
 }
-size_t command_bytes(const RunnerCommand& c){return sizeof(c)+config_bytes(c.config)+stages_bytes(c.stages)+stimulator_bytes(c.stimulator)+c.analysis.neurons.size()*sizeof(int)+c.text.size()+c.path.native().size()*sizeof(std::filesystem::path::value_type);}
+size_t command_bytes(const RunnerCommand& c){return sizeof(c)+config_bytes(c.config)+stages_bytes(c.stages)+stimulator_bytes(c.stimulator)+c.analysis.neurons.size()*sizeof(int)+c.text.size()+animat_environment_json(c.animat_action.environment).size()+c.path.native().size()*sizeof(std::filesystem::path::value_type);}
 size_t experiment_bytes(const ExperimentRuntime& e){size_t n=sizeof(e)+e.origin.size();for(const auto& p:e.protocols){n+=sizeof(p)+p.name.size();for(const auto& v:p.neurons)n+=neuron_bytes(v);for(const auto& v:p.stimulators)n+=stimulator_bytes(v);}return n;}
 template<class T,class Time> void journal_delta(const std::vector<T>& source,JournalDelta<T>& out,double previous,double available,Time at,bool& truncated) {
     size_t start=source.size()>SimulationRunner::MaxDisplayJournal?source.size()-SimulationRunner::MaxDisplayJournal:0;
@@ -143,6 +144,9 @@ struct SimulationRunner::Impl {
         out->steps=sim->steps;out->time=sim->time;out->done=sim->done()||!runner_error.empty();out->error=runner_error.empty()?sim->error:runner_error;
         out->config=config_cache;out->experiment=experiment_cache;out->state=sim->state;out->plasticity=sim->plasticity;
         out->spikes=sim->spikes;out->releases=sim->releases;out->pending_deliveries.count=sim->pending_deliveries.size();
+        {const auto& a=sim->animat;auto& v=out->animat;v.x=a.x;v.y=a.y;v.last_x=a.last_x;v.last_y=a.last_y;v.desired_frequency=a.desired_frequency;
+         v.next_step=a.next_step;v.period_steps=a.period_steps;v.stage_run=a.stage_run;v.next_action=a.next_action;v.environments=a.environments;
+         v.pending=a.pending;v.actions=a.actions;const size_t start=a.rows.size()>20000?a.rows.size()-20000:0;v.rows.assign(a.rows.begin()+start,a.rows.end());}
         out->stimulus_commands=commands_cache;out->stimulus_changes=changes_cache;
         const auto& h=sim->history;auto& samples=out->samples;
         size_t recorded=1;for(const auto& v:h.values)if(!v.empty())++recorded;for(const auto& v:h.weights)if(!v.empty())++recorded;
@@ -179,6 +183,7 @@ struct SimulationRunner::Impl {
         m.command_queue_size=queued;m.command_queue_bytes=queued_bytes;m.history_doubles=(samples.end-samples.begin)*recorded;
         m.snapshot_bytes=sizeof(*out)+out->state.size()*sizeof(double)+out->plasticity.size()*sizeof(StdpState)+(out->spikes.size()+out->releases.size())*sizeof(uint64_t)+samples.time.size()*recorded*sizeof(double)+samples.columns.size()*sizeof(SampleColumnDelta)+
             out->events.entries.size()*sizeof(Event)+out->deliveries.entries.size()*sizeof(Delivery)+out->stimuli.entries.size()*sizeof(StimulusEvent)+out->activity_deliveries.entries.size()*sizeof(Delivery)+out->activity_spikes.entries.size()*sizeof(Event)+config_bytes(*config_cache)+experiment_bytes(*experiment_cache);
+        m.snapshot_bytes+=out->animat.rows.size()*sizeof(AnimatRow);
         for(const auto& p:*shared_cache)m.snapshot_bytes+=sizeof(p)+p.recipients.size()*sizeof(int);
         for(const auto& c:*commands_cache)m.snapshot_bytes+=sizeof(c)+stimulator_bytes(c.value);
         for(const auto& c:*changes_cache)m.snapshot_bytes+=sizeof(c)+stimulator_bytes(c.value)+c.recipients.size()*sizeof(int);
@@ -226,7 +231,9 @@ struct SimulationRunner::Impl {
                 if(at>sim->time){target_time=at;target_request=std::move(request);set_running(true);defer=true;}else set_running(false);
                 break;
             }
-            case K::Reset: {auto candidate=std::make_unique<Simulator>(c.flag?sim->config:c.config);if(!candidate->error.empty())throw std::runtime_error(candidate->error);replace(std::move(candidate));break;}
+            case K::Reset: {auto fresh=c.flag?sim->config:c.config;
+                if(c.flag2&&fresh.animat.enabled&&!sim->animat.initial_config.empty()&&fresh.animat.stimulator==sim->config.animat.stimulator){auto initial=deserialize(sim->animat.initial_config);for(auto& source:fresh.stimulators)if(source.id==fresh.animat.stimulator)for(const auto& old:initial.stimulators)if(old.id==source.id){source.signal.start=old.signal.start;source.signal.stop=old.signal.stop;source.first_delay=old.first_delay;}}
+                auto candidate=std::make_unique<Simulator>(fresh);if(!candidate->error.empty())throw std::runtime_error(candidate->error);replace(std::move(candidate));break;}
             case K::LoadConfig: {auto candidate=std::make_unique<Simulator>(load_config(c.path));if(!candidate->error.empty())throw std::runtime_error(candidate->error);replace(std::move(candidate));break;}
             case K::Restore: {auto candidate=load_checkpoint(c.path);if(!c.text.empty())candidate->fork_experiment(c.text);replace(std::move(candidate));break;}
             case K::SaveCheckpoint:save_checkpoint(*sim,c.path);break;
@@ -235,15 +242,15 @@ struct SimulationRunner::Impl {
             case K::ExportAnalysis:export_analysis(analyze_network(sim->config,sim->history,sim->time,c.analysis,c.analysis_interval),c.analysis,c.path,c.text);break;
             case K::Extend:sim->extend_duration(c.value);config_dirty=true;break;
             case K::EnterStage: {
-                Config candidate=sim->config;candidate.stages=c.stages;const auto issue=validate_experiment(candidate);if(!issue.empty())throw std::runtime_error(issue);
+                Config candidate=sim->config;candidate.stages=c.stages;if(sim->config.animat.enabled&&sim->steps&&serialize(candidate)!=serialize(sim->config))throw std::runtime_error("Animat: stage plan is fixed after the first step; reset to edit it");const auto issue=validate_experiment(candidate);if(!issue.empty())throw std::runtime_error(issue);
                 if(c.index<0||size_t(c.index)>=candidate.stages.size())throw std::runtime_error("Invalid stage index.");
-                auto old=std::move(sim->config.stages);sim->config.stages=std::move(candidate.stages);
-                try{sim->enter_stage(size_t(c.index),c.flag);}catch(...){sim->config.stages=std::move(old);throw;}
+                auto old=std::move(sim->config.stages);sim->config.stages=std::move(candidate.stages);if(sim->config.animat.enabled&&!sim->steps)sim->animat.initial_config=serialize(sim->config);
+                try{if(sim->config.animat.enabled){AnimatAction a;a.time=sim->time;a.kind=AnimatActionKind::Stage;a.stage=c.index;a.automatic=c.flag;sim->schedule_animat(a);}else sim->enter_stage(size_t(c.index),c.flag);}catch(...){sim->config.stages=std::move(old);throw;}
                 config_dirty=true;cancel_target("Advance interrupted by stage transition.");set_running(c.flag2);break;
             }
-            case K::ContinueCurrent:sim->continue_current();break;
-            case K::Learning:sim->set_learning(c.flag,c.value,c.flag2);break;
-            case K::Plan: {Config candidate=sim->config;candidate.stages=c.stages;auto issue=validate_experiment(candidate);if(!issue.empty())throw std::runtime_error(issue);sim->config.stages=c.stages;config_dirty=true;break;}
+            case K::ContinueCurrent:if(sim->config.animat.enabled){AnimatAction a;a.time=sim->time;a.kind=AnimatActionKind::Continue;sim->schedule_animat(a);}else sim->continue_current();break;
+            case K::Learning:if(sim->config.animat.enabled){AnimatAction a;a.time=sim->time;a.kind=AnimatActionKind::Learning;a.learning=c.flag;a.learning_rate=c.value;a.clear_traces=c.flag2;sim->schedule_animat(a);}else sim->set_learning(c.flag,c.value,c.flag2);break;
+            case K::Plan: {Config candidate=sim->config;candidate.stages=c.stages;if(sim->config.animat.enabled&&sim->steps&&serialize(candidate)!=serialize(sim->config))throw std::runtime_error("Animat: stage plan is fixed after the first step; reset to edit it");auto issue=validate_experiment(candidate);if(!issue.empty())throw std::runtime_error(issue);sim->config.stages=c.stages;if(sim->config.animat.enabled&&!sim->steps)sim->animat.initial_config=serialize(sim->config);config_dirty=true;break;}
             case K::Analysis: {Config candidate=sim->config;candidate.analysis=c.analysis;auto issue=validate_experiment(candidate);if(!issue.empty())throw std::runtime_error(issue);sim->config.analysis=c.analysis;config_dirty=true;break;}
             case K::BoundedJournals:
                 if(!c.flag&&(sim->history.events_after||sim->history.deliveries_after||sim->history.stimuli_after||sim->history.shared_after))throw std::runtime_error("Trimmed history cannot be declared complete.");
@@ -277,12 +284,15 @@ struct SimulationRunner::Impl {
             case K::FlushArchive:flush_archive(*sim);break;
             case K::CaptureWeights:
                 r.weights=std::make_shared<const WeightSnapshot>(capture_weights(sim->config,sim->plasticity,sim->time,sim->steps,c.text.empty()?"t="+std::to_string(sim->time)+" s":c.text));break;
+            case K::AnimatAction:sim->schedule_animat(c.animat_action);config_dirty=true;break;
+            case K::AnalyzeAnimat:r.animat_analysis=std::make_shared<const AnimatAnalysis>(analyze_animat(sim->config,sim->animat,sim->time,c.value,c.second));break;
+            case K::ExportAnimat:export_animat(*sim,c.path,c.value,c.second);break;
             case K::Barrier:break;
             }
             if(defer)return;
             // Replacement changes generation/time. Preserve only explicitly returned
             // source ID and scheduled time from the old result object.
-            const auto id=r.id;const double applied=r.applied_time;auto accepted=std::move(r.accepted_stimulator);auto weights=std::move(r.weights);r=result();r.id=id;r.accepted_stimulator=std::move(accepted);r.weights=std::move(weights);
+            const auto id=r.id;const double applied=r.applied_time;auto accepted=std::move(r.accepted_stimulator);auto weights=std::move(r.weights);auto animat_analysis=std::move(r.animat_analysis);r=result();r.animat_analysis=std::move(animat_analysis);r.id=id;r.accepted_stimulator=std::move(accepted);r.weights=std::move(weights);
             if(c.kind==K::Stimulator||c.kind==K::MoveStimulator)r.applied_time=applied;
         }catch(const std::exception& e){if(sim->archive&&sim->archive->info().status=="failed"){set_running(false);runner_error=e.what();}r=result(false,e.what());}
         catch(...){r=result(false,"Controller command failed with an unknown exception.");}
@@ -302,9 +312,9 @@ struct SimulationRunner::Impl {
                 }
                 if(request){command(std::move(request));continue;}
                 if(stopped())break;
-                const size_t versions=sim->experiment.protocols.size();const auto before=Clock::now();
+                const size_t versions=sim->experiment.protocols.size(),animat_rows=sim->animat.rows.size();const auto before=Clock::now();
                 const bool ok=sim->step();compute_seconds+=seconds(Clock::now()-before);
-                if(versions!=sim->experiment.protocols.size())config_dirty=true;
+                if(versions!=sim->experiment.protocols.size()||animat_rows!=sim->animat.rows.size())config_dirty=true;
                 const bool reached=target_request&&sim->time>=target_time;
                 if(reached||!ok||sim->done()) {
                     flush_archive(*sim);set_running(false);

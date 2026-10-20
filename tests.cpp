@@ -529,10 +529,10 @@ int main() {
         rejects([&]{deserialize(nul);},"NUL in a decoded name accepted.");
         rejects([&]{deserialize(serialize(c)+" garbage");},"Trailing JSON data accepted.");
         rejects([&]{deserialize("{broken");},"Malformed JSON accepted.");
-        auto serialized=serialize(c);auto location=serialized.find("\"schema\": 8");
-        if(location==std::string::npos)location=serialized.find("\"schema\":8");
+        auto serialized=serialize(c);auto location=serialized.find("\"schema\": 9");
+        if(location==std::string::npos)location=serialized.find("\"schema\":9");
         require(location!=std::string::npos,"Schema was not serialized.");
-        std::string bad=serialized;auto digit=bad.find('8',location);bad[digit]='9';
+        std::string bad=serialized;auto digit=bad.find('9',location);bad.replace(digit,1,"10");
         rejects([&]{deserialize(bad);},"Unsupported schema accepted.");
         c=preset(0);c.synapses[0].source=100;require(!validate(c).empty(),"Dangling synapse accepted.");
         c=preset(0);c.parameters[na::K_SIC]=0;require(!validate(c).empty(),"Zero divisor accepted.");

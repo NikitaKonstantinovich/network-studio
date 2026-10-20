@@ -1,4 +1,5 @@
 #include "network.h"
+#include "animat.h"
 #include "history_archive.h"
 #include <algorithm>
 #include <cmath>
@@ -270,10 +271,11 @@ bool Simulator::step() {
         const bool ok=step_impl();
         checkpoint_boundary=ok;stepping=false;
         if(ok&&experiment.stage_active&&time>=experiment.stage_end) {
+            if(config.animat.enabled&&config.stages[experiment.stage_index].animat.marker)save_animat_stage_result(*this,true);
             if(experiment.automatic&&experiment.stage_index+1<int(config.stages.size()))enter_stage(experiment.stage_index+1,true);
             else experiment.automatic=false;
         }
-        if(ok){apply_stimulus_commands();synchronize_stimulators(true);}
+        if(ok){apply_stimulus_commands();animat_boundary();synchronize_stimulators(true);}
         if(ok&&archive)archive->boundary(*this);
         return ok;
     } catch(const std::exception& e) {

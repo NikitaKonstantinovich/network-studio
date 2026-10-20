@@ -1,4 +1,5 @@
 #include "io.h"
+#include "animat.h"
 #include "history_archive.h"
 #include "archive_codec.h"
 #include "checkpoint_build.h"
@@ -11,7 +12,7 @@
 namespace studio {
 namespace {
 constexpr char Magic[]="NETWORK-STUDIO-CHECKPOINT\n";
-constexpr uint64_t Schema=5;
+constexpr uint64_t Schema=6;
 void require(bool ok,const char* message) {if(!ok)throw std::runtime_error(std::string("Checkpoint: ")+message);}
 // Integrity against accidental corruption; not an authentication signature.
 uint64_t checksum(const char* p,size_t n) {
@@ -61,6 +62,7 @@ struct CheckpointAccess {
     static void validate_snapshot(const Simulator& s) {
         require(!s.stepping,"save is allowed only between complete step() calls");
         require(validate(s.config).empty(),"invalid configuration");
+        validate_animat_runtime(s);
         const auto& c=s.config;const auto& h=s.history;
         for(double x:c.parameters)require(std::isfinite(x),"invalid full parameter array");
         require(s.error.size()<=65536 && s.error.find('\0')==std::string::npos,"invalid diagnostic string");
@@ -198,6 +200,7 @@ struct CheckpointAccess {
         w.u64(s.activity.delivery_begin);w.u64(s.activity.spike_begin);w.real(s.activity.available_after);
         w.u64(s.activity.deliveries.size());for(const auto& d:s.activity.deliveries){w.real(d.t_emit);w.real(d.t_arrival);w.u64(d.synapse);}
         w.u64(s.activity.spikes.size());for(const auto& e:s.activity.spikes){w.real(e.time);w.u64(e.index);}
+        w.text(serialize_animat(s));
         auto sum=checksum(w.bytes.data(),w.bytes.size());w.u64(sum);return std::move(w.bytes);
     }
     static std::unique_ptr<Simulator> decode(const std::string& bytes) {
@@ -213,6 +216,8 @@ struct CheckpointAccess {
         for(int i:SharedParameters)require(c.parameters[i]==json_parameters[i],"JSON/full parameter array mismatch");
         require(validate(c).empty(),"invalid full configuration");
         auto s=std::make_unique<Simulator>(c);require(s->error.empty(),"cannot construct simulator");
+        // Initialization positions the robot/source; restore the serialized runtime protocol.
+        s->config=c;
         s->time=r.real();s->steps=r.u64();s->next_sample=r.u64();s->suggested_step=r.real();
         s->checkpoint_boundary=r.flag();bool stored_done=r.flag();s->error=r.text(65536);
         s->state=r.reals(dimension(c));r.expected(c.synapses.size());
@@ -265,6 +270,7 @@ struct CheckpointAccess {
         count=r.count(250000,16);require(count<=UINT64_MAX-s->activity.spike_begin,"activity counter overflow");double previous_spike=0;
         for(size_t k=0;k<count;++k){const double at=r.real();auto index=r.u64();require(index<c.neurons.size()&&at>0&&at>=previous_spike&&at<=s->time,"invalid activity spike");s->activity.spikes.push_back({at,int(index),false});previous_spike=at;}
         for(const auto& e:s->history.stimuli)require(e.protocol<int(s->experiment.protocols.size())&&e.time>=s->experiment.protocols[e.protocol].time&&pulse_current(s->experiment.protocols[e.protocol].neurons[e.neuron],e.time)==e.amplitude,"stimulus/protocol mismatch");
+        deserialize_animat(*s,r.text(MaxCheckpointBytes));
         require(r.pos==r.end,"unexpected trailing data");require(stored_done==s->done(),"completion/diagnostic mismatch");
         validate_snapshot(*s);
         // Constructor rebuilds outgoing, selected columns, Flow work vectors and

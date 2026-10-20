@@ -34,29 +34,43 @@ void App::stage_manager() {
     if(ImGui::BeginTabBar("stage_tabs")) {
         if(ImGui::BeginTabItem("План и переходы")) {
             const auto previous=config.stages;
+            ImGui::BeginDisabled(config.animat.enabled&&sim.steps>0);
             if(ImGui::Button("Добавить этап")&&config.stages.size()<256){ExperimentStage s;s.name="Этап "+std::to_string(config.stages.size()+1);config.stages.push_back(s);dirty=true;}
+            ImGui::EndDisabled();
+            if(config.animat.enabled&&sim.steps>0)ImGui::TextDisabled("План зафиксирован. Изменить его можно после сброса; среду — в окне нейроанимата.");
             int remove=-1;
             ImGui::BeginChild("stage_plan",{0,360},ImGuiChildFlags_Borders);
             for(int i=0;i<int(config.stages.size());++i) {
                 auto& s=config.stages[i];ImGui::PushID(i);
                 if(ImGui::CollapsingHeader((std::to_string(i+1)+". "+s.name).c_str())) {
+                    ImGui::BeginDisabled(config.animat.enabled&&sim.steps>0);
                     char name[256];std::snprintf(name,sizeof(name),"%s",s.name.c_str());if(ImGui::InputText("Имя",name,sizeof(name)))s.name=name;
                     number("Длительность этапа, с",s.duration,config.dt,1e9);ImGui::Checkbox("Обучать",&s.learning);ImGui::SameLine();number("Коэффициент",s.learning_rate,0,100);
-                    ImGui::Checkbox("Очистить следы при входе",&s.clear_traces);group(s.neurons,config);
+                    ImGui::Checkbox("Очистить следы при входе",&s.clear_traces);
+                    if(config.animat.enabled) {
+                        int place=s.animat.position?2:s.animat.home?1:0;
+                        if(ImGui::Combo("Положение при входе",&place,"Сохранить\0Начальная точка\0Заданные координаты\0")){s.animat.home=place==1;s.animat.position=place==2;}
+                        if(s.animat.position){number("X робота",s.animat.x,0,config.space.width);ImGui::SameLine();number("Y робота",s.animat.y,0,config.space.height);}
+                        ImGui::Checkbox("Сохранить состояния и веса при входе и выходе",&s.animat.marker);
+                        ImGui::Checkbox("Изменить среду нейроанимата",&s.animat.environment);
+                        if(s.animat.environment)edit_animat_environment(s.animat.value,config.space);
+                    }
+                    group(s.neurons,config);
                     ImGui::TextDisabled("Общие источники: выбранные начнут новый поезд при входе в этап.");
                     for(const auto& stim:config.stimulators){auto at=std::find(s.stimulator_ids.begin(),s.stimulator_ids.end(),stim.id);bool chosen=at!=s.stimulator_ids.end();if(ImGui::Checkbox(("#"+std::to_string(stim.id)+" "+stim.name).c_str(),&chosen)){if(chosen)s.stimulator_ids.push_back(stim.id);else s.stimulator_ids.erase(at);}}
                     ImGui::Checkbox("Импульсы включены",&s.stimulus_enabled);number("Амплитуда",s.amplitude,-30,100);number("Частота, Гц",s.frequency,0,200);
                     double ms=s.width*1000;if(number("Ширина, мс",ms,0,1000))s.width=ms*.001;
                     number("Первый импульс через, с",s.first_pulse,0,s.duration);
                     ImGui::TextDisabled("Пустая группа: протоколы не меняются. Группа использует одинаковый новый поезд.");
+                    ImGui::EndDisabled();
                     if(ImGui::Button("Войти в этап (пауза)"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);RunnerCommand c;c.kind=RunnerCommand::Kind::EnterStage;c.stages=config.stages;c.index=i;command(std::move(c));status="Этап применён; продолжите расчёт.";}catch(const std::exception& e){status=e.what();}
                     ImGui::SameLine();if(ImGui::Button("Выполнить отсюда до конца"))try{const auto err=validate_experiment(config);if(!err.empty())throw std::runtime_error(err);RunnerCommand c;c.kind=RunnerCommand::Kind::EnterStage;c.stages=config.stages;c.index=i;c.flag=c.flag2=true;command(std::move(c));}catch(const std::exception& e){status=e.what();}
-                    if(!runtime.stage_active&&ImGui::Button("Удалить этап"))remove=i;
+                    if(!runtime.stage_active&&!(config.animat.enabled&&sim.steps>0)&&ImGui::Button("Удалить этап"))remove=i;
                 }ImGui::PopID();
             }ImGui::EndChild();
             if(remove>=0)config.stages.erase(config.stages.begin()+remove);
             auto same=[](const ExperimentStage& a,const ExperimentStage& b){
-                return std::tie(a.name,a.duration,a.learning,a.clear_traces,a.learning_rate,a.neurons,a.stimulus_enabled,a.amplitude,a.frequency,a.width,a.first_pulse,a.stimulator_ids)==std::tie(b.name,b.duration,b.learning,b.clear_traces,b.learning_rate,b.neurons,b.stimulus_enabled,b.amplitude,b.frequency,b.width,b.first_pulse,b.stimulator_ids);
+                return a.animat.position==b.animat.position&&a.animat.x==b.animat.x&&a.animat.y==b.animat.y&&a.animat.home==b.animat.home && a.animat.marker==b.animat.marker && a.animat.environment==b.animat.environment && animat_environment_json(a.animat.value)==animat_environment_json(b.animat.value) && std::tie(a.name,a.duration,a.learning,a.clear_traces,a.learning_rate,a.neurons,a.stimulus_enabled,a.amplitude,a.frequency,a.width,a.first_pulse,a.stimulator_ids)==std::tie(b.name,b.duration,b.learning,b.clear_traces,b.learning_rate,b.neurons,b.stimulus_enabled,b.amplitude,b.frequency,b.width,b.first_pulse,b.stimulator_ids);
             };
             if((previous.size()!=config.stages.size()||!std::equal(previous.begin(),previous.end(),config.stages.begin(),same))&&validate_experiment(config).empty()) {
                 RunnerCommand c;c.kind=RunnerCommand::Kind::Plan;c.stages=config.stages;command(std::move(c));dirty=true;

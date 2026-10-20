@@ -82,8 +82,9 @@ double next_stimulator_pulse(Stimulator value,const std::vector<StimulatorComman
     return next_stimulator_pulse(value,from);
 }
 
-double Simulator::schedule_stimulator(Stimulator value,double requested,bool restart) {
+double Simulator::schedule_stimulator(Stimulator value,double requested,bool restart,bool controller) {
     if(stepping||!checkpoint_boundary||!error.empty()||!std::isfinite(requested)||requested<time||requested>1e12)throw std::runtime_error("Stimulator command requires a safe boundary and finite future time.");
+    if(config.animat.enabled&&value.id==config.animat.stimulator&&!controller)throw std::runtime_error("Animat owns this stimulator; use the animat environment controls.");
     if(stimulus_commands.size()+stimulus_changes.size()>=4096||next_stimulus_command==UINT64_MAX||config.next_stimulator_id==UINT64_MAX)throw std::runtime_error("Stimulator command/ID budget exceeded.");
     auto old=std::find_if(config.stimulators.begin(),config.stimulators.end(),[&](const auto& s){return s.id==value.id;});
     if(value.id&&old==config.stimulators.end())throw std::runtime_error("Unknown stimulator ID.");
@@ -116,13 +117,14 @@ double Simulator::schedule_stimulator(Stimulator value,double requested,bool res
     auto issue=validate_stimulators(check);if(!issue.empty())throw std::runtime_error(issue);
     if(experiment.protocols.size()>=4096)throw std::runtime_error("Protocol journal is full.");
     config.next_stimulator_id=check.next_stimulator_id;
-    stimulus_commands.push_back({next_stimulus_command++,at,std::move(value),restart});
+    stimulus_commands.push_back({next_stimulus_command++,at,std::move(value),restart,controller});
     std::sort(stimulus_commands.begin(),stimulus_commands.end(),[](const auto& a,const auto& b){return a.time!=b.time?a.time<b.time:a.sequence<b.sequence;});
     if(at==time){apply_stimulus_commands();synchronize_stimulators(true);}else if(archive)archive->protocol(*this);return at;
 }
 void Simulator::replay_stimulators(std::vector<StimulatorCommand> commands) {
     if(stepping||!checkpoint_boundary||!error.empty())throw std::runtime_error("Replay requires a safe boundary.");
     if(stimulus_commands.size()+stimulus_changes.size()+commands.size()>4096||experiment.protocols.size()+stimulus_commands.size()+commands.size()>4096)throw std::runtime_error("Replay exceeds command/protocol budget.");
+    for(const auto& v:commands)if(v.controller||(config.animat.enabled&&v.value.id==config.animat.stimulator))throw std::runtime_error("Replay robot actions through the animat protocol, not raw source commands");
     std::set<uint64_t> ids;for(const auto& v:stimulus_commands)ids.insert(v.sequence);for(const auto& v:stimulus_changes)ids.insert(v.sequence);
     auto combined=stimulus_commands;uint64_t next=next_stimulus_command,next_id=config.next_stimulator_id;
     for(auto& v:commands){if(!v.sequence||v.sequence==UINT64_MAX||!ids.insert(v.sequence).second||!std::isfinite(v.time)||v.time<time||v.time>1e12||!v.value.id||v.value.id==UINT64_MAX)throw std::runtime_error("Invalid replay command/time/ID.");next=std::max(next,v.sequence+1);next_id=std::max(next_id,v.value.id+1);combined.push_back(v);}
@@ -141,7 +143,8 @@ double Simulator::move_stimulator(uint64_t id,double x,double y,double at) {
 }
 void Simulator::apply_stimulus_commands() {
     while(!stimulus_commands.empty()&&stimulus_commands.front().time<=time) {
-        const auto command=stimulus_commands.front();
+        auto command=stimulus_commands.front();
+        if(command.controller){command.value.x=animat.x;command.value.y=animat.y;const auto& e=animat.environments.back().value;command.value.radius=e.radius;command.value.signal.amplitude=e.amplitude;command.value.signal.width=e.width;command.value.enabled=e.enabled;}
         if(command.time!=time)throw std::runtime_error("Missed a scheduled stimulator boundary.");
         if(experiment.protocols.size()>=4096)throw std::runtime_error("Protocol journal is full.");
         if(command.restart)for(auto& l:stimulus_latches)if(l.id==command.value.id&&l.active_pulse) {
@@ -151,11 +154,13 @@ void Simulator::apply_stimulus_commands() {
         auto it=std::find_if(config.stimulators.begin(),config.stimulators.end(),[&](auto& s){return s.id==command.value.id;});
         if(it==config.stimulators.end())config.stimulators.push_back(command.value);else *it=command.value;
         std::sort(config.stimulators.begin(),config.stimulators.end(),[](auto& a,auto& b){return a.id<b.id;});
-        stimulus_changes.push_back({command.sequence,time,experiment.stage_index,command.value,stimulator_recipients(config,command.value),command.restart});
-        stimulus_commands.erase(stimulus_commands.begin());append_protocol("Stimulator "+std::to_string(command.value.id));
+        stimulus_commands.erase(stimulus_commands.begin());
+        if(command.controller){if(!animat_updating){AnimatRow row;row.kind=AnimatRowKind::Stimulator;row.x0=animat.x;row.y0=animat.y;animat_row(row);}}
+        else {stimulus_changes.push_back({command.sequence,time,experiment.stage_index,command.value,stimulator_recipients(config,command.value),command.restart});append_protocol("Stimulator "+std::to_string(command.value.id));}
     }
 }
 void Simulator::remove_stimulator(uint64_t id) {
+    if(config.animat.enabled&&id==config.animat.stimulator)throw std::runtime_error("Animat owns this source; reset/configure the experiment first");
     if(stepping||!checkpoint_boundary||!error.empty()||experiment.protocols.size()>=4095)throw std::runtime_error("Cannot remove stimulator here.");
     auto it=std::find_if(config.stimulators.begin(),config.stimulators.end(),[&](auto& s){return s.id==id;});if(it==config.stimulators.end())return;
     auto disabled=*it;disabled.enabled=false;schedule_stimulator(disabled,time);
@@ -166,6 +171,7 @@ void Simulator::remove_stimulator(uint64_t id) {
     append_protocol("Remove stimulator "+std::to_string(id));
 }
 void Simulator::move_neuron(int index,double x,double y) {
+    if(config.animat.enabled)throw std::runtime_error("Animat: moving network geometry requires a reset");
     if(stepping||!checkpoint_boundary||!error.empty()||index<0||index>=int(config.neurons.size())||!std::isfinite(x)||!std::isfinite(y)||x<0||x>1||y<0||y>1||experiment.protocols.size()>=4096)throw std::runtime_error("Invalid neuron movement boundary/position.");
     config.neurons[index].px=x;config.neurons[index].py=y;
     if(!config.stimulators.empty())append_protocol("Neuron position/recipient update");
