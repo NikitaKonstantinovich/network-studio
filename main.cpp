@@ -6,6 +6,7 @@
 #include <commdlg.h>
 #include <wrl/client.h>
 #include "gui.h"
+#include "history_archive.h"
 #include "imgui_internal.h"
 #include "implot.h"
 #include "backends/imgui_impl_win32.h"
@@ -94,24 +95,30 @@ static void capture_png(const std::filesystem::path& path,ID3D11Texture2D* textu
     }catch(...){context->Unmap(staging.Get(),0);throw;}
     context->Unmap(staging.Get(),0);
 }
-static std::filesystem::path dialog(HWND hwnd,bool save,bool csv,bool checkpoint=false,bool workspace=false) {
-    wchar_t buf[32768]{};if(save)wcscpy_s(buf,workspace?L"plots.nsworkspace":checkpoint?L"experiment.nscp":csv?L"experiment.csv":L"network.json");
+static std::filesystem::path dialog(HWND hwnd,bool save,bool csv,bool checkpoint=false,bool workspace=false,bool weights=false) {
+    wchar_t buf[32768]{};if(save)wcscpy_s(buf,weights?L"weights.nsweights":workspace?L"plots.nsworkspace":checkpoint?L"experiment.nscp":csv?L"experiment.csv":L"network.json");
     OPENFILENAMEW ofn{};ofn.lStructSize=sizeof(ofn);ofn.hwndOwner=hwnd;ofn.lpstrFile=buf;ofn.nMaxFile=32768;
-    ofn.lpstrFilter=workspace?L"Network Studio plot workspace\0*.nsworkspace\0\0":checkpoint?L"Network Studio checkpoint\0*.nscp\0\0":csv?L"CSV results\0*.csv\0\0":L"Network configuration\0*.json\0\0";
-    ofn.lpstrDefExt=workspace?L"nsworkspace":checkpoint?L"nscp":csv?L"csv":L"json";ofn.Flags=OFN_NOCHANGEDIR|OFN_PATHMUSTEXIST|(save?OFN_OVERWRITEPROMPT:OFN_FILEMUSTEXIST);
+    ofn.lpstrFilter=weights?L"Weight snapshots / checkpoints / summary\0*.nsweights;*.nscp;*_summary.json\0\0":workspace?L"Network Studio plot workspace\0*.nsworkspace\0\0":checkpoint?L"Network Studio checkpoint\0*.nscp\0\0":csv?L"CSV results\0*.csv\0\0":L"Network configuration\0*.json\0\0";
+    ofn.lpstrDefExt=weights?L"nsweights":workspace?L"nsworkspace":checkpoint?L"nscp":csv?L"csv":L"json";ofn.Flags=OFN_NOCHANGEDIR|OFN_PATHMUSTEXIST|(save?OFN_OVERWRITEPROMPT:OFN_FILEMUSTEXIST);
     if(save?GetSaveFileNameW(&ofn):GetOpenFileNameW(&ofn))return buf;return {};
 }
 int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     int argc=0;wchar_t** args=CommandLineToArgvW(GetCommandLineW(),&argc);
     double display_hz=10;
-    std::wstring compute_threads_option=L"1";
-    std::filesystem::path smoke,benchmark,runner_close,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
+    std::wstring compute_threads_option=L"1",benchmark_until_option;
+    std::filesystem::path smoke,benchmark,runner_close,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool weights_smoke=false,analysis_smoke=false,archive_smoke=false;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
+    std::vector<std::filesystem::path> weight_smoke_inputs;
     for(int i=1;i<argc;++i) {
         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
+        else if(std::wstring(args[i])==L"--benchmark-until")benchmark_until_option=i+1<argc?args[++i]:L"invalid";
         else if(std::wstring(args[i])==L"--benchmark"&&i+1<argc)benchmark=args[++i];
         else if(std::wstring(args[i])==L"--runner-close-smoke"&&i+1<argc)runner_close=args[++i];
         else if(std::wstring(args[i])==L"--display-hz"&&i+1<argc)display_hz=_wtof(args[++i]);
         else if(std::wstring(args[i])==L"--compute-threads")compute_threads_option=i+1<argc?args[++i]:L"";
+        else if(std::wstring(args[i])==L"--weights-smoke"&&i+1<argc){smoke=args[++i];weights_smoke=true;}
+        else if(std::wstring(args[i])==L"--weights-smoke-input"&&i+1<argc)weight_smoke_inputs.emplace_back(args[++i]);
+        else if(std::wstring(args[i])==L"--archive-smoke"&&i+1<argc){smoke=args[++i];archive_smoke=true;}
+        else if(std::wstring(args[i])==L"--analysis-smoke"&&i+1<argc){smoke=args[++i];analysis_smoke=true;}
         else if(std::wstring(args[i])==L"--stimulator-smoke"&&i+1<argc){smoke=args[++i];stimulator_smoke=true;}
         else if(std::wstring(args[i])==L"--experiment-smoke"&&i+1<argc){smoke=args[++i];experiment_smoke=true;}
         else if(std::wstring(args[i])==L"--field-smoke"&&i+1<argc){smoke=args[++i];field_smoke=true;}
@@ -133,6 +140,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     WNDCLASSEXW wc{sizeof(wc),CS_CLASSDC,wndproc,0,0,instance,nullptr,LoadCursor(nullptr,IDC_ARROW),nullptr,nullptr,L"NeuroAstroStudio",nullptr};
     RegisterClassExW(&wc);
     try {
+        if(!benchmark_until_option.empty()&&benchmark.empty())throw std::runtime_error("--benchmark-until requires --benchmark.");
         const int compute_threads=studio::compute::parse(std::wstring_view(compute_threads_option),"--compute-threads");
         if(!runner_close.empty()) {
             std::filesystem::create_directories(runner_close);
@@ -147,7 +155,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                 throw std::runtime_error("--benchmark requires an explicit configuration or checkpoint.");
         }
         ImGui_ImplWin32_EnableDpiAwareness();
-        hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,(field_smoke||experiment_smoke||stimulator_smoke)?1800:1480,(field_smoke||experiment_smoke||stimulator_smoke)?1300:1000,nullptr,nullptr,instance,nullptr);
+        hwnd=CreateWindowW(wc.lpszClassName,L"Neuro / Astro — Network Studio",WS_OVERLAPPEDWINDOW,70,40,(field_smoke||experiment_smoke||stimulator_smoke||analysis_smoke)?1800:1480,(field_smoke||experiment_smoke||stimulator_smoke||analysis_smoke)?1300:1000,nullptr,nullptr,instance,nullptr);
         if(!hwnd)throw std::runtime_error("Cannot create the application window.");create_device(hwnd);resize_w=resize_h=0;
         IMGUI_CHECKVERSION();ImGui::CreateContext();ImPlot::CreateContext();imgui=true;
         auto& io=ImGui::GetIO();io.ConfigFlags|=ImGuiConfigFlags_NavEnableKeyboard|ImGuiConfigFlags_DockingEnable|ImGuiConfigFlags_ViewportsEnable|
@@ -168,6 +176,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         backend_create_window=ImGui::GetPlatformIO().Platform_CreateWindow;ImGui::GetPlatformIO().Platform_CreateWindow=create_platform_window;
         studio::App app;app.set_display_hz(display_hz);app.set_compute_threads(compute_threads,true);app.file_dialog=[&](bool save,bool csv){return dialog(hwnd,save,csv);};
         app.checkpoint_dialog=[&](bool save){return dialog(hwnd,save,false,true);};
+        app.weight_dialog=[&](bool save){return dialog(hwnd,save,false,false,false,true);};
         app.workspace_dialog=[&](bool save){return dialog(hwnd,save,false,false,true);};
         if(!runner_close.empty()) {
             auto c=studio::preset(6);c.name="Native close while computing";c.duration=1000;c.sample=.01;
@@ -196,10 +205,21 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         if(!smoke.empty()) {
             std::filesystem::create_directories(smoke);
             if(config_path.empty()&&checkpoint_path.empty()) {
-                auto c=studio::preset(viewport_smoke?6:smoke_preset);if(viewport_smoke)c.duration=.3;app.replace(c);
+                auto c=studio::preset((viewport_smoke||weights_smoke)?6:smoke_preset);if(viewport_smoke||analysis_smoke||archive_smoke||weights_smoke)c.duration=.3;if(archive_smoke){c.history_capacity=32;c.bounded_journals=true;}app.replace(c);
             }
             if(experiment_smoke&&!app.config.stages.empty()){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::EnterStage;c.stages=app.config.stages;c.index=0;c.flag=true;app.command(std::move(c),true);}
-            app.advance_for(app.config.duration);
+            if(archive_smoke){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::StartArchive;c.path=smoke/L"history";c.index=32;c.flag=true;auto r=app.wait_command(app.command(c));if(!r.ok)throw std::runtime_error(r.error);}
+            if(weights_smoke&&weight_smoke_inputs.empty())app.add_weight_snapshot(studio::initial_weights(app.config));
+            if(!weights_smoke||weight_smoke_inputs.empty())app.advance_for(app.config.duration);
+            if(weights_smoke){
+                if(weight_smoke_inputs.empty()){app.capture_weight_snapshot();app.synchronize();}
+                else for(const auto& p:weight_smoke_inputs)app.import_weight_snapshot(p);
+                app.show_weights=true;app.weights_include_live=false;app.weight_reference=0;app.weight_target=app.weight_snapshots.size()>1?1:0;
+                app.weight_message="Native Win32/DX11: full weights, shared bins, delta";
+                std::vector<const studio::WeightSnapshot*> views;for(const auto& s:app.weight_snapshots)views.push_back(s.get());
+                studio::export_weights(views,app.weight_settings,app.weight_reference,app.weight_target,smoke/L"weights");
+            }
+            if(archive_smoke){app.show_archive=true;auto path=(smoke/L"history").u8string();std::snprintf(app.archive_path.data(),app.archive_path.size(),"%s",path.c_str());app.archive_interval={0,.3,false};app.archive_profile={"Native archive",app.config.analysis};app.archive_result=studio::analyze_archive(smoke/L"history",app.config.analysis,app.archive_interval);app.archive_message="Native Win32/DX11 archive analysis";studio::export_analysis(app.archive_result,app.config.analysis,smoke/L"disk_analysis","Native archive");}
             if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
             app.status="Проверка прототипа: расчёт завершён, графики построены.";
         }else if(benchmark.empty()&&runner_close.empty()) {ShowWindow(hwnd,SW_SHOWDEFAULT);UpdateWindow(hwnd);}
@@ -216,6 +236,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(!app.plot_windows.automatic_save_allowed)app.status=app.plot_windows.message;
         }
         if(plot_demo)app.plot_windows.demo();
+        if(analysis_smoke){auto& w=app.plot_windows.embedded[7];w.analysis_interval={.05,.25,false};app.plot_windows.create_analysis_profile(w,"Native analysis profile");app.plot_windows.create(studio::PlotKind::Network);app.plot_windows.apply_analysis_to_all(w);}
         if(field_smoke){auto& v=app.plot_windows.topology;v.field=true;v.columns=8;v.rows=6;v.scale=app.config.neurons.size()<32?.08:.002;v.edges=app.config.neurons.size()<32;}
         if(stimulator_smoke){auto& v=app.plot_windows.topology;v.field=v.activity=true;v.columns=8;v.rows=6;v.scale=v.activity_scale=.08;v.activity_window=.1;app.selected_stimulator=app.config.stimulators.empty()?0:app.config.stimulators[0].id;}
         if(viewport_smoke&&app.plot_windows.windows.empty())for(auto kind:{studio::PlotKind::Voltage,studio::PlotKind::Neuron,studio::PlotKind::Raster,studio::PlotKind::Synapse}) {
@@ -229,9 +250,16 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         double benchmark_draw=0,benchmark_render=0,benchmark_present=0,benchmark_idle=0;
         uint64_t benchmark_occluded=0,benchmark_presented=0,benchmark_other_status=0;
         const double benchmark_start_time=app.simulation->time;
+        double benchmark_target=app.config.duration;
+        if(!benchmark_until_option.empty()) {
+            size_t used=0;benchmark_target=std::stod(benchmark_until_option,&used);
+            if(used!=benchmark_until_option.size()||!std::isfinite(benchmark_target)||benchmark_target<=benchmark_start_time||benchmark_target>app.config.duration)
+                throw std::runtime_error("--benchmark-until must be an absolute time after the current time and within the configured duration.");
+        }
 
         const auto benchmark_begin=std::chrono::steady_clock::now();
-        if(!benchmark.empty()||!runner_close.empty())app.run();
+        if(!benchmark.empty()){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::RunTo;c.value=benchmark_target;app.command(std::move(c));}
+        else if(!runner_close.empty())app.run();
         while(!done) {
             MSG msg;while(PeekMessageW(&msg,nullptr,0,0,PM_REMOVE)){TranslateMessage(&msg);DispatchMessageW(&msg);if(msg.message==WM_QUIT)done=true;}
             if(done)break;
@@ -242,7 +270,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             ImGui_ImplDX11_NewFrame();ImGui_ImplWin32_NewFrame();ImGui::NewFrame();
             if(!smoke.empty()&&!viewport_smoke) {
                 if(smoke_wizard && frames==0)app.request_network_wizard=true;
-                int group=frames/4;app.request_plot_tab=group;
+                int group=frames/4;app.request_plot_tab=analysis_smoke?7:group;
                 if(stimulator_smoke&&frames==16)app.show_stimulators=true;
                 if(experiment_smoke&&frames==32)app.show_stages=true;
                 if(experiment_smoke&&frames==36) {
@@ -255,6 +283,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
                 app.selected_index=0;
             }
             const auto frame_begin=std::chrono::steady_clock::now();
+            if(weights_smoke&&frames==25)if(auto* w=ImGui::FindWindowByName("Веса всей сети###weight_analysis"))ImGui::SetScrollY(w,w->ScrollMax.y);
             app.draw();
             const auto benchmark_render_begin=benchmark.empty()?frame_begin:std::chrono::steady_clock::now();
             if(!benchmark.empty())benchmark_draw+=std::chrono::duration<double>(benchmark_render_begin-frame_begin).count();
@@ -267,12 +296,12 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             }
             ImGui::UpdatePlatformWindows();ImGui::RenderPlatformWindowsDefault();
             if(!benchmark.empty())benchmark_render+=std::chrono::duration<double>(std::chrono::steady_clock::now()-benchmark_render_begin).count();
-            if((experiment_smoke&&(frames==35||frames==39))||(stimulator_smoke&&frames==23)) {
+            if((experiment_smoke&&(frames==35||frames==39))||(stimulator_smoke&&frames==23)||(analysis_smoke&&frames==23)||(archive_smoke&&frames==23)||(weights_smoke&&(frames==23||frames==27))) {
                 auto& platform=ImGui::GetPlatformIO();
                 for(int i=1;i<platform.Viewports.Size;++i){auto* v=platform.Viewports[i];if(!v->DrawData||v->DrawData->TotalVtxCount<100)continue;
                     platform.Renderer_RenderWindow(v,nullptr);ComPtr<ID3D11RenderTargetView> view;context->OMGetRenderTargets(1,&view,nullptr);
                     ComPtr<ID3D11Resource> resource;view->GetResource(&resource);ComPtr<ID3D11Texture2D> texture;check(resource.As(&texture),"Experiment viewport capture failed");
-                    capture_png(smoke/((stimulator_smoke?L"stimulators_":frames==35?L"stages_":L"generator_")+std::to_wstring(i)+L".png"),texture.Get());}
+                    capture_png(smoke/((weights_smoke?(frames==27?L"weights_details_":L"weights_"):archive_smoke?L"archive_":analysis_smoke?L"analysis_":stimulator_smoke?L"stimulators_":frames==35?L"stages_":L"generator_")+std::to_wstring(i)+L".png"),texture.Get());}
             }
             if(viewport_smoke) {
                 auto& platform=ImGui::GetPlatformIO();
@@ -378,7 +407,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             }
             if(!benchmark.empty()) {
                 if(!app.simulation->error.empty())throw std::runtime_error(app.simulation->error);
-                if(app.simulation->done())done=true;
+                if(app.simulation->time>=benchmark_target&&!app.simulation->metrics.running)done=true;
                 else if(!app.running)throw std::runtime_error("GUI benchmark stopped before completion.");
             }
         }
@@ -386,7 +415,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         const auto benchmark_metrics=app.simulation->metrics;
         if(!benchmark.empty()){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::WriteProfile;c.path=benchmark/L"profile.json";app.command(std::move(c),true);app.synchronize();}
         if(!benchmark.empty()) {
-            if(!app.simulation->done())throw std::runtime_error("GUI benchmark window closed before completion.");
+            if(app.simulation->time<benchmark_target||app.simulation->metrics.running)throw std::runtime_error("GUI benchmark window closed before the requested safe boundary.");
             app.export_data(benchmark/L"result");
             app.save_state(benchmark/L"final.nscp");
             std::ofstream log(benchmark/L"benchmark.json");
@@ -410,6 +439,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(!log)throw std::runtime_error("Cannot write GUI benchmark metrics.");
             std::error_code ec;std::filesystem::remove(benchmark/L"error.txt",ec);
         }
+        if(app.simulation->metrics.archive_active){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::Pause;auto r=app.wait_command(app.command(c));if(!r.ok)throw std::runtime_error("Archive flush on close failed: "+r.error);}
         if(smoke.empty()&&benchmark.empty()&&runner_close.empty()&&app.plot_windows.automatic_save_allowed&&!app.plot_windows.workspace_path.empty()) {
             const auto parent=app.plot_windows.workspace_path.parent_path();
             if(!parent.empty())std::filesystem::create_directories(parent);
@@ -419,6 +449,8 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             app.pause();app.synchronize();app.export_data(smoke/L"demo");
             std::ofstream log(smoke/L"renderer.txt");log<<"frames="<<frames<<"\nminimum_vertices="<<minimum_vertices<<"\nsamples="<<app.simulation->history.time.size()<<"\nerror="<<app.simulation->error<<"\n";
             log<<"native_viewport_checks="<<native_checks<<"\nmonitors="<<ImGui::GetPlatformIO().Monitors.Size<<"\n";
+            if(weights_smoke)log<<"weights_win32_dx11=1\nweight_snapshots="<<app.weight_snapshots.size()<<"\n";
+            if(archive_smoke)log<<"archive_win32_dx11=1\ncommitted_until="<<app.simulation->metrics.disk_until<<"\nram_from="<<app.simulation->metrics.memory_samples_from<<"\n";
             if(stimulator_smoke)log<<"shared_sources="<<app.config.stimulators.size()<<"\nshared_pulses="<<app.simulation->history.shared_pulses.size()<<"\nactivity_maximum="<<app.activity_field.maximum<<"\nactivity_events_processed="<<app.activity_field.processed_events<<"\n";
             if(field_smoke) {
                 log<<"weight_field=1\nincluded_edges="<<app.weight_field.included_edges<<"\ngeometry_builds="<<app.weight_field.geometry_builds

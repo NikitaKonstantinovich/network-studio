@@ -508,7 +508,7 @@ static void large_io_tests(const std::filesystem::path& tmp) {
     const auto indices=json::jobject::parse(summary.get("recorded_neurons_0based"));
     require(indices.size()==2&&indices.get(size_t(1))=="499","Summary recording indices changed.");
     std::filesystem::remove(tmp/"large_network.json");
-    for(const char* suffix:{"_trace.csv","_weights.csv","_events.csv","_deliveries.csv","_pending_deliveries.csv","_experiment.json","_summary.json","_protocols.json","_stimuli.csv","_activity.csv","_bursts.csv","_responses.csv","_analysis.txt","_shared_stimuli.csv","_stimulator_commands.json"})
+    for(const char* suffix:{"_trace.csv","_weights.csv","_events.csv","_deliveries.csv","_pending_deliveries.csv","_experiment.json","_summary.json","_protocols.json","_stimuli.csv","_activity.csv","_bursts.csv","_responses.csv","_analysis.txt","_analysis.json","_shared_stimuli.csv","_stimulator_commands.json"})
         std::filesystem::remove(tmp/(std::string("large")+suffix));
 }
 int main() {
@@ -529,10 +529,10 @@ int main() {
         rejects([&]{deserialize(nul);},"NUL in a decoded name accepted.");
         rejects([&]{deserialize(serialize(c)+" garbage");},"Trailing JSON data accepted.");
         rejects([&]{deserialize("{broken");},"Malformed JSON accepted.");
-        auto serialized=serialize(c);auto location=serialized.find("\"schema\": 7");
-        if(location==std::string::npos)location=serialized.find("\"schema\":7");
+        auto serialized=serialize(c);auto location=serialized.find("\"schema\": 8");
+        if(location==std::string::npos)location=serialized.find("\"schema\":8");
         require(location!=std::string::npos,"Schema was not serialized.");
-        std::string bad=serialized;auto digit=bad.find('7',location);bad[digit]='9';
+        std::string bad=serialized;auto digit=bad.find('8',location);bad[digit]='9';
         rejects([&]{deserialize(bad);},"Unsupported schema accepted.");
         c=preset(0);c.synapses[0].source=100;require(!validate(c).empty(),"Dangling synapse accepted.");
         c=preset(0);c.parameters[na::K_SIC]=0;require(!validate(c).empty(),"Zero divisor accepted.");
@@ -613,7 +613,7 @@ int main() {
         // Only remove the specific files created by this test, never a computed tree.
         std::filesystem::remove(tmp/"network.json");
         for(const char* prefix:{"result","mixed","plastic","no_synapses"})
-            for(const char* suffix:{"_trace.csv","_weights.csv","_events.csv","_deliveries.csv","_pending_deliveries.csv","_experiment.json","_summary.json","_protocols.json","_stimuli.csv","_activity.csv","_bursts.csv","_responses.csv","_analysis.txt","_shared_stimuli.csv","_stimulator_commands.json"})
+            for(const char* suffix:{"_trace.csv","_weights.csv","_events.csv","_deliveries.csv","_pending_deliveries.csv","_experiment.json","_summary.json","_protocols.json","_stimuli.csv","_activity.csv","_bursts.csv","_responses.csv","_analysis.txt","_analysis.json","_shared_stimuli.csv","_stimulator_commands.json"})
                 std::filesystem::remove(tmp/(std::string(prefix)+suffix));
         std::filesystem::remove(tmp);
         std::cout<<"PASS: "<<checks<<" checks (including every reference integration step).\n";return 0;

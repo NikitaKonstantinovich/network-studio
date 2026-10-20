@@ -1,4 +1,5 @@
 #include "network.h"
+#include "history_archive.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -116,7 +117,8 @@ std::string validate(const Config& c) {
     };
     if(!valid_selection(c.record_neurons,c.neurons.size()) || !valid_selection(c.record_synapses,c.synapses.size()))
         return "Recording selections must contain unique existing zero-based node/edge indices.";
-    const size_t rows = planned_samples(c.duration,c.sample);
+    if(c.history_capacity && (c.history_capacity<2||c.history_capacity>MaxSamples))return "Rolling history capacity must be 2..1000000.";
+    const size_t rows = c.history_capacity?c.history_capacity:planned_samples(c.duration,c.sample);
     if(rows>MaxSamples)
         return "History exceeds 1,000,000 samples (including initial/final samples). Increase the sample interval.";
     if(rows*size_t(recorded_dimension(c))>MaxStoredValues)
@@ -511,8 +513,8 @@ void Simulator::compact_derivative(const State& y,State& dy) {
             for(size_t i=begin;i<end;++i) {
                 double input=held_inputs[i];
                 for(size_t k=target_edge_offsets[i];k<target_edge_offsets[i+1];++k) {
-                    const auto& edge=target_edges[k];
-                    input+=plasticity[edge.synapse].weight*edge.scale*y[edge.activity];
+                    const auto& term=current_terms[k];
+                    input+=term.amplitude*y[term.activity];
                 }
                 const auto& n=config.neurons[i];const size_t b=i*4;
                 dy[b]=1000*(.04*y[b]*y[b]+5*y[b]+140-y[b+1]+input);
@@ -527,8 +529,8 @@ void Simulator::compact_derivative(const State& y,State& dy) {
     {
         STUDIO_SCOPE(rhs_synapses);
         if(current_edges_only) {
-            for(const auto& edge:current_edges)
-                rhs_input[edge.target]+=plasticity[edge.synapse].weight*edge.scale*y[edge.activity];
+            for(const auto& term:current_terms)
+                rhs_input[term.target]+=term.amplitude*y[term.activity];
         } else {
             for(const auto& edge:current_edges) {
                 const double weight=plasticity[edge.synapse].weight;
@@ -546,6 +548,18 @@ void Simulator::compact_derivative(const State& y,State& dy) {
             dy[b]=1000*(.04*y[b]*y[b]+5*y[b]+140-y[b+1]+rhs_input[i]);
             dy[b+1]=1000*n.izh_a*(n.izh_b*y[b]-y[b+1]);
         } else na::hh_rhs(y.data(),dy.data(),b,rhs_input[i],config.parameters.data());
+    }
+}
+void Simulator::prepare_current_terms() {
+    if(!compact_network||!current_edges_only)return;
+    const auto& edges=pool?target_edges:current_edges;
+    current_terms.resize(edges.size());
+    for(size_t k=0;k<edges.size();++k) {
+        const auto& edge=edges[k];
+        // Preserve the left-associated weight*gain*activity expression and
+        // the original contribution order. Only the state-independent first
+        // product is shared by the RK evaluations within this flow segment.
+        current_terms[k]={plasticity[edge.synapse].weight*edge.scale,edge.activity,edge.target};
     }
 }
 Simulator::Simulator(const Config& c):config(c) {
@@ -597,15 +611,24 @@ void Simulator::extend_duration(double end_time) {
     size_t extra=0;uint64_t grid=0;
     for(double t:history.time) {if(t==double(grid)*config.sample)++grid;else ++extra;}
     const size_t rows=planned_samples(end_time,config.sample)+extra;
-    if(rows>MaxSamples || rows*recorded_dimension(config)>MaxStoredValues)
+    if(!config.history_capacity && (rows>MaxSamples || rows*recorded_dimension(config)>MaxStoredValues))
         throw std::runtime_error("Extended history would exceed the recording limits.");
     config.duration=end_time;
+    if(archive)archive->protocol(*this);
 }
 void Simulator::record() {
     STUDIO_SCOPE(journals);
+    if(config.history_capacity&&history.time.size()>=config.history_capacity) {
+        const size_t n=std::max<size_t>(1,history.time.size()/2);
+        for(size_t i=0;i<n;++i)if(history.time[i]==double(history.sample_grid_begin)*config.sample)++history.sample_grid_begin;
+        history.sample_begin+=n;history.time.erase(history.time.begin(),history.time.begin()+n);
+        for(auto& col:history.values)if(!col.empty())col.erase(col.begin(),col.begin()+n);
+        for(auto& col:history.weights)if(!col.empty())col.erase(col.begin(),col.begin()+n);
+    }
     if(history.time.size()>=MaxSamples) { error="Recording limit exceeded."; return; }
     history.time.push_back(time);
     for(int j:recorded_state)history.values[j].push_back(state[j]);
     for(int j:recorded_weights)history.weights[j].push_back(plasticity[j].weight);
+    if(archive)archive->sample(*this);
 }
 }

@@ -1,0 +1,55 @@
+ M CMakeLists.txt
+ M README.md
+ M analysis.cpp
+ M analysis.h
+ M analysis_gui.cpp
+ M checkpoint.cpp
+ M checkpoint_tests.cpp
+ M cli.cpp
+ M experiment.cpp
+ M experiments/README_RU.md
+ M gui.cpp
+ M gui.h
+ M gui_tests.cpp
+ M integrator.cpp
+ M io.cpp
+ M main.cpp
+ M network.cpp
+ M network.h
+ M plot_window_tests.cpp
+ M plot_windows.cpp
+ M plot_windows.h
+ M plot_workspace.cpp
+ M simulation_runner.cpp
+ M simulation_runner.h
+ M simulation_view.h
+ M stimulation/README_RU.md
+ M stimulator.cpp
+ M stimulator_gui.cpp
+ M tests.cpp
+ M weight_field_gui_tests.cpp
+?? analysis_cli.cpp
+?? analysis_json.inc
+?? analysis_profile_tests.cpp
+?? archive_analysis.cpp
+?? archive_codec.h
+?? archive_gui.cpp
+?? archive_tests.cpp
+?? disk_history/
+?? experiment_package/
+?? experiments/ANALYSIS_PROFILES_RU.md
+?? experiments/analysis_native_test.cmake
+?? experiments/analysis_process_test.cmake
+?? experiments/analysis_profiles_20261020/
+?? history_archive.cpp
+?? history_archive.h
+?? package_cli.cpp
+?? stimulation/frequency_20261020/
+?? stimulation/frequency_process_test.cmake
+?? stimulator_timing_tests.cpp
+?? weight_analysis.cpp
+?? weight_analysis.h
+?? weight_analysis/
+?? weight_analysis_gui.cpp
+?? weight_analysis_tests.cpp
+?? weight_cli.cpp

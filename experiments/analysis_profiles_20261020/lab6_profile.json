@@ -1,0 +1,21 @@
+{
+  "document_type": "network_studio_analysis_profile",
+  "schema_version": 1,
+  "name": "ЛР6 — общий детектор 280–400 с",
+  "settings": {
+    "population": 0,
+    "neurons": [],
+    "bin": 0.01,
+    "burst_window": 0.02,
+    "start_rate": 5000,
+    "end_rate": 1000,
+    "min_neurons": 50,
+    "min_fraction": 0.1,
+    "min_gap": 0.02,
+    "burst_rate_window": 1,
+    "reference_neuron": 0,
+    "response_min": 0,
+    "response_max": 0.1,
+    "reference_stimulator": "1"
+  }
+}

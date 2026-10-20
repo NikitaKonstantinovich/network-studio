@@ -1,0 +1,122 @@
+{
+  "results": [
+    {
+      "window": "quiet",
+      "threads": 1,
+      "median": 7.8455089,
+      "minimum": 7.7779754,
+      "maximum": 7.9309184
+    },
+    {
+      "window": "quiet",
+      "threads": 2,
+      "median": 4.0993553,
+      "minimum": 4.0593721,
+      "maximum": 4.1163829
+    },
+    {
+      "window": "quiet",
+      "threads": 4,
+      "median": 2.6419974,
+      "minimum": 2.6067889,
+      "maximum": 2.6628205
+    },
+    {
+      "window": "quiet",
+      "threads": 6,
+      "median": 2.2919943,
+      "minimum": 2.2845966,
+      "maximum": 2.3405321
+    },
+    {
+      "window": "quiet",
+      "threads": 8,
+      "median": 2.3236257,
+      "minimum": 2.292422,
+      "maximum": 2.3682442
+    },
+    {
+      "window": "quiet",
+      "threads": 12,
+      "median": 2.3758963,
+      "minimum": 2.2994855,
+      "maximum": 2.5208048
+    },
+    {
+      "window": "quiet",
+      "threads": 16,
+      "median": 3.3194941,
+      "minimum": 3.1550278,
+      "maximum": 4.2004607
+    },
+    {
+      "window": "quiet",
+      "threads": 0,
+      "median": 2.4025374,
+      "minimum": 2.3046931,
+      "maximum": 2.4449622
+    },
+    {
+      "window": "burst",
+      "threads": 1,
+      "median": 15.6501981,
+      "minimum": 15.4606382,
+      "maximum": 16.4123279
+    },
+    {
+      "window": "burst",
+      "threads": 2,
+      "median": 7.7010261,
+      "minimum": 7.5603606,
+      "maximum": 7.7645077
+    },
+    {
+      "window": "burst",
+      "threads": 4,
+      "median": 4.9990244,
+      "minimum": 4.9713424,
+      "maximum": 5.055446
+    },
+    {
+      "window": "burst",
+      "threads": 6,
+      "median": 4.2187568,
+      "minimum": 4.1505675,
+      "maximum": 4.2885049
+    },
+    {
+      "window": "burst",
+      "threads": 8,
+      "median": 4.1370427,
+      "minimum": 4.0476654,
+      "maximum": 4.1609806
+    },
+    {
+      "window": "burst",
+      "threads": 12,
+      "median": 4.1821186,
+      "minimum": 4.1673025,
+      "maximum": 4.2596189
+    },
+    {
+      "window": "burst",
+      "threads": 16,
+      "median": 6.5162078,
+      "minimum": 5.7735977,
+      "maximum": 6.6010184
+    },
+    {
+      "window": "burst",
+      "threads": 0,
+      "median": 4.2732536,
+      "minimum": 4.2242425,
+      "maximum": 5.1641731
+    }
+  ],
+  "wall_seconds": 378.61960619996535,
+  "repeats": 3,
+  "executable": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_lab_benchmark.exe",
+  "executable_sha256": "7ac1decea9501f086496ba4bbc24946787cd3f88b2e29c2a689c10e0c00a03fd",
+  "config_sha256": "0ee6c4918c9e3942df3368b922aa5c8fdb61694ba00783811e4f77a46a98c942",
+  "platform": "Windows-11-10.0.26100-SP0"
+}

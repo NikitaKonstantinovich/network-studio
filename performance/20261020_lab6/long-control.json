@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "setup_seconds": 1.4935737,
+      "warmup_seconds": 1e-07,
+      "solve_seconds": 17.0843784,
+      "archive_flush_seconds": 2.9e-06,
+      "analysis_seconds": 0.0005137,
+      "export_seconds": 1.1362282,
+      "checkpoint_seconds": 0.7826591,
+      "peak_working_set_bytes": 87842816,
+      "requested_threads": 8,
+      "effective_threads": 8,
+      "model_start_seconds": 0.1,
+      "model_seconds": 0.5,
+      "steps": 20000,
+      "events": 9198,
+      "window_events": 4221,
+      "deliveries": 277960,
+      "window_deliveries": 127428,
+      "version": "baseline"
+    },
+    {
+      "setup_seconds": 1.3587567,
+      "warmup_seconds": 3e-07,
+      "solve_seconds": 16.3711734,
+      "archive_flush_seconds": 4.3e-06,
+      "solve_peak_working_set_bytes": 69828608,
+      "archive_analysis_seconds": 0,
+      "analysis_seconds": 0.0005089,
+      "export_seconds": 1.1202872,
+      "checkpoint_seconds": 0.7653092,
+      "peak_working_set_bytes": 88092672,
+      "requested_threads": 8,
+      "effective_threads": 8,
+      "model_start_seconds": 0.1,
+      "model_seconds": 0.5,
+      "steps": 20000,
+      "events": 9198,
+      "window_events": 4221,
+      "deliveries": 277960,
+      "window_deliveries": 127428,
+      "version": "optimized"
+    }
+  ],
+  "checkpoint": {
+    "equal_except_build_metadata": true,
+    "checkpoint_files_byte_equal": false,
+    "same_schema": true,
+    "same_algorithm": true,
+    "same_serialized_config_bytes": true,
+    "same_non_build_header_bytes": true,
+    "same_complete_payload_bytes": true,
+    "reference": {
+      "path": "E:\\asp\\26_27\\configurator\\performance\\20261020_lab6\\validation\\paired\\long-baseline\\final.nscp",
+      "bytes": 24038118,
+      "schema": 5,
+      "algorithm": "event-rk4-doubling-exact-linear-localized-stimulators-v4",
+      "build_id": "f274197dad3d5b220f780e53e596cd50b989cb3ef155827de4c1b3f2178f1be6",
+      "config_sha256": "7e700d60633d419d09a3fe11fc8156377a5608b64cfe0caf8b68569473902b24",
+      "file_sha256": "0c40dd12b1969dc1850bed6e9a9c381eb2c1364400ef7f380c17d0495e6772a8",
+      "payload_sha256": "c249f9ce7e5e55219a90bd9dfcfa8e596b0a875089151d7d05c7df23b52153d6",
+      "stored_checksum_u64_hex": "b191b52bc22fcf51",
+      "original_checksum_valid": true,
+      "build_field_byte_range": [
+        98,
+        170
+      ],
+      "checksum_byte_range": [
+        24038110,
+        24038118
+      ]
+    },
+    "actual": {
+      "path": "E:\\asp\\26_27\\configurator\\performance\\20261020_lab6\\validation\\paired\\long-optimized\\final.nscp",
+      "bytes": 24038118,
+      "schema": 5,
+      "algorithm": "event-rk4-doubling-exact-linear-localized-stimulators-v4",
+      "build_id": "0e7696872aaa21c5a601e7767410a09c4e3609d1032356118493010573c116e5",
+      "config_sha256": "7e700d60633d419d09a3fe11fc8156377a5608b64cfe0caf8b68569473902b24",
+      "file_sha256": "b4016e8e75daf79894d2c0659a7433d1fa2526600c5ff76ed84e5b79fb6f7ca7",
+      "payload_sha256": "c249f9ce7e5e55219a90bd9dfcfa8e596b0a875089151d7d05c7df23b52153d6",
+      "stored_checksum_u64_hex": "095ce7e136b6d5e4",
+      "original_checksum_valid": true,
+      "build_field_byte_range": [
+        98,
+        170
+      ],
+      "checksum_byte_range": [
+        24038110,
+        24038118
+      ]
+    },
+    "build_id_differs": true,
+    "checksum_differs": true,
+    "first_payload_difference": null,
+    "excluded_fields": [
+      "length-prefixed build ID",
+      "dependent final integrity checksum"
+    ],
+    "guarantee": "Every other serialized byte is identical, including full parameters, adaptive step, next sample, armed thresholds, states, traces, histories, delivery queues and runtime protocols. Both original integrity checksums were verified.",
+    "limits": "Byte comparison only: no Simulator was constructed, no checkpoint was rewritten, and no loader compatibility check was bypassed. This does not grant cross-build resumability or replace native semantic snapshot validation. A positive guarantee applies only when equal_except_build_metadata is true."
+  },
+  "wall_seconds": 44.388501600013115
+}

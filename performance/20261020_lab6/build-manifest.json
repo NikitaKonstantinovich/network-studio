@@ -1,0 +1,24 @@
+{
+  "binaries": {
+    "network_studio.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "sha256": "825903d3da38c00571325158ca2052c1bb1779cfeddd03a7ee33b4c41530c012"
+    },
+    "network_studio_cli.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "sha256": "fcdf2df92006d6d0eeff78f09edcfdd5c8aa327f371701c9b692867f0f88a147"
+    },
+    "network_studio_lab_benchmark.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_lab_benchmark.exe",
+      "sha256": "7ac1decea9501f086496ba4bbc24946787cd3f88b2e29c2a689c10e0c00a03fd"
+    },
+    "network_studio_runner_benchmark.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_runner_benchmark.exe",
+      "sha256": "73ccd17f677b5d7d7dbaef8e209ddee502d5ff211363250915d7edbdf3d94cdd"
+    }
+  },
+  "checkpoint_build": "0e7696872aaa21c5a601e7767410a09c4e3609d1032356118493010573c116e5",
+  "algorithm": "event-rk4-doubling-exact-linear-localized-stimulators-v4",
+  "checkpoint_schema": 5,
+  "branch": "perf/lab6-20261020"
+}

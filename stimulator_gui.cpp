@@ -9,13 +9,17 @@ bool scalar(const char* label,double& v,double lo,double hi) {ImGui::SetNextItem
 }
 void App::stimulator_manager() {
     if(!show_stimulators)return;
-    ImGui::SetNextWindowSize({900,850},ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize({950,1000},ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(),ImGuiCond_Appearing,{.5f,.5f});
     if(!ImGui::Begin("Стимуляторы###shared_stimulators",&show_stimulators)){ImGui::End();return;}
     auto& sim=*simulation;
     ImGui::Text("t = %.9g с · команд ожидает %zu",sim.time,sim.stimulus_commands.size());
     ImGui::TextWrapped("DC + индивидуальные импульсы + общие источники + шум суммируются. HH: мкА/см²; Ижикевич: единицы тока модели. Одинаковые числа не означают физически одинаковый ток.");
-    ImGui::BeginDisabled(!sim.error.empty());
+    const bool acknowledging=std::any_of(pending.begin(),pending.end(),[](const auto& p){
+        return p.kind==RunnerCommand::Kind::Stimulator||p.kind==RunnerCommand::Kind::MoveStimulator||p.kind==RunnerCommand::Kind::RemoveStimulator;
+    });
+    if(acknowledging)ImGui::TextUnformatted("Ожидание подтверждения вычислителя…");
+    ImGui::BeginDisabled(!sim.error.empty()||acknowledging);
     if(ImGui::Button("Добавить стимулятор")&&config.stimulators.size()<64)try {
         Stimulator value;value.name="Stimulator "+std::to_string(config.next_stimulator_id);value.x=config.space.width*.5;value.y=config.space.height*.5;value.radius=std::min(config.space.width,config.space.height)*.1;
         value.signal.start=sim.time;value.signal.stop=std::max(sim.time+1,config.duration);value.signal.frequency=10;value.signal.width=.003;value.signal.amplitude=30;
@@ -28,6 +32,26 @@ void App::stimulator_manager() {
     auto selected=std::find_if(config.stimulators.begin(),config.stimulators.end(),[&](auto& s){return s.id==selected_stimulator;});
     if(selected!=config.stimulators.end()) {
         if(stimulator_draft.id!=selected->id)stimulator_draft=*selected;
+        auto parameters=[](const Stimulator& s){
+            ImGui::TextWrapped("%s · f=%.9g Гц · начало=%.9g с · задержка=%.9g с · stop=%.9g с · A=%.6g · ширина=%.9g мс",
+                s.enabled?"Включён":"Выключен",s.signal.frequency,s.signal.start,s.first_delay,s.signal.stop,s.signal.amplitude,s.signal.width*1000);
+        };
+        ImGui::TextUnformatted("Действующие параметры");parameters(*selected);
+        if(!selected->enabled)ImGui::TextUnformatted("Статус: источник выключен.");
+        else if(sim.time>=selected->signal.stop)ImGui::TextUnformatted("Статус: источник завершён (достигнуто окончание).");
+        else if(selected->signal.frequency<=0||selected->signal.amplitude==0||(selected->signal.width<=0&&selected->signal.pulse_intervals.empty()))
+            ImGui::TextUnformatted("Статус: импульсы отключены параметрами сигнала.");
+        else ImGui::TextUnformatted(pulse_current(stimulator_signal(*selected),sim.time)!=0?"Статус: импульс активен.":"Статус: ожидание импульса.");
+        const double next=next_stimulator_pulse(*selected,sim.stimulus_commands,sim.time);
+        if(std::isfinite(next))ImGui::Text("Следующий импульс: t=%.12g с%s",next,next>=config.duration?" (за пределами текущего опыта)":"");
+        else ImGui::TextUnformatted("Следующий импульс: не запланирован.");
+        for(auto it=sim.stimulus_changes.rbegin();it!=sim.stimulus_changes.rend();++it)if(it->value.id==selected->id){
+            ImGui::Text("Последняя применённая команда #%llu: t=%.12g с",it->sequence,it->time);break;
+        }
+        for(const auto& c:sim.stimulus_commands)if(c.value.id==selected->id){
+            ImGui::Text("Ожидающие параметры · команда #%llu · применение t=%.12g с",c.sequence,c.time);parameters(c.value);
+        }
+        ImGui::Separator();ImGui::TextUnformatted("Параметры для редактирования (после подтверждения — принятые)");
         auto& v=stimulator_draft;
         char name[256];std::snprintf(name,sizeof(name),"%s",v.name.c_str());ImGui::SetNextItemWidth(300);if(ImGui::InputText("Название источника",name,sizeof(name)))v.name=name;
         ImGui::Checkbox("Источник включён",&v.enabled);ImGui::SameLine();ImGui::Checkbox("Пространственная область",&v.spatial);
@@ -75,7 +99,7 @@ void App::stimulator_manager() {
             }ImGui::EndTabBar();
         }
         ImGui::Text("Получателей по черновику: %zu · сейчас вход источника %.5g",stimulator_recipients(config,v).size(),pulse_current(stimulator_signal(*selected),sim.time));
-        ImGui::TextWrapped("Применение не сбрасывает сеть. Положение/получатели меняются сейчас. Новая частота — со следующей границы текущего периода; перезапуск фазы — отдельное действие.");
+        ImGui::TextWrapped("Сеть не сбрасывается. До первого импульса смена частоты сохраняет его время; затем вся команда ждёт границу старого периода. Частота вместе с началом/задержкой требует новой фазы: начало станет временем применения, задержка сохранится. Прогноз импульса учитывает принятые команды, но не будущие этапы/внешние команды.");
         auto apply=[&](bool restart){try{RunnerCommand c;c.kind=RunnerCommand::Kind::Stimulator;c.stimulator=v;c.value=-1;c.flag=restart;command(std::move(c));dirty=true;}catch(const std::exception& e){status=e.what();}};
         if(ImGui::Button("Применить без сброса"))apply(false);
         ImGui::SameLine();if(ImGui::Button("Применить с новой фазой"))apply(true);

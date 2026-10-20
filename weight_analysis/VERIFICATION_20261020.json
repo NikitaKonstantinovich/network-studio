@@ -1,0 +1,649 @@
+{
+  "branch": "feature/weight-snapshots-20261020",
+  "date": "2026-10-20",
+  "binaries_sha256": {
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe": "9a56e0cc13b07224df236a31837860befaf989677f00ab848de7fd15d20ca341",
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe": "29b0ef17be830b4ebdf04c139331b7fcb9079644aefeaa454fe599f4bf251f2f"
+  },
+  "checkpoint_schema": 5,
+  "checkpoint_build_id": "f5cd25fda1a20db68c7f3749637f08d96aed0adac9260b6e0ae3171cea13b085",
+  "full_suite": {
+    "passed": 42,
+    "seconds": 407.69,
+    "log": "E:\\asp\\26_27\\configurator\\verification\\weight_snapshots_20261020\\final-build-test.log",
+    "note": "Followed by focused checks after histogram/empty/constant-selection presentation refinements."
+  },
+  "release_focused_suite": {
+    "passed": 3,
+    "seconds": 41.95,
+    "log": "E:\\asp\\26_27\\configurator\\verification\\weight_snapshots_20261020\\release-tests.log",
+    "core_checks": 42,
+    "gui_checks": 1922
+  },
+  "laboratory_reanalysis": {
+    "description": "Read-only weight reanalysis; no model integration and no checkpoint bypass.",
+    "inputs_unchanged": true,
+    "input_sha256": {
+      "E:\\asp\\26_27\\labs\\lab6_1Hz_experiment.json": "1545c4bbb508fb5e7e3d1cc5bb0cb5e7c193596ab309377f20b9d865d308d9a8",
+      "E:\\asp\\26_27\\labs\\lab6_1Hz_summary.json": "0b48284035c8a240b893976da8513aecb3e13cc0a5558a12032d683bd6e519af",
+      "E:\\asp\\26_27\\labs\\lab6_10Hz_experiment.json": "5679ec3cd9915cd99ce8a6b61b825395c522cdbf4a2cf9bc5a40d1ef258cb8ba",
+      "E:\\asp\\26_27\\labs\\lab6_10Hz_summary.json": "83f0918a71f781a4450d3b75fad97ac25e74faad74106524a17f328e88256dd1",
+      "E:\\asp\\26_27\\labs\\lab6_comparison\\weights_statistics.json": "6a473193dc472e226cb60b799da99b99094bfdc83737bd2f229b03bb3725070f"
+    },
+    "cli_sha256": "29b0ef17be830b4ebdf04c139331b7fcb9079644aefeaa454fe599f4bf251f2f",
+    "simulation_steps_executed": 0,
+    "total_wall_seconds": 39.63853110000491,
+    "command_seconds": {
+      "initial": 1.843849600001704,
+      "import_1": 1.8297152000013739,
+      "import_10": 1.7104603000334464,
+      "absolute_all": 4.511010800022632,
+      "absolute_E": 4.500634900003206,
+      "absolute_I": 4.473275099997409,
+      "signed_all": 4.611937800014857,
+      "signed_E": 4.5250891000032425,
+      "signed_I": 4.443957299983595,
+      "I_10Hz": 3.104096099967137,
+      "all_10Hz": 3.1932136000250466
+    },
+    "synapses": 15041,
+    "inhibitory_exactly_unchanged_each_branch": 3032,
+    "results": {
+      "absolute_all": {
+        "document_type": "network_studio_weight_analysis",
+        "schema_version": 1,
+        "representation": "absolute",
+        "polarity": 0,
+        "model": 0,
+        "enabled": 0,
+        "bins": 40,
+        "boundary_tolerance": 1e-06,
+        "stddev_ddof": 0,
+        "boundary_denominator": "selected STDP-configured edges",
+        "snapshots": [
+          {
+            "name": "Исходные из Config",
+            "time_s": 0,
+            "origin": "Initial Config weights; not reconstructed historical data",
+            "identity_warning": "",
+            "statistics": {
+              "count": 15041,
+              "mean": 0.5009106175383489,
+              "median": 0.5000304988853012,
+              "stddev_population": 0.0993223552941434,
+              "min": 0.053454920000451045,
+              "max": 0.880916523740849,
+              "sum": 7534.196598394305,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          },
+          {
+            "name": "lab6_1Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_1Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 15041,
+              "mean": 0.293875117857855,
+              "median": 0.24426120646452926,
+              "stddev_population": 0.1827487239237657,
+              "min": 0.002707210508005671,
+              "max": 0.8853042202744106,
+              "sum": 4420.175647699996,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          },
+          {
+            "name": "lab6_10Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_10Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 15041,
+              "mean": 0.29240401845232616,
+              "median": 0.2466880531447193,
+              "stddev_population": 0.1820527532954838,
+              "min": 0.002830590843783189,
+              "max": 0.8854683869447602,
+              "sum": 4398.0488415414375,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          }
+        ],
+        "difference": {
+          "reference": 0,
+          "target": 1,
+          "error": "",
+          "pair_filter": "intersection: both endpoints pass filters",
+          "exactly_unchanged_raw": 3032,
+          "statistics": {
+            "count": 15041,
+            "mean": -0.2070354996804939,
+            "median": -0.2276267653271602,
+            "stddev_population": 0.1969644462425273,
+            "min": -0.8032231450635227,
+            "max": 0.5463084797096518,
+            "sum": -3114.020950694309,
+            "learning_count": 0,
+            "at_lower": 0,
+            "at_upper": 0,
+            "fraction_lower": null,
+            "fraction_upper": null
+          }
+        }
+      },
+      "absolute_E": {
+        "document_type": "network_studio_weight_analysis",
+        "schema_version": 1,
+        "representation": "absolute",
+        "polarity": 1,
+        "model": 0,
+        "enabled": 0,
+        "bins": 40,
+        "boundary_tolerance": 1e-06,
+        "stddev_ddof": 0,
+        "boundary_denominator": "selected STDP-configured edges",
+        "snapshots": [
+          {
+            "name": "Исходные из Config",
+            "time_s": 0,
+            "origin": "Initial Config weights; not reconstructed historical data",
+            "identity_warning": "",
+            "statistics": {
+              "count": 12009,
+              "mean": 0.500671237522432,
+              "median": 0.499720692671099,
+              "stddev_population": 0.0992483499357678,
+              "min": 0.053454920000451045,
+              "max": 0.880916523740849,
+              "sum": 6012.560891406886,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          },
+          {
+            "name": "lab6_1Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_1Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 12009,
+              "mean": 0.24136397208032118,
+              "median": 0.19953675712668642,
+              "stddev_population": 0.160141013181751,
+              "min": 0.002707210508005671,
+              "max": 0.8853042202744106,
+              "sum": 2898.539940712577,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          },
+          {
+            "name": "lab6_10Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_10Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 12009,
+              "mean": 0.23952145345607617,
+              "median": 0.20046426969314754,
+              "stddev_population": 0.15853378620854175,
+              "min": 0.002830590843783189,
+              "max": 0.8854683869447602,
+              "sum": 2876.4131345540186,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          }
+        ],
+        "difference": {
+          "reference": 0,
+          "target": 1,
+          "error": "",
+          "pair_filter": "intersection: both endpoints pass filters",
+          "exactly_unchanged_raw": 0,
+          "statistics": {
+            "count": 12009,
+            "mean": -0.2593072654421108,
+            "median": -0.2838376301880722,
+            "stddev_population": 0.18717745560927695,
+            "min": -0.8032231450635227,
+            "max": 0.5463084797096518,
+            "sum": -3114.020950694309,
+            "learning_count": 0,
+            "at_lower": 0,
+            "at_upper": 0,
+            "fraction_lower": null,
+            "fraction_upper": null
+          }
+        }
+      },
+      "absolute_I": {
+        "document_type": "network_studio_weight_analysis",
+        "schema_version": 1,
+        "representation": "absolute",
+        "polarity": 2,
+        "model": 0,
+        "enabled": 0,
+        "bins": 40,
+        "boundary_tolerance": 1e-06,
+        "stddev_ddof": 0,
+        "boundary_denominator": "selected STDP-configured edges",
+        "snapshots": [
+          {
+            "name": "Исходные из Config",
+            "time_s": 0,
+            "origin": "Initial Config weights; not reconstructed historical data",
+            "identity_warning": "",
+            "statistics": {
+              "count": 3032,
+              "mean": 0.5018587424100986,
+              "median": 0.5019307507661528,
+              "stddev_population": 0.09960928060062925,
+              "min": 0.1968806107807971,
+              "max": 0.7944579773842764,
+              "sum": 1521.635706987419,
+              "learning_count": 0,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": null,
+              "fraction_upper": null
+            }
+          },
+          {
+            "name": "lab6_1Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_1Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 3032,
+              "mean": 0.5018587424100986,
+              "median": 0.5019307507661528,
+              "stddev_population": 0.09960928060062925,
+              "min": 0.1968806107807971,
+              "max": 0.7944579773842764,
+              "sum": 1521.635706987419,
+              "learning_count": 0,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": null,
+              "fraction_upper": null
+            }
+          },
+          {
+            "name": "lab6_10Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_10Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 3032,
+              "mean": 0.5018587424100986,
+              "median": 0.5019307507661528,
+              "stddev_population": 0.09960928060062925,
+              "min": 0.1968806107807971,
+              "max": 0.7944579773842764,
+              "sum": 1521.635706987419,
+              "learning_count": 0,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": null,
+              "fraction_upper": null
+            }
+          }
+        ],
+        "difference": {
+          "reference": 0,
+          "target": 1,
+          "error": "",
+          "pair_filter": "intersection: both endpoints pass filters",
+          "exactly_unchanged_raw": 3032,
+          "statistics": {
+            "count": 3032,
+            "mean": 0,
+            "median": 0,
+            "stddev_population": 0,
+            "min": 0,
+            "max": 0,
+            "sum": 0,
+            "learning_count": 0,
+            "at_lower": 0,
+            "at_upper": 0,
+            "fraction_lower": null,
+            "fraction_upper": null
+          }
+        }
+      },
+      "signed_all": {
+        "document_type": "network_studio_weight_analysis",
+        "schema_version": 1,
+        "representation": "signed",
+        "polarity": 0,
+        "model": 0,
+        "enabled": 0,
+        "bins": 40,
+        "boundary_tolerance": 1e-06,
+        "stddev_ddof": 0,
+        "boundary_denominator": "selected STDP-configured edges",
+        "snapshots": [
+          {
+            "name": "Исходные из Config",
+            "time_s": 0,
+            "origin": "Initial Config weights; not reconstructed historical data",
+            "identity_warning": "",
+            "statistics": {
+              "count": 15041,
+              "mean": 0.2985788966438047,
+              "median": 0.46779911402904467,
+              "stddev_population": 0.4142789151076775,
+              "min": -0.7944579773842764,
+              "max": 0.880916523740849,
+              "sum": 4490.925184419467,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          },
+          {
+            "name": "lab6_1Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_1Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 15041,
+              "mean": 0.0915433969633108,
+              "median": 0.16430950698232147,
+              "stddev_population": 0.3337356550687244,
+              "min": -0.7944579773842764,
+              "max": 0.8853042202744106,
+              "sum": 1376.9042337251578,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          },
+          {
+            "name": "lab6_10Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_10Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 15041,
+              "mean": 0.09007229755778201,
+              "median": 0.16239951763988608,
+              "stddev_population": 0.3324609694418233,
+              "min": -0.7944579773842764,
+              "max": 0.8854683869447602,
+              "sum": 1354.7774275665993,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          }
+        ],
+        "difference": {
+          "reference": 0,
+          "target": 1,
+          "error": "",
+          "pair_filter": "intersection: both endpoints pass filters",
+          "exactly_unchanged_raw": 3032,
+          "statistics": {
+            "count": 15041,
+            "mean": -0.2070354996804939,
+            "median": -0.2276267653271602,
+            "stddev_population": 0.1969644462425273,
+            "min": -0.8032231450635227,
+            "max": 0.5463084797096518,
+            "sum": -3114.020950694309,
+            "learning_count": 0,
+            "at_lower": 0,
+            "at_upper": 0,
+            "fraction_lower": null,
+            "fraction_upper": null
+          }
+        }
+      },
+      "signed_E": {
+        "document_type": "network_studio_weight_analysis",
+        "schema_version": 1,
+        "representation": "signed",
+        "polarity": 1,
+        "model": 0,
+        "enabled": 0,
+        "bins": 40,
+        "boundary_tolerance": 1e-06,
+        "stddev_ddof": 0,
+        "boundary_denominator": "selected STDP-configured edges",
+        "snapshots": [
+          {
+            "name": "Исходные из Config",
+            "time_s": 0,
+            "origin": "Initial Config weights; not reconstructed historical data",
+            "identity_warning": "",
+            "statistics": {
+              "count": 12009,
+              "mean": 0.500671237522432,
+              "median": 0.499720692671099,
+              "stddev_population": 0.0992483499357678,
+              "min": 0.053454920000451045,
+              "max": 0.880916523740849,
+              "sum": 6012.560891406886,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          },
+          {
+            "name": "lab6_1Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_1Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 12009,
+              "mean": 0.24136397208032118,
+              "median": 0.19953675712668642,
+              "stddev_population": 0.160141013181751,
+              "min": 0.002707210508005671,
+              "max": 0.8853042202744106,
+              "sum": 2898.539940712577,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          },
+          {
+            "name": "lab6_10Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_10Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 12009,
+              "mean": 0.23952145345607617,
+              "median": 0.20046426969314754,
+              "stddev_population": 0.15853378620854175,
+              "min": 0.002830590843783189,
+              "max": 0.8854683869447602,
+              "sum": 2876.4131345540186,
+              "learning_count": 12009,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": 0,
+              "fraction_upper": 0
+            }
+          }
+        ],
+        "difference": {
+          "reference": 0,
+          "target": 1,
+          "error": "",
+          "pair_filter": "intersection: both endpoints pass filters",
+          "exactly_unchanged_raw": 0,
+          "statistics": {
+            "count": 12009,
+            "mean": -0.2593072654421108,
+            "median": -0.2838376301880722,
+            "stddev_population": 0.18717745560927695,
+            "min": -0.8032231450635227,
+            "max": 0.5463084797096518,
+            "sum": -3114.020950694309,
+            "learning_count": 0,
+            "at_lower": 0,
+            "at_upper": 0,
+            "fraction_lower": null,
+            "fraction_upper": null
+          }
+        }
+      },
+      "signed_I": {
+        "document_type": "network_studio_weight_analysis",
+        "schema_version": 1,
+        "representation": "signed",
+        "polarity": 2,
+        "model": 0,
+        "enabled": 0,
+        "bins": 40,
+        "boundary_tolerance": 1e-06,
+        "stddev_ddof": 0,
+        "boundary_denominator": "selected STDP-configured edges",
+        "snapshots": [
+          {
+            "name": "Исходные из Config",
+            "time_s": 0,
+            "origin": "Initial Config weights; not reconstructed historical data",
+            "identity_warning": "",
+            "statistics": {
+              "count": 3032,
+              "mean": -0.5018587424100986,
+              "median": -0.5019307507661528,
+              "stddev_population": 0.09960928060062925,
+              "min": -0.7944579773842764,
+              "max": -0.1968806107807971,
+              "sum": -1521.635706987419,
+              "learning_count": 0,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": null,
+              "fraction_upper": null
+            }
+          },
+          {
+            "name": "lab6_1Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_1Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 3032,
+              "mean": -0.5018587424100986,
+              "median": -0.5019307507661528,
+              "stddev_population": 0.09960928060062925,
+              "min": -0.7944579773842764,
+              "max": -0.1968806107807971,
+              "sum": -1521.635706987419,
+              "learning_count": 0,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": null,
+              "fraction_upper": null
+            }
+          },
+          {
+            "name": "lab6_10Hz_summary",
+            "time_s": 400,
+            "origin": "Legacy same-prefix summary + experiment; no embedded provenance hash: E:\\asp\\26_27\\labs\\lab6_10Hz_summary.json",
+            "identity_warning": "",
+            "statistics": {
+              "count": 3032,
+              "mean": -0.5018587424100986,
+              "median": -0.5019307507661528,
+              "stddev_population": 0.09960928060062925,
+              "min": -0.7944579773842764,
+              "max": -0.1968806107807971,
+              "sum": -1521.635706987419,
+              "learning_count": 0,
+              "at_lower": 0,
+              "at_upper": 0,
+              "fraction_lower": null,
+              "fraction_upper": null
+            }
+          }
+        ],
+        "difference": {
+          "reference": 0,
+          "target": 1,
+          "error": "",
+          "pair_filter": "intersection: both endpoints pass filters",
+          "exactly_unchanged_raw": 3032,
+          "statistics": {
+            "count": 3032,
+            "mean": 0,
+            "median": 0,
+            "stddev_population": 0,
+            "min": 0,
+            "max": 0,
+            "sum": 0,
+            "learning_count": 0,
+            "at_lower": 0,
+            "at_upper": 0,
+            "fraction_lower": null,
+            "fraction_upper": null
+          }
+        }
+      }
+    }
+  },
+  "checkpoint_process": {
+    "wall_seconds": 0.7646421999670565,
+    "cli_sha256": "29b0ef17be830b4ebdf04c139331b7fcb9079644aefeaa454fe599f4bf251f2f",
+    "inputs_unchanged": true,
+    "input_sha256": {
+      "verification\\disk_history_20261020\\process\\20261020_020524\\pause.nscp": "2fe2dee9dba28390ff87e19e83e860fc252c4c600c83fc90ce9ddf9d1ccf5978",
+      "E:\\asp\\26_27\\labs\\lab6_1Hz_final_400s.nscp": "d027b68dc4c91ee09871ba3c677a48c5f4bffa8bec5e09a46a4f55f3ea929a08"
+    },
+    "accepted_exit": 0,
+    "rejected_exit": 1,
+    "rejection": "Checkpoint: unsupported schema\r\n",
+    "simulation_steps_executed": 0
+  },
+  "native_large": {
+    "exit_code": 0,
+    "gui_sha256": "9A56E0CC13B07224DF236A31837860BEFAF989677F00AB848DE7FD15D20CA341",
+    "wall_seconds": 5.5481856,
+    "exports_equal_cli": true,
+    "inputs": "E:\\asp\\26_27\\configurator\\verification\\weight_snapshots_20261020\\labs_20261020_023611"
+  },
+  "paths": {
+    "labs": "E:\\asp\\26_27\\configurator\\verification\\weight_snapshots_20261020\\labs_20261020_023611",
+    "native": "E:\\asp\\26_27\\configurator\\verification\\weight_snapshots_20261020\\native-labs_20261020_023652",
+    "process": "E:\\asp\\26_27\\configurator\\verification\\weight_snapshots_20261020\\process_20261020_023651"
+  }
+}

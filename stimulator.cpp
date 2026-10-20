@@ -1,4 +1,5 @@
 #include "network.h"
+#include "history_archive.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -43,6 +44,44 @@ std::string validate_stimulators(const Config& c) {
     if(c.analysis.reference_stimulator&&std::none_of(c.stimulators.begin(),c.stimulators.end(),[&](const auto& s){return s.id==c.analysis.reference_stimulator;}))return "Analysis refers to a missing stimulator.";
     return {};
 }
+double next_stimulator_pulse(const Stimulator& s,double time) {
+    const auto n=stimulator_signal(s);
+    double next=std::numeric_limits<double>::infinity();
+    if(!std::isfinite(time)||!s.enabled||n.frequency<=0||n.amplitude==0||time>=n.stop)return next;
+    const double period=1/n.frequency;
+    auto onset=[&](double at){
+        if(at>=time&&at<n.stop&&at<next&&pulse_current(n,at)!=0&&
+           pulse_current(n,std::nextafter(at,-INFINITY))==0)next=at;
+    };
+    onset(n.start);
+    const double cycle=std::floor((std::max(time,n.start)-n.start)/period);
+    for(int neighbor=-1;neighbor<=2;++neighbor){
+        const double k=cycle+neighbor;if(k<0)continue;
+        if(n.pulse_intervals.empty())onset(n.start+k*period);
+        else for(const auto& p:n.pulse_intervals)onset(n.start+k*period+p.start);
+    }
+    return next;
+}
+
+double next_stimulator_pulse(Stimulator value,const std::vector<StimulatorCommand>& commands,double time) {
+    // Forecast acknowledged commands in the solver's (time, sequence) order.
+    // Intermediate values in one group cannot emit pulses.
+    double from=time;
+    for(size_t i=0;i<commands.size();){
+        const double at=commands[i].time;size_t end=i;
+        while(end<commands.size()&&commands[end].time==at)++end;
+        bool found=false,restart=false;Stimulator after=value;
+        for(size_t j=i;j<end;++j)if(commands[j].value.id==value.id){found=true;after=commands[j].value;restart|=commands[j].restart;}
+        i=end;if(!found||at<time)continue;
+        const double next=next_stimulator_pulse(value,from);if(next<at)return next;
+        const bool was_on=pulse_current(stimulator_signal(value),std::nextafter(at,-INFINITY))!=0;
+        value=std::move(after);
+        if(pulse_current(stimulator_signal(value),at)!=0&&(!was_on||restart))return at;
+        from=std::nextafter(at,INFINITY);
+    }
+    return next_stimulator_pulse(value,from);
+}
+
 double Simulator::schedule_stimulator(Stimulator value,double requested,bool restart) {
     if(stepping||!checkpoint_boundary||!error.empty()||!std::isfinite(requested)||requested<time||requested>1e12)throw std::runtime_error("Stimulator command requires a safe boundary and finite future time.");
     if(stimulus_commands.size()+stimulus_changes.size()>=4096||next_stimulus_command==UINT64_MAX||config.next_stimulator_id==UINT64_MAX)throw std::runtime_error("Stimulator command/ID budget exceeded.");
@@ -50,10 +89,25 @@ double Simulator::schedule_stimulator(Stimulator value,double requested,bool res
     if(value.id&&old==config.stimulators.end())throw std::runtime_error("Unknown stimulator ID.");
     if(!value.id)value.id=config.next_stimulator_id;
     double at=requested;
-    if(!restart&&old!=config.stimulators.end()&&old->enabled&&old->signal.frequency>0&&value.signal.frequency!=old->signal.frequency&&requested>0) {
-        const auto n=stimulator_signal(*old);const double period=1/n.frequency;
-        if(at>=n.start&&at<n.stop) {double k=std::floor((at-n.start)/period);at=n.start+k*period;if(at<requested)at=n.start+(k+1)*period;}
-        value.signal.start=at;value.first_delay=0; // finish the old cycle, then use the new period
+    if(!restart&&old!=config.stimulators.end()&&value.signal.frequency!=old->signal.frequency) {
+        if(value.signal.start!=old->signal.start||value.first_delay!=old->first_delay)
+            throw std::runtime_error("Частота вместе с началом/задержкой: выберите «Применить с новой фазой». Команда не принята.");
+        const auto n=stimulator_signal(*old);
+        const double first=n.start+(n.pulse_intervals.empty()?0:n.pulse_intervals.front().start);
+        if(old->enabled&&value.enabled&&n.frequency>0&&value.signal.frequency>0&&at>=first&&at<n.stop) {
+            const double period=1/n.frequency,k=std::floor((at-n.start)/period);
+            double boundary=n.stop;
+            // Absolute edges, including neighbours of a rounded quotient.
+            // One ULP after an edge is after it; there is no fuzzy equality.
+            for(int neighbor=-1;neighbor<=2;++neighbor)if(k+neighbor>=0){
+                const double edge=n.start+(k+neighbor)*period;
+                if(edge>=requested&&edge<boundary)boundary=edge;
+            }
+            at=boundary;value.signal.start=at;value.first_delay=0;
+        }
+        // Before the first pulse, or for disabled/ended trains, keep the
+        // absolute start and first_delay. Never pull a future first pulse
+        // back to requested. Disabling is immediate.
     }
     if(restart)value.signal.start=at;
     Config check=config;auto target=std::find_if(check.stimulators.begin(),check.stimulators.end(),[&](const auto& s){return s.id==value.id;});
@@ -64,7 +118,7 @@ double Simulator::schedule_stimulator(Stimulator value,double requested,bool res
     config.next_stimulator_id=check.next_stimulator_id;
     stimulus_commands.push_back({next_stimulus_command++,at,std::move(value),restart});
     std::sort(stimulus_commands.begin(),stimulus_commands.end(),[](const auto& a,const auto& b){return a.time!=b.time?a.time<b.time:a.sequence<b.sequence;});
-    if(at==time){apply_stimulus_commands();synchronize_stimulators(true);}return at;
+    if(at==time){apply_stimulus_commands();synchronize_stimulators(true);}else if(archive)archive->protocol(*this);return at;
 }
 void Simulator::replay_stimulators(std::vector<StimulatorCommand> commands) {
     if(stepping||!checkpoint_boundary||!error.empty())throw std::runtime_error("Replay requires a safe boundary.");
@@ -77,7 +131,7 @@ void Simulator::replay_stimulators(std::vector<StimulatorCommand> commands) {
     for(const auto& v:combined){auto it=std::find_if(check.stimulators.begin(),check.stimulators.end(),[&](auto& s){return s.id==v.value.id;});if(it==check.stimulators.end())check.stimulators.push_back(v.value);else *it=v.value;
         std::sort(check.stimulators.begin(),check.stimulators.end(),[](auto& a,auto& b){return a.id<b.id;});auto issue=validate_stimulators(check);if(!issue.empty())throw std::runtime_error(issue);}
     stimulus_commands=std::move(combined);next_stimulus_command=next;config.next_stimulator_id=next_id;
-    apply_stimulus_commands();synchronize_stimulators(true);
+    apply_stimulus_commands();synchronize_stimulators(true);if(archive)archive->protocol(*this);
 }
 
 double Simulator::move_stimulator(uint64_t id,double x,double y,double at) {
@@ -91,7 +145,7 @@ void Simulator::apply_stimulus_commands() {
         if(command.time!=time)throw std::runtime_error("Missed a scheduled stimulator boundary.");
         if(experiment.protocols.size()>=4096)throw std::runtime_error("Protocol journal is full.");
         if(command.restart)for(auto& l:stimulus_latches)if(l.id==command.value.id&&l.active_pulse) {
-            for(auto& p:history.shared_pulses)if(p.stimulator==l.id&&p.pulse==l.active_pulse){p.end=time;p.complete=true;}
+            for(auto& p:history.shared_pulses)if(p.stimulator==l.id&&p.pulse==l.active_pulse){p.end=time;p.complete=true;if(archive)archive->pulse(p);}
             l.active_pulse=0;
         }
         auto it=std::find_if(config.stimulators.begin(),config.stimulators.end(),[&](auto& s){return s.id==command.value.id;});
@@ -122,7 +176,7 @@ void Simulator::synchronize_stimulators(bool close_only) {
         if(it==stimulus_latches.end()){stimulus_latches.push_back({s.id,1,0});it=stimulus_latches.end()-1;}
         const double value=pulse_current(stimulator_signal(s),time);
         if(it->active_pulse&&value==0) {
-            for(auto p=history.shared_pulses.rbegin();p!=history.shared_pulses.rend();++p)if(p->stimulator==s.id&&p->pulse==it->active_pulse){p->end=time;p->complete=true;break;}
+            for(auto p=history.shared_pulses.rbegin();p!=history.shared_pulses.rend();++p)if(p->stimulator==s.id&&p->pulse==it->active_pulse){p->end=time;p->complete=true;if(archive)archive->pulse(*p);break;}
             it->active_pulse=0;
         }
         if(!it->active_pulse&&value!=0&&!close_only) {
@@ -137,6 +191,7 @@ void Simulator::synchronize_stimulators(bool close_only) {
             }
             it->active_pulse=it->next_pulse++;
             history.shared_pulses.push_back({s.id,it->active_pulse,time,time,value,false,experiment.stage_index,stimulator_recipients(config,s)});
+            if(archive)archive->pulse(history.shared_pulses.back());
         }
     }
 }

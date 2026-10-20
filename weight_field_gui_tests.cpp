@@ -48,7 +48,13 @@ int main() {
         check(app.restore_state(dir/"restore.nscp"),"Checkpoint restore failed");frame(app);equal(app,reference,dir);
         v.polarity=FieldPolarity::Inhibitory;v.model=FieldModel::TsodyksMarkram;v.activity=true;v.activity_mode=1;v.activity_window=.125;v.response_min=.001;v.response_max=.03;v.activity_scale=.08;v.activity_polarity=FieldPolarity::Excitatory;
         check(app.plot_windows.save(dir/"view.nsworkspace"),"Workspace save");auto saved=bytes(dir/"view.nsworkspace");check(v.activity,"Activity setting");
-        auto version3=saved;version3.erase(version3.size()-8-64,64);version3[8+std::string("Network Studio plot workspace").size()]=3;resign(version3);write_atomic(dir/"version3.nsworkspace",version3);check(app.plot_windows.load(dir/"version3.nsworkspace"),"Schema 3 compatibility");check(!v.activity,"Legacy activity default");saved=version3;
+        // Strip the v5 profile/interval extension to construct actual legacy layouts.
+        size_t profile_bytes=8;for(const auto& p:app.plot_windows.analysis_profiles)profile_bytes+=8+analysis_profile_json(p).size();
+        auto selection_bytes=[](const PlotWindowState& w){return 16+analysis_interval_json(w.analysis_interval).size()+w.analysis_profile.size();};
+        profile_bytes+=selection_bytes(app.plot_windows.embedded[7]);for(const auto& w:app.plot_windows.windows)profile_bytes+=selection_bytes(w);
+        auto version4=saved;version4.erase(version4.size()-8-profile_bytes,profile_bytes);version4[8+std::string("Network Studio plot workspace").size()]=4;resign(version4);write_atomic(dir/"version4.nsworkspace",version4);
+        check(app.plot_windows.load(dir/"version4.nsworkspace")&&app.plot_windows.analysis_profiles.empty()&&app.plot_windows.embedded[7].analysis_interval.current_end,"Schema 4 compatibility/default interval");
+        auto version3=version4;version3.erase(version3.size()-8-64,64);version3[8+std::string("Network Studio plot workspace").size()]=3;resign(version3);write_atomic(dir/"version3.nsworkspace",version3);check(app.plot_windows.load(dir/"version3.nsworkspace"),"Schema 3 compatibility");check(!v.activity,"Legacy activity default");saved=version3;
         v=TopologyViewState{};check(app.plot_windows.load(dir/"view.nsworkspace"),"Workspace load");
         check(v.field&&v.columns==8&&v.rows==6&&v.polarity==FieldPolarity::Inhibitory&&v.model==FieldModel::TsodyksMarkram&&v.zoom==2.75,"Workspace lost topology settings");check(v.activity&&v.activity_mode==1&&v.activity_window==.125&&v.response_min==.001&&v.response_max==.03&&v.activity_scale==.08&&v.activity_polarity==FieldPolarity::Excitatory,"Workspace lost activity settings");
         // Schema 1 has the same window/ini prefix and no 112-byte topology block.

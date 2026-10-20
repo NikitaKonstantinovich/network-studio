@@ -23,6 +23,9 @@ struct PlotWindowState {
     std::array<double,6> limits{{0,1,-1,1,-1,1}};
     ImVec2 position{120,120}, size{720,480};
     AnalysisSettings analysis;
+    AnalysisInterval analysis_interval;
+    std::string analysis_profile;
+    std::array<char,129> profile_draft{};
     NetworkAnalysis analyzed;
     double analysis_at=-1;
     std::string analysis_key;
@@ -36,12 +39,13 @@ public:
     static constexpr size_t MaxWindows=32, MaxWorkspaceBytes=4*1024*1024;
     std::vector<PlotWindowState> windows;
     std::array<PlotWindowState,8> embedded;
+    std::vector<AnalysisProfile> analysis_profiles;
     TopologyViewState topology;
     std::string binding, message;
     std::filesystem::path workspace_path;
     bool host_open=false;
     std::function<std::filesystem::path()> analysis_export_dialog;
-    std::function<void(const AnalysisSettings&,const std::filesystem::path&)> analysis_export;
+    std::function<void(const AnalysisSettings&,const AnalysisInterval&,const std::string&,const std::filesystem::path&)> analysis_export;
     bool automatic_save_allowed=true;
     PlotWindows();
     void data_changed(const Config& config,bool replacement=false);
@@ -60,6 +64,9 @@ public:
     static std::string config_binding(const Config& config);
     static void clamp_to_monitors(ImVec2& position,ImVec2& size);
     void draw_network(PlotWindowState& window,const SimulationReadView& simulation);
+    bool create_analysis_profile(PlotWindowState& window,const std::string& name);
+    bool load_analysis_profile(PlotWindowState& window,size_t index);
+    void apply_analysis_to_all(const PlotWindowState& source);
 private:
     uint32_t next_id=1;
     bool reset_host=false, demo_layout=false;

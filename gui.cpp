@@ -29,7 +29,7 @@ void apply_style() {
 App::App() {
     simulation=&display;
     plot_windows.analysis_export_dialog=[this](){return file_dialog?file_dialog(true,true):std::filesystem::path{};};
-    plot_windows.analysis_export=[this](const AnalysisSettings& settings,const std::filesystem::path& path){RunnerCommand c;c.kind=RunnerCommand::Kind::ExportAnalysis;c.analysis=settings;c.path=path;command(std::move(c));};
+    plot_windows.analysis_export=[this](const AnalysisSettings& settings,const AnalysisInterval& interval,const std::string& profile,const std::filesystem::path& path){RunnerCommand c;c.kind=RunnerCommand::Kind::ExportAnalysis;c.analysis=settings;c.analysis_interval=interval;c.text=profile;c.path=path;command(std::move(c));};
     runner=std::make_unique<SimulationRunner>(config);synchronize();
 }
 App::~App() {if(runner)runner->shutdown();}
@@ -119,12 +119,20 @@ void App::advance() {
         if(!result.ok){status=result.error;config=display.config;}
         else if(kind==RunnerCommand::Kind::Pause)status="Расчёт приостановлен; текущий шаг завершён.";
         else if(kind==RunnerCommand::Kind::Advance)status="Шаг расчёта завершён.";
+        else if(kind==RunnerCommand::Kind::StartArchive)status="Архив подключён. Запись активна; параметры приняты вычислителем.";
+        else if(kind==RunnerCommand::Kind::FlushArchive)status="Буфер архива подтверждён на диске.";
+        else if(kind==RunnerCommand::Kind::CaptureWeights&&result.weights){
+            try{add_weight_snapshot(*result.weights);status="Согласованный снимок всех весов получен на границе шага.";}catch(const std::exception& e){weight_message=e.what();}
+        }
         else if(kind==RunnerCommand::Kind::SaveCheckpoint)status="Полное состояние сохранено.";
         else if(kind==RunnerCommand::Kind::ComputeThreads)status="Число вычислительных потоков применено на границе шага.";
         else if(kind==RunnerCommand::Kind::Export||kind==RunnerCommand::Kind::ExportAnalysis||kind==RunnerCommand::Kind::ExportTrained)status="Экспорт завершён.";
         else if(kind==RunnerCommand::Kind::Restore||kind==RunnerCommand::Kind::LoadConfig) {
             if(result.ok){selected_kind=selected_index=0;preset_index=-1;dirty=false;filename.clear();neuron_plot=neuron_view=syn_plot=syn_view=astro_plot=0;link_source=0;link_target=std::min(1,int(config.neurons.size())-1);status="Состояние загружено. Пауза.";}
-        } else if(kind==RunnerCommand::Kind::Stimulator||kind==RunnerCommand::Kind::MoveStimulator)status="Команда источника: t="+std::to_string(result.applied_time)+" с.";
+        } else if(kind==RunnerCommand::Kind::Stimulator||kind==RunnerCommand::Kind::MoveStimulator){
+            status="Команда источника принята: применение t="+std::to_string(result.applied_time)+" с.";
+            if(result.accepted_stimulator&&selected_stimulator==result.id)stimulator_draft=*result.accepted_stimulator;
+        }
         it=pending.erase(it);
     }
     replacing=std::any_of(pending.begin(),pending.end(),[](const Pending& p){return p.kind==RunnerCommand::Kind::Reset||p.kind==RunnerCommand::Kind::LoadConfig||p.kind==RunnerCommand::Kind::Restore;});
@@ -364,6 +372,8 @@ void App::toolbar() {
     ImGui::EndDisabled();
     ImGui::SameLine();if(ImGui::Button("Этапы эксперимента…"))show_stages=true;
     ImGui::SameLine();if(ImGui::Button("Стимуляторы…"))show_stimulators=true;
+    ImGui::SameLine();if(ImGui::Button("История на диске…"))show_archive=true;
+    ImGui::SameLine();if(ImGui::Button("Веса всей сети…"))show_weights=true;
     const auto& m=simulation->metrics;
     ImGui::Text("Скорость %.5g модельных с/с · расчёт %.1f с · осталось ≈ %.1f с",m.model_per_second,m.elapsed_seconds,m.eta_seconds);
     ImGui::SameLine();ImGui::SetNextItemWidth(115);
@@ -402,6 +412,9 @@ void App::editor() {
     if(scalar_min("Запись, мс",sample,config.dt*1000,.05)){config.sample=sample*.001;edit();}
     ImGui::PopItemWidth();
     if(ImGui::Checkbox("Записывать все состояния",&config.record_all))edit();
+    bool rolling=config.history_capacity>0;
+    if(ImGui::Checkbox("Ограничить состояния в ОЗУ",&rolling)){config.history_capacity=rolling?std::min<size_t>(10000,MaxStoredValues/std::max(1,recorded_dimension(config))):0;edit();}
+    if(rolling)ImGui::TextWrapped("В ОЗУ до %zu отсчётов. Для полного опыта включите архив до запуска.",config.history_capacity);
     const auto rows=planned_samples(config.duration,config.sample);
     if(rows<=MaxSamples)ImGui::TextDisabled("История: %zu / 1 000 000 отсчётов",rows);
     else ImGui::TextDisabled("История: более 1 000 000 отсчётов");
@@ -867,6 +880,6 @@ void App::draw() {
     if(analysis_settings_json(config.analysis)!=analysis_settings_json(analysis)) {
         config.analysis=analysis;RunnerCommand c;c.kind=RunnerCommand::Kind::Analysis;c.analysis=analysis;command(std::move(c));
     }
-    stage_manager();stimulator_manager();drawing=false;
+    stage_manager();stimulator_manager();archive_manager();weights_manager();drawing=false;
 }
 }

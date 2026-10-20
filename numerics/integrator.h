@@ -6,6 +6,7 @@
 #include <vector>
 #include "performance/profile.h"
 #include "worker_pool.h"
+#include "error_norm.h"
 
 namespace studio::numerical {
 using Vector = std::vector<double>;
@@ -105,13 +106,7 @@ public:
         STUDIO_SCOPE(trial);
         rk4(old,h,full);rk4(old,h*.5,half);rk4(half,h*.5,next);
         if(error_norm)return error_norm(old,next,full);
-        double error=0;
-        for(size_t i=0;i<old.size();++i) {
-            if(!std::isfinite(next[i]) || !std::isfinite(full[i]))return std::numeric_limits<double>::infinity();
-            const double scale=1e-11+1e-8*std::max(std::abs(old[i]),std::abs(next[i]));
-            error=std::max(error,std::abs(next[i]-full[i])/(15*scale));
-        }
-        return error;
+        return error_norm_range(old.data(),next.data(),full.data(),0,old.size());
     }
     // Localize every candidate independently, then apply the earliest group.
     // This makes simultaneous-event membership independent of node iteration.

@@ -1,6 +1,7 @@
 #include "simulation_runner.h"
 #include "io.h"
 #include "analysis.h"
+#include "history_archive.h"
 #include "performance/profile.h"
 #include <algorithm>
 #include <atomic>
@@ -107,6 +108,7 @@ struct SimulationRunner::Impl {
         // Preserve the execution preference, including Auto, without changing
         // checkpoint state or replacing the current experiment on setup failure.
         candidate->set_compute_threads(sim?sim->compute_threads():1);
+        if(sim)flush_archive(*sim);
         cancel_target("Advance cancelled by replacement of the experiment.");set_running(false);sim=std::move(candidate);
         ++generation;sequence=0;compute_seconds=publish_seconds=active_seconds=0;publish_count=0;model_start=sim->time;
         runner_error.clear();
@@ -145,14 +147,14 @@ struct SimulationRunner::Impl {
         const auto& h=sim->history;auto& samples=out->samples;
         size_t recorded=1;for(const auto& v:h.values)if(!v.empty())++recorded;for(const auto& v:h.weights)if(!v.empty())++recorded;
         const size_t capacity=std::max<size_t>(1,std::min(MaxDisplaySamples,MaxDisplayDoubles/recorded));
-        samples.end=h.time.size();samples.begin=h.time.size()>capacity?h.time.size()-capacity:0;
+        samples.end=h.sample_begin+h.time.size();samples.begin=h.sample_begin+(h.time.size()>capacity?h.time.size()-capacity:0);
         samples.append_from=std::min(samples.end,std::max(samples.begin,base?base->samples.end:0));
         samples.value_columns=h.values.size();samples.weight_columns=h.weights.size();
-        samples.time.assign(h.time.begin()+size_t(samples.append_from),h.time.end());
+        samples.time.assign(h.time.begin()+size_t(samples.append_from-h.sample_begin),h.time.end());
         for(int weights=0;weights<2;++weights){const auto& source=weights?h.weights:h.values;
             for(size_t i=0;i<source.size();++i)if(!source[i].empty()){
                 SampleColumnDelta column;column.index=i;column.weight=weights!=0;
-                column.values.assign(source[i].begin()+size_t(samples.append_from),source[i].end());samples.columns.push_back(std::move(column));
+                column.values.assign(source[i].begin()+size_t(samples.append_from-h.sample_begin),source[i].end());samples.columns.push_back(std::move(column));
             }
         }
         out->truncated=samples.begin>0;
@@ -167,6 +169,9 @@ struct SimulationRunner::Impl {
         activity_delta(sim->activity.deliveries,sim->activity.delivery_begin,out->activity_deliveries,base?base->activity_deliveries.end:0,out->activity_available_after,[](const Delivery& e){return e.t_arrival;},out->truncated);
         activity_delta(sim->activity.spikes,sim->activity.spike_begin,out->activity_spikes,base?base->activity_spikes.end:0,out->activity_available_after,[](const Event& e){return e.time;},out->truncated);
         auto& m=out->metrics;m.running=running;m.elapsed_seconds=active_seconds+(running?seconds(Clock::now()-active_begin):0);m.compute_seconds=compute_seconds;
+        m.memory_samples_from=h.time.empty()?sim->time:h.time.front();m.memory_events_from=h.events_after;m.memory_stimuli_from=std::max(h.stimuli_after,h.shared_after);
+        m.archive_active=bool(sim->archive);m.archive_required=!sim->archive_anchor.empty();
+        if(sim->archive){auto info=sim->archive->info();m.archive_deliveries=info.deliveries;m.archive_id=info.id;m.disk_from=info.from;m.disk_until=info.until;m.archive_status=info.status;}
         m.compute_threads=sim->compute_threads();m.effective_compute_threads=sim->effective_compute_threads();
         m.model_per_second=m.elapsed_seconds>0?(sim->time-model_start)/m.elapsed_seconds:0;
         const double until=sim->experiment.stage_active&&!sim->experiment.automatic?sim->experiment.stage_end:sim->config.duration;
@@ -207,10 +212,12 @@ struct SimulationRunner::Impl {
             using K=RunnerCommand::Kind;
             switch(c.kind) {
             case K::Run:
+                if(!sim->archive_anchor.empty()&&!sim->archive)throw std::runtime_error("Attach archive: continue previous recording or create a new branch.");
                 if(sim->done())throw std::runtime_error(sim->error.empty()?"Simulation is complete; extend or reset it before running.":sim->error);
                 cancel_target("Advance superseded by Run.");set_running(true);break;
-            case K::Pause:set_running(false);cancel_target("Advance interrupted by Pause.");break;
+            case K::Pause:set_running(false);cancel_target("Advance interrupted by Pause.");flush_archive(*sim);break;
             case K::Advance:case K::RunTo: {
+                if(!sim->archive_anchor.empty()&&!sim->archive)throw std::runtime_error("Attach archive before continuing this checkpoint.");
                 if(!std::isfinite(c.value)||c.value<0)throw std::runtime_error("Invalid advance target.");
                 const double at=c.kind==K::Advance?std::min(sim->config.duration,sim->time+c.value):c.value;
                 if(!std::isfinite(at)||at>sim->config.duration)throw std::runtime_error("Advance target exceeds the configured duration.");
@@ -225,7 +232,7 @@ struct SimulationRunner::Impl {
             case K::SaveCheckpoint:save_checkpoint(*sim,c.path);break;
             case K::Export:export_results(*sim,c.path);break;
             case K::ExportTrained:save_config(sim->learned_config(),c.path);break;
-            case K::ExportAnalysis:export_analysis(analyze_network(sim->config,sim->history,sim->time,c.analysis),c.analysis,c.path);break;
+            case K::ExportAnalysis:export_analysis(analyze_network(sim->config,sim->history,sim->time,c.analysis,c.analysis_interval),c.analysis,c.path,c.text);break;
             case K::Extend:sim->extend_duration(c.value);config_dirty=true;break;
             case K::EnterStage: {
                 Config candidate=sim->config;candidate.stages=c.stages;const auto issue=validate_experiment(candidate);if(!issue.empty())throw std::runtime_error(issue);
@@ -245,7 +252,11 @@ struct SimulationRunner::Impl {
                 const uint64_t id=c.stimulator.id?c.stimulator.id:sim->config.next_stimulator_id;
                 auto source=c.stimulator;
                 if(c.value<0&&c.flag2){source.signal.start=sim->time;source.signal.stop=std::max(sim->time+1,sim->config.duration);}
-                r.applied_time=sim->schedule_stimulator(std::move(source),c.value<0?sim->time:c.value,c.flag);r.id=id;config_dirty=true;break;
+                r.applied_time=sim->schedule_stimulator(std::move(source),c.value<0?sim->time:c.value,c.flag);r.id=id;
+                const auto sequence=sim->next_stimulus_command-1;
+                for(const auto& command:sim->stimulus_commands)if(command.sequence==sequence)r.accepted_stimulator=command.value;
+                for(const auto& change:sim->stimulus_changes)if(change.sequence==sequence)r.accepted_stimulator=change.value;
+                config_dirty=true;break;
             }
             case K::MoveStimulator:r.applied_time=sim->move_stimulator(c.id,c.value,c.second,c.third<0?sim->time:c.third);r.id=c.id;config_dirty=true;break;
             case K::RemoveStimulator:sim->remove_stimulator(c.id);config_dirty=true;break;
@@ -255,14 +266,25 @@ struct SimulationRunner::Impl {
                 sim->config.astrocytes[c.index].px=c.value;sim->config.astrocytes[c.index].py=c.second;config_dirty=true;break;
             case K::WriteProfile:profile::write(c.path);break;
             case K::ComputeThreads:sim->set_compute_threads(c.index);break;
+            case K::StartArchive: {
+                if(running)throw std::runtime_error("Pause before attaching a history archive");
+                const auto old=sim->config;
+                if(sim->steps==0){sim->config.bounded_journals=true;sim->config.journal_capacity=50000;sim->config.history_capacity=size_t(std::max(2,c.index));}
+                try{auto issue=validate(sim->config);if(!issue.empty())throw std::runtime_error(issue);start_archive(*sim,c.path,c.flag,c.flag2);}
+                catch(...){sim->config=old;throw;}
+                config_dirty=true;break;
+            }
+            case K::FlushArchive:flush_archive(*sim);break;
+            case K::CaptureWeights:
+                r.weights=std::make_shared<const WeightSnapshot>(capture_weights(sim->config,sim->plasticity,sim->time,sim->steps,c.text.empty()?"t="+std::to_string(sim->time)+" s":c.text));break;
             case K::Barrier:break;
             }
             if(defer)return;
             // Replacement changes generation/time. Preserve only explicitly returned
             // source ID and scheduled time from the old result object.
-            const auto id=r.id;const double applied=r.applied_time;r=result();r.id=id;
+            const auto id=r.id;const double applied=r.applied_time;auto accepted=std::move(r.accepted_stimulator);auto weights=std::move(r.weights);r=result();r.id=id;r.accepted_stimulator=std::move(accepted);r.weights=std::move(weights);
             if(c.kind==K::Stimulator||c.kind==K::MoveStimulator)r.applied_time=applied;
-        }catch(const std::exception& e){r=result(false,e.what());}
+        }catch(const std::exception& e){if(sim->archive&&sim->archive->info().status=="failed"){set_running(false);runner_error=e.what();}r=result(false,e.what());}
         catch(...){r=result(false,"Controller command failed with an unknown exception.");}
         acknowledge(std::move(request),std::move(r));
     }
@@ -285,7 +307,7 @@ struct SimulationRunner::Impl {
                 if(versions!=sim->experiment.protocols.size())config_dirty=true;
                 const bool reached=target_request&&sim->time>=target_time;
                 if(reached||!ok||sim->done()) {
-                    set_running(false);
+                    flush_archive(*sim);set_running(false);
                     if(target_request){auto r=result(sim->error.empty(),sim->error);acknowledge(std::move(target_request),std::move(r));}
                     else while(!publish(true)&&!stopped()){}
                 }else if(Clock::now()>=next_publish)publish(false);
@@ -305,6 +327,7 @@ struct SimulationRunner::Impl {
         // Explicit shutdown completes the entire computation lifetime, not just
         // the controller. Destroy/join its helper pool on the owner thread.
         // Published snapshots own their data and remain valid independently.
+        try{if(sim)flush_archive(*sim);}catch(const std::exception& e){runner_error=e.what();}
         sim.reset();
     }
 };

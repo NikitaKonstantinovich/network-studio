@@ -43,7 +43,7 @@ bool PlotWindows::save(const std::filesystem::path& path) {
     if(path.empty())return false;
     try {
         if(!valid_topology_view(topology))throw std::runtime_error("Недопустимые настройки топологии.");
-        Writer w;w.str("Network Studio plot workspace");w.u64(4);w.u64(next_id);w.u64(host_open);w.u64(windows.size());
+        Writer w;w.str("Network Studio plot workspace");w.u64(5);w.u64(next_id);w.u64(host_open);w.u64(windows.size());
         for(const auto& p:windows) {
             if(p.title.size()>255||!std::isfinite(p.seconds)||p.seconds<.000001)throw std::runtime_error("Недопустимые настройки окна; рабочее пространство не заменено.");
             for(int k=0;k<6;++k)if(!std::isfinite(p.limits[k])||std::abs(p.limits[k])>1e12)throw std::runtime_error("Диапазон оси слишком велик для рабочего пространства.");
@@ -61,6 +61,11 @@ bool PlotWindows::save(const std::filesystem::path& path) {
         w.str(analysis_settings_json(embedded[7].analysis));
         w.u64(windows.size());for(const auto& p:windows)w.str(analysis_settings_json(p.analysis));
         w.u64(topology.activity);w.u64(topology.activity_mode);w.real(topology.activity_window);w.real(topology.response_min);w.real(topology.response_max);w.real(topology.activity_scale);w.u64(int(topology.activity_polarity));w.u64(int(topology.activity_model));
+        if(analysis_profiles.size()>64)throw std::runtime_error("Too many analysis profiles");
+        w.u64(analysis_profiles.size());std::set<std::string> names;
+        for(const auto& p:analysis_profiles){if(p.name.empty()||!names.insert(p.name).second)throw std::runtime_error("Empty/duplicate profile name");w.str(analysis_profile_json(p));}
+        auto selection=[&](const PlotWindowState& p){w.str(analysis_interval_json(p.analysis_interval));w.str(p.analysis_profile);};
+        selection(embedded[7]);for(const auto& p:windows)selection(p);
         w.u64(hash(w.bytes));if(w.bytes.size()>MaxWorkspaceBytes)throw std::runtime_error("Рабочее пространство превышает 4 МиБ.");
         write_atomic(path,w.bytes);workspace_path=path;automatic_save_allowed=true;message="Рабочее пространство графиков сохранено.";return true;
     }catch(const std::exception& e){message=e.what();return false;}
@@ -73,7 +78,7 @@ bool PlotWindows::load(const std::filesystem::path& path) {
         Reader checksum{bytes,bytes.size()-8};if(checksum.u64()!=hash(bytes.substr(0,bytes.size()-8)))throw std::runtime_error("Повреждённое рабочее пространство: контрольная сумма.");
         bytes.resize(bytes.size()-8);Reader r{bytes};
         if(r.str(64)!="Network Studio plot workspace")throw std::runtime_error("Несовместимый тип рабочего пространства.");
-        const auto version=r.u64();if(version!=1&&version!=2&&version!=3&&version!=4)throw std::runtime_error("Несовместимая версия рабочего пространства.");
+        const auto version=r.u64();if(version!=1&&version!=2&&version!=3&&version!=4&&version!=5)throw std::runtime_error("Несовместимая версия рабочего пространства.");
         auto next=uint32_t(r.bounded(UINT32_MAX-1));bool host=r.flag();size_t count=r.bounded(MaxWindows);
         std::vector<PlotWindowState> parsed;std::set<uint32_t> ids;bool mismatch=false;
         for(size_t i=0;i<count;++i) {
@@ -103,10 +108,17 @@ bool PlotWindows::load(const std::filesystem::path& path) {
             for(auto& p:parsed){probe.analysis=p.analysis;probe.analysis.reference_stimulator=0;if(!validate_experiment(probe).empty())throw std::runtime_error("Invalid window analysis settings");}
         }
         if(version>=4){view.activity=r.flag();view.activity_mode=int(r.bounded(1));view.activity_window=r.real(1e-6,10);view.response_min=r.real(0,10);view.response_max=r.real(0,10);view.activity_scale=r.real(1e-6,100);view.activity_polarity=FieldPolarity(r.bounded(2));view.activity_model=FieldModel(r.bounded(3));if(!valid_topology_view(view))throw std::runtime_error("Invalid activity field settings");}
+        std::vector<AnalysisProfile> profiles;AnalysisInterval interval;std::string profile;
+        if(version>=5) {
+            size_t count=r.bounded(64);std::set<std::string> names;
+            for(size_t i=0;i<count;++i){auto p=analysis_profile_from_json(r.str(65536));if(p.name.empty()||!names.insert(p.name).second)throw std::runtime_error("Empty/duplicate profile name");profiles.push_back(std::move(p));}
+            interval=analysis_interval_from_json(r.str(1024));profile=r.str(128);
+            for(auto& p:parsed){p.analysis_interval=analysis_interval_from_json(r.str(1024));p.analysis_profile=r.str(128);}
+        }
         if(r.cursor!=bytes.size()||!next)throw std::runtime_error("Лишние данные рабочего пространства.");
         // Commit only after validating the complete document, including ini checksum.
         windows=std::move(parsed);next_id=next;host_open=host;pending_ini=std::move(ini);workspace_path=path;
-        topology=view;embedded[7].analysis=analysis;embedded[7].analysis_at=-1;
+        topology=view;analysis_profiles=std::move(profiles);embedded[7].analysis_interval=interval;embedded[7].analysis_profile=profile;embedded[7].analysis=analysis;embedded[7].analysis_at=-1;
         automatic_save_allowed=true;
         message=mismatch?"Рабочее пространство открыто; есть несовместимые привязки. Проверьте окна и перепривяжите их явно.":"Рабочее пространство графиков восстановлено.";
         return true;

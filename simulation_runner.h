@@ -1,19 +1,23 @@
 #pragma once
 #include "simulation_view.h"
+#include "analysis.h"
+#include "weight_analysis.h"
 #include <filesystem>
 #include <future>
 #include <memory>
+#include <optional>
 
 namespace studio {
 struct RunnerCommand {
     enum class Kind {Run,Pause,Advance,RunTo,Reset,LoadConfig,Restore,SaveCheckpoint,Export,Extend,
         EnterStage,ContinueCurrent,Learning,Plan,Analysis,BoundedJournals,Stimulator,MoveStimulator,
-        RemoveStimulator,MoveNeuron,MoveAstro,ExportTrained,ExportAnalysis,WriteProfile,ComputeThreads,Barrier};
+        RemoveStimulator,MoveNeuron,MoveAstro,ExportTrained,ExportAnalysis,WriteProfile,ComputeThreads,StartArchive,FlushArchive,CaptureWeights,Barrier};
     Kind kind=Kind::Barrier;
     Config config;
     std::filesystem::path path;
     std::vector<ExperimentStage> stages;
     AnalysisSettings analysis;
+    AnalysisInterval analysis_interval;
     studio::Stimulator stimulator;
     double value=0,second=0,third=0;
     // ComputeThreads: requested worker count including controller; 0 = Auto.
@@ -27,6 +31,9 @@ struct RunnerResult {
     std::string error;
     uint64_t generation=0,steps=0,id=0,command_id=0,snapshot_sequence=0;
     double time=0,applied_time=0;
+    // Normalized parameters actually accepted by the solver (possibly queued).
+    std::optional<Stimulator> accepted_stimulator;
+    std::shared_ptr<const WeightSnapshot> weights;
 };
 class SimulationRunner {
 public:

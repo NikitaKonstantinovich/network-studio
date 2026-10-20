@@ -25,6 +25,7 @@ struct Offsets {
         p+=8+get64(s,p);p+=8+8*get64(s,p);time=p;steps=p+8;sample=p+16;suggested=p+24;p+=48;
         p+=8+get64(s,p);state=p;p+=8+8*get64(s,p);p+=8+32*get64(s,p);
         p+=8+8*get64(s,p);p+=8+8*get64(s,p);thresholds=p;p+=8+8*get64(s,p);
+        p+=16;p+=8+get64(s,p); // schema 5: rolling offsets and archive anchor
         rows=p;p+=8+8*get64(s,p);
         for(int table=0;table<2;++table){auto columns=get64(s,p);p+=8;for(uint64_t j=0;j<columns;++j)p+=8+8*get64(s,p);}
         events=p;

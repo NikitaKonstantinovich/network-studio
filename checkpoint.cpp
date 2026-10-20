@@ -1,4 +1,6 @@
 #include "io.h"
+#include "history_archive.h"
+#include "archive_codec.h"
 #include "checkpoint_build.h"
 #include <cstring>
 #include <fstream>
@@ -9,7 +11,7 @@
 namespace studio {
 namespace {
 constexpr char Magic[]="NETWORK-STUDIO-CHECKPOINT\n";
-constexpr uint64_t Schema=4;
+constexpr uint64_t Schema=5;
 void require(bool ok,const char* message) {if(!ok)throw std::runtime_error(std::string("Checkpoint: ")+message);}
 // Integrity against accidental corruption; not an authentication signature.
 uint64_t checksum(const char* p,size_t n) {
@@ -63,6 +65,12 @@ struct CheckpointAccess {
         for(double x:c.parameters)require(std::isfinite(x),"invalid full parameter array");
         require(s.error.size()<=65536 && s.error.find('\0')==std::string::npos,"invalid diagnostic string");
         require(s.checkpoint_boundary || !s.error.empty(),"unfinished step has no diagnostic");
+        const auto anchor=s.archive?s.archive->anchor():s.archive_anchor;
+        if(!anchor.empty()){
+            archive_codec::Reader r{anchor};const auto path=r.text(8192),id=r.text(128);const auto blocks=r.u(),records=r.u(),steps=r.u();const double at=r.d();r.u();r.end();
+            require(!path.empty()&&path.find('\0')==std::string::npos&&!id.empty()&&blocks<=1000000000&&records>=blocks&&at>=0&&at<=s.time&&steps<=s.steps,"invalid archive anchor");
+            require(!s.error.empty()||(at==s.time&&steps==s.steps),"archive/checkpoint boundary mismatch");
+        }
         require(std::isfinite(s.time) && s.time>=0 && s.time<=c.duration,"invalid model time");
         require(s.steps<=uint64_t(std::ceil(c.duration/c.dt)),"invalid step counter");
         if(s.checkpoint_boundary) {
@@ -83,10 +91,12 @@ struct CheckpointAccess {
             if(!edge.enabled || !edge.stdp)require(p.pre_trace==0 && p.post_trace==0 && p.post_slow_trace==0,"inactive learning has nonzero traces");
             else if(edge.stdp_rule!=StdpRule::Triplet)require(p.post_slow_trace==0,"pair rule has a slow trace");
         }
-        require(!h.time.empty() && h.time.size()<=MaxSamples && h.time.front()==0,"invalid history clock");
+        require(!h.time.empty() && h.time.size()<=MaxSamples && (h.time.front()==0 || c.history_capacity>0),"invalid history clock");
         require(uint64_t(h.time.size())*recorded_dimension(c)<=MaxStoredValues,"history exceeds scalar budget");
-        require(s.next_sample>=1 && s.next_sample<=MaxSamples+1 && double(s.next_sample-1)*c.sample<=s.time && double(s.next_sample)*c.sample>s.time,"invalid next sample");
-        uint64_t grid=0;double previous=-1;
+        require(s.next_sample>=1 && (c.history_capacity>0 || s.next_sample<=MaxSamples+1) && double(s.next_sample-1)*c.sample<=s.time && double(s.next_sample)*c.sample>s.time,"invalid next sample");
+        require(h.sample_grid_begin<=s.next_sample&&h.sample_begin<=uint64_t(s.time/c.sample)+s.steps+1,"invalid history offset");
+        require(c.history_capacity>0||(h.sample_begin==0&&h.sample_grid_begin==0),"unexpected rolling offset");
+        uint64_t grid=h.sample_grid_begin;double previous=-1;
         for(double t:h.time) {
             require(std::isfinite(t) && t>previous && t<=s.time,"unordered or future history time");
             // Off-grid terminal samples from completed, subsequently extended runs remain.
@@ -167,6 +177,7 @@ struct CheckpointAccess {
         w.reals(s.state);w.u64(s.plasticity.size());
         for(const auto& p:s.plasticity){w.real(p.weight);w.real(p.pre_trace);w.real(p.post_trace);w.real(p.post_slow_trace);}
         w.counts(s.spikes);w.counts(s.releases);w.u64(s.thresholds.size());for(const auto& t:s.thresholds)w.flag(t.armed);
+        w.u64(s.history.sample_begin);w.u64(s.history.sample_grid_begin);w.text(s.archive?s.archive->anchor():s.archive_anchor);
         w.reals(s.history.time);w.u64(s.history.values.size());for(const auto& column:s.history.values)w.reals(column);
         w.u64(s.history.weights.size());for(const auto& column:s.history.weights)w.reals(column);
         w.u64(s.history.events.size());for(const auto& e:s.history.events){w.real(e.time);w.u64(uint64_t(e.index));w.flag(e.astro);}
@@ -209,6 +220,7 @@ struct CheckpointAccess {
         s->spikes=r.counts(c.neurons.size());s->releases=r.counts(c.astrocytes.size());
         r.expected(s->thresholds.size());for(auto& t:s->thresholds)t.armed=r.flag();
         // Validate the aggregate scalar budget BEFORE allocating history columns.
+        s->history.sample_begin=r.u64();s->history.sample_grid_begin=r.u64();s->archive_anchor=r.text(32768);
         size_t rows=r.count(MaxSamples,8);require(rows>0 && uint64_t(rows)*recorded_dimension(c)<=MaxStoredValues,"history exceeds scalar budget");
         s->history.time.resize(rows);for(double& v:s->history.time)v=r.real();
         std::vector<bool> selected(dimension(c),false),weights(c.synapses.size(),false);
@@ -261,7 +273,7 @@ struct CheckpointAccess {
         return s;
     }
 };
-void save_checkpoint(const Simulator& s,const std::filesystem::path& path) {write_atomic(path,CheckpointAccess::encode(s));}
+void save_checkpoint(const Simulator& s,const std::filesystem::path& path) {flush_archive(s);write_atomic(path,CheckpointAccess::encode(s));}
 std::unique_ptr<Simulator> load_checkpoint(const std::filesystem::path& path) {
     std::ifstream file(path,std::ios::binary|std::ios::ate);require(bool(file),"cannot open file");
     const auto size=file.tellg();require(size>=0 && uint64_t(size)<=MaxCheckpointBytes,"file exceeds 512 MiB");

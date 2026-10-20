@@ -1,4 +1,5 @@
 #include "network.h"
+#include "history_archive.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -30,6 +31,7 @@ void Simulator::append_protocol(const std::string& name,bool cleared) {
     if(!experiment.protocols.empty())experiment.protocols.back().end=time;
     experiment.protocols.push_back({time,time,name,experiment.learning,cleared,experiment.learning_rate,config.neurons});
     for(auto s:config.stimulators){s.recipients=stimulator_recipients(config,s);s.spatial=false;experiment.protocols.back().stimulators.push_back(std::move(s));}
+    if(archive)archive->protocol(*this);
 }
 void Simulator::set_learning(bool enabled,double rate,bool clear) {
     if(stepping||!checkpoint_boundary||!error.empty())throw std::runtime_error("Learning controls require a safe paused boundary.");
@@ -66,7 +68,7 @@ void Simulator::enter_stage(size_t index,bool automatic) {
     if(end>config.duration)extend_duration(end);
     config.neurons=std::move(candidate.neurons);
     for(auto id:stage.stimulator_ids)for(auto& l:stimulus_latches)if(l.id==id&&l.active_pulse) {
-        for(auto& p:history.shared_pulses)if(p.stimulator==id&&p.pulse==l.active_pulse){p.end=time;p.complete=true;}l.active_pulse=0;
+        for(auto& p:history.shared_pulses)if(p.stimulator==id&&p.pulse==l.active_pulse){p.end=time;p.complete=true;if(archive)archive->pulse(p);}l.active_pulse=0;
     }
     config.stimulators=std::move(candidate.stimulators);
     experiment.learning=stage.learning;experiment.learning_rate=stage.learning_rate;
@@ -133,6 +135,7 @@ void Simulator::log_stimuli(double at) {
             history.stimuli.erase(history.stimuli.begin(),history.stimuli.begin()+k);
         }
         history.stimuli.push_back({at,value,i,int(experiment.protocols.size()-1)});
+        if(archive)archive->stimulus(history.stimuli.back());
     }
 }
 }

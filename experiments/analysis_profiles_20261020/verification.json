@@ -1,0 +1,158 @@
+{
+  "description": "Read-only reanalysis of existing 400 s lab exports. Does not run a simulation.",
+  "input_sha256": {
+    "E:\\asp\\26_27\\labs\\lab6_1Hz_experiment.json": "1545c4bbb508fb5e7e3d1cc5bb0cb5e7c193596ab309377f20b9d865d308d9a8",
+    "E:\\asp\\26_27\\labs\\lab6_1Hz_summary.json": "0b48284035c8a240b893976da8513aecb3e13cc0a5558a12032d683bd6e519af",
+    "E:\\asp\\26_27\\labs\\lab6_1Hz_events.csv": "7d7e374569c36ffc1b0bcb9a23f18c23195f4ad88e0a5d7eb57427ca15e1db5b",
+    "E:\\asp\\26_27\\labs\\lab6_1Hz_shared_stimuli.csv": "39f501fdbe6312770c2fad3c72d9fc272f56409e5dafba73c2549c2eca74f221",
+    "E:\\asp\\26_27\\labs\\lab6_10Hz_experiment.json": "5679ec3cd9915cd99ce8a6b61b825395c522cdbf4a2cf9bc5a40d1ef258cb8ba",
+    "E:\\asp\\26_27\\labs\\lab6_10Hz_summary.json": "83f0918a71f781a4450d3b75fad97ac25e74faad74106524a17f328e88256dd1",
+    "E:\\asp\\26_27\\labs\\lab6_10Hz_events.csv": "6bc8d20c1f2acee444637e761e489f751acd41c1675521f6a329f9b9169ebec0",
+    "E:\\asp\\26_27\\labs\\lab6_10Hz_shared_stimuli.csv": "7007a7cd97a1b874a2bfe4044993f54fc8acacfe707d50c3d2b488a244e84d29",
+    "E:\\asp\\26_27\\labs\\lab6_comparison\\common_window_statistics.json": "17ce6f18fbdc8c289f3117de116833ecee7560717c8a37b802c126bcad7e5429"
+  },
+  "inputs_unchanged": true,
+  "cli_sha256": "6cd2bbb23e2e8ed215ea9ec549ea4ff2506a44e6c341ce56c0aa0b91f88bba9a",
+  "profile_sha256": "1ed17ee851040773b594654a67b5f7564f2695c98863b35c94d7dc1cc3246ec8",
+  "wall_seconds": {
+    "lab6_1Hz": 4.17622330004815,
+    "lab6_10Hz": 2.8889294000109658,
+    "compare": 0.013955700036603957,
+    "partial": 2.892745900026057,
+    "reject_partial": 0.012905900017358363
+  },
+  "interval_s": [
+    280,
+    400
+  ],
+  "simulation_steps_executed": 0,
+  "results": {
+    "1": {
+      "document_type": "network_studio_analysis_result",
+      "schema_version": 1,
+      "algorithm": "trailing-hysteresis-context-v2",
+      "profile": {
+        "document_type": "network_studio_analysis_profile",
+        "schema_version": 1,
+        "name": "ЛР6 — общий детектор 280–400 с",
+        "settings": {
+          "population": 0,
+          "neurons": [],
+          "bin": 0.01,
+          "burst_window": 0.02,
+          "start_rate": 5000,
+          "end_rate": 1000,
+          "min_neurons": 50,
+          "min_fraction": 0.1,
+          "min_gap": 0.02,
+          "burst_rate_window": 1,
+          "reference_neuron": 0,
+          "response_min": 0,
+          "response_max": 0.1,
+          "reference_stimulator": "1"
+        }
+      },
+      "requested_from_s": 280,
+      "requested_until_s": 400,
+      "available_from_s": 137.57973563934848,
+      "available_until_s": 400,
+      "effective_from_s": 280,
+      "effective_until_s": 400,
+      "full_interval": true,
+      "prehistory_complete": true,
+      "detector_certain_from_s": 137.8276148797504,
+      "population_size": 500,
+      "detected_bursts": 678,
+      "complete_bursts": 678,
+      "stimulus_hz": 1,
+      "burst_hz": 5.65,
+      "eligible_stimuli": 120,
+      "matched": 57,
+      "missed": 63,
+      "extra": 621,
+      "incomplete_stimuli": 0,
+      "response_fraction": 0.475,
+      "interval_rule": "[from,to); burst start owns interval; complete requires end+min_gap+W<=to; response window closed and strictly before to"
+    },
+    "10": {
+      "document_type": "network_studio_analysis_result",
+      "schema_version": 1,
+      "algorithm": "trailing-hysteresis-context-v2",
+      "profile": {
+        "document_type": "network_studio_analysis_profile",
+        "schema_version": 1,
+        "name": "ЛР6 — общий детектор 280–400 с",
+        "settings": {
+          "population": 0,
+          "neurons": [],
+          "bin": 0.01,
+          "burst_window": 0.02,
+          "start_rate": 5000,
+          "end_rate": 1000,
+          "min_neurons": 50,
+          "min_fraction": 0.1,
+          "min_gap": 0.02,
+          "burst_rate_window": 1,
+          "reference_neuron": 0,
+          "response_min": 0,
+          "response_max": 0.1,
+          "reference_stimulator": "1"
+        }
+      },
+      "requested_from_s": 280,
+      "requested_until_s": 400,
+      "available_from_s": 270.1843041862027,
+      "available_until_s": 400,
+      "effective_from_s": 280,
+      "effective_until_s": 400,
+      "full_interval": true,
+      "prehistory_complete": true,
+      "detector_certain_from_s": 270.71599442921274,
+      "population_size": 500,
+      "detected_bursts": 502,
+      "complete_bursts": 501,
+      "stimulus_hz": 10,
+      "burst_hz": 4.175,
+      "eligible_stimuli": 1199,
+      "matched": 480,
+      "missed": 719,
+      "extra": 21,
+      "incomplete_stimuli": 1,
+      "response_fraction": 0.40033361134278567,
+      "interval_rule": "[from,to); burst start owns interval; complete requires end+min_gap+W<=to; response window closed and strictly before to"
+    }
+  },
+  "build_sha256": {
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe": "8a21e0214f97295f1434d267edccc7dc0ddb6ab0b66c8090d66a55a902c8cb39",
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe": "6cd2bbb23e2e8ed215ea9ec549ea4ff2506a44e6c341ce56c0aa0b91f88bba9a"
+  },
+  "checkpoint_build_id": "b43bf8d57a636556d9c10d85904df48bf56104e9141fe82e7154d86ce8c3b9c8",
+  "full_build_test_smoke": {
+    "wall_seconds": 287.7948466,
+    "exit_code": 0
+  },
+  "ctest": {
+    "passed": 37,
+    "total": 37,
+    "wall_seconds": 272.55
+  },
+  "strengthened_tests": {
+    "passed": 3,
+    "total": 3,
+    "wall_seconds": 8.32,
+    "build_plus_tests": {
+      "wall_seconds": 13.7430215,
+      "exit_code": 0
+    }
+  },
+  "new_run_directory": "E:\\asp\\26_27\\configurator\\verification\\analysis_profiles_20261020",
+  "final_gui_tests": {
+    "passed": 3,
+    "total": 3,
+    "wall_seconds": 48.63,
+    "build_plus_tests": {
+      "wall_seconds": 53.7748238,
+      "exit_code": 0
+    }
+  }
+}

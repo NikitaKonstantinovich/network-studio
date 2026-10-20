@@ -69,7 +69,7 @@ struct Consumer {
             }
             if(acknowledged&&view.generation==result.generation&&view.sequence>=result.snapshot_sequence&&
                view.last_command_id>=result.command_id&&view.steps==result.steps&&view.time==result.time&&
-               (!final||(view.done()&&!view.metrics.running)))return result;
+               (!final||!view.metrics.running))return result;
             if(Clock::now()>=deadline)throw std::runtime_error("Timed out waiting for a confirmed worker snapshot");
             if(wait_ms>0)std::this_thread::sleep_for(std::chrono::duration<double,std::milli>(wait_ms));
             else std::this_thread::yield();
@@ -79,7 +79,7 @@ struct Consumer {
 };
 }
 int main(int argc,char** argv) {try {
-    if(argc<3||argc>6)throw std::runtime_error("Usage: network_studio_runner_benchmark CONFIG OUTPUT_DIRECTORY [HZ=10] [CONSUMER_MS=1] [THREADS=1; 0=Auto]");
+    if(argc<3||argc>7)throw std::runtime_error("Usage: network_studio_runner_benchmark CONFIG OUTPUT_DIRECTORY [HZ=10] [CONSUMER_MS=1] [THREADS=1; 0=Auto] [ABSOLUTE_STOP=config.duration]");
     const double hz=argc>3?number(argv[3],1,60):10,consumer_ms=argc>4?number(argv[4],0,60000):1;
     const auto output=std::filesystem::u8path(argv[2]);std::filesystem::create_directories(output);
     if(std::filesystem::exists(output/"benchmark.json")||std::filesystem::exists(output/"final.nscp"))
@@ -87,13 +87,14 @@ int main(int argc,char** argv) {try {
     const auto setup=Clock::now();const auto config=load_config(std::filesystem::u8path(argv[1]));
     SimulationRunner runner(config);runner.set_display_hz(hz);Consumer consumer{runner,{},consumer_ms};
     consumer.call(command(Kind::Barrier));
-    if(argc>5){auto setting=command(Kind::ComputeThreads);const double n=number(argv[5],0,8);if(n!=std::floor(n))throw std::runtime_error("Invalid thread count");setting.index=int(n);consumer.call(setting);}
+    if(argc>5){auto setting=command(Kind::ComputeThreads);const double n=number(argv[5],0,compute::MaxThreads);if(n!=std::floor(n))throw std::runtime_error("Invalid thread count");setting.index=int(n);consumer.call(setting);}
     const RunnerMetrics initial=consumer.view.metrics;const double model_start=consumer.view.time;
-    auto run=command(Kind::RunTo);run.value=config.duration;
+    const double stop=argc>6?number(argv[6],config.dt,config.duration):config.duration;
+    auto run=command(Kind::RunTo);run.value=stop;
     consumer.measuring=true;const auto begin=Clock::now();
     const auto completed=consumer.call(std::move(run),true);
     const auto end=Clock::now();consumer.measuring=false;
-    if(completed.time!=config.duration)throw std::runtime_error("Worker stopped before the configured duration (for example at a manual stage boundary)");
+    if(completed.time<stop)throw std::runtime_error("Worker stopped before the requested boundary (for example at a manual stage boundary)");
     const RunnerMetrics metrics=consumer.view.metrics;const auto transport=consumer.transport;
     const size_t retained_samples=consumer.view.history.time.size(),retained_events=consumer.view.history.events.size();
     const auto neuron_spikes=std::accumulate(consumer.view.spikes.begin(),consumer.view.spikes.end(),uint64_t(0));

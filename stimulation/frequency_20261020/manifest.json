@@ -1,0 +1,187 @@
+{
+  "branch": "fix/stimulator-frequency-20261020",
+  "base_commit": "8483195c8ed2c06908eb55607aed90e2fe16713a",
+  "checkpoint_build_id": "75ae98c9af86681035d0cb7b4695e5cd6196983a1299f3aa6f47a508c71f3db1",
+  "checkpoint_schema": 4,
+  "config_schema": 7,
+  "full_suite": {
+    "passed": 34,
+    "failed": 0,
+    "ctest_seconds": 282.48,
+    "build_test_smoke_seconds": 296.5455446
+  },
+  "final_frequency_tests": {
+    "passed": 2,
+    "failed": 0,
+    "ctest_seconds": 1.37
+  },
+  "long_150_second_experiment_run": false,
+  "binaries": [
+    {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "bytes": 1944576,
+      "sha256": "e61ba98c8d852488357be2247351961aadd44775b4bb07da714aef33e726743f"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "bytes": 776192,
+      "sha256": "84ea282e8247cce0f23c5a4669b5cd3b2bd62d9b1bf287e14966caa65e51c3d5"
+    }
+  ],
+  "previous_binaries": [
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\network_studio.exe",
+      "bytes": 1935872,
+      "sha256": "7ebefec83116cbbd92aaef07260116e55150fd581f2f04e6b9ef0f677a3b4cff"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\network_studio_cli.exe",
+      "bytes": 776192,
+      "sha256": "a7eea70e66aac6db90304b7b23815e03456594f4566d6a6a465ece8e8d297395"
+    }
+  ],
+  "sources": [
+    {
+      "path": "E:\\asp\\26_27\\configurator\\CMakeLists.txt",
+      "bytes": 17063,
+      "sha256": "cd9e31f47d01cb3d279250cfa4a4d4d44454a0d3ae336546d1822652404a8209"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\README.md",
+      "bytes": 104132,
+      "sha256": "70d88b5a7ba070b834a3acc6a1bb9e0ddb7185a0add5fba77f30f8e8af87d887"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\network.h",
+      "bytes": 17332,
+      "sha256": "c5d2ec11d3edcf16f1bb24649140ed5cfaf6329bd7787687c2e04cb86dfe3da9"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\stimulator.cpp",
+      "bytes": 16044,
+      "sha256": "9f94874033b3503e3d334958ccc4d30f39047feb97be1c302de8fbfd11bf6fd9"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\stimulator_gui.cpp",
+      "bytes": 15927,
+      "sha256": "4ec1227b9196a66669d93751ccf808806f94d843a4d6941f9c2e218af3b64019"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\gui.cpp",
+      "bytes": 73956,
+      "sha256": "7fd1de11d33703cb78978f1a932cd392b93edc51872ae518027e9fe23d3424c3"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\gui_tests.cpp",
+      "bytes": 45643,
+      "sha256": "f98db14b049cc38fed9f576f4e5463504148ad965b03a8af1f5a7aadaaff2fab"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\simulation_runner.h",
+      "bytes": 2471,
+      "sha256": "1de27acd0ca72dde591dc8cbee4744a4caf41bc62c106291dfdf98e8b3cadc2a"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\simulation_runner.cpp",
+      "bytes": 26633,
+      "sha256": "44606d9f9ecf4652b53d3727656fd1d87adb1709ccaec887fd1718fec902d113"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\stimulator_timing_tests.cpp",
+      "bytes": 11766,
+      "sha256": "7ac10fcebbb5ee4d02202d831e28dee0b023d7fbeb903887d1bac24a716a549e"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\stimulation\\README_RU.md",
+      "bytes": 31128,
+      "sha256": "0b3ac28f0241d084571f2b427e17895a00270d05ca685841797b35c4446013ed"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\stimulation\\frequency_process_test.cmake",
+      "bytes": 398,
+      "sha256": "d4a31e8f84494bff80d949fc458758f6f6b8a4b862b9b4797bf360c8fe8ff22a"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\stimulation\\frequency_20261020\\verify.py",
+      "bytes": 2698,
+      "sha256": "14c5f2e92da9b501ae5fdf0ac23945f84d96a1918d1ea2039fac1db74aaf000d"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\before_probe.log",
+      "bytes": 107,
+      "sha256": "6ea263b5f573ae7da71cd846c2aa4be3030c5c34da009261edf8529a008473eb"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\before_regression.log",
+      "bytes": 30,
+      "sha256": "1c7e6b0a701ec37a82b15366bad105e8207f74da28e0beccd080c390650c3816"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\after_probe.log",
+      "bytes": 137,
+      "sha256": "ab60bfa0be9cee6b8164f0ec432aefae5dfba0959c7ce59e76ca7cb5fb915a6d"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\targeted_first.log",
+      "bytes": 629,
+      "sha256": "a2776ecf34f9ecc92bb24abaa24d3b6924b459a16de4e6bcadc224d030e2db6c"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\targeted_first_time.json",
+      "bytes": 50,
+      "sha256": "f7477528b443d20bac0551a7eaaebfd0953f5802e17c3a2ef92c005c2475fdfc"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\final_build_test.log",
+      "bytes": 4651,
+      "sha256": "0bd701df7833096d2415e3a63fd2675119368582d13c1d7ebc8f80bd7c421836"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\final_build_test_time.json",
+      "bytes": 51,
+      "sha256": "84463af26b8f50bae86de68491f0e1a81de6269b5b3efa663b2ce78a752f0c84"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\full_ctest.log",
+      "bytes": 32273,
+      "sha256": "f67bb6b7d28c7be9c008572fafd04a1a6cf6bd3306fb5d229b88de316c6b091e"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\final_frequency_tests.log",
+      "bytes": 384,
+      "sha256": "64ff9a05521ea4cede87fca29f4924e0fbd5a4230c52aeb0f48e3fefafa72015"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\final_frequency_time.json",
+      "bytes": 30,
+      "sha256": "fa5abf671cbfdc5818e6f7556e9611cedc12b6f8e081d21323d4b3aee6c9196e"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\final_process\\report.json",
+      "bytes": 3129,
+      "sha256": "8d14528437e99a75b333218e5dea1d46701340a7a853b05b298d003a60f539c2"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\native_pending_time.json",
+      "bytes": 49,
+      "sha256": "b6970f2c07f61c50886f2cec3ee59419275af8993bd84aa8a68f3ced66aa9243"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\native_pending\\renderer.txt",
+      "bytes": 184,
+      "sha256": "7e8d53c4aa25252d221eba46a0772971c2abc758320f18c40534534dbf83cf43"
+    },
+    {
+      "path": "E:\\asp\\26_27\\configurator\\verification\\stimulator_frequency_20261020\\gui_smoke\\renderer.txt",
+      "bytes": 95,
+      "sha256": "fb32fbe6175cf2161fb205e50095cb0c2542b9b3abf67faa901e4fd240d30547"
+    }
+  ],
+  "native_screenshot": {
+    "path": "E:\\asp\\26_27\\configurator\\stimulation\\frequency_20261020\\native_pending.png",
+    "bytes": 171477,
+    "sha256": "1867fd6be41a86874b8d0b82c3d427a944e8f44f28ff875bc3835470f5bee779"
+  }
+}

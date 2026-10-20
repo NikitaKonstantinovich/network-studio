@@ -88,9 +88,10 @@ static StdpRule stdp_rule(const Object& o) {
 #define READINT(field) v.field=integer(o,#field)
 #include "stimulator_json.inc"
 #include "experiment_json.inc"
+#include "analysis_json.inc"
 std::string serialize(const Config& c) {
     const auto err=validate(c); if(!err.empty())throw std::runtime_error(err);
-    Object root; put(root,"schema",7); put(root,"name",c.name); put(root,"dt",c.dt);
+    Object root; put(root,"schema",8);put(root,"history_capacity",double(c.history_capacity)); put(root,"name",c.name); put(root,"dt",c.dt);
     put(root,"duration",c.duration); put(root,"sample",c.sample);
     put(root,"noise_sigma",c.noise_sigma);put(root,"noise_interval",c.noise_interval);put(root,"seed",double(c.seed));
     put(root,"record_all",c.record_all);root.set("record_neurons",index_array(c.record_neurons).as_string());
@@ -167,8 +168,9 @@ Config deserialize(const std::string& text) {
         throw std::runtime_error("Expected one JSON object, without trailing data.");
     Object root=Object::parse(text);
     const int schema=integer(root,"schema");
-    if(schema<1||schema>7)throw std::runtime_error("Unsupported configuration schema.");
+    if(schema<1||schema>8)throw std::runtime_error("Unsupported configuration schema.");
     Config c; c.name=string(root,"name"); c.dt=number(root,"dt"); c.duration=number(root,"duration"); c.sample=number(root,"sample");
+    if(schema>=8){const int cap=integer(root,"history_capacity");if(cap<0||cap>int(MaxSamples))throw std::runtime_error("Invalid history capacity");c.history_capacity=size_t(cap);}
     if(schema>=2) { c.noise_sigma=number(root,"noise_sigma");c.noise_interval=number(root,"noise_interval");c.seed=seed_value(root); }
     if(schema>=4) {
         c.record_all=boolean(root,"record_all");
@@ -341,7 +343,7 @@ void export_results(const Simulator& s,const std::filesystem::path& prefix) {
     summary.set("neuron_spikes",spikes.as_string()); summary.set("astrocyte_releases",releases.as_string());
     summary.set("final_synapse_weights",final_weights.as_string());
     put(summary,"events_available_after_s",s.history.events_after);put(summary,"deliveries_available_after_s",s.history.deliveries_after);put(summary,"stimuli_available_after_s",s.history.stimuli_after);
-    put(summary,"bounded_journals",s.config.bounded_journals);put(summary,"shared_stimuli_available_after_s",s.history.shared_after);put(summary,"activity_available_after_s",s.activity.available_after);put(summary,"activity_horizon_s",s.config.activity_horizon);
+    put(summary,"state_history_from_s",s.history.time.front());uid(summary,"state_sample_begin",s.history.sample_begin);put(summary,"rolling_state_history",s.config.history_capacity>0);put(summary,"bounded_journals",s.config.bounded_journals);put(summary,"shared_stimuli_available_after_s",s.history.shared_after);put(summary,"activity_available_after_s",s.activity.available_after);put(summary,"activity_horizon_s",s.config.activity_horizon);
     output(L"_summary.json",summary.pretty());
     output(L"_protocols.json",serialize_runtime(s));
     std::ostringstream stimuli;stimuli.imbue(std::locale::classic());stimuli<<std::setprecision(17)<<"time_s,neuron_1based,protocol_0based,amplitude\n";

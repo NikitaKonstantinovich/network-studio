@@ -1,4 +1,5 @@
 #include "network.h"
+#include "history_archive.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -253,13 +254,7 @@ bool Simulator::physical(const State& y) const {
 double Simulator::parallel_error_norm(const State& old,const State& next,const State& full) const {
     std::array<double,compute::MaxThreads> errors{};
     pool->run(old.size(),[&](size_t begin,size_t end,int id) {
-        double error=0;
-        for(size_t i=begin;i<end;++i) {
-            if(!std::isfinite(next[i])||!std::isfinite(full[i])){error=std::numeric_limits<double>::infinity();break;}
-            const double scale=1e-11+1e-8*std::max(std::abs(old[i]),std::abs(next[i]));
-            error=std::max(error,std::abs(next[i]-full[i])/(15*scale));
-        }
-        errors[id]=error;
+        errors[id]=numerical::error_norm_range(old.data(),next.data(),full.data(),begin,end);
     });
     // Values are nonnegative finite maxima or +infinity, so this max (not sum)
     // yields the exact original value, including zero and the invalid-state case.
@@ -268,6 +263,7 @@ double Simulator::parallel_error_norm(const State& old,const State& next,const S
 bool Simulator::step() {
     STUDIO_SCOPE(step);
     if(done())return false;
+    if(!archive_anchor.empty()&&!archive)throw std::runtime_error("Attach the checkpoint archive (append or new branch) before continuing.");
     if(stepping)throw std::runtime_error("Simulator::step is not reentrant.");
     stepping=true;checkpoint_boundary=false;
     try {
@@ -278,6 +274,7 @@ bool Simulator::step() {
             else experiment.automatic=false;
         }
         if(ok){apply_stimulus_commands();synchronize_stimulators(true);}
+        if(ok&&archive)archive->boundary(*this);
         return ok;
     } catch(const std::exception& e) {
         stepping=false;error=std::string("Integration failed: ")+e.what();return false;
@@ -322,6 +319,7 @@ bool Simulator::step_impl() {
             for(int i=0;i<int(c.neurons.size());++i)held_inputs[i]=noise_cache.current(c,i,time);
         }
         double h=std::min({limit-time,suggested_step,kinetic_step_limit()});
+        prepare_current_terms();
         auto& group=event_group;group.clear();
         double norm=0,advance=0;
         bool accepted=false;
@@ -427,8 +425,9 @@ bool Simulator::step_impl() {
         trim_journals(group.size(),deliveries.size());
         capture_activity(deliveries,fired,event_time);
         history.deliveries.insert(history.deliveries.end(),deliveries.begin(),deliveries.end());
-        for(int i=0;i<int(c.neurons.size());++i)if(fired[i]){++spikes[i];history.events.push_back({event_time,i,false});}
-        for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]){++releases[i];history.events.push_back({event_time,i,true});}
+        if(archive)for(const auto& d:deliveries)archive->delivery(d);
+        for(int i=0;i<int(c.neurons.size());++i)if(fired[i]){++spikes[i];history.events.push_back({event_time,i,false});if(archive)archive->event(history.events.back());}
+        for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]){++releases[i];history.events.push_back({event_time,i,true});if(archive)archive->event(history.events.back());}
         }
         state.swap(next);time=event_time;
         for(int index:group)thresholds[index].armed=false;

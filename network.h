@@ -165,6 +165,7 @@ struct Config {
     AnalysisSettings analysis;
     // Rolling journals are separate from the live delivery queue. Legacy JSON
     // retains full journals; new long runs explicitly opt into this policy.
+    size_t history_capacity=0; // 0: full legacy history; >0: bounded state rows
     bool bounded_journals=false;
     size_t journal_capacity=MaxEvents;
     std::vector<Stimulator> stimulators;
@@ -200,6 +201,9 @@ public:
 double pulse_current(const Neuron& neuron,double time);
 double next_pulse_boundary(const Neuron& neuron,double time,double limit);
 Neuron stimulator_signal(const Stimulator& s);
+// Next nonzero pulse onset >= time, or +infinity; read-only GUI forecast.
+double next_stimulator_pulse(const Stimulator& s,double time);
+double next_stimulator_pulse(Stimulator s,const std::vector<StimulatorCommand>& commands,double time);
 std::vector<int> stimulator_recipients(const Config& c,const Stimulator& s);
 double shared_current(const Config& c,int neuron,double time);
 std::string validate_stimulators(const Config& c);
@@ -226,7 +230,9 @@ struct DeliveryLater {
         return a.t_emit>b.t_emit;
     }
 };
+class HistoryArchive;
 struct History {
+    uint64_t sample_begin=0,sample_grid_begin=0;
     std::vector<double> time;
     std::vector<std::vector<double>> values;
     std::vector<std::vector<double>> weights;
@@ -241,6 +247,8 @@ struct History {
 class Simulator {
 public:
     Config config;
+    std::shared_ptr<HistoryArchive> archive;
+    std::string archive_anchor; // restored archives must be explicitly attached before stepping
     State state{};
     History history;
     // Runtime learning state; config.synapses retains the initial experiment.
@@ -275,8 +283,8 @@ public:
     double historical_input(int neuron,double time) const;
     Config learned_config() const;
     void fork_experiment(const std::string& origin);
-    // Safe controller API. Frequency changes preserve the current cycle and
-    // apply at its next boundary unless restart is explicitly requested.
+    // Safe controller API. Keep the first onset before it starts; subsequently
+    // finish the old period. Mixed frequency/phase edits require restart.
     double schedule_stimulator(Stimulator value,double requested_time,bool restart=false);
     void replay_stimulators(std::vector<StimulatorCommand> commands); // recorded absolute times, no phase conversion
     double move_stimulator(uint64_t id,double x,double y,double requested_time);
@@ -284,6 +292,7 @@ public:
     void move_neuron(int index,double px,double py);
 private:
     friend struct CheckpointAccess;
+    friend class HistoryArchive;
     bool stepping=false, checkpoint_boundary=true;
     bool step_impl();
     numerical::Flow flow;
@@ -314,6 +323,11 @@ private:
     bool compact_network=false,current_edges_only=false,izh_only=false;
     std::vector<CurrentEdge> current_edges;
     std::vector<CurrentEdge> target_edges;
+    // Disposable per-flow products, refreshed before EVERY trial/event search.
+    // Learning may change weights after each accepted internal segment.
+    struct CurrentTerm {double amplitude;int activity,target;};
+    std::vector<CurrentTerm> current_terms;
+    void prepare_current_terms();
     std::vector<size_t> target_edge_offsets;
     std::vector<size_t> target_edge_cursor;
     std::vector<KineticRange> kinetic_ranges;

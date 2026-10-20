@@ -6,6 +6,9 @@
 namespace studio {
 struct RunnerMetrics {
     bool running=false;
+    bool archive_active=false,archive_required=false,archive_deliveries=false;
+    double memory_samples_from=0,memory_events_from=0,memory_stimuli_from=0,disk_from=0,disk_until=0;
+    std::string archive_id,archive_status;
     // Runtime execution setting, independent of the saved numerical state.
     // Effective count is 1 when the solver selects its serial fallback.
     int compute_threads=1,effective_compute_threads=1;

@@ -1,0 +1,1246 @@
+{
+  "baseline": {
+    "profile1-quiet": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 2000,
+          "inclusive_seconds": 10.420388899999997,
+          "exclusive_seconds": 0.19677239999999996
+        },
+        {
+          "name": "trial",
+          "calls": 10722,
+          "inclusive_seconds": 6.849829000000002,
+          "exclusive_seconds": 2.533555899999991
+        },
+        {
+          "name": "thresholds",
+          "calls": 10722,
+          "inclusive_seconds": 0.011687599999998848,
+          "exclusive_seconds": 0.011687599999998848
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 64332,
+          "inclusive_seconds": 1.2542042000000968,
+          "exclusive_seconds": 1.2542042000000968
+        },
+        {
+          "name": "exact_astro",
+          "calls": 64332,
+          "inclusive_seconds": 0.0014107000000000024,
+          "exclusive_seconds": 0.0014107000000000024
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 128664,
+          "inclusive_seconds": 2.826979899999551,
+          "exclusive_seconds": 2.826979899999551
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 128664,
+          "inclusive_seconds": 0.23367829999950998,
+          "exclusive_seconds": 0.23367829999950998
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 10722,
+          "inclusive_seconds": 0.05094740000000063,
+          "exclusive_seconds": 0.04991060000000042
+        },
+        {
+          "name": "noise",
+          "calls": 25000,
+          "inclusive_seconds": 0.0010367999999998003,
+          "exclusive_seconds": 0.0010367999999998003
+        },
+        {
+          "name": "stdp",
+          "calls": 10722,
+          "inclusive_seconds": 1.4573959000000007,
+          "exclusive_seconds": 1.4573959000000007
+        },
+        {
+          "name": "journals",
+          "calls": 21494,
+          "inclusive_seconds": 0.022589799999996153,
+          "exclusive_seconds": 0.022589799999996153
+        },
+        {
+          "name": "bounds",
+          "calls": 10722,
+          "inclusive_seconds": 1.7662426000000162,
+          "exclusive_seconds": 1.7662426000000162
+        },
+        {
+          "name": "kinetic",
+          "calls": 10722,
+          "inclusive_seconds": 0.004810799999999568,
+          "exclusive_seconds": 0.004810799999999568
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 10722,
+          "inclusive_seconds": 0.017159899999998614,
+          "exclusive_seconds": 0.017159899999998614
+        },
+        {
+          "name": "event_jumps",
+          "calls": 10722,
+          "inclusive_seconds": 1.5096563000000003,
+          "exclusive_seconds": 0.04295349999999946
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 0,
+        "max": 0,
+        "histogram_0_1_2to3_4to7_8plus": [
+          10722,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "profile1-burst": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 2000,
+          "inclusive_seconds": 20.334447500000017,
+          "exclusive_seconds": 0.20174859999999986
+        },
+        {
+          "name": "trial",
+          "calls": 17479,
+          "inclusive_seconds": 11.503459700000016,
+          "exclusive_seconds": 4.281397200000006
+        },
+        {
+          "name": "thresholds",
+          "calls": 17451,
+          "inclusive_seconds": 1.9937960999999396,
+          "exclusive_seconds": 0.09765220000000348
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 571447,
+          "inclusive_seconds": 0.5162925000028276,
+          "exclusive_seconds": 0.5162925000028276
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 124782,
+          "inclusive_seconds": 2.3410445000006197,
+          "exclusive_seconds": 2.3410445000006197
+        },
+        {
+          "name": "exact_astro",
+          "calls": 124782,
+          "inclusive_seconds": 0.002845999999998886,
+          "exclusive_seconds": 0.002845999999998886
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 249564,
+          "inclusive_seconds": 5.750645299999908,
+          "exclusive_seconds": 5.750645299999908
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 249564,
+          "inclusive_seconds": 0.5073781000000886,
+          "exclusive_seconds": 0.5073781000000886
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 17451,
+          "inclusive_seconds": 0.08382989999999728,
+          "exclusive_seconds": 0.0827754999999974
+        },
+        {
+          "name": "noise",
+          "calls": 25000,
+          "inclusive_seconds": 0.0010543999999998175,
+          "exclusive_seconds": 0.0010543999999998175
+        },
+        {
+          "name": "stdp",
+          "calls": 17451,
+          "inclusive_seconds": 2.3970992999999763,
+          "exclusive_seconds": 2.3970992999999763
+        },
+        {
+          "name": "journals",
+          "calls": 34952,
+          "inclusive_seconds": 0.05095089999999722,
+          "exclusive_seconds": 0.05095089999999722
+        },
+        {
+          "name": "bounds",
+          "calls": 22428,
+          "inclusive_seconds": 3.987564099999987,
+          "exclusive_seconds": 3.987564099999987
+        },
+        {
+          "name": "kinetic",
+          "calls": 17451,
+          "inclusive_seconds": 0.007874099999999861,
+          "exclusive_seconds": 0.007874099999999861
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 17451,
+          "inclusive_seconds": 0.029993600000003267,
+          "exclusive_seconds": 0.029993600000003267
+        },
+        {
+          "name": "event_jumps",
+          "calls": 17451,
+          "inclusive_seconds": 3.403515900000003,
+          "exclusive_seconds": 0.07813120000000091
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 21720,
+        "max": 18,
+        "histogram_0_1_2to3_4to7_8plus": [
+          12474,
+          1018,
+          1406,
+          1703,
+          850
+        ]
+      }
+    },
+    "profile8-quiet": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 2000,
+          "inclusive_seconds": 3.869071399999995,
+          "exclusive_seconds": 0.40635140000000175
+        },
+        {
+          "name": "trial",
+          "calls": 10722,
+          "inclusive_seconds": 2.357622299999998,
+          "exclusive_seconds": 0.7296762000000009
+        },
+        {
+          "name": "thresholds",
+          "calls": 10722,
+          "inclusive_seconds": 0.0142697999999981,
+          "exclusive_seconds": 0.0142697999999981
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 64332,
+          "inclusive_seconds": 0.6294239999999097,
+          "exclusive_seconds": 0.6294239999999097
+        },
+        {
+          "name": "exact_astro",
+          "calls": 64332,
+          "inclusive_seconds": 0.0011436999999998654,
+          "exclusive_seconds": 0.0011436999999998654
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 128664,
+          "inclusive_seconds": 0.9973783999997834,
+          "exclusive_seconds": 0.9973783999997834
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 10722,
+          "inclusive_seconds": 0.07275959999999872,
+          "exclusive_seconds": 0.07163679999999875
+        },
+        {
+          "name": "noise",
+          "calls": 25000,
+          "inclusive_seconds": 0.001122799999999853,
+          "exclusive_seconds": 0.001122799999999853
+        },
+        {
+          "name": "stdp",
+          "calls": 10722,
+          "inclusive_seconds": 0.460259300000015,
+          "exclusive_seconds": 0.460259300000015
+        },
+        {
+          "name": "journals",
+          "calls": 21494,
+          "inclusive_seconds": 0.02891009999999866,
+          "exclusive_seconds": 0.02891009999999866
+        },
+        {
+          "name": "bounds",
+          "calls": 10722,
+          "inclusive_seconds": 0.43146949999999507,
+          "exclusive_seconds": 0.43146949999999507
+        },
+        {
+          "name": "kinetic",
+          "calls": 10722,
+          "inclusive_seconds": 0.0060462999999993826,
+          "exclusive_seconds": 0.0060462999999993826
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 10722,
+          "inclusive_seconds": 0.024367799999998746,
+          "exclusive_seconds": 0.024367799999998746
+        },
+        {
+          "name": "event_jumps",
+          "calls": 10722,
+          "inclusive_seconds": 0.539271199999999,
+          "exclusive_seconds": 0.06701529999999978
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 0,
+        "max": 0,
+        "histogram_0_1_2to3_4to7_8plus": [
+          10722,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "profile8-burst": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 2000,
+          "inclusive_seconds": 5.226592800000014,
+          "exclusive_seconds": 0.38459580000000065
+        },
+        {
+          "name": "trial",
+          "calls": 17479,
+          "inclusive_seconds": 2.6793149000000245,
+          "exclusive_seconds": 1.0921841000000145
+        },
+        {
+          "name": "thresholds",
+          "calls": 17451,
+          "inclusive_seconds": 0.5403932000000101,
+          "exclusive_seconds": 0.18625950000000152
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 113740,
+          "inclusive_seconds": 0.11560379999999952,
+          "exclusive_seconds": 0.11560379999999952
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 124782,
+          "inclusive_seconds": 0.6985681000000067,
+          "exclusive_seconds": 0.6985681000000067
+        },
+        {
+          "name": "exact_astro",
+          "calls": 124782,
+          "inclusive_seconds": 0.0019488000000003054,
+          "exclusive_seconds": 0.0019488000000003054
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 249564,
+          "inclusive_seconds": 1.1251437999988503,
+          "exclusive_seconds": 1.1251437999988503
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 17451,
+          "inclusive_seconds": 0.11003920000000562,
+          "exclusive_seconds": 0.10890910000000557
+        },
+        {
+          "name": "noise",
+          "calls": 25000,
+          "inclusive_seconds": 0.0011300999999998528,
+          "exclusive_seconds": 0.0011300999999998528
+        },
+        {
+          "name": "stdp",
+          "calls": 17451,
+          "inclusive_seconds": 0.5225002999999915,
+          "exclusive_seconds": 0.5225002999999915
+        },
+        {
+          "name": "journals",
+          "calls": 34952,
+          "inclusive_seconds": 0.0545360000000114,
+          "exclusive_seconds": 0.0545360000000114
+        },
+        {
+          "name": "bounds",
+          "calls": 22428,
+          "inclusive_seconds": 0.7849303999999891,
+          "exclusive_seconds": 0.7849303999999891
+        },
+        {
+          "name": "kinetic",
+          "calls": 17451,
+          "inclusive_seconds": 0.009339799999999045,
+          "exclusive_seconds": 0.009339799999999045
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 17451,
+          "inclusive_seconds": 0.03327889999999779,
+          "exclusive_seconds": 0.03327889999999779
+        },
+        {
+          "name": "event_jumps",
+          "calls": 17451,
+          "inclusive_seconds": 0.8157843000000153,
+          "exclusive_seconds": 0.10766430000000246
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 21720,
+        "max": 18,
+        "histogram_0_1_2to3_4to7_8plus": [
+          12474,
+          1018,
+          1406,
+          1703,
+          850
+        ]
+      }
+    },
+    "profile8-long": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 16000,
+          "inclusive_seconds": 17.63257219999991,
+          "exclusive_seconds": 2.5547735000000027
+        },
+        {
+          "name": "trial",
+          "calls": 70112,
+          "inclusive_seconds": 9.403203099999919,
+          "exclusive_seconds": 3.9190236000000955
+        },
+        {
+          "name": "thresholds",
+          "calls": 70079,
+          "inclusive_seconds": 0.5234937000004262,
+          "exclusive_seconds": 0.2249292000000638
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 90286,
+          "inclusive_seconds": 0.09143149999999423,
+          "exclusive_seconds": 0.09143149999999423
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 437556,
+          "inclusive_seconds": 2.0775058000013082,
+          "exclusive_seconds": 2.0775058000013082
+        },
+        {
+          "name": "exact_astro",
+          "calls": 437556,
+          "inclusive_seconds": 0.006645100000004639,
+          "exclusive_seconds": 0.006645100000004639
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 875112,
+          "inclusive_seconds": 3.607161599987958,
+          "exclusive_seconds": 3.607161599987958
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 70079,
+          "inclusive_seconds": 0.3836481000001939,
+          "exclusive_seconds": 0.37478380000017325
+        },
+        {
+          "name": "noise",
+          "calls": 200000,
+          "inclusive_seconds": 0.00886430000000148,
+          "exclusive_seconds": 0.00886430000000148
+        },
+        {
+          "name": "stdp",
+          "calls": 70079,
+          "inclusive_seconds": 1.6992655000000099,
+          "exclusive_seconds": 1.6992655000000099
+        },
+        {
+          "name": "journals",
+          "calls": 140558,
+          "inclusive_seconds": 0.16658559999999917,
+          "exclusive_seconds": 0.16658559999999917
+        },
+        {
+          "name": "bounds",
+          "calls": 74300,
+          "inclusive_seconds": 2.3573297999999068,
+          "exclusive_seconds": 2.3573297999999068
+        },
+        {
+          "name": "kinetic",
+          "calls": 70079,
+          "inclusive_seconds": 0.034620500000019074,
+          "exclusive_seconds": 0.034620500000019074
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 70079,
+          "inclusive_seconds": 0.11395959999998673,
+          "exclusive_seconds": 0.11395959999998673
+        },
+        {
+          "name": "event_jumps",
+          "calls": 70079,
+          "inclusive_seconds": 2.2924712999999537,
+          "exclusive_seconds": 0.3956927999997015
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 20069,
+        "max": 18,
+        "histogram_0_1_2to3_4to7_8plus": [
+          65858,
+          838,
+          1100,
+          1409,
+          874
+        ]
+      }
+    }
+  },
+  "optimized": {
+    "profile1-quiet": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 2000,
+          "inclusive_seconds": 7.8152053000000015,
+          "exclusive_seconds": 0.4133169999999978
+        },
+        {
+          "name": "trial",
+          "calls": 10722,
+          "inclusive_seconds": 4.2517008000000125,
+          "exclusive_seconds": 0.6106803999999889
+        },
+        {
+          "name": "thresholds",
+          "calls": 10722,
+          "inclusive_seconds": 0.011143499999999548,
+          "exclusive_seconds": 0.011143499999999548
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 64332,
+          "inclusive_seconds": 1.1946122000003043,
+          "exclusive_seconds": 1.1946122000003043
+        },
+        {
+          "name": "exact_astro",
+          "calls": 64332,
+          "inclusive_seconds": 0.00149700000000003,
+          "exclusive_seconds": 0.00149700000000003
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 128664,
+          "inclusive_seconds": 2.2129496000022257,
+          "exclusive_seconds": 2.2129496000022257
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 128664,
+          "inclusive_seconds": 0.23196159999979973,
+          "exclusive_seconds": 0.23196159999979973
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 10722,
+          "inclusive_seconds": 0.05017880000000083,
+          "exclusive_seconds": 0.049126300000000636
+        },
+        {
+          "name": "noise",
+          "calls": 25000,
+          "inclusive_seconds": 0.0010524999999998175,
+          "exclusive_seconds": 0.0010524999999998175
+        },
+        {
+          "name": "stdp",
+          "calls": 10722,
+          "inclusive_seconds": 1.379202200000001,
+          "exclusive_seconds": 1.379202200000001
+        },
+        {
+          "name": "journals",
+          "calls": 21494,
+          "inclusive_seconds": 0.021767399999997196,
+          "exclusive_seconds": 0.021767399999997196
+        },
+        {
+          "name": "bounds",
+          "calls": 10722,
+          "inclusive_seconds": 1.6272519000000127,
+          "exclusive_seconds": 1.6272519000000127
+        },
+        {
+          "name": "kinetic",
+          "calls": 10722,
+          "inclusive_seconds": 0.004791499999999609,
+          "exclusive_seconds": 0.004791499999999609
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 10722,
+          "inclusive_seconds": 0.015876899999999125,
+          "exclusive_seconds": 0.015876899999999125
+        },
+        {
+          "name": "event_jumps",
+          "calls": 10722,
+          "inclusive_seconds": 1.42801530000001,
+          "exclusive_seconds": 0.03997529999999993
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 0,
+        "max": 0,
+        "histogram_0_1_2to3_4to7_8plus": [
+          10722,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "profile1-burst": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 2000,
+          "inclusive_seconds": 15.512888200000019,
+          "exclusive_seconds": 0.6031515999999979
+        },
+        {
+          "name": "trial",
+          "calls": 17479,
+          "inclusive_seconds": 6.927447000000045,
+          "exclusive_seconds": 0.9986148999999866
+        },
+        {
+          "name": "thresholds",
+          "calls": 17451,
+          "inclusive_seconds": 1.7491435999999396,
+          "exclusive_seconds": 0.09586500000000085
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 571447,
+          "inclusive_seconds": 0.5246289000017682,
+          "exclusive_seconds": 0.5246289000017682
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 124782,
+          "inclusive_seconds": 2.2946304000000093,
+          "exclusive_seconds": 2.2946304000000093
+        },
+        {
+          "name": "exact_astro",
+          "calls": 124782,
+          "inclusive_seconds": 0.0030210999999987272,
+          "exclusive_seconds": 0.0030210999999987272
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 249564,
+          "inclusive_seconds": 4.289845599999975,
+          "exclusive_seconds": 4.289845599999975
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 249564,
+          "inclusive_seconds": 0.4699846999991698,
+          "exclusive_seconds": 0.4699846999991698
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 17451,
+          "inclusive_seconds": 0.08123749999999699,
+          "exclusive_seconds": 0.08016089999999702
+        },
+        {
+          "name": "noise",
+          "calls": 25000,
+          "inclusive_seconds": 0.0010765999999998437,
+          "exclusive_seconds": 0.0010765999999998437
+        },
+        {
+          "name": "stdp",
+          "calls": 17451,
+          "inclusive_seconds": 2.264089099999995,
+          "exclusive_seconds": 2.264089099999995
+        },
+        {
+          "name": "journals",
+          "calls": 34952,
+          "inclusive_seconds": 0.04690609999999481,
+          "exclusive_seconds": 0.04690609999999481
+        },
+        {
+          "name": "bounds",
+          "calls": 22428,
+          "inclusive_seconds": 3.733975499999989,
+          "exclusive_seconds": 3.733975499999989
+        },
+        {
+          "name": "kinetic",
+          "calls": 17451,
+          "inclusive_seconds": 0.008039399999999466,
+          "exclusive_seconds": 0.008039399999999466
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 17451,
+          "inclusive_seconds": 0.026989499999997252,
+          "exclusive_seconds": 0.026989499999997252
+        },
+        {
+          "name": "event_jumps",
+          "calls": 17451,
+          "inclusive_seconds": 3.247635400000012,
+          "exclusive_seconds": 0.07190890000000134
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 21720,
+        "max": 18,
+        "histogram_0_1_2to3_4to7_8plus": [
+          12474,
+          1018,
+          1406,
+          1703,
+          850
+        ]
+      }
+    },
+    "profile8-quiet": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 2000,
+          "inclusive_seconds": 2.2808385999999996,
+          "exclusive_seconds": 0.5707397000000024
+        },
+        {
+          "name": "trial",
+          "calls": 10722,
+          "inclusive_seconds": 0.9643076999999975,
+          "exclusive_seconds": 0.25892300000000007
+        },
+        {
+          "name": "thresholds",
+          "calls": 10722,
+          "inclusive_seconds": 0.01166789999999823,
+          "exclusive_seconds": 0.01166789999999823
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 64332,
+          "inclusive_seconds": 0.31722730000000066,
+          "exclusive_seconds": 0.31722730000000066
+        },
+        {
+          "name": "exact_astro",
+          "calls": 64332,
+          "inclusive_seconds": 0.000985299999999764,
+          "exclusive_seconds": 0.000985299999999764
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 128664,
+          "inclusive_seconds": 0.3871721000000704,
+          "exclusive_seconds": 0.3871721000000704
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 10722,
+          "inclusive_seconds": 0.05857709999999766,
+          "exclusive_seconds": 0.05749179999999785
+        },
+        {
+          "name": "noise",
+          "calls": 25000,
+          "inclusive_seconds": 0.0010852999999998241,
+          "exclusive_seconds": 0.0010852999999998241
+        },
+        {
+          "name": "stdp",
+          "calls": 10722,
+          "inclusive_seconds": 0.27370189999998445,
+          "exclusive_seconds": 0.27370189999998445
+        },
+        {
+          "name": "journals",
+          "calls": 21494,
+          "inclusive_seconds": 0.023878699999995843,
+          "exclusive_seconds": 0.023878699999995843
+        },
+        {
+          "name": "bounds",
+          "calls": 10722,
+          "inclusive_seconds": 0.2964994000000053,
+          "exclusive_seconds": 0.2964994000000053
+        },
+        {
+          "name": "kinetic",
+          "calls": 10722,
+          "inclusive_seconds": 0.0051383999999996335,
+          "exclusive_seconds": 0.0051383999999996335
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 10722,
+          "inclusive_seconds": 0.017409799999999292,
+          "exclusive_seconds": 0.017409799999999292
+        },
+        {
+          "name": "event_jumps",
+          "calls": 10722,
+          "inclusive_seconds": 0.3419623000000098,
+          "exclusive_seconds": 0.058917999999998784
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 0,
+        "max": 0,
+        "histogram_0_1_2to3_4to7_8plus": [
+          10722,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "profile8-burst": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 2000,
+          "inclusive_seconds": 4.048609099999996,
+          "exclusive_seconds": 0.7480174000000024
+        },
+        {
+          "name": "trial",
+          "calls": 17479,
+          "inclusive_seconds": 1.4683855,
+          "exclusive_seconds": 0.4124962999999964
+        },
+        {
+          "name": "thresholds",
+          "calls": 17451,
+          "inclusive_seconds": 0.4978860999999647,
+          "exclusive_seconds": 0.18431190000000192
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 113740,
+          "inclusive_seconds": 0.11731019999999721,
+          "exclusive_seconds": 0.11731019999999721
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 124782,
+          "inclusive_seconds": 0.5664332999995132,
+          "exclusive_seconds": 0.5664332999995132
+        },
+        {
+          "name": "exact_astro",
+          "calls": 124782,
+          "inclusive_seconds": 0.0018443000000002464,
+          "exclusive_seconds": 0.0018443000000002464
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 249564,
+          "inclusive_seconds": 0.6838756000005489,
+          "exclusive_seconds": 0.6838756000005489
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 17451,
+          "inclusive_seconds": 0.09278989999999768,
+          "exclusive_seconds": 0.09168469999999787
+        },
+        {
+          "name": "noise",
+          "calls": 25000,
+          "inclusive_seconds": 0.0011051999999998397,
+          "exclusive_seconds": 0.0011051999999998397
+        },
+        {
+          "name": "stdp",
+          "calls": 17451,
+          "inclusive_seconds": 0.4228798999999876,
+          "exclusive_seconds": 0.4228798999999876
+        },
+        {
+          "name": "journals",
+          "calls": 34952,
+          "inclusive_seconds": 0.04934360000000301,
+          "exclusive_seconds": 0.04934360000000301
+        },
+        {
+          "name": "bounds",
+          "calls": 22428,
+          "inclusive_seconds": 0.6312776000000113,
+          "exclusive_seconds": 0.6312776000000113
+        },
+        {
+          "name": "kinetic",
+          "calls": 17451,
+          "inclusive_seconds": 0.008423199999999055,
+          "exclusive_seconds": 0.008423199999999055
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 17451,
+          "inclusive_seconds": 0.028316400000000817,
+          "exclusive_seconds": 0.028316400000000817
+        },
+        {
+          "name": "event_jumps",
+          "calls": 17451,
+          "inclusive_seconds": 0.6963010999999977,
+          "exclusive_seconds": 0.10128950000000066
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 21720,
+        "max": 18,
+        "histogram_0_1_2to3_4to7_8plus": [
+          12474,
+          1018,
+          1406,
+          1703,
+          850
+        ]
+      }
+    },
+    "profile8-long": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 16000,
+          "inclusive_seconds": 15.986823900000028,
+          "exclusive_seconds": 4.339604400000048
+        },
+        {
+          "name": "trial",
+          "calls": 70112,
+          "inclusive_seconds": 6.172700800000178,
+          "exclusive_seconds": 1.6528671999999653
+        },
+        {
+          "name": "thresholds",
+          "calls": 70079,
+          "inclusive_seconds": 0.496412699999474,
+          "exclusive_seconds": 0.22431690000006776
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 90286,
+          "inclusive_seconds": 0.09338439999999355,
+          "exclusive_seconds": 0.09338439999999355
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 437556,
+          "inclusive_seconds": 2.045749400001474,
+          "exclusive_seconds": 2.045749400001474
+        },
+        {
+          "name": "exact_astro",
+          "calls": 437556,
+          "inclusive_seconds": 0.006511500000004225,
+          "exclusive_seconds": 0.006511500000004225
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 875112,
+          "inclusive_seconds": 2.6462841000030526,
+          "exclusive_seconds": 2.6462841000030526
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 70079,
+          "inclusive_seconds": 0.37554700000012153,
+          "exclusive_seconds": 0.36681380000010505
+        },
+        {
+          "name": "noise",
+          "calls": 200000,
+          "inclusive_seconds": 0.008733200000002323,
+          "exclusive_seconds": 0.008733200000002323
+        },
+        {
+          "name": "stdp",
+          "calls": 70079,
+          "inclusive_seconds": 1.6984991000002638,
+          "exclusive_seconds": 1.6984991000002638
+        },
+        {
+          "name": "journals",
+          "calls": 140558,
+          "inclusive_seconds": 0.16292010000003115,
+          "exclusive_seconds": 0.16292010000003115
+        },
+        {
+          "name": "bounds",
+          "calls": 74300,
+          "inclusive_seconds": 2.2091120999999596,
+          "exclusive_seconds": 2.2091120999999596
+        },
+        {
+          "name": "kinetic",
+          "calls": 70079,
+          "inclusive_seconds": 0.03332210000002175,
+          "exclusive_seconds": 0.03332210000002175
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 70079,
+          "inclusive_seconds": 0.1103271999999808,
+          "exclusive_seconds": 0.1103271999999808
+        },
+        {
+          "name": "event_jumps",
+          "calls": 70079,
+          "inclusive_seconds": 2.2833877999999626,
+          "exclusive_seconds": 0.3883783999997633
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 20069,
+        "max": 18,
+        "histogram_0_1_2to3_4to7_8plus": [
+          65858,
+          838,
+          1100,
+          1409,
+          874
+        ]
+      }
+    }
+  }
+}

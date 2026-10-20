@@ -82,7 +82,7 @@ uint32_t PlotWindows::detach(const PlotWindowState& source) {
 }
 uint32_t PlotWindows::create(PlotKind kind,int object) {
     PlotWindowState w;w.kind=kind;w.title=kinds[int(kind)];w.binding=binding;w.object=object;w.objects={object};
-    if(kind==PlotKind::Network)w.analysis=embedded[7].analysis;
+    if(kind==PlotKind::Network){w.analysis=embedded[7].analysis;w.analysis_interval=embedded[7].analysis_interval;w.analysis_profile=embedded[7].analysis_profile;}
     if(kind==PlotKind::Astrocytes)w.quantities=6;
     return detach(w);
 }

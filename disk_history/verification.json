@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-20",
+  "branch": "feature/disk-history-20261020",
+  "base_head": "8483195c8ed2c06908eb55607aed90e2fe16713a",
+  "binaries": {
+    "network_studio.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "sha256": "7cc604994bcd0bc50bf97cd2b614fdb1ea2eaba3223f1d1e7f7b76ea1e55cbff"
+    },
+    "network_studio_cli.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "sha256": "1a68e481aa06f9eb14c64cb460fff5ea7a96b4791472c473f01e1914bcf62b6f"
+    }
+  },
+  "checkpoint_build_id": "f5cd25fda1a20db68c7f3749637f08d96aed0adac9260b6e0ae3171cea13b085",
+  "formats": {
+    "config": 8,
+    "checkpoint": 5,
+    "archive": 1,
+    "workspace": 5
+  },
+  "all_current_test_cases_verified": 40,
+  "tests": {
+    "pre_final_full": {
+      "passed": 40,
+      "total": 40,
+      "ctest_seconds": 396.07,
+      "command_seconds": 407.9508026,
+      "log": "E:\\asp\\26_27\\configurator\\verification\\disk_history_20261020\\release-full.log"
+    },
+    "final_full": {
+      "passed": 39,
+      "total": 40,
+      "ctest_seconds": 395.6,
+      "command_seconds": 403.0864745,
+      "failed_case": "disk_history_and_analysis: oversized Config name fixture rejected before archive writer; fixture corrected to oversized producer metadata",
+      "log": "E:\\asp\\26_27\\configurator\\verification\\disk_history_20261020\\final-full.log"
+    },
+    "final_targeted": {
+      "passed": 3,
+      "total": 3,
+      "core_checks": 121509,
+      "core_seconds": 1.17088,
+      "ctest_seconds": 4.25,
+      "wall_seconds": 16.2400768,
+      "build_exit": 0,
+      "test_exit": 0,
+      "log": "E:\\asp\\26_27\\configurator\\verification\\disk_history_20261020\\final-validated-tests.log"
+    },
+    "gui_native": "E:\\asp\\26_27\\configurator\\verification\\disk_history_20261020\\native\\20261020_020526",
+    "gui_smoke": "E:\\asp\\26_27\\configurator\\verification\\disk_history_20261020\\final-validated-smoke"
+  },
+  "measurements": {
+    "controls": [
+      {
+        "model_seconds": 0.5,
+        "mode": "ram",
+        "median_seconds": 0.0583471,
+        "min_seconds": 0.0578824,
+        "max_seconds": 0.062993,
+        "peak_working_set_bytes": 4734976,
+        "archive_bytes": 0
+      },
+      {
+        "model_seconds": 0.5,
+        "mode": "disk",
+        "median_seconds": 0.0990609,
+        "min_seconds": 0.091042,
+        "max_seconds": 0.1964771,
+        "peak_working_set_bytes": 6402048,
+        "archive_bytes": 707993
+      },
+      {
+        "model_seconds": 10.0,
+        "mode": "ram",
+        "median_seconds": 1.0416196,
+        "min_seconds": 1.0341723,
+        "max_seconds": 1.0517589,
+        "peak_working_set_bytes": 5001216,
+        "archive_bytes": 0
+      },
+      {
+        "model_seconds": 10.0,
+        "mode": "disk",
+        "median_seconds": 2.208655,
+        "min_seconds": 2.1265827,
+        "max_seconds": 2.2985215,
+        "peak_working_set_bytes": 6668288,
+        "archive_bytes": 13981124
+      }
+    ],
+    "total_wall_seconds": 10.501716299972031
+  },
+  "measurement_source": "E:\\asp\\26_27\\configurator\\verification\\disk_history_20261020\\measure_20261020_020527",
+  "measurement_model_seconds_per_run": [
+    0.5,
+    10.0
+  ],
+  "measurement_runs": 12,
+  "measurement_total_model_seconds": 63,
+  "measurement_total_macro_steps": 2520000,
+  "lab_reanalysis": {
+    "source": "E:\\asp\\26_27\\configurator\\verification\\disk_history_20261020\\final_labs_reanalysis\\verification.json",
+    "inputs_unchanged": true,
+    "simulation_steps": 0,
+    "wall_seconds": 10.8803501,
+    "input_sha256": {
+      "E:\\asp\\26_27\\labs\\lab6_1Hz_experiment.json": "1545c4bbb508fb5e7e3d1cc5bb0cb5e7c193596ab309377f20b9d865d308d9a8",
+      "E:\\asp\\26_27\\labs\\lab6_1Hz_summary.json": "0b48284035c8a240b893976da8513aecb3e13cc0a5558a12032d683bd6e519af",
+      "E:\\asp\\26_27\\labs\\lab6_1Hz_events.csv": "7d7e374569c36ffc1b0bcb9a23f18c23195f4ad88e0a5d7eb57427ca15e1db5b",
+      "E:\\asp\\26_27\\labs\\lab6_1Hz_shared_stimuli.csv": "39f501fdbe6312770c2fad3c72d9fc272f56409e5dafba73c2549c2eca74f221",
+      "E:\\asp\\26_27\\labs\\lab6_10Hz_experiment.json": "5679ec3cd9915cd99ce8a6b61b825395c522cdbf4a2cf9bc5a40d1ef258cb8ba",
+      "E:\\asp\\26_27\\labs\\lab6_10Hz_summary.json": "83f0918a71f781a4450d3b75fad97ac25e74faad74106524a17f328e88256dd1",
+      "E:\\asp\\26_27\\labs\\lab6_10Hz_events.csv": "6bc8d20c1f2acee444637e761e489f751acd41c1675521f6a329f9b9169ebec0",
+      "E:\\asp\\26_27\\labs\\lab6_10Hz_shared_stimuli.csv": "7007a7cd97a1b874a2bfe4044993f54fc8acacfe707d50c3d2b488a244e84d29",
+      "E:\\asp\\26_27\\labs\\lab6_comparison\\common_window_statistics.json": "17ce6f18fbdc8c289f3117de116833ecee7560717c8a37b802c126bcad7e5429"
+    }
+  },
+  "limitations": [
+    "No new 150/400 s laboratory simulation",
+    "Archive analysis scans confirmed prefix and needs TEMP disk space",
+    "Absolute parent paths, at most 16 segments",
+    "Checkpoint schema 4 / previous build fingerprints rejected",
+    "Synchronous disk I/O; 4 MiB buffer is not total process memory cap"
+  ]
+}
