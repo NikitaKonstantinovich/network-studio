@@ -87,6 +87,9 @@ target_link_libraries(network_studio_numerics_tests PRIVATE network_core)
 add_executable(network_studio_population lab2/population.cpp)
 target_link_libraries(network_studio_population PRIVATE network_core)
 enable_testing()
+add_executable(network_studio_step_tests step_range_tests.cpp)
+target_link_libraries(network_studio_step_tests PRIVATE network_core)
+add_test(NAME integration_step_range COMMAND network_studio_step_tests "${CMAKE_CURRENT_BINARY_DIR}/step-range-results")
 add_executable(network_studio_animat_tests animat_tests.cpp)
 target_link_libraries(network_studio_animat_tests PRIVATE studio_runner)
 add_test(NAME neuroanimat COMMAND network_studio_animat_tests test "${CMAKE_CURRENT_BINARY_DIR}/animat-test-results")
@@ -97,6 +100,9 @@ set_tests_properties(neuroanimat_process_resume PROPERTIES FIXTURES_REQUIRED ani
 set_tests_properties(neuroanimat neuroanimat_process_prepare neuroanimat_process_resume PROPERTIES TIMEOUT 120)
 find_package(Python3 3.10 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+    add_test(NAME integration_step_cli COMMAND "${Python3_EXECUTABLE}" -X utf8
+        "${CMAKE_CURRENT_SOURCE_DIR}/performance/20261020_step_range/verify_cli.py"
+        --cli "$<TARGET_FILE:network_studio_cli>" --work "${CMAKE_CURRENT_BINARY_DIR}/step-range-cli")
     add_test(NAME reproducible_experiment_package COMMAND "${Python3_EXECUTABLE}" -X utf8
         "${CMAKE_CURRENT_SOURCE_DIR}/experiment_package/tests.py" "--cli" "$<TARGET_FILE:network_studio_cli>"
         "--output-root" "${CMAKE_CURRENT_SOURCE_DIR}/verification/experiment_package_20261020/ctest")

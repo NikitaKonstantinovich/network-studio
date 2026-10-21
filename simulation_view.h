@@ -45,6 +45,7 @@ template<class T> struct ActivityDelta {
 struct SimulationSnapshot {
     uint64_t generation=0,sequence=0,base_sequence=0,steps=0,last_command_id=0;
     double time=0;
+    IntegrationStatistics integration;
     bool done=false,truncated=false;
     std::string error;
     RunnerMetrics metrics;
@@ -71,6 +72,7 @@ struct SimulationSnapshot {
 // references during the entire frame. Scientific exports use the worker, not this.
 class SimulationView {
 public:
+    IntegrationStatistics integration;
     Config config;
     AnimatRuntime animat;
     State state;

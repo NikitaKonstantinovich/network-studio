@@ -54,6 +54,8 @@ static int run_cli(int argc,char** argv) {
                     "Stage durations are relative seconds rounded upward to a completed macro step.\n"
                     "Stage controls preserve state; --plan imports only stages and analysis settings.\n"
                     "All times are seconds. --save writes only the initial configuration.\n"
+                    "--dt is the maximum main step: 1..500 us for Izhikevich-only/no-astro networks,\n"
+                    "otherwise 1..50 us. Sample/noise intervals must remain >= dt (no automatic changes).\n"
                     "--resume restores full state; config/dt/sample/duration/--save overrides are forbidden.\n"
                     "--until extends a restored final time (absolute from t=0).\n"
                     "--stop-at / --run-for stop at the first completed step at or after the target,\n"
@@ -131,6 +133,10 @@ static int run_cli(int argc,char** argv) {
         }
         std::cout<<"Wall seconds: "<<std::chrono::duration<double>(std::chrono::steady_clock::now()-begin).count()<<"\n";
         std::cout<<"Compute threads: "<<(compute_threads==0?"auto":std::to_string(compute_threads))<<" / effective "<<s.effective_compute_threads()<<"\n";
+        std::cout<<std::setprecision(17)<<"Maximum main step (s): "<<s.config.dt
+            <<"\nAccepted internal steps: "<<s.integration.accepted
+            <<"\nMean internal step (s): "<<s.integration.mean_step(s.time)
+            <<"\nRejected integration attempts: "<<s.integration.rejected<<"\n";
         studio::flush_archive(s);
         if(!trained.empty())studio::save_config(s.learned_config(),trained);
         if(!checkpoint.empty())studio::save_checkpoint(s,checkpoint);

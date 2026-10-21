@@ -40,6 +40,13 @@ void App::set_compute_threads(int requested,bool wait) {
     if(wait&&!drawing){const auto out=wait_command(result);if(!out.ok)throw std::runtime_error(out.error);}
 }
 std::shared_future<RunnerResult> App::command(RunnerCommand value,bool wait) {
+    using K=RunnerCommand::Kind;
+    if(!draft_error.empty()&&value.kind!=K::Reset&&value.kind!=K::LoadConfig&&value.kind!=K::Restore&&
+       value.kind!=K::Pause&&value.kind!=K::Barrier&&value.kind!=K::ComputeThreads) {
+        status="Исправьте параметры эксперимента: "+draft_error;
+        std::promise<RunnerResult> refused;auto future=refused.get_future().share();
+        RunnerResult result;result.error=status;refused.set_value(std::move(result));return future;
+    }
     const auto kind=value.kind;auto result=runner->submit(std::move(value));
     pending.push_back({result,kind});
     if(kind==RunnerCommand::Kind::Reset||kind==RunnerCommand::Kind::LoadConfig||kind==RunnerCommand::Kind::Restore)replacing=true;
@@ -71,6 +78,8 @@ void App::run(){RunnerCommand c;c.kind=RunnerCommand::Kind::Run;command(std::mov
 void App::pause(){RunnerCommand c;c.kind=RunnerCommand::Kind::Pause;command(std::move(c));status="Ожидание завершения текущего шага…";}
 void App::advance_for(double duration){RunnerCommand c;c.kind=RunnerCommand::Kind::Advance;c.value=duration;auto r=wait_command(command(std::move(c)));synchronize();if(!r.ok)throw std::runtime_error(r.error);}
 void App::reset(bool fresh) {
+    draft_error=validate(config);
+    if(!draft_error.empty()){status=draft_error;return;}
     RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.config=config;c.flag2=!fresh;command(std::move(c));
     if(!drawing)synchronize();
 }
@@ -105,7 +114,8 @@ void App::advance() {
     while(auto packet=runner->take_snapshot()) {
         const auto previous=display.generation;
         if(!display.apply(packet))throw std::runtime_error("Display snapshot sequence mismatch");
-        if(display_config!=packet->config) {display_config=packet->config;config=display.config;}
+        if(previous!=display.generation)draft_error.clear();
+        if(display_config!=packet->config) {display_config=packet->config;if(draft_error.empty())config=display.config;}
         if(previous!=display.generation) {
             activity_field=ActivityField{};stimulator_draft.id=0;drag_kind=drag_index=-1;generation_preview.reset();
             auto binding=config;if(!display.experiment.protocols.empty())binding.neurons=display.experiment.protocols.front().neurons;
@@ -116,7 +126,7 @@ void App::advance() {
         if(it->result.wait_for(std::chrono::milliseconds(0))!=std::future_status::ready){++it;continue;}
         const auto result=it->result.get();const auto kind=it->kind;
         if(result.snapshot_sequence&&(display.generation<result.generation||(display.generation==result.generation&&display.sequence<result.snapshot_sequence))){++it;continue;}
-        if(!result.ok){status=result.error;config=display.config;}
+        if(!result.ok){status=result.error;if(draft_error.empty())config=display.config;}
         else if(kind==RunnerCommand::Kind::Pause)status="Расчёт приостановлен; текущий шаг завершён.";
         else if(kind==RunnerCommand::Kind::Advance)status="Шаг расчёта завершён.";
         else if(kind==RunnerCommand::Kind::StartArchive)status="Архив подключён. Запись активна; параметры приняты вычислителем.";
@@ -344,13 +354,13 @@ void App::toolbar() {
     ImGui::TextColored(Teal,"NEURO / ASTRO"); ImGui::SameLine(); ImGui::TextDisabled("Конструктор малых сетей");
     ImGui::SameLine(ImGui::GetWindowWidth()-365); ImGui::TextDisabled("HH / Ижикевич · IP3 / Ca · RK4 · CPU");
     ImGui::Separator();
-    ImGui::BeginDisabled(!simulation->error.empty() || (!running && simulation->done()));
+    ImGui::BeginDisabled(!draft_error.empty() || !simulation->error.empty() || (!running && simulation->done()));
     ImGui::PushStyleColor(ImGuiCol_Button,{.10f,.38f,.33f,1});
     if(ImGui::Button(running?"Пауза":simulation->time>0?"Продолжить":"Запуск",{110,30})) {
         if(running)pause();else run();
     } ImGui::PopStyleColor(); ImGui::EndDisabled();
     ImGui::SameLine(); if(ImGui::Button("Сброс",{80,30})) {RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.flag=true;command(std::move(c));status="Восстанавливаются начальные состояния…";}
-    ImGui::SameLine(); ImGui::BeginDisabled(running||!simulation->error.empty()||simulation->done());
+    ImGui::SameLine(); ImGui::BeginDisabled(running||!draft_error.empty()||!simulation->error.empty()||simulation->done());
     if(ImGui::Button("Шаг 50 мс",{110,30})) {
         RunnerCommand c;c.kind=RunnerCommand::Kind::Advance;c.value=.05;command(std::move(c));status="Выполняется шаг 50 мс…";
     } ImGui::EndDisabled();
@@ -389,7 +399,16 @@ void App::toolbar() {
     ImGui::SameLine();ImGui::TextDisabled("Фактически: %d%s",m.effective_compute_threads,m.effective_compute_threads==1&&m.compute_threads!=1?" · последовательный режим":"");
     if(ImGui::IsItemHovered())ImGui::SetTooltip("Число включает поток управления решателем. Малые сети и неподдерживаемые конфигурации используют последовательный режим.");
     if(running&&!m.running)ImGui::TextDisabled("Ожидание подтверждения вычислителя…");
+    const auto& integration=simulation->integration;
+    ImGui::TextWrapped("Максимальный основной шаг: %.6g мкс · внутренних принято: %llu · средний: %.6g мкс · отклонено: %llu",
+        simulation->config.dt*1e6,(unsigned long long)integration.accepted,
+        integration.mean_step(simulation->time)*1e6,(unsigned long long)integration.rejected);
     ImGui::ProgressBar(float(simulation->time/config.duration),{-1,4},"");
+    if(!draft_error.empty()) {
+        ImGui::TextColored(ImVec4(1,.45f,.42f,1),"Запуск заблокирован: параметры не приняты.");
+        ImGui::TextWrapped("%s",draft_error.c_str());
+        ImGui::TextDisabled("Ниже показаны результаты последнего принятого опыта; исправление сбросит его.");
+    }
 }
 void App::editor() {
     title("ЭКСПЕРИМЕНТ"); ImGui::BeginDisabled(running); ImGui::PushItemWidth(-115);
@@ -408,7 +427,14 @@ void App::editor() {
     }
     if(simulation->time>0)ImGui::TextDisabled("Конечное время от t=0; можно увеличить.");
     double dt=config.dt*1e6;
-    if(scalar("Шаг, мкс",dt,1,50,1,"%.1f")){config.dt=dt*1e-6;edit();}
+    const auto step_range=integration_step_range(config);
+    if(scalar("Шаг, мкс",dt,step_range.minimum*1e6,step_range.maximum*1e6,1,"%.1f")){config.dt=dt*1e-6;edit();}
+    if(ImGui::IsItemHovered())ImGui::SetTooltip("Максимальный основной шаг. Решатель использует меньшие внутренние шаги по ошибке, кинетикам, событиям и границам входа. Запись и интервал шума должны быть не меньше этого значения.");
+    ImGui::TextWrapped("Допустимо 1–%.0f мкс. Внутренний шаг выбирается адаптивно.",step_range.maximum*1e6);
+    if(config.dt>step_range.maximum) {
+        ImGui::TextWrapped("Шаг несовместим с HH или наличием астроцита. Запуск заблокирован; требуется не более 50 мкс.");
+        if(ImGui::Button("Уменьшить шаг до 50 мкс")){config.dt=step_range.maximum;edit();}
+    }
     double sample=config.sample*1000;
     if(scalar_min("Запись, мс",sample,config.dt*1000,.05)){config.sample=sample*.001;edit();}
     ImGui::PopItemWidth();
@@ -615,7 +641,7 @@ void App::inspector() {
         if(combo("Астроцит",s.astro,config,true,true))edit(); if(ImGui::Checkbox("Включён",&s.enabled))edit();
         if(delay_settings(s))edit();
         if(scalar("Начальный вес w",s.weight,s.stdp?s.weight_min:(s.model==SynapseModel::ConductanceSTP?0:-10),s.stdp?s.weight_max:10,.01))edit();
-        if(!changed&&selected_index<int(simulation->plasticity.size()))
+        if(draft_error.empty()&&!changed&&selected_index<int(simulation->plasticity.size()))
             ImGui::TextColored(Teal,"Текущий вес: %.6g",simulation->plasticity[selected_index].weight);
         if(s.model==SynapseModel::ConductanceSTP) {
             if(scalar("g, мСм/см²",s.conductance,0,5,.01))edit();
@@ -682,7 +708,7 @@ void App::inspector() {
     } else { selected_kind=selected_index=0; }
     ImGui::PopItemWidth(); ImGui::EndDisabled();
     title("АКТИВНОСТЬ");
-    if(!changed && simulation->error.empty()) {
+    if(draft_error.empty()&&!changed && simulation->error.empty()) {
         if(selected_kind==0 && selected_index<int(simulation->spikes.size())) {
             ImGui::Text("V = %.2f мВ",simulation->state[selected_index*4]);
             if(simulation->config.neurons[selected_index].model==NeuronModel::Izhikevich)
@@ -771,7 +797,7 @@ void App::canvas() {
     for(int i=0;i<int(n.size());++i) {
         bool sel=selected_kind==0&&selected_index==i;double v=-65;
         const auto node_color=config.neurons[i].inhibitory?Rose:Teal;
-        if(!changed&&simulation->error.empty()&&i<int(simulation->config.neurons.size()))v=simulation->state[i*4];
+        if(draft_error.empty()&&!changed&&simulation->error.empty()&&i<int(simulation->config.neurons.size()))v=simulation->state[i*4];
         const float radius=compact?4.5f:25.f;
         d->AddCircleFilled(n[i],radius,compact?color(node_color):IM_COL32(17,35,42,255),compact?10:36);
         d->AddCircle(n[i],radius+(compact&&sel?2:0),color(sel?Gold:node_color),compact?12:36,sel?2.5f:1.5f);
@@ -790,7 +816,7 @@ void App::canvas() {
         d->AddQuad(add(a[i],{0,-27}),add(a[i],{27,0}),add(a[i],{0,27}),add(a[i],{-27,0}),color(sel?Gold:Blue),sel?3:1.8f);
         char id[20];std::snprintf(id,sizeof(id),"A%d",i+1);d->AddText(add(a[i],{-10,-8}),color(Blue),id);
         d->AddText(add(a[i],{-28,32}),IM_COL32(214,227,241,255),config.astrocytes[i].name.c_str());
-        if(!changed&&simulation->error.empty()&&i<int(simulation->config.astrocytes.size())) {
+        if(draft_error.empty()&&!changed&&simulation->error.empty()&&i<int(simulation->config.astrocytes.size())) {
             char ca[30];std::snprintf(ca,sizeof(ca),"Ca %.3f uM",simulation->state[astro_offset(simulation->config,i)+2]);
             d->AddText(add(a[i],{-35,52}),color(Muted),ca);
         }
@@ -814,7 +840,7 @@ void App::canvas() {
     if(hovered&&hit_kind==0&&hit>=0&&!ImGui::IsMouseDragging(ImGuiMouseButton_Left)) {
         const auto& node=config.neurons[hit];
         ImGui::BeginTooltip();ImGui::Text("N%d · %s · %s",hit+1,node.name.c_str(),node.inhibitory?"I / тормозный":"E / возбуждающий");
-        if(!changed&&simulation->error.empty()&&hit<int(simulation->spikes.size()))ImGui::Text("V %.3f мВ · Спайков %llu",simulation->state[hit*4],static_cast<unsigned long long>(simulation->spikes[hit]));
+        if(draft_error.empty()&&!changed&&simulation->error.empty()&&hit<int(simulation->spikes.size()))ImGui::Text("V %.3f мВ · Спайков %llu",simulation->state[hit*4],static_cast<unsigned long long>(simulation->spikes[hit]));
         ImGui::TextDisabled(records_neuron(config,hit)?"Состояние записывается":"Состояние не записывается; события сохраняются");ImGui::EndTooltip();
     }
     if(hovered&&!running&&ImGui::IsMouseClicked(ImGuiMouseButton_Right))ImGui::OpenPopup("canvas_menu");
@@ -869,7 +895,7 @@ void App::draw() {
     ImGui::SameLine();
     ImGui::BeginChild("canvas",{std::max(220.f,width-left-right-16),top},ImGuiChildFlags_Borders);canvas();ImGui::EndChild();ImGui::SameLine();
     ImGui::BeginChild("inspector",{right,top},ImGuiChildFlags_Borders);inspector();ImGui::EndChild();
-    if(changed) {reset();status=simulation->error.empty()?"Параметры изменены. Расчёт сброшен.":simulation->error;}
+    if(changed) {reset();if(draft_error.empty())status="Параметры изменены. Расчёт сброшен.";}
     ImGui::BeginChild("plots",{-1,bottom-30},ImGuiChildFlags_Borders);if(!replacing)plots(bottom-30);ImGui::EndChild();
     ImGui::TextColored(simulation->error.empty()?Muted:ImVec4(1,.45f,.42f,1),"%s%s",dirty?"● ":"",status.c_str());
     network_wizard();
@@ -878,7 +904,7 @@ void App::draw() {
     plot_windows.draw(*simulation);
     const auto& analysis=plot_windows.embedded[7].analysis;
     // Send presentation settings only when edited; never copy into the live solver.
-    if(analysis_settings_json(config.analysis)!=analysis_settings_json(analysis)) {
+    if(draft_error.empty()&&analysis_settings_json(config.analysis)!=analysis_settings_json(analysis)) {
         config.analysis=analysis;RunnerCommand c;c.kind=RunnerCommand::Kind::Analysis;c.analysis=analysis;command(std::move(c));
     }
     stage_manager();stimulator_manager();archive_manager();weights_manager();animat_manager();drawing=false;

@@ -22,7 +22,7 @@ struct Offsets {
     size_t algorithm,build,time,steps,sample,suggested,state,thresholds,rows,events;
     explicit Offsets(const std::string& s) {
         size_t p=26+8;algorithm=p; p+=8+get64(s,p);build=p;p+=8+get64(s,p);
-        p+=8+get64(s,p);p+=8+8*get64(s,p);time=p;steps=p+8;sample=p+16;suggested=p+24;p+=48;
+        p+=8+get64(s,p);p+=8+8*get64(s,p);time=p;steps=p+8;sample=p+16;suggested=p+24;p+=64;
         p+=8+get64(s,p);state=p;p+=8+8*get64(s,p);p+=8+32*get64(s,p);
         p+=8+8*get64(s,p);p+=8+8*get64(s,p);thresholds=p;p+=8+8*get64(s,p);
         p+=16;p+=8+get64(s,p); // schema 5: rolling offsets and archive anchor

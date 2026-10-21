@@ -141,7 +141,7 @@ struct SimulationRunner::Impl {
         if(base&&base->generation!=generation)base.reset();
         const auto started=Clock::now();cache_metadata();auto out=std::make_shared<SimulationSnapshot>();
         out->generation=generation;out->base_sequence=base?base->sequence:0;out->last_command_id=last_command;
-        out->steps=sim->steps;out->time=sim->time;out->done=sim->done()||!runner_error.empty();out->error=runner_error.empty()?sim->error:runner_error;
+        out->steps=sim->steps;out->time=sim->time;out->integration=sim->integration;out->done=sim->done()||!runner_error.empty();out->error=runner_error.empty()?sim->error:runner_error;
         out->config=config_cache;out->experiment=experiment_cache;out->state=sim->state;out->plasticity=sim->plasticity;
         out->spikes=sim->spikes;out->releases=sim->releases;out->pending_deliveries.count=sim->pending_deliveries.size();
         {const auto& a=sim->animat;auto& v=out->animat;v.x=a.x;v.y=a.y;v.last_x=a.last_x;v.last_y=a.last_y;v.desired_frequency=a.desired_frequency;

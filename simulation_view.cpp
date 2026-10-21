@@ -43,7 +43,7 @@ bool SimulationView::apply(const SimulationSnapshot& s) {
     if(config_version_!=s.config){config=*s.config;config_version_=s.config;}
     if(experiment_version_!=s.experiment){experiment=*s.experiment;experiment_version_=s.experiment;}
     animat=s.animat;state=s.state;plasticity=s.plasticity;spikes=s.spikes;releases=s.releases;
-    pending_deliveries=s.pending_deliveries;steps=s.steps;time=s.time;error=s.error;done_=s.done;
+    pending_deliveries=s.pending_deliveries;steps=s.steps;time=s.time;integration=s.integration;error=s.error;done_=s.done;
     generation=s.generation;sequence=s.sequence;last_command_id=s.last_command_id;truncated=s.truncated;metrics=s.metrics;
     history.values.resize(s.samples.value_columns);history.weights.resize(s.samples.weight_columns);
     const auto removed=size_t(std::min<uint64_t>(history.time.size(),s.samples.begin>sample_begin?s.samples.begin-sample_begin:0));

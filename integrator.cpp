@@ -307,6 +307,7 @@ bool Simulator::step_impl() {
     const double macro_end=std::min({double(steps+1)*c.dt,c.duration,experiment.stage_active?experiment.stage_end:std::numeric_limits<double>::infinity()});
     size_t pieces=0;
     while(time<macro_end) {
+        if(integration.accepted==UINT64_MAX) {error="Accepted internal-step counter overflow.";return false;}
         apply_stimulus_commands();synchronize_stimulators();
         if(++pieces>200000) {error="Too many internal steps; revise extreme kinetic parameters.";return false;}
         const double sample_time=double(next_sample)*c.sample;
@@ -338,6 +339,8 @@ bool Simulator::step_impl() {
                 }
                 if(physical(flow.next)) {accepted=true;break;}
             }
+            if(integration.rejected==UINT64_MAX) {error="Rejected integration-attempt counter overflow.";return false;}
+            ++integration.rejected;
             h*=.5;
         }
         if(!accepted) {error="Could not resolve the coupled kinetics within the error/bounds tolerance.";return false;}
@@ -431,7 +434,7 @@ bool Simulator::step_impl() {
         for(int i=0;i<int(c.neurons.size());++i)if(fired[i]){++spikes[i];history.events.push_back({event_time,i,false});if(archive)archive->event(history.events.back());}
         for(int i=0;i<int(c.astrocytes.size());++i)if(released[i]){++releases[i];history.events.push_back({event_time,i,true});if(archive)archive->event(history.events.back());}
         }
-        state.swap(next);time=event_time;
+        state.swap(next);time=event_time;++integration.accepted;
         for(int index:group)thresholds[index].armed=false;
         for(auto& threshold:thresholds)
             if(state[threshold.coordinate]<threshold.value-numerical::threshold_tolerance(threshold.value))threshold.armed=true;

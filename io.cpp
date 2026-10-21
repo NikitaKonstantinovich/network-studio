@@ -328,6 +328,10 @@ void export_results(const Simulator& s,const std::filesystem::path& prefix) {
     std::sort(pending.begin(),pending.end(),[](const Delivery& a,const Delivery& b){return DeliveryLater{}(b,a);});
     output(L"_pending_deliveries.csv",delivery_csv(pending));
     Object summary; put(summary,"time_s",s.time); put(summary,"steps",double(s.steps));
+    Object integration;put(integration,"maximum_main_step_s",s.config.dt);
+    uid(integration,"accepted_internal_steps",s.integration.accepted);uid(integration,"rejected_attempts",s.integration.rejected);
+    put(integration,"accepted_model_time_s",s.time);put(integration,"mean_internal_step_s",s.integration.mean_step(s.time));
+    summary.set("integration_statistics",integration.as_string());
     put(summary,"complete",s.done()&&s.error.empty()); put(summary,"error",s.error);
     put(summary,"integrator",std::string("event-localized RK4 step doubling; exact linear kinetics; input/sample/delivery boundaries"));
     put(summary,"deliveries",int(s.history.deliveries.size()));put(summary,"pending_deliveries",int(s.pending_deliveries.size()));

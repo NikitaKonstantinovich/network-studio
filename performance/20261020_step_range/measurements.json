@@ -1,0 +1,908 @@
+{
+  "input": "E:\\asp\\26_27\\labs\\lab6_config_initial.json",
+  "input_sha256": "0ee6c4918c9e3942df3368b922aa5c8fdb61694ba00783811e4f77a46a98c942",
+  "copies": {
+    "25": {
+      "path": "verification\\step_range_20261020\\measured\\dt_25.json",
+      "sha256": "e053102cff48857df66f9713b105cbd360f023ccf63519f48b25f1149cf9779b"
+    },
+    "50": {
+      "path": "verification\\step_range_20261020\\measured\\dt_50.json",
+      "sha256": "ea8388ed0d796502e52a44b02fcca4cf1ca0456a047c1a36c0aa269c6d71b537"
+    },
+    "100": {
+      "path": "verification\\step_range_20261020\\measured\\dt_100.json",
+      "sha256": "df392ab7fa6c23117a5220815d289140d3aa5194ca6bcf10d21bbd50aaa3b9d5"
+    },
+    "250": {
+      "path": "verification\\step_range_20261020\\measured\\dt_250.json",
+      "sha256": "258ea6be72b445b791bf8f8addd80d8c940611034398702e8c2ce8a06849fbc1"
+    },
+    "500": {
+      "path": "verification\\step_range_20261020\\measured\\dt_500.json",
+      "sha256": "7872d81ed1a8b9059dbd495357fc3eac13f6a45093116755fe8c8360f1d0d9d6"
+    }
+  },
+  "executable_sha256": "a9bf7141d37d6c1bce791accc01a9d8b128001806681e41940a2050d27ee5058",
+  "threads_requested": 8,
+  "repeats": 3,
+  "model_seconds_each_run": 0.1,
+  "runs": [
+    {
+      "dt_us": 25,
+      "repeat": 1,
+      "process_seconds": 10.710596800025087,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_25.json",
+        "verification\\step_range_20261020\\measured\\dt_25_repeat_1",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "2.6916712999999999",
+          "accepted": "10722",
+          "rejected": "0",
+          "mean_step_s": "4.6633090841260963e-06",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "5.1264678000000004",
+          "accepted": "17451",
+          "rejected": "28",
+          "mean_step_s": "2.8651653200389666e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "272b9cdae2d8a0813c9a16d15a57ccd915fe0cf513cca2ac40b9b8578b284691"
+    },
+    {
+      "dt_us": 50,
+      "repeat": 1,
+      "process_seconds": 6.8206498000072315,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_50.json",
+        "verification\\step_range_20261020\\measured\\dt_50_repeat_1",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.88020169999999998",
+          "accepted": "3362",
+          "rejected": "0",
+          "mean_step_s": "1.4872099940511602e-05",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.9646029999999999",
+          "accepted": "9380",
+          "rejected": "79",
+          "mean_step_s": "5.3304904051172707e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "2bdab977cf59e6f4a12390d4e29046ebdf2f94ad85c17d3192e75caffdd9a56b"
+    },
+    {
+      "dt_us": 100,
+      "repeat": 1,
+      "process_seconds": 5.8773496999638155,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_100.json",
+        "verification\\step_range_20261020\\measured\\dt_100_repeat_1",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.67789129999999997",
+          "accepted": "2775",
+          "rejected": "0",
+          "mean_step_s": "1.8018018018018019e-05",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.3323255999999999",
+          "accepted": "6509",
+          "rejected": "113",
+          "mean_step_s": "7.681671531725304e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "e49ce2cb27f569452928321abef9f96fc56267a4d75bac8fc3335cafbfa1e118"
+    },
+    {
+      "dt_us": 250,
+      "repeat": 1,
+      "process_seconds": 5.367323199985549,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_250.json",
+        "verification\\step_range_20261020\\measured\\dt_250_repeat_1",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.13714209999999999",
+          "accepted": "415",
+          "rejected": "3",
+          "mean_step_s": "0.00012048192771084338",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.2950911000000001",
+          "accepted": "5952",
+          "rejected": "135",
+          "mean_step_s": "8.4005376344086021e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "fb3373dee138651621309cc928e23a6cc0634cb2167874f884f23e40dc65a28d"
+    },
+    {
+      "dt_us": 500,
+      "repeat": 1,
+      "process_seconds": 5.148371800023597,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_500.json",
+        "verification\\step_range_20261020\\measured\\dt_500_repeat_1",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.11574619999999999",
+          "accepted": "430",
+          "rejected": "2",
+          "mean_step_s": "0.00011627906976744187",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.1053953999999999",
+          "accepted": "5911",
+          "rejected": "139",
+          "mean_step_s": "8.4588056166469293e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "798aad75070d2ac2b640c8182178fa0fb37662822990a96c380fb194267e3197"
+    },
+    {
+      "dt_us": 50,
+      "repeat": 2,
+      "process_seconds": 6.781790900044143,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_50.json",
+        "verification\\step_range_20261020\\measured\\dt_50_repeat_2",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.92815429999999999",
+          "accepted": "3362",
+          "rejected": "0",
+          "mean_step_s": "1.4872099940511602e-05",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "3.0073916999999999",
+          "accepted": "9380",
+          "rejected": "79",
+          "mean_step_s": "5.3304904051172707e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "2bdab977cf59e6f4a12390d4e29046ebdf2f94ad85c17d3192e75caffdd9a56b"
+    },
+    {
+      "dt_us": 100,
+      "repeat": 2,
+      "process_seconds": 5.85613570001442,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_100.json",
+        "verification\\step_range_20261020\\measured\\dt_100_repeat_2",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.66532950000000002",
+          "accepted": "2775",
+          "rejected": "0",
+          "mean_step_s": "1.8018018018018019e-05",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.3008358000000002",
+          "accepted": "6509",
+          "rejected": "113",
+          "mean_step_s": "7.681671531725304e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "e49ce2cb27f569452928321abef9f96fc56267a4d75bac8fc3335cafbfa1e118"
+    },
+    {
+      "dt_us": 250,
+      "repeat": 2,
+      "process_seconds": 5.132365100027528,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_250.json",
+        "verification\\step_range_20261020\\measured\\dt_250_repeat_2",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.13398389999999999",
+          "accepted": "415",
+          "rejected": "3",
+          "mean_step_s": "0.00012048192771084338",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.1405908",
+          "accepted": "5952",
+          "rejected": "135",
+          "mean_step_s": "8.4005376344086021e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "fb3373dee138651621309cc928e23a6cc0634cb2167874f884f23e40dc65a28d"
+    },
+    {
+      "dt_us": 500,
+      "repeat": 2,
+      "process_seconds": 5.082271400024183,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_500.json",
+        "verification\\step_range_20261020\\measured\\dt_500_repeat_2",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.1152422",
+          "accepted": "430",
+          "rejected": "2",
+          "mean_step_s": "0.00011627906976744187",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.0818835",
+          "accepted": "5911",
+          "rejected": "139",
+          "mean_step_s": "8.4588056166469293e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "798aad75070d2ac2b640c8182178fa0fb37662822990a96c380fb194267e3197"
+    },
+    {
+      "dt_us": 25,
+      "repeat": 2,
+      "process_seconds": 10.45903599995654,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_25.json",
+        "verification\\step_range_20261020\\measured\\dt_25_repeat_2",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "2.6387274000000001",
+          "accepted": "10722",
+          "rejected": "0",
+          "mean_step_s": "4.6633090841260963e-06",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "4.9451312999999999",
+          "accepted": "17451",
+          "rejected": "28",
+          "mean_step_s": "2.8651653200389666e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "272b9cdae2d8a0813c9a16d15a57ccd915fe0cf513cca2ac40b9b8578b284691"
+    },
+    {
+      "dt_us": 100,
+      "repeat": 3,
+      "process_seconds": 5.858546500036027,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_100.json",
+        "verification\\step_range_20261020\\measured\\dt_100_repeat_3",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.69096570000000002",
+          "accepted": "2775",
+          "rejected": "0",
+          "mean_step_s": "1.8018018018018019e-05",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.2736420000000002",
+          "accepted": "6509",
+          "rejected": "113",
+          "mean_step_s": "7.681671531725304e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "e49ce2cb27f569452928321abef9f96fc56267a4d75bac8fc3335cafbfa1e118"
+    },
+    {
+      "dt_us": 250,
+      "repeat": 3,
+      "process_seconds": 5.110321299987845,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_250.json",
+        "verification\\step_range_20261020\\measured\\dt_250_repeat_3",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.1386685",
+          "accepted": "415",
+          "rejected": "3",
+          "mean_step_s": "0.00012048192771084338",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.1480871000000001",
+          "accepted": "5952",
+          "rejected": "135",
+          "mean_step_s": "8.4005376344086021e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "fb3373dee138651621309cc928e23a6cc0634cb2167874f884f23e40dc65a28d"
+    },
+    {
+      "dt_us": 500,
+      "repeat": 3,
+      "process_seconds": 5.184802200004924,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_500.json",
+        "verification\\step_range_20261020\\measured\\dt_500_repeat_3",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.1116597",
+          "accepted": "430",
+          "rejected": "2",
+          "mean_step_s": "0.00011627906976744187",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "2.1467421",
+          "accepted": "5911",
+          "rejected": "139",
+          "mean_step_s": "8.4588056166469293e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "798aad75070d2ac2b640c8182178fa0fb37662822990a96c380fb194267e3197"
+    },
+    {
+      "dt_us": 25,
+      "repeat": 3,
+      "process_seconds": 10.350916599971242,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_25.json",
+        "verification\\step_range_20261020\\measured\\dt_25_repeat_3",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "2.6424430999999999",
+          "accepted": "10722",
+          "rejected": "0",
+          "mean_step_s": "4.6633090841260963e-06",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "4.8811146000000001",
+          "accepted": "17451",
+          "rejected": "28",
+          "mean_step_s": "2.8651653200389666e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "272b9cdae2d8a0813c9a16d15a57ccd915fe0cf513cca2ac40b9b8578b284691"
+    },
+    {
+      "dt_us": 50,
+      "repeat": 3,
+      "process_seconds": 6.830542400013655,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_step_tests.exe",
+        "verification\\step_range_20261020\\measured\\dt_50.json",
+        "verification\\step_range_20261020\\measured\\dt_50_repeat_3",
+        "8",
+        "benchmark"
+      ],
+      "windows": [
+        {
+          "from": "0",
+          "to": "0.050000000000000003",
+          "solve_s": "0.89652699999999996",
+          "accepted": "3362",
+          "rejected": "0",
+          "mean_step_s": "1.4872099940511602e-05",
+          "spikes": "0",
+          "deliveries": "0",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        },
+        {
+          "from": "0.050000000000000003",
+          "to": "0.10000000000000001",
+          "solve_s": "3.0680310999999998",
+          "accepted": "9380",
+          "rejected": "79",
+          "mean_step_s": "5.3304904051172707e-06",
+          "spikes": "4977",
+          "deliveries": "150532",
+          "requested_threads": "8",
+          "effective_threads": "8"
+        }
+      ],
+      "checkpoint_sha256": "2bdab977cf59e6f4a12390d4e29046ebdf2f94ad85c17d3192e75caffdd9a56b"
+    }
+  ],
+  "aggregate": [
+    {
+      "dt_us": 25,
+      "median_s": 7.5838587,
+      "minimum_s": 7.5235577,
+      "maximum_s": 7.8181391,
+      "accepted": 28173,
+      "rejected": 28,
+      "mean_internal_step_us": 3.549497746068931,
+      "estimated_1000_s_hours": 21.066274166666666,
+      "quiet_median_s": 2.6424431,
+      "active_median_s": 4.9451313,
+      "effective_threads": [
+        8
+      ],
+      "speedup_vs_25": 1.0
+    },
+    {
+      "dt_us": 50,
+      "median_s": 3.935546,
+      "minimum_s": 3.8448047,
+      "maximum_s": 3.9645580999999996,
+      "accepted": 12742,
+      "rejected": 79,
+      "mean_internal_step_us": 7.848061528802386,
+      "estimated_1000_s_hours": 10.932072222222223,
+      "quiet_median_s": 0.896527,
+      "active_median_s": 3.0073917,
+      "effective_threads": [
+        8
+      ],
+      "speedup_vs_25": 1.9270156415399542
+    },
+    {
+      "dt_us": 100,
+      "median_s": 2.9661653,
+      "minimum_s": 2.9646077,
+      "maximum_s": 3.0102168999999996,
+      "accepted": 9284,
+      "rejected": 113,
+      "mean_internal_step_us": 10.77121930202499,
+      "estimated_1000_s_hours": 8.239348055555556,
+      "quiet_median_s": 0.6778913,
+      "active_median_s": 2.3008358,
+      "effective_threads": [
+        8
+      ],
+      "speedup_vs_25": 2.5567889625032025
+    },
+    {
+      "dt_us": 250,
+      "median_s": 2.2867556,
+      "minimum_s": 2.2745747,
+      "maximum_s": 2.4322332,
+      "accepted": 6367,
+      "rejected": 138,
+      "mean_internal_step_us": 15.705983979896342,
+      "estimated_1000_s_hours": 6.352098888888889,
+      "quiet_median_s": 0.1371421,
+      "active_median_s": 2.1480871,
+      "effective_threads": [
+        8
+      ],
+      "speedup_vs_25": 3.316427299882856
+    },
+    {
+      "dt_us": 500,
+      "median_s": 2.2211415999999997,
+      "minimum_s": 2.1971257,
+      "maximum_s": 2.2584018,
+      "accepted": 6341,
+      "rejected": 141,
+      "mean_internal_step_us": 15.770383220312254,
+      "estimated_1000_s_hours": 6.169837777777777,
+      "quiet_median_s": 0.1152422,
+      "active_median_s": 2.1053954,
+      "effective_threads": [
+        8
+      ],
+      "speedup_vs_25": 3.414396767860276
+    }
+  ],
+  "accuracy_vs_25us": {
+    "25": {
+      "same_spikes_per_neuron": true,
+      "spikes": 4977,
+      "deliveries": 150532,
+      "same_deliveries_per_edge": true,
+      "max_ordinal_spike_difference_s": 0.0,
+      "max_ordinal_arrival_difference_s": 0.0,
+      "stimulus_csv_byte_exact": true,
+      "sample_clock_exact": true,
+      "weights": {
+        "max_abs": 0.0,
+        "rms": 0.0
+      },
+      "state": {
+        "voltage_mV": {
+          "max_abs": 0.0,
+          "rms": 0.0
+        },
+        "u": {
+          "max_abs": 0.0,
+          "rms": 0.0
+        },
+        "resource_u": {
+          "max_abs": 0.0,
+          "rms": 0.0
+        },
+        "resource_x": {
+          "max_abs": 0.0,
+          "rms": 0.0
+        },
+        "active_y": {
+          "max_abs": 0.0,
+          "rms": 0.0
+        },
+        "glutamate": {
+          "max_abs": 0.0,
+          "rms": 0.0
+        }
+      },
+      "inhibitory_weights_exact": true
+    },
+    "50": {
+      "same_spikes_per_neuron": true,
+      "spikes": 4977,
+      "deliveries": 150532,
+      "same_deliveries_per_edge": true,
+      "max_ordinal_spike_difference_s": 3.590853031587571e-10,
+      "max_ordinal_arrival_difference_s": 3.590853031587571e-10,
+      "stimulus_csv_byte_exact": true,
+      "sample_clock_exact": true,
+      "weights": {
+        "max_abs": 5.968633365327491e-10,
+        "rms": 3.15866358175957e-11
+      },
+      "state": {
+        "voltage_mV": {
+          "max_abs": 6.664669101041909e-06,
+          "rms": 3.939214130567657e-07
+        },
+        "u": {
+          "max_abs": 1.1947670941481192e-07,
+          "rms": 2.6594734728273057e-08
+        },
+        "resource_u": {
+          "max_abs": 1.8786849853569265e-10,
+          "rms": 2.2101384903063342e-11
+        },
+        "resource_x": {
+          "max_abs": 4.332047498500913e-09,
+          "rms": 3.775488534619492e-10
+        },
+        "active_y": {
+          "max_abs": 6.3445726450339635e-09,
+          "rms": 5.826906132826842e-10
+        },
+        "glutamate": {
+          "max_abs": 5.247591957413533e-06,
+          "rms": 4.94591298221442e-07
+        }
+      },
+      "inhibitory_weights_exact": true
+    },
+    "100": {
+      "same_spikes_per_neuron": true,
+      "spikes": 4977,
+      "deliveries": 150532,
+      "same_deliveries_per_edge": true,
+      "max_ordinal_spike_difference_s": 2.5556539801074862e-09,
+      "max_ordinal_arrival_difference_s": 2.5556539801074862e-09,
+      "stimulus_csv_byte_exact": true,
+      "sample_clock_exact": true,
+      "weights": {
+        "max_abs": 4.247646345767464e-09,
+        "rms": 2.3356911580355244e-10
+      },
+      "state": {
+        "voltage_mV": {
+          "max_abs": 4.964138275198593e-05,
+          "rms": 2.8833792535714214e-06
+        },
+        "u": {
+          "max_abs": 8.577458530112381e-07,
+          "rms": 1.9741952133167998e-07
+        },
+        "resource_u": {
+          "max_abs": 1.3385121899744945e-09,
+          "rms": 1.611346767468117e-10
+        },
+        "resource_x": {
+          "max_abs": 3.0832931222080084e-08,
+          "rms": 2.742847070078311e-09
+        },
+        "active_y": {
+          "max_abs": 4.522878865875768e-08,
+          "rms": 4.240832926075952e-09
+        },
+        "glutamate": {
+          "max_abs": 3.7397274127215496e-05,
+          "rms": 3.6058124481840722e-06
+        }
+      },
+      "inhibitory_weights_exact": true
+    },
+    "250": {
+      "same_spikes_per_neuron": true,
+      "spikes": 4977,
+      "deliveries": 150532,
+      "same_deliveries_per_edge": true,
+      "max_ordinal_spike_difference_s": 5.6616536736608936e-09,
+      "max_ordinal_arrival_difference_s": 5.6616536736608936e-09,
+      "stimulus_csv_byte_exact": true,
+      "sample_clock_exact": true,
+      "weights": {
+        "max_abs": 9.415310087135254e-09,
+        "rms": 5.053702472779758e-10
+      },
+      "state": {
+        "voltage_mV": {
+          "max_abs": 0.00010691382686189854,
+          "rms": 6.273481322412447e-06
+        },
+        "u": {
+          "max_abs": 1.9021170842847823e-06,
+          "rms": 4.3450666009078234e-07
+        },
+        "resource_u": {
+          "max_abs": 2.963300715919104e-09,
+          "rms": 3.528691299702017e-10
+        },
+        "resource_x": {
+          "max_abs": 6.83042890511909e-08,
+          "rms": 6.0433170690190405e-09
+        },
+        "active_y": {
+          "max_abs": 1.0012604051423679e-07,
+          "rms": 9.2948932740388e-09
+        },
+        "glutamate": {
+          "max_abs": 8.279914379727416e-05,
+          "rms": 7.897681169311593e-06
+        }
+      },
+      "inhibitory_weights_exact": true
+    },
+    "500": {
+      "same_spikes_per_neuron": true,
+      "spikes": 4977,
+      "deliveries": 150532,
+      "same_deliveries_per_edge": true,
+      "max_ordinal_spike_difference_s": 5.520553486570989e-09,
+      "max_ordinal_arrival_difference_s": 5.520553486570989e-09,
+      "stimulus_csv_byte_exact": true,
+      "sample_clock_exact": true,
+      "weights": {
+        "max_abs": 9.186190697008101e-09,
+        "rms": 4.891130052339563e-10
+      },
+      "state": {
+        "voltage_mV": {
+          "max_abs": 0.00010326977500341172,
+          "rms": 6.0810431828888264e-06
+        },
+        "u": {
+          "max_abs": 1.8535978298928057e-06,
+          "rms": 4.2133206825246766e-07
+        },
+        "resource_u": {
+          "max_abs": 2.888724370819773e-09,
+          "rms": 3.421513338007136e-10
+        },
+        "resource_x": {
+          "max_abs": 6.660143759933124e-08,
+          "rms": 5.870431226382429e-09
+        },
+        "active_y": {
+          "max_abs": 9.759694280520037e-08,
+          "rms": 9.01899656680072e-09
+        },
+        "glutamate": {
+          "max_abs": 8.071286799804511e-05,
+          "rms": 7.661039246491309e-06
+        }
+      },
+      "inhibitory_weights_exact": true
+    }
+  },
+  "elapsed_seconds": 104.30033270001877,
+  "scope": "Two early 50 ms windows, 0..0.1 model s per run. 1000 s estimates are linear projections, not long experiments."
+}

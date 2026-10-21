@@ -12,7 +12,7 @@
 namespace studio {
 namespace {
 constexpr char Magic[]="NETWORK-STUDIO-CHECKPOINT\n";
-constexpr uint64_t Schema=6;
+constexpr uint64_t Schema=7;
 void require(bool ok,const char* message) {if(!ok)throw std::runtime_error(std::string("Checkpoint: ")+message);}
 // Integrity against accidental corruption; not an authentication signature.
 uint64_t checksum(const char* p,size_t n) {
@@ -75,6 +75,9 @@ struct CheckpointAccess {
         }
         require(std::isfinite(s.time) && s.time>=0 && s.time<=c.duration,"invalid model time");
         require(s.steps<=uint64_t(std::ceil(c.duration/c.dt)),"invalid step counter");
+        require((s.time==0)==(s.integration.accepted==0)&&s.integration.accepted>=s.steps,
+            "internal step counters/model time mismatch");
+        if(s.error.empty())require(s.integration.accepted || !s.integration.rejected,"rejected attempts without integration");
         if(s.checkpoint_boundary) {
             require(s.steps==0 ? s.time==0 : s.time>double(s.steps-1)*c.dt && s.time<=double(s.steps)*c.dt,"step counter/time mismatch");
         } else require(s.time>=double(s.steps ? s.steps-1 : 0)*c.dt && s.time<=double(s.steps+1)*c.dt,"failed step/time mismatch");
@@ -175,6 +178,7 @@ struct CheckpointAccess {
         w.text(CheckpointAlgorithm);w.text(STUDIO_CHECKPOINT_BUILD_ID);
         w.text(serialize(s.config));w.u64(s.config.parameters.size());for(double v:s.config.parameters)w.real(v);
         w.real(s.time);w.u64(s.steps);w.u64(s.next_sample);w.real(s.suggested_step);
+        w.u64(s.integration.accepted);w.u64(s.integration.rejected);
         w.flag(s.checkpoint_boundary);w.flag(s.done());w.text(s.error);
         w.reals(s.state);w.u64(s.plasticity.size());
         for(const auto& p:s.plasticity){w.real(p.weight);w.real(p.pre_trace);w.real(p.post_trace);w.real(p.post_slow_trace);}
@@ -219,6 +223,7 @@ struct CheckpointAccess {
         // Initialization positions the robot/source; restore the serialized runtime protocol.
         s->config=c;
         s->time=r.real();s->steps=r.u64();s->next_sample=r.u64();s->suggested_step=r.real();
+        s->integration.accepted=r.u64();s->integration.rejected=r.u64();
         s->checkpoint_boundary=r.flag();bool stored_done=r.flag();s->error=r.text(65536);
         s->state=r.reals(dimension(c));r.expected(c.synapses.size());
         for(auto& p:s->plasticity){p.weight=r.real();p.pre_trace=r.real();p.post_trace=r.real();p.post_slow_trace=r.real();}

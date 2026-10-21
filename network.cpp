@@ -97,20 +97,30 @@ static bool name_valid(const std::string& s,size_t max) {
     for(unsigned char ch:s)if(ch<32||ch==127)return false;
     return true;
 }
+IntegrationStepRange integration_step_range(const Config& c) {
+    const bool izh_only=!c.neurons.empty()&&c.astrocytes.empty()&&
+        std::all_of(c.neurons.begin(),c.neurons.end(),[](const Neuron& n){return n.model==NeuronModel::Izhikevich;});
+    return {1e-6,izh_only?500e-6:50e-6};
+}
 std::string validate(const Config& c) {
     const auto experiment_error=validate_experiment(c);if(!experiment_error.empty())return experiment_error;
     if (c.neurons.empty() || c.neurons.size()>MaxNeurons || c.astrocytes.size()>MaxAstrocytes ||
         c.synapses.size()>MaxSynapses || c.gaps.size()>MaxGaps) return "Network size is outside supported limits.";
-    if (!range(c.dt,1e-6,5e-5) || !std::isfinite(c.duration) || c.duration<.001 ||
-        !std::isfinite(c.sample) || c.sample<c.dt)
-        return "Use finite duration >= 0.001 s, dt = 1..50 us and finite sample >= dt.";
+    const auto step_range=integration_step_range(c);
+    if(!range(c.dt,step_range.minimum,step_range.maximum))
+        return step_range.maximum==500e-6
+            ? "Maximum main step dt must be 1..500 us for an Izhikevich-only network without astrocytes."
+            : "Maximum main step dt must be 1..50 us when HH neurons or astrocytes are present (even without feedback).";
+    if(!std::isfinite(c.duration)||c.duration<.001)return "Use finite duration >= 0.001 s.";
+    if(!std::isfinite(c.sample)||c.sample<c.dt)
+        return "Recording interval sample must be finite and >= the maximum main step dt; adjust it explicitly.";
     // No fixed time horizon. Reject clocks whose double precision cannot
     // resolve RK stages, and prevent overflow of integer step/noise counters.
     if(!std::isfinite(c.duration/c.dt) || c.duration/c.dt>=double(UINT64_MAX) ||
         c.duration+c.dt/8==c.duration)
         return "Duration is too large to resolve the integration step with double precision.";
     if(!range(c.noise_sigma,0,100) || !range(c.noise_interval,c.dt,1))
-        return "Noise sigma must be 0..100 and its sampling interval dt..1 s.";
+        return "Noise sigma must be 0..100 and noise_interval must be >= the maximum main step dt and <= 1 s; adjust it explicitly.";
     auto valid_selection=[](const std::vector<int>& selected,size_t count) {
         std::set<int> seen;
         for(int index:selected)if(index<0 || size_t(index)>=count || !seen.insert(index).second)return false;

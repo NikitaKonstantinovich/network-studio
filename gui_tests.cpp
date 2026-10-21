@@ -49,7 +49,12 @@ static void click(studio::App& app,const char* label,bool activate=true) {
             auto b=bounds.find(id);
             if(b!=bounds.end()) {
                 auto* window=owners[id];const auto center=b->second.GetCenter();found=true;
-                if(window->InnerRect.Contains(center)) {if(activate)click_point(app,center);return;}
+                // A center at the panel edge can lie inside InnerRect but
+                // outside the actual content clip rect. Reveal the whole row.
+                const auto& clip=window->InnerClipRect;
+                if(clip.Contains(center)&&b->second.Min.y>=clip.Min.y&&b->second.Max.y<=clip.Max.y) {
+                    if(activate)click_point(app,center);return;
+                }
                 // Center the target instead of jumping a full long inspector.
                 float wheel=(window->InnerRect.GetCenter().y-center.y)/(5.f*ImGui::GetFontSize());
                 auto p=window->InnerRect.GetCenter();auto& io=ImGui::GetIO();io.AddMousePosEvent(p.x,p.y);frame(app);
@@ -69,7 +74,7 @@ static void enter_scalar(studio::App& app,const char* label,const char* value) {
     click(app,label);
     io.AddKeyEvent(ImGuiMod_Ctrl,true);frame(app);click(app,label);
     io.AddKeyEvent(ImGuiMod_Ctrl,false);frame(app);
-    require(GImGui->TempInputId!=0,"Ctrl-click did not open scalar text entry.");
+    require(GImGui->TempInputId!=0,(std::string("Ctrl-click did not open scalar text entry: ")+label).c_str());
     io.AddKeyEvent(ImGuiMod_Ctrl,true);io.AddKeyEvent(ImGuiKey_A,true);frame(app);
     io.AddKeyEvent(ImGuiKey_A,false);io.AddKeyEvent(ImGuiMod_Ctrl,false);frame(app);
     io.AddInputCharactersUTF8(value);frame(app);
@@ -84,6 +89,25 @@ int main() {
         io.Fonts->AddFontFromFileTTF("C:/Windows/Fonts/segoeui.ttf",17,nullptr,io.Fonts->GetGlyphRangesCyrillic());
         unsigned char* pixels=nullptr;int w=0,h=0;io.Fonts->GetTexDataAsRGBA32(&pixels,&w,&h);io.Fonts->SetTexID(ImTextureID(1));
         studio::apply_style();studio::App app;frame(app);frame(app);
+        auto step_config=studio::preset(4);step_config.sample=.001;step_config.duration=.01;
+        app.replace(step_config);frame(app);enter_scalar(app,"Шаг, мкс","500");
+        require(app.config.dt==.0005&&app.config.sample==.001&&app.config.noise_interval==.001,"GUI expanded step/unchanged dependent intervals");
+        app.advance_for(.002);frame(app);
+        require(app.simulation->integration.accepted>0&&app.simulation->integration.mean_step(app.simulation->time)>0,"GUI snapshot lacks internal statistics");
+        enter_scalar(app,"Шаг, мкс","250");require(app.simulation->time==0&&app.simulation->integration.accepted==0,"Step edit did not reset statistics/model");
+        enter_scalar(app,"Шаг, мкс","500");app.advance_for(.002);const auto before_invalid=app.simulation->state;const auto time_before_invalid=app.simulation->time;click(app,"+ Астроцит");
+        require(app.config.dt==.0005&&!app.draft_error.empty()&&app.config.astrocytes.size()==1,"Adding astrocyte silently changed step or allowed run");
+        click(app,"Продолжить");require(!app.running&&app.simulation->time==time_before_invalid&&app.simulation->state==before_invalid,"Invalid composition was allowed to run or changed the model");
+        click(app,"Уменьшить шаг до 50 мкс");
+        require(app.config.dt==50e-6&&app.draft_error.empty()&&app.simulation->error.empty()&&app.simulation->time==0,"Explicit astrocyte step correction failed");
+        step_config.dt=.0005;app.replace(step_config);frame(app);
+        click(app,"Модель нейрона");click(app,"Hodgkin–Huxley");
+        require(app.config.dt==.0005&&!app.draft_error.empty(),"HH switch did not retain explicit invalid step");
+        click(app,"Уменьшить шаг до 50 мкс");require(app.simulation->error.empty(),"HH correction failed");
+        step_config.dt=25e-6;step_config.sample=100e-6;app.replace(step_config);frame(app);
+        enter_scalar(app,"Шаг, мкс","500");
+        require(app.config.sample==100e-6&&!app.draft_error.empty(),"GUI silently adjusted sample interval");
+        app.replace(studio::preset(0));frame(app);frame(app);
         click(app,"+ Нейрон");require(app.config.neurons.size()==4&&app.selected_kind==0,"Add neuron did not work.");
         click(app,"+ Астроцит");require(app.config.astrocytes.size()==2&&app.selected_kind==1,"Add astrocyte did not work.");
         click(app,"Связи");click(app,"+ Синапс");require(app.config.synapses.size()==3&&app.selected_kind==2,"Add synapse did not work.");

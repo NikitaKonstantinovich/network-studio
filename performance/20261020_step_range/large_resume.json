@@ -1,0 +1,50 @@
+{
+  "commands": [
+    [
+      "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "--config",
+      "verification\\step_range_20261020\\measured\\dt_500.json",
+      "--stop-at",
+      ".05",
+      "--checkpoint",
+      "verification\\step_range_20261020\\large_resume\\pause.nscp",
+      "--threads",
+      "8",
+      "--output",
+      "verification\\step_range_20261020\\large_resume\\pause"
+    ],
+    [
+      "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "--resume",
+      "verification\\step_range_20261020\\large_resume\\pause.nscp",
+      "--stop-at",
+      ".1",
+      "--checkpoint",
+      "verification\\step_range_20261020\\large_resume\\resumed.nscp",
+      "--threads",
+      "8",
+      "--output",
+      "verification\\step_range_20261020\\large_resume\\resumed"
+    ]
+  ],
+  "elapsed_seconds": 7.409176399989519,
+  "model_time_s": 0.1,
+  "split_time_s": 0.05,
+  "dt_us": 500,
+  "checkpoint_byte_exact": true,
+  "summary_exact": true,
+  "csv_pairs": [
+    "result_activity.csv",
+    "result_bursts.csv",
+    "result_deliveries.csv",
+    "result_events.csv",
+    "result_pending_deliveries.csv",
+    "result_responses.csv",
+    "result_shared_stimuli.csv",
+    "result_stimuli.csv",
+    "result_trace.csv",
+    "result_weights.csv"
+  ],
+  "cli_sha256": "1d847f2b46c0f7d5c12ca0a15f89140a4c83f0fde0da2ee79a428fd544308d35",
+  "final_checkpoint_sha256": "798aad75070d2ac2b640c8182178fa0fb37662822990a96c380fb194267e3197"
+}

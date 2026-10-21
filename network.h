@@ -177,6 +177,9 @@ struct Config {
     Config();
 };
 Config preset(int index);
+struct IntegrationStepRange { double minimum,maximum; };
+// Main-step ceiling only; adaptive error/kinetic/event limits remain independent.
+IntegrationStepRange integration_step_range(const Config& c);
 std::string validate(const Config& c);
 void remove_neuron(Config& c, int index);
 void remove_astrocyte(Config& c, int index);
@@ -247,6 +250,12 @@ struct History {
     double events_after=0, deliveries_after=0, stimuli_after=0;
     std::vector<uint64_t> dropped_spikes,dropped_releases,dropped_deliveries;
 };
+struct IntegrationStatistics {
+    uint64_t accepted=0,rejected=0;
+    // Each accepted interval commits an actual model-time advance. Model time
+    // starts at zero and is restored verbatim, so no drifting sum is needed.
+    double mean_step(double model_time) const {return accepted?model_time/double(accepted):0;}
+};
 class Simulator {
 public:
     Config config;
@@ -268,6 +277,7 @@ public:
     std::vector<StimulatorLatch> stimulus_latches;
     uint64_t next_stimulus_command=1;
     uint64_t steps = 0;
+    IntegrationStatistics integration;
     double time = 0;
     std::string error;
     explicit Simulator(const Config& c);

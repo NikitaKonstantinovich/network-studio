@@ -1,0 +1,113 @@
+{
+  "input_sha256": "e053102cff48857df66f9713b105cbd360f023ccf63519f48b25f1149cf9779b",
+  "runs": [
+    {
+      "build": "old",
+      "solve_seconds": 7.42709,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\verification\\step_range_20261020\\baseline\\network_studio_cli.exe",
+        "--config",
+        "verification\\step_range_20261020\\measured\\dt_25.json",
+        "--threads",
+        "8",
+        "--stop-at",
+        ".1",
+        "--output",
+        "verification\\step_range_20261020\\overhead\\0_old"
+      ]
+    },
+    {
+      "build": "new",
+      "solve_seconds": 7.52043,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "verification\\step_range_20261020\\measured\\dt_25.json",
+        "--threads",
+        "8",
+        "--stop-at",
+        ".1",
+        "--output",
+        "verification\\step_range_20261020\\overhead\\1_new"
+      ]
+    },
+    {
+      "build": "new",
+      "solve_seconds": 7.52736,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "verification\\step_range_20261020\\measured\\dt_25.json",
+        "--threads",
+        "8",
+        "--stop-at",
+        ".1",
+        "--output",
+        "verification\\step_range_20261020\\overhead\\2_new"
+      ]
+    },
+    {
+      "build": "old",
+      "solve_seconds": 7.38584,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\verification\\step_range_20261020\\baseline\\network_studio_cli.exe",
+        "--config",
+        "verification\\step_range_20261020\\measured\\dt_25.json",
+        "--threads",
+        "8",
+        "--stop-at",
+        ".1",
+        "--output",
+        "verification\\step_range_20261020\\overhead\\3_old"
+      ]
+    },
+    {
+      "build": "old",
+      "solve_seconds": 7.39805,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\verification\\step_range_20261020\\baseline\\network_studio_cli.exe",
+        "--config",
+        "verification\\step_range_20261020\\measured\\dt_25.json",
+        "--threads",
+        "8",
+        "--stop-at",
+        ".1",
+        "--output",
+        "verification\\step_range_20261020\\overhead\\4_old"
+      ]
+    },
+    {
+      "build": "new",
+      "solve_seconds": 7.48779,
+      "command": [
+        "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+        "--config",
+        "verification\\step_range_20261020\\measured\\dt_25.json",
+        "--threads",
+        "8",
+        "--stop-at",
+        ".1",
+        "--output",
+        "verification\\step_range_20261020\\overhead\\5_new"
+      ]
+    }
+  ],
+  "aggregate": {
+    "old": {
+      "median_s": 7.39805,
+      "minimum_s": 7.38584,
+      "maximum_s": 7.42709,
+      "sha256": "0b4d99e6302f2443c6fc61f9ee33cf6af3997cbaa3f98b0691509d51f46c6e1d"
+    },
+    "new": {
+      "median_s": 7.52043,
+      "minimum_s": 7.48779,
+      "maximum_s": 7.52736,
+      "sha256": "1d847f2b46c0f7d5c12ca0a15f89140a4c83f0fde0da2ee79a428fd544308d35"
+    }
+  },
+  "new_over_old_ratio": 1.0165421969302721,
+  "elapsed_seconds": 57.06857190001756,
+  "csv_byte_exact": true,
+  "model_seconds_per_run": 0.1
+}

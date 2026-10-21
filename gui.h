@@ -23,6 +23,9 @@ public:
     void set_display_hz(double value);
     void set_compute_threads(int requested,bool wait=false);
     bool running = false, dirty = false;
+    // Invalid paused edits remain visible; the last accepted Simulator is
+    // preserved and cannot run until correction/reset/load.
+    std::string draft_error;
     std::string status = "Готово. Выберите узел, настройте параметры и запустите расчёт.";
     int selected_kind = 0, selected_index = 0;
     int request_plot_tab = -1; // Used by the renderer smoke test; -1 leaves user selection alone.
