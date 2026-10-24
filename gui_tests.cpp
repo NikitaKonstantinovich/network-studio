@@ -108,6 +108,18 @@ int main() {
         enter_scalar(app,"Шаг, мкс","500");
         require(app.config.sample==100e-6&&!app.draft_error.empty(),"GUI silently adjusted sample interval");
         app.replace(studio::preset(0));frame(app);frame(app);
+        app.replace(step_config);frame(app);
+        for(const auto& method:studio::IntegrationMethods) {
+            click(app,"Метод");click(app,method.label);
+            require(app.config.integration_method==method.method&&app.simulation->config.integration_method==method.method,"GUI method not accepted");
+            app.advance_for(.002);frame(app);
+            require(app.simulation->time>0&&app.simulation->error.empty(),"GUI selected method failed");
+        }
+        click(app,"+ Астроцит");
+        require(!app.draft_error.empty()&&app.config.integration_method==studio::IntegrationMethod::Euler,"Unsupported method silently replaced");
+        click(app,"Выбрать адаптивный RK4 и допустимый шаг");
+        require(app.draft_error.empty()&&app.simulation->time==0&&app.config.integration_method==studio::IntegrationMethod::AdaptiveRK4,"Explicit method correction failed");
+        app.replace(studio::preset(0));frame(app);frame(app);
         click(app,"+ Нейрон");require(app.config.neurons.size()==4&&app.selected_kind==0,"Add neuron did not work.");
         click(app,"+ Астроцит");require(app.config.astrocytes.size()==2&&app.selected_kind==1,"Add astrocyte did not work.");
         click(app,"Связи");click(app,"+ Синапс");require(app.config.synapses.size()==3&&app.selected_kind==2,"Add synapse did not work.");

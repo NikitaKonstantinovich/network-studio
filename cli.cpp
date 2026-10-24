@@ -40,6 +40,7 @@ static int run_cli(int argc,char** argv) {
                     "network_studio_cli --compare-analysis first_analysis.json second_analysis.json\n"
                     "network_studio_cli [--config file.json | --preset 0..7 | --resume file.nscp]\n"
                     "  [--duration seconds] [--dt seconds] [--sample seconds] [--save file.json]\n"
+                    "  [--method adaptive-rk4|rk4|euler] (default adaptive-rk4; nonlinear portion only)\n"
                     "  [--until absolute_end] [--stop-at absolute_time | --run-for seconds]\n"
                     "  [--checkpoint file.nscp] [--output prefix]\n"
                     "  [--archive new_directory | --archive-append directory] [--archive-deliveries yes|no] [--archive-rows 2..1000000]\n"
@@ -56,7 +57,8 @@ static int run_cli(int argc,char** argv) {
                     "All times are seconds. --save writes only the initial configuration.\n"
                     "--dt is the maximum main step: 1..500 us for Izhikevich-only/no-astro networks,\n"
                     "otherwise 1..50 us. Sample/noise intervals must remain >= dt (no automatic changes).\n"
-                    "--resume restores full state; config/dt/sample/duration/--save overrides are forbidden.\n"
+                    "RK4/Euler require Izhikevich only, no astrocytes; exact linear transitions and kinetic/event limits remain active.\n"
+                    "--resume restores full state; config/method/dt/sample/duration/--save overrides are forbidden.\n"
                     "--until extends a restored final time (absolute from t=0).\n"
                     "--stop-at / --run-for stop at the first completed step at or after the target,\n"
                     "within the configured final time. --run-for is relative to restored/start time.\n"
@@ -70,6 +72,7 @@ static int run_cli(int argc,char** argv) {
             else if(arg=="--preset") {double index=parse_number(value);if(!std::isfinite(index)||index<0||index>7||index!=std::floor(index))throw std::runtime_error("Preset must be 0..7.");c=studio::preset(int(index));config_options=true;}
             else if(arg=="--duration"){c.duration=parse_number(value);config_options=true;}
             else if(arg=="--dt"){c.dt=parse_number(value);config_options=true;}
+            else if(arg=="--method"){c.integration_method=studio::parse_integration_method(value);config_options=true;}
             else if(arg=="--sample"){c.sample=parse_number(value);config_options=true;}
             else if(arg=="--until")until=parse_number(value);
             else if(arg=="--stop-at")stop=parse_number(value);
@@ -133,10 +136,13 @@ static int run_cli(int argc,char** argv) {
         }
         std::cout<<"Wall seconds: "<<std::chrono::duration<double>(std::chrono::steady_clock::now()-begin).count()<<"\n";
         std::cout<<"Compute threads: "<<(compute_threads==0?"auto":std::to_string(compute_threads))<<" / effective "<<s.effective_compute_threads()<<"\n";
+        std::cout<<"Integration method: "<<studio::integration_method_info(s.config.integration_method).argument<<"\n";
         std::cout<<std::setprecision(17)<<"Maximum main step (s): "<<s.config.dt
             <<"\nAccepted internal steps: "<<s.integration.accepted
             <<"\nMean internal step (s): "<<s.integration.mean_step(s.time)
-            <<"\nRejected integration attempts: "<<s.integration.rejected<<"\n";
+            <<"\nRejected integration attempts: "<<s.integration.rejected
+            <<"\nError rejections: "<<(s.config.integration_method==studio::IntegrationMethod::AdaptiveRK4?std::to_string(s.integration.error_rejected):"not applicable")
+            <<"\nPhysical-state reductions: "<<s.integration.state_reductions<<"\n";
         studio::flush_archive(s);
         if(!trained.empty())studio::save_config(s.learned_config(),trained);
         if(!checkpoint.empty())studio::save_checkpoint(s,checkpoint);

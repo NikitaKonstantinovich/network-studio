@@ -14,8 +14,9 @@ double Simulator::neuron_threshold_sample(const State& old,double h,int coordina
 double Simulator::projected_threshold(const State& old,double h,int coordinate,numerical::Flow& local,State& initial) {
     // Without astrocytes, each neuron's between-event flow depends only on its
     // own state and independent incoming activity tails. Preserve the full
-    // solver's arithmetic and edge summation order, including both half steps.
+    // solver's selected method and edge summation order.
     const auto& c=config;
+    local.method=c.integration_method;
     const int index=coordinate/4;const auto& edges=incoming[index];
     initial.resize(4+edges.size());
     for(int k=0;k<4;++k)initial[k]=old[coordinate+k];
@@ -284,6 +285,8 @@ bool Simulator::step() {
 }
 bool Simulator::step_impl() {
     const auto& c=config;const auto& p=c.parameters;
+    const bool adaptive=c.integration_method==IntegrationMethod::AdaptiveRK4;
+    flow.method=c.integration_method;
     prepare_workers();
     prepare_solver_views();
     // Both callbacks and disposable views are refreshed at this safe boundary;
@@ -321,7 +324,7 @@ bool Simulator::step_impl() {
             STUDIO_SCOPE(external);
             for(int i=0;i<int(c.neurons.size());++i)held_inputs[i]=noise_cache.current(c,i,time);
         }
-        double h=std::min({limit-time,suggested_step,kinetic_step_limit()});
+        double h=std::min({limit-time,adaptive?suggested_step:c.dt,kinetic_step_limit()});
         prepare_current_terms();
         auto& group=event_group;group.clear();
         double norm=0,advance=0;
@@ -329,7 +332,8 @@ bool Simulator::step_impl() {
         for(int retry=0;retry<64;++retry) {
             if(!(h>0) || time+h==time) {error="Required numerical step is below clock resolution.";return false;}
             norm=flow.trial(state,h);
-            if(norm<=1) {
+            const bool error_ok=!adaptive||norm<=1;
+            if(error_ok) {
                 advance=flow.events(state,h,time,thresholds,group);
                 // A threshold localized at a scheduled arrival shares its exact
                 // timestamp (within the existing event-localization tolerance).
@@ -341,6 +345,7 @@ bool Simulator::step_impl() {
             }
             if(integration.rejected==UINT64_MAX) {error="Rejected integration-attempt counter overflow.";return false;}
             ++integration.rejected;
+            if(error_ok)++integration.state_reductions;else ++integration.error_rejected;
             h*=.5;
         }
         if(!accepted) {error="Could not resolve the coupled kinetics within the error/bounds tolerance.";return false;}
@@ -438,7 +443,7 @@ bool Simulator::step_impl() {
         for(int index:group)thresholds[index].armed=false;
         for(auto& threshold:thresholds)
             if(state[threshold.coordinate]<threshold.value-numerical::threshold_tolerance(threshold.value))threshold.armed=true;
-        suggested_step=std::min(c.dt,h*(norm>1e-16 ? std::clamp(.9*std::pow(norm,-.2),.5,2.) : 2.));
+        suggested_step=adaptive?std::min(c.dt,h*(norm>1e-16 ? std::clamp(.9*std::pow(norm,-.2),.5,2.) : 2.)):c.dt;
         if(time==sample_time) {record();++next_sample;}
         if(!error.empty())return false;
     }

@@ -352,7 +352,7 @@ void App::network_wizard() {
 }
 void App::toolbar() {
     ImGui::TextColored(Teal,"NEURO / ASTRO"); ImGui::SameLine(); ImGui::TextDisabled("Конструктор малых сетей");
-    ImGui::SameLine(ImGui::GetWindowWidth()-365); ImGui::TextDisabled("HH / Ижикевич · IP3 / Ca · RK4 · CPU");
+    ImGui::SameLine(ImGui::GetWindowWidth()-365); ImGui::TextDisabled("HH / Ижикевич · IP3 / Ca · CPU");
     ImGui::Separator();
     ImGui::BeginDisabled(!draft_error.empty() || !simulation->error.empty() || (!running && simulation->done()));
     ImGui::PushStyleColor(ImGuiCol_Button,{.10f,.38f,.33f,1});
@@ -400,9 +400,13 @@ void App::toolbar() {
     if(ImGui::IsItemHovered())ImGui::SetTooltip("Число включает поток управления решателем. Малые сети и неподдерживаемые конфигурации используют последовательный режим.");
     if(running&&!m.running)ImGui::TextDisabled("Ожидание подтверждения вычислителя…");
     const auto& integration=simulation->integration;
-    ImGui::TextWrapped("Максимальный основной шаг: %.6g мкс · внутренних принято: %llu · средний: %.6g мкс · отклонено: %llu",
+    ImGui::TextWrapped("%s · максимальный основной шаг: %.6g мкс · внутренних принято: %llu · средний: %.6g мкс",
+        integration_method_info(simulation->config.integration_method).label,
         simulation->config.dt*1e6,(unsigned long long)integration.accepted,
-        integration.mean_step(simulation->time)*1e6,(unsigned long long)integration.rejected);
+        integration.mean_step(simulation->time)*1e6);
+    if(simulation->config.integration_method==IntegrationMethod::AdaptiveRK4)
+        ImGui::TextDisabled("Отклонено по ошибке: %llu · уменьшений по состоянию: %llu",(unsigned long long)integration.error_rejected,(unsigned long long)integration.state_reductions);
+    else ImGui::TextDisabled("Оценка ошибки: не применяется · уменьшений по состоянию: %llu",(unsigned long long)integration.state_reductions);
     ImGui::ProgressBar(float(simulation->time/config.duration),{-1,4},"");
     if(!draft_error.empty()) {
         ImGui::TextColored(ImVec4(1,.45f,.42f,1),"Запуск заблокирован: параметры не приняты.");
@@ -426,11 +430,25 @@ void App::editor() {
         catch(const std::exception& e){status=e.what();}
     }
     if(simulation->time>0)ImGui::TextDisabled("Конечное время от t=0; можно увеличить.");
+    if(ImGui::BeginCombo("Метод",integration_method_info(config.integration_method).label)) {
+        for(const auto& method:IntegrationMethods)
+            if(ImGui::Selectable(method.label,config.integration_method==method.method)){config.integration_method=method.method;edit();}
+        ImGui::EndCombo();
+    }
+    if(ImGui::IsItemHovered())ImGui::SetTooltip("Метод численно интегрируемых переменных. Точные линейные переходы сохраняются. RK4 без оценки ошибки и Эйлер доступны только для Ижикевича без астроцитов.");
+    const auto capabilities=integration_capabilities(config);
+    if(!capabilities.supports(config.integration_method)) {
+        ImGui::TextWrapped("Для HH или любого астроцита нужен адаптивный RK4 и шаг не более 50 мкс. Запуск заблокирован.");
+        if(ImGui::Button("Выбрать адаптивный RK4 и допустимый шаг")) {
+            config.integration_method=IntegrationMethod::AdaptiveRK4;
+            config.dt=std::clamp(config.dt,capabilities.step.minimum,capabilities.step.maximum);edit();
+        }
+    }
     double dt=config.dt*1e6;
-    const auto step_range=integration_step_range(config);
+    const auto step_range=capabilities.step;
     if(scalar("Шаг, мкс",dt,step_range.minimum*1e6,step_range.maximum*1e6,1,"%.1f")){config.dt=dt*1e-6;edit();}
-    if(ImGui::IsItemHovered())ImGui::SetTooltip("Максимальный основной шаг. Решатель использует меньшие внутренние шаги по ошибке, кинетикам, событиям и границам входа. Запись и интервал шума должны быть не меньше этого значения.");
-    ImGui::TextWrapped("Допустимо 1–%.0f мкс. Внутренний шаг выбирается адаптивно.",step_range.maximum*1e6);
+    if(ImGui::IsItemHovered())ImGui::SetTooltip("Максимальный основной шаг. Кинетики, события и границы входа уменьшают внутренние шаги при любом методе; адаптивный RK4 дополнительно контролирует ошибку. Запись и интервал шума должны быть не меньше этого значения.");
+    ImGui::TextWrapped("Допустимо 1–%.0f мкс. Кинетики и события могут уменьшить внутренний шаг при любом методе.",step_range.maximum*1e6);
     if(config.dt>step_range.maximum) {
         ImGui::TextWrapped("Шаг несовместим с HH или наличием астроцита. Запуск заблокирован; требуется не более 50 мкс.");
         if(ImGui::Button("Уменьшить шаг до 50 мкс")){config.dt=step_range.maximum;edit();}

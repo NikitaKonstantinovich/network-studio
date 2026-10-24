@@ -38,7 +38,7 @@ set(CHECKPOINT_SIGNATURE "${CMAKE_CXX_COMPILER_ID}|${CMAKE_CXX_COMPILER_VERSION}
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/numerics/compute_threads.h")
 file(SHA256 "${CMAKE_CURRENT_SOURCE_DIR}/numerics/compute_threads.h" thread_policy_hash)
 string(APPEND CHECKPOINT_SIGNATURE "|numerics/compute_threads.h:${thread_policy_hash}")
-foreach(source animat_examples.cpp animat_types.h field_settings.h animat.h animat.cpp animat_analysis.cpp animat_state.cpp animat_json.inc weight_field.h weight_field.cpp activity_field.h activity_field.cpp network.h network.cpp stimulator.cpp stimulator_json.inc experiment.cpp experiment_json.inc analysis.cpp analysis.h analysis_json.inc integrator.cpp numerics/integrator.h numerics/error_norm.h numerics/worker_pool.h numerics/worker_pool.cpp performance/profile.h io.h io.cpp checkpoint.cpp history_archive.h history_archive.cpp archive_codec.h archive_analysis.cpp json_strings.inc vendor/systems/neuro_astro/model.cuh vendor/systems/neuro_astro/variables.inc vendor/systems/neuro_astro/parameters.inc vendor/json/json.cpp vendor/json/json.h)
+foreach(source animat_examples.cpp animat_types.h field_settings.h animat.h animat.cpp animat_analysis.cpp animat_state.cpp animat_json.inc weight_field.h weight_field.cpp activity_field.h activity_field.cpp network.h network.cpp stimulator.cpp stimulator_json.inc experiment.cpp experiment_json.inc analysis.cpp analysis.h analysis_json.inc integrator.cpp numerics/integrator.h numerics/integration_method.h numerics/error_norm.h numerics/worker_pool.h numerics/worker_pool.cpp performance/profile.h io.h io.cpp checkpoint.cpp history_archive.h history_archive.cpp archive_codec.h archive_analysis.cpp json_strings.inc vendor/systems/neuro_astro/model.cuh vendor/systems/neuro_astro/variables.inc vendor/systems/neuro_astro/parameters.inc vendor/json/json.cpp vendor/json/json.h)
     set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${source}")
     file(SHA256 "${CMAKE_CURRENT_SOURCE_DIR}/${source}" source_hash)
     string(APPEND CHECKPOINT_SIGNATURE "|${source}:${source_hash}")
@@ -87,6 +87,11 @@ target_link_libraries(network_studio_numerics_tests PRIVATE network_core)
 add_executable(network_studio_population lab2/population.cpp)
 target_link_libraries(network_studio_population PRIVATE network_core)
 enable_testing()
+add_executable(network_studio_method_tests integration_method_tests.cpp)
+target_link_libraries(network_studio_method_tests PRIVATE network_core)
+add_test(NAME integration_methods COMMAND network_studio_method_tests "${CMAKE_CURRENT_BINARY_DIR}/method-results")
+add_executable(network_studio_method_benchmark performance/20261021_methods/benchmark.cpp)
+target_link_libraries(network_studio_method_benchmark PRIVATE network_core)
 add_executable(network_studio_step_tests step_range_tests.cpp)
 target_link_libraries(network_studio_step_tests PRIVATE network_core)
 add_test(NAME integration_step_range COMMAND network_studio_step_tests "${CMAKE_CURRENT_BINARY_DIR}/step-range-results")
@@ -100,6 +105,9 @@ set_tests_properties(neuroanimat_process_resume PROPERTIES FIXTURES_REQUIRED ani
 set_tests_properties(neuroanimat neuroanimat_process_prepare neuroanimat_process_resume PROPERTIES TIMEOUT 120)
 find_package(Python3 3.10 COMPONENTS Interpreter QUIET)
 if(Python3_Interpreter_FOUND)
+    add_test(NAME integration_method_cli COMMAND "${Python3_EXECUTABLE}" -X utf8
+        "${CMAKE_CURRENT_SOURCE_DIR}/performance/20261021_methods/verify_cli.py"
+        --cli "$<TARGET_FILE:network_studio_cli>" --work "${CMAKE_CURRENT_BINARY_DIR}/method-cli")
     add_test(NAME integration_step_cli COMMAND "${Python3_EXECUTABLE}" -X utf8
         "${CMAKE_CURRENT_SOURCE_DIR}/performance/20261020_step_range/verify_cli.py"
         --cli "$<TARGET_FILE:network_studio_cli>" --work "${CMAKE_CURRENT_BINARY_DIR}/step-range-cli")

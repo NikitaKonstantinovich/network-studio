@@ -150,6 +150,7 @@ struct ExperimentRuntime {
 };
 struct StimulusEvent { double time=0, amplitude=0; int neuron=0, protocol=0; };
 struct Config {
+    IntegrationMethod integration_method=IntegrationMethod::AdaptiveRK4;
     AnimatConfig animat;
     std::string name = "Two inputs / one astrocyte";
     std::vector<Neuron> neurons;
@@ -178,7 +179,16 @@ struct Config {
 };
 Config preset(int index);
 struct IntegrationStepRange { double minimum,maximum; };
-// Main-step ceiling only; adaptive error/kinetic/event limits remain independent.
+struct IntegrationCapabilities {
+    IntegrationStepRange step;
+    bool izh_only;
+    bool supports(IntegrationMethod method) const {
+        return method==IntegrationMethod::AdaptiveRK4 ||
+            (izh_only&&(method==IntegrationMethod::RK4||method==IntegrationMethod::Euler));
+    }
+};
+IntegrationCapabilities integration_capabilities(const Config& c);
+// Main-step ceiling only; kinetic/event limits remain independent of method.
 IntegrationStepRange integration_step_range(const Config& c);
 std::string validate(const Config& c);
 void remove_neuron(Config& c, int index);
@@ -252,6 +262,7 @@ struct History {
 };
 struct IntegrationStatistics {
     uint64_t accepted=0,rejected=0;
+    uint64_t error_rejected=0,state_reductions=0;
     // Each accepted interval commits an actual model-time advance. Model time
     // starts at zero and is restored verbatim, so no drifting sum is needed.
     double mean_step(double model_time) const {return accepted?model_time/double(accepted):0;}

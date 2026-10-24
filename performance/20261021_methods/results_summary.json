@@ -1,0 +1,1514 @@
+{
+  "baseline_commit": "ba7958a4e74875c281efa28612db855f8b92f1c5",
+  "branch": "feature/integration-methods-20261021",
+  "cpu": "Intel Core i9-11900KF; 16 logical processors; requested/effective 8",
+  "builds": {
+    "network_studio.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio.exe",
+      "sha256": "bf9611d8790e089be4ef91cf8d446c8b1639f58ae377ba655107c2059da40ddc"
+    },
+    "network_studio_cli.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_cli.exe",
+      "sha256": "b9cde4d3930f85d99102ee70d8782883ba2caa674bd356b35a063b9966be4cd5"
+    },
+    "network_studio_method_benchmark.exe": {
+      "path": "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_method_benchmark.exe",
+      "sha256": "0166403f301c4d2c0a33fdbf47df5f17efdc7c0bab40738606549c8fade6fc4a"
+    }
+  },
+  "checkpoint_build": "d43f543f4603e31b509651d91ea542a1e25ac8705f582a19465c895ba9f3ea94",
+  "source_sha256": "0ee6c4918c9e3942df3368b922aa5c8fdb61694ba00783811e4f77a46a98c942",
+  "baseline_csv_pairs": 56,
+  "cli_process_resume_csv_pairs": 78,
+  "large_process_resume_csv_pairs": 30,
+  "full_ctest": {
+    "passed": 52,
+    "total": 52,
+    "wall_s": 400.89
+  },
+  "final_gui_retest_wall_s": 44.66,
+  "short_series_wall_s": 183.96018790000016,
+  "long_series_wall_s": 140.3310959999999,
+  "fine_reference_command": [
+    "E:\\asp\\26_27\\configurator\\build\\Release\\network_studio_method_benchmark.exe",
+    "E:\\asp\\26_27\\configurator\\verification\\integration_methods_20261021\\measurements\\adaptive-rk4_25.json",
+    "E:\\asp\\26_27\\configurator\\verification\\integration_methods_20261021\\measurements\\long_adaptive-rk4_25_1",
+    "8",
+    "10"
+  ],
+  "profile_csv_pairs": 36,
+  "profiles": {
+    "adaptive-rk4": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 200,
+          "inclusive_seconds": 1.8437021000000007,
+          "exclusive_seconds": 0.18881089999999914
+        },
+        {
+          "name": "trial",
+          "calls": 6482,
+          "inclusive_seconds": 0.5365886000000033,
+          "exclusive_seconds": 0.15087760000000092
+        },
+        {
+          "name": "thresholds",
+          "calls": 6341,
+          "inclusive_seconds": 0.5053169000000005,
+          "exclusive_seconds": 0.2465692000000014
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 64526,
+          "inclusive_seconds": 0.06695569999999715,
+          "exclusive_seconds": 0.06695569999999715
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 58800,
+          "inclusive_seconds": 0.26819200000006893,
+          "exclusive_seconds": 0.26819200000006893
+        },
+        {
+          "name": "exact_astro",
+          "calls": 58800,
+          "inclusive_seconds": 0.0008559999999998207,
+          "exclusive_seconds": 0.0008559999999998207
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 117600,
+          "inclusive_seconds": 0.30845500000003595,
+          "exclusive_seconds": 0.30845500000003595
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 6341,
+          "inclusive_seconds": 0.03615310000000109,
+          "exclusive_seconds": 0.034126400000000896
+        },
+        {
+          "name": "noise",
+          "calls": 50000,
+          "inclusive_seconds": 0.0020267000000001845,
+          "exclusive_seconds": 0.0020267000000001845
+        },
+        {
+          "name": "stdp",
+          "calls": 6341,
+          "inclusive_seconds": 0.15680879999999942,
+          "exclusive_seconds": 0.15680879999999942
+        },
+        {
+          "name": "journals",
+          "calls": 12782,
+          "inclusive_seconds": 0.024831599999999718,
+          "exclusive_seconds": 0.024831599999999718
+        },
+        {
+          "name": "bounds",
+          "calls": 11318,
+          "inclusive_seconds": 0.34116600000001157,
+          "exclusive_seconds": 0.34116600000001157
+        },
+        {
+          "name": "kinetic",
+          "calls": 6341,
+          "inclusive_seconds": 0.0029812999999999814,
+          "exclusive_seconds": 0.0029812999999999814
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 6341,
+          "inclusive_seconds": 0.01039530000000044,
+          "exclusive_seconds": 0.01039530000000044
+        },
+        {
+          "name": "event_jumps",
+          "calls": 6341,
+          "inclusive_seconds": 0.3658297000000004,
+          "exclusive_seconds": 0.04064959999999963
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 31716,
+        "max": 19,
+        "histogram_0_1_2to3_4to7_8plus": [
+          1364,
+          402,
+          804,
+          1939,
+          1832
+        ]
+      }
+    },
+    "rk4": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 200,
+          "inclusive_seconds": 1.2918964000000002,
+          "exclusive_seconds": 0.1646815999999994
+        },
+        {
+          "name": "trial",
+          "calls": 5616,
+          "inclusive_seconds": 0.15806530000000155,
+          "exclusive_seconds": 0.02720720000000041
+        },
+        {
+          "name": "thresholds",
+          "calls": 5616,
+          "inclusive_seconds": 0.41385619999999873,
+          "exclusive_seconds": 0.3129865999999988
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 22124,
+          "inclusive_seconds": 0.012703799999999332,
+          "exclusive_seconds": 0.012703799999999332
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 21186,
+          "inclusive_seconds": 0.09288209999999285,
+          "exclusive_seconds": 0.09288209999999285
+        },
+        {
+          "name": "exact_astro",
+          "calls": 21186,
+          "inclusive_seconds": 0.0003155000000000068,
+          "exclusive_seconds": 0.0003155000000000068
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 42372,
+          "inclusive_seconds": 0.1258262999999856,
+          "exclusive_seconds": 0.1258262999999856
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 5616,
+          "inclusive_seconds": 0.032085300000001274,
+          "exclusive_seconds": 0.030093800000001322
+        },
+        {
+          "name": "noise",
+          "calls": 50000,
+          "inclusive_seconds": 0.001991500000000237,
+          "exclusive_seconds": 0.001991500000000237
+        },
+        {
+          "name": "stdp",
+          "calls": 5616,
+          "inclusive_seconds": 0.13463259999999902,
+          "exclusive_seconds": 0.13463259999999902
+        },
+        {
+          "name": "journals",
+          "calls": 11332,
+          "inclusive_seconds": 0.02242139999999948,
+          "exclusive_seconds": 0.02242139999999948
+        },
+        {
+          "name": "bounds",
+          "calls": 10593,
+          "inclusive_seconds": 0.31917790000001545,
+          "exclusive_seconds": 0.31917790000001545
+        },
+        {
+          "name": "kinetic",
+          "calls": 5616,
+          "inclusive_seconds": 0.002649099999999998,
+          "exclusive_seconds": 0.002649099999999998
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 5616,
+          "inclusive_seconds": 0.008820200000000174,
+          "exclusive_seconds": 0.008820200000000174
+        },
+        {
+          "name": "event_jumps",
+          "calls": 5616,
+          "inclusive_seconds": 0.336792300000001,
+          "exclusive_seconds": 0.03550679999999976
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 69005,
+        "max": 34,
+        "histogram_0_1_2to3_4to7_8plus": [
+          639,
+          146,
+          250,
+          688,
+          3893
+        ]
+      }
+    },
+    "euler": {
+      "enabled": true,
+      "categories": [
+        {
+          "name": "step",
+          "calls": 200,
+          "inclusive_seconds": 0.8309953999999999,
+          "exclusive_seconds": 0.16690130000000036
+        },
+        {
+          "name": "trial",
+          "calls": 5613,
+          "inclusive_seconds": 0.07346869999999965,
+          "exclusive_seconds": 0.005384599999999932
+        },
+        {
+          "name": "thresholds",
+          "calls": 5613,
+          "inclusive_seconds": 0.04354969999999998,
+          "exclusive_seconds": 0.01171290000000016
+        },
+        {
+          "name": "threshold_sample",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "exact_synapses",
+          "calls": 10578,
+          "inclusive_seconds": 0.04834619999999911,
+          "exclusive_seconds": 0.04834619999999911
+        },
+        {
+          "name": "exact_astro",
+          "calls": 10578,
+          "inclusive_seconds": 0.000158500000000003,
+          "exclusive_seconds": 0.000158500000000003
+        },
+        {
+          "name": "rhs_synapses",
+          "calls": 10578,
+          "inclusive_seconds": 0.05141619999999816,
+          "exclusive_seconds": 0.05141619999999816
+        },
+        {
+          "name": "rhs_neurons",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "rhs_astro",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        },
+        {
+          "name": "external",
+          "calls": 5613,
+          "inclusive_seconds": 0.03331540000000126,
+          "exclusive_seconds": 0.031287200000001694
+        },
+        {
+          "name": "noise",
+          "calls": 50000,
+          "inclusive_seconds": 0.0020282000000001695,
+          "exclusive_seconds": 0.0020282000000001695
+        },
+        {
+          "name": "stdp",
+          "calls": 5613,
+          "inclusive_seconds": 0.13402959999999906,
+          "exclusive_seconds": 0.13402959999999906
+        },
+        {
+          "name": "journals",
+          "calls": 11326,
+          "inclusive_seconds": 0.022521499999999625,
+          "exclusive_seconds": 0.022521499999999625
+        },
+        {
+          "name": "bounds",
+          "calls": 10578,
+          "inclusive_seconds": 0.3102780000000061,
+          "exclusive_seconds": 0.3102780000000061
+        },
+        {
+          "name": "kinetic",
+          "calls": 5613,
+          "inclusive_seconds": 0.0026267999999999994,
+          "exclusive_seconds": 0.0026267999999999994
+        },
+        {
+          "name": "input_boundaries",
+          "calls": 5613,
+          "inclusive_seconds": 0.008989700000000404,
+          "exclusive_seconds": 0.008989700000000404
+        },
+        {
+          "name": "event_jumps",
+          "calls": 5613,
+          "inclusive_seconds": 0.3308105999999996,
+          "exclusive_seconds": 0.03531469999999965
+        },
+        {
+          "name": "controls",
+          "calls": 0,
+          "inclusive_seconds": 0,
+          "exclusive_seconds": 0
+        }
+      ],
+      "threshold_candidates": {
+        "total": 63062,
+        "max": 32,
+        "histogram_0_1_2to3_4to7_8plus": [
+          648,
+          160,
+          273,
+          723,
+          3809
+        ]
+      }
+    }
+  },
+  "measurements": {
+    "short": [
+      {
+        "name": "adaptive-rk4_25",
+        "median_s": 6.134534,
+        "min_s": 6.0291993999999995,
+        "max_s": 6.158954700000001,
+        "measurements": [
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 2.5e-05,
+            "setup_s": 1.1304963,
+            "solve_s": 6.158954700000001,
+            "export_s": 0.8985452,
+            "checkpoint_s": 0.6181429,
+            "model_s": 0.1,
+            "accepted": 28173,
+            "error_rejections": 28,
+            "state_reductions": 0,
+            "mean_step_s": 3.5494977460689313e-06,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 2.5e-05,
+            "setup_s": 1.1319989,
+            "solve_s": 6.134534,
+            "export_s": 0.8880954,
+            "checkpoint_s": 0.5956325,
+            "model_s": 0.1,
+            "accepted": 28173,
+            "error_rejections": 28,
+            "state_reductions": 0,
+            "mean_step_s": 3.5494977460689313e-06,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 2.5e-05,
+            "setup_s": 1.1229724,
+            "solve_s": 6.0291993999999995,
+            "export_s": 0.8758129,
+            "checkpoint_s": 0.6096489,
+            "model_s": 0.1,
+            "accepted": 28173,
+            "error_rejections": 28,
+            "state_reductions": 0,
+            "mean_step_s": 3.5494977460689313e-06,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 0.0,
+          "max_weight": 0.0,
+          "max_pre": 0.0,
+          "max_post": 0.0,
+          "max_slow": 0.0,
+          "same_spike_counts": true,
+          "max_paired_spike_s": 0.0,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 0,
+          "compared_voltage_samples": 721,
+          "same_delivery_counts": true,
+          "max_paired_arrival_s": 0.0,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "adaptive-rk4_50",
+        "median_s": 3.2216107,
+        "min_s": 3.1379581,
+        "max_s": 3.4750202999999997,
+        "measurements": [
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 5e-05,
+            "setup_s": 1.1335528,
+            "solve_s": 3.2216107,
+            "export_s": 0.9124282,
+            "checkpoint_s": 0.605968,
+            "model_s": 0.1,
+            "accepted": 12742,
+            "error_rejections": 79,
+            "state_reductions": 0,
+            "mean_step_s": 7.848061528802386e-06,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 5e-05,
+            "setup_s": 1.1303087,
+            "solve_s": 3.4750202999999997,
+            "export_s": 0.8700391,
+            "checkpoint_s": 0.6272978,
+            "model_s": 0.1,
+            "accepted": 12742,
+            "error_rejections": 79,
+            "state_reductions": 0,
+            "mean_step_s": 7.848061528802386e-06,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 5e-05,
+            "setup_s": 1.1624831,
+            "solve_s": 3.1379581,
+            "export_s": 0.9006829,
+            "checkpoint_s": 0.6022483,
+            "model_s": 0.1,
+            "accepted": 12742,
+            "error_rejections": 79,
+            "state_reductions": 0,
+            "mean_step_s": 7.848061528802386e-06,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 6.664669101041909e-06,
+          "max_weight": 5.968633365327491e-10,
+          "max_pre": 3.9193805534409876e-08,
+          "max_post": 3.9193805534409876e-08,
+          "max_slow": 0.0,
+          "same_spike_counts": true,
+          "max_paired_spike_s": 3.590853031587571e-10,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 1.0643259429343743e-07,
+          "compared_voltage_samples": 721,
+          "same_delivery_counts": true,
+          "max_paired_arrival_s": 3.590853031587571e-10,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "adaptive-rk4_100",
+        "median_s": 2.4332308,
+        "min_s": 2.4199947,
+        "max_s": 2.4549573000000002,
+        "measurements": [
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 0.0001,
+            "setup_s": 1.1437877,
+            "solve_s": 2.4199947,
+            "export_s": 0.8749659,
+            "checkpoint_s": 0.6280041,
+            "model_s": 0.1,
+            "accepted": 9284,
+            "error_rejections": 113,
+            "state_reductions": 0,
+            "mean_step_s": 1.077121930202499e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 0.0001,
+            "setup_s": 1.1355109,
+            "solve_s": 2.4332308,
+            "export_s": 0.8986162,
+            "checkpoint_s": 0.6017017,
+            "model_s": 0.1,
+            "accepted": 9284,
+            "error_rejections": 113,
+            "state_reductions": 0,
+            "mean_step_s": 1.077121930202499e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 0.0001,
+            "setup_s": 1.1438673,
+            "solve_s": 2.4549573000000002,
+            "export_s": 0.8805006,
+            "checkpoint_s": 0.6038604,
+            "model_s": 0.1,
+            "accepted": 9284,
+            "error_rejections": 113,
+            "state_reductions": 0,
+            "mean_step_s": 1.077121930202499e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 4.964138275198593e-05,
+          "max_weight": 4.247646345767464e-09,
+          "max_pre": 2.7994682572085594e-07,
+          "max_post": 2.7994682572085594e-07,
+          "max_slow": 0.0,
+          "same_spike_counts": true,
+          "max_paired_spike_s": 2.5556539801074862e-09,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 7.729207140982908e-07,
+          "compared_voltage_samples": 721,
+          "same_delivery_counts": true,
+          "max_paired_arrival_s": 2.5556539801074862e-09,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "adaptive-rk4_250",
+        "median_s": 1.8762189,
+        "min_s": 1.855013,
+        "max_s": 1.9093678,
+        "measurements": [
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 0.00025,
+            "setup_s": 1.1471508,
+            "solve_s": 1.9093678,
+            "export_s": 0.8838438,
+            "checkpoint_s": 0.6349168,
+            "model_s": 0.1,
+            "accepted": 6367,
+            "error_rejections": 138,
+            "state_reductions": 0,
+            "mean_step_s": 1.5705983979896342e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 0.00025,
+            "setup_s": 1.1505737,
+            "solve_s": 1.855013,
+            "export_s": 0.9003658,
+            "checkpoint_s": 0.6176609,
+            "model_s": 0.1,
+            "accepted": 6367,
+            "error_rejections": 138,
+            "state_reductions": 0,
+            "mean_step_s": 1.5705983979896342e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 0.00025,
+            "setup_s": 1.1334278,
+            "solve_s": 1.8762189,
+            "export_s": 0.8906307,
+            "checkpoint_s": 0.6259668,
+            "model_s": 0.1,
+            "accepted": 6367,
+            "error_rejections": 138,
+            "state_reductions": 0,
+            "mean_step_s": 1.5705983979896342e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 0.00010691382686189854,
+          "max_weight": 9.415310087135254e-09,
+          "max_pre": 6.189581256421661e-07,
+          "max_post": 6.189581256421661e-07,
+          "max_slow": 0.0,
+          "same_spike_counts": true,
+          "max_paired_spike_s": 5.6616536736608936e-09,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 1.6821369115405105e-06,
+          "compared_voltage_samples": 721,
+          "same_delivery_counts": true,
+          "max_paired_arrival_s": 5.6616536736608936e-09,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "adaptive-rk4_500",
+        "median_s": 1.8380097,
+        "min_s": 1.7951681000000002,
+        "max_s": 1.8636238,
+        "measurements": [
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 0.0005,
+            "setup_s": 1.1359212,
+            "solve_s": 1.7951681000000002,
+            "export_s": 0.8891832,
+            "checkpoint_s": 0.62799,
+            "model_s": 0.1,
+            "accepted": 6341,
+            "error_rejections": 141,
+            "state_reductions": 0,
+            "mean_step_s": 1.5770383220312254e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 0.0005,
+            "setup_s": 1.142418,
+            "solve_s": 1.8636238,
+            "export_s": 0.9070905,
+            "checkpoint_s": 0.6098411,
+            "model_s": 0.1,
+            "accepted": 6341,
+            "error_rejections": 141,
+            "state_reductions": 0,
+            "mean_step_s": 1.5770383220312254e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "adaptive-rk4",
+            "dt_s": 0.0005,
+            "setup_s": 1.145084,
+            "solve_s": 1.8380097,
+            "export_s": 0.8989962,
+            "checkpoint_s": 0.6352908,
+            "model_s": 0.1,
+            "accepted": 6341,
+            "error_rejections": 141,
+            "state_reductions": 0,
+            "mean_step_s": 1.5770383220312254e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 0.00010326977500341172,
+          "max_weight": 9.186190697008101e-09,
+          "max_pre": 6.030340573559556e-07,
+          "max_post": 6.030340573559556e-07,
+          "max_slow": 0.0,
+          "same_spike_counts": true,
+          "max_paired_spike_s": 5.520553486570989e-09,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 1.6181802919845722e-06,
+          "compared_voltage_samples": 721,
+          "same_delivery_counts": true,
+          "max_paired_arrival_s": 5.520553486570989e-09,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "rk4_50",
+        "median_s": 1.7282913,
+        "min_s": 1.7012186,
+        "max_s": 1.9172636,
+        "measurements": [
+          {
+            "method": "rk4",
+            "dt_s": 5e-05,
+            "setup_s": 1.1413846,
+            "solve_s": 1.7012186,
+            "export_s": 0.912009,
+            "checkpoint_s": 0.6004565,
+            "model_s": 0.1,
+            "accepted": 7243,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.3806433798149938e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "rk4",
+            "dt_s": 5e-05,
+            "setup_s": 1.143109,
+            "solve_s": 1.7282913,
+            "export_s": 0.8743431,
+            "checkpoint_s": 0.6073906,
+            "model_s": 0.1,
+            "accepted": 7243,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.3806433798149938e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "rk4",
+            "dt_s": 5e-05,
+            "setup_s": 1.1535451,
+            "solve_s": 1.9172636,
+            "export_s": 0.8631217,
+            "checkpoint_s": 0.6343524,
+            "model_s": 0.1,
+            "accepted": 7243,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.3806433798149938e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 0.00201413538928108,
+          "max_weight": 1.74706880406994e-07,
+          "max_pre": 1.1534547721403499e-05,
+          "max_post": 1.1534547721403499e-05,
+          "max_slow": 0.0,
+          "same_spike_counts": true,
+          "max_paired_spike_s": 1.0564760508091631e-07,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 3.241059459924145e-05,
+          "compared_voltage_samples": 721,
+          "same_delivery_counts": true,
+          "max_paired_arrival_s": 1.0564760508091631e-07,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "rk4_100",
+        "median_s": 1.4809946,
+        "min_s": 1.4743294,
+        "max_s": 1.4879733000000002,
+        "measurements": [
+          {
+            "method": "rk4",
+            "dt_s": 0.0001,
+            "setup_s": 1.1522556,
+            "solve_s": 1.4879733000000002,
+            "export_s": 0.8751374,
+            "checkpoint_s": 0.6181277,
+            "model_s": 0.1,
+            "accepted": 6153,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.6252234682268813e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "rk4",
+            "dt_s": 0.0001,
+            "setup_s": 1.1443985,
+            "solve_s": 1.4743294,
+            "export_s": 0.8768105,
+            "checkpoint_s": 0.6189326,
+            "model_s": 0.1,
+            "accepted": 6153,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.6252234682268813e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "rk4",
+            "dt_s": 0.0001,
+            "setup_s": 1.1440274,
+            "solve_s": 1.4809946,
+            "export_s": 0.8978652,
+            "checkpoint_s": 0.6080231,
+            "model_s": 0.1,
+            "accepted": 6153,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.6252234682268813e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 0.004976864157960392,
+          "max_weight": 4.2023293478354873e-07,
+          "max_pre": 2.7850136379292678e-05,
+          "max_post": 2.7850136379292678e-05,
+          "max_slow": 0.0,
+          "same_spike_counts": true,
+          "max_paired_spike_s": 2.5416561887092737e-07,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 7.945608096804335e-05,
+          "compared_voltage_samples": 721,
+          "same_delivery_counts": true,
+          "max_paired_arrival_s": 2.5416561887092737e-07,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "rk4_250",
+        "median_s": 1.3366335999999999,
+        "min_s": 1.3161357,
+        "max_s": 1.3477801,
+        "measurements": [
+          {
+            "method": "rk4",
+            "dt_s": 0.00025,
+            "setup_s": 1.1473728,
+            "solve_s": 1.3161357,
+            "export_s": 0.9201328,
+            "checkpoint_s": 0.6205164,
+            "model_s": 0.1,
+            "accepted": 5802,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.7235436056532232e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "rk4",
+            "dt_s": 0.00025,
+            "setup_s": 1.1539856,
+            "solve_s": 1.3366335999999999,
+            "export_s": 0.9060741,
+            "checkpoint_s": 0.6136146,
+            "model_s": 0.1,
+            "accepted": 5802,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.7235436056532232e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "rk4",
+            "dt_s": 0.00025,
+            "setup_s": 1.1549628,
+            "solve_s": 1.3477801,
+            "export_s": 0.9159041,
+            "checkpoint_s": 0.6110971,
+            "model_s": 0.1,
+            "accepted": 5802,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.7235436056532232e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 0.011724488217936369,
+          "max_weight": 1.0368068702470978e-06,
+          "max_pre": 6.820982064059677e-05,
+          "max_post": 6.820982064059677e-05,
+          "max_slow": 0.0,
+          "same_spike_counts": true,
+          "max_paired_spike_s": 6.251686639063836e-07,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 0.00018295023664904875,
+          "compared_voltage_samples": 721,
+          "same_delivery_counts": true,
+          "max_paired_arrival_s": 6.251686639063836e-07,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "rk4_500",
+        "median_s": 1.3320919,
+        "min_s": 1.3175827,
+        "max_s": 1.3346505000000002,
+        "measurements": [
+          {
+            "method": "rk4",
+            "dt_s": 0.0005,
+            "setup_s": 1.1439137,
+            "solve_s": 1.3175827,
+            "export_s": 0.9142993,
+            "checkpoint_s": 0.6161361,
+            "model_s": 0.1,
+            "accepted": 5616,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.780626780626781e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "rk4",
+            "dt_s": 0.0005,
+            "setup_s": 1.1480981,
+            "solve_s": 1.3346505000000002,
+            "export_s": 0.9016781,
+            "checkpoint_s": 0.6143744,
+            "model_s": 0.1,
+            "accepted": 5616,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.780626780626781e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "rk4",
+            "dt_s": 0.0005,
+            "setup_s": 1.1431272,
+            "solve_s": 1.3320919,
+            "export_s": 0.9055245,
+            "checkpoint_s": 0.6158301,
+            "model_s": 0.1,
+            "accepted": 5616,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.780626780626781e-05,
+            "spikes": 4977,
+            "deliveries": 150532,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 0.013882342681050375,
+          "max_weight": 1.219644189975888e-06,
+          "max_pre": 8.029572908974103e-05,
+          "max_post": 8.029572908974103e-05,
+          "max_slow": 0.0,
+          "same_spike_counts": true,
+          "max_paired_spike_s": 7.352709857633144e-07,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 0.0002174387563655955,
+          "compared_voltage_samples": 721,
+          "same_delivery_counts": true,
+          "max_paired_arrival_s": 7.352709857633144e-07,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "euler_50",
+        "median_s": 1.3290005,
+        "min_s": 1.2966953,
+        "max_s": 1.5166374,
+        "measurements": [
+          {
+            "method": "euler",
+            "dt_s": 5e-05,
+            "setup_s": 1.1306321,
+            "solve_s": 1.3290005,
+            "export_s": 0.8798733,
+            "checkpoint_s": 0.594876,
+            "model_s": 0.1,
+            "accepted": 7253,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.3787398317937405e-05,
+            "spikes": 4967,
+            "deliveries": 150247,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "euler",
+            "dt_s": 5e-05,
+            "setup_s": 1.1720041,
+            "solve_s": 1.5166374,
+            "export_s": 0.8782862,
+            "checkpoint_s": 0.5968,
+            "model_s": 0.1,
+            "accepted": 7253,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.3787398317937405e-05,
+            "spikes": 4967,
+            "deliveries": 150247,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "euler",
+            "dt_s": 5e-05,
+            "setup_s": 1.1532197,
+            "solve_s": 1.2966953,
+            "export_s": 0.8823951,
+            "checkpoint_s": 0.6013323,
+            "model_s": 0.1,
+            "accepted": 7253,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.3787398317937405e-05,
+            "spikes": 4967,
+            "deliveries": 150247,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 48.86670733467918,
+          "max_weight": 0.02707349881370502,
+          "max_pre": 0.9953335815142963,
+          "max_post": 0.9953335815142963,
+          "max_slow": 0.0,
+          "same_spike_counts": false,
+          "max_paired_spike_s": 0.0027669692115641076,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 1.9689499472892606,
+          "compared_voltage_samples": 719,
+          "same_delivery_counts": false,
+          "max_paired_arrival_s": 0.0027669692115641076,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "euler_100",
+        "median_s": 1.0023085999999999,
+        "min_s": 0.9866554,
+        "max_s": 1.0469666,
+        "measurements": [
+          {
+            "method": "euler",
+            "dt_s": 0.0001,
+            "setup_s": 1.1627878,
+            "solve_s": 1.0023085999999999,
+            "export_s": 0.8757794,
+            "checkpoint_s": 0.6249249,
+            "model_s": 0.1,
+            "accepted": 6154,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.6249593760156e-05,
+            "spikes": 4963,
+            "deliveries": 150084,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "euler",
+            "dt_s": 0.0001,
+            "setup_s": 1.1504124,
+            "solve_s": 0.9866554,
+            "export_s": 0.8653286,
+            "checkpoint_s": 0.6126156,
+            "model_s": 0.1,
+            "accepted": 6154,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.6249593760156e-05,
+            "spikes": 4963,
+            "deliveries": 150084,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "euler",
+            "dt_s": 0.0001,
+            "setup_s": 1.1361048,
+            "solve_s": 1.0469666,
+            "export_s": 0.8698063,
+            "checkpoint_s": 0.5955432,
+            "model_s": 0.1,
+            "accepted": 6154,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.6249593760156e-05,
+            "spikes": 4963,
+            "deliveries": 150084,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 49.54221920464374,
+          "max_weight": 0.02702891265253471,
+          "max_pre": 1.0051731303805709,
+          "max_post": 1.0051731303805709,
+          "max_slow": 0.0,
+          "same_spike_counts": false,
+          "max_paired_spike_s": 0.002203469831822902,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 2.5890640051250102,
+          "compared_voltage_samples": 718,
+          "same_delivery_counts": false,
+          "max_paired_arrival_s": 0.002203469831822902,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "euler_250",
+        "median_s": 0.8864495,
+        "min_s": 0.8739197000000001,
+        "max_s": 0.920366,
+        "measurements": [
+          {
+            "method": "euler",
+            "dt_s": 0.00025,
+            "setup_s": 1.1442775,
+            "solve_s": 0.8739197000000001,
+            "export_s": 0.8868477,
+            "checkpoint_s": 0.5966932,
+            "model_s": 0.1,
+            "accepted": 5799,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.724435247456458e-05,
+            "spikes": 4965,
+            "deliveries": 150167,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "euler",
+            "dt_s": 0.00025,
+            "setup_s": 1.1469025,
+            "solve_s": 0.8864495,
+            "export_s": 0.8647582,
+            "checkpoint_s": 0.6197977,
+            "model_s": 0.1,
+            "accepted": 5799,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.724435247456458e-05,
+            "spikes": 4965,
+            "deliveries": 150167,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "euler",
+            "dt_s": 0.00025,
+            "setup_s": 1.1427626,
+            "solve_s": 0.920366,
+            "export_s": 0.8758746,
+            "checkpoint_s": 0.5927229,
+            "model_s": 0.1,
+            "accepted": 5799,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.724435247456458e-05,
+            "spikes": 4965,
+            "deliveries": 150167,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 63.11169436207035,
+          "max_weight": 0.02697191008603239,
+          "max_pre": 1.0212832559101463,
+          "max_post": 1.0212832559101463,
+          "max_slow": 0.0,
+          "same_spike_counts": false,
+          "max_paired_spike_s": 0.0028324717609261862,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 3.1953785270303854,
+          "compared_voltage_samples": 718,
+          "same_delivery_counts": false,
+          "max_paired_arrival_s": 0.0028324717609261862,
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "name": "euler_500",
+        "median_s": 0.8221719,
+        "min_s": 0.8218707,
+        "max_s": 0.8819263,
+        "measurements": [
+          {
+            "method": "euler",
+            "dt_s": 0.0005,
+            "setup_s": 1.1415413,
+            "solve_s": 0.8221719,
+            "export_s": 0.8727757,
+            "checkpoint_s": 0.6142033,
+            "model_s": 0.1,
+            "accepted": 5613,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.7815784785319793e-05,
+            "spikes": 4965,
+            "deliveries": 150167,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "euler",
+            "dt_s": 0.0005,
+            "setup_s": 1.1504777,
+            "solve_s": 0.8218707,
+            "export_s": 0.8841605,
+            "checkpoint_s": 0.6026623,
+            "model_s": 0.1,
+            "accepted": 5613,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.7815784785319793e-05,
+            "spikes": 4965,
+            "deliveries": 150167,
+            "requested_threads": 8,
+            "effective_threads": 8
+          },
+          {
+            "method": "euler",
+            "dt_s": 0.0005,
+            "setup_s": 1.1530231,
+            "solve_s": 0.8819263,
+            "export_s": 0.9020693,
+            "checkpoint_s": 0.6003634,
+            "model_s": 0.1,
+            "accepted": 5613,
+            "error_rejections": 0,
+            "state_reductions": 0,
+            "mean_step_s": 1.7815784785319793e-05,
+            "spikes": 4965,
+            "deliveries": 150167,
+            "requested_threads": 8,
+            "effective_threads": 8
+          }
+        ],
+        "difference_vs_adaptive25": {
+          "max_value": 62.56816338745978,
+          "max_weight": 0.026967723878335126,
+          "max_pre": 1.0226816591215617,
+          "max_post": 1.0226816591215617,
+          "max_slow": 0.0,
+          "same_spike_counts": false,
+          "max_paired_spike_s": 0.0029989463105538072,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 3.2237454768696665,
+          "compared_voltage_samples": 718,
+          "same_delivery_counts": false,
+          "max_paired_arrival_s": 0.0029989463105538072,
+          "stimulus_csv_exact": true
+        }
+      }
+    ],
+    "long": [
+      {
+        "method": "adaptive-rk4",
+        "dt_s": 0.0005,
+        "setup_s": 1.1391395,
+        "solve_s": 62.0325262,
+        "export_s": 3.1644586,
+        "checkpoint_s": 0.805714,
+        "model_s": 10,
+        "accepted": 257936,
+        "error_rejections": 17931,
+        "state_reductions": 0,
+        "mean_step_s": 3.876930711494324e-05,
+        "spikes": 106389,
+        "deliveries": 3198341,
+        "requested_threads": 8,
+        "effective_threads": 8,
+        "estimated_1000_s_hours": 1.7231257277777778,
+        "reference": "long_adaptive-rk4_25_1",
+        "difference_vs_reference": {
+          "max_value": 153.49064037409033,
+          "max_weight": 0.05286168162810606,
+          "max_pre": 0.07958568876467523,
+          "max_post": 0.08245592136699932,
+          "max_slow": 0.0,
+          "same_spike_counts": false,
+          "max_paired_spike_s": 0.9581661254742126,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 36.48072822206418,
+          "compared_voltage_samples": 75226,
+          "delivery_comparison": "Full cumulative counts in timing; bounded delivery journals are not paired as complete histories.",
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "method": "rk4",
+        "dt_s": 0.0005,
+        "setup_s": 1.1433101,
+        "solve_s": 35.4167888,
+        "export_s": 3.1477825,
+        "checkpoint_s": 0.8023815,
+        "model_s": 10,
+        "accepted": 185061,
+        "error_rejections": 0,
+        "state_reductions": 0,
+        "mean_step_s": 5.403623670033124e-05,
+        "spikes": 105476,
+        "deliveries": 3172310,
+        "requested_threads": 8,
+        "effective_threads": 8,
+        "estimated_1000_s_hours": 0.9837996888888889,
+        "reference": "long_adaptive-rk4_25_1",
+        "difference_vs_reference": {
+          "max_value": 786.0622496825384,
+          "max_weight": 0.06956770388011818,
+          "max_pre": 3.5671264276224584,
+          "max_post": 3.5671264276224584,
+          "max_slow": 0.0,
+          "same_spike_counts": false,
+          "max_paired_spike_s": 1.550003023274618,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 83.77562548017539,
+          "compared_voltage_samples": 74990,
+          "delivery_comparison": "Full cumulative counts in timing; bounded delivery journals are not paired as complete histories.",
+          "stimulus_csv_exact": true
+        }
+      },
+      {
+        "method": "euler",
+        "dt_s": 0.0005,
+        "setup_s": 1.1419519,
+        "solve_s": 27.220703599999997,
+        "export_s": 3.1902438,
+        "checkpoint_s": 0.7892681,
+        "model_s": 10,
+        "accepted": 188931,
+        "error_rejections": 0,
+        "state_reductions": 0,
+        "mean_step_s": 5.292937633315867e-05,
+        "spikes": 107374,
+        "deliveries": 3228006,
+        "requested_threads": 8,
+        "effective_threads": 8,
+        "estimated_1000_s_hours": 0.7561306555555555,
+        "reference": "long_adaptive-rk4_25_1",
+        "difference_vs_reference": {
+          "max_value": 89.90562841744791,
+          "max_weight": 0.06137267475338343,
+          "max_pre": 0.04129603651851035,
+          "max_post": 0.04129603651851035,
+          "max_slow": 0.0,
+          "same_spike_counts": false,
+          "max_paired_spike_s": 1.890472426064429,
+          "paired_spikes_note": "Per-neuron ordinal pairs; count mismatches reported separately.",
+          "voltage_exclusion_s": 0.002,
+          "max_recorded_voltage_away_resets_mV": 34.61300955107918,
+          "compared_voltage_samples": 75123,
+          "delivery_comparison": "Full cumulative counts in timing; bounded delivery journals are not paired as complete histories.",
+          "stimulus_csv_exact": true
+        }
+      }
+    ],
+    "long_fine_reference": {
+      "method": "adaptive-rk4",
+      "dt_s": 2.5e-05,
+      "setup_s": 1.1430115,
+      "solve_s": 368.4449995999999,
+      "export_s": 3.2063274,
+      "checkpoint_s": 0.8003992,
+      "model_s": 10,
+      "accepted": 1632486,
+      "error_rejections": 3456,
+      "state_reductions": 0,
+      "mean_step_s": 6.125626804762798e-06,
+      "spikes": 107614,
+      "deliveries": 3234187,
+      "requested_threads": 8,
+      "effective_threads": 8
+    }
+  }
+}

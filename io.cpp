@@ -93,7 +93,7 @@ static StdpRule stdp_rule(const Object& o) {
 #include "analysis_json.inc"
 std::string serialize(const Config& c) {
     const auto err=validate(c); if(!err.empty())throw std::runtime_error(err);
-    Object root; put(root,"schema",9);put(root,"history_capacity",double(c.history_capacity)); put(root,"name",c.name); put(root,"dt",c.dt);
+    Object root; put(root,"schema",10);put(root,"integration_method",std::string(integration_method_info(c.integration_method).argument));put(root,"history_capacity",double(c.history_capacity)); put(root,"name",c.name); put(root,"dt",c.dt);
     put(root,"duration",c.duration); put(root,"sample",c.sample);
     put(root,"noise_sigma",c.noise_sigma);put(root,"noise_interval",c.noise_interval);put(root,"seed",double(c.seed));
     put(root,"record_all",c.record_all);root.set("record_neurons",index_array(c.record_neurons).as_string());
@@ -170,8 +170,10 @@ Config deserialize(const std::string& text) {
         throw std::runtime_error("Expected one JSON object, without trailing data.");
     Object root=Object::parse(text);
     const int schema=integer(root,"schema");
-    if(schema<1||schema>9)throw std::runtime_error("Unsupported configuration schema.");
+    if(schema<1||schema>10)throw std::runtime_error("Unsupported configuration schema.");
     Config c; c.name=string(root,"name"); c.dt=number(root,"dt"); c.duration=number(root,"duration"); c.sample=number(root,"sample");
+    if(root.has_key("integration_method"))c.integration_method=parse_integration_method(string(root,"integration_method"));
+    else if(schema>=10)throw std::runtime_error("Configuration schema 10 requires integration_method.");
     if(root.has_key("animat"))c.animat=read_animat_config(object(root,"animat",false));
     if(schema>=8){const int cap=integer(root,"history_capacity");if(cap<0||cap>int(MaxSamples))throw std::runtime_error("Invalid history capacity");c.history_capacity=size_t(cap);}
     if(schema>=2) { c.noise_sigma=number(root,"noise_sigma");c.noise_interval=number(root,"noise_interval");c.seed=seed_value(root); }
@@ -329,11 +331,17 @@ void export_results(const Simulator& s,const std::filesystem::path& prefix) {
     output(L"_pending_deliveries.csv",delivery_csv(pending));
     Object summary; put(summary,"time_s",s.time); put(summary,"steps",double(s.steps));
     Object integration;put(integration,"maximum_main_step_s",s.config.dt);
+    put(integration,"method",std::string(integration_method_info(s.config.integration_method).argument));
+    const bool adaptive=s.config.integration_method==IntegrationMethod::AdaptiveRK4;
+    put(integration,"error_control",adaptive);
+    if(adaptive)uid(integration,"error_rejections",s.integration.error_rejected);
+    else integration.set("error_rejections","null");
+    uid(integration,"state_reductions",s.integration.state_reductions);
     uid(integration,"accepted_internal_steps",s.integration.accepted);uid(integration,"rejected_attempts",s.integration.rejected);
     put(integration,"accepted_model_time_s",s.time);put(integration,"mean_internal_step_s",s.integration.mean_step(s.time));
     summary.set("integration_statistics",integration.as_string());
     put(summary,"complete",s.done()&&s.error.empty()); put(summary,"error",s.error);
-    put(summary,"integrator",std::string("event-localized RK4 step doubling; exact linear kinetics; input/sample/delivery boundaries"));
+    put(summary,"integrator",std::string(integration_method_info(s.config.integration_method).argument)+"; event-localized; exact linear kinetics; input/sample/delivery boundaries");
     put(summary,"deliveries",int(s.history.deliveries.size()));put(summary,"pending_deliveries",int(s.pending_deliveries.size()));
     put(summary,"record_all",s.config.record_all);put(summary,"recorded_dimension",recorded_dimension(s.config));
     Object recorded_neurons(true),recorded_synapses(true);

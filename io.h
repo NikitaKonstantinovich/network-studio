@@ -17,7 +17,7 @@ void deserialize_stimulus_runtime(Simulator& s,const std::string& text);
 void load_stimulator_replay(Simulator& s,const std::filesystem::path& path);
 void export_results(const Simulator& s,const std::filesystem::path& prefix);
 // Separate binary document, safe only outside step(); errors restore read-only.
-inline constexpr char CheckpointAlgorithm[]="event-rk4-doubling-exact-linear-localized-stimulators-animat-v5";
+inline constexpr char CheckpointAlgorithm[]="event-selected-flow-exact-linear-localized-stimulators-animat-v6";
 inline constexpr size_t MaxCheckpointBytes=512*1024*1024;
 void save_checkpoint(const Simulator& s,const std::filesystem::path& path);
 std::unique_ptr<Simulator> load_checkpoint(const std::filesystem::path& path);

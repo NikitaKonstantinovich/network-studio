@@ -7,6 +7,7 @@
 #include "performance/profile.h"
 #include "worker_pool.h"
 #include "error_norm.h"
+#include "integration_method.h"
 
 namespace studio::numerical {
 using Vector = std::vector<double>;
@@ -38,13 +39,18 @@ inline double recovered(double a,double b,double h) {
     }
     return -std::expm1(-b*h)-b*convolution(a,b,h);
 }
-// Fourth-order nonlinear flow with exact independent linear coordinates at
-// EVERY stage. Two half steps provide the accepted state; step doubling checks
-// the coupled quadrature as well as the nonlinear equations (no extrapolation).
+// Selected nonlinear flow with exact independent linear coordinates at every
+// stage. Only AdaptiveRK4 uses step doubling and accepts two half steps.
 class Flow {
     Vector k1,k2,k3,k4,stage,full,scratch;
     struct Candidate { int index; double low,high; };
     std::vector<Candidate> candidates;
+    void euler(const Vector& old,double h,Vector& out) {
+        rhs(old,k1);out.resize(old.size());
+        const size_t count=nonlinear_prefix?nonlinear_prefix:old.size();
+        for(size_t i=0;i<count;++i)out[i]=old[i]+h*k1[i];
+        exact(old,h,out);
+    }
     void rk4(const Vector& old,double h,Vector& out) {
         if(nonlinear_prefix) {
             // exact() replaces every suffix coordinate independently of stage.
@@ -77,6 +83,7 @@ class Flow {
         exact(old,h,out);
     }
 public:
+    IntegrationMethod method=IntegrationMethod::AdaptiveRK4;
     // Opt-in only: all remaining coordinates MUST have independent exact flow,
     // and exact() MUST leave this prefix unchanged. Zero keeps the general path.
     size_t nonlinear_prefix=0;
@@ -100,10 +107,16 @@ public:
         half.resize(size);next.resize(size);
     }
     void sample(const Vector& old,double h,Vector& out) {
-        rk4(old,h*.5,scratch);rk4(scratch,h*.5,out);
+        if(method==IntegrationMethod::Euler)euler(old,h,out);
+        else if(method==IntegrationMethod::RK4){out.resize(old.size());rk4(old,h,out);}
+        else {rk4(old,h*.5,scratch);rk4(scratch,h*.5,out);}
     }
     double trial(const Vector& old,double h) {
         STUDIO_SCOPE(trial);
+        if(method!=IntegrationMethod::AdaptiveRK4) {
+            sample(old,h,next);
+            return std::numeric_limits<double>::quiet_NaN(); // no error estimate
+        }
         rk4(old,h,full);rk4(old,h*.5,half);rk4(half,h*.5,next);
         if(error_norm)return error_norm(old,next,full);
         return error_norm_range(old.data(),next.data(),full.data(),0,old.size());
@@ -118,10 +131,35 @@ public:
             const auto& e=thresholds[i];
             const double tol=threshold_tolerance(e.value);
             auto crossed=[&](double a,double b){return a<e.value && b>=e.value-tol && b>a;};
-            if(e.armed && crossed(old[e.coordinate],half[e.coordinate]))
+            if(method==IntegrationMethod::Euler) {
+                if(e.armed&&crossed(old[e.coordinate],next[e.coordinate])) {
+                    const double root=h*std::clamp((e.value-old[e.coordinate])/(next[e.coordinate]-old[e.coordinate]),0.,1.);
+                    candidates.push_back({i,root,root});
+                }
+            } else if(method==IntegrationMethod::RK4) {
+                if(e.armed&&crossed(old[e.coordinate],next[e.coordinate]))candidates.push_back({i,0,h});
+                // RK stages are only hints for a possible interior excursion.
+                // The negative bracket is resolved below by a selected-method
+                // projection, never by accepting two sequential half steps.
+                else if(e.armed&&old[e.coordinate]<e.value&&
+                    std::max({old[e.coordinate]+h*.5*k1[e.coordinate],old[e.coordinate]+h*.5*k2[e.coordinate],
+                              old[e.coordinate]+h*k3[e.coordinate]})>=e.value-tol)
+                    candidates.push_back({i,-1,h});
+            } else if(e.armed && crossed(old[e.coordinate],half[e.coordinate]))
                 candidates.push_back({i,0,h*.5});
             else if((e.armed || half[e.coordinate]<e.value-tol) && crossed(half[e.coordinate],next[e.coordinate]))
                 candidates.push_back({i,h*.5,h});
+        }
+        if(method==IntegrationMethod::RK4) {
+            for(auto& c:candidates)if(c.low<0) {
+                const auto& e=thresholds[c.index];double middle;
+                if(threshold_sample)middle=threshold_sample(old,h*.5,e.coordinate);
+                else {sample(old,h*.5,scratch);middle=scratch[e.coordinate];}
+                c.low=0;
+                if(middle>=e.value-threshold_tolerance(e.value))c.high=h*.5;
+                else c.index=-1;
+            }
+            candidates.erase(std::remove_if(candidates.begin(),candidates.end(),[](const Candidate& c){return c.index<0;}),candidates.end());
         }
         profile::candidates(candidates.size());
         group.clear();if(candidates.empty())return h;

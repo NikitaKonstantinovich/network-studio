@@ -97,16 +97,20 @@ static bool name_valid(const std::string& s,size_t max) {
     for(unsigned char ch:s)if(ch<32||ch==127)return false;
     return true;
 }
-IntegrationStepRange integration_step_range(const Config& c) {
+IntegrationCapabilities integration_capabilities(const Config& c) {
     const bool izh_only=!c.neurons.empty()&&c.astrocytes.empty()&&
         std::all_of(c.neurons.begin(),c.neurons.end(),[](const Neuron& n){return n.model==NeuronModel::Izhikevich;});
-    return {1e-6,izh_only?500e-6:50e-6};
+    return {{1e-6,izh_only?500e-6:50e-6},izh_only};
 }
+IntegrationStepRange integration_step_range(const Config& c) {return integration_capabilities(c).step;}
 std::string validate(const Config& c) {
     const auto experiment_error=validate_experiment(c);if(!experiment_error.empty())return experiment_error;
     if (c.neurons.empty() || c.neurons.size()>MaxNeurons || c.astrocytes.size()>MaxAstrocytes ||
         c.synapses.size()>MaxSynapses || c.gaps.size()>MaxGaps) return "Network size is outside supported limits.";
-    const auto step_range=integration_step_range(c);
+    const auto capabilities=integration_capabilities(c);
+    if(!capabilities.supports(c.integration_method))
+        return "Selected integration method is unsupported: HH neurons or any astrocytes require adaptive-rk4 (dt 1..50 us); RK4/Euler require Izhikevich only, without astrocytes.";
+    const auto step_range=capabilities.step;
     if(!range(c.dt,step_range.minimum,step_range.maximum))
         return step_range.maximum==500e-6
             ? "Maximum main step dt must be 1..500 us for an Izhikevich-only network without astrocytes."
