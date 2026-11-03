@@ -16,6 +16,9 @@ constexpr int MaxNeurons = 1000, MaxAstrocytes = 8, MaxSynapses = 50000, MaxGaps
 constexpr int MaxState = 4*MaxNeurons + 4*MaxSynapses + 7*MaxAstrocytes;
 constexpr size_t MaxSamples = 1000000, MaxStoredValues = 32000000, MaxEvents = 2000000;
 constexpr size_t MaxPendingDeliveries = 1000000, MaxDeliveries = 2000000;
+// Recent events used by the animat are independent of display/disk journals.
+// A 500-neuron network at 10 Hz can exceed 250k deliveries in a one-second window.
+constexpr size_t MaxActivityEvents = 2000000;
 using State = std::vector<double>;
 // Only these parameters are shared. Stimuli, synapses, initial conditions and
 // feedback have their own per-node/per-edge fields in the configurable model.

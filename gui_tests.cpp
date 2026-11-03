@@ -31,6 +31,13 @@ static void click_point(studio::App& app,ImVec2 p) {
     auto& io=ImGui::GetIO();io.AddMousePosEvent(p.x,p.y);frame(app);
     io.AddMouseButtonEvent(0,true);frame(app);io.AddMouseButtonEvent(0,false);frame(app);
 }
+static void drag_splitter(studio::App& app,const char* label,ImVec2 delta) {
+    frame(app);const auto start=items.at(label).GetCenter();auto& io=ImGui::GetIO();
+    io.AddMousePosEvent(start.x,start.y);frame(app);
+    io.AddMouseButtonEvent(0,true);frame(app);
+    io.AddMousePosEvent(start.x+delta.x,start.y+delta.y);frame(app);
+    io.AddMouseButtonEvent(0,false);frame(app);frame(app);
+}
 static void click(studio::App& app,const char* label,bool activate=true) {
     for(int attempt=0;attempt<6;++attempt) {
         frame(app);
@@ -89,6 +96,45 @@ int main() {
         io.Fonts->AddFontFromFileTTF("C:/Windows/Fonts/segoeui.ttf",17,nullptr,io.Fonts->GetGlyphRangesCyrillic());
         unsigned char* pixels=nullptr;int w=0,h=0;io.Fonts->GetTexDataAsRGBA32(&pixels,&w,&h);io.Fonts->SetTexID(ImTextureID(1));
         studio::apply_style();studio::App app;frame(app);frame(app);
+        // Main-panel operations must preserve a paused, learned experiment and its queue.
+        auto layout_config=studio::preset(6);layout_config.duration=.3;layout_config.synapses[0].delay=.12;
+        app.replace(layout_config);app.advance_for(.12);frame(app);frame(app);
+        require(!app.simulation->pending_deliveries.empty(),"Layout fixture has no queued deliveries");
+        const auto layout_dir=std::filesystem::current_path()/"main-layout-tests"/std::to_string(std::chrono::steady_clock::now().time_since_epoch().count());
+        std::filesystem::create_directories(layout_dir);app.save_state(layout_dir/"before.nscp");
+        const auto old_left=app.main_layout.experiment_fraction,old_right=app.main_layout.inspector_fraction,old_bottom=app.main_layout.plots_fraction;
+        const auto old_canvas=items.at("network_canvas");
+        drag_splitter(app,"##split_experiment",{65,0});
+        require(app.main_layout.experiment_fraction>old_left&&items.at("network_canvas").GetWidth()<old_canvas.GetWidth(),"Experiment splitter did not resize panels");
+        drag_splitter(app,"##split_inspector",{-55,0});
+        require(app.main_layout.inspector_fraction>old_right,"Inspector splitter did not resize panels");
+        drag_splitter(app,"##split_plots",{0,-35});
+        require(app.main_layout.plots_fraction>old_bottom,"Plot splitter did not resize panels");
+        const auto expanded_canvas=items.at("network_canvas").GetHeight();const auto saved_bottom=app.main_layout.plots_fraction;
+        click(app,"Свернуть графики");frame(app);
+        require(app.main_layout.plots_collapsed&&items.count("Новый график")==0&&items.at("network_canvas").GetHeight()>expanded_canvas,"Collapse did not release plot space");
+        click(app,"Развернуть графики");frame(app);
+        require(!app.main_layout.plots_collapsed&&app.main_layout.plots_fraction==saved_bottom&&items.count("Новый график"),"Expand lost the previous plot size");
+        for(auto resolution:{ImVec2(1024,768),ImVec2(800,600),ImVec2(1920,1080)}) {
+            io.DisplaySize=resolution;frame(app);frame(app);
+            auto* root=ImGui::FindWindowByName("Network Studio");
+            require(root->ScrollMax.x<1&&root->ScrollMax.y<1,"Main layout needs unintended scrolling");
+            for(auto* child:GImGui->Windows)if(child->Active&&child->ParentWindow==root)
+                require(child->Size.x>0&&child->Size.y>0&&child->Pos.x>=root->Pos.x&&child->Pos.y>=root->Pos.y&&
+                    child->Pos.x+child->Size.x<=root->Pos.x+root->Size.x+1&&child->Pos.y+child->Size.y<=root->Pos.y+root->Size.y+1,"Panel escaped viewport");
+            if(resolution.x==800) {
+                click(app,"Эксперимент");require(items.count("Создать сеть…"),"Compact experiment tab missing");
+                click(app,"Инспектор");require(app.main_layout.compact_panel==2&&items.count("Записывать синапс"),"Compact inspector tab missing");
+                click(app,"Топология");require(items.count("network_canvas"),"Compact topology tab missing");
+            }
+        }
+        io.DisplaySize={1280,800};io.FontGlobalScale=1.5f;frame(app);frame(app);
+        require(items.count("network_canvas")&&items.count("Свернуть графики"),"DPI-scaled compact panels missing");
+        io.FontGlobalScale=1;io.DisplaySize={1462,953};frame(app);frame(app);
+        click(app,"Сбросить размеры панелей");frame(app);
+        require(app.main_layout.experiment_fraction==old_left&&app.main_layout.inspector_fraction==old_right&&app.main_layout.plots_fraction==old_bottom,"Layout reset failed");
+        app.save_state(layout_dir/"after.nscp");require(bytes(layout_dir/"before.nscp")==bytes(layout_dir/"after.nscp"),"Layout changed state, weights, queue, clocks or history");
+        app.replace(studio::preset(0));frame(app);frame(app);
         auto step_config=studio::preset(4);step_config.sample=.001;step_config.duration=.01;
         app.replace(step_config);frame(app);enter_scalar(app,"Шаг, мкс","500");
         require(app.config.dt==.0005&&app.config.sample==.001&&app.config.noise_interval==.001,"GUI expanded step/unchanged dependent intervals");
@@ -411,7 +457,7 @@ int main() {
         app.request_plot_tab=0;frame(app);enter_scalar(app,"Окно, с","3600");
         require(app.plot_windows.embedded[0].seconds==3600,"Plot time window remains capped.");
         const auto config_before_field=studio::serialize(app.config);const auto steps_before_field=app.simulation->steps;
-        click(app,"Векторное поле весов");click(app,"Обычные связи");click(app,"Сетка");click(app,"Настройки поля…");
+        click(app,"Настройки топологии…");click(app,"Векторное поле весов");click(app,"Обычные связи");click(app,"Сетка");click(app,"Настройки поля…");
         enter_scalar(app,"Столбцы","8");enter_scalar(app,"Строки","6");enter_scalar(app,"Масштаб стрелок","0.08");
         click(app,"##field_source");click(app,"Начальные веса");
         click(app,"Тип связей");click(app,"Тормозные");click(app,"Модель поля");click(app,"Экспоненциальный ток");
@@ -419,10 +465,10 @@ int main() {
         const auto& view=app.plot_windows.topology;
         require(view.field&&!view.edges&&!view.grid&&!view.current&&view.columns==8&&view.rows==6&&view.scale==.08&&view.auto_scale&&
             view.polarity==studio::FieldPolarity::Inhibitory&&view.model==studio::FieldModel::ExponentialCurrent,"Field controls did not apply.");
-        click(app,"Готово");frame(app);
+        click(app,"Готово");click(app,"Закрыть настройки");frame(app);
         const auto field_canvas=items.at("network_canvas");const auto focus=field_canvas.GetCenter();
         io.AddMousePosEvent(focus.x,focus.y);frame(app);frame(app);io.AddMouseWheelEvent(0,1);frame(app);frame(app);
-        require(view.zoom>1,"Topology wheel zoom did not work");click(app,"Вписать схему");require(view.zoom==1,"Topology reset view failed");
+        require(view.zoom>1,"Topology wheel zoom did not work");click(app,"Настройки топологии…");click(app,"Вписать схему");click(app,"Закрыть настройки");require(view.zoom==1,"Topology reset view failed");
         require(studio::serialize(app.config)==config_before_field&&app.simulation->steps==steps_before_field,"Field controls edited the model or advanced simulation");
         app.replace(studio::preset(6));app.advance_for(20*app.config.dt);require(app.simulation->error.empty(),"Stage GUI fixture failed");
         const auto stage_state=app.simulation->state;const auto stage_time=app.simulation->time;const auto stage_weight=app.simulation->plasticity[0].weight;
@@ -460,8 +506,8 @@ int main() {
         click(app,"Пространственная область");enter_scalar(app,"Радиус области","40");enter_scalar(app,"Центр X","30");click(app,"Применить без сброса");
         require(app.config.stimulators[0].spatial&&app.config.stimulators[0].radius==40&&app.config.stimulators[0].x==30,"Spatial GUI lost physical units");
         app.show_stimulators=false;app.plot_windows.topology=studio::TopologyViewState{};frame(app);
-        click(app,"Поле активности");click(app,"Настройки активности…");click(app,"Критерий");click(app,"Доставки с последующим ответом");
-        enter_scalar(app,"Окно активности, с","0.125");enter_scalar(app,"Ответ до, с","0.03");enter_scalar(app,"Масштаб активности","0.07");click(app,"Готово");
+        click(app,"Настройки топологии…");click(app,"Поле активности");click(app,"Настройки активности…");click(app,"Критерий");click(app,"Доставки с последующим ответом");
+        enter_scalar(app,"Окно активности, с","0.125");enter_scalar(app,"Ответ до, с","0.03");enter_scalar(app,"Масштаб активности","0.07");click(app,"Готово");click(app,"Закрыть настройки");
         require(app.plot_windows.topology.activity_mode==1&&app.plot_windows.topology.activity_window==.125&&app.plot_windows.topology.activity_scale==.07,"Activity GUI settings");
         require(app.simulation->state==source_state&&app.simulation->time==source_time&&app.simulation->steps==source_steps,"Activity GUI altered dynamics");
         frame(app);const auto source_canvas=items.at("network_canvas");

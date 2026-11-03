@@ -8,6 +8,12 @@
 #include <memory>
 #include <functional>
 namespace studio {
+// Presentation state only; ratios survive window/DPI changes during this session.
+struct MainWindowLayout {
+    float experiment_fraction=.23f,inspector_fraction=.25f,plots_fraction=.40f;
+    bool plots_collapsed=false;
+    int compact_panel=1;
+};
 class App {
 public:
     Config config = preset(0);
@@ -74,6 +80,7 @@ public:
     std::function<std::filesystem::path(bool)> checkpoint_dialog;
     std::function<std::filesystem::path(bool)> workspace_dialog;
     PlotWindows plot_windows;
+    MainWindowLayout main_layout;
     WeightField weight_field;
     ActivityField activity_field;
     App();
@@ -109,8 +116,9 @@ private:
     void inspector();
     void canvas();
     void field_controls();
+    void update_fields();
     void field_overlay(ImVec2 base,ImVec2 span,bool tooltip);
-    void plots(float height);
+    void plots();
     void network_wizard();
     void archive_manager();
     void weights_manager();

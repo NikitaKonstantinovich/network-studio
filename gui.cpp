@@ -13,6 +13,25 @@ static ImU32 color(ImVec4 v) { return ImGui::ColorConvertFloat4ToU32(v); }
 static ImVec2 add(ImVec2 a,ImVec2 b) { return {a.x+b.x,a.y+b.y}; }
 static ImVec2 sub(ImVec2 a,ImVec2 b) { return {a.x-b.x,a.y-b.y}; }
 static ImVec2 mul(ImVec2 a,float s) { return {a.x*s,a.y*s}; }
+// Keep short toolbar groups on one row only while there is room for the next item.
+static void inline_if_fits(float width) {
+    const float right=ImGui::GetCursorScreenPos().x+ImGui::GetContentRegionAvail().x;
+    if(ImGui::GetItemRectMax().x+ImGui::GetStyle().ItemSpacing.x+width<=right)ImGui::SameLine();
+}
+static float button_width(const char* label) {return ImGui::CalcTextSize(label).x+2*ImGui::GetStyle().FramePadding.x;}
+static float panel_splitter(const char* id,ImVec2 position,ImVec2 size,bool vertical,bool enabled=true) {
+    ImGui::SetCursorScreenPos(position);
+    ImGui::InvisibleButton(id,size);
+    const bool hovered=ImGui::IsItemHovered(),active=ImGui::IsItemActive();
+    if(enabled&&(hovered||active))ImGui::SetMouseCursor(vertical?ImGuiMouseCursor_ResizeEW:ImGuiMouseCursor_ResizeNS);
+    const auto tint=enabled&&active?IM_COL32(65,214,184,255):enabled&&hovered?IM_COL32(75,135,153,220):IM_COL32(45,61,77,160);
+    auto* d=ImGui::GetWindowDrawList();
+    if(vertical)d->AddRectFilled({position.x+size.x*.35f,position.y+8},{position.x+size.x*.65f,position.y+size.y-8},tint,2);
+    else d->AddRectFilled({position.x+8,position.y+size.y*.35f},{position.x+size.x-8,position.y+size.y*.65f},tint,2);
+    if(enabled&&hovered)ImGui::SetTooltip("Перетащите границу · Двойной клик: исходные размеры");
+    if(enabled&&hovered&&ImGui::IsMouseDoubleClicked(0))return std::numeric_limits<float>::quiet_NaN();
+    return enabled&&active&&ImGui::IsMouseDragging(0,0)?(vertical?ImGui::GetIO().MouseDelta.x:ImGui::GetIO().MouseDelta.y):0;
+}
 void apply_style() {
     ImGui::StyleColorsDark(); auto& s=ImGui::GetStyle();
     s.WindowRounding=0; s.ChildRounding=10; s.FrameRounding=5; s.PopupRounding=7;
@@ -351,52 +370,64 @@ void App::network_wizard() {
     request_wizard_tab=-1;ImGui::EndPopup();
 }
 void App::toolbar() {
+    const float dpi=ImGui::GetFontSize()/17;
+    const bool narrow=ImGui::GetContentRegionAvail().x<1100*dpi;
     ImGui::TextColored(Teal,"NEURO / ASTRO"); ImGui::SameLine(); ImGui::TextDisabled("Конструктор малых сетей");
-    ImGui::SameLine(ImGui::GetWindowWidth()-365); ImGui::TextDisabled("HH / Ижикевич · IP3 / Ca · CPU");
+    if(!narrow){ImGui::SameLine(ImGui::GetWindowWidth()-365*dpi);ImGui::TextDisabled("HH / Ижикевич · IP3 / Ca · CPU");}
     ImGui::Separator();
     ImGui::BeginDisabled(!draft_error.empty() || !simulation->error.empty() || (!running && simulation->done()));
     ImGui::PushStyleColor(ImGuiCol_Button,{.10f,.38f,.33f,1});
-    if(ImGui::Button(running?"Пауза":simulation->time>0?"Продолжить":"Запуск",{110,30})) {
+    if(ImGui::Button(running?"Пауза":simulation->time>0?"Продолжить":"Запуск",{110*dpi,30*dpi})) {
         if(running)pause();else run();
     } ImGui::PopStyleColor(); ImGui::EndDisabled();
-    ImGui::SameLine(); if(ImGui::Button("Сброс",{80,30})) {RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.flag=true;command(std::move(c));status="Восстанавливаются начальные состояния…";}
-    ImGui::SameLine(); ImGui::BeginDisabled(running||!draft_error.empty()||!simulation->error.empty()||simulation->done());
-    if(ImGui::Button("Шаг 50 мс",{110,30})) {
+    inline_if_fits(80*dpi); if(ImGui::Button("Сброс",{80*dpi,30*dpi})) {RunnerCommand c;c.kind=RunnerCommand::Kind::Reset;c.flag=true;command(std::move(c));status="Восстанавливаются начальные состояния…";}
+    inline_if_fits(110*dpi); ImGui::BeginDisabled(running||!draft_error.empty()||!simulation->error.empty()||simulation->done());
+    if(ImGui::Button("Шаг 50 мс",{110*dpi,30*dpi})) {
         RunnerCommand c;c.kind=RunnerCommand::Kind::Advance;c.value=.05;command(std::move(c));status="Выполняется шаг 50 мс…";
     } ImGui::EndDisabled();
-    ImGui::SameLine(); ImGui::BeginDisabled(running);
-    if(ImGui::Button("Открыть…",{95,30})&&file_dialog) {auto path=file_dialog(false,false);if(!path.empty())load(path);}
-    ImGui::SameLine(); if(ImGui::Button("Сохранить…",{110,30})&&file_dialog) {auto path=file_dialog(true,false);if(!path.empty())save(path);}
-    ImGui::EndDisabled(); ImGui::SameLine();
+    inline_if_fits(95*dpi); ImGui::BeginDisabled(running);
+    if(ImGui::Button("Открыть…",{95*dpi,30*dpi})&&file_dialog) {auto path=file_dialog(false,false);if(!path.empty())load(path);}
+    inline_if_fits(110*dpi); if(ImGui::Button("Сохранить…",{110*dpi,30*dpi})&&file_dialog) {auto path=file_dialog(true,false);if(!path.empty())save(path);}
+    ImGui::EndDisabled(); inline_if_fits(125*dpi);
     ImGui::BeginDisabled(running||simulation->sample_begin+simulation->history.time.size()<2);
-    if(ImGui::Button("Экспорт CSV…",{125,30})&&file_dialog) {
+    if(ImGui::Button("Экспорт CSV…",{125*dpi,30*dpi})&&file_dialog) {
         auto path=file_dialog(true,true);
         if(!path.empty()) try { path.replace_extension(); export_data(path); }
         catch(const std::exception& e){status=e.what();}
     } ImGui::EndDisabled();
-    ImGui::SameLine(); ImGui::TextColored(running?Teal:Muted,"  %.3f / %.3f с",simulation->time,config.duration);
+    char clock[96];std::snprintf(clock,sizeof(clock),"%.3f / %.3f с",simulation->time,config.duration);
+    inline_if_fits(ImGui::CalcTextSize(clock).x);ImGui::TextColored(running?Teal:Muted,"%s",clock);
     ImGui::BeginDisabled(running);
     if(ImGui::Button("Сохранить состояние…")&&checkpoint_dialog) {auto path=checkpoint_dialog(true);if(!path.empty())save_state(path);}
-    ImGui::SameLine();
+    inline_if_fits(button_width("Восстановить состояние…"));
     if(ImGui::Button("Восстановить состояние…")&&checkpoint_dialog) {auto path=checkpoint_dialog(false);if(!path.empty())restore_state(path);}
     ImGui::EndDisabled();
-    ImGui::SameLine();if(ImGui::Button("Этапы эксперимента…"))show_stages=true;
-    ImGui::SameLine();if(ImGui::Button("Стимуляторы…"))show_stimulators=true;
-    ImGui::SameLine();if(ImGui::Button("Нейроанимат…"))show_animat=true;
-    ImGui::SameLine();if(ImGui::Button("История на диске…"))show_archive=true;
-    ImGui::SameLine();if(ImGui::Button("Веса всей сети…"))show_weights=true;
+    if(narrow){inline_if_fits(button_width("Инструменты…"));if(ImGui::Button("Инструменты…"))ImGui::OpenPopup("main_tools");}
+    const bool tools=!narrow||ImGui::BeginPopup("main_tools");
+    if(tools) {
+    if(!narrow)inline_if_fits(button_width("Этапы эксперимента…"));
+    if(ImGui::Button("Этапы эксперимента…")){show_stages=true;if(narrow)ImGui::CloseCurrentPopup();}
+    if(!narrow)inline_if_fits(button_width("Стимуляторы…"));if(ImGui::Button("Стимуляторы…")){show_stimulators=true;if(narrow)ImGui::CloseCurrentPopup();}
+    if(!narrow)inline_if_fits(button_width("Нейроанимат…"));if(ImGui::Button("Нейроанимат…")){show_animat=true;if(narrow)ImGui::CloseCurrentPopup();}
+    if(!narrow)inline_if_fits(button_width("История на диске…"));if(ImGui::Button("История на диске…")){show_archive=true;if(narrow)ImGui::CloseCurrentPopup();}
+    if(!narrow)inline_if_fits(button_width("Веса всей сети…"));if(ImGui::Button("Веса всей сети…")){show_weights=true;if(narrow)ImGui::CloseCurrentPopup();}
+    if(narrow)ImGui::EndPopup();
+    }
+    ImGui::SetNextItemOpen(!narrow,ImGuiCond_Once);
+    const bool details=ImGui::TreeNode("Статистика расчёта и потоки");
+    if(details) {
     const auto& m=simulation->metrics;
     ImGui::Text("Скорость %.5g модельных с/с · расчёт %.1f с · осталось ≈ %.1f с",m.model_per_second,m.elapsed_seconds,m.eta_seconds);
-    ImGui::SameLine();ImGui::SetNextItemWidth(115);
+    inline_if_fits(115*dpi+button_width("Обновление, Гц"));ImGui::SetNextItemWidth(115*dpi);
     if(ImGui::SliderFloat("Обновление, Гц",&display_hz,1,20,"%.0f"))set_display_hz(display_hz);
     const auto& modes=compute::ThreadModes;
     const char* thread_names[compute::ThreadModes.size()];
     int thread_choice=0;for(size_t i=0;i<modes.size();++i){thread_names[i]=modes[i].count?modes[i].argument:"Авто";if(modes[i].count==m.compute_threads)thread_choice=int(i);}
     const bool threads_pending=std::any_of(pending.begin(),pending.end(),[](const Pending& p){return p.kind==RunnerCommand::Kind::ComputeThreads;});
-    ImGui::SetNextItemWidth(95);ImGui::BeginDisabled(threads_pending);
+    ImGui::SetNextItemWidth(95*dpi);ImGui::BeginDisabled(threads_pending);
     if(ImGui::Combo("Потоки расчёта",&thread_choice,thread_names,IM_ARRAYSIZE(thread_names)))set_compute_threads(modes[thread_choice].count);
     ImGui::EndDisabled();
-    ImGui::SameLine();ImGui::TextDisabled("Фактически: %d%s",m.effective_compute_threads,m.effective_compute_threads==1&&m.compute_threads!=1?" · последовательный режим":"");
+    inline_if_fits(button_width("Фактически: 16 · последовательный режим"));ImGui::TextDisabled("Фактически: %d%s",m.effective_compute_threads,m.effective_compute_threads==1&&m.compute_threads!=1?" · последовательный режим":"");
     if(ImGui::IsItemHovered())ImGui::SetTooltip("Число включает поток управления решателем. Малые сети и неподдерживаемые конфигурации используют последовательный режим.");
     if(running&&!m.running)ImGui::TextDisabled("Ожидание подтверждения вычислителя…");
     const auto& integration=simulation->integration;
@@ -407,6 +438,8 @@ void App::toolbar() {
     if(simulation->config.integration_method==IntegrationMethod::AdaptiveRK4)
         ImGui::TextDisabled("Отклонено по ошибке: %llu · уменьшений по состоянию: %llu",(unsigned long long)integration.error_rejected,(unsigned long long)integration.state_reductions);
     else ImGui::TextDisabled("Оценка ошибки: не применяется · уменьшений по состоянию: %llu",(unsigned long long)integration.state_reductions);
+    ImGui::TreePop();
+    }
     ImGui::ProgressBar(float(simulation->time/config.duration),{-1,4},"");
     if(!draft_error.empty()) {
         ImGui::TextColored(ImVec4(1,.45f,.42f,1),"Запуск заблокирован: параметры не приняты.");
@@ -753,18 +786,31 @@ void App::canvas() {
     const bool compact=config.neurons.size()>32;
     auto& view=plot_windows.topology;
     ImGui::TextColored(Muted,"ТОПОЛОГИЯ");ImGui::SameLine();
-    if(compact) {
-        ImGui::Checkbox("Все связи",&view.all_edges);
-        ImGui::SameLine();ImGui::TextDisabled("E: зелёный · I: розовый");
-        ImGui::TextDisabled("Клик: выбрать · Показаны связи выбранного узла");
-    } else ImGui::TextDisabled("Перетащите узел · Shift + клик: связать · ПКМ: добавить");
-    field_controls();
-    ImVec2 origin=ImGui::GetCursorScreenPos(),size=ImGui::GetContentRegionAvail();size.x=std::max(size.x,100.f);size.y=std::max(size.y,100.f);
+    if(ImGui::Button("Настройки топологии…"))ImGui::OpenPopup("topology_settings");
+    ImGui::SetNextWindowSize({460*ImGui::GetFontSize()/17,0},ImGuiCond_Appearing);
+    if(ImGui::BeginPopup("topology_settings")) {
+        ImGui::TextDisabled("E: зелёный · I: розовый");
+        ImGui::TextWrapped("Чем больше |текущий вес|, тем непрозрачнее связь. Шкала общая для всей сети; выключенные связи приглушены.");
+        if(compact)ImGui::Checkbox("Все связи",&view.all_edges);
+        field_controls();
+        ImGui::Separator();
+        if(ImGui::Button("Закрыть настройки"))ImGui::CloseCurrentPopup();
+        ImGui::EndPopup();
+    }
+    // Field caches keep following the shared snapshot even with settings closed.
+    update_fields();
+    if(ImGui::GetContentRegionAvail().y>150*ImGui::GetFontSize()/17) {
+        if(compact)ImGui::TextDisabled(view.all_edges?"Клик: выбрать · Показаны все связи":"Клик: выбрать · Показаны связи выбранного узла");
+        else ImGui::TextDisabled("Перетащите узел · Shift + клик: связать · ПКМ: добавить");
+    }
+    ImVec2 origin=ImGui::GetCursorScreenPos(),size=ImGui::GetContentRegionAvail();size.x=std::max(size.x,100.f);size.y=std::max(size.y,40.f);
     ImGui::InvisibleButton("network_canvas",size,ImGuiButtonFlags_MouseButtonLeft|ImGuiButtonFlags_MouseButtonRight|ImGuiButtonFlags_MouseButtonMiddle);
     ImGui::SetItemKeyOwner(ImGuiKey_MouseWheelY);
     bool hovered=ImGui::IsItemHovered(),active=ImGui::IsItemActive();auto& io=ImGui::GetIO();auto* d=ImGui::GetWindowDrawList();
     d->PushClipRect(origin,add(origin,size),true); d->AddRectFilled(origin,add(origin,size),IM_COL32(14,22,31,255),8);
-    const float dpi=ImGui::GetFontSize()/17;const ImVec2 pad{45*dpi,42*dpi},extent{std::max(1.f,size.x-90*dpi),std::max(1.f,size.y-84*dpi)};
+    const float dpi=ImGui::GetFontSize()/17;
+    const ImVec2 pad{45*dpi,std::min(42*dpi,std::max(0.f,(size.y-60*dpi)*.5f))};
+    const ImVec2 extent{std::max(1.f,size.x-2*pad.x),std::max(1.f,size.y-2*pad.y)};
     if(hovered&&io.MouseWheel!=0) {
         const double qx=(io.MousePos.x-origin.x-pad.x)/extent.x,qy=(io.MousePos.y-origin.y-pad.y)/extent.y;
         const double x=(qx-.5-view.pan_x)/view.zoom,y=(qy-.5-view.pan_y)/view.zoom;
@@ -794,29 +840,43 @@ void App::canvas() {
         ImVec2 delta=sub(io.MousePos,add(p,mul(v,t)));float dist=std::sqrt(delta.x*delta.x+delta.y*delta.y);
         if(dist<8){hit_kind=kind;hit=index;}
     };
+    // Separate draw channels keep every node above links and field overlays.
+    ImDrawListSplitter layers;layers.Split(d,2);layers.SetCurrentChannel(d,0);
     if(view.edges)for(int i=0;i<int(config.gaps.size());++i) {
         const auto& g=config.gaps[i];bool sel=selected_kind==3&&selected_index==i;
         dashed(d,a[g.a],a[g.b],color(sel?Gold:Blue));linehit(a[g.a],a[g.b],3,i);
     }
+    const bool live_weights=!changed&&draft_error.empty()&&simulation->plasticity.size()==config.synapses.size();
+    auto link_weight=[&](size_t i) {return live_weights?simulation->plasticity[i].weight:config.synapses[i].weight;};
+    double maximum_weight=0;
+    if(view.edges)for(size_t i=0;i<config.synapses.size();++i)
+        if(std::isfinite(link_weight(i)))maximum_weight=std::max(maximum_weight,std::abs(link_weight(i)));
     if(view.edges)for(int i=0;i<int(config.synapses.size());++i) {
         const auto& s=config.synapses[i];bool sel=selected_kind==2&&selected_index==i;
         if(compact&&!view.all_edges&&!sel&&!(selected_kind==0&&(s.source==selected_index||s.target==selected_index)))continue;
         ImVec2 p=n[s.source],q=n[s.target];
-        bool inhibitory=s.model==SynapseModel::ConductanceSTP?s.reversal<=-40:s.weight<0;
-        ImU32 col=color(sel?Gold:(s.enabled?(inhibitory?ImVec4(.88f,.45f,.52f,1):Teal):Muted));
+        const double weight=link_weight(i);
+        bool inhibitory=s.model==SynapseModel::ConductanceSTP?s.reversal<=-40:weight<0;
+        ImVec4 tint=sel?Gold:(s.enabled?(inhibitory?ImVec4(.88f,.45f,.52f,1):Teal):Muted);
+        const double strength=maximum_weight>0&&std::isfinite(weight)?std::clamp(std::abs(weight)/maximum_weight,0.,1.):0;
+        tint.w=float(.12+.78*strength)*(s.enabled?1.f:.35f);
+        ImU32 col=color(tint);
         ImVec2 center=mul(add(p,q),.5f);
         if(s.source==s.target) {float r=compact?9.f:22.f;d->AddCircle(add(p,{0,-r-7}),r,col,compact?12:28,2);center=add(p,{0,-2*r-7});}
-        else { arrow(d,p,q,col,sel?3:(compact?1.f:1.8f),compact?5.f:25.f);linehit(p,q,2,i); }
+        else { arrow(d,p,q,col,sel?3:(compact?1.f:1.8f),compact?7.5f:29.f);linehit(p,q,2,i); }
         if(!compact||sel) {char buf[20];std::snprintf(buf,sizeof(buf),"S%d",i+1);d->AddText(add(center,{4,-19}),col,buf);}
         if(s.astro>=0)dashed(d,center,a[s.astro],IM_COL32(94,144,220,s.enabled?165:60));
     }
     field_overlay(base,span,hovered&&hit_kind<0);
     const bool source_hit=stimulator_overlay(base,span,hovered,active);
+    layers.SetCurrentChannel(d,1);
     for(int i=0;i<int(n.size());++i) {
         bool sel=selected_kind==0&&selected_index==i;double v=-65;
         const auto node_color=config.neurons[i].inhibitory?Rose:Teal;
         if(draft_error.empty()&&!changed&&simulation->error.empty()&&i<int(simulation->config.neurons.size()))v=simulation->state[i*4];
         const float radius=compact?4.5f:25.f;
+        // Opaque padding masks links passing close to a node's outline.
+        d->AddCircleFilled(n[i],radius+(compact?3.f:4.f),IM_COL32(14,22,31,255),compact?16:36);
         d->AddCircleFilled(n[i],radius,compact?color(node_color):IM_COL32(17,35,42,255),compact?10:36);
         d->AddCircle(n[i],radius+(compact&&sel?2:0),color(sel?Gold:node_color),compact?12:36,sel?2.5f:1.5f);
         if(v>0)d->AddCircle(n[i],radius+4,IM_COL32(98,245,204,180),compact?12:36,2);
@@ -830,6 +890,7 @@ void App::canvas() {
     }
     for(int i=0;i<int(a.size());++i) {
         bool sel=selected_kind==1&&selected_index==i;
+        d->AddQuadFilled(add(a[i],{0,-31}),add(a[i],{31,0}),add(a[i],{0,31}),add(a[i],{-31,0}),IM_COL32(14,22,31,255));
         d->AddQuadFilled(add(a[i],{0,-27}),add(a[i],{27,0}),add(a[i],{0,27}),add(a[i],{-27,0}),IM_COL32(24,38,63,255));
         d->AddQuad(add(a[i],{0,-27}),add(a[i],{27,0}),add(a[i],{0,27}),add(a[i],{-27,0}),color(sel?Gold:Blue),sel?3:1.8f);
         char id[20];std::snprintf(id,sizeof(id),"A%d",i+1);d->AddText(add(a[i],{-10,-8}),color(Blue),id);
@@ -839,6 +900,7 @@ void App::canvas() {
             d->AddText(add(a[i],{-35,52}),color(Muted),ca);
         }
     }
+    layers.Merge(d);
     if(ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {drag_kind=-1;drag_index=-1;}
     if(hovered && !source_hit && !running && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && hit>=0) {
         if(io.KeyShift && selected_kind==0 && hit_kind==0 && config.synapses.size()<MaxSynapses) {
@@ -871,7 +933,7 @@ void App::canvas() {
         } ImGui::EndPopup();
     }
 }
-void App::plots(float height) {
+void App::plots() {
     const char* names[]={"Потенциалы","Астроциты","Растр событий","Синапсы","Фазовый портрет","Нейрон / вход","Доставки","Сеть / стимуляция"};
     if(ImGui::Button("Новый график"))ImGui::OpenPopup("new_plot");
     if(ImGui::BeginPopup("new_plot")) {
@@ -888,10 +950,13 @@ void App::plots(float height) {
         if(!plot_windows.message.empty())ImGui::TextWrapped("%s",plot_windows.message.c_str());
         ImGui::EndPopup();
     }
-    ImGui::SameLine();ImGui::TextDisabled("Колесо: масштаб · ЛКМ: панорама · Двойной клик: вписать");
-    if(ImGui::BeginTabBar("plots")) {
+    if(ImGui::GetContentRegionAvail().x>620*ImGui::GetFontSize()/17) {
+        inline_if_fits(ImGui::CalcTextSize("Колесо: масштаб · ЛКМ: панорама · Двойной клик: вписать").x);
+        ImGui::TextDisabled("Колесо: масштаб · ЛКМ: панорама · Двойной клик: вписать");
+    }
+    if(ImGui::BeginTabBar("plots",ImGuiTabBarFlags_FittingPolicyScroll)) {
         for(int i=0;i<8;++i)if(ImGui::BeginTabItem(names[i],nullptr,request_plot_tab==i?ImGuiTabItemFlags_SetSelected:0)) {
-            ImGui::PushID(i);plot_windows.draw_view(plot_windows.embedded[i],*simulation,height-60,false);ImGui::PopID();
+            ImGui::PushID(i);plot_windows.draw_view(plot_windows.embedded[i],*simulation,ImGui::GetContentRegionAvail().y,false);ImGui::PopID();
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();
@@ -905,17 +970,74 @@ void App::draw() {
     ImGui::Begin("Network Studio",nullptr,ImGuiWindowFlags_NoDecoration|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoSavedSettings|ImGuiWindowFlags_NoDocking);
     toolbar();
     if(replacing){ImGui::TextUnformatted("Применяется конфигурация…");ImGui::End();drawing=false;return;}
-    float width=ImGui::GetContentRegionAvail().x,height=ImGui::GetContentRegionAvail().y;
-    float left=std::clamp(width*.23f,260.f,320.f),right=std::clamp(width*.25f,300.f,360.f);
-    float bottom=std::clamp(height*.40f,260.f,440.f),top=height-bottom-8;
-    ImGui::BeginChild("editor",{left,top},ImGuiChildFlags_Borders);editor();ImGui::EndChild();
+    const float dpi=ImGui::GetFontSize()/17,gap=8*dpi;
+    const ImVec2 origin=ImGui::GetCursorScreenPos();
+    const float width=ImGui::GetContentRegionAvail().x;
+    const float status_height=ImGui::GetTextLineHeight();
+    const float height=std::max(140*dpi,ImGui::GetContentRegionAvail().y-status_height-ImGui::GetStyle().ItemSpacing.y);
+    const float header=ImGui::GetFrameHeight();
+    auto& layout=main_layout;
+    const float min_top=std::min(160*dpi,height*.45f),min_bottom=std::min(200*dpi,height*.45f);
+    const float bottom=layout.plots_collapsed?header:std::clamp(height*layout.plots_fraction,min_bottom,height-gap-min_top);
+    const float top=height-gap-bottom;
+    const bool compact=width<900*dpi;
+    auto panel=[&](int index,ImVec2 position,ImVec2 size) {
+        const char* ids[]={"editor","canvas","inspector"};
+        ImGui::SetCursorScreenPos(position);
+        ImGui::BeginChild(ids[index],size,ImGuiChildFlags_Borders);
+        if(index==0)editor();else if(index==1)canvas();else inspector();
+        ImGui::EndChild();
+    };
+    if(compact) {
+        ImGui::SetCursorScreenPos(origin);
+        const char* names[]={"Эксперимент","Топология","Инспектор"};
+        ImGui::PushID("main_panels");
+        for(int i=0;i<3;++i) {
+            if(i)ImGui::SameLine();
+            if(layout.compact_panel==i)ImGui::PushStyleColor(ImGuiCol_Button,{.14f,.43f,.40f,1});
+            const bool selected=ImGui::Button(names[i]);
+            if(layout.compact_panel==i)ImGui::PopStyleColor();
+            if(selected)layout.compact_panel=i;
+        }
+        ImGui::PopID();
+        const auto position=ImGui::GetCursorScreenPos();
+        panel(layout.compact_panel,position,{width,std::max(50*dpi,top-(position.y-origin.y))});
+    } else {
+        const float space=width-2*gap,min_left=220*dpi,min_right=240*dpi,min_center=200*dpi;
+        const float left=std::clamp(space*layout.experiment_fraction,min_left,space-min_right-min_center);
+        const float right=std::clamp(space*layout.inspector_fraction,min_right,space-left-min_center);
+        const float center=space-left-right;
+        panel(0,origin,{left,top});
+        if(replacing){ImGui::End();drawing=false;return;}
+        panel(1,{origin.x+left+gap,origin.y},{center,top});
+        panel(2,{origin.x+left+gap+center+gap,origin.y},{right,top});
+        const float first=panel_splitter("##split_experiment",{origin.x+left,origin.y},{gap,top},true);
+        if(std::isnan(first)){layout.experiment_fraction=.23f;layout.inspector_fraction=.25f;}
+        else if(first!=0)layout.experiment_fraction=(left+std::clamp(first,min_left-left,center-min_center))/space;
+        const float second=panel_splitter("##split_inspector",{origin.x+left+gap+center,origin.y},{gap,top},true);
+        if(std::isnan(second)){layout.experiment_fraction=.23f;layout.inspector_fraction=.25f;}
+        else if(second!=0)layout.inspector_fraction=(right-std::clamp(second,min_center-center,right-min_right))/space;
+    }
     if(replacing){ImGui::End();drawing=false;return;}
-    ImGui::SameLine();
-    ImGui::BeginChild("canvas",{std::max(220.f,width-left-right-16),top},ImGuiChildFlags_Borders);canvas();ImGui::EndChild();ImGui::SameLine();
-    ImGui::BeginChild("inspector",{right,top},ImGuiChildFlags_Borders);inspector();ImGui::EndChild();
     if(changed) {reset();if(draft_error.empty())status="Параметры изменены. Расчёт сброшен.";}
-    ImGui::BeginChild("plots",{-1,bottom-30},ImGuiChildFlags_Borders);if(!replacing)plots(bottom-30);ImGui::EndChild();
+    const float vertical=panel_splitter("##split_plots",{origin.x,origin.y+top},{width,gap},false,!layout.plots_collapsed);
+    if(std::isnan(vertical))layout.plots_fraction=.40f;
+    else if(vertical!=0)layout.plots_fraction=std::clamp(bottom-vertical,min_bottom,height-gap-min_top)/height;
+    ImGui::SetCursorScreenPos({origin.x,origin.y+top+gap});
+    if(ImGui::Button(layout.plots_collapsed?"Развернуть графики":"Свернуть графики"))layout.plots_collapsed=!layout.plots_collapsed;
+    inline_if_fits(button_width("Сбросить размеры панелей"));
+    if(ImGui::Button("Сбросить размеры панелей"))layout=MainWindowLayout{};
+    if(ImGui::IsItemHovered())ImGui::SetTooltip("Восстановить размеры главных панелей. Настройки графиков и эксперимент сохраняются.");
+    if(!layout.plots_collapsed&&bottom>header) {
+        ImGui::SetCursorScreenPos({origin.x,origin.y+top+gap+header});
+        ImGui::BeginChild("plots",{width,bottom-header},ImGuiChildFlags_Borders);
+        if(!replacing)plots();ImGui::EndChild();
+    }
+    ImGui::SetCursorScreenPos({origin.x,origin.y+height+ImGui::GetStyle().ItemSpacing.y});
+    ImGui::BeginChild("status",{width,status_height},ImGuiChildFlags_None,ImGuiWindowFlags_NoScrollbar|ImGuiWindowFlags_NoScrollWithMouse);
     ImGui::TextColored(simulation->error.empty()?Muted:ImVec4(1,.45f,.42f,1),"%s%s",dirty?"● ":"",status.c_str());
+    if(ImGui::IsItemHovered())ImGui::SetTooltip("%s",status.c_str());
+    ImGui::EndChild();
     network_wizard();
     ImGui::End();
     if(replacing){drawing=false;return;}

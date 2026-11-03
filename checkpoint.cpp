@@ -64,6 +64,7 @@ struct CheckpointAccess {
         require(validate(s.config).empty(),"invalid configuration");
         validate_animat_runtime(s);
         const auto& c=s.config;const auto& h=s.history;
+        require(s.activity.deliveries.size()<=MaxActivityEvents && s.activity.spikes.size()<=MaxActivityEvents,"activity budget exceeded");
         for(double x:c.parameters)require(std::isfinite(x),"invalid full parameter array");
         require(s.error.size()<=65536 && s.error.find('\0')==std::string::npos,"invalid diagnostic string");
         require(s.checkpoint_boundary || !s.error.empty(),"unfinished step has no diagnostic");
@@ -276,9 +277,9 @@ struct CheckpointAccess {
         for(const auto& p:s->history.shared_pulses){auto latch=std::find_if(s->stimulus_latches.begin(),s->stimulus_latches.end(),[&](auto& l){return l.id==p.stimulator;});require(latch!=s->stimulus_latches.end()&&p.pulse<latch->next_pulse&&(p.complete||p.pulse==latch->active_pulse),"shared pulse/latch mismatch");}
         s->activity.delivery_begin=r.u64();s->activity.spike_begin=r.u64();s->activity.available_after=r.real();
         require(s->activity.available_after>=0&&s->activity.available_after<=s->time,"invalid activity depth");
-        size_t count=r.count(250000,24);require(count<=UINT64_MAX-s->activity.delivery_begin,"activity counter overflow");double previous_arrival=0;
+        size_t count=r.count(MaxActivityEvents,24);require(count<=UINT64_MAX-s->activity.delivery_begin,"activity counter overflow");double previous_arrival=0;
         for(size_t k=0;k<count;++k){Delivery d;d.t_emit=r.real();d.t_arrival=r.real();auto edge=r.u64();require(edge<c.synapses.size()&&d.t_emit>0&&d.t_arrival>=previous_arrival&&d.t_arrival<=s->time&&d.t_arrival==d.t_emit+c.synapses[edge].delay,"invalid activity delivery");d.synapse=int(edge);previous_arrival=d.t_arrival;s->activity.deliveries.push_back(d);}
-        count=r.count(250000,16);require(count<=UINT64_MAX-s->activity.spike_begin,"activity counter overflow");double previous_spike=0;
+        count=r.count(MaxActivityEvents,16);require(count<=UINT64_MAX-s->activity.spike_begin,"activity counter overflow");double previous_spike=0;
         for(size_t k=0;k<count;++k){const double at=r.real();auto index=r.u64();require(index<c.neurons.size()&&at>0&&at>=previous_spike&&at<=s->time,"invalid activity spike");s->activity.spikes.push_back({at,int(index),false});previous_spike=at;}
         for(const auto& e:s->history.stimuli)require(e.protocol<int(s->experiment.protocols.size())&&e.time>=s->experiment.protocols[e.protocol].time&&pulse_current(s->experiment.protocols[e.protocol].neurons[e.neuron],e.time)==e.amplitude,"stimulus/protocol mismatch");
         deserialize_animat(*s,r.text(MaxCheckpointBytes));

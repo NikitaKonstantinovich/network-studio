@@ -4,6 +4,16 @@
 #include <cmath>
 
 namespace studio {
+void App::update_fields() {
+    const auto& v=plot_windows.topology;
+    if(!v.field&&!v.activity)return;
+    const SimulationReadView current(*simulation);
+    weight_field.update(changed?config:current.config,changed?nullptr:&current.plasticity,v);
+    if(v.activity) {
+        if(!changed&&current.error.empty())activity_field.update(current,v,weight_field);
+        else {activity_field.available=false;activity_field.message="Поле активности недоступно до обновления эксперимента.";}
+    }
+}
 void App::field_controls() {
     auto& v=plot_windows.topology;
     const SimulationReadView current(*simulation);
@@ -36,7 +46,6 @@ void App::field_controls() {
             if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();
             ImGui::EndPopup();
         }
-        weight_field.update(field_config,changed?nullptr:&current.plasticity,v);
         if(field_config.neurons.empty())ImGui::TextDisabled("Нет нейронов для построения поля.");
         else if(!weight_field.available)ImGui::TextWrapped("Текущие веса недоступны до обновления эксперимента.");
         else if(!weight_field.included_edges)ImGui::TextWrapped("Нет подходящих направленных связей.");
@@ -64,9 +73,6 @@ void App::field_controls() {
             ImGui::Text("Глубина записи %.6g с; окно после %.9g с",current.config.activity_horizon,current.activity.available_after);
             if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();ImGui::EndPopup();
         }
-        if(!v.field)weight_field.update(field_config,changed?nullptr:&current.plasticity,v);
-        if(!changed&&current.error.empty())activity_field.update(current,v,weight_field);
-        else {activity_field.available=false;activity_field.message="Поле активности недоступно до обновления эксперимента.";}
         ImGui::TextColored({1,.6f,.25f,1},"Оранжевое: активность · синее: веса · t=%.6g с · %.3f мс",activity_field.time,activity_field.update_ms);
         if(!activity_field.available)ImGui::TextWrapped("%s",activity_field.message.c_str());
     }

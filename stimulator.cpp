@@ -208,7 +208,7 @@ void Simulator::capture_activity(const std::vector<Delivery>& delivered,const st
     while(!activity.deliveries.empty()&&activity.deliveries.front().t_arrival<=cutoff){activity.deliveries.pop_front();++activity.delivery_begin;}
     while(!activity.spikes.empty()&&activity.spikes.front().time<=cutoff){activity.spikes.pop_front();++activity.spike_begin;}
     activity.available_after=std::max(activity.available_after,cutoff);
-    constexpr size_t budget=250000;
+    constexpr size_t budget=MaxActivityEvents;
     while(activity.deliveries.size()>budget){activity.available_after=std::max(activity.available_after,activity.deliveries.front().t_arrival);activity.deliveries.pop_front();++activity.delivery_begin;}
     while(activity.spikes.size()>budget){activity.available_after=std::max(activity.available_after,activity.spikes.front().time);activity.spikes.pop_front();++activity.spike_begin;}
 }

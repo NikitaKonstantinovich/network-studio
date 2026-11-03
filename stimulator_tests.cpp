@@ -105,6 +105,34 @@ static void fields() {
     s.activity.deliveries.push_back({.009,.019,1});s.time=.03;s.activity.spikes.push_back({.025,0,false});near(update().x,3,0,"Operational external-post criterion");
     v.activity_window=2;geometry.update(c,&s.plasticity,v);f.update(s,v,geometry);check(!f.available,"Missing retained interval disguised as valid history");rejects([&]{f.vector_at(c,.5,.5);},"Unavailable field query accepted");
 }
+static void activity_capacity(const std::filesystem::path& root) {
+    auto c=shared_fixture();c.noise_sigma=0;c.stimulators[0].enabled=false;c.synapses[0].delay=0;
+    Simulator s(c);check(s.step(),s.error);
+    // Synthetic recent-event load isolates storage from expensive network dynamics.
+    // Both streams exceed the former 250k cap, inside the requested time window.
+    constexpr size_t load=300001;
+    s.activity.deliveries.assign(load,{s.time,s.time,0});
+    s.activity.spikes.assign(load,{s.time,1,false});
+    check(s.step(),s.error);
+    check(s.activity.deliveries.size()==load&&s.activity.spikes.size()==load,"Activity above 250k was truncated");
+    WeightField geometry;ActivityField field;TopologyViewState v;v.activity_window=1;
+    geometry.update(c,&s.plasticity,v);field.update(s,v,geometry);
+    check(field.available&&field.vector_at(c,50,50).count>0,"Dense activity became unavailable");
+    save_checkpoint(s,root/"dense-activity.nscp");auto restored=load_checkpoint(root/"dense-activity.nscp");
+    check(restored->activity.deliveries.size()==load&&restored->activity.spikes.size()==load,"Dense checkpoint lost activity");
+    check(restored->step(),restored->error);
+    check(restored->activity.deliveries.size()==load,"Dense activity lost after restore/step");
+    s.activity.deliveries.assign(MaxActivityEvents+1,{s.time,s.time,0});
+    s.activity.spikes.assign(MaxActivityEvents+1,{s.time,1,false});
+    rejects([&]{save_checkpoint(s,root/"over-budget.nscp");},"Over-budget activity checkpoint accepted");
+    check(s.step(),s.error);
+    check(s.activity.deliveries.size()==MaxActivityEvents&&s.activity.spikes.size()==MaxActivityEvents,"Activity cap not enforced");
+    geometry.update(c,&s.plasticity,v);field.update(s,v,geometry);
+    check(!field.available,"Truncated activity silently accepted");
+    s.config.activity_horizon=.001;s.extend_duration(.13);
+    while(s.time<.002)check(s.step(),s.error);
+    check(s.activity.deliveries.empty()&&s.activity.spikes.empty(),"Expired activity retained");
+}
 static void continuation(const std::filesystem::path& root) {
     for(bool hh:{false,true})for(auto model:{SynapseModel::ConductanceSTP,SynapseModel::ExponentialCurrent,SynapseModel::TsodyksMarkram}) {
         auto c=shared_fixture(true);c.synapses[0].model=model;c.synapses[0].stdp_rule=hh?StdpRule::Triplet:StdpRule::Additive;
@@ -145,5 +173,5 @@ static void fixtures(const std::filesystem::path& root) {
 int main(int argc,char** argv)try {
     if(argc==3&&std::string(argv[1])=="--fixtures"){fixtures(std::filesystem::u8path(argv[2]));return 0;}
     auto root=std::filesystem::current_path()/"build"/("stimulator-tests-"+std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));std::filesystem::create_directories(root);
-    analytic();commands(root);fields();continuation(root);benchmark();std::cout<<"PASS "<<checks<<" shared/spatial/activity checks\n";return 0;
+    analytic();commands(root);fields();activity_capacity(root);continuation(root);benchmark();std::cout<<"PASS "<<checks<<" shared/spatial/activity checks\n";return 0;
 }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}

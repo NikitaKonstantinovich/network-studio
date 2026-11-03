@@ -274,6 +274,10 @@ if(WIN32)
     target_include_directories(network_studio_gui_tests BEFORE PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
     target_link_libraries(network_studio_gui_tests PRIVATE studio_gui)
     add_test(NAME gui_interactions_and_plots COMMAND network_studio_gui_tests)
+    add_test(NAME main_layout_win32_dx11 COMMAND ${CMAKE_COMMAND}
+        "-DGUI=$<TARGET_FILE:network_studio>" "-DWORK=${CMAKE_CURRENT_BINARY_DIR}/main-layout-native"
+        -P "${CMAKE_CURRENT_SOURCE_DIR}/plots/main_layout_native_test.cmake")
+    set_tests_properties(main_layout_win32_dx11 PROPERTIES RUN_SERIAL TRUE TIMEOUT 60)
     add_executable(network_studio_plot_tests plot_window_tests.cpp test_hooks_stub.cpp)
     target_link_libraries(network_studio_plot_tests PRIVATE studio_gui)
     add_test(NAME plot_windows_and_workspace COMMAND network_studio_plot_tests)

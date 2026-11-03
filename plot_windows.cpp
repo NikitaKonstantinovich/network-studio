@@ -188,10 +188,10 @@ void PlotWindows::draw_view(PlotWindowState& w,const SimulationReadView& s,float
     const double previous_seconds=w.seconds;
     ImGui::DragScalar("Окно, с",ImGuiDataType_Double,&w.seconds,.05f,nullptr,nullptr,"%.8g");
     w.seconds=std::isfinite(w.seconds)?std::max(w.seconds,.000001):previous_seconds;
-    if(!detached)ImGui::SameLine();
+    if(!detached&&content_width>=600)ImGui::SameLine();
     ImGui::Checkbox("Автомасштаб Y",&w.auto_fit);
     if(detached){ImGui::SameLine();if(ImGui::Button("Вписать"))w.fit=true;}
-    if(!detached){ImGui::SameLine();if(ImGui::Button("Открыть в отдельном окне"))detach(w);}
+    if(!detached){if(content_width>=810)ImGui::SameLine();if(ImGui::Button("Открыть в отдельном окне"))detach(w);}
     if(h.time.empty()){ImGui::TextWrapped("Нет записанной истории. Проверьте параметры эксперимента.");return;}
     if(w.kind==PlotKind::Network){draw_network(w,s);return;}
     const double available_from=w.kind==PlotKind::Raster?h.events_after:w.kind==PlotKind::Deliveries?h.deliveries_after:h.time.front();

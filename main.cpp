@@ -67,7 +67,7 @@ static LRESULT WINAPI wndproc(HWND hwnd,UINT msg,WPARAM w,LPARAM l) {
             SetWindowPos(hwnd,nullptr,rect->left,rect->top,rect->right-rect->left,rect->bottom-rect->top,SWP_NOZORDER|SWP_NOACTIVATE);return 0;
         }
         case WM_GETMINMAXINFO: {
-            auto* info=reinterpret_cast<MINMAXINFO*>(l);info->ptMinTrackSize={1120,720};return 0;
+            auto* info=reinterpret_cast<MINMAXINFO*>(l);info->ptMinTrackSize={640,480};return 0;
         }
         case WM_SYSCOMMAND:if((w&0xfff0)==SC_KEYMENU)return 0;break;
         case WM_DESTROY:PostQuitMessage(0);return 0;
@@ -107,9 +107,11 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
     double display_hz=10;
     std::wstring compute_threads_option=L"1",benchmark_until_option;
     std::filesystem::path smoke,benchmark,runner_close,config_path,checkpoint_path,workspace_path;int smoke_preset=0;bool animat_smoke=false,weights_smoke=false,analysis_smoke=false,archive_smoke=false;bool smoke_wizard=false,viewport_smoke=false,plot_demo=false,field_smoke=false,experiment_smoke=false,stimulator_smoke=false;
+    bool layout_smoke=false;
     std::vector<std::filesystem::path> weight_smoke_inputs;
     for(int i=1;i<argc;++i) {
         if(std::wstring(args[i])==L"--smoke"&&i+1<argc)smoke=args[++i];
+        else if(std::wstring(args[i])==L"--layout-smoke"&&i+1<argc){smoke=args[++i];layout_smoke=true;}
         else if(std::wstring(args[i])==L"--benchmark-until")benchmark_until_option=i+1<argc?args[++i]:L"invalid";
         else if(std::wstring(args[i])==L"--benchmark"&&i+1<argc)benchmark=args[++i];
         else if(std::wstring(args[i])==L"--runner-close-smoke"&&i+1<argc)runner_close=args[++i];
@@ -206,7 +208,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         if(!smoke.empty()) {
             std::filesystem::create_directories(smoke);
             if(config_path.empty()&&checkpoint_path.empty()) {
-                auto c=studio::preset((viewport_smoke||weights_smoke)?6:smoke_preset);if(viewport_smoke||analysis_smoke||archive_smoke||weights_smoke)c.duration=.3;if(archive_smoke){c.history_capacity=32;c.bounded_journals=true;}app.replace(c);
+                auto c=studio::preset((viewport_smoke||weights_smoke||layout_smoke)?6:smoke_preset);if(viewport_smoke||analysis_smoke||archive_smoke||weights_smoke||layout_smoke)c.duration=.3;if(archive_smoke){c.history_capacity=32;c.bounded_journals=true;}app.replace(c);
             }
             if(experiment_smoke&&!app.config.stages.empty()){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::EnterStage;c.stages=app.config.stages;c.index=0;c.flag=true;app.command(std::move(c),true);}
             if(archive_smoke){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::StartArchive;c.path=smoke/L"history";c.index=32;c.flag=true;auto r=app.wait_command(app.command(c));if(!r.ok)throw std::runtime_error(r.error);}
@@ -263,6 +265,18 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
         if(!benchmark.empty()){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::RunTo;c.value=benchmark_target;app.command(std::move(c));}
         else if(!runner_close.empty())app.run();
         while(!done) {
+            if(layout_smoke&&frames%4==0) {
+                const int widths[]={1920,1366,1024,800,800,1280,1920},heights[]={1080,768,768,600,600,800,1080};
+                const int scenario=frames/4;
+                RECT rect{0,0,widths[scenario],heights[scenario]};AdjustWindowRectEx(&rect,WS_OVERLAPPEDWINDOW,FALSE,0);
+                SetWindowPos(hwnd,nullptr,20,20,rect.right-rect.left,rect.bottom-rect.top,SWP_NOZORDER|SWP_NOACTIVATE);
+                io.FontGlobalScale=scenario==5?1.5f:1.f;
+                app.main_layout.plots_collapsed=scenario==4;
+                // Cover expanded statistics on desktop layouts and collapsed on short ones.
+                if(auto* root=ImGui::FindWindowByName("Network Studio"))
+                    root->StateStorage.SetInt(root->GetID("Статистика расчёта и потоки"),scenario<2||scenario==6);
+                if(scenario==1){app.main_layout.experiment_fraction=.30f;app.main_layout.inspector_fraction=.20f;app.main_layout.plots_fraction=.45f;}
+            }
             MSG msg;while(PeekMessageW(&msg,nullptr,0,0,PM_REMOVE)){TranslateMessage(&msg);DispatchMessageW(&msg);if(msg.message==WM_QUIT)done=true;}
             if(done)break;
             if(resize_w&&resize_h){target.Reset();check(swapchain->ResizeBuffers(0,resize_w,resize_h,DXGI_FORMAT_UNKNOWN,0),"Window resize failed.");resize_w=resize_h=0;render_target();}
@@ -288,6 +302,17 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             if(animat_smoke){app.request_animat_tab=std::min(3,frames/7);if(frames==20){studio::RunnerCommand c;c.kind=studio::RunnerCommand::Kind::AnalyzeAnimat;c.value=0;c.second=app.simulation->time;auto result=app.wait_command(app.command(c));if(!result.ok)throw std::runtime_error(result.error);app.animat_result=*result.animat_analysis;app.animat_to=app.simulation->time;}}
             if(weights_smoke&&frames==25)if(auto* w=ImGui::FindWindowByName("Веса всей сети###weight_analysis"))ImGui::SetScrollY(w,w->ScrollMax.y);
             app.draw();
+            if(layout_smoke&&frames%4==3) {
+                const auto* root=ImGui::FindWindowByName("Network Studio");
+                std::ofstream geometry(smoke/("geometry_"+std::to_string(frames/4)+".txt"));
+                geometry<<root->Pos.x<<","<<root->Pos.y<<","<<root->Size.x<<","<<root->Size.y<<" scroll="<<root->Scroll.x<<","<<root->Scroll.y<<" max="<<root->ScrollMax.x<<","<<root->ScrollMax.y<<"\n";
+                for(auto* child:GImGui->Windows)if(child->Active&&child->ParentWindow==root)geometry<<child->Name<<": "<<child->Pos.x<<","<<child->Pos.y<<","<<child->Size.x<<","<<child->Size.y<<"\n";
+                geometry.close();
+                verify(root&&root->Scroll.y==0&&root->Scroll.x==0,"Main layout overflowed the viewport");
+                for(auto* child:GImGui->Windows)if(child->Active&&child->ParentWindow==root) {
+                    verify(child->Pos.x>=root->Pos.x&&child->Pos.y>=root->Pos.y&&child->Pos.x+child->Size.x<=root->Pos.x+root->Size.x+1&&child->Pos.y+child->Size.y<=root->Pos.y+root->Size.y+1,"Main panel outside viewport");
+                }
+            }
             const auto benchmark_render_begin=benchmark.empty()?frame_begin:std::chrono::steady_clock::now();
             if(!benchmark.empty())benchmark_draw+=std::chrono::duration<double>(benchmark_render_begin-frame_begin).count();
             ImGui::Render();auto* data=ImGui::GetDrawData();minimum_vertices=std::min(minimum_vertices,data->TotalVtxCount);
@@ -454,6 +479,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE,LPWSTR,int) {
             std::ofstream log(smoke/L"renderer.txt");log<<"frames="<<frames<<"\nminimum_vertices="<<minimum_vertices<<"\nsamples="<<app.simulation->history.time.size()<<"\nerror="<<app.simulation->error<<"\n";
             log<<"native_viewport_checks="<<native_checks<<"\nmonitors="<<ImGui::GetPlatformIO().Monitors.Size<<"\n";
             if(animat_smoke)log<<"animat_win32_dx11=1\nanimat_rows="<<app.simulation->animat.rows.size()<<"\n";
+            if(layout_smoke)log<<"main_layout_win32_dx11=1\nlayout_scenarios=7\n";
             if(weights_smoke)log<<"weights_win32_dx11=1\nweight_snapshots="<<app.weight_snapshots.size()<<"\n";
             if(archive_smoke)log<<"archive_win32_dx11=1\ncommitted_until="<<app.simulation->metrics.disk_until<<"\nram_from="<<app.simulation->metrics.memory_samples_from<<"\n";
             if(stimulator_smoke)log<<"shared_sources="<<app.config.stimulators.size()<<"\nshared_pulses="<<app.simulation->history.shared_pulses.size()<<"\nactivity_maximum="<<app.activity_field.maximum<<"\nactivity_events_processed="<<app.activity_field.processed_events<<"\n";
