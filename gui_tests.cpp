@@ -74,6 +74,107 @@ static void click(studio::App& app,const char* label,bool activate=true) {
     throw std::runtime_error(std::string("Interaction target is missing: ")+label);
 }
 static void reveal(studio::App& app,const char* label) {click(app,label,false);}
+
+static void check_property_copy(studio::App& app) {
+    using namespace studio;
+    auto config=preset(0);
+    config.duration=.1;
+    config.sample=.001;
+    config.neurons={{"Source",.18,.24},{"Target 1",.82,.24},{"Target 2",.18,.76},{"Other",.82,.76}};
+    auto& source=config.neurons.front();
+    source.model=NeuronModel::Izhikevich;
+    source.current=3;
+    source.frequency=4;
+    source.individual_noise=true;
+    source.noise_sigma=.3;
+    source.pulse_intervals={{.02,.03}};
+    config.astrocytes={{"Astro source",.2,.52},{"Astro target",.5,.52},{"Astro other",.8,.52}};
+    config.astrocytes.front().ip3=.34;
+    config.astrocytes.front().feedback=false;
+    config.synapses={{0,1,0},{2,3,1},{1,1,2},{1,2,-1}};
+    auto& synapse=config.synapses.front();
+    synapse.model=SynapseModel::TsodyksMarkram;
+    synapse.weight=.73;
+    synapse.delay=.012;
+    synapse.stdp=true;
+    synapse.stdp_rule=StdpRule::Multiplicative;
+    config.synapses[1].weight=.21;
+    config.synapses[1].enabled=false;
+    config.gaps={{0,1,.23,.31},{1,2,.05,0}};
+    config.record_all=false;
+    config.record_neurons={0,2};
+    config.record_synapses={0,3};
+    app.replace(config);
+    app.advance_for(.005);
+    frame(app);
+    auto point=[&](double x,double y) {
+        const auto canvas=items.at("network_canvas");
+        const float pad_y=std::min(42.f,std::max(0.f,(canvas.GetHeight()-60.f)*.5f));
+        return ImVec2(canvas.Min.x+45+float(x)*(canvas.GetWidth()-90),
+            canvas.Min.y+pad_y+float(y)*(canvas.GetHeight()-2*pad_y));
+    };
+    auto pick=[&](double x,double y){click_point(app,point(x,y));};
+    auto escape=[&]{
+        auto& io=ImGui::GetIO();
+        io.AddKeyEvent(ImGuiKey_Escape,true);frame(app);
+        io.AddKeyEvent(ImGuiKey_Escape,false);frame(app);
+    };
+    const auto old_time=app.simulation->time;
+    pick(.5,.24);
+    require(app.selected_kind==2&&app.selected_index==0,"Copy fixture could not pick the source synapse");
+    click(app,"Копировать свойства");
+    frame(app);
+    require(ImGui::GetForegroundDrawList(ImGui::GetMainViewport())->VtxBuffer.Size>0,"Copy cursor icon missing");
+    pick(.18,.24);
+    require(app.simulation->time==old_time&&app.config.neurons.front().current==3,"Copy from synapse affected a neuron or reset the run");
+    auto loop=point(.82,.24);
+    loop.y-=51;
+    click_point(app,loop);
+    require(!app.config.synapses[2].stdp&&app.simulation->time==old_time&&app.status.find("STDP requires")!=std::string::npos,
+        "Incompatible STDP copy was not rejected atomically");
+    pick(.5,.76);
+    pick(.66,.37);
+    for(int index:{1,3}) {
+        const auto& pasted=app.simulation->config.synapses[index];
+        const auto& original=config.synapses[index];
+        const auto failure="Copy to synapse S"+std::to_string(index+1)+" did not reach the simulator. Status: "+app.status;
+        require(pasted.model==synapse.model&&pasted.weight==synapse.weight&&pasted.delay==synapse.delay&&
+            pasted.stdp&&pasted.stdp_rule==synapse.stdp_rule&&pasted.enabled,failure.c_str());
+        require(pasted.source==original.source&&pasted.target==original.target&&pasted.astro==original.astro,"Synapse copy changed endpoints");
+    }
+    require(app.simulation->time==0,"Property edit did not reset the run");
+    escape();
+    require(ImGui::GetForegroundDrawList(ImGui::GetMainViewport())->VtxBuffer.Size==0,"Esc did not clear the copy cursor icon");
+    pick(.18,.24);
+    require(app.selected_kind==0&&app.selected_index==0,"Esc did not restore normal canvas selection");
+    click(app,"Копировать свойства");
+    pick(.82,.24);
+    pick(.18,.76);
+    for(int index:{1,2}) {
+        const auto& target=app.config.neurons[index];
+        require(target.model==source.model&&target.current==source.current&&target.noise_sigma==source.noise_sigma&&
+            target.pulse_intervals.size()==1&&target.pulse_intervals[0].start==.02,"Neuron parameters were not copied");
+        require(target.name==config.neurons[index].name&&target.px==config.neurons[index].px&&target.py==config.neurons[index].py,
+            "Neuron copy changed identity or position");
+    }
+    escape();
+    pick(.82,.76);
+    require(app.selected_index==3&&app.config.neurons[3].model==config.neurons[3].model,"Properties were applied after Escape");
+    pick(.2,.52);
+    click(app,"Копировать свойства");
+    pick(.5,.52);
+    require(app.config.astrocytes[1].ip3==.34&&!app.config.astrocytes[1].feedback&&
+        app.config.astrocytes[1].name==config.astrocytes[1].name&&app.config.astrocytes[1].px==.5,"Astrocyte properties or identity are wrong");
+    escape();
+    pick(.35,.52);
+    click(app,"Копировать свойства");
+    pick(.65,.52);
+    const auto& gap=app.config.gaps[1];
+    require(gap.a==1&&gap.b==2&&gap.ip3==.23&&gap.calcium==.31,"Diffusion properties or endpoints are wrong");
+    escape();
+    require(app.config.record_neurons==config.record_neurons&&app.config.record_synapses==config.record_synapses,
+        "Copy changed recording selections");
+}
 static void enter_scalar(studio::App& app,const char* label,const char* value) {
     auto& io=ImGui::GetIO();
     // Bring the field into view before holding Ctrl: ImGui intentionally
@@ -134,6 +235,7 @@ int main() {
         click(app,"Сбросить размеры панелей");frame(app);
         require(app.main_layout.experiment_fraction==old_left&&app.main_layout.inspector_fraction==old_right&&app.main_layout.plots_fraction==old_bottom,"Layout reset failed");
         app.save_state(layout_dir/"after.nscp");require(bytes(layout_dir/"before.nscp")==bytes(layout_dir/"after.nscp"),"Layout changed state, weights, queue, clocks or history");
+        check_property_copy(app);
         app.replace(studio::preset(0));frame(app);frame(app);
         auto step_config=studio::preset(4);step_config.sample=.001;step_config.duration=.01;
         app.replace(step_config);frame(app);enter_scalar(app,"Шаг, мкс","500");
@@ -599,6 +701,43 @@ int main() {
         click(app,"Настройки контроллера");click(app,"Применить настройки и сбросить опыт");
         require(app.simulation->time==0&&app.config.stimulators.front().signal.start==0,"controller settings reset retained runtime stimulus phase");
         app.show_animat=false;
+        // Open an export through the toolbar while a different experiment is loaded.
+        auto results_config=studio::preset(6);results_config.duration=.15;results_config.sample=.0005;
+        results_config.record_all=false;results_config.record_neurons={1};results_config.record_synapses={0};
+        app.replace(results_config);app.advance_for(results_config.duration);
+        const auto expected_time=app.simulation->history.time;
+        const auto expected_state=app.simulation->history.values;
+        const auto expected_weights=app.simulation->history.weights;
+        const auto expected_events=app.simulation->history.events;
+        require(!expected_events.empty(),"Saved results test requires spikes");
+        const auto results_dir=robot_dir/std::filesystem::u8path("результаты экспорта");
+        std::filesystem::create_directories(results_dir);
+        app.export_data(results_dir/"test");
+        app.replace(studio::preset(3));app.advance_for(.01);frame(app);
+        app.save_state(results_dir/"before.nscp");
+        app.results_dialog=[&](){return results_dir/"test_events.csv";};
+        click(app,"Открыть результаты…");
+        app.saved_results.poll(true);frame(app);frame(app);
+        const auto* loaded_results=app.saved_results.data();
+        require(loaded_results!=nullptr,app.saved_results.error().c_str());
+        const auto& history=loaded_results->view.history;
+        require(history.time==expected_time&&history.values==expected_state&&history.weights==expected_weights,"Saved sample or weight rows changed during import");
+        require(history.events.size()==expected_events.size(),"Saved event history was truncated");
+        for(size_t i=0;i<expected_events.size();++i)
+            require(history.events[i].time==expected_events[i].time&&history.events[i].index==expected_events[i].index&&history.events[i].astro==expected_events[i].astro,"Saved event was altered");
+        require(app.saved_results.plot(studio::PlotKind::Raster).limits_valid,"Saved raster not rendered");
+        app.saved_results.select(studio::PlotKind::Voltage);frame(app);frame(app);
+        const auto& saved_voltage=app.saved_results.plot(studio::PlotKind::Voltage);
+        require(saved_voltage.limits_valid&&saved_voltage.objects==std::vector<int>{1},"Saved potentials did not select the recorded object");
+        require(app.saved_results.set_interval({.07,.12}),"Valid saved interval rejected");
+        frame(app);
+        require(std::abs(saved_voltage.limits[0]-.07)<1e-9&&std::abs(saved_voltage.limits[1]-.12)<1e-9,"Saved graph did not jump to the requested interval");
+        app.saved_results.open({});require(app.saved_results.data()==loaded_results,"Cancelled dialog discarded saved results");
+        studio::write_atomic(results_dir/"test_events.csv","time_s,type,node_index_1based\n0.01,spike,9999\n");
+        app.saved_results.open(results_dir/"test_events.csv");app.saved_results.poll(true);
+        require(!app.saved_results.error().empty()&&app.saved_results.data()==loaded_results,"Invalid export replaced the previous saved results");
+        app.save_state(results_dir/"after.nscp");
+        require(bytes(results_dir/"before.nscp")==bytes(results_dir/"after.nscp"),"Saved results viewer changed the live experiment");
         ImPlot::DestroyContext();ImGui::DestroyContext();
         std::cout<<"PASS: "<<checks<<" GUI checks, including network wizard/append/cancel, 1000 nodes/50000 edges, selective recording, STDP and real ImGui input.\n";return 0;
     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}

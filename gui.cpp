@@ -66,7 +66,10 @@ std::shared_future<RunnerResult> App::command(RunnerCommand value,bool wait) {
         std::promise<RunnerResult> refused;auto future=refused.get_future().share();
         RunnerResult result;result.error=status;refused.set_value(std::move(result));return future;
     }
-    const auto kind=value.kind;auto result=runner->submit(std::move(value));
+    const auto kind=value.kind;
+    if(kind==K::Run||kind==K::RunTo||kind==K::Advance||kind==K::LoadConfig||kind==K::Restore||
+       (kind==K::Reset&&value.flag)) copied_properties=std::monostate{};
+    auto result=runner->submit(std::move(value));
     pending.push_back({result,kind});
     if(kind==RunnerCommand::Kind::Reset||kind==RunnerCommand::Kind::LoadConfig||kind==RunnerCommand::Kind::Restore)replacing=true;
     // Editing is enabled only after the controller acknowledges the boundary.
@@ -103,6 +106,7 @@ void App::reset(bool fresh) {
     if(!drawing)synchronize();
 }
 void App::replace(Config c) {
+    copied_properties=std::monostate{};
     config=std::move(c); selected_kind=selected_index=0; preset_index=-1; filename.clear(); dirty=false;
     syn_plot=syn_view=0;
     for(int i=0;i<int(config.synapses.size());++i)if(config.synapses[i].stdp) {selected_kind=2;selected_index=syn_plot=i;syn_view=1;break;}
@@ -388,6 +392,10 @@ void App::toolbar() {
     inline_if_fits(95*dpi); ImGui::BeginDisabled(running);
     if(ImGui::Button("Открыть…",{95*dpi,30*dpi})&&file_dialog) {auto path=file_dialog(false,false);if(!path.empty())load(path);}
     inline_if_fits(110*dpi); if(ImGui::Button("Сохранить…",{110*dpi,30*dpi})&&file_dialog) {auto path=file_dialog(true,false);if(!path.empty())save(path);}
+    ImGui::EndDisabled();
+    inline_if_fits(button_width("Открыть результаты…"));
+    ImGui::BeginDisabled(saved_results.loading());
+    if(ImGui::Button("Открыть результаты…",{0,30*dpi})&&results_dialog)saved_results.open(results_dialog());
     ImGui::EndDisabled(); inline_if_fits(125*dpi);
     ImGui::BeginDisabled(running||simulation->sample_begin+simulation->history.time.size()<2);
     if(ImGui::Button("Экспорт CSV…",{125*dpi,30*dpi})&&file_dialog) {
@@ -586,8 +594,76 @@ void App::editor() {
         ImGui::PopItemWidth();
     } ImGui::EndDisabled();
 }
+void App::apply_copied_properties(int kind,int index) {
+    if(kind!=property_copy_kind()) {
+        status="Копирование: выберите элемент того же типа.";
+        return;
+    }
+    auto apply=[&](auto& target,auto properties) {
+        std::swap(target,properties);
+        const auto issue=validate(config);
+        if(!issue.empty()) {
+            std::swap(target,properties);
+            status="Не удалось применить свойства. "+issue;
+            return;
+        }
+        edit();
+    };
+    switch(kind) {
+    case 0: {
+        auto& target=config.neurons[index];
+        auto properties=std::get<Neuron>(copied_properties);
+        properties.name=target.name;
+        properties.px=target.px;
+        properties.py=target.py;
+        apply(target,std::move(properties));
+        break;
+    }
+    case 1: {
+        auto& target=config.astrocytes[index];
+        auto properties=std::get<Astrocyte>(copied_properties);
+        properties.name=target.name;
+        properties.px=target.px;
+        properties.py=target.py;
+        apply(target,std::move(properties));
+        break;
+    }
+    case 2: {
+        auto& target=config.synapses[index];
+        auto properties=std::get<Synapse>(copied_properties);
+        properties.source=target.source;
+        properties.target=target.target;
+        properties.astro=target.astro;
+        apply(target,std::move(properties));
+        break;
+    }
+    case 3: {
+        auto& target=config.gaps[index];
+        auto properties=std::get<Gap>(copied_properties);
+        properties.a=target.a;
+        properties.b=target.b;
+        apply(target,properties);
+        break;
+    }
+    }
+}
 void App::inspector() {
     title("ИНСПЕКТОР"); ImGui::BeginDisabled(running); ImGui::PushItemWidth(-132);
+    const size_t element_counts[]={config.neurons.size(),config.astrocytes.size(),config.synapses.size(),config.gaps.size()};
+    if(selected_kind>=0&&selected_kind<IM_ARRAYSIZE(element_counts)&&size_t(selected_index)<element_counts[selected_kind]) {
+        if(ImGui::Button("Копировать свойства")) {
+            switch(selected_kind) {
+            case 0: copied_properties=config.neurons[selected_index];break;
+            case 1: copied_properties=config.astrocytes[selected_index];break;
+            case 2: copied_properties=config.synapses[selected_index];break;
+            case 3: copied_properties=config.gaps[selected_index];break;
+            }
+            drag_kind=drag_index=-1;
+            drag_stimulator=0;
+            status="Щёлкайте по элементам того же типа на схеме. Esc — завершить.";
+        }
+        if(ImGui::IsItemHovered()) ImGui::SetTooltip("Применяйте параметры к элементам того же типа на схеме. Esc — завершить.");
+    }
     if(selected_kind==0 && selected_index>=0 && selected_index<int(config.neurons.size())) {
         auto& n=config.neurons[selected_index]; ImGui::TextColored(Teal,"N%d · Нейрон",selected_index+1);
         const char* models[]={"Hodgkin–Huxley","Ижикевич"};int model=int(n.model);
@@ -784,6 +860,8 @@ static void dashed(ImDrawList* d,ImVec2 a,ImVec2 b,ImU32 c) {
 }
 void App::canvas() {
     const bool compact=config.neurons.size()>32;
+    const int copy_kind=property_copy_kind();
+    const bool copying=copy_kind>=0;
     auto& view=plot_windows.topology;
     ImGui::TextColored(Muted,"ТОПОЛОГИЯ");ImGui::SameLine();
     if(ImGui::Button("Настройки топологии…"))ImGui::OpenPopup("topology_settings");
@@ -800,7 +878,8 @@ void App::canvas() {
     // Field caches keep following the shared snapshot even with settings closed.
     update_fields();
     if(ImGui::GetContentRegionAvail().y>150*ImGui::GetFontSize()/17) {
-        if(compact)ImGui::TextDisabled(view.all_edges?"Клик: выбрать · Показаны все связи":"Клик: выбрать · Показаны связи выбранного узла");
+        if(copying)ImGui::TextDisabled("Щелчок: применить свойства · Esc: завершить");
+        else if(compact)ImGui::TextDisabled(view.all_edges?"Клик: выбрать · Показаны все связи":"Клик: выбрать · Показаны связи выбранного узла");
         else ImGui::TextDisabled("Перетащите узел · Shift + клик: связать · ПКМ: добавить");
     }
     ImVec2 origin=ImGui::GetCursorScreenPos(),size=ImGui::GetContentRegionAvail();size.x=std::max(size.x,100.f);size.y=std::max(size.y,40.f);
@@ -830,15 +909,36 @@ void App::canvas() {
     }
     std::vector<ImVec2> n,a;
     for(const auto& v:config.neurons)n.push_back(pos(v.px,v.py));for(const auto& v:config.astrocytes)a.push_back(pos(v.px,v.py));
-    int hit_kind=-1,hit=-1;float nearest=compact?8.f:26.f;
-    auto test=[&](ImVec2 p,int kind,int index) {auto v=sub(io.MousePos,p);float len=std::sqrt(v.x*v.x+v.y*v.y);if(len<nearest){nearest=len;hit_kind=kind;hit=index;}};
-    for(int i=0;i<int(n.size());++i)test(n[i],0,i);for(int i=0;i<int(a.size());++i)test(a[i],1,i);
+    int hit_kind=-1,hit=-1;
+    float nearest=std::numeric_limits<float>::infinity();
+    auto test=[&](ImVec2 p,int kind,int index) {
+        const auto delta=sub(io.MousePos,p);
+        const float distance=std::sqrt(delta.x*delta.x+delta.y*delta.y);
+        const float radius=compact?8.f:26.f;
+        const bool inside=copying&&kind==1?std::abs(delta.x)+std::abs(delta.y)<=27.f:distance<radius;
+        if(inside&&distance<nearest){nearest=distance;hit_kind=kind;hit=index;}
+    };
+    for(int i=0;i<int(n.size());++i)test(n[i],0,i);
+    for(int i=0;i<int(a.size());++i)test(a[i],1,i);
+    float nearest_link=8.f,nearest_tip=std::numeric_limits<float>::infinity();
+    auto linkhit=[&](float distance,float tip_distance_squared,int kind,int index) {
+        if(hit_kind>=0 && hit_kind<2)return;
+        if(distance>=8.f)return;
+        // At an overlap of opposite links, the end near the pointer selects the arriving arrow.
+        if(copying && (distance>nearest_link+.01f ||
+           (std::abs(distance-nearest_link)<=.01f&&tip_distance_squared>=nearest_tip)))return;
+        nearest_link=distance;
+        nearest_tip=tip_distance_squared;
+        hit_kind=kind;
+        hit=index;
+    };
     auto linehit=[&](ImVec2 p,ImVec2 q,int kind,int index) {
         if(hit_kind>=0 && hit_kind<2)return;
         ImVec2 v=sub(q,p),w=sub(io.MousePos,p);float l=v.x*v.x+v.y*v.y;
         float t=l>0?std::clamp((w.x*v.x+w.y*v.y)/l,0.f,1.f):0;
-        ImVec2 delta=sub(io.MousePos,add(p,mul(v,t)));float dist=std::sqrt(delta.x*delta.x+delta.y*delta.y);
-        if(dist<8){hit_kind=kind;hit=index;}
+        const auto delta=sub(io.MousePos,add(p,mul(v,t)));
+        const auto to_tip=sub(io.MousePos,q);
+        linkhit(std::sqrt(delta.x*delta.x+delta.y*delta.y),to_tip.x*to_tip.x+to_tip.y*to_tip.y,kind,index);
     };
     // Separate draw channels keep every node above links and field overlays.
     ImDrawListSplitter layers;layers.Split(d,2);layers.SetCurrentChannel(d,0);
@@ -862,12 +962,21 @@ void App::canvas() {
         tint.w=float(.12+.78*strength)*(s.enabled?1.f:.35f);
         ImU32 col=color(tint);
         ImVec2 center=mul(add(p,q),.5f);
-        if(s.source==s.target) {float r=compact?9.f:22.f;d->AddCircle(add(p,{0,-r-7}),r,col,compact?12:28,2);center=add(p,{0,-2*r-7});}
+        if(s.source==s.target) {
+            const float radius=compact?9.f:22.f;
+            const auto loop_center=add(p,{0,-radius-7});
+            d->AddCircle(loop_center,radius,col,compact?12:28,2);
+            center=add(p,{0,-2*radius-7});
+            if(copying) {
+                const auto delta=sub(io.MousePos,loop_center);
+                linkhit(std::abs(std::hypot(delta.x,delta.y)-radius),0,2,i);
+            }
+        }
         else { arrow(d,p,q,col,sel?3:(compact?1.f:1.8f),compact?7.5f:29.f);linehit(p,q,2,i); }
         if(!compact||sel) {char buf[20];std::snprintf(buf,sizeof(buf),"S%d",i+1);d->AddText(add(center,{4,-19}),col,buf);}
         if(s.astro>=0)dashed(d,center,a[s.astro],IM_COL32(94,144,220,s.enabled?165:60));
     }
-    field_overlay(base,span,hovered&&hit_kind<0);
+    field_overlay(base,span,hovered&&!copying&&hit_kind<0);
     const bool source_hit=stimulator_overlay(base,span,hovered,active);
     layers.SetCurrentChannel(d,1);
     for(int i=0;i<int(n.size());++i) {
@@ -903,11 +1012,13 @@ void App::canvas() {
     layers.Merge(d);
     if(ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {drag_kind=-1;drag_index=-1;}
     if(hovered && !source_hit && !running && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && hit>=0) {
-        if(io.KeyShift && selected_kind==0 && hit_kind==0 && config.synapses.size()<MaxSynapses) {
+        if(copying) {
+            apply_copied_properties(hit_kind,hit);
+        } else if(io.KeyShift && selected_kind==0 && hit_kind==0 && config.synapses.size()<MaxSynapses) {
             config.synapses.push_back(new_synapse(config,selected_index,hit));selected_kind=2;selected_index=int(config.synapses.size())-1;edit();
         } else {selected_kind=hit_kind;selected_index=hit;drag_kind=hit_kind;drag_index=hit;}
     }
-    if(active && !source_hit && !running && !io.KeyShift && ImGui::IsMouseDragging(ImGuiMouseButton_Left,3) && drag_kind>=0 && drag_kind<2) {
+    if(!copying && active && !source_hit && !running && !io.KeyShift && ImGui::IsMouseDragging(ImGuiMouseButton_Left,3) && drag_kind>=0 && drag_kind<2) {
         double* x=nullptr;double* y=nullptr;
         if(drag_kind==0){x=&config.neurons[drag_index].px;y=&config.neurons[drag_index].py;}
         else {x=&config.astrocytes[drag_index].px;y=&config.astrocytes[drag_index].py;}
@@ -917,13 +1028,19 @@ void App::canvas() {
         RunnerCommand c;c.kind=drag_kind==0?RunnerCommand::Kind::MoveNeuron:RunnerCommand::Kind::MoveAstro;c.index=drag_index;c.value=*x;c.second=*y;command(std::move(c));
     }
     d->PopClipRect();
-    if(hovered&&hit_kind==0&&hit>=0&&!ImGui::IsMouseDragging(ImGuiMouseButton_Left)) {
+    if(copying&&hovered&&(hit>=0||source_hit)) {
+        if(hit_kind==copy_kind&&!source_hit) {
+            const char* targets[]={"Нейрон N%d · Щелчок применит свойства","Астроцит A%d · Щелчок применит свойства",
+                "Синапс S%d · Щелчок применит свойства","Диффузионная связь %d · Щелчок применит свойства"};
+            ImGui::SetTooltip(targets[hit_kind],hit+1);
+        } else ImGui::SetTooltip("Выберите элемент того же типа.");
+    } else if(hovered&&hit_kind==0&&hit>=0&&!ImGui::IsMouseDragging(ImGuiMouseButton_Left)) {
         const auto& node=config.neurons[hit];
         ImGui::BeginTooltip();ImGui::Text("N%d · %s · %s",hit+1,node.name.c_str(),node.inhibitory?"I / тормозный":"E / возбуждающий");
         if(draft_error.empty()&&!changed&&simulation->error.empty()&&hit<int(simulation->spikes.size()))ImGui::Text("V %.3f мВ · Спайков %llu",simulation->state[hit*4],static_cast<unsigned long long>(simulation->spikes[hit]));
         ImGui::TextDisabled(records_neuron(config,hit)?"Состояние записывается":"Состояние не записывается; события сохраняются");ImGui::EndTooltip();
     }
-    if(hovered&&!running&&ImGui::IsMouseClicked(ImGuiMouseButton_Right))ImGui::OpenPopup("canvas_menu");
+    if(!copying&&hovered&&!running&&ImGui::IsMouseClicked(ImGuiMouseButton_Right))ImGui::OpenPopup("canvas_menu");
     if(ImGui::BeginPopup("canvas_menu")) {
         if(ImGui::MenuItem("Добавить нейрон",nullptr,false,config.neurons.size()<MaxNeurons)) {
             Neuron v;v.name="Neuron "+std::to_string(n.size()+1);v.amplitude=0;config.neurons.push_back(v);edit();
@@ -968,6 +1085,24 @@ void App::draw() {
     ImGui::SetNextWindowViewport(viewport->ID);
     ImGui::SetNextWindowPos(viewport->WorkPos);ImGui::SetNextWindowSize(viewport->WorkSize);
     ImGui::Begin("Network Studio",nullptr,ImGuiWindowFlags_NoDecoration|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoSavedSettings|ImGuiWindowFlags_NoDocking);
+    if(property_copy_kind()>=0&&ImGui::IsKeyPressed(ImGuiKey_Escape,false)) {
+        copied_properties=std::monostate{};
+        status="Копирование свойств завершено.";
+    }
+    if(property_copy_kind()>=0&&ImGui::IsMousePosValid()) {
+        const float scale=ImGui::GetFontSize()/17;
+        const auto mouse=ImGui::GetMousePos();
+        auto* overlay=ImGui::GetForegroundDrawList(ImGui::GetWindowViewport());
+        const auto ink=color(Teal);
+        const auto paper=IM_COL32(14,22,31,255);
+        const auto back=add(mouse,mul({13,-21},scale));
+        const auto front=add(mouse,mul({9,-17},scale));
+        const auto size=mul({9,11},scale);
+        overlay->AddRectFilled(back,add(back,size),paper,1);
+        overlay->AddRect(back,add(back,size),ink,1);
+        overlay->AddRectFilled(front,add(front,size),paper,1);
+        overlay->AddRect(front,add(front,size),ink,1);
+    }
     toolbar();
     if(replacing){ImGui::TextUnformatted("Применяется конфигурация…");ImGui::End();drawing=false;return;}
     const float dpi=ImGui::GetFontSize()/17,gap=8*dpi;
@@ -1042,6 +1177,7 @@ void App::draw() {
     ImGui::End();
     if(replacing){drawing=false;return;}
     plot_windows.draw(*simulation);
+    saved_results.draw();
     const auto& analysis=plot_windows.embedded[7].analysis;
     // Send presentation settings only when edited; never copy into the live solver.
     if(draft_error.empty()&&analysis_settings_json(config.analysis)!=analysis_settings_json(analysis)) {

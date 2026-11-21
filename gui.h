@@ -4,9 +4,11 @@
 #include "generator.h"
 #include "imgui.h"
 #include "plot_windows.h"
+#include "results_viewer.h"
 #include "activity_field.h"
 #include <memory>
 #include <functional>
+#include <variant>
 namespace studio {
 // Presentation state only; ratios survive window/DPI changes during this session.
 struct MainWindowLayout {
@@ -77,9 +79,11 @@ public:
     uint64_t selected_stimulator=0;
     Stimulator stimulator_draft;
     std::function<std::filesystem::path(bool,bool)> file_dialog;
+    std::function<std::filesystem::path()> results_dialog;
     std::function<std::filesystem::path(bool)> checkpoint_dialog;
     std::function<std::filesystem::path(bool)> workspace_dialog;
     PlotWindows plot_windows;
+    ResultsViewer saved_results;
     MainWindowLayout main_layout;
     WeightField weight_field;
     ActivityField activity_field;
@@ -105,6 +109,10 @@ private:
     int syn_plot = 0, syn_view = 0, astro_plot = 0;
     int neuron_plot = 0, neuron_view = 0;
     int drag_kind = -1, drag_index = -1;
+    // The alternatives follow the inspector's element order, after the empty state.
+    std::variant<std::monostate, Neuron, Astrocyte, Synapse, Gap> copied_properties;
+    int property_copy_kind() const { return static_cast<int>(copied_properties.index()) - 1; }
+    void apply_copied_properties(int kind,int index);
     NetworkGeneration generation;
     GenerationSummary generation_summary;
     std::unique_ptr<Config> generation_preview;

@@ -13,9 +13,10 @@ const ImVec4 teal(.25f,.84f,.72f,1),blue(.38f,.65f,1,1),gold(1,.74f,.36f,1),rose
 ImVec4 color(int i) { const ImVec4 colors[]={teal,blue,gold,rose,ImVec4(.72f,.56f,.94f,1)};return colors[i%5]; }
 void bit(const char* label,uint32_t& mask,int n) {bool v=(mask&(1u<<n))!=0;if(ImGui::Checkbox(label,&v))mask^=1u<<n;}
 bool recorded(const History& h,int column) {return column>=0&&column<int(h.values.size())&&!h.time.empty()&&h.values[column].size()==h.time.size();}
-struct Derived { const SimulationReadView* s; int object,kind; };
+struct Derived { const SimulationReadView* s; int object,kind,first=0; };
 ImPlotPoint derived(int row,void* ptr) {
     const auto& d=*static_cast<Derived*>(ptr);const auto& s=*d.s;const auto& h=s.history;
+    row+=d.first;
     double v=0;
     if(d.kind==0)v=s.historical_input(d.object,h.time[row]); // immutable run protocol, never App::config
     else {
@@ -57,6 +58,7 @@ void select_objects(PlotWindowState& w,const Config& c,bool astro) {
     }
 }
 }
+const char* plot_kind_title(PlotKind kind) {return kinds[int(kind)];}
 std::string PlotWindowState::window_name() const {return title+"###studio_plot_"+std::to_string(id);}
 PlotWindows::PlotWindows() {
     for(int i=0;i<8;++i){embedded[i].kind=PlotKind(i);embedded[i].title=kinds[i];embedded[i].place=false;}
@@ -176,7 +178,7 @@ void PlotWindows::draw(const SimulationReadView& s) {
     for(auto id:duplicates)duplicate(id);
     windows.erase(std::remove_if(windows.begin(),windows.end(),[](const auto& w){return !w.open;}),windows.end());
 }
-void PlotWindows::draw_view(PlotWindowState& w,const SimulationReadView& s,float height,bool detached) {
+void PlotWindows::draw_view(PlotWindowState& w,const SimulationReadView& s,float height,bool detached,const PlotInterval* interval) {
     const auto& c=s.config;const auto& h=s.history;
     const float content_width=ImGui::GetContentRegionAvail().x;
     if(!w.compatible||w.binding!=binding) {
@@ -184,18 +186,32 @@ void PlotWindows::draw_view(PlotWindowState& w,const SimulationReadView& s,float
         if(ImGui::Button("Привязать к текущей сети")){w.object=0;w.objects={0};rebind(w);}
         return;
     }
-    ImGui::Checkbox("Следить за временем",&w.follow);if(content_width>=360)ImGui::SameLine();ImGui::SetNextItemWidth(80);
-    const double previous_seconds=w.seconds;
-    ImGui::DragScalar("Окно, с",ImGuiDataType_Double,&w.seconds,.05f,nullptr,nullptr,"%.8g");
-    w.seconds=std::isfinite(w.seconds)?std::max(w.seconds,.000001):previous_seconds;
-    if(!detached&&content_width>=600)ImGui::SameLine();
+    if(!interval) {
+        ImGui::Checkbox("Следить за временем",&w.follow);if(content_width>=360)ImGui::SameLine();ImGui::SetNextItemWidth(80);
+        const double previous_seconds=w.seconds;
+        ImGui::DragScalar("Окно, с",ImGuiDataType_Double,&w.seconds,.05f,nullptr,nullptr,"%.8g");
+        w.seconds=std::isfinite(w.seconds)?std::max(w.seconds,.000001):previous_seconds;
+        if(!detached&&content_width>=600)ImGui::SameLine();
+    }
     ImGui::Checkbox("Автомасштаб Y",&w.auto_fit);
     if(detached){ImGui::SameLine();if(ImGui::Button("Вписать"))w.fit=true;}
     if(!detached){if(content_width>=810)ImGui::SameLine();if(ImGui::Button("Открыть в отдельном окне"))detach(w);}
-    if(h.time.empty()){ImGui::TextWrapped("Нет записанной истории. Проверьте параметры эксперимента.");return;}
-    if(w.kind==PlotKind::Network){draw_network(w,s);return;}
-    const double available_from=w.kind==PlotKind::Raster?h.events_after:w.kind==PlotKind::Deliveries?h.deliveries_after:h.time.front();
-    if(s.truncated||available_from>0) {
+    const bool raster=w.kind==PlotKind::Raster;
+    if((raster||w.kind==PlotKind::Network)&&!s.plot_channels.events){ImGui::TextWrapped("В комплекте нет журнала спайков (*_events.csv).");return;}
+    if(w.kind==PlotKind::Deliveries&&!s.plot_channels.deliveries){ImGui::TextWrapped("В комплекте нет журнала доставок (*_deliveries.csv).");return;}
+    if(w.kind==PlotKind::Network){
+        if(interval)w.analysis_interval={interval->from,interval->to,false};
+        draw_network(w,s,interval!=nullptr);return;
+    }
+    if(!raster&&w.kind!=PlotKind::Deliveries&&h.time.empty()){ImGui::TextWrapped("Нет записанных отсчётов для этого графика.");return;}
+    const double available_from=raster?h.events_after:w.kind==PlotKind::Deliveries?h.deliveries_after:h.time.front();
+    const double available_until=raster||w.kind==PlotKind::Deliveries?s.time:h.time.back();
+    if(interval) {
+        ImGui::TextDisabled("Доступные данные: %.9g–%.9g с",available_from,available_until);
+        if(interval->from<available_from||interval->to>available_until)
+            ImGui::TextWrapped("Запрошенный интервал покрыт частично. Показаны только сохранённые данные.");
+    }
+    else if(s.truncated||available_from>0) {
         const double until=w.kind==PlotKind::Raster||w.kind==PlotKind::Deliveries?s.time:h.time.back();
         ImGui::TextWrapped("Ограниченное окно отображения: [%.6g; %.6g] с.",available_from,until);
     }
@@ -221,13 +237,16 @@ void PlotWindows::draw_view(PlotWindowState& w,const SimulationReadView& s,float
         if(w.view&&c.neurons[w.object].model!=NeuronModel::Izhikevich){ImGui::TextWrapped("У HH нет переменной восстановления u. Выберите вход или потенциал.");return;}
     }
     if(w.kind==PlotKind::Deliveries) {
-        ImGui::Text("Доставок в окне: %zu · В очереди: %zu",h.deliveries.size(),s.pending_deliveries.size());
+        const auto bound=[&](double t){return std::lower_bound(h.deliveries.begin(),h.deliveries.end(),t,[](const auto& e,double at){return e.t_arrival<at;});};
+        const auto first=interval?bound(interval->from):h.deliveries.begin();
+        const auto last=interval?bound(interval->to):h.deliveries.end();
+        ImGui::Text(interval?"Доставок в окне: %zu · В очереди к концу записи: %zu":"Доставок в окне: %zu · В очереди: %zu",size_t(last-first),s.pending_deliveries.size());
         ImGui::TextWrapped("t emit — спайк источника; t arrival — приход по связи. Приход не является новым спайком.");
         if(ImGui::BeginTable("delivery_journal",5,ImGuiTableFlags_Borders|ImGuiTableFlags_RowBg|ImGuiTableFlags_ScrollY,{0,std::max(50.f,ImGui::GetContentRegionAvail().y-4)})) {
             for(const char* label:{"Связь","Источник","Приёмник","t emit, с","t arrival, с"})ImGui::TableSetupColumn(label);
-            ImGui::TableSetupScrollFreeze(0,1);ImGui::TableHeadersRow();ImGuiListClipper clip;clip.Begin(int(h.deliveries.size()));
+            ImGui::TableSetupScrollFreeze(0,1);ImGui::TableHeadersRow();ImGuiListClipper clip;clip.Begin(int(last-first));
             while(clip.Step())for(int row=clip.DisplayStart;row<clip.DisplayEnd;++row) {
-                const auto& e=h.deliveries[row];const auto& edge=c.synapses[e.synapse];
+                const auto& e=first[row];const auto& edge=c.synapses[e.synapse];
                 ImGui::TableNextRow();ImGui::TableNextColumn();ImGui::Text("S%d",e.synapse+1);
                 ImGui::TableNextColumn();ImGui::Text("N%d",edge.source+1);ImGui::TableNextColumn();ImGui::Text("N%d",edge.target+1);
                 ImGui::TableNextColumn();ImGui::Text("%.12g",e.t_emit);ImGui::TableNextColumn();ImGui::Text("%.12g",e.t_arrival);
@@ -248,18 +267,38 @@ void PlotWindows::draw_view(PlotWindowState& w,const SimulationReadView& s,float
         else ImGui::TextDisabled("Величина выбрана в представлении графика.");
         ImGui::EndPopup();
     }
-    if(w.kind==PlotKind::Neuron&&w.view==0)ImGui::TextDisabled("Вход по сохранённому протоколу расчёта, в моменты записи.");
+    if(w.kind==PlotKind::Neuron&&w.view==0) {
+        if(!s.plot_channels.input){ImGui::TextWrapped("Внешний ток отсутствует в CSV. Для Ижикевича доступны записанные u(t) и фаза V / u.");return;}
+        ImGui::TextDisabled("Вход по сохранённому протоколу расчёта, в моменты записи.");
+    }
     bool missing=false;
     if(w.kind==PlotKind::Voltage)for(int i:w.objects)if(!recorded(h,i*4))missing=true;
-    if(w.kind==PlotKind::Astrocytes)for(int i:w.objects)if(i<0||i>=int(c.astrocytes.size()))missing=true;
+    if(w.kind==PlotKind::Astrocytes)for(int i:w.objects)if(i<0||i>=int(c.astrocytes.size())||!recorded(h,astro_offset(c,i)))missing=true;
+    if(w.kind==PlotKind::AstroPhase)missing=!recorded(h,astro_offset(c,w.object)+1)||!recorded(h,astro_offset(c,w.object)+2);
     if(w.kind==PlotKind::Neuron)missing=!recorded(h,w.object*4)||(w.view>0&&!recorded(h,w.object*4+1));
-    if(syn)missing=w.object>=int(h.weights.size())||h.weights[w.object].size()!=h.time.size()||!recorded(h,syn_offset(c,w.object)+2);
-    if(missing) {ImGui::TextWrapped("Выбранная история не записывалась. Включите запись объекта и повторите расчёт.");if(w.kind!=PlotKind::Voltage)return;}
-    bool current_available=!syn||c.synapses[w.object].model!=SynapseModel::ConductanceSTP||recorded(h,c.synapses[w.object].target*4);
-    if(syn&&!w.view&&!current_available)ImGui::TextWrapped("Ток недоступен: потенциал приёмника не записывался. Ресурсы доступны.");
+    const bool weight_available=syn&&w.object<int(h.weights.size())&&h.weights[w.object].size()==h.time.size();
+    if(syn)missing=w.view?!weight_available:!recorded(h,syn_offset(c,w.object)+2);
+    if(missing) {ImGui::TextWrapped("Для выбранного объекта нет записанной истории.");if(w.kind!=PlotKind::Voltage)return;}
+    const bool current_available=syn&&weight_available&&(c.synapses[w.object].model!=SynapseModel::ConductanceSTP||recorded(h,c.synapses[w.object].target*4));
+    if(syn&&!w.view&&!current_available)ImGui::TextWrapped("Ток недоступен: не записан вес или необходимый потенциал приёмника.");
     const bool phase=w.kind==PlotKind::AstroPhase||(w.kind==PlotKind::Neuron&&w.view==2);
     const char* y=w.kind==PlotKind::Voltage?"V, мВ":w.kind==PlotKind::Astrocytes?"мкМ / доля":w.kind==PlotKind::Raster?"Номер узла":syn?(w.view?"Вес w":"Ресурсы / Y"):phase?(astro?"Ca, мкМ":"u"):w.view?"u":c.neurons[w.object].model==NeuronModel::Izhikevich?"I, ед. модели":"I, мкА/см²";
-    ImGui::PushID(w.view);if(w.fit)ImPlot::SetNextAxesToFit();
+    const auto event_bound=[&](double t){return std::lower_bound(h.events.begin(),h.events.end(),t,[](const auto& e,double at){return e.time<at;});};
+    const int first=interval?int(event_bound(interval->from)-h.events.begin()):
+        int(event_bound(w.follow&&!phase?std::max(0.,s.time-w.seconds):0)-h.events.begin());
+    const int event_end=interval?int(event_bound(interval->to)-h.events.begin()):int(h.events.size());
+    if(raster&&interval)ImGui::Text("Событий в интервале: %d",event_end-first);
+    const int first_row=interval?int(std::lower_bound(h.time.begin(),h.time.end(),interval->from)-h.time.begin()):0;
+    const int row_end=interval?int(std::upper_bound(h.time.begin(),h.time.end(),interval->to)-h.time.begin()):int(h.time.size());
+    const int count=row_end-first_row;
+    ImGui::PushID(w.view);
+    if(w.fit) {
+        if(interval&&!phase){
+            ImPlot::SetNextAxisLimits(ImAxis_X1,interval->from,interval->to,ImPlotCond_Always);
+            if(raster)ImPlot::SetNextAxisLimits(ImAxis_Y1,0,double(c.neurons.size()+c.astrocytes.size())+1,ImPlotCond_Always);
+            else ImPlot::SetNextAxisToFit(ImAxis_Y1);
+        }else ImPlot::SetNextAxesToFit();
+    }
     if(ImPlot::BeginPlot("##plot",{-1,std::max(65.f,std::min(height,ImGui::GetContentRegionAvail().y-4))})) {
         ImPlot::SetupLegend(ImPlotLocation_NorthWest,ImPlotLegendFlags_Horizontal);
         ImPlot::SetupAxes(phase?(astro?"IP3, мкМ":"V, мВ"):"Время, с",y,
@@ -270,40 +309,40 @@ void PlotWindows::draw_view(PlotWindowState& w,const SimulationReadView& s,float
             ImPlot::SetupAxisLimits(ImAxis_Y1,w.limits[2],w.limits[3],ImPlotCond_Always);
             if(syn&&!w.view)ImPlot::SetupAxisLimits(ImAxis_Y2,w.limits[4],w.limits[5],ImPlotCond_Always);
         }
-        if(w.follow&&!phase)ImPlot::SetupAxisLimits(ImAxis_X1,std::max(0.,s.time-w.seconds),std::max(w.seconds,s.time),ImPlotCond_Always);
-        const int count=int(h.time.size());
-        auto line=[&](const std::string& label,int col,int palette) {if(recorded(h,col)){ImPlot::SetNextLineStyle(color(palette));ImPlot::PlotLine(label.c_str(),h.time.data(),h.values[col].data(),count);}};
-        const double start=w.follow?std::max(0.,s.time-w.seconds):0;
-        int first=int(std::lower_bound(h.events.begin(),h.events.end(),start,[](const auto& e,double t){return e.time<t;})-h.events.begin());
+        if(!interval&&w.follow&&!phase)ImPlot::SetupAxisLimits(ImAxis_X1,std::max(0.,s.time-w.seconds),std::max(w.seconds,s.time),ImPlotCond_Always);
+        auto line=[&](const std::string& label,int col,int palette) {if(count&&recorded(h,col)){ImPlot::SetNextLineStyle(color(palette));ImPlot::PlotLine(label.c_str(),h.time.data()+first_row,h.values[col].data()+first_row,count);}};
         if(w.kind==PlotKind::Voltage)for(int i:w.objects)if(i>=0&&i<int(c.neurons.size())&&recorded(h,i*4)) {
             auto label="N"+std::to_string(i+1)+" "+c.neurons[i].name;
             if(w.quantities&1)line(label,i*4,i);
-            if(w.quantities&2){Events e{&s,first,i,false,true};ImPlot::SetNextMarkerStyle(ImPlotMarker_Circle,2.5f,color(i),1,color(i));ImPlot::PlotScatterG((label+" спайки").c_str(),event_point,&e,int(h.events.size())-first);}
+            if((w.quantities&2)&&event_end>first){Events e{&s,first,i,false,true};ImPlot::SetNextMarkerStyle(ImPlotMarker_Circle,2.5f,color(i),1,color(i));ImPlot::PlotScatterG((label+" спайки").c_str(),event_point,&e,event_end-first);}
         }
         if(w.kind==PlotKind::Astrocytes)for(int i:w.objects)if(i>=0&&i<int(c.astrocytes.size())) {
             const char* names[]={"Γ","IP3","Ca","h","xA","GA","ΓS"};for(int k=0;k<7;++k)if(w.quantities&(1u<<k))line("A"+std::to_string(i+1)+" "+names[k],astro_offset(c,i)+k,i+k);
         }
-        if(w.kind==PlotKind::Raster)for(int a=0;a<2;++a)if(w.quantities&(1u<<a)) {
-            Events e{&s,first,-1,a!=0,false};ImPlot::SetNextMarkerStyle(a?ImPlotMarker_Diamond:ImPlotMarker_Cross,3,color(a),1,color(a));
-            ImPlot::PlotScatterG(a?"Астроциты (после нейронов)":"Нейроны",event_point,&e,int(h.events.size())-first);
+        if(raster)for(int a=0;a<2;++a)if((w.quantities&(1u<<a))&&(!a||!c.astrocytes.empty())) {
+            Events e{&s,first,-1,a!=0,false};
+            const bool dense=interval&&event_end-first>50000;
+            if(dense)ImPlot::SetNextMarkerStyle(ImPlotMarker_Square,.75f,color(a),0,{0,0,0,0});
+            else ImPlot::SetNextMarkerStyle(a?ImPlotMarker_Diamond:ImPlotMarker_Cross,3,color(a),1,color(a));
+            if(event_end>first)ImPlot::PlotScatterG(a?"Астроциты (после нейронов)":"Нейроны",event_point,&e,event_end-first);
         }
         if(syn) {
             const auto& edge=c.synapses[w.object];int b=syn_offset(c,w.object);
-            if(w.view){ImPlot::SetNextLineStyle(teal);ImPlot::PlotLine("Текущий вес",h.time.data(),h.weights[w.object].data(),count);
-                double t[]={h.time.front(),std::max(.1,h.time.back())},v[]={edge.weight,edge.weight};ImPlot::PlotLine("Начальный вес",t,v,2);
+            if(w.view){if(count){ImPlot::SetNextLineStyle(teal);ImPlot::PlotLine("Текущий вес",h.time.data()+first_row,h.weights[w.object].data()+first_row,count);}
+                double t[]={interval?interval->from:h.time.front(),interval?interval->to:std::max(.1,h.time.back())},v[]={edge.weight,edge.weight};ImPlot::PlotLine("Начальный вес",t,v,2);
                 if(edge.stdp){double lo[]={edge.weight_min,edge.weight_min},hi[]={edge.weight_max,edge.weight_max};ImPlot::PlotLine("Минимум",t,lo,2);ImPlot::PlotLine("Максимум",t,hi,2);}
             }else {
                 if(edge.model!=SynapseModel::ExponentialCurrent){if(w.quantities&1)line("u: использование",b,2);if(w.quantities&2)line("x: ресурс",b+1,0);}
                 if(w.quantities&4)line(edge.model==SynapseModel::TsodyksMarkram?"y: активный ресурс":"s: активация",b+2,1);
-                if((w.quantities&8)&&edge.model==SynapseModel::TsodyksMarkram){Derived d{&s,w.object,1};ImPlot::PlotLineG("z: неактивный ресурс",derived,&d,count);}
+                if(count&&(w.quantities&8)&&edge.model==SynapseModel::TsodyksMarkram&&recorded(h,b+1)){Derived d{&s,w.object,1,first_row};ImPlot::PlotLineG("z: неактивный ресурс",derived,&d,count);}
                 if(w.quantities&16)line("Глутамат Y",b+3,4);
-                if((w.quantities&32)&&current_available){Derived d{&s,w.object,2};ImPlot::SetAxes(ImAxis_X1,ImAxis_Y2);ImPlot::SetNextLineStyle(rose);ImPlot::PlotLineG("Синаптический ток",derived,&d,count);}
+                if(count&&(w.quantities&32)&&current_available){Derived d{&s,w.object,2,first_row};ImPlot::SetAxes(ImAxis_X1,ImAxis_Y2);ImPlot::SetNextLineStyle(rose);ImPlot::PlotLineG("Синаптический ток",derived,&d,count);}
             }
         }
         if(phase) {int x=astro?astro_offset(c,w.object)+1:w.object*4;int yy=x+1;
-            if(recorded(h,x)&&recorded(h,yy))ImPlot::PlotLine("Траектория",h.values[x].data(),h.values[yy].data(),count);
+            if(count&&recorded(h,x)&&recorded(h,yy))ImPlot::PlotLine("Траектория",h.values[x].data()+first_row,h.values[yy].data()+first_row,count);
         }else if(w.kind==PlotKind::Neuron) {
-            if(w.view==0){Derived d{&s,w.object,0};ImPlot::SetNextLineStyle(gold);ImPlot::PlotLineG("DC + импульс + шум",derived,&d,count);}
+            if(w.view==0&&count){Derived d{&s,w.object,0,first_row};ImPlot::SetNextLineStyle(gold);ImPlot::PlotLineG("DC + импульс + шум",derived,&d,count);}
             else line("Переменная восстановления",w.object*4+1,0);
         }
         if(!phase) {

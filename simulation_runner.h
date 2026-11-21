@@ -45,7 +45,7 @@ public:
     // not process RSS. Solver history and source-bounded Config/protocol metadata
     // remain separate; immutable metadata is shared until its version changes.
     static constexpr size_t MaxCommands=64,MaxCommandBytes=32*1024*1024;
-    static constexpr size_t MaxDisplayDoubles=2000000,MaxDisplaySamples=20000,MaxDisplayJournal=100000;
+    static constexpr size_t MaxDisplayDoubles=4000000,MaxDisplaySamples=100000,MaxDisplayJournal=100000;
     explicit SimulationRunner(const Config& config);
     ~SimulationRunner();
     SimulationRunner(const SimulationRunner&)=delete;

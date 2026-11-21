@@ -24,7 +24,7 @@ void PlotWindows::apply_analysis_to_all(const PlotWindowState& source) {
     apply(embedded[7]);for(auto& w:windows)if(w.kind==PlotKind::Network)apply(w);
     message="Параметры профиля и интервал применены ко всем окнам сетевого анализа.";
 }
-void PlotWindows::draw_network(PlotWindowState& w,const SimulationReadView& s) {
+void PlotWindows::draw_network(PlotWindowState& w,const SimulationReadView& s,bool fixed_interval) {
     const char* views[]={"Популяционная активность","Частота пачек","Задержки ответов","Журнал стимулов","Сетевые пачки"};
     ImGui::SetNextItemWidth(235);ImGui::Combo("Представление сети",&w.view,views,5);ImGui::SameLine();
     if(ImGui::Button("Параметры анализа…"))ImGui::OpenPopup("network_analysis_settings");
@@ -76,9 +76,11 @@ void PlotWindows::draw_network(PlotWindowState& w,const SimulationReadView& s) {
         ImGui::TextWrapped("Один общий источник учитывается один раз независимо от числа получателей. Для прежних входов выбирается один опорный нейрон. Пачка сопоставляется только одному стимулу, по порядку. Незавершённые окна ответа не считаются пропусками. Равенство частот не доказывает синхронизацию.");
         if(ImGui::Button("Готово"))ImGui::CloseCurrentPopup();ImGui::EndPopup();
     }
-    ImGui::SetNextItemWidth(115);ImGui::InputDouble("От, с##analysis",&w.analysis_interval.from,0,0,"%.9g");ImGui::SameLine();
-    ImGui::BeginDisabled(w.analysis_interval.current_end);ImGui::SetNextItemWidth(115);ImGui::InputDouble("До, с##analysis",&w.analysis_interval.to,0,0,"%.9g");ImGui::EndDisabled();ImGui::SameLine();
-    ImGui::Checkbox("До текущего времени",&w.analysis_interval.current_end);
+    if(!fixed_interval) {
+        ImGui::SetNextItemWidth(115);ImGui::InputDouble("От, с##analysis",&w.analysis_interval.from,0,0,"%.9g");ImGui::SameLine();
+        ImGui::BeginDisabled(w.analysis_interval.current_end);ImGui::SetNextItemWidth(115);ImGui::InputDouble("До, с##analysis",&w.analysis_interval.to,0,0,"%.9g");ImGui::EndDisabled();ImGui::SameLine();
+        ImGui::Checkbox("До текущего времени",&w.analysis_interval.current_end);
+    }
     std::string profile_label=w.analysis_profile.empty()?"без имени":w.analysis_profile;
     if(!w.analysis_profile.empty()) {
         auto found=std::find_if(analysis_profiles.begin(),analysis_profiles.end(),[&](const auto& p){return p.name==w.analysis_profile;});
@@ -102,12 +104,15 @@ void PlotWindows::draw_network(PlotWindowState& w,const SimulationReadView& s) {
         }
     }
     const auto& r=w.analyzed;
+    if(!(a.reference_stimulator?s.plot_channels.shared_stimuli:s.plot_channels.stimuli))
+        ImGui::TextWrapped("Журнал опорного источника отсутствует; показатели стимулов и ответов недоступны.");
     ImGui::TextWrapped("Запрошено [%.9g; %.9g) с · Данные [%.9g; %.9g) с",r.requested_from,r.requested_until,r.available_from,r.available_until);
     if(!r.error.empty()){ImGui::TextWrapped("Анализ недоступен: %s",r.error.c_str());return;}
     if(!r.full_interval)ImGui::TextColored({1,.65f,.2f,1},"НЕПОЛНЫЙ интервал: показана только доступная часть.");
     if(!r.prehistory_complete)ImGui::TextWrapped("Недостаточная предыстория: состояние детектора известно только с %.9g с. Полное сравнение недоступно.",r.detector_certain_from);
     ImGui::Text("Фактически [%.9g; %.9g) с · N=%zu · пропуски %zu · лишние %zu",r.from,r.until,r.population_size,r.missed,r.extra);
-    ImGui::Text("С ответом: %zu / %zu · стимулы %.4g Гц · пачки %.4g Гц · неполные окна %zu",r.responses.size()-r.missed,r.responses.size(),r.stimulus_hz,r.response_hz,r.incomplete_stimuli);
+    if(a.reference_stimulator?s.plot_channels.shared_stimuli:s.plot_channels.stimuli)
+        ImGui::Text("С ответом: %zu / %zu · стимулы %.4g Гц · пачки %.4g Гц · неполные окна %zu",r.responses.size()-r.missed,r.responses.size(),r.stimulus_hz,r.response_hz,r.incomplete_stimuli);
     if(ImGui::IsItemHovered())ImGui::SetTooltip("Окна [a,b); неполное окно нормируется своей длительностью. Детектор: (t-W,t]. Частоты сами по себе не означают синхронизацию.");
     ImGui::Text("Пачки: обнаружено %zu, подтверждено %zu",r.bursts.size(),size_t(std::count_if(r.bursts.begin(),r.bursts.end(),[](const auto& b){return b.complete;})));
     if(w.view==3||w.view==4) {

@@ -219,7 +219,7 @@ if(WIN32)
     write_generated("${CMAKE_CURRENT_BINARY_DIR}/implot_internal.h" "${IMPLOT_INTERNAL}")
     configure_file("${VENDOR}/implot/implot.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_standalone.cpp" COPYONLY)
     configure_file("${VENDOR}/implot/implot_items.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_items_standalone.cpp" COPYONLY)
-    add_library(studio_gui animat_gui.cpp gui.cpp weight_analysis_gui.cpp archive_gui.cpp stimulator_gui.cpp experiment_gui.cpp analysis_gui.cpp weight_field_gui.cpp plot_windows.cpp plot_workspace.cpp
+    add_library(studio_gui animat_gui.cpp gui.cpp weight_analysis_gui.cpp archive_gui.cpp stimulator_gui.cpp experiment_gui.cpp analysis_gui.cpp weight_field_gui.cpp plot_windows.cpp plot_workspace.cpp saved_results.cpp results_viewer.cpp
         "${CMAKE_CURRENT_BINARY_DIR}/imgui_standalone.cpp" "${VENDOR}/imgui/imgui_draw.cpp"
         "${VENDOR}/imgui/imgui_tables.cpp" "${VENDOR}/imgui/imgui_widgets.cpp"
         "${CMAKE_CURRENT_BINARY_DIR}/implot_standalone.cpp" "${CMAKE_CURRENT_BINARY_DIR}/implot_items_standalone.cpp")

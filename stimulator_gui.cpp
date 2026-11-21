@@ -118,6 +118,7 @@ bool App::stimulator_overlay(ImVec2 base,ImVec2 span,bool hovered,bool active) {
         if(hovered&&std::hypot(io.MousePos.x-center.x,io.MousePos.y-center.y)<14)hit=s.id;
         if(s.id==selected_stimulator)for(int i:stimulator_recipients(config,s)){const auto& n=config.neurons[i];draw->AddCircle({base.x+float(n.px)*span.x,base.y+float(n.py)*span.y},config.neurons.size()>32?8.f:30.f,color,24,2);}
     }
+    if(property_copy_kind()>=0)return hit!=0;
     if(!ImGui::IsMouseDown(ImGuiMouseButton_Left))drag_stimulator=0;
     if(hit&&ImGui::IsMouseClicked(ImGuiMouseButton_Left)){selected_stimulator=drag_stimulator=hit;for(auto& s:config.stimulators)if(s.id==hit)stimulator_draft=s;}
     if(hit&&ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))show_stimulators=true;

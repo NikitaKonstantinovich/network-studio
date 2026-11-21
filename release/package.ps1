@@ -1,4 +1,4 @@
-param([string]$Tag = 'v2026.11.03', [string]$Output = '')
+param([string]$Tag = 'v2026.11.21', [string]$Output = '', [string]$ReleaseDirectory = '')
 $ErrorActionPreference = 'Stop'
 $taskRoot = Split-Path -Parent $PSScriptRoot
 if ($Tag -notmatch '^v[0-9][0-9A-Za-z._-]*$') { throw 'Invalid release tag' }
@@ -7,19 +7,20 @@ if ($LASTEXITCODE -ne 0) { throw 'Cannot resolve source commit' }
 $taskDirty = & git -C $taskRoot status --porcelain --untracked-files=no
 if ($taskDirty) { throw 'Commit tracked source changes before packaging' }
 $taskOut = if ($Output) { [IO.Path]::GetFullPath($Output) } else { Join-Path $taskRoot 'build\packages' }
+$taskBinaries = if ($ReleaseDirectory) { [IO.Path]::GetFullPath($ReleaseDirectory) } else { Join-Path $taskRoot 'build\Release' }
 $taskName = "network-studio-$Tag-windows-x64"
 $taskStage = Join-Path $taskOut $taskName
 $taskZip = Join-Path $taskOut ($taskName + '.zip')
 if ((Test-Path -LiteralPath $taskStage) -or (Test-Path -LiteralPath $taskZip)) { throw 'Package output already exists; choose a fresh Output directory' }
 foreach ($taskExe in @('network_studio.exe','network_studio_cli.exe','network_studio_population.exe')) {
-    if (-not (Test-Path -LiteralPath (Join-Path $taskRoot "build\Release\$taskExe"))) { throw "Build Release first: $taskExe missing" }
+    if (-not (Test-Path -LiteralPath (Join-Path $taskBinaries $taskExe) -PathType Leaf)) { throw "Build Release first: $taskExe missing in $taskBinaries" }
 }
-$taskBuildJson = & (Join-Path $taskRoot 'build\Release\network_studio_cli.exe') --package-build-info
+$taskBuildJson = & (Join-Path $taskBinaries 'network_studio_cli.exe') --package-build-info
 if ($LASTEXITCODE -ne 0) { throw 'CLI build metadata failed' }
 $taskBuild = ($taskBuildJson -join "`n") | ConvertFrom-Json
 New-Item -ItemType Directory -Path (Join-Path $taskStage 'build\Release') -Force | Out-Null
 foreach ($taskExe in @('network_studio.exe','network_studio_cli.exe','network_studio_population.exe')) {
-    Copy-Item -LiteralPath (Join-Path $taskRoot "build\Release\$taskExe") -Destination (Join-Path $taskStage 'build\Release')
+    Copy-Item -LiteralPath (Join-Path $taskBinaries $taskExe) -Destination (Join-Path $taskStage 'build\Release')
 }
 Copy-Item -LiteralPath (Join-Path $taskRoot 'launch.cmd') -Destination $taskStage
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'THIRD_PARTY_NOTICES.txt') -Destination $taskStage

@@ -9,6 +9,8 @@
 
 namespace studio {
 enum class PlotKind { Voltage, Astrocytes, Raster, Synapse, AstroPhase, Neuron, Deliveries, Network };
+const char* plot_kind_title(PlotKind kind);
+struct PlotInterval { double from,to; };
 struct PlotWindowState {
     uint32_t id=0;
     std::string title="График", binding;
@@ -56,14 +58,15 @@ public:
     PlotWindowState* find(uint32_t id);
     void rebind(PlotWindowState& window);
     void draw(const SimulationReadView& simulation);
-    void draw_view(PlotWindowState& window,const SimulationReadView& simulation,float height,bool detached);
+    void draw_view(PlotWindowState& window,const SimulationReadView& simulation,float height,bool detached,
+                   const PlotInterval* interval=nullptr);
     void reset_layout();
     void demo();
     bool save(const std::filesystem::path& path);
     bool load(const std::filesystem::path& path);
     static std::string config_binding(const Config& config);
     static void clamp_to_monitors(ImVec2& position,ImVec2& size);
-    void draw_network(PlotWindowState& window,const SimulationReadView& simulation);
+    void draw_network(PlotWindowState& window,const SimulationReadView& simulation,bool fixed_interval=false);
     bool create_analysis_profile(PlotWindowState& window,const std::string& name);
     bool load_analysis_profile(PlotWindowState& window,size_t index);
     void apply_analysis_to_all(const PlotWindowState& source);

@@ -1,19 +1,19 @@
 # Установка Network Studio
 
-Инструкция для релиза `v2026.11.03`, Windows 10/11 x64. [Использование](USER_GUIDE_RU.md).
+Инструкция для релиза `v2026.11.21`, Windows 10/11 x64. [Использование](USER_GUIDE_RU.md).
 
 ## Готовая программа
 
-1. Откройте [релиз на GitHub](https://github.com/NikitaKonstantinovich/network-studio/releases/tag/v2026.11.03).
-2. Скачайте **`network-studio-v2026.11.03-windows-x64.zip`** и **`SHA256SUMS.txt`**. Архивы «Source code» содержат исходники, а не готовые EXE.
+1. Откройте [релиз на GitHub](https://github.com/NikitaKonstantinovich/network-studio/releases/tag/v2026.11.21).
+2. Скачайте **`network-studio-v2026.11.21-windows-x64.zip`** и **`SHA256SUMS.txt`**. Готовые EXE находятся в ZIP для Windows x64.
 3. Проверьте ZIP командой PowerShell и сравните результат со строкой архива в `SHA256SUMS.txt`:
 
    ```powershell
-   Get-FileHash -Algorithm SHA256 .\network-studio-v2026.11.03-windows-x64.zip
+   Get-FileHash -Algorithm SHA256 .\network-studio-v2026.11.21-windows-x64.zip
    ```
 
 4. Распакуйте ZIP целиком в доступную для записи папку, например `C:\Tools\NetworkStudio`. Не запускайте EXE внутри просмотра ZIP.
-5. Откройте вложенную папку `network-studio-v2026.11.03-windows-x64` и запустите **`launch.cmd`** либо **`build\Release\network_studio.exe`**.
+5. Откройте вложенную папку `network-studio-v2026.11.21-windows-x64` и запустите **`launch.cmd`** либо **`build\Release\network_studio.exe`**.
 
 Вычисления выполняются на CPU. Интерфейс использует Direct3D 11 с программным резервным режимом WARP. CUDA Toolkit, видеокарта NVIDIA, Python и средства разработки для готовых GUI/CLI не нужны. Python нужен только для дополнительных скриптов. Программа переносимая, без установщика; удаление её папки удаляет программу. Собственные опыты и архивы хранятся отдельно.
 

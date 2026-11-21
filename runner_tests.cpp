@@ -172,8 +172,32 @@ void restore_and_stages(const std::filesystem::path& dir) {
     check(!h.wait(interrupted).ok&&h.view.time==0,"Reset did not cancel previous target and clear trajectory");
     auto path=dir/"loaded.json";save_config(c,path);auto load=command(Kind::LoadConfig);load.path=path;h.call(load);check(h.view.time==0&&serialize(h.view.config)==serialize(c),"LoadConfig did not replace paused experiment");
 }
+void lab8_display_history() {
+    Config c;
+    c.integration_method=IntegrationMethod::Euler;
+    c.duration=34;c.sample=c.dt=.0005;
+    c.neurons.resize(5);
+    for(auto& n:c.neurons){n.model=NeuronModel::Izhikevich;n.amplitude=0;n.current=0;}
+    for(int i=0;i<6;++i){
+        Synapse s;
+        s.source=i%5;s.target=i==5?2:(i+1)%5;s.model=SynapseModel::TsodyksMarkram;
+        c.synapses.push_back(s);
+    }
+    Harness h(c);
+    h.call(command(Kind::RunTo,c.duration));
+    const auto& history=h.view.history;
+    check(!h.view.truncated&&h.view.sample_begin==0&&history.time.size()==68001,
+          "34 seconds at 0.5 ms must fit in the display history for the Lab 8 network");
+    check(history.time.front()==0&&std::abs(history.time.back()-c.duration)<1e-9,
+          "display history spans the whole run");
+    check(history.weights.size()==6&&std::all_of(history.weights.begin(),history.weights.end(),
+          [&](const auto& weights){return weights.size()==history.time.size();}),
+          "every synapse weight trace spans the whole run");
+}
+
 void bounded_transport_and_shutdown(const std::filesystem::path& dir) {
-    auto c=fixture();c.neurons.resize(1);c.synapses.clear();c.stimulators.clear();c.duration=.6;c.sample=c.dt;c.noise_sigma=0;c.neurons[0].amplitude=0;c.neurons[0].current=0;
+    auto c=fixture();c.neurons.resize(1);c.synapses.clear();c.stimulators.clear();c.duration=55;c.sample=c.dt=.0005;c.noise_sigma=0;c.neurons[0].amplitude=0;c.neurons[0].current=0;
+    c.integration_method=IntegrationMethod::Euler;
     Harness h(c);h.runner.set_display_hz(60);auto target=h.runner.submit(command(Kind::RunTo,c.duration));
     // No consumer during the whole run: there must be one reconcilable packet,
     // not a growing queue of stale snapshots.
@@ -219,7 +243,7 @@ void bounded_transport_and_shutdown(const std::filesystem::path& dir) {
 int main() {
     try {
         const auto dir=std::filesystem::current_path()/"runner-tests"/std::to_string(Clock::now().time_since_epoch().count());std::filesystem::create_directories(dir);
-        refresh_equivalence(dir);pause_and_mutate(dir);restore_and_stages(dir);bounded_transport_and_shutdown(dir);
+        refresh_equivalence(dir);pause_and_mutate(dir);restore_and_stages(dir);lab8_display_history();bounded_transport_and_shutdown(dir);
         std::cout<<"PASS: "<<checks<<" runner checks; exact full checkpoints, refresh independence, lifecycle, strict restore, incremental bounded snapshots. Artifacts: "<<dir.u8string()<<"\n";return 0;
     }catch(const std::exception& e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}
 }

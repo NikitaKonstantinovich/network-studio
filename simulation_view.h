@@ -18,6 +18,10 @@ struct RunnerMetrics {
     uint64_t publish_count=0;
     size_t command_queue_size=0,command_queue_bytes=0,snapshot_bytes=0,history_doubles=0;
 };
+struct PlotChannels {
+    bool states=true, weights=true, events=true, deliveries=true;
+    bool stimuli=true, shared_stimuli=true, input=true;
+};
 struct PendingDeliverySummary {
     size_t count=0;
     size_t size() const {return count;}
@@ -89,6 +93,7 @@ public:
     std::string error;
     bool truncated=false;
     RunnerMetrics metrics;
+    PlotChannels plot_channels;
     bool apply(const SimulationSnapshot& snapshot);
     bool apply(const std::shared_ptr<const SimulationSnapshot>& snapshot) {return snapshot&&apply(*snapshot);}
     bool done() const {return done_;}
@@ -121,6 +126,7 @@ struct SimulationReadView {
     double time=0;
     const void* identity=nullptr;
     bool truncated=false;
+    PlotChannels plot_channels;
     SimulationReadView(const Simulator& simulation);
     SimulationReadView(const SimulationView& view);
     bool done() const {return done_;}
